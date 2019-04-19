@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhu.count.dao.CourseDao">
+	<!-- 课程发布 -->
+	<insert id="InsertCourse" parameterType="com.hhu.count.entity.course">
+	 	insert into course(id,coursename,coursetext,writer,courseRead,writerid,createtime,state,publishTime,courseState) 
+	 	values(#{id},#{coursename},#{coursetext},#{writer},#{courseRead},#{writerid},#{createtime},#{state},#{publishTime},#{courseState})
+	</insert>
+	<!-- 通过发布人id查询课程	 -->
+	<select id="selectByWriterId" parameterType="String" resultType="com.hhu.count.entity.course">
+		SELECT * from course WHERE writerid = #{writerid} ORDER BY state ASC
+	</select>
+	<!-- 查询所有课程	 -->
+	<select id="selectAll" resultType="com.hhu.count.entity.course">
+		SELECT * from course 
+	</select>
+	<!-- 通过发布人id查询待发布课程 -->
+	<select id="selectByState" resultType="com.hhu.count.entity.course" parameterType="map">
+		SELECT * from course WHERE writerid = #{writerid} and state = #{state}
+	</select>
+	<!-- 修改课程信息 -->
+	<update id="updateCourse" parameterType="com.hhu.count.entity.course">
+		update course 
+			<set>
+				<if test="coursename!=null">
+	                coursename = #{coursename},
+	            </if>
+				<if test="coursetext!=coursetext">
+	                coursetext = #{coursetext},
+	            </if>
+				<if test="courseRead!=null">
+	                courseRead = #{courseRead},
+	            </if>
+				<if test="writer!=null">
+	                writer = #{writer},
+	            </if>
+				<if test="writerid!=null">
+	                writerid = #{writerid},
+	            </if>
+				<if test="createtime!=null">
+	                createtime = #{createtime},
+	            </if>
+				<if test="state!=null">
+	                state = #{state},
+	            </if>
+				<if test="publishTime!=null">
+	                publishTime = #{publishTime},
+	            </if> 			
+	        </set>
+	   	where id = #{id}
+	</update>
+	<!-- 通过ID查询课程信息 -->
+	<select id="selectByID" resultType="com.hhu.count.entity.course" parameterType="String">
+		SELECT * from course WHERE id = #{id}
+	</select>
+	<!-- 课程删除 -->
+	<delete id="DeleteCourseByID" parameterType="String">
+		DELETE FROM course WHERE id = #{id}
+	</delete>
+	<!-- 修改状态 -->
+	<update id="updateCourseState" parameterType="map">
+		update course set state = #{state},publishTime = #{publishTime},stopTime = #{stopTime},courseState=#{courseState}
+	   	where id = #{id}
+	</update>
+	<!-- 设置首次发布时间 -->
+	<update id="updatefirstTime" parameterType="map">
+		update course set firstTime = #{firstTime}
+	   	where id = #{id}
+	</update>
+	<!-- 课程名的模糊查询 -->
+	<select id="selectCourseLike" resultType="com.hhu.count.entity.course" parameterType="map">
+		SELECT * from course WHERE writerid = #{writerid} and coursename like CONCAT(CONCAT('%',#{coursename}),'%')
+	</select>
+
+	<!-- 课程名的模糊查询 阅读有记录-->
+	<select id="FindCLikeCName" resultType="com.hhu.count.entity.course" parameterType="map">
+		select * FROM(
+			SELECT * FROM course  WHERE id NOT in (
+				SELECT c.id  FROM
+					(SELECT r.courseID AS urid ,u.id AS uid FROM user u  LEFT JOIN myread r ON u.id = r.readerID
+					)ur LEFT JOIN course c ON ur.urid = c.id
+					WHERE ur.uid = #{id}
+				)
+			)fc WHERE state = '1' and coursename like CONCAT(CONCAT('%',#{coursename}),'%')
+	</select>
+	<!-- 课程名的模糊查询 阅读没有记录-->
+	<select id="FindCLikeCName2" resultType="com.hhu.count.entity.course" parameterType="String">		
+		select * FROM course WHERE state = '1' and coursename like CONCAT(CONCAT('%',#{coursename}),'%')
+	</select>
+	<!-- 发布者名的模糊查询  阅读有记录-->
+	<select id="FindCLikeWriteName" resultType="com.hhu.count.entity.course" parameterType="map">
+		select * FROM(
+			SELECT * FROM course  WHERE id NOT in (
+				SELECT c.id  FROM
+					(SELECT r.courseID AS urid ,u.id AS uid FROM user u  LEFT JOIN myread r ON u.id = r.readerID
+					)ur LEFT JOIN course c ON ur.urid = c.id
+					WHERE ur.uid = #{id}
+				)
+			)fc WHERE state = '1' and writer like CONCAT(CONCAT('%',#{writer}),'%')
+	</select>
+	<!-- 发布者名的模糊查询  阅读没有记录-->
+	<select id="FindCLikeWriteName2" resultType="com.hhu.count.entity.course" parameterType="String">
+		select * FROM course  
+			WHERE state = '1' and writer  like CONCAT(CONCAT('%',#{writer}),'%')
+	</select>	
+	<!-- 批量发布 -->
+	<update id="BatchRelease" parameterType="map">
+		update course set state = #{state},publishTime=#{publishTime},stopTime=#{stopTime},courseState=#{courseState}
+        where id in
+	 	<foreach collection="ids" item="id" open="(" close=")" separator=",">
+	 		#{id}
+	 	</foreach>
+	</update>
+	<select id="selectAllCourse" parameterType="String" resultType="com.hhu.count.vo.UserCourseVO">
+		SELECT id,uid,coursename,writerid,writer,courseRead,reading,publishTime  FROM
+		(
+			SELECT r.courseID AS cid ,u.id AS uid,r.reading FROM user u  LEFT JOIN myread r ON u.id = r.readerID
+		)ur LEFT JOIN course c ON ur.cid = c.id
+		WHERE ur.uid = #{id} and state = '1'
+	</select>
+	<!-- 查询最新的记录 -->
+	<select id="selectLimitTen" resultType="com.hhu.count.entity.course">
+		SELECT * FROM course where state = '1' ORDER BY publishTime DESC 
+	</select>
+	<select id="selLimitUser" resultType="com.hhu.count.entity.course">
+		SELECT * FROM course where state = '1' ORDER BY publishTime DESC
+		LIMIT #{pn},#{pagesize} 
+	</select>
+	<!-- 查询用户记录分页 -->
+	<select id="chaxunceshi" resultType="com.hhu.count.entity.course">
+		SELECT * FROM course  WHERE id NOT in (
+			SELECT c.id  FROM
+				(SELECT r.courseID AS urid ,u.id AS uid FROM user u  LEFT JOIN myread r ON u.id = r.readerID
+				)ur LEFT JOIN course c ON ur.urid = c.id
+				WHERE ur.uid = #{id}
+			) and state = '1' LIMIT #{pn},#{pagesize}
+	</select>
+	<!-- 管理员阅读统计 -->
+	<select id="SelCourseVO" parameterType="String" resultType="com.hhu.count.vo.CourseVO">
+		SELECT 
+			(SELECT COUNT(*) FROM myread r WHERE r.courseID = c.id AND r.state='1')AS readNum,
+			(SELECT SUM(r.reading) FROM myread r WHERE r.courseID = c.id AND r.state='1')AS userReading,
+			(SELECT (c.courseRead*
+								sum(
+									IF(TIMESTAMPDIFF(DAY,date_format(buildFirst,'%Y-%m-%d'),date_format(NOW(),'%Y-%m-%d'))=0,1,TIMESTAMPDIFF(DAY,date_format(buildFirst,'%Y-%m-%d'),date_format(NOW(),'%Y-%m-%d')))
+									)
+							) FROM myread r WHERE r.courseID = c.id AND r.state='1')AS SYReading,
+			(SELECT (
+								c.courseRead*
+								sum(
+									IF(TIMESTAMPDIFF(DAY,date_format(buildFirst,'%Y-%m-%d'),date_format(NOW(),'%Y-%m-%d'))=0,1,TIMESTAMPDIFF(DAY,date_format(buildFirst,'%Y-%m-%d'),date_format(NOW(),'%Y-%m-%d')))
+									)
+							)-SUM(r.reading) FROM myread r WHERE r.courseID = c.id AND r.state='1')AS YCReading,
+			c.id,c.coursename,c.courseRead,c.writerid,c.state,c.publishTime 
+		FROM course c
+		WHERE c.writerid = #{writerid} AND c.state = '1'
+	</select>
+	<!-- 权限修改 -->
+	<update id="updatePowers" parameterType="map">
+		update course set CoursePower = #{CoursePower}
+		where id = #{id}	
+	</update>
+		
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhu.count.dao.UserDao">
+	<!-- 通过用户名查找用户 -->
+	<select id="selectByUsername" parameterType="String" resultType="com.hhu.count.entity.User">
+		select * from user where username=#{username}
+	</select>
+	<!-- 用户注册 -->
+	<insert id="InsertUser" parameterType="com.hhu.count.entity.User">
+	 	insert into user(id,username,password,phone,realname,sex,age,role) 
+	 	values(#{id},#{username},#{password},#{phone},#{realname},#{sex},#{age},#{role})
+	</insert>
+	<!-- 通过用户名和密码查找用户 -->
+	<select id="selectByUAndPass" parameterType="map" resultType="com.hhu.count.entity.User">
+		select * from user where username=#{username} and password=#{password}
+	</select>
+	<update id="updateUser" parameterType="com.hhu.count.entity.User">
+		update user 
+		<set>
+			<if test="username!=null">
+                username = #{username},
+            </if>
+			<if test="password!=null">
+                password = #{password},
+            </if>
+			<if test="phone!=null">
+                phone = #{phone},
+            </if>
+			<if test="realname!=null">
+                realname = #{realname},
+            </if>
+			<if test="sex!=null">
+                sex = #{sex},
+            </if>
+			<if test="age!=null">
+                age = #{age},
+            </if>
+			<if test="role!=null">
+                role = #{role},
+            </if>          
+        </set>
+   		where id = #{id}
+	</update>
+	<!-- 查询用户的阅读记录 -->
+	<select id="selectUserRead" parameterType="String" resultType="com.hhu.count.vo.UserReadVo">
+		SELECT (SELECT TIMESTAMPDIFF(DAY,date_format(ur.MyrDate, '%Y-%m-%d'),date_format(NOW(), '%Y-%m-%d')))AS myrDa,
+		id,coursename,writer,uid,publishTime,courseRead,reading,ur.rid,c.state,c.courseState,c.CoursePower,ur.rstate,ur.myrDate FROM
+		(SELECT r.courseID AS urid ,r.reading,u.id AS uid,r.id AS rid,r.state AS rstate,r.buildFirst AS myrDate FROM myread r LEFT JOIN user u ON u.id = r.readerID
+		)ur LEFT JOIN course c ON ur.urid = c.id		
+		WHERE ur.uid = #{id} AND ur.rstate = '1' AND c.courseState = '1'			
+	</select>
+	<!-- 查询没有添加的阅读记录 -->
+	<select id="selectNotUserRead" parameterType="String" resultType="com.hhu.count.entity.course">
+		SELECT * FROM course  WHERE id NOT in (
+			SELECT c.id  FROM
+				(SELECT r.courseID AS urid ,u.id AS uid FROM user u  LEFT JOIN myread r ON u.id = r.readerID
+				)ur LEFT JOIN course c ON ur.urid = c.id
+				WHERE ur.uid = #{id}
+			) and state = '1'
+	</select>
+	<!-- 通过手机号查询用户 -->
+	<select id="SelUserByPhone" parameterType="String" resultType="com.hhu.count.entity.User">
+		SELECT * FROM user WHERE phone = #{phone}
+	</select>
+	<!-- 无条件查询所有用户 -->
+	<select id="SelAllUser" resultType="com.hhu.count.vo.PoorUserVo">
+		SELECT id,username,realname FROM user 
+	</select>
+</mapper>
