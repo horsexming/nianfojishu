@@ -1,11 +1,9 @@
 package com.hhu.count.serverImpl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +74,11 @@ public class UserServerImpl implements UserServer {
 				
 	}
 	
+	public String SelUserByPhone2(String phone) {
+
+		return userDao.SelUserByPhone(phone).getUsername();	
+	}
+	
 	public Boolean SelByPhAndNa(User user) {
 		if(userDao.selectByUsername(user.getUsername())!=null) {
 			return true;
@@ -91,5 +94,19 @@ public class UserServerImpl implements UserServer {
 		
 		return userDao.SelAllUser();
 	}
+	
+	//查询权限用户名
+	public List<course>SelAllCou(){
+		return userDao.SelAllCou();
+	}
+	
+	//修改阅读记录中的用户名
+	public void updateRNa(String readername, String readerID) {
+		Map<String,String>map = new HashMap<>();
+		map.put("readername",readername);
+		map.put("readerID",readerID);
+		userDao.updateRNa(map);
+	}
+	
 
 }

@@ -1,15 +1,12 @@
 package com.hhu.count.controler;
-
-import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +22,9 @@ import com.github.pagehelper.PageInfo;
 import com.hhu.count.entity.MyRead;
 import com.hhu.count.entity.OldRead;
 import com.hhu.count.entity.User;
+import com.hhu.count.entity.course;
+import com.hhu.count.server.AdminServer;
+import com.hhu.count.server.CommonServer;
 import com.hhu.count.server.CourseServer;
 import com.hhu.count.server.ReadServer;
 import com.hhu.count.server.UserServer;
@@ -47,6 +47,10 @@ public class UserController {
 	UserServer userServer;
 	@Autowired
 	CourseServer courseServer;
+	@Autowired
+	AdminServer adminServer;
+	@Autowired
+	CommonServer commonServer;
 	@Autowired
 	ReadServer readServer;
 	@RequestMapping("/Register")
@@ -128,7 +132,38 @@ public class UserController {
 	}
 	//修改个人信息(修改)
 	@RequestMapping("/Update")
-	public String Update(User user) {
+	public String Update(User user,HttpSession session) {
+		String username = (String) session.getAttribute("username");
+		if(!username.equals(user.getUsername())) {		
+			List<course>list = userServer.SelAllCou();		
+			for(int i = 0;i<list.size();i++) {
+				StringBuffer sb = new StringBuffer();
+				if(list.get(i).getCoursePower()!=null){	
+					String[] strs = list.get(i).getCoursePower().split(",");
+					String[] strs2 = new String[strs.length] ;	
+					for(int k = 0;k<strs.length;k++) {
+						if(username.equals(strs[k])) {
+							strs2[k] = user.getUsername();
+						}else {
+							strs2[k] = strs [k];
+						}	
+					}
+					for(int j = 0;j<strs2.length;j++) {
+						sb.append(strs2[j]);
+						sb.append(",");	
+					}
+					sb.deleteCharAt(sb.length()-1);
+					String id = list.get(i).getId();
+					System.out.println(id);
+					System.out.println(sb.toString());
+					courseServer.updatePowers(id,sb.toString());					
+				}
+				
+			}		
+			userServer.updateRNa(user.getUsername(),selectID(session));
+			session.removeAttribute("username");
+			session.setAttribute("username", user.getUsername());
+		}
 		userServer.updateUser(user);
 		return "redirect:/User/Myread";
 	}
@@ -233,7 +268,7 @@ public class UserController {
 			System.out.println(list.size());
 			for(int i=0;i<list.size();i++) {
 				if(sFormat.format(new Date()).equals(sFormat.format(list.get(i).getReaderDate()))) {
-					num = 2;
+					num = 2;//任意值 方便判断
 					int Oudread = Integer.parseInt(list.get(i).getOldReading());
 					int Oudread2 = Oudread+1;
 					readServer.SetOldRead(list.get(i).getId(),String.valueOf(Oudread2));
@@ -345,6 +380,59 @@ public class UserController {
 	public String SelUserByP(String phone) {	
 		return userServer.SelUserByPhone(phone);
 	}
+	//登录判断手机号是否存在
+	@ResponseBody
+	@RequestMapping(value = "/SelUserByP2" , produces = "application/json; charset=utf-8")
+	public String SelUserByP2(String phone) {
+		
+		if(userServer.SelUserByPhone(phone)=="1"||adminServer.selectByp(phone)=="1") {
+			return "1";
+		}else {
+			return "0";
+		}
+		
+	}
+	//用户名修改验证
+	@ResponseBody
+	@RequestMapping(value = "/SelectByUsername2" , produces = "application/json; charset=utf-8")
+	public String SelectByUsername2(String username,HttpSession session) {	
+		String username1 = (String) session.getAttribute("username");
+		if(username.equals(username1)) {
+			return "1";
+		}else {
+			return userServer.selectByUsername(username);	
+		}
+			
+	}
+	//手机号修改验证
+	@ResponseBody
+	@RequestMapping(value = "/SelUserByP4" , produces = "application/json; charset=utf-8")
+	public String SelUserByP4(String phone,HttpSession session) {
+		String username = (String) session.getAttribute("username");
+		String phone2 = userServer.selectUserByname(username).getPhone();
+		if(phone.equals(phone2)) {
+			return "0";
+		}else if(userServer.SelUserByPhone(phone)=="1"||adminServer.selectByp(phone)=="1") {
+			return "1";
+		}else {
+			return "0";
+		}
+		
+	}
+	//发送验证码
+	@ResponseBody
+	@RequestMapping("/SelUserByP3")
+	public Long SelUserByP3(String phone,HttpSession session) {
+		Integer randomCode = (int)(Math.random()*8998)+1000+1;
+		session.setAttribute("randomCode", randomCode);
+		System.out.println(session.getAttribute("randomCode"));
+		Long msm = commonServer.SendMSM(phone,randomCode);
+		if(msm<0) {
+			session.removeAttribute("randomCode");
+		}
+		return msm;
+	}
+	
 	//查询阅读记录
 	@RequestMapping("/oudReader/{rid}")
 	private String oudReader(@PathVariable String rid,Model model,@RequestParam(value="pn",defaultValue="1")Integer pn) {

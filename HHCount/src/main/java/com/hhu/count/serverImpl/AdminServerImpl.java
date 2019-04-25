@@ -63,6 +63,18 @@ public class AdminServerImpl implements AdminServer {
 		
 		return admindao.selectAdminCour(writerid);
 	}
+	//通过手机号查询
+	public String selectByp(String phone) {	
+		if(admindao.selectByp(phone).size()!=1) {
+			return "0";
+		}else {
+			return "1";
+		}
+	}
+	//通过手机号查询
+	public String selectByp2(String phone) {	
+		return admindao.selectByp(phone).get(0).getUsername();
+	}
 	
 
 }

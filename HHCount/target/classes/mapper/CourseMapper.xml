@@ -162,5 +162,6 @@
 		update course set CoursePower = #{CoursePower}
 		where id = #{id}	
 	</update>
+	
 		
 </mapper>

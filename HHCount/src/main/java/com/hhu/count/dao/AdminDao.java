@@ -19,6 +19,7 @@ public interface AdminDao {
 	public void updateAdmin(Admin admin);	
 	//管理员统计
 	public List<AdminCourseVO>selectAdminCour(String id);
-	
+	//通过手机号查询
+	public List<Admin>selectByp(String phone);
 
 }

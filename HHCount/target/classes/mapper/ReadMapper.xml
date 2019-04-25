@@ -42,9 +42,9 @@
 	select 
 		(SELECT COUNT(*)FROM(
 		SELECT c.state,f.readerID,f.id from myread f LEFT JOIN course c ON f.courseID=c.id
-		where f.reading >0
+		where f.reading &gt;0
 		)om
-		where om.readerID = m.readerID AND om.state='1') AS courseNum,
+		where om.readerID = m.readerID) AS courseNum,
 		date_format(r.readerDate, '%Y-%m') as readerDate,round(sum(r.oldReading),0) 
 		as readingNum,m.readerID from oldread r LEFT JOIN myread m ON r.myreaderId = m.id
 		where readerID = #{readerID}
@@ -64,9 +64,9 @@
 		select 
 		(SELECT COUNT(*)FROM(
 		SELECT c.state,f.readerID,f.id from myread f LEFT JOIN course c ON f.courseID=c.id
-		where f.reading >0
+		where f.reading &gt;0
 		)om
-		where om.readerID = m.readerID AND om.state='1') AS courseNum,
+		where om.readerID = m.readerID) AS courseNum,
 		date_format(r.readerDate, '%Y') as readerDate,round(sum(r.oldReading),0) 
 		as readingNum,m.readerID from oldread r LEFT JOIN myread m ON r.myreaderId = m.id
 		where readerID = #{readerID}

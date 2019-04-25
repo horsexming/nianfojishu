@@ -17,6 +17,7 @@ import com.hhu.count.entity.Admin;
 import com.hhu.count.entity.course;
 import com.hhu.count.server.AdminServer;
 import com.hhu.count.server.CourseServer;
+import com.hhu.count.server.UserServer;
 import com.hhu.count.vo.AdminCourseVO;
 /*
  * 管理员相关的Controller
@@ -29,6 +30,8 @@ public class AdminController {
 	AdminServer adminServer;
 	@Autowired
 	CourseServer courseServer;
+	@Autowired
+	UserServer userServer;
 	
 	//通过用户名查找一个用户
 	@ResponseBody
@@ -84,5 +87,31 @@ public class AdminController {
 		model.addAttribute("pageInfo", page);
 		return "admin/UserCourse";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/SelectByUsername2" , produces = "application/json; charset=utf-8")
+	public String SelectByUsername2(String username,HttpSession session) {		
+		String username2 = (String) session.getAttribute("username");
+		if(!username.equals(username2)) {
+			return adminServer.selectByUsername(username);	
+		}
+		return "1";		
+	}
+	
+	//手机号修改验证
+		@ResponseBody
+		@RequestMapping(value = "/SelUserByP5" , produces = "application/json; charset=utf-8")
+		public String SelUserByP5(String phone,HttpSession session) {
+			String username = (String) session.getAttribute("username");
+			String phone2 = adminServer.selectAdminByname(username).getPhone();
+			if(phone.equals(phone2)) {
+				return "0";
+			}else if(userServer.SelUserByPhone(phone)=="1"||adminServer.selectByp(phone)=="1") {
+				return "1";
+			}else {
+				return "0";
+			}
+			
+		}
 	
 }

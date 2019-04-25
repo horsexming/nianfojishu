@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhu.count.dao.CommonDao">
+<!-- 删除num天数之前的记录 -->
+<delete id="DelOld" parameterType="Integer">
+	DELETE FROM sendmsg 
+	WHERE TIMESTAMPDIFF(DAY,date_format(sendTime,'%Y-%m-%d'),date_format(NOW(),'%Y-%m-%d'))&gt;#{num}
+</delete>
+<!-- 通过手机号查询记录 -->
+<select id="SelByPhone" parameterType="String" resultType="com.hhu.count.entity.SendMsg">
+	SELECT * FROM sendmsg WHERE phone = #{phone}
+</select>
+<!-- 添加发送记录 -->
+<insert id="InsSendMag" parameterType="com.hhu.count.entity.SendMsg">
+	INSERT INTO sendmsg (phone,sendTime,sendnum,sendcontent)
+	VALUES(#{phone},#{sendTime},#{sendnum},#{sendcontent})
+</insert>
+<!-- 查询一个小时内的记录数 -->
+<select id="SelByHour"  resultType="Integer">
+	SELECT COUNT(*) AS sendNums
+	FROM sendmsg 
+	WHERE TIMESTAMPDIFF(HOUR,date_format(sendTime,'%Y-%m-%d %H'),date_format(NOW(),'%Y-%m-%d %H')) = 0
+</select>
+	
+</mapper>

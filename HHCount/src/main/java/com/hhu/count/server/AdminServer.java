@@ -22,5 +22,9 @@ public interface AdminServer {
 	public void updateAdmin(Admin admin);
 	//管理员统计
 	public List<AdminCourseVO>selectAdminCour(String writerid);
+	//通过手机号查询
+	public String selectByp(String phone);
+	//通过手机号查询
+	public String selectByp2(String phone);
 
 }

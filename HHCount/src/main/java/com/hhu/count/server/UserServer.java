@@ -1,6 +1,7 @@
 package com.hhu.count.server;
 
 import java.util.List;
+import java.util.Map;
 
 import com.hhu.count.entity.User;
 import com.hhu.count.entity.course;
@@ -25,8 +26,13 @@ public interface UserServer {
 	public List<course>selectNotUserRead(String id);
 	//查询手机号是否存在
 	public String SelUserByPhone(String phone);
+	public String SelUserByPhone2(String phone);
 	//无条件查询所有用户
 	public List<PoorUserVo> SelAllUser();
 	public Boolean SelByPhAndNa(User user);
+	//查询权限用户名
+	public List<course>SelAllCou();
+	//修改阅读记录中的用户名
+	public void updateRNa(String readername, String readerID);
 
 }

@@ -68,4 +68,13 @@
 	<select id="SelAllUser" resultType="com.hhu.count.vo.PoorUserVo">
 		SELECT id,username,realname FROM user 
 	</select>
+	<!-- 	查询权限中的用户名 -->
+	<select id="SelAllCou" resultType="com.hhu.count.entity.course">
+		SELECT * from course
+	</select>
+	<!--修改阅读记录中的用户名 -->
+	<update id="updateRNa" parameterType="map">
+		update myread set readername = #{readername}
+		where readerID = #{readerID}	
+	</update>
 </mapper>

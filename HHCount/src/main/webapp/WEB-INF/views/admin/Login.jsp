@@ -51,7 +51,12 @@ body {
 				<input class="logBut" type="submit" value="登&nbsp;&nbsp;录"><br>
 				</form>
 				<p align="left"><font size="2">没有账号？</font></p>
-				<p align="right"><font size="2"><a href="<%=request.getContextPath()%>/Common/SelectRegister">注册</a></font></p>	
+				<p align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<font size="2"><a  href="<%=request.getContextPath()%>/Common/SelectRegister">注册</a></font>				
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<font size="2"><a href="<%=request.getContextPath()%>/Common/Sendsms">短信验证码登录</a></font>	
+				</p>	
 			</div>
 		</div>
 </body>

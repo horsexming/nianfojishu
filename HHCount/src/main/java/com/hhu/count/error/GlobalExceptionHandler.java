@@ -12,11 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice(basePackages = "com.hhu.count.controler")
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(RuntimeException.class)
+	/*@ExceptionHandler(RuntimeException.class)
 	public ModelAndView resolveException() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("error");
 		return modelAndView;
-	}
+	}*/
 
 }

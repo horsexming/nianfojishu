@@ -12,6 +12,10 @@
 	<select id="selectByUsername" parameterType="String" resultType="com.hhu.count.entity.Admin">
 		select * from admin where username=#{username}
 	</select>
+	<!-- 通过手机号查找用户 -->
+	<select id="selectByp" parameterType="String" resultType="com.hhu.count.entity.Admin">
+		select * from admin where phone=#{phone}
+	</select>
 	<!-- 用户注册 -->
 	<insert id="InsertAdmin" parameterType="com.hhu.count.entity.Admin">
 	 	insert into admin(id,username,password,phone,realname,sex,age,role) 
@@ -57,7 +61,7 @@
 			) AS poorR,
 		c.id,c.coursename,publishTime,writerid,courseRead,writer,readername,reading,buildFirst
 		FROM course c RIGHT JOIN myread r ON c.id = r.courseID  
-		WHERE c.state='1' and c.id = #{id}	
+		WHERE c.state='1'and r.state='1' and c.id = #{id}	
 	</select>
 
 </mapper>

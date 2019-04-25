@@ -27,4 +27,8 @@ public interface UserDao {
 	public User SelUserByPhone(String phone);
 	//无条件查询所有用户
 	public List<PoorUserVo> SelAllUser();
+	//查询权限用户名
+	public List<course>SelAllCou();
+	//修改阅读记录中的用户名
+	public void updateRNa(Map<String, String>map);
 }
