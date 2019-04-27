@@ -16,7 +16,6 @@
 </head>
 <body class="document">
 	<div class="page" >
-		<a style="text-decoration: underline;" href="<%=request.getContextPath()%>/User/Myread?pn=${pn}">返回我的阅读</a>
 		&nbsp;&nbsp;&nbsp;
 		<a style="text-decoration: underline;" href="<%=request.getContextPath()%>/User/Myread">返回首页</a>
 	<h2 align="center">${LookCourse.coursename}</h2>
