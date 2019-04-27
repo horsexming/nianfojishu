@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-jhh" extends="struts-stack">
+		<!--
+			****************************************贾辉辉Action操作**********************************************************************
+		-->
+		<!-- 账务处理 -->
+		<!-- 外币字典 -->
+		<action name="WbzdAction" class="WbzdAction">
+			<result name="findOK">/lc/wbzd_find.jsp</result>
+		</action>
+		<!-- 工序信息管理 -->
+		<action name="gongxuAction" class="sopGongweiAction">
+			<result name="selectGongxuOK">/System/SOP/gongwei/selectGongwei.jsp</result>
+			<result name="saveGongweiOK" type="redirect">/gongxuAction!selectGongxu.action
+			</result>
+			<result name="updateGongweiOK" type="redirect">/gongxuAction!selectGongxu.action?cpage=${cpage}
+			</result>
+			<result name="deleteGongweiOK" type="redirect">/gongxuAction!selectGongxu.action?cpage=${cpage}
+			</result>
+			<result name="getGongweiOK">/System/SOP/gongwei/showOneGongwei.jsp</result>
+		</action>
+
+		<!-- 提奖计价单价核算 -->
+		<action name="productPriceAction" class="productPriceAction">
+			<!--报价人工管理 -->
+			<result name="findBaojia">/System/renshi/tiPrice/findBaojia.jsp</result>
+			<!-- 试制提奖 -->
+			<result name="tijiangShow">/System/renshi/tiPrice/shizhiTijiang.jsp</result>
+			<result name="shizhijisuan" type="redirect">/productPriceAction!queryProductPrice.action?messagePower=tijiang
+			</result>
+			<!-- jisuan jisuanOK -->
+			<result name="jisuanOK" type="redirect">/productPriceAction!queryProductPrice.action?cpage=${cpage}&amp;messagePower=manager
+			</result>
+			<result name="queryProductPrice">/System/renshi/tiPrice/showProductPrice.jsp
+			</result>
+			<result name="saveProductPriceSuccess" type="redirect">/productPriceAction!queryProductPrice.action?messagePower=manager
+			</result>
+			<result name="deleteProductPriceOK" type="redirect">/productPriceAction!queryProductPrice.action?cpage=${cpage}&amp;messagePower=manager
+			</result>
+			<result name="getproductPrice">/System/renshi/tiPrice/updateProductPrice.jsp
+			</result>
+			<result name="updateProductPriceOK" type="redirect">/productPriceAction!queryProductPrice.action?messagePower=manager
+			</result>
+			<result name="findSparePartsByID">/System/renshi/tiPrice/querySpareParts.jsp
+			</result>
+			<result name="findSpareParts">/System/renshi/tiPrice/findSpareParts.jsp
+			</result>
+			<result name="saveSparePartsOK" type="redirect">/productPriceAction!getOneProductPrice.action?id=${id}&amp;tag=querySpareParts
+			</result>
+			<result name="queryProductProcess">/System/renshi/tiPrice/queryProductProcess.jsp
+			</result>
+			<result name="findProductProcess">/System/renshi/tiPrice/findProductProcess.jsp
+			</result>
+			<result name="deleteOK" type="redirect">/productPriceAction!getOneProductPrice.action?id=${id}&amp;tag=querySpareParts
+			</result>
+			<result name="getOneSpareParts">/System/renshi/tiPrice/updateSpareParts.jsp
+			</result>
+			<result name="updateSparePartsOK" type="redirect">/productPriceAction!getOneProductPrice.action?id=${id}&amp;tag=querySpareParts
+			</result>
+			<result name="saveProductProcessOK" type="redirect">/productPriceAction!queryProductProcessById.action?id=${id}&amp;tag=queryProductProcee
+			</result>
+			<result name="getOneProductProcess">/System/renshi/tiPrice/updateProductProcess.jsp
+			</result>
+			<result name="updateProductProcessOK" type="redirect">/productPriceAction!queryProductProcessById.action?id=${id}&amp;tag=queryProductProcee
+			</result>
+			<result name="deleteProductProcessOK" type="redirect">/productPriceAction!queryProductProcessById.action?id=${id}&amp;tag=queryProductProcee
+			</result>
+		</action>
+
+		<!-- 回款追踪Action操作 -->
+		<action name="huikuanAction" class="huikuanAction">
+			<result name="querySell">/System/caiwu/huikuan/selectSell.jsp</result>
+			<result name="getSelectSell">/System/caiwu/huikuan/saveSellSta.jsp</result>
+
+			<result name="findExamList">/System/caiwu/huikuan/billingApproval.jsp
+			</result>
+			<result name="findExamList1" type="redirect">huikuanAction!findExamList.action
+			</result>
+
+			<result name="saveSuccess">/System/caiwu/huikuan/printAddHk.jsp</result>
+			<result name="selectSta">/System/caiwu/huikuan/suplyNoteInfor.jsp</result>
+			<result name="saveFaile">/System/caiwu/huikuan/suplyNoteInfor.jsp</result>
+			<result name="querySta">/System/caiwu/huikuan/selectSta.jsp</result>
+			<result name="deleteStaOK" type="redirect">huikuanAction!querySta.action?cpage=${cpage}
+			</result>
+			<!-- 获取单个开票明细 -->
+			<result name="getoneSta">/System/caiwu/huikuan/showOneSta.jsp</result>
+			<!-- 修改明细 -->
+			<result name="updateStaOK" type="redirect">huikuanAction!showOneHK.action?tag=${tag}&amp;id=${id}
+			</result>
+			<!-- 添加送货单号 -->
+			<result name="savaSendNumOK" type="redirect">huikuanAction!querySell.action?message=${message}&amp;sell.sellWarehouse=成品库
+			</result>
+			<!-- 审批 -->
+			<result name="NoteExam">/System/caiwu/huikuan/noteExam.jsp</result>
+			<result name="notExam" type="redirect">huikuanAction!hkExam.action?tag=${tag}
+			</result>
+			<result name="invoiceExam" type="redirect">huikuanAction!hkExam.action?tag=${tag}
+			</result>
+			<!-- 强制关闭回款 -->
+			<result name="hkOVER" type="redirect">huikuanAction!hkExam.action?tag=manager
+			</result>
+			<!-- 发票打回重开 -->
+			<result name="hkRepeatInvo" type="redirect">huikuanAction!hkExam.action?tag=manager
+			</result>
+			<!-- 开票 -->
+			<result name="invoiceStaDetail">/System/caiwu/huikuan/saveInvocehkDetail.jsp
+			</result>
+			<result name="saveInvoiceOK">/System/caiwu/huikuan/saveInvocehkDetailOK.jsp
+			</result>
+			<result name="updateInvoiceOK">/System/caiwu/huikuan/saveInvocehkDetailOK.jsp
+			</result>
+			<!--核实开票数量  -->
+			<result name="showCheckBillCount">/System/caiwu/huikuan/showCheckBillCount.jsp
+			</result>
+			<result name="checkBillCount">/System/caiwu/huikuan/checkBillCount.jsp
+			</result>
+			<!-- 从进度表管理发票 -->
+			<result name="showFaPiao">/System/caiwu/huikuan/showFaPiao.jsp
+			</result>
+			<!-- 重开发票 -->
+			<result name="invoiceRepeat">//System/caiwu/huikuan/showInvocehkDetail.jsp
+			</result>
+			<!-- 查看单条回款记录和添加追款人 -->
+			<result name="showOneHK">/System/caiwu/huikuan/showOneHK.jsp</result>
+			<result name="updateOK" type="redirect">huikuanAction!hkExam.action?tag=${tag}
+			</result>
+			<!-- 添加回款记录 -->
+			<result name="addBackMoney">/System/caiwu/huikuan/addBackMoney.jsp</result>
+			<result name="saveBackMoneyOK">/System/caiwu/huikuan/showOneHK.jsp</result>
+			<result name="deleteOK" type="redirect">huikuanAction!hkExam.action
+			</result>
+			<result name="error">/error.jsp</result>
+			<!-- 管理任务栏 -->
+			<result name="managerShopping">/System/caiwu/huikuan/showshoppingCardl.jsp
+			</result>
+			<!-- 删除任务栏 -->
+			<result name="deleteShoppingOK" type="redirect">huikuanAction!manageShopping.action
+			</result>
+		</action>
+
+		<!-- 回款送货单信息管理 -->
+		<action name="HKSellStaAction" class="HKSellStaAction">
+			<result name="finHkSellStaOK">/System/caiwu/huikuan/hkSellSta_find.jsp</result>
+			<result name="getHKsellSta">/System/caiwu/huikuan/hkSellSta_update.jsp
+			</result>
+			<result name="updateStaOK" type="redirect">/HKSellStaAction!findHKSellSta?cpage=${cpage}
+			</result>
+			<result name="deleteOK" type="redirect">/HKSellStaAction!findHKSellSta?cpage=${cpage}
+			</result>
+		</action>
+
+		<!-- 质量标识贴管理 -->
+		<action name="LogoStickerAction" class="LogoStickerAction">
+			<result name="checkSticK">/System/SOP/qd/checkSticK.jsp</result>
+			<result name="findStickertocheck">/System/SOP/qd/findStickertocheck.jsp</result>
+			<result name="app_printStickertocheck">/System/SOP/qd/app_printStickertocheck.jsp
+			</result>
+			<result name="findSticker">/System/SOP/qd/findLogoSticker.jsp</result>
+			<result name="saveOK">/System/SOP/qd/printLogoStickerl.jsp</result>
+			<result name="findOK">/System/SOP/qd/updateLogoSticker.jsp</result>
+			<result name="updateOK">/System/SOP/qd/printLogoStickerl.jsp</result>
+			<result name="deleteOK" type="redirect">/LogoStickerAction!findLogoSticker.action?cpage=${cpage}&amp;tag=${tag}
+			</result>
+			<result name="saveByModel">/System/SOP/qd/saveLogoStickerByModel.jsp
+			</result>
+			<result name="sumResult">/System/SOP/qd/findSumLogoSticker.jsp</result>
+			<result name="findLingLliaoOK">/System/SOP/qd/LogoSticker_lingliao.jsp</result>
+		</action>
+
+		<!-- 报销单管理 -->
+		<action name="BaoXiaoDanAction" class="BaoXiaoDanAction">
+			<!--填报前验证 -->
+			<result name="preSaveBaoXiaoDan">/System/caiwu/baoxiao/baoXiaoDan_save.jsp
+			</result>
+			<result name="saveBaoXiaoDanOK">/System/caiwu/baoxiao/baoXiaoDan_print.jsp
+			</result>
+			<result name="saveBaoXiaoDanOK1">/System/caiwu/baoxiao/baoXiaoDan_print1.jsp?tag=${tag}
+			</result>
+			<result name="findBaoxiaoOK">/System/caiwu/baoxiao/baoXiaoDan_find.jsp
+			</result>
+			<result name="findBaoXiaoDan2">/System/caiwu/baoxiao/baoXiaoDan_find2.jsp
+			</result>
+			<result name="findBaoXiaoDan1">/System/caiwu/baoxiao/baoXiaoDan_find1.jsp
+			</result>
+			<result name="getMoreDetailOK">/System/caiwu/baoxiao/baoXiaoDan_print.jsp
+			</result>
+			<result name="getMoreDetailOK1">/System/caiwu/baoxiao/baoXiaoDan_print1.jsp
+			</result>
+			<result name="getUpdateOK">/System/caiwu/baoxiao/baoXiaoDan_update.jsp
+			</result>
+			<result name="getUpdateOK1">/System/caiwu/baoxiao/baoXiaoDan_update1.jsp?tag=${tag}
+			</result>
+			<result name="updateOK">/System/caiwu/baoxiao/baoXiaoDan_print.jsp
+			</result>
+			<result name="updateOK1" type="redirect">BaoXiaoDanAction!findBaoXiaoDan1.action?tag=${tag}
+			</result>
+			<result name="deleteBXDOK" type="redirect">/BaoXiaoDanAction!findBaoXiaoDan.action?cpage=${cpage}
+			</result>
+			<result name="findSumOK">/System/caiwu/baoxiao/baoXiaoDan_huizong.jsp
+			</result>
+			<result name="findBaoxiaoDanDetailOK">/System/caiwu/baoxiao/baoXiaoDanDetail_find.jsp
+			</result>
+			<result name="payee_List">/System/payee/payee_List.jsp
+			</result>
+			<result name="payee_xiangxi">/System/payee/payee_xiangxi.jsp
+			</result>
+			<result name="payee_add">/System/payee/payee_add.jsp
+			</result>
+			<result name="findOtherDetail">/System/caiwu/baoxiao/baoXiaoDanDetail_findOhersDept.jsp
+			</result>
+			<result name="confirmOK" type="redirect">/BaoXiaoDanAction!findOtherDeptBXD.action?cpage=${cpage}
+			</result>
+			<result name="updateXiaoDan" type="redirect">BaoXiaoDanAction!findBaoXiaoDan.action?tag=manger
+			</result>
+			<result name="updateXiaoDan1" type="redirect">BaoXiaoDanAction!findBaoXiaoDan1.action?tag=${tag}
+			</result>
+			<result name="updateXiaoDan2" type="redirect">BaoXiaoDanAction!findBaoXiaoDan2.action?tag=${tag}
+			</result>
+		</action>
+		<!-- 二维码 -->
+		<action name="TwoDimensionCode" class="TwoDimensionCode">
+			<result name="saveOK">/System/xinxi/cardManager/printUserInfor.jsp
+			</result>
+			<result name="piliang">/System/xinxi/cardManager/printUserInfor.jsp
+			</result>
+			<result name="creatBarcode">/System/xinxi/cardManager/ printBarcodeInfor.jsp
+			</result>
+		</action>
+
+		<!-- 生产流水卡片 -->
+		<action name="RunningWaterCardAction" class="RunningWaterCardAction">
+			<result name="saveOK">/System/SOP/runningWaterCard_print.jsp</result>
+			<result name="findCardOK">/System/SOP/runningWaterCard_list.jsp</result>
+			<result name="findCardNO">/System/SOP/runningWaterCard_Scanlist.jsp
+			</result>
+			<result name="getCardOK">/System/SOP/runningWaterCard_template.jsp
+			</result>
+			<result name="input">/System/SOP/runningWaterCard_add.jsp</result>
+			<result name="findRukuOK">/System/SOP/runningWaterCard_Scanlist.jsp
+			</result>
+			<result name="saveGoodsStoreOK" type="redirect">RunningWaterCardAction!findRukuShenqinglist.action
+			</result>
+			<result name="findNeedRukuPro" type="redirect">ProcardAction!findNeedRukuPro.action?pageStatus=${message}
+			</result>
+			<result name="SAVEerror">/System/SOP/goodsStore_scanAdd.jsp</result>
+			<result name="scanRuku">/System/SOP/goodsStore_scanAdd.jsp</result>
+		</action>
+
+		<!-- 出库表 -->
+		<action name="sellAction" class="sellAction">
+			<result name="findLingliaoListOK">/System/SOP/sell_Scanlist.jsp</result>
+			<result name="InputERROR">/System/SOP/sell_Scanlist.jsp?message=${message}
+			</result>
+			<result name="findOutListOK">/System/SOP/sell_ScanGoodsOutList.jsp</result>
+			<result name="sell_ScanGoodsOutList2">/System/SOP/sell_ScanGoodsOutList2.jsp</result>
+			<result name="sell_newScanGoodsOutList2">/System/SOP/sell_newScanGoodsOutList2.jsp
+			</result>
+			<result name="sell_ScanGoodsOutListCode">/System/SOP/sell_ScanGoodsOutListCode.jsp
+			</result>
+			<result name="sell_ScanGoodsOutListphone">/System/SOP/sell_ScanGoodsOutListphone.jsp
+			</result>
+			<result name="saveSellListOK" type="redirect">/sellAction!findLingliaoList.action?message=sendSuccess
+			</result>
+			<result name="findSellByConditionOK">/System/SOP/sell_findList.jsp</result>
+			<result name="success1">/System/SOP/sell_printStorage.jsp</result>
+			<result name="sellPrint">/System/SOP/sell_print.jsp</result>
+			<result name="updateThisSell">/System/SOP/sell_updateSell.jsp</result>
+			<result name="sell_TuikuSell">/System/SOP/sell_TuikuSell.jsp</result>
+			<result name="deleteThisSell" type="redirect">/sellAction!findSellByCondition.action?cpage=${cpage}&amp;tag=${tag}
+			</result>
+			<result name="updateSellOK">/System/SOP/sell_print.jsp</result>
+			<result name="sell_showwwclDetail">/System/SOP/sell_showwwclDetail.jsp</result>
+			<result name="sell_showWwPlanoutDetail">/System/SOP/sell_showWwPlanoutDetail.jsp</result>
+			<result name="sell_showwwclDetail2">/System/SOP/sell_showwwclDetail2.jsp</result>
+			<result name="sell_findWwclDetailByCode">/System/SOP/sell_findWwclDetailByCode.jsp
+			</result>
+			<result name="print_sell">/System/PrintedOut/print_sell.jsp</result>
+			<result name="goods_findChangePrint">/System/SOP/goods_findChangePrint.jsp</result>
+			<result name="goods_printChangePage">/System/SOP/goods_printChangePage.jsp</result>
+			<result name="cpth_showList">/System/SOP/cpth_showList.jsp</result>
+			<result name="cpth_print">/System/SOP/cpth_print.jsp</result>
+		</action>
+
+		<!-- 库存表 -->
+		<action name="goodsAction" class="goodsAction">
+			<result name="findGoodsOK">/System/SOP/goods_listfind.jsp</result>
+			<result name="goods_showDtcList">/System/SOP/goods_showDtcList.jsp</result>
+			<result name="goods_showDtgoods">/System/SOP/goods_showDtgoods.jsp</result>
+			<result name="goods_fromChengTowai">/System/SOP/goods_fromChengTowai.jsp</result>
+			<result name="goods_bcptotalPage">/System/SOP/goods_bcptotalPage.jsp</result>
+			<result name="goods_bcpllList">/System/SOP/goods_bcpllList.jsp</result>
+			<result name="goods_bcpllList2">/System/SOP/goods_bcpllList2.jsp</result>
+			<result name="goods_listfindPhone">/System/SOP/goods_listfindPhone.jsp</result>
+			<result name="findGoodsZZ">/System/SOP/goods_bflistfind.jsp</result>
+			<result name="yuGoods_showList">/System/SOP/yuGoods_showList.jsp</result>
+			<result name="yuGoods_changeYcl">/System/SOP/yuGoods_changeYcl.jsp</result>
+			<result name="yuGoods_baoFei">/System/SOP/yuGoods_baoFei.jsp</result>
+			<result name="yuApply_show">/System/SOP/yuApply_show.jsp</result>
+			<result name="showbfgList">/System/SOP/baofeigoods_listfind.jsp</result>
+			<result name="delbfg" type="redirect">/goodsAction!showbfgList.action
+			</result>
+			<result name="findGoodsMarkId">/System/SOP/find_scraps.jsp</result>
+			<result name="out">/System/SOP/goods_saveSell.jsp</result>
+			<result name="goods_saveSellMultiterm">/System/SOP/goods_saveSellMultiterm.jsp</result>
+			<result name="update">/System/SOP/goods_update.jsp</result>
+			<result name="fcApplyDetail">/System/SOP/fcApplyDetail.jsp</result>
+			<result name="updateGoodsInfor" type="redirect">/goodsAction!findGoods.action?role=${role}
+			</result>
+			<result name="saveSell">/System/SOP/sell_print.jsp</result>
+			<result name="huizongOK">/System/SOP/goods_listHuizong.jsp</result>
+			<result name="baofeishenqin">/System/SOP/goods_bfsq.jsp</result>
+			<result name="goodsZJ">/System/SOP/goods_zjlist.jsp</result>
+			<result name="sceanForBTSToPO">/System/SOP/sceanForBTSToPO.jsp</result>
+			<result name="goods_cxchangeStore">/System/SOP/goods_cxchangeStore.jsp</result>
+			<result name="goods_toapplycxzkList">/System/SOP/goods_toapplycxzkList.jsp</result>
+			<result name="goods_toapplycxzkList2">/System/SOP/goods_toapplycxzkList2.jsp</result>
+			<result name="goods_bhgth">System/SOP/goods_bhgth.jsp</result>
+			<result name="goods_bz_list">System/SOP/goods_bz_list.jsp</result>
+			<result name="goods_bz_listdetail">System/SOP/goods_bz_listdetail.jsp</result>
+			<result name="goods_bzsq_list">System/SOP/goods_bzsq_list.jsp</result>
+			<result name="goods_bzsq_people">System/SOP/goods_bzsq_people.jsp</result>
+			<result name="goodsbzsqtoQx" type="redirect">/ProcardAction!findProcardForQx.action?procard.markId={goodsBzsq.markId}&amp;procard.selfCard={goodsBzsq.selfCard}
+			</result>
+			<result name="goods_shsq_list">System/SOP/goods_shsq_list.jsp</result>
+			<result name="goods_shsq_list_sq">System/SOP/goods_shsq_list_sq.jsp</result>
+			<result name="goods_shsq_WgDeliveryList">System/SOP/goods_shsq_WgDeliveryList.jsp</result>
+			<result name="goods_shsq_WgDeliveryDetail">System/SOP/goods_shsq_WgDeliveryDetail.jsp
+			</result>
+			<result name="goods_shsq_WgDeliveryListDetail">System/SOP/goods_shsq_WgDeliveryListDetail.jsp</result>
+			<result name="goods_shsq_WgDeliveryPrint">System/SOP/goods_shsq_WgDeliveryPrint.jsp
+			</result>
+			<result name="goods_sqxq">System/SOP/goods_sqxq.jsp</result>
+			<result name="sell_printMultiterm">System/SOP/sell_printMultiterm.jsp</result>
+			
+			<result name="cpOneChangeWg">System/SOP/cpOneChangeWg.jsp</result>
+			<result name="showAllCPOneChangeWG" type="redirect">goodsAction!showAllCPOneChangeWG.action?errorMessage=${errorMessage}</result>			
+			<result name="goods_HistoryCPChangeWG">System/SOP/goods_HistoryCPChangeWG.jsp</result>
+			<result name="queryHistoryCPChangeWG" type="redirect">goodsAction!showAllCPOneChangeWG.action?cpage=${cpage}&amp;errorMessage=${errorMessage}&amp;tag=del</result>
+			<result name="goods_exChangeGoods">/System/SOP/goods_exChangeGoods.jsp</result>
+			<result name="goods_dull">/System/SOP/goods_dull.jsp</result>
+			<result name="goods_showbf">/System/SOP/goods_showbf.jsp</result>
+		</action>
+		<!-- 外委工作单管理 -->
+		<action name="OSWorkAction" class="OSWorkAction">
+			<result name="findOSWOK">/System/SOP/osWork/OSWork_list.jsp</result>
+			<result name="getOSWorkOK">/System/SOP/osWork/OSWork_selectOPstyle.jsp
+			</result>
+			<result name="findOneOSWOK">/System/SOP/osWork/OSWork_print.jsp</result>
+			<result name="OSWork_print">/System/SOP/osWork/OSWork_print.jsp</result>
+			<result name="caiwuJIesuanList">/System/SOP/osWork/OSWork_listJiezhang.jsp
+			</result>
+			<result name="selectJIeSuanOK">/System/SOP/osWork/OSWork_printJiezhang.jsp
+			</result>
+
+			<result name="addOswGongxu">/System/SOP/osWork/OSWork_printWaiweiGongxu.jsp
+			</result>
+		</action>
+		<!-- 出入管理 -->
+		<action name="iaoAction" class="iaoAction">
+			<result name="saveIAOBybarcode">/System/renshi/iao/iaoApply_print.jsp</result>
+			<result name="saveIAOOK" type="redirect">/iaoAction!findIaoApp.action?tag=oneself
+			</result>
+			<result name="findBaoxiaoOK">/System/renshi/iao/iaoApply_find.jsp</result>
+			<result name="showIAOApp">/System/renshi/iao/iaoApply_update.jsp</result>
+			<result name="updateIAOOK" type="redirect">/iaoAction!findIaoApp.action?tag=oneself
+			</result>
+
+		</action>
+		<!-- 外委申请单 （ACtion： OSApplyAction）-->
+		<action name="osaAction" class="osaAction">
+
+			<result name="tosaveOSApp">/System/SOP/OSApp/osa_add.jsp</result>
+			<result name="saveOK">/System/SOP/OSApp/osa_print.jsp</result>
+			<result name="findOK">/System/SOP/OSApp/osa_list.jsp</result>
+			<result name="updateShowOSA">/System/SOP/OSApp/osa_show.jsp</result>
+			<result name="updateShowOSA1">/System/SOP/OSApp/osa_update1.jsp?cpage=${cpage}
+			</result>
+			<result name="updateShowOSA2">/System/SOP/OSApp/osa_add2.jsp?cpage=${cpage}
+			</result>
+			<result name="updateShowOSA3">/System/SOP/OSApp/osa_add3.jsp?cpage=${cpage}
+			</result>
+			<result name="updateShowOSA4">/System/SOP/OSApp/osa_add4.jsp?cpage=${cpage}
+			</result>
+			<result name="updateShowOSA5">/System/SOP/OSApp/osa_add5.jsp?cpage=${cpage}
+			</result>
+			<result name="updateOSAById0" type="redirect">osaAction!findOSAppList.action?tag=dept1&amp;cpage=${cpage}
+			</result>
+			<result name="updateOSAById1" type="redirect">osaAction!findOSAppList.action?tag=dept2&amp;cpage=${cpage}
+			</result>
+			<result name="updateOSAById2" type="redirect">osaAction!findOSAppList.action?tag=dept3&amp;cpage=${cpage}
+			</result>
+			<result name="updateOSAById3" type="redirect">osaAction!findOSAppList.action?tag=dept4&amp;cpage=${cpage}
+			</result>
+			<result name="updateOSAById4" type="redirect">osaAction!findOSAppList.action?tag=dept5&amp;cpage=${cpage}
+			</result>
+			<result name="saveOK1" type="redirect">osaAction!findOSAppList.action?tag=dept1
+			</result>
+			<result name="printOSA">/System/SOP/OSApp/osa_print.jsp</result>
+		</action>
+
+		<!-- =======================预算决算管理=================== -->
+		<!-- 部门预算 -->
+		<action name="deptBudgetAction" class="deptBudgetAction">
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--销售收入 -->
+		<action name="saleBudgetAction" class="saleBudgetAction">
+			<result name="prepareSave">/System/caiwu/budget/saleBudget_save.jsp</result>
+			<result name="findBudgetOK">/System/caiwu/budget/saleBudget_list.jsp</result>
+			<result name="findExamList">/System/caiwu/budget/saleBudgetApproval.jsp
+			</result>
+			<result name="updateExamBudget" type="redirect">saleBudgetAction!findExamList.action
+			</result>
+			<result name="ExamBudgetOK" type="redirect">/saleBudgetAction!findAllBudget.action?powerTag=${powerTag}
+			</result>
+
+			<!-- 存在记录 -->
+			<result name="exaprepareSave" type="redirect">/saleBudgetAction!findOneBudget.action?id=${id}&amp;tag=update
+			</result>
+			<result name="findDetailBysbt">/System/caiwu/budget/saleBudget_list.jsp</result>
+			<!-- 不存在记录 -->
+			<result name="newprepareSave" type="redirect">/saleBudgetAction!findAllPruduct.action?id=${id}&amp;tag=update
+			</result>
+			<!-- 选择件号 -->
+			<result name="findAllProductOK">/System/caiwu/budget/saleBudget_selectProduct.jsp
+			</result>
+			<result name="priceNum_selected">/System/caiwu/budget/saleBudget_Productselected.jsp
+			</result>
+
+			<!-- 添加预算明细，查询记录存在 -->
+			<result name="findDetailBysbt">/System/caiwu/budget/saleBudget_oneMonthlist.jsp
+			</result>
+			<result name="saveSelectedPOK" type="redirect">/saleBudgetAction!findOneBudget.action?id=${id}&amp;tag=update
+			</result>
+			<result name="saveSelectedPERROR" type="redirect">/saleBudgetAction!findAllPruduct.action?id=${id}&amp;tag=update
+			</result>
+
+			<result name="findDetailOK">/System/caiwu/budget/saleBudget_oneMonthlist.jsp
+			</result>
+
+			<result name="updateDetailOK" type="redirect">/saleBudgetAction!findOneBudget.action?id=${id}
+			</result>
+
+			<result name="deleteDetailOK" type="redirect">/saleBudgetAction!findOneBudget.action?id=${id}&amp;tag=update
+			</result>
+			<result name="subBudgetOK" type="redirect">/saleBudgetAction!findAllBudget.action
+			</result>
+		</action>
+		<!-- oa 采购明细管理 -->
+		<action name="oaAppDetailAction" class="oaAppDetailAction">
+			<result name="findOADetailOK">/System/caigou/oa/oaAppDetail_list.jsp</result>
+			<result name="oaAppDetail_list_daohuo">/System/caigou/oa/oaAppDetail_list_daohuo.jsp
+			</result>
+			<result name="oaAppDetail_list_gz">/System/caigou/oa/oaAppDetail_list_gz.jsp
+			</result>
+			<result name="oaAppDetail_GzQueRenList">/System/caigou/oa/oaAppDetail_GzQueRenList.jsp
+			</result>
+			<result name="preSaveOADetail">/System/caigou/oa/oaAppDetail_save.jsp</result>
+			<result name="preSaveOADetail1">/System/caigou/oa/oaAppDetail_save1.jsp</result>
+			<result name="saveDetailOK" type="redirect">oaAppDetailAction!findOADetail.action?powerTag=self
+			</result>
+			<result name="getOADetailOK">/System/caigou/oa/oaAppDetail_update.jsp</result>
+			<result name="getOADetailBuy">/System/caigou/oa/oaAppDetail_buy_update.jsp
+			</result>
+			<result name="deleteOADOK" type="redirect">oaAppDetailAction!findOADetail.action?powerTag=${powerTag}&amp;cpage=${cpage}
+			</result>
+			<result name="updateOADetailOK" type="redirect">oaAppDetailAction!findOADetail.action?powerTag=self&amp;cpage=${cpage}
+			</result>
+			<result name="saveDetailFaile">/System/caigou/oa/oaAppDetail_save.jsp</result>
+			<result name="findOAPreAppOK">/System/caigou/oa/oaPreApp_list.jsp</result>
+			<result name="findPreDetailListOK">/System/caigou/oa/oaPreApp_detailList.jsp
+			</result>
+			<result name="printPre">/System/caigou/oa/oaPreApp_print.jsp</result>
+			<result name="selectPreDetail">/System/caigou/oa/oaPreApp_selectPrint.jsp
+			</result>
+			<!-- 查看待审批明细 -->
+			<result name="findExamListOK">/System/caigou/oa/oaAppDetail_selectExam.jsp
+			</result>
+			<!-- 审批处理后跳转-->
+			<result name="updateExamDetailOK" type="redirect">/oaAppDetailAction!findExamList.action
+			</result>
+			<!--查看审批历史记录-->
+			<result name="findExamHistoryListOK">/System/caigou/oa/oaAppDetail_examHistoryList.jsp
+			</result>
+			<!-- 添加名称 规格 -->
+			<result name="saveKemuOK">/System/caigou/oa/oaAppDetail_saveKemu.jsp
+			</result>
+			<result name="warehouseApplication_add">/System/menjin/warehouseApplication_add.jsp
+			</result>
+			<result name="oaAppDetail_selectDetail">/System/SOP/OaAppDetail_selectDetail.jsp</result>
+			<result name="storage_warehousing">/System/SOP/storage_warehousing.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- OA报账管理 -->
+		<action name="oaReimBursementAction" class="oaReimBursementAction">
+			<result name="findPreBaozhangListOK">/System/caigou/oa/storage_PreBaozhang.jsp
+			</result>
+			<result name="findBaozhangListOK">/System/caigou/oa/storage_selectBaozhang.jsp
+			</result>
+			<result name="findStorageBZListOK">/System/caigou/oa/oaReimBursement_save.jsp
+			</result>
+			<result name="saveBaoZhangOK">/System/caigou/oa/oaReimBursement_print.jsp
+			</result>
+			<result name="findOAReimBursementListOK">/System/caigou/oa/oaReimBursement_list.jsp
+			</result>
+			<result name="findBusinessListOK">/System/caigou/oa/oaBusiness_list.jsp</result>
+			<result name="_findBusList">/System/caigou/oa/oaBusiness_listAll.jsp</result>
+			<result name="updateBZStatusOK" type="redirect">/oaReimBursementAction!findPreBaozhangList.action
+			</result>
+			<!-- 筛选 -->
+			<result name="selectShaixuangOK" type="redirect">/oaReimBursementAction!findOAReimBursementList.action?tag=exam&amp;powerTag=manager&amp;cpage=${cpage}
+			</result>
+			<!-- 比价 -->
+			<result name="findSameProductPriceOK">/System/caigou/oa/storage_historyPrice.jsp
+			</result>
+			<!-- 审核跳转 -->
+			<result name="examBusinessOK" type="redirect">/oaReimBursementAction!findBusinessList.action?business.oarbs.id=${id}&amp;tag=exam&amp;powerTag=${powerTag}&amp;cpage=${cpage}
+			</result>
+			<result name="examOBSok" type="redirect">/oaReimBursementAction!findOAReimBursementList.action?tag=exam&amp;powerTag=${powerTag}&amp;cpage=${cpage}
+			</result>
+
+		</action>
+		<!-- 部门预算 -->
+		<action name="SubjectBudgetAction" class="subjectBudgetAction">
+			<result name="error">/error.jsp</result>
+			<result name="subject_manage">/System/caiwu/pingzheng/subject_manage.jsp</result>
+			<result name="balance_show">/System/caiwu/baobiao/Balance_show.jsp</result>
+			<result name="Profit_show">/System/caiwu/baobiao/Profit_show.jsp</result>
+			<result name="CashFlow_show">/System/caiwu/baobiao/CashFlow_show.jsp</result>
+			<result name="userandsubdept">/System/caiwu/pingzheng/userandsubdept.jsp
+			</result>
+			<result name="jisuangs">/System/caiwu/baobiao/jisuangs.jsp</result>
+			<result name="Management">/System/caiwu/baobiao/Management.jsp</result>
+			<result name="xcm_show">/System/caiwu/baobiao/xcm_show.jsp</result>
+		</action>
+		<!-- 财务机密文件 -->
+		<action name="FileManagerAction" class="fileManagerAction">
+			<result name="saveFileOK" type="redirect">/FileManagerAction!findFileManager.action
+			</result>
+			<result name="findFileOK">/System/caiwu/jmwj/fileManager_list.jsp</result>
+			<result name="addOK" type="redirect">/FileManagerAction!findAllTypeLocation.action
+			</result>
+			<result name="showFileManager">/System/caiwu/jmwj/fileManager_updatet.jsp
+			</result>
+			<result name="createOK">/System/caiwu/jmwj/addFileType.jsp</result>
+			<result name="findFileTypeOK">/System/caiwu/jmwj/fileManager_typeLocation.jsp
+			</result>
+			<result name="deleteFileTypeOK" type="redirect">/FileManagerAction!findAllTypeLocation.action
+			</result>
+			<result name="error">/error.jsp</result>
+
+		</action>
+		<!-- 非主营业务应收 -->
+		<action name="NoncoreReceAction" class="noncoreReceAction">
+			<result name="findAllNoncoreRece">/System/caiwu/noncore/findAllNoncoreRece.jsp
+			</result>
+			<result name="nonCoreReceivables_add">/System/caiwu/noncore/nonCoreReceivables_add.jsp
+			</result>
+			<result name="nonCoreReceivables_select">/System/caiwu/noncore/nonCoreReceivables_select.jsp
+			</result>
+			<result name="nonFujianseallogdetail">/System/caiwu/noncore/nonFujianseallogdetail.jsp
+			</result>
+			<result name="nonCoreReceivables_selectDe">/System/caiwu/noncore/nonCoreReceivables_selectDe.jsp
+			</result>
+			<result name="nonCoreReceivables_update">/System/caiwu/noncore/nonCoreReceivables_update.jsp
+			</result>
+			<result name="nonCoreReceivablesDetail_add">/System/caiwu/noncore/nonCoreReceivablesDetail_add.jsp
+			</result>
+			<result name="nonCoreReceivablesDetail_show">/System/caiwu/noncore/nonCoreReceivablesDetail_show.jsp
+			</result>
+			<result name="nonCoreReceivablesDetaildqr_show">/System/caiwu/noncore/nonCoreReceivablesDetaildqr_show.jsp
+			</result>
+			<result name="financialReceipts_show">/System/caiwu/noncore/financialReceipts_show.jsp
+			</result>
+		</action>
+		<!-- 非主营业务应付 -->
+		<action name="NoncorePayableAction" class="noncorePayableAction">
+			<result name="energyConsumption_update">/System/caiwu/noncore/energyConsumption_update.jsp
+			</result>
+			<result name="energyConsumption_show">/System/caiwu/noncore/energyConsumption_show.jsp
+			</result>
+			<result name="findAllNoncorePayable">/System/caiwu/noncore/findAllNoncorePayable.jsp
+			</result>
+			<result name="nonCorePayable_update">/System/caiwu/noncore/nonCorePayable_update.jsp
+			</result>
+			<result name="nonCorePayable_select">/System/caiwu/noncore/nonCorePayable_select.jsp
+			</result>
+			<result name="nonCorePayable_add">/System/caiwu/noncore/nonCorePayable_add.jsp
+			</result>
+			<result name="payableType_add">/System/caiwu/noncore/payableType_add.jsp
+			</result>
+			<result name="userpapy">/System/caiwu/noncore/userpapy.jsp
+			</result>
+		</action>
+		<!-- 委托付款 -->
+		<action name="EscrowAction_*" class="escrowAction" method="{1}">
+		<result name="escrowList_show">/System/payment1/escrowList_show.jsp</result>
+		<result name="escrowList_print">/System/payment1/escrowList_print.jsp</result>
+		<result name="escrowList_printrc">/System/payment1/escrowList_printrc.jsp</result>
+		<result name="escrowMonth_apply">/System/payment1/escrowMonth_apply.jsp</result>
+		<result name="escrowMonth_print">/System/payment1/escrowMonth_print.jsp</result>
+		<result name="escrowMonthList_show">/System/payment1/escrowMonthList_show.jsp</result>
+		</action>
+		<!-- 车补申请及充值 -->
+		<action name="carAllowAction" class="carAllowAction">
+			<result name="saveOK" type="redirect">/carAllowAction!selectAPPPage.action
+			</result>
+			<result name="showOneSumAllow">/System/caiwu/chebu/OneCarAlowSum.jsp</result>
+			<result name="queryallSumAllow">/System/caiwu/chebu/carAllowSum_list.jsp</result>
+			<result name="sumbitOneInfor">/System/caiwu/chebu/addCarAlowSum.jsp</result>
+			<result name="deleteOK" type="redirect">/carAllowAction!findAllSum.action
+			</result>
+			<result name="appDengji">/System/caiwu/chebu/addApplycarallow.jsp
+			</result>
+			<result name="dengjiOK" type="redirect">/carAllowAction!selectAPPPage.action
+			</result>
+			<result name="appHistory">/System/caiwu/chebu/oneAllow_list.jsp
+			</result>
+			<result name="appchognzhiHistory">/System/caiwu/chebu/chongzhiHistory_list.jsp
+			</result>
+			<result name="shezhiXiane">/System/caiwu/chebu/shezhiXiane.jsp</result>
+			<result name="shezhiXianeOK" type="redirect">/carAllowAction!findAllSum.action
+			</result>
+			<result name="preChongzhi">/System/caiwu/chebu/chognzhi.jsp</result>
+			<result name="chongzhiOK">/System/caiwu/chebu/chongzhiPrint.jsp</result>
+			<result name="deleteOneHistoryOK" type="redirect">/carAllowAction!selectAPPPage.action
+			</result>
+			<result name="deleteOneCZHistoryok" type="redirect">/carAllowAction!findAllSum.action
+			</result>
+			<result name="butieSehnling">/System/caiwu/chebu/butieApply.jsp</result>
+			<result name="butieSehnlingOK" type="redirect">/NoncorePayableAction!showList.action
+			</result>
+
+		</action>
+	</package>
+</struts>

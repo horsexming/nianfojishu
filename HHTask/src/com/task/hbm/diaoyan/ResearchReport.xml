@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.diaoyan">
+	<class name="ResearchReport" table="ta_diaoyan_ResearchReport">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="cases"/>
+		<property name="expectedEffec"/>
+		<property name="solution"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+		<property name="addUsersCode"/>
+		<many-to-one name="campanyName" class="com.task.entity.CampanyName" column="ta_cnId"/>
+	</class>
+</hibernate-mapping>

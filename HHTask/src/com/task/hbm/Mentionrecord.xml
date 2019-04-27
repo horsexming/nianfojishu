@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+   	 <class name="com.task.entity.Mentionrecord" table="Mentionrecord">
+		<id name="id"  type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="mentionMonth" type="java.lang.String">
+		 <column name="mention_Month" length="200"></column>
+		</property>
+		
+		<property name="mentionshallMoney" type="java.lang.Float">
+		 <column name="mention_shallMoney" precision="53" scale="0"></column>
+		</property>
+		
+		<property name="mentionactualMoney" type="java.lang.Float">
+		 <column name="mention_actualMoney" precision="53" scale="0"></column>
+		</property>
+		
+		<property name="mentionstatus" type="java.lang.String">
+		 <column name="mention_status" length="100"></column>
+		</property>
+		
+		<property name="mentiondatetime" type="java.lang.String">
+		 <column name="mention_datetime" length="200"></column>
+		</property>
+		
+		<property name="mentionmore" type="java.lang.String">
+		 <column name="mention_more" length="500"></column>
+		</property>
+		<property name="epId"></property>
+		</class>
+</hibernate-mapping>

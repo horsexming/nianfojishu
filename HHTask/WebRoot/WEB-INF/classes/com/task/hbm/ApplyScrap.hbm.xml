@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.ApplyScrap" table="ApplyScrap">
+        <id name="id">
+           <generator class="identity"/>
+        </id>
+	 <property name="goodsMarkId" />
+	 <property name="goodsLotId"/>
+     <property name="goodsFullName" />
+     <property name="format" />
+     <property name="badNum" />
+      <property name="unit" />
+     <property name="cardNum" />
+     <property name="username" />
+     <property name="dept" />
+     <property name="ldate"/>
+     <property name="badDate"/>  
+     <property name="badTime"/>  
+     <property name="badIdea" />
+     <property name="reason" />
+     <property name="mix" />
+     <property name="remark" />
+     <property name="state" />
+     <property name="lendId" />
+     <property name="goodsId" />
+	 <property name="adminId" />
+     <property name="admin" />
+   </class>
+</hibernate-mapping>

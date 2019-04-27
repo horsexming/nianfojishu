@@ -1,0 +1,285 @@
+package com.task.entity.fin.budget;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.DeptNumber;
+import com.task.entity.Users;
+
+/**
+ * 科目预算比例表（ta_fin_subBudgetRate）
+ * 
+ * @author liupei
+ * 
+ */
+public class SubBudgetRate implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;// 主键
+	private String bookKDate;//记账日期(yyyy-MM)
+	private String name;// 名称
+	/***
+	 * 类别用于计算期末余额方向 **** 资产类期末余额=期初余额借方余额+本期借方发生额-本期贷方发生额=正数，余额在借方，负数则余额在贷方。
+	 * 负债类期末余额=期初余额贷方余额+本期贷方发生额-本期借方发生额=正数，余额在贷方，负数则余额在借方
+	 */
+	private String type;// 科目类别(资产类、负债类、所有者权益类、损益类、成本类)
+
+	private Double borrowYearBegingMoney;//年初借方金额
+	private Double lendYearBegingMoney;//年初贷方金额
+	private Double borrowYearSumMoney;//本年借方累计金额
+	private Double lendYearSumMoney;//本年贷方累计金额
+	private Double borrowQichuMoney;// 借方-期初金额
+	private Double lendQichuMoney;// 贷方-期初金额
+	private Double borrowMoney;// 借方-本期发生金额
+	private Double lendMoney;// 贷方-本期发生金额
+	private Double borrowJieyuMoney;// 借方-期末金额
+	private Double lendJieyuMoney;// 贷方-期末金额
+
+	private String subNumber;//科目编号
+	private String fatherName;// 上层名称(方便查询)
+	private Integer rootId;// 第一层父类Id
+	private Integer fatherId;// 上层父类Id
+	private Integer belongLayer;// 当前层
+	
+	private Float subjectRate;// 科目所占比例 保存数据计算时除以100，保留四位小数
+	private String more;
+	private Boolean checked;
+	private Boolean userChecked;
+	
+	private Set<Users> userSet;//多对多（用户绑定用于显示）
+
+
+	// 自身树形结构
+	private Set<SubBudgetRate> subBudgetRateSet;
+	private SubBudgetRate subBudgetRate;
+
+	private Set<DeptNumber> deptNumberSet;// 对部门(用于计提费用使用)
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Float getSubjectRate() {
+		return subjectRate;
+	}
+
+	public void setSubjectRate(Float subjectRate) {
+		this.subjectRate = subjectRate;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Integer getFatherId() {
+		return fatherId;
+	}
+
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+
+	public String getFatherName() {
+		return fatherName;
+	}
+
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
+
+	public Integer getBelongLayer() {
+		return belongLayer;
+	}
+
+	public void setBelongLayer(Integer belongLayer) {
+		this.belongLayer = belongLayer;
+	}
+
+	@JSONField(serialize = false)
+	public Set<SubBudgetRate> getSubBudgetRateSet() {
+		return subBudgetRateSet;
+	}
+
+	public void setSubBudgetRateSet(Set<SubBudgetRate> subBudgetRateSet) {
+		this.subBudgetRateSet = subBudgetRateSet;
+	}
+
+	@JSONField(serialize = false)
+	public SubBudgetRate getSubBudgetRate() {
+		return subBudgetRate;
+	}
+
+	public void setSubBudgetRate(SubBudgetRate subBudgetRate) {
+		this.subBudgetRate = subBudgetRate;
+	}
+
+	@JSONField(serialize = false)
+	public Set<DeptNumber> getDeptNumberSet() {
+		return deptNumberSet;
+	}
+
+	public void setDeptNumberSet(Set<DeptNumber> deptNumberSet) {
+		this.deptNumberSet = deptNumberSet;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getBorrowQichuMoney() {
+		return borrowQichuMoney;
+	}
+
+	public void setBorrowQichuMoney(Double borrowQichuMoney) {
+		this.borrowQichuMoney = borrowQichuMoney;
+	}
+
+	public Double getLendQichuMoney() {
+		return lendQichuMoney;
+	}
+
+	public void setLendQichuMoney(Double lendQichuMoney) {
+		this.lendQichuMoney = lendQichuMoney;
+	}
+
+	public Double getBorrowMoney() {
+		return borrowMoney;
+	}
+
+	public void setBorrowMoney(Double borrowMoney) {
+		this.borrowMoney = borrowMoney;
+	}
+
+	public Double getLendMoney() {
+		return lendMoney;
+	}
+
+	public void setLendMoney(Double lendMoney) {
+		this.lendMoney = lendMoney;
+	}
+
+	public Double getBorrowJieyuMoney() {
+		return borrowJieyuMoney;
+	}
+
+	public void setBorrowJieyuMoney(Double borrowJieyuMoney) {
+		this.borrowJieyuMoney = borrowJieyuMoney;
+	}
+
+	public Double getLendJieyuMoney() {
+		return lendJieyuMoney;
+	}
+
+	public void setLendJieyuMoney(Double lendJieyuMoney) {
+		this.lendJieyuMoney = lendJieyuMoney;
+	}
+
+	public String getBookKDate() {
+		return bookKDate;
+	}
+
+	public void setBookKDate(String bookKDate) {
+		this.bookKDate = bookKDate;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
+	public Double getBorrowYearBegingMoney() {
+		return borrowYearBegingMoney;
+	}
+
+	public void setBorrowYearBegingMoney(Double borrowYearBegingMoney) {
+		this.borrowYearBegingMoney = borrowYearBegingMoney;
+	}
+
+	public Double getLendYearBegingMoney() {
+		return lendYearBegingMoney;
+	}
+
+	public void setLendYearBegingMoney(Double lendYearBegingMoney) {
+		this.lendYearBegingMoney = lendYearBegingMoney;
+	}
+
+	public Double getBorrowYearSumMoney() {
+		return borrowYearSumMoney;
+	}
+
+	public void setBorrowYearSumMoney(Double borrowYearSumMoney) {
+		this.borrowYearSumMoney = borrowYearSumMoney;
+	}
+
+	public Double getLendYearSumMoney() {
+		return lendYearSumMoney;
+	}
+
+	public void setLendYearSumMoney(Double lendYearSumMoney) {
+		this.lendYearSumMoney = lendYearSumMoney;
+	}
+
+	public String getSubNumber() {
+		return subNumber;
+	}
+
+	public void setSubNumber(String subNumber) {
+		this.subNumber = subNumber;
+	}
+	@JSONField(serialize = false)
+	public Set<Users> getUserSet() {
+		return userSet;
+	}
+
+	public void setUserSet(Set<Users> userSet) {
+		this.userSet = userSet;
+	}
+
+	public Boolean getUserChecked() {
+		return userChecked;
+	}
+
+	public void setUserChecked(Boolean userChecked) {
+		this.userChecked = userChecked;
+	}
+
+
+
+
+
+}

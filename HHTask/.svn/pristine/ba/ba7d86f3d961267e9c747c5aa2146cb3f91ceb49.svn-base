@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	
+	<class name="com.task.entity.banci.BanCi" table="ta_banci">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="banCiType" />
+		<property name="firsttime" />
+		<property name="wxstarttime"/>
+		<property name="wxendtime"/>
+		<property name="finishtime" />
+		
+		<property name="firstBeforeMin"/>
+		<property name="firstBeforeTime"/>
+		<property name="firstLaterMin"/>
+		<property name="firstLaterTime"/>
+		<property name="finishBeforeMin"/>
+		<property name="finishBeforeTime"/>
+		<property name="finishLaterMin"/>
+		<property name="finishLaterTime"/>
+		
+		<property name="bcNumber"/>
+		<property name="addtime" />
+		<property name="updatetime" />
+		<property name="sbdate"/>
+		<property name="isSynchronize" length="4"/>
+		<property name="isOvernight" length="4"/>
+		<property name="gzTime"/>
+		<property name="xxTime"/>
+		<property name="banCiTimeShow"/>
+		<property name="xiaFuis"/>
+		<!-- 班次对排班 一对多 -->
+		<set name="schedulingTable" inverse="true" cascade="all" lazy="true">
+			<key column="ta_banci"></key>
+			<one-to-many class="com.task.entity.banci.SchedulingTable"/>
+		</set>
+		<!-- 班次对休息时段 一对多 -->
+		<set name="banCiTime" inverse="true" cascade="all" lazy="false" order-by="duan">
+			<key column="ta_banciId"></key>
+			<one-to-many class="com.task.entity.banci.BanCiTime"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectProposal" table="ta_ProjectProposal">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="customerName" length="50" />
+		<property name="customerAbout" length="200" />
+		<property name="serialNumber" length="50" />
+		<property name="pricePosition" length="50" />
+		<property name="productionBase" length="50" />
+		<property name="forecast" length="50" />
+		<property name="confidentiality" length="5" />
+		<property name="crafts" length="50" />
+		<property name="digifax" length="50" />
+		<property name="drawing" length="50" />
+		<property name="descriptions" length="200" />
+		<property name="createPerson" length="50" />
+		<property name="createDate" length="50" />
+		<property name="marketcar" length="50" />
+		<property name="technologycar" length="50" />
+		<property name="closed" type="true_false" />
+		<many-to-one name="root" column="f_project_id" lazy="false" /> 
+		<set name="check" cascade="all" lazy="false">
+			<key column="f_projectProposal_id"></key>
+			<one-to-many class="com.task.entity.ProjectProposalFlow" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

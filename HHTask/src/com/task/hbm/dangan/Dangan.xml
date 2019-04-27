@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.dangan">
+	<class name="DangAn" table="ta_da_DangAn">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="daName" />
+		<property name="daNum" />
+		<property name="sqName" />
+		<property name="sqDept" />
+		<property name="sqCardId" />
+		<property name="sqCode" />
+		<property name="squserId" />
+		<property name="sqTel" />
+		<property name="cdAceName" />
+		<property name="cdAceNum" />
+		<property name="cdAceId" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="useStatus" />
+		<property name="yanzheng" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="shTime" />
+		<property name="inTime" />
+		<property name="outTime" />
+		<property name="useDate" />
+		<property name="useDateNum" />
+		<property name="daFiles" />
+		<property name="daAddress" />
+		<property name="shenqingdate" />
+		<property name="shixiaodate" />
+		<property name="quDangReason" />
+		<property name="qutype" />
+		<property name="money" />
+		<property name="num" />
+		<!-- 进门申请对存取档申请 多对一 -->
+		<set name="aplts" inverse="true" cascade="all" lazy="true">
+			<key column="ta_dangan"></key>
+			<one-to-many class="ArchiveUnarchiverAplt"/>
+		</set>
+	</class>
+</hibernate-mapping>

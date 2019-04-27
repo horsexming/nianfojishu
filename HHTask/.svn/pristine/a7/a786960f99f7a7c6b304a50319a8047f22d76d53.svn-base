@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.budget">
+	<class name="SaleBudget" table="ta_fin_saleBudget">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="planMonth"/>		
+		<property name="saleMoney" />
+		<property name="inputTime" />
+		<property name="userName" />
+		<property name="status" />
+		<property name="examPath" />
+		<property name="more" />
+		<property name="barcode" />
+		<property name="epId" />
+		<set name="saleBudgetDetail" inverse="false" cascade="all" lazy="true" order-by="id">
+			<key column="saleBudgetDetail_id"></key>
+			<one-to-many class="com.task.entity.fin.budget.SaleBudgetDetail" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

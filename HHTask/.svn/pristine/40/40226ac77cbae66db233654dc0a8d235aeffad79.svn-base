@@ -1,0 +1,100 @@
+package com.task.action;
+
+import java.util.List;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Dao.TotalDao;
+import com.task.Server.FavoriteServer;
+import com.task.entity.Favorite;
+import com.task.entity.Users;
+import com.task.util.MKUtil;
+
+/**
+ * 收藏夹功能Action层
+ * 
+ * @author fy
+ * 
+ */
+public class FavoriteAction extends ActionSupport {
+
+	private Favorite favorite;
+	private FavoriteServer favoriteServer;
+	private List<Favorite> listFavorites;
+	private Integer id;
+
+	public String addFavorite() {
+		// HttpServletRequest request = ServletActionContext.getRequest();
+
+		Users user = (Users) ActionContext.getContext().getSession().get(
+				TotalDao.users);
+		if (favorite != null) {
+			favorite.setUsersid(user.getId());
+			// favorite.setName(URLDecoder.decode(favorite.getName().trim(),
+			// "UTF-8"));
+			if ((favorite.getPath() == null || "".equals(favorite.getPath()))) {
+				favorite.setPath("ModuleFunctionAction!findMfByIdForJump.action?id="+favorite.getMfid());
+			}
+			favorite.setBgcolor(favoriteServer.findMFcolor(Integer.valueOf(favorite.getMfid())));
+			Boolean b = favoriteServer.addFavorite(favorite);
+			MKUtil.writeJSON(b);
+			return null;
+		}
+		return null;
+	}
+
+	public String show() {
+		Users user = (Users) ActionContext.getContext().getSession().get(
+				TotalDao.users);
+		//判断是否已取消绑定此功能
+		List<Integer> list=favoriteServer.findFavoriteMFpermission(user.getId());
+		for (Integer integer : list) {
+			favoriteServer.deleteFavorite(integer);
+		}
+		listFavorites = favoriteServer.findAllFavorite(user.getId());
+		return "favoriteManage";
+	}
+
+	public String delete() {
+		if (id != null) {
+			favoriteServer.deleteFavorite(id);
+		}
+		Users user = (Users) ActionContext.getContext().getSession().get(
+				TotalDao.users);
+		listFavorites = favoriteServer.findAllFavorite(user.getId());
+		return "favoriteManage";
+	}
+
+	public FavoriteServer getFavoriteServer() {
+		return favoriteServer;
+	}
+
+	public void setFavoriteServer(FavoriteServer favoriteServer) {
+		this.favoriteServer = favoriteServer;
+	}
+
+	public Favorite getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(Favorite favorite) {
+		this.favorite = favorite;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<Favorite> getListFavorites() {
+		return listFavorites;
+	}
+
+	public void setListFavorites(List<Favorite> listFavorites) {
+		this.listFavorites = listFavorites;
+	}
+
+}

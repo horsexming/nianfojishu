@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bp.Product" table="ta_bp_Product">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" not-null="true" length="50" />
+		<property name="partsNumber" />
+		<property name="specification" length="200" />
+		<property name="quantity" not-null="true" type="float" />
+		<property name="month" length="50" />
+		<property name="consume" type="float" />
+		<property name="demand" type="float" />
+		<property name="type" />
+		<property name="unit" />
+		<property name="directions" length="255" />
+
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+  <class name="com.task.entity.Parts" table="changeparts">
+		<id  name="id" column="changeParts_id">
+			<generator class="identity"></generator>
+		</id>
+		<property  name="barcode" column="changeParts_barcode" length="255" />
+		<property name="partName" column="changeParts_partName" length="255" />
+		<property name="pictureNo" column="changeParts_pictureNo" length="255" />
+		<property name="num" column="changeParts_num" length="255" />
+		<property name="unit" column="changeParts_unit" length="255" />
+		<property  name="alarmTime" column="changeParts_alarmTime" length="8" />
+		<property name="more" column="changeParts_more" length="1000" />
+		<many-to-one name="maintenance" column="ta_mainId" class="com.task.entity.Maintenance" lazy="false" />
+		
+
+	</class>
+
+</hibernate-mapping>

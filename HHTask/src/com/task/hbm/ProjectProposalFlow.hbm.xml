@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectProposalFlow" table="ta_ProjectProposalFlow">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="50" />
+		<property name="level" />
+		<property name="about" length="200" />
+		<property name="agree" type="true_false"  />
+		<property name="checks" type="true_false"  />
+	</class>
+
+</hibernate-mapping>

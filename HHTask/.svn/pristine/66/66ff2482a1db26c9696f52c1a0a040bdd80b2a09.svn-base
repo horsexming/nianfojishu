@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="DesignfeedbackNotice" table="ta_sop_w_DesignfeedbackNotice"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="addUserId"/>
+		<property name="addUserName"/>
+		<property name="addUserCode"/>
+		<property name="addTime"/>
+		<property name="applyDate"/>
+		<property name="ecarNumber"/>
+		<property name="ywMarkId"/>
+		<property name="problempoint"/>
+		<property name="tjUserId"/>
+		<property name="tjUsercode"/>
+		<property name="tjUserName"/>
+		<property name="promisee"/>
+		<property name="belongto"/>
+		<property name="zxstatus"/>
+		<property name="endTime"/>
+		<property name="closeUser"/>
+		<property name="sxx"/>
+	 </class>
+</hibernate-mapping>

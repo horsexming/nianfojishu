@@ -1,0 +1,1060 @@
+package com.task.DaoImpl;
+
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import net.sf.json.JSONObject;
+
+import org.apache.struts2.ServletActionContext;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.entity.Admin;
+import com.task.entity.Users;
+import com.task.entity.system.Logging;
+import com.task.util.DataSourceSwitcher;
+import com.task.util.Util;
+
+/*
+ * Dao层实现类
+ */
+public class TotalDaoImpl extends HibernateDaoSupport implements TotalDao {
+
+	// 删除
+	public boolean delete(Object obj) {
+		this.getHibernateTemplate().delete(obj);
+		addLogging(obj, "删除");
+		return true;
+	}
+
+	// 删除
+	public boolean delete2(Object obj) {
+		this.getHibernateTemplate().delete(obj);
+		return true;
+	}
+
+	// 保存
+	public boolean save(Object obj) {
+		this.getHibernateTemplate().save(obj);
+		addLogging(obj, "添加");
+		return true;
+	}
+
+	// 保存(不记录日志)
+	@Override
+	public boolean save2(Object obj) {
+		this.getHibernateTemplate().save(obj);
+		// addLogging(obj, "添加");
+		return true;
+	}
+
+	// 修改
+	public boolean update(Object obj) {
+		this.getHibernateTemplate().update(obj);
+		addLogging(obj, "修改");
+		return true;
+	}
+
+	// 修改1
+	public boolean update1(Object obj) {
+		this.getHibernateTemplate().clear();
+		this.getHibernateTemplate().update(obj);
+		addLogging(obj, "修改");
+		return true;
+	}
+
+	// 修改(不记录日志)
+	@Override
+	public boolean update2(Object obj) {
+		this.getHibernateTemplate().update(obj);
+		// addLogging(obj, "修改");
+		return true;
+	}
+
+	/***
+	 * 提交并清空缓存
+	 */
+	@Override
+	public void clear() {
+		this.getHibernateTemplate().flush();
+		this.getHibernateTemplate().clear();
+	}
+
+	/***
+	 * 记录日志
+	 * 
+	 * @param obj
+	 */
+	@SuppressWarnings( { "unused" })
+	private void addLogging(Object obj, String status) {
+		Logging logging = new Logging();
+		String className = obj.getClass().getSimpleName();
+		logging.setObjectName(className);
+		logging.setStatus(status);
+		logging.setAddTime(Util.getDateTime());
+
+		Users loginUser = Util.getLoginUser();
+		Admin admin = null;
+		if (loginUser != null) {
+			logging.setUserId(loginUser.getId());
+			logging.setUserCode(loginUser.getCode());
+			logging.setUserName(loginUser.getName());
+			logging.setUserDept(loginUser.getDept());
+			logging.setIp(loginUser.getLoginIp());
+		} else if (ActionContext.getContext() != null) {
+			admin = (Admin) ActionContext.getContext().getSession()
+					.get("admin");// 获得登录用户信息
+			if (admin != null) {
+				logging.setUserId(admin.getId());
+				logging.setUserName(admin.getAdminName());
+			}
+		}
+		// if(users==null&&admin==null){
+		// throw new RuntimeException("没有权限执行该操作!");
+		// }
+
+		// 反射拿出所有属性的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		Field[] fields = obj.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			try {
+				Class c = field.getType();// 获得属性的类型
+				if (c.getName().equals("java.util.Set")
+						|| c.getName().equals("java.util.List")) {
+					continue;
+				}
+				String name = field.getName();
+				if (name.equals("default_interceptor")
+						|| name.equals("handler")
+						|| name.equals("_method_filter")
+						|| name.equals("_methods_")) {
+					continue;
+				}
+				PropertyDescriptor pd = new PropertyDescriptor(field.getName(),
+						obj.getClass());
+				Method method = pd.getReadMethod();// 获得get方法
+				Object propertyObj = method.invoke(obj);// 获得get方法的值
+				String propertyName = pd.getName();// 获得属性名称
+				if (propertyObj == null) {
+					continue;
+				}
+				if (c.getName().equals("int") && "id".equals(propertyName)) {
+					logging.setObjectId(Integer
+							.parseInt(propertyObj.toString()));
+				}
+				map.put(propertyName, propertyObj.toString());
+			} catch (Exception e) {
+				String name = field.getName();
+				e.printStackTrace();
+			}
+		}
+		// JSONObject json = JSONObject.fromObject(obj);//将java对象转换为json对象
+		// String str = json.toString();//将json对象转换为字符串
+		logging.setMore(JSON.toJSONString(map));// 转换Map为json格式
+		// logging.setMore(str);// 转换Map为json格式
+		this.getHibernateTemplate().save(logging);
+
+	}
+
+	// 通过id获得对象
+	@SuppressWarnings("rawtypes")
+	public Object getObjectById(Object o, int id) {
+		if (o != null && (Object) id != null && id > 0) {
+			return this.getHibernateTemplate().get((Class) o, id);
+		} else
+			return null;
+	}
+
+	/***
+	 * 通过条件获得单个对象(所有查询的第一条数据)
+	 */
+	public Object getObjectByCondition(String hql, Object... agr) {
+		List<Object> list = findAllByPage(hql, 1, 1, agr);
+		if (list != null && list.size() > 0) {
+			int select = hql.indexOf("select");
+			if (select == 0) {// 是否存在select
+				int form = hql.indexOf("from");
+				if (select < form) {// select 是否在from的前面
+					String sf = hql.substring(select, form);
+					if (sf.indexOf(",") < 0) {// 是否存在"," 以此判断只有sum或者只有count函数
+						if (sf.indexOf(" sum(") > 0
+								|| sf.indexOf(" count(") > 0
+								|| sf.indexOf(" avg(") > 0) {
+							for (int i = 0, len = list.size(); i < len; i++) {
+								Object object = list.get(i);
+								list.remove(object);
+								if (object == null)
+									object = 0F;
+								list.add(Float.parseFloat(object.toString()));
+								i = 0;
+								len--;
+							}
+						}
+					}
+				}
+			}
+			return list.get(0);
+		}
+		return null;
+	}
+
+	/***
+	 * 通过条件获得单个对象(所有查询的第一条数据)
+	 */
+	public Object getObjectByConditionforDouble(String hql, Object... agr) {
+		List<Object> list = findAllByPage(hql, 1, 1, agr);
+		if (list != null && list.size() > 0) {
+			int select = hql.indexOf("select");
+			if (select == 0) {// 是否存在select
+				int form = hql.indexOf("from");
+				if (select < form) {// select 是否在from的前面
+					String sf = hql.substring(select, form);
+					if (sf.indexOf(",") < 0) {// 是否存在"," 以此判断只有sum或者只有count函数
+						if (sf.indexOf(" sum(") > 0
+								|| sf.indexOf(" count(") > 0
+								|| sf.indexOf(" avg(") > 0) {
+							for (int i = 0, len = list.size(); i < len; i++) {
+								Object object = list.get(i);
+								list.remove(object);
+								if (object == null)
+									object = 0F;
+								list.add(Double.parseDouble(object.toString()));
+								i = 0;
+								len--;
+							}
+						}
+					}
+				}
+			}
+			return list.get(0);
+		}
+		return null;
+	}
+
+	/***
+	 * 通过条件获得单个对象(所有查询的第一条数据)
+	 */
+	@Override
+	public Object getObjectByQuery(String hql, Object... agr) {
+		List<Object> list = this.getHibernateTemplate().find(hql, agr);
+		if (list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	// 查询
+	@SuppressWarnings("unchecked")
+	public List<Object> query(String hql, Object... agr) {
+		List<Object> list = this.getHibernateTemplate().find(hql, agr);
+		int select = hql.indexOf("select");
+		if (select == 0) {// 是否存在select
+			int form = hql.indexOf("from");
+			if (select < form) {// select 是否在from的前面
+				String sf = hql.substring(select, form);
+				if (sf.indexOf(",") < 0) {// 是否存在"," 以此判断只有sum或者只有count函数
+					if (sf.indexOf(" sum(") > 0 || sf.indexOf(" count(") > 0) {
+						for (int i = 0, len = list.size(); i < len; i++) {
+							Object object = list.get(i);
+							list.remove(object);
+							if (object != null) {
+								list.add(Float.parseFloat(object.toString()));
+							}
+							i = 0;
+							len--;
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+	// 查询
+	@SuppressWarnings("unchecked")
+	@Override
+	public List queryList(String hql, Object... agr) {
+		return this.getHibernateTemplate().find(hql, agr);
+	}
+
+	// 创建query对象 (对象查询)
+	public Query createQuery(String hql) {
+		SessionFactory sf = this.getHibernateTemplate().getSessionFactory();
+		Session session = sf.getCurrentSession();
+		return session.createQuery(hql);
+	}
+
+	// 创建SQLQuery对象 (sql语句)
+	public Query createSqlQuery(String sql) {
+		SessionFactory sf = this.getHibernateTemplate().getSessionFactory();
+		Session session = sf.openSession();
+		return session.createSQLQuery(sql);
+	}
+
+	// 创建session对象
+	public Session createSession() {
+		SessionFactory sf = this.getHibernateTemplate().getSessionFactory();
+		return sf.openSession();
+	}
+
+	// 创建Hql语句查询
+	@SuppressWarnings( { "unchecked", "rawtypes" })
+	public List createQuerySelect(String hql, String sql, Object... obj) {
+		Query query = null;
+		if (hql != null && hql.length() > 0 && sql == null) {
+			query = this.createQuery(hql);
+		} else if (hql == null && sql != null) {
+			query = this.createSqlQuery(sql);
+		} else {
+			return null;
+		}
+		for (int i = 0; i < obj.length; i++) {
+			query.setParameter(i, obj[i]);
+		}
+		List list = query.list();
+		if (hql != null && hql.length() > 0) {
+			int select = hql.indexOf("select");
+			if (select == 0) {// 是否存在select
+				int form = hql.indexOf("from");
+				if (select < form) {// select 是否在from的前面
+					String sf = hql.substring(select, form);
+					if (sf.indexOf(",") < 0) {// 是否存在"," 以此判断只有sum或者只有count函数
+						if (sf.indexOf("sum") > 0 || sf.indexOf("count") > 0) {
+							for (int i = 0, len = list.size(); i < len; i++) {
+								Object object = list.get(i);
+								list.remove(object);
+								if (object == null) {
+									list.add(0F);
+								} else {
+									list.add(Float
+											.parseFloat(object.toString()));
+								}
+								i = 0;
+								len--;
+							}
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+	// 创建Hql语句修改
+	public int createQueryUpdate(String hql, String sql, Object... obj) {
+		Query query = null;
+		if (hql != null && sql == null) {
+			query = this.createQuery(hql);
+		} else if (hql == null && sql != null) {
+			query = this.createSqlQuery(sql);
+		}
+		if (obj != null) {
+			for (int i = 0; i < obj.length; i++) {
+				query.setParameter(i, obj[i]);
+			}
+		}
+		return query.executeUpdate();
+
+	}
+
+	// 分页方法
+	@SuppressWarnings("unchecked")
+	public List<Object> findAllByPage(String hql, int pageNo, int pageSize,
+			Object... obj) {
+		if (pageNo == 0 && pageSize == 0) {
+			return query(hql, obj);
+		}
+		if (pageNo < 1) {
+			pageNo = 1;
+		}
+		int offset = (pageNo - 1) * pageSize;
+		return findByPage(hql, offset, pageSize, obj);
+	}
+
+	// 获得总数量
+	public Integer getCount(String hql, Object... obj) {
+		String select = hql.substring(0, hql.indexOf("from"));
+		String from = hql.substring(hql.indexOf("from"));
+		int order = hql.indexOf(" order by ");
+		if (order > 0) {
+			from = from.substring(0, order - (select.length()));
+		}
+		hql = "select count(*) " + from;
+		List list = this.getHibernateTemplate().find(hql, obj);
+
+		if (list != null && list.size() > 0) {
+			return Integer.parseInt(list.get(0).toString());
+		}
+		return 0;
+	}
+
+	// 分页
+	@SuppressWarnings("rawtypes")
+	public List findByPage(final String hql, final int offset,
+			final int pageSize, final Object... obj) {
+		Query query = this.createQuery(hql);
+		if (obj != null) {
+			for (int i = 0; i < obj.length; i++) {
+				if (obj[i] != null)
+					query.setParameter(i, obj[i]);
+			}
+		}
+		List result = query.setFirstResult(offset).setMaxResults(pageSize)
+				.list();
+
+		return result;
+	}
+
+	// 多条件查询
+	@SuppressWarnings( { "rawtypes" })
+	public String criteriaQueries(Object obj, String other,
+			Object... otherNames) {
+		String hql = null;
+		if (obj != null) {
+			String className = obj.getClass().getSimpleName();// 类名称
+			hql = "from " + className + " where 1=1";
+			String propertyName = null;// 属性名称
+			// 处理对象
+			Field[] fields = obj.getClass().getDeclaredFields();
+			String hql2 = "";
+			try {
+				out: for (Field field : fields) {
+					try {
+						Class c = field.getType();// 获得属性的类型
+						// 去除子类
+						if (c.getName().equals("java.util.Set")) {
+							continue;
+						}
+						String name = field.getName();
+						if (name.equals("default_interceptor")
+								|| name.equals("handler")
+								|| name.equals("_method_filter")
+								|| name.equals("_methods_")) {
+							continue;
+						}
+						PropertyDescriptor pd = new PropertyDescriptor(field
+								.getName(), obj.getClass());
+						Method method = pd.getReadMethod();// 获得get方法
+						Object propertyObj = method.invoke(obj);// 获得get方法的值
+						if (c.getName().equals("int")
+								&& (Integer) propertyObj == 0) {
+							continue;
+						}
+						if (propertyObj != null) {
+							String propertyStr = propertyObj.toString();
+							if (propertyStr.trim().equals("[]")
+									|| "".equals(propertyStr)) {
+								continue;
+							}
+							propertyName = pd.getName();// 获得属性名称
+							if (otherNames != null) {
+								for (Object otherName : otherNames) {
+									if (propertyName.equals(otherName)) {
+										continue out;
+									}
+								}
+							}
+							/****
+							 * 如果propertyStr以百分号(%)结尾，那么作为完全匹配的条件
+							 */
+							int wq = propertyStr.lastIndexOf("!");
+							String propertyStrs[] = propertyStr.split(",");
+							//hql2 += " and (";
+							for (int i = 0, len = propertyStrs.length; i < len; i++) {
+								String propertyStrone = propertyStrs[i];
+								if (i > 0) {
+									hql2 += " or ";
+								}
+								if (wq < 0 || wq < len - 1) {
+									// 如果用sqlServer注意改成like的
+									 hql2 += " and " + propertyName +
+									 " like '%"
+									 + propertyStr + "%'";
+									// mysql支持的INSTR函数，比like查询有明显的速度提升
+//									hql2 += " INSTR(" + propertyName + ",'"
+//											+ propertyStrone + "' )>0 ";
+								} else {
+									if ((i+1) ==len){
+										propertyStrone = propertyStrone.substring(0,
+												propertyStrone.lastIndexOf("!"));
+									}
+									hql2 += "" + propertyName + " = '"
+											+ propertyStrone + "'";
+								}
+							}
+							//hql2 += " )";
+						}
+					} catch (Exception e) {
+						continue;
+					}
+				}
+				// 处理hql语句
+				if (other != null && other.length() > 0) {
+					hql += hql2 + " and " + other;
+				} else {
+					hql += hql2;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return hql;
+	}
+
+	// 条件查询属性返回子语句
+	@SuppressWarnings( { "rawtypes", "unused" })
+	@Deprecated
+	public String getChildHql(String pro, Object obj) {
+		String hql = "";
+		if (null != pro && !"".equals(pro)) {
+			String className = obj.getClass().getSimpleName();// 类名称
+			hql = "select " + pro + " from " + className;
+			String propertyName = null;// 属性名称
+			int status = 0;// 状态区分是否存在where 条件
+			try {
+				// 处理对象
+				Field[] fields = obj.getClass().getDeclaredFields();
+				String hql2 = null;
+
+				out: for (Field field : fields) {
+					Class c = field.getType();// 获得属性的类型
+					PropertyDescriptor pd = new PropertyDescriptor(field
+							.getName(), obj.getClass());
+					Method method = pd.getReadMethod();// 获得get方法
+					Object propertyObj = method.invoke(obj);// 获得get方法的值
+					if (c.getName().equals("int") && (Integer) propertyObj == 0) {
+						continue;
+					}
+					if (propertyObj != null && !"".equals(propertyObj)) {
+						propertyName = pd.getName();// 获得属性名称
+						status += 1;
+						if (status == 1) {
+							hql2 = " where " + propertyName + " like '%"
+									+ propertyObj.toString().trim() + "%'";
+						} else {
+							hql2 += " and " + propertyName + " like '%"
+									+ propertyObj + "%'";
+						}
+					}
+				}
+				if (null != hql2) {
+					hql += hql2;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return hql;
+	}
+
+	// 多条件查询 两个日期之间
+	@SuppressWarnings("rawtypes")
+	public String criteriaQueriesERROR(Object obj, String betweenName,
+			String[] between, String other) {
+		String hql = null;
+		if (obj != null) {
+			String className = obj.getClass().getSimpleName();// 类名称
+			hql = "from " + className + " where 1=1";
+			String propertyName = null;// 属性名称
+			int status = 0;// 状态区分是否存在where 条件
+			try {
+				// 处理对象
+				Field[] fields = obj.getClass().getDeclaredFields();
+				String hql2 = null;
+				for (Field field : fields) {
+					Class c = field.getType();// 获得属性的类型
+					PropertyDescriptor pd = new PropertyDescriptor(field
+							.getName(), obj.getClass());
+					Method method = pd.getReadMethod();// 获得get方法
+					Object propertyObj = method.invoke(obj);// 获得get方法的值
+					if (c.getName().equals("Set") || c.getName().equals("int")
+							&& (Integer) propertyObj == 0) {
+						continue;
+					}
+					if (propertyObj != null && !"".equals(propertyObj)
+							&& !"[]".equals(propertyObj)) {
+						propertyName = pd.getName();// 获得属性名称
+
+						if (propertyName.equals(betweenName)) {
+
+						}
+						status += 1;
+						if (status == 1) {
+							hql2 += " where " + propertyName + "='"
+									+ propertyObj + "'";
+						} else {
+							hql2 += " and " + propertyName + "='" + propertyObj
+									+ "'";
+						}
+					}
+				}
+				// 处理比较数据
+				/*
+				 * for(int i=0;i<between.length;i++){
+				 * if((Object)between[0]>(Object)between[1]){ } }
+				 */
+
+				// 处理hql语句
+				// 处理hql语句
+				hql += hql2;
+
+				// 处理hql语句
+				if (other != null && other.length() > 0) {
+					hql += hql2 + " and " + other;
+				} else {
+					hql += hql2;
+				}
+				/*
+				 * if (hql2.length() > 0) { hql += hql2; if (other.length() > 0)
+				 * { hql += " and " + other; } } else { if (other.length() > 0)
+				 * { hql += " where " + other; } }
+				 */
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return hql;
+	}
+
+	@SuppressWarnings( { "unused", "rawtypes" })
+	@Deprecated
+	public String queryIfhql(Object obj, String dic) {
+		String hql = null;
+		if (obj != null) {
+			String className = obj.getClass().getSimpleName();// 类名称
+			hql = "select distinct (ta.id) from TaHkHuikuan ta join ta.taHkSellStas tas";
+			String propertyName = null;// 属性名称
+			int status = 0;// 状态区分是否存在where 条件
+			try {// 处理对象
+				Field[] fields = obj.getClass().getDeclaredFields();
+				String hql2 = "";
+				for (Field field : fields) {
+					Class c = field.getType();// 获得属性的类型
+					PropertyDescriptor pd = new PropertyDescriptor(field
+							.getName(), obj.getClass());
+					Method method = pd.getReadMethod();// 获得get方法
+					Object propertyObj = method.invoke(obj);// 获得get方法的值
+
+					if (c.getName().equals("int") && (Integer) propertyObj == 0) {
+						continue;
+					}
+					if (propertyObj != null && !"".equals(propertyObj)) {
+						propertyName = pd.getName();// 获得属性名称
+						status += 1;
+						if (status == 1) {
+							hql2 += " where tas." + propertyName + " like '%"
+									+ propertyObj + "%'";
+						} else {
+							hql2 += " and tas." + propertyName + " like '%"
+									+ propertyObj + "%'";
+						}
+					}
+				}
+				hql += hql2;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return hql;
+	}
+
+	/***
+	 * 获得时间(如果timeFormat为空,返回日期格式为'yyyy-MM-dd hh:ss:mm'的时间)
+	 */
+	public final String getDateTime(String timeFormat) {
+		if (timeFormat != null && timeFormat.length() > 0)
+			return new SimpleDateFormat(timeFormat).format(new Date());
+		else
+			return new SimpleDateFormat("yyyy-MM-dd HH:ss:mm")
+					.format(new Date());
+	}
+
+	// 获得上个月的日期
+	public String getLastMonth(String timeFormat) {
+		String mouth = new SimpleDateFormat(timeFormat).format(new Date());
+		int yy = Integer.parseInt(mouth.substring(0, 4));
+		int mm = Integer.parseInt(mouth.substring(5, 7));
+		String other = mouth.substring(7);
+		if (mm == 1) {
+			mm = 12;
+			yy--;
+		} else {
+			mm--;
+		}
+		if (mm < 10) {
+			mouth = yy + "-0" + mm + other;
+		} else {
+			mouth = yy + "-" + mm + other;
+		}
+		return mouth;
+	}
+
+	// 多条件查询 两个字符串类型日期之间=====================jiahui
+	@SuppressWarnings("rawtypes")
+	public String criteriaQueries(Object obj, String betweenName,
+			String[] between, String other) {
+		String hql = null;
+		if (obj != null) {
+			String className = obj.getClass().getSimpleName();// 类名称
+			// System.out.println("classname=" + className);
+			hql = "from " + className + " where 1=1";
+			String propertyName = null;// 属性名称
+			int status = 0;// 状态区分是否存在where 条件
+			try {
+				// 处理对象
+				Field[] fields = obj.getClass().getDeclaredFields();
+				StringBuffer hql2 = new StringBuffer();
+				for (Field field : fields) {
+					Class c = field.getType();// 获得属性的类型
+					if (field.getName().equals("rDate")) {
+						System.out.println(field.getName());
+					}
+					PropertyDescriptor pd = new PropertyDescriptor(field
+							.getName(), obj.getClass());
+
+					Method method = pd.getReadMethod();// 获得get方法
+					Object propertyObj = method.invoke(obj);// 获得get方法的值
+					if ("java.util.Set".equals(c.getName())
+							|| c.getName().equals("int")
+							|| c.getName().equals("float")) {
+						continue;
+					}
+					// System.out.println("=================="+c.getName()+"===========duiying"+propertyObj);
+					if (propertyObj != null && !"".equals(propertyObj)) {
+						propertyName = pd.getName();// 获得属性名称
+
+						if (propertyName.equals(betweenName)) {
+							continue;
+						}
+						hql2.append(" and " + propertyName + " like '%"
+								+ propertyObj + "%'");
+					}
+				}
+				// 处理比较数据
+				/*
+				 * for(int i=0;i<between.length;i++){
+				 * if((Object)between[0]>(Object)between[1]){ } }
+				 */
+
+				if (between != null && null != between[0]
+						&& between[0].length() > 0) {
+					hql2.append(" and " + betweenName + " >= '" + between[0]
+							+ "'");
+				}
+				if (between != null && null != between[1]
+						&& between[1].length() > 0) {
+					hql2.append(" and " + betweenName + " <= '" + between[1]
+							+ "'");
+				}
+
+				// 处理hql语句=====================================
+				if (other != null && other.length() > 0) {
+					hql += hql2.toString() + " and " + other;
+				} else {
+					hql += hql2.toString();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return hql;
+	}
+
+	@Deprecated
+	public List listSub(String hql) {
+		return this.getHibernateTemplate().find(hql);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findByHql(String hql, Map<String, Object> map,
+			int pageSize, int pageNo) {
+		return this.getQuery(hql, map, pageSize, pageNo).list();
+	}
+
+	public Query getQuery(String hql, Map<String, Object> map, int pageSize,
+			int pageNo) {
+		Query query = this.createQuery(hql);
+		query = this.setParameter(query, map);
+		query = this.setPageProperty(query, pageSize, pageNo);
+		return query;
+	}
+
+	public Query setPageProperty(Query query, int pageSize, int pageNo) {
+		if (pageNo != 0 && pageSize != 0) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		return query;
+	}
+
+	public Query setParameter(Query query, Map<String, Object> map) {
+		if (map != null) {
+			Set<String> keySet = map.keySet();
+			for (String string : keySet) {
+				Object obj = map.get(string);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					query.setParameterList(string, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					query.setParameterList(string, (Object[]) obj);
+				} else {
+					query.setParameter(string, obj);
+				}
+			}
+		}
+		return query;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(String hql, Map<String, Object> params, int page, int rows) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				Object obj = params.get(key);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
+			}
+		}
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
+	}
+
+	@Override
+	public Long count(String hql, Map<String, Object> params) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				Object obj = params.get(key);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
+			}
+		}
+		return (Long) q.uniqueResult();
+	}
+
+	@Override
+	public Long count(String hql) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		return (Long) q.uniqueResult();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(String hql, int page, int rows) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(String hql) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		return q.list();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(String hql, Map<String, Object> params) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				Object obj = params.get(key);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
+			}
+		}
+		return q.list();
+	}
+
+	@Override
+	public Long count(String hql, Object[] params) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		if (params != null && params.length > 0) {
+			for (int i = 0; i < params.length; i++) {
+				q.setParameter(i, params[i]);
+			}
+		}
+		return (Long) q.uniqueResult();// 未返回BigInteger。我觉得用不到。嘿嘿...
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List find(String hql, Object[] params) {
+		Query q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createQuery(hql);
+		if (params != null && params.length > 0) {
+			for (int i = 0; i < params.length; i++) {
+				q.setParameter(i, params[i]);
+			}
+		}
+		return q.list();
+	}
+
+	@Override
+	public Object get(Class c, Serializable id) {
+		return this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().get(c, id);
+	}
+
+	/***
+	 * 获得HibernateTemplate对象
+	 * 
+	 * @return
+	 */
+	// public final static HibernateTemplate findHibernateTemplate() {
+	// HibernateTemplate ht = (HibernateTemplate) ActionContext.getContext()
+	// .getApplication().get("HibernateTemplate");
+	// if (ht == null) {
+	// // 获得hibernateTemplate对象，并赋值给totalDao
+	// String fileRealPath = ServletActionContext.getServletContext()
+	// .getRealPath("WEB-INF/applicationContext.xml");
+	// ApplicationContext ctx = new FileSystemXmlApplicationContext(
+	// fileRealPath);
+	// ht = (HibernateTemplate) ctx.getBean("hibernateTemplate");
+	// ActionContext.getContext().getApplication().put(
+	// "HibernateTemplate", ht);
+	// }
+	// return ht;
+	// }
+
+	/***
+	 * 获取totalDaoImpl的bean属性，用于手动注入用
+	 * 
+	 * @return
+	 */
+	public final static TotalDao findTotalDao() {
+		WebApplicationContext wac = ContextLoader
+				.getCurrentWebApplicationContext();
+		TotalDao t = (TotalDao) wac.getBean("totalDaoImpl");
+		return t;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object get(String hql, Object[] param) {
+		List l = this.find(hql, param);
+		if (l != null && l.size() > 0) {
+			return l.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	@SuppressWarnings( { "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql(String sql) {
+		SQLQuery q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createSQLQuery(sql);
+		return q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+	}
+
+	@SuppressWarnings( { "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql(String sql, int page, int rows) {
+		SQLQuery q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createSQLQuery(sql);
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows)
+				.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+	}
+
+	@SuppressWarnings( { "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql(String sql, Map<String, Object> params) {
+		SQLQuery q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createSQLQuery(sql);
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				Object obj = params.get(key);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
+			}
+		}
+		return q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+	}
+
+	@SuppressWarnings( { "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql(String sql, Map<String, Object> params,
+			int page, int rows) {
+		SQLQuery q = this.getHibernateTemplate().getSessionFactory()
+				.getCurrentSession().createSQLQuery(sql);
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				Object obj = params.get(key);
+				// 这里考虑传入的参数是什么类型，不同类型使用的方法不同
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
+			}
+		}
+		if (page < 1) {
+			page = 1;
+		}
+		if (rows < 0) {
+			rows = 10;
+		}
+
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows)
+				.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+	}
+
+}

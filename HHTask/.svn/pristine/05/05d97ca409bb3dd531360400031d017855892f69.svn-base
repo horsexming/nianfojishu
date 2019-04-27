@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="DefectiveProduct" table="ta_sop_w_DefectiveProduct">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="cgOrderNum"/>
+		<property name="shOrderNum"/>
+		<property name="markId"/>
+		<property name="ywmarkId"/>
+		<property name="kgliao"/>
+		<property name="banben"/>
+		<property name="banci"/>
+		<property name="tuhao"/>
+		<property name="proName"/>
+		<property name="specification"/>
+		<property name="unit"/>
+		<property name="hsPrice"/>
+		<property name="price"/>
+		<property name="taxprice"/>
+		<property name="priceId"/>
+		<property name="gysId"/>
+		<property name="gysName"/>
+		<property name="examineLot"/>
+		<property name="jyuserId"/>
+		<property name="jyuserCode"/>
+		<property name="jyuserName"/> 
+		<property name="checkTime"/>
+		<property name="jyhgNumber"/>
+		<property name="jybhgNumber"/>
+		<property name="wgddId"/>
+		<property name="type"/>
+		<property name="status"/>
+		<property name="zjhgNumber"/>
+		<property name="zjbhgNumber"/>
+		<property name="zjUsers"/>
+		<property name="zjTime"/>
+		<property name="llNumber"/>
+		<property name="addTime"/>
+		<property name="addUser"/>
+		<property name="wgType"/>
+		<property name="gysUsersId"/>
+		<property name="dbNumber"/>
+		<property name="zhuanhuanNum"/>
+		<property name="zhuanhuanUit"/>
+		<property name="fujian"/>
+		<property name="procardId"/>
+		<property name="selfcard"/>
+		<property name="ramk" length="800"/>
+		<property name="ishege"/>
+		<property name="againcheck"/>
+		<property name="fenjianNum"/>
+		<property name="jyNumber"/>
+		<property name="epId"/>
+		<property name="epStatus"/>
+		<property name="wlType"/>
+		<property name="result"/>
+	</class>
+</hibernate-mapping>

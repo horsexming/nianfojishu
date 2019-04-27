@@ -1,0 +1,432 @@
+package com.task.action.oa;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.hibernate.hql.ast.ErrorReporter;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.Server.oa.OAAppdetailTemplateService;
+import com.task.entity.ModuleFunction;
+import com.task.entity.OaAppDetailTemplate;
+import com.task.entity.UserFacialInfor;
+import com.task.entity.Users;
+import com.task.util.MKUtil;
+/**
+ * 物料编码模板
+ * @author wcy
+ */
+public class OAAppDetailTemplateAction {
+	
+	private OAAppdetailTemplateService templateService ;
+	private OaAppDetailTemplate template;
+	private String url;
+	private String message;
+	private String cpage = "1";
+	private String total;
+	private int pageSize = 15;
+	private String tag;
+	private Integer id;
+	private File oadetailFile;
+	private String errorMessage;
+	private List<OaAppDetailTemplate> templateList;
+	private String powerTag;
+	private String startDate;
+	private String endDate;
+	private int ids[];
+	
+	public OAAppdetailTemplateService getTemplateService() {
+		return templateService;
+	}
+
+	public void setTemplateService(OAAppdetailTemplateService templateService) {
+		this.templateService = templateService;
+	}
+	
+	//保存申购
+	public String saveOaappdetailTemp(){
+		try {
+			if(null!=template){
+				String temp = templateService.saveOaAppDetailTemp(template);
+				if(temp.equals("true")) errorMessage= "添加成功！";
+				else errorMessage=temp;
+			}else { 
+				errorMessage="所有值不能为空！";
+			}
+		} catch (Exception e) {
+			errorMessage = e.toString();
+		}
+		return "oaAppDetailTemplate_save";
+	}
+	
+	//批量导入辅料申购
+	public String batchSaveOaappdetailTemp(){
+		message   = templateService.batchSaveOaappdetailTemp(oadetailFile);
+		return "oaAppDetailTemplate_save";
+	}
+	
+	//查找申购
+	public String findTempList(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if(null!=template ){
+			request.setAttribute("template", template);
+		}else{
+			template = (OaAppDetailTemplate) request.getAttribute("template");
+		}
+		if(null!=startDate || !"".equals(startDate)){
+			request.setAttribute("startDate", startDate);
+		}else {
+			startDate = (String) request.getAttribute("startDate");
+		}
+		if(null!=endDate || !"".equals(endDate)){
+			request.setAttribute("endDate", endDate);
+		}else{
+			endDate = (String) request.getAttribute("endDate");
+		}
+		
+		Object[] object=null;
+		if(tag!=null && tag.equals("examine")) {//待审批页面
+			object = templateService.findExamineList(template, startDate, endDate, Integer.parseInt(cpage ), pageSize);
+			if (object != null && object.length > 0) {
+				templateList = (List<OaAppDetailTemplate>) object[0];
+				if (templateList != null && templateList.size() > 0) {
+					int count = (Integer) object[1];
+					int pageCount = (count + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+				}
+			}
+			this.setUrl("OAAppDetailTemplateAction!findTempList.action?tag="+tag);
+			return "oaAppDetailTemplate_listExamine";//oaAppDetailTemplate_listExamine.jsp
+		}else {
+			object = templateService.findList(template, startDate, endDate, Integer.parseInt(cpage ), pageSize);
+			if (object != null && object.length > 0) {
+				templateList = (List<OaAppDetailTemplate>) object[0];
+				if (templateList != null && templateList.size() > 0) {
+					int count = (Integer) object[1];
+					int pageCount = (count + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+				}
+			}
+			this.setUrl("OAAppDetailTemplateAction!findTempList.action?tag="+tag);
+			return "findTempList_ok";//oaAppDetailTemplate_list.jsp
+		}
+		
+		
+	}
+
+
+	public void exportExcel(){
+		{
+			HttpServletRequest request = ServletActionContext.getRequest();
+			if(null!=template ){
+				request.setAttribute("template", template);
+			}else{
+				template = (OaAppDetailTemplate) request.getAttribute("template");
+			}
+			if(null!=startDate || !"".equals(startDate)){
+				request.setAttribute("startDate", startDate);
+			}else {
+				startDate = (String) request.getAttribute("startDate");
+			}
+			if(null!=endDate || !"".equals(endDate)){
+				request.setAttribute("endDate", endDate);
+			}else{
+				endDate = (String) request.getAttribute("endDate");
+			}
+			templateService.findListExportExcel(template, startDate, endDate, Integer.parseInt(cpage ), pageSize);
+		}
+	}
+	//修改申购
+	public String updateTemp(){
+		if(null!=template){
+			try {
+				boolean updateTemplate = templateService.updateTemplate(template);
+				if(updateTemplate){
+					errorMessage = "更新成功";
+					return "error";
+				}else {
+					errorMessage = "更新出错";
+				}
+			} catch (Exception e) {
+				errorMessage = e.toString();
+			}
+		}
+		return "error";
+	}
+	
+	public void deleteOADetailTempById(){
+		boolean flag = templateService.deleteTemplate(id);
+		if(flag){
+			this.setCpage(cpage);
+			setMessage("删除成功！");
+		}else{
+			setMessage("删除失败！");
+		}
+		MKUtil.writeJSON(message);
+	}
+	
+	//根据id获得申购
+	public String getTemplateById(){
+		template = templateService.getOADTById(id);
+		if("update".equals(tag)){//进入修改采购申请页面
+			return "template_go_update";//oaAppDetailTemplate_update.jsp
+		}else if("showExamine".equals(tag)){ //审批查看页面
+			return "showExamine"; //oaAppDetailTemplate_show.jsp
+		}
+		return "error";
+	}
+	
+	//根据类别获取所有的物品名称
+	public void getDetailAppName(){
+		try {
+			tag = java.net.URLDecoder.decode(java.net.URLDecoder.decode(tag,
+					"UTF-8"), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String message = templateService.findchildClass(tag, powerTag);
+		try {
+			HttpServletResponse response = ServletActionContext.getResponse();
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(message);
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 根据物品名称查找申购信息
+	 */
+	public void getTempByAppName(){
+		template = templateService.getTempByAppName(template.getDetailAppName());
+		MKUtil.writeJSON(template);
+	}
+
+	/**
+	 * 根据物品名称模糊查找申购信息
+	 */
+	public void searchAppName(){
+		String errorMessage = null;
+		if (template == null || "".equals(template.getDetailAppName()) || template.getDetailAppName() == null ) {
+			errorMessage = "没有找到您要检索的物品,请重试!";
+		}
+		String name = null;
+		String detailChildClass = null;
+		try {
+			name = URLDecoder.decode(template.getDetailAppName(), "UTF-8");
+			if(template.getDetailChildClass()==null){
+				template.setDetailChildClass("");
+			}
+			detailChildClass = URLDecoder.decode(template.getDetailChildClass(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		List<OaAppDetailTemplate> list = templateService.searchAppName(name,detailChildClass);
+		if (list.size() > 0) {
+			/*class Module {
+				public int moduleid;
+				public String wlcode;
+				public String modulename;
+				public String detailAppName;
+				public String unit;
+				public String format;
+				public String detailClass;
+			}
+			List<Module> modules = new ArrayList<Module>();
+			for (OaAppDetailTemplate temp : list) {
+				Module module = new Module();
+				module.moduleid = temp.getId();
+				module.wlcode = temp.getWlcode();
+				module.detailAppName = temp.getDetailAppName();
+				module.format = temp.getDetailFormat();
+				module.unit = temp.getDetailUnit();
+				module.detailClass = temp.getDetailChildClass();
+				String str = htmlEncode("<span color=\"gray\">类别:</span>"+temp.getDetailChildClass()
+						+",<span color='gray'>编号:</span>"+temp.getWlcode()+",<span color='gray'>物品名称:</span>"
+						+ temp.getDetailAppName()+",<span color='gray'>规格:</span>"+temp.getDetailFormat()
+						+",<span color='gray'>单位:"+temp.getDetailUnit());
+				
+				module.modulename ="类别:"+temp.getDetailChildClass()
+				+",编号:</span>"+temp.getWlcode()+",<span color='gray'>物品名称:</span>"
+				+ temp.getDetailAppName()+",<span color='gray'>规格:</span>"+temp.getDetailFormat()
+				+",<span color='gray'>单位:"+temp.getDetailUnit()+"</span>";
+				//module.modulename ="<SPAN >类别:</SPAN>"+temp.getDetailChildClass();
+				modules.add(module);
+			}*/
+			MKUtil.writeJSON(list);
+		} else {
+			errorMessage = "没有找到您要检索的物品,请重试!";
+			MKUtil.writeJSON(errorMessage);
+		}
+	}
+
+	/**
+	 * 根据申请编号查找预申请编码
+	 */
+	public void getTempByCode(){
+		template =templateService.getTempByCode(template.getWlcode());
+		MKUtil.writeJSON(template);
+	}
+	
+	/**
+	 * 查找检索类型字段，做下拉
+	 * 
+	 * @return
+	 */
+	public String findOASelect() {
+		String message = templateService.findOASelect(tag, powerTag);
+		try {
+			HttpServletResponse response = ServletActionContext.getResponse();
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(message);
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "error";
+	}
+	
+	/**
+	 * 批量审批
+	 * @return
+	 */
+	public String auditAllShenPi() {
+		errorMessage = templateService.auditAllShenPi(ids, tag);
+		if(errorMessage==null || errorMessage.equals("")) {
+			setUrl("OAAppDetailTemplateAction!findTempList.action?tag="+tag+"&powerTag="+powerTag);
+		}
+		return "error";
+	}
+	
+	
+	public OaAppDetailTemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(OaAppDetailTemplate template) {
+		this.template = template;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public List<OaAppDetailTemplate> getTemplateList() {
+		return templateList;
+	}
+
+	public void setTemplateList(List<OaAppDetailTemplate> templateList) {
+		this.templateList = templateList;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public File getOadetailFile() {
+		return oadetailFile;
+	}
+
+	public void setOadetailFile(File oadetailFile) {
+		this.oadetailFile = oadetailFile;
+	}
+
+	public String getPowerTag() {
+		return powerTag;
+	}
+
+	public void setPowerTag(String powerTag) {
+		this.powerTag = powerTag;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public int[] getIds() {
+		return ids;
+	}
+
+	public void setIds(int[] ids) {
+		this.ids = ids;
+	}
+	
+}

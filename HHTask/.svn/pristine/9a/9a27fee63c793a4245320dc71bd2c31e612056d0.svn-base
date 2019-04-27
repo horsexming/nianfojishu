@@ -1,0 +1,814 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<style type="text/css">
+/**/ /**
+*    分页打印打印相关
+*/
+@media print {
+	.notprint {
+		display: none;
+	}
+	.PageNext {
+		page-break-after: always;
+	}
+	.proName_td{
+		width: 240px;
+		line-height: 12px;
+		font-size: 1px;
+		overflow: hidden;
+	}
+	.processNames_td{
+		width: 240px;
+		line-height: 12px;
+		font-size: 1px;
+		overflow: hidden;
+	}
+}
+
+@media screen {
+	.notprint {
+		display: inline;
+		cursor: hand;
+	}
+	.wfgx_td {
+		width: 260px;
+	}
+}
+
+.text1 {
+	width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.text2 {
+	width: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.shenhe { 
+	position: absolute; 
+	top: 50px;
+	right: 10px; 
+	z-index: 10; 
+	transform: rotate(12deg);
+	opacity: 1.0;
+	
+}
+</style>
+	</head>
+	<body style="font-family: '黑体';">
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<br />
+				<table width="100%" align=center class="notprint">
+					<tr>
+						<td align="right">
+							<%--								<input type=button id="bp"--%>
+							<%--									onClick="pp.beforePrint();this.disabled = true;document.getElementById('ap').disabled = false;"--%>
+							<%--									value="分页" style="border: 1px solid #000000">--%>
+							<input type="text" value="${pageSize1}" id="pageSize"
+								style="width: 75px;" onchange="numyanzheng(this,'zhengshu')" />
+							<input type="button" value="调整分页"
+								style="border: 1px solid #000000" onclick="print2('${strids}')" />
+							<input type=button value='打印' onClick="isprint()"
+								style="border: 1px solid #000000; cursor: pointer;">
+						</td>
+					</tr>
+				</table>
+				<form action="" id="submit" method="post">
+					<s:iterator value="waigouOrderList" id="waigouOrder"
+						status="statusdf">
+						<input type="hidden" value="${waigouOrder.id}" name="processIds" />
+						<div>
+							<table border=0 width="95%" align=center
+								id="tabHeader_${statusdf.index}"
+								style="font-size: 14px; line-height: 12px;">
+								<tr>
+									<td colspan="15" align="right">
+										<input type="hidden" value="${waigouOrder.status}"
+											id="shehe_status_${statusdf.index}" />
+										<s:if
+											test="#waigouOrder.status!='待核对'&&#waigouOrder.status!='待审批'&&#waigouOrder.status!='待通知'">
+											<div id="shenhe_${statusdf.index}" class="shenhe"">
+												<img alt="" src="<%=basePath%>/img/yishenhe.png"
+													style="transform: rotate(8deg);" width="80px;"
+													height="50px;" />
+											</div>
+										</s:if>
+									</td>
+								</tr>
+								<tr>
+									<th colspan="10" style="border: hidden; font-size: x-large;">
+										<s:if test="#waigouOrder.wwType == '包工包料'">
+									委外订单
+								</s:if>
+										<s:else>
+									委外工序订单
+								</s:else>
+									</th>
+									<td colspan="4" style="border: hidden; font-size: x-large;">
+										<img id="showcode" alt=""
+											src="barcode.action?msg=${waigouOrder.planNumber}"
+											width="200px" height="60px" />
+										<span style="font-size: 1px;">
+											<!--ct-->
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="border: hidden; width: 100px;" align="left"
+										colspan="8">
+										供应商编号:${waigouOrder.userCode}
+									</th>
+									<th style="border: hidden;" align="left" colspan="4">
+										订单编号:${waigouOrder.planNumber}
+									</th>
+								</tr>
+								<tr>
+									<th style="border: hidden;" align="left" " colspan="8">
+										供应商名称:${waigouOrder.gysName}
+									</th>
+									<th style="border: hidden;" colspan="4" align="left">
+										制单日期:${waigouOrder.addTime}
+									</th>
+								</tr>
+								<tr>
+									<th style="border: hidden;" colspan="8" align="left">
+										地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:${waigouOrder.ghAddress}
+									</th>
+									<th style="border: hidden;" colspan="4" align="left">
+										采&nbsp;&nbsp;购&nbsp;&nbsp;员:${waigouOrder.addUserName}
+									</th>
+								</tr>
+								<tr>
+									<th style="border: hidden;" colspan="8" align="left">
+										联&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;人:${waigouOrder.lxPeople}
+									</th>
+									<th style="border: hidden;" colspan="4" align="left">
+										付款方式:${waigouOrder.payType}
+									</th>
+								</tr>
+								<tr>
+									<th style="border: hidden; border-bottom: inherit;" colspan="8"
+										align="left">
+										电话&nbsp;/&nbsp;传真:${waigouOrder.gysPhone}/${waigouOrder.fax}
+									</th>
+									<th style="border: hidden; border-bottom: inherit;" colspan="4"
+										align="left">
+										票据类型:增值税发票 ${waigouOrder.piaojuType}%
+									</th>
+								</tr>
+								<tr>
+									<th style="border: hidden; border-bottom: inherit;" colspan="8"
+										align="left">
+										业务件号:${waigouOrder.ywMarkId}
+									</th>
+									<th style="border: hidden; border-bottom: inherit;" colspan="4"
+										align="left">
+										&nbsp;
+									</th>
+								</tr>
+							</table>
+							<table class="table"
+								style="border-collapse: collapse; font-size: 13px; line-height: 12px;"
+								align=center cellpadding=3 id="tabDetail_${statusdf.index}">
+								<tr>
+									<th>
+										<%--								<font size="2" style="width: 80px;">销售订单号</font>--%>
+										<font size="2">序号</font>
+									</th>
+									<th>
+										<font size="2">物料编码</font>
+									</th>
+									<th>
+										<font size="2" style="width: 100px;">产品名称</font>
+									</th>
+									<th style="" >
+										外发工序
+									</th>
+									<th>
+										<font size="2">版本</font>
+									</th>
+									<th class="waifaNum_td">
+										<font size="2">外发数量</font>
+									</th>
+									<th>
+										单位
+									</th>
+									<th>
+										<font size="2">含税单价</font>
+									</th>
+									<th>
+										<font size="2">税率</font>
+									</th>
+									<th>
+										<font size="2">金额</font>
+									</th>
+									<th class="jaohuori_td">
+										<font size="2">交货日期</font>
+									</th>
+									<th>
+										备注
+									</th>
+								</tr>
+								<s:iterator value="#waigouOrder.wwpList" id="waigouPlan"
+									status="pagestatus1">
+									<tr style="height: 35px;">
+										<th>
+											<%--									${waigouPlan.neiorderNum}--%>
+											<s:property value="#pagestatus1.index+1" />
+										</th>
+										<td align="left" style="width: 120px;">
+											${waigouPlan.markId}
+										</td>
+<%--										line-height: 25px;--%>
+<%--											overflow: hidden;--%>
+										<td align="left" style="width: 200px; height:35px;" class="proName_td">
+											<p class="proName_p">
+												${waigouPlan.proName}
+											</p> 
+										</td>
+										<td align="left"  class="processNames_td"
+											style="width:200px;height:35px;">
+											<p class="processNames_p">
+												${waigouPlan.processNames}   
+											</p>
+										</td>
+										<td align="left" style="width: 50px;">
+											${waigouPlan.banben}
+										</td>
+										<td align="right"  style="width: 70px;" class="waifaNum_td">
+											<b>
+											<fmt:formatNumber value="${waigouPlan.number}" pattern="###"></fmt:formatNumber>	
+											</b>
+										</td>
+										<td align="left" style="width: 50px;">
+											${waigouPlan.unit}
+										</td>
+										<td align="right" id="td_hsPrice_${waigouPlan.id}" style="width: 75px;">
+											<SCRIPT type="text/javascript">
+											var num = formtNumber(${waigouPlan.hsPrice},4);
+											$("#td_hsPrice_${waigouPlan.id}").html('<b>'+num+'</b>');
+										</SCRIPT>
+										</td>
+										<td align="right" style="width: 70px;">
+											<b>${waigouPlan.taxprice}</b>
+										</td>
+										<td align="right" id="td_Money_${waigouPlan.id}" style="width: 75px;">
+											<SCRIPT type="text/javascript">
+											var num = formtNumber(${waigouPlan.hsPrice * waigouPlan.number},4);
+											$("#td_Money_${waigouPlan.id}").html('<b><!-- hj -->'+num+'<!-- hj --></b>');
+										</SCRIPT>
+										</td>
+										<td align="left" class="jaohuori_td" style="width: 120px;">
+											${waigouPlan.jiaofuTime}
+										</td>
+										<td align="left" style="width: 120px;">
+											${waigouPlan.neiorderNum}
+										</td>
+									</tr>
+								</s:iterator>
+							</table>
+							<table id="tabFooter_${statusdf.index}" align=center
+								cellpadding="4" width="100%"
+								style="font-size: 8px; line-height: 12px; font-family: '黑体';">
+								<tr>
+									<!-- byhj -->
+								</tr>
+								<tr>
+									<th align="right">
+										订单合计:
+									</th>
+									<th colspan="6" align="left">
+										<fmt:formatNumber value="${waigouOrder.allMoneys}" pattern="#.##"></fmt:formatNumber>	
+										<input type="hidden" value="<fmt:formatNumber value="${waigouOrder.allMoneys}" pattern="#.##"></fmt:formatNumber>"
+											id="sumMoney_${statusdf.index}" />
+									</th>
+									<th colspan="7" id="daxie_${statusdf.index}" align="left"></th>
+								</tr>
+
+								<tr>
+									<th align="right" style="border: hidden;">
+										送货地址:
+									</th>
+									<th colspan="12" align="left"
+										style="border: hidden; border-top: inherit;">
+										${waigouOrder.shAddress}
+									</th>
+								</tr>
+								<tr style="border: hidden;">
+									<th align="right" style="border: hidden;">
+										备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:
+									</th>
+									<th colspan="12" align="left" style="border: hidden;"></th>
+								</tr>
+								<tr style="border: hidden;">
+									<th align="right" style="border: hidden; vertical-align: top;">
+										条&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;款:
+									</th>
+									<th style="border: hidden;" colspan="12" align="left">
+										<ul>
+											<li>
+												1.交货为发货之日起不得超过三天，急料第二天返回：不良品由外协厂无偿返工，必须24小时处理。
+											</li>
+											<li>
+												2.品质要求安各表处代码的相应要求验收。
+											</li>
+											<li>
+												3.若双方在数量、单价上有异议在24小时通知对方共同协商解决。
+											</li>
+											<%--								<li>4.所有的图纸只有经过我司文控中心下发的才为有效图纸，如电子档等都属于无效图纸。</li>--%>
+											<li>
+												4.每款产品在量产前必须经过我司工程部、品质部签样确认，否则我司不负任何责任。
+											</li>
+										</ul>
+									</th>
+								</tr>
+								<tr style="border: hidden;">
+									<th style="border: hidden;" align="right">
+										制单:
+									</th>
+									<th style="border: hidden;" colspan="12" align="left">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										采购:${waigouOrder.addUserName}
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										采购经理:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										供应商确认:
+									</th>
+								</tr>
+								<tr style="border: hidden;">
+									<th style="border: hidden;" align="right">
+										注:
+									</th>
+									<th style="border: hidden;" colspan="12" align="left">
+										第一联:PMC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二联:财务
+									</th>
+								</tr>
+							</table>
+						</div>
+						<div id="divPrint_${statusdf.index}"></div>
+						<div class='pageNext'></div>
+					</s:iterator>
+				</form>
+				<%--				<input type="button" value="打印" onclick="pagePrint('printdiv')" class="input"/>--%>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+
+		<SCRIPT type="text/javascript">
+$(function(){
+	textoverflow('proName_td','proName_p');
+	textoverflow('processNames_td','processNames_p');
+})
+function daxiezhuanhuan(n){
+	 var fraction = ['角', '分'];
+    var digit = [
+        '零', '壹', '贰', '叁', '肆',
+        '伍', '陆', '柒', '捌', '玖'
+    ];
+    var unit = [
+        ['元', '万', '亿'],
+        ['', '拾', '佰', '仟']
+    ];
+    var head = n < 0 ? '欠' : '';
+    n = Math.abs(n);
+    var s = '';
+    for (var i = 0; i < fraction.length; i++) {
+        s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+    }
+    s = s || '整';
+    n = Math.floor(n);
+    for (var i = 0; i < unit[0].length && n > 0; i++) {
+        var p = '';
+        for (var j = 0; j < unit[1].length && n > 0; j++) {
+            p = digit[n % 10] + unit[1][j] + p;
+            n = Math.floor(n / 10);
+        }
+        s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
+    }
+    return head + s.replace(/(零.)*零元/, '元')
+        .replace(/(零.)+/g, '零')
+        .replace(/^整$/, '零元整');
+}
+<!--
+
+/**//** 
+**    ================================================================================================== 
+**    类名：CLASS_PRINT 
+**    功能：打印分页 
+**    示例： 
+    --------------------------------------------------------------------------------------------------- 
+
+        var pp = new CLASS_PRINT();
+
+        window.onload = function(){
+            pp.header = document.getElementById("tabHeader");
+            pp.content= document.getElementById("tabDetail");
+            pp.footer = document.getElementById("tabFooter");
+
+            pp.hideCols("5,7");    
+            pp.hideRows("3,15");
+            pp.pageSize = 10;    
+        }
+
+        <BODY onbeforeprint="pp.beforePrint()" onafterprint="pp.afterPrint()">
+
+
+*/
+function CLASS_PRINT()
+{
+    this.header        = null;
+    this.content    = null;
+    this.footer        = null;
+    this.board        = null;
+    this.pageSize    = 6;
+	this.count = 0;
+    var me            = this;
+
+    //哈希表类
+    function Hashtable()
+    {
+        this._hash        = new Object();
+        this.add        = function(key,value){
+                            if(typeof(key)!="undefined"){
+                                if(this.contains(key)==false){
+                                    this._hash[key]=typeof(value)=="undefined"?null:value;
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
+                        }
+        this.remove        = function(key){delete this._hash[key];}
+        this.count        = function(){var i=0;for(var k in this._hash){i++;} return i;}
+        this.items        = function(key){return this._hash[key];}
+        this.contains    = function(key){return typeof(this._hash[key])!="undefined";}
+        this.clear        = function(){for(var k in this._hash){delete this._hash[k];}}
+
+    }
+
+    //字符串转换为哈希表
+    this.str2hashtable = function(key,cs){
+        
+            var _key    = key.split(/,/g);
+            var _hash    = new Hashtable();
+            var _cs        = true;
+            if(typeof(cs)=="undefined"||cs==null){
+                _cs = true;
+            } else {
+                _cs = cs;
+            }
+
+            for(var i in _key){
+                if(_cs){
+                    _hash.add(_key[i]);
+                } else {
+                    _hash.add((_key[i]+"").toLowerCase());
+                }
+
+            }
+            return _hash;
+        }
+
+    this._hideCols    = this.str2hashtable("");
+    this._hideRows    = this.str2hashtable("");
+
+    this.hideCols = function(cols){
+        me._hideCols = me.str2hashtable(cols)
+    }
+
+    this.isHideCols = function(val){    
+        return    me._hideCols.contains(val);
+    }
+
+    this.hideRows = function(rows){
+        me._hideRows = me.str2hashtable(rows)
+    }
+
+    this.isHideRows = function(val){    
+        return    me._hideRows.contains(val);
+    }
+
+    this.afterPrint = function()
+    {
+        var table = me.content;        
+        
+        if(typeof(me.board)=="undefined"||me.board==null){        
+            me.board = document.getElementById("divPrint_"+this.count);
+            if(typeof(me.board)=="undefined"||me.board==null){
+                me.board = document.createElement("div");
+                document.body.appendChild(me.board);
+            }
+        }
+
+        if(typeof(table)!="undefined"){
+            for(var i =0;i<table.rows.length;i++){
+                var tr = table.rows[i];
+                for(var j=0;j<tr.cells.length;j++){
+                    if(me.isHideCols(j)){
+                        tr.cells[j].style.display = "";
+                    }
+                }
+            }
+        }
+
+        me.content.style.display    = '';
+        me.header.style.display        = '';
+        me.footer.style.display        = '';
+        me.board.innerHTML            = '';
+
+    }
+
+    this.beforePrint = function(){
+
+        var table = me.content;   
+
+        if(typeof(me.board)=="undefined"||me.board==null){        
+            me.board = document.getElementById("divPrint_"+this.count);
+            if(typeof(me.board)=="undefined"||me.board==null){
+                me.board = document.createElement("div");
+                document.body.appendChild(me.board);
+            }
+        }
+
+
+        if(typeof(table)!="undefined"&&this.hideCols.length>0){        
+            
+            for(var i =0;i<table.rows.length;i++){
+                var tr = table.rows[i];
+                for(var j=0;j<tr.cells.length;j++){
+                    if(me.isHideCols(j)){                    
+                        tr.cells[j].style.display = "none";
+                    }
+                }
+            }
+        }
+    
+        
+        ///开始分页    
+        var pageSize = this.pageSize;
+        
+        var head    = me.header;
+        var foot    = me.footer;
+        
+        var page    = new Array();
+        var rows    = "";    
+        var rowIndex= 1;
+
+        var cp        = 0;
+        var tp        = 0;
+        
+        
+        for(i=1;i<table.rows.length;i++){                
+            if(this.isHideRows(i)==false){
+                if((((rowIndex-1)%pageSize)==0&&rowIndex>1)||i==table.rows.length){                                
+                    page[page.length] = getTable(head,table,rows,foot);
+                                                    
+                    rows    = getOuterHTML(table.rows[i]) + "\n" ; 
+                    rowIndex= 2;
+                                                                            
+                } else {
+                    rows    += getOuterHTML(table.rows[i]) + "\n"; 
+                    rowIndex++;
+                }
+            }
+        }
+        
+        if(rows.length>0){
+            page[page.length] = getTable(head,table,rows,foot);
+        }
+
+        tp = page.length;
+
+        for(var i=0;i<page.length;i++){
+        	var arrays =		 page[i].split('<!-- hj -->');
+       		var pagemoney = 0;
+       		for(var j=1;j<arrays.length;j+=2){
+       			pagemoney+=parseFloat(arrays[j]);
+       		}
+       		pagemoney = formtNumber(pagemoney,2);
+       		 var daxie = daxiezhuanhuan(pagemoney);
+            page[i] = page[i].replace(/\<\!--ct-->/g,'第'+(i+1)+'页 共' + tp+'页').replace(/\<\!--cp--\>/g,i+1).replace(/\<\!--tp--\>/g,tp);
+            page[i] = page[i].replace(/\<!-- byhj -->/g,'<th align="right">本页合计:</th> <th colspan="6" align="left" >'+pagemoney
+            	+'</th><th align="left"   id="daxie">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+            	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+            	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+            	'&nbsp;' 
+            	+daxie+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>').replace(/\<!-- byhj -->/g,i+1).replace(/\<!-- byhj -->/g,tp);
+        }
+        
+                    
+        head.style.display        = 'none';
+        foot.style.display        = 'none';
+        table.style.display        = 'none';
+        if(page.length>1){
+            me.board.innerHTML = page.join("\n<div class='pageNext'></div>");
+        }else{
+            me.board.innerHTML = page.join("");
+        }
+    }
+
+function getOuterHTML (node) {
+
+    if(typeof(node)!="undefined"&&typeof(node.outerHTML)!="undefined"){
+        return node.outerHTML;
+    }
+
+    var emptyElements = {
+      HR: true, BR: true, IMG: true, INPUT: true
+    };
+    var specialElements = {
+      TEXTAREA: true
+    };
+
+    var html = '';
+    switch (node.nodeType){
+        case Node.ELEMENT_NODE:
+            html += '<';
+            html += node.nodeName;
+            if (!specialElements[node.nodeName]) {
+                for (var a = 0; a < node.attributes.length; a++)
+                    html += ' ' + node.attributes[a].nodeName.toUpperCase() + '="' + node.attributes[a].nodeValue + '"';
+                html += '>'; 
+                if (!emptyElements[node.nodeName]){
+                    html += node.innerHTML;
+                    html += '<\/' + node.nodeName + '>';
+                }
+            }
+            else 
+                switch (node.nodeName){
+                    case 'TEXTAREA':
+                        var content = '';
+                        for (var a = 0; a < node.attributes.length; a++)
+                            if (node.attributes[a].nodeName.toLowerCase() != 'value')
+                                html += ' ' + node.attributes[a].nodeName.toUpperCase() + '="' + node.attributes[a].nodeValue + '"';
+                            else 
+                                content = node.attributes[a].nodeValue;
+                            html += '>'; 
+                            html += content;
+                            html += '<\/' + node.nodeName + '>';
+                        break; 
+                }
+            break;
+        case Node.TEXT_NODE:
+            html += node.nodeValue;
+            break;
+        case Node.COMMENT_NODE:
+            html += '<!' + '--' + node.nodeValue + '--' + '>';
+            break;
+    }
+    return html;
+}
+
+    function getTable(header,table,content,footer){
+        var htm = "";
+
+        if(typeof(header)!="undefined"){
+            htm += getOuterHTML(header);
+        }
+
+        if(typeof(table)!="undefined"){        
+            htm += "\n<" + table.tagName;
+            
+            for(var i =0;i<table.attributes.length;i++){
+                if(table.attributes[i].specified){
+                    if(table.attributes[i].name=="style")
+                        htm += " style='" + table.style.cssText + "'";
+                    else
+                        htm += " " + table.attributes[i].nodeName + "='" + table.attributes[i].nodeValue + "'";
+                }        
+            }    
+            
+            if(table.rows.length>0){
+                htm += ">\n" + getOuterHTML(table.rows[0]) + content + "</" + table.tagName + ">";
+            } else {
+                htm += ">\n" + content + "</" + table.tagName + ">\n";
+            }        
+        }
+
+        if(typeof(footer)!="undefined"){
+            htm += getOuterHTML(footer);
+        }
+        
+        return htm;
+    }
+
+    if(!window.attachEvent){
+        window.attachEvent = function(){window.addEventListener(arguments[0].substr(2),arguments[1],arguments[2]);}
+    }
+}
+
+
+<%--var pp = new CLASS_PRINT();--%>
+<%----%>
+<%--window.onload = function()--%>
+<%--{--%>
+<%----%>
+<%--    pp.header = document.getElementById("tabHeader");--%>
+<%--    pp.content= document.getElementById("tabDetail");--%>
+<%--    pp.footer = document.getElementById("tabFooter");--%>
+<%--	--%>
+<%----%>
+<%--    //pp.hideCols("5,7");    --%>
+<%--    //pp.hideRows("1,2");--%>
+<%--    pp.pageSize = 6;    //控制打印行数--%>
+<%--}--%>
+
+
+var size = <s:property value="waigouOrderList.size()"/>
+function print1(){
+	var	pageSize = ${pageSize1}
+	if(pageSize == '' || pageSize == 0){
+		pageSize = 6
+	}
+	if(size!=null && size>0){
+		for(var i=0;i<size;i++){
+			var pp = new CLASS_PRINT();
+			 pp.pageSize = pageSize; 
+			pp.header = document.getElementById("tabHeader_"+i);
+   			var tabDetail = document.getElementById("tabDetail_"+i);
+			var m = tabDetail.rows.length-1;
+			var q =m%pp.pageSize;
+				if(q>0){
+					q = pp.pageSize-q;
+				}
+   			 for(var j=0;j<q;j++){
+   				 var newtr = "<tr style='height: 35px;'>";
+   				 var cells = tabDetail.rows[0].cells.length;
+   				 for(var o=0;o<cells;o++){
+   					 newtr+="<td>&nbsp;</td>";
+   				 }
+   				 newtr+="</tr>";
+   				 $(tabDetail).append(newtr);
+   			 }
+			
+   			pp.content = tabDetail;
+   			 pp.footer = document.getElementById("tabFooter_"+i);
+   			 
+   			  var status = $("#shehe_status_"+i).val();
+   			  if('待核对'==status){
+				$("#shenhe_"+i).hide();
+			}
+   			  pp.count =i;
+   			  var sumMoney = $("#sumMoney_"+i).val();
+   			  var daxie =	daxiezhuanhuan(sumMoney);
+			$("#daxie_"+i).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+			"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+			"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+daxie+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			pp.beforePrint();
+		}
+	}
+}
+$(function(){
+	var	pageSize = $("#pageSize").val();
+	if(pageSize == 0){
+		 $("#pageSize1").val(6);
+	}
+	print1();
+})
+
+function print2(id){
+	var	pageSize = $("#pageSize").val();
+	if(pageSize == '' || pageSize == 0){
+		pageSize = 6
+	}
+	window.location.href = 'WaigouwaiweiPlanAction!gotoprint.action?strids='+id+'&pageStatus=waiwei&pageSize1='+pageSize;
+}
+function isprint(){
+	if('${tag}'.indexOf('gys')<0 && '${Users.dept}'!='供应商'){
+		$.ajax( {
+		type : "POST",
+		url : "WaigouwaiweiPlanAction!wgOrderIsPrint.action?pageStatus=waiwei",
+		data : $("#submit").serialize(),
+		dataType : "json",
+		success : function(data) {
+			if(data=="true"){
+				window.print();
+			}
+		}
+	})
+	}else{
+		window.print();
+	}
+	
+}
+//-->
+</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+package com.task.entity;
+/**
+ * 
+ * @author 王晓飞
+ *	表（ta_CompanyBoss）
+ */
+public class CompanyBoss {
+	private Integer id;
+	private String name;//姓名
+	private String sex;//性别
+	private Integer age;//年龄
+	private String nation;//民族
+	private String politicalstatus;//政治面貌
+	private String education;//文化程度
+	private String address;//联系地址
+	private String post;//职务
+	private String mobilephone;//手机号
+	private String phoneNum;//座机
+	private String email;
+	private String resume;//个人简历
+	private CompanyVIP companyVIP;//企业资料
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	public String getPoliticalstatus() {
+		return politicalstatus;
+	}
+	public void setPoliticalstatus(String politicalstatus) {
+		this.politicalstatus = politicalstatus;
+	}
+	public String getEducation() {
+		return education;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
+	public String getMobilephone() {
+		return mobilephone;
+	}
+	public void setMobilephone(String mobilephone) {
+		this.mobilephone = mobilephone;
+	}
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getResume() {
+		return resume;
+	}
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+	public CompanyVIP getCompanyVIP() {
+		return companyVIP;
+	}
+	public void setCompanyVIP(CompanyVIP companyVIP) {
+		this.companyVIP = companyVIP;
+	}
+	
+	
+}

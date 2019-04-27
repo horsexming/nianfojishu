@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Teammembers" table="ta_hr_jjfp_teammembers">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="teammembersteam" type="java.lang.String">
+			<column name="teammembers_team"></column>
+		</property>
+		<property name="teammembersteamname" type="java.lang.String">
+			<column name="teammembers_teamname"></column>
+		</property>
+		<property name="teammembersmembernumber" type="java.lang.String">
+			<column name="teammembers_membernumber"></column>
+		</property>
+		<property name="teammemberscardnumber" type="java.lang.String">
+			<column name="teammemberscardnumber"></column>
+		</property>
+		<property name="teammembersdatatime" type="java.lang.String">
+			<column name="teammembers_datatime"></column>
+		</property>
+		<property name="teammembersremarks" type="java.lang.String">
+			<column name="teammembers_remarks" length="500"></column>
+		</property>
+		<property name="addUserId" column="teammembers_addUserId" />
+		<property name="addUserCode" column="teammembers_addUserCode"
+			length="50" />
+	</class>
+</hibernate-mapping>

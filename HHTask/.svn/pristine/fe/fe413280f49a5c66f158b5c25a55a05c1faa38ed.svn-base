@@ -1,0 +1,679 @@
+/* product-cosmetic/1.0.0 cosmetic.css Date:2016-01-05 11:33:13 */
+#categorys-2014 .dt,#search-2014 .button {
+	background: #b80e5e
+}
+
+#categorys-2014 .dt {
+	text-align: center
+}
+
+#search-2014 .text {
+	border-color: #b80e5e
+}
+
+#nav-2014 {
+	border-bottom-color: #b80e5e
+}
+
+#first-screen {
+	position: relative;
+	height: 420px
+}
+
+#first-screen .w {
+	position: relative;
+	z-index: 2
+}
+
+.p-slider .slider-wrap,.p-slider .slider-wrap ul {
+	width: 100%
+}
+
+.p-slider .slider-wrap ul li {
+	width: 100%;
+	left: 0
+}
+
+.p-slider .slider-wrap .slider-img {
+	width: 990px;
+	margin: 0 auto;
+	overflow: hidden
+}
+
+.p-slider .slider-trigger {
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	left: 0;
+	top: 390px;
+	height: 0;
+	text-align: center
+}
+
+.p-slider .slider-trigger .w {
+	height: 0
+}
+
+.p-slider .slider-trigger a {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background: #3d3d3d;
+	font: 13px/ 20px arial;
+	color: #fff;
+	text-align: center
+}
+
+.p-slider .slider-trigger a.curr {
+	background: #b80e5e;
+	color: #dec6d3
+}
+
+.p-slider .slider-page {
+	display: none;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	left: 0;
+	top: 198px
+}
+
+.p-slider .slider-page .w {
+	position: relative
+}
+
+.p-slider .slider-page .next,.p-slider .slider-page .prev {
+	position: absolute;
+	display: block;
+	height: 60px;
+	width: 30px;
+	text-align: center;
+	font: 700 24px/ 60px simsun;
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#4C362C39', endColorstr = '#4C362C39' );
+	background: rgba(54, 44, 57, .3); *
+	background: url(_blank);
+	color: #dec6d3
+}
+
+.p-slider .slider-page .prev:hover {
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#7F362C39', endColorstr = '#7F362C39' );
+	background: rgba(54, 44, 57, .5)
+}
+
+.p-slider .slider-page .next {
+	right: 0
+}
+
+.p-slider .slider-page .next:hover {
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#7F362C39', endColorstr = '#7F362C39' );
+	background: rgba(54, 44, 57, .5)
+}
+
+.cosmetic-adv {
+	margin-bottom: 20px;
+	width: 100%;
+	height: 118px;
+	background: #f7f7f7
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg01.png)
+		center top no-repeat
+}
+
+.mc .p-price {
+	font: 32px/ 37px "Microsoft yahei";
+	color: #b80e5e
+}
+
+.mc .p-price span {
+	font-size: 20px;
+	padding-right: 5px
+}
+
+.sales-num {
+	font: 12px/ 37px simsun;
+	color: #666
+}
+
+#promotion-btn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none
+}
+
+.floor {
+	background: #fff
+}
+
+.floor .mt {
+	margin-bottom: 30px;
+	height: 73px;
+	width: 100%;
+	text-align: center;
+	background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_title.jpg)
+		no-repeat
+}
+
+.floor .mt h3 {
+	position: relative;
+	font: 28px/ 40px "Microsoft yahei";
+	color: #333
+}
+
+.floor .mt h4 {
+	padding-top: 4px;
+	font: 18px/ 30px "Microsoft yahei";
+	color: #fff
+}
+
+a.buy-btn {
+	display: inline-block;
+	padding: 0 37px;
+	_padding: 0 30px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	text-align: center;
+	font: 700 20px/ 37px "Microsoft yahei";
+	background: #b80e5e;
+	color: #fff
+}
+
+a.buy-btn:hover {
+	background: #d94766;
+	color: #fff
+}
+
+.today .mt {
+	background-position: center 0
+}
+
+.today .mc li {
+	position: relative;
+	margin-bottom: 40px
+}
+
+.today .mc .p-img {
+	border: solid 1px #ddd
+}
+
+.today .mc .p-img img {
+	vertical-align: top
+}
+
+.today .mc .hover {
+	border-color: #362c39
+}
+
+.today .mc .p-info {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	padding: 15px 32px 0;
+	height: 243px;
+	width: 278px;
+	border-top: solid 2px #362c39;
+	text-align: center;
+	background: #fff
+}
+
+.today .mc .p-info .p-name {
+	padding-top: 10px;
+	font: 700 20px/ 38px "Microsoft yahei";
+	height: 38px;
+	overflow: hidden
+}
+
+.today .mc .p-info .p-name a {
+	color: #333
+}
+
+.today .mc .p-info .p-slogan {
+	margin-bottom: 10px;
+	height: 20px;
+	font: 14px/ 20px "Microsoft yahei";
+	color: #666;
+	overflow: hidden
+}
+
+.today .mc .p-info .p-price {
+	border-top: dotted 1px #ccc;
+	font: 32px/ 62px "Microsoft yahei";
+	color: #b80e5e
+}
+
+.today .mc .p-info .p-price span {
+	padding-right: 5px;
+	font-size: 20px
+}
+
+.time-limit .mt {
+	background-position: center -73px
+}
+
+.time-limit .limit-list li {
+	position: relative;
+	margin-bottom: 40px
+}
+
+.time-limit .limit-list .p-img {
+	border: solid 1px #ddd;
+	height: 310px;
+	overflow: hidden
+}
+
+.time-limit .limit-list .p-img img {
+	vertical-align: top
+}
+
+.time-limit .limit-list .hover {
+	border-color: #362c39
+}
+
+.time-limit .limit-list .p-info {
+	position: absolute;
+	right: 20px;
+	top: 40px;
+	padding: 3px 18px 0;
+	height: 243px;
+	width: 417px;
+	background: #fff
+}
+
+.time-limit .limit-list .p-info dl {
+	margin-bottom: 35px
+}
+
+.time-limit .limit-list .p-info dl dt {
+	height: 62px;
+	font: 22px/ 62px "Microsoft yahei";
+	border-bottom: dotted 1px #ccc;
+	margin-bottom: 15px;
+	overflow: hidden
+}
+
+.time-limit .limit-list .p-info dl dt a {
+	color: #333
+}
+
+.time-limit .limit-list .p-info dl dd {
+	height: 72px;
+	font: 14px/ 24px simsun;
+	overflow: hidden
+}
+
+.time-limit .limit-list .p-info dl dd a {
+	color: #666
+}
+
+.time-limit .limit-list .p-info .p-price {
+	float: left;
+	width: 255px;
+	font: 27px/ 37px "Microsoft yahei";
+	color: #b80e5e
+}
+
+.time-limit .limit-list .p-info .p-price span {
+	padding-right: 5px;
+	font-size: 20px
+}
+
+.time-limit .limit-list .p-info .p-price .buy-num {
+	padding-left: 10px;
+	font-size: 12px;
+	color: #999
+}
+
+.time-limit .limit-list .p-info .p-price .buy-num .num {
+	color: #333
+}
+
+.time-limit .limit-list .p-info .p-buy {
+	float: right;
+	width: 155px;
+	text-align: right
+}
+
+.time-limit .limit-list .p-info .buy-btn {
+	padding: 0;
+	width: 155px
+}
+
+.time-limit .limit-list .time {
+	position: absolute;
+	left: 93px;
+	top: -16px;
+	display: block;
+	height: 30px;
+	width: 266px;
+	margin: 0 auto;
+	text-align: center;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	font: 16px/ 30px "Microsoft yahei";
+	color: #fff;
+	background: #362c39
+}
+
+.time-limit .limit-list .time i {
+	position: relative;
+	top: 3px;
+	display: inline-block;
+	width: 14px;
+	height: 18px;
+	margin-right: 8px;
+	background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg02.png)
+		no-repeat;
+	_background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg02_ie6.gif)
+		no-repeat
+}
+
+.time-limit .limit-list .mask {
+	display: none;
+	position: absolute;
+	left: 1px;
+	top: 0;
+	_top: 3px;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#33000000', endColorstr = '#33000000' );
+	background: rgba(0, 0, 0, .2)
+}
+
+.time-limit .limit-list .buy-tips {
+	display: none;
+	position: absolute;
+	left: 192px;
+	z-index: 3;
+	top: 89px;
+	width: 133px;
+	height: 133px;
+	text-align: center;
+	line-height: 100%;
+	-webkit-border-radius: 90px;
+	-moz-border-radius: 90px;
+	border-radius: 90px;
+	font: 30px/ 133px "Microsoft yahei";
+	color: #fff;
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#B2000000', endColorstr = '#B2000000' );
+	background: rgba(0, 0, 0, .7)
+}
+
+.time-limit .limit-list .sold .p-info {
+	background: #ebebeb
+}
+
+.time-limit .limit-list .sold .time i {
+	display: none
+}
+
+.time-limit .limit-list .sold a.buy-btn {
+	background: #780039
+}
+
+*+html .time-limit .limit-list .time i {
+	top: -3px
+}
+
+.popular .mt {
+	background-position: center -146px
+}
+
+.brand-sales {
+	margin-bottom: 25px;
+	background: #fff
+}
+
+.brand-sales .mt {
+	height: 40px;
+	margin-bottom: 5px;
+	background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_title.jpg)
+		0 -220px no-repeat;
+	text-align: left
+}
+
+.brand-sales .mt h3 {
+	font: 28px/ 40px "Microsoft yahei";
+	color: #333
+}
+
+.brand-sales .brand-list { *
+	zoom: 1;
+	margin: 10px -12px 0 0;
+	overflow: hidden
+}
+
+.brand-sales .brand-list li {
+	float: left;
+	margin: 0 11px 11px 0;
+	width: 323px
+}
+
+.popular { *
+	zoom: 1;
+	overflow: hidden
+}
+
+.popular .mc {
+	margin-right: -21px
+}
+
+.popular .popular-list { *
+	zoom: 1;
+	overflow: hidden
+}
+
+.popular .popular-list .popular-inner {
+	float: left;
+	margin-right: 21px;
+	width: 316px;
+	overflow: hidden
+}
+
+.popular .popular-list .popular-box {
+	position: relative;
+	margin-bottom: 21px;
+	border: solid 1px #ddd;
+	padding: 27px 10px 15px;
+	height: 350px;
+	overflow: hidden
+}
+
+.popular .popular-list .popular-box i {
+	position: absolute;
+	left: 0;
+	bottom: 99px;
+	_bottom: 95px;
+	z-index: 3;
+	height: 11px;
+	width: 314px;
+	display: block;
+	background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg02.png)
+		0 -32px no-repeat;
+	_background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg02_ie6.gif)
+		0 -32px no-repeat
+}
+
+.popular .popular-list .popular-box .p-img {
+	text-align: center
+}
+
+.popular .popular-list .popular-box .p-img img {
+	width: 260px;
+	height: 260px;
+	overflow: hidden
+}
+
+.popular .popular-list .popular-box .p-info {
+	display: none;
+	position: absolute;
+	left: 10px;
+	bottom: 105px;
+	height: 30px;
+	width: 294px;
+	text-align: center;
+	font: 14px/ 30px "Microsoft yahei";
+	color: #fff;
+	filter: progid : DXImageTransform.Microsoft.gradient ( enabled = 'true',
+		startColorstr = '#99000000', endColorstr = '#99000000' );
+	background: rgba(0, 0, 0, .6);
+	overflow: hidden
+}
+
+.popular .popular-list .popular-box .fl {
+	position: relative;
+	bottom: -5px;
+	float: left;
+	width: 170px;
+	line-height: 37px
+}
+
+.popular .popular-list .popular-box .fr {
+	float: right;
+	width: 120px;
+	text-align: right
+}
+
+.popular .popular-list .popular-box .fr a.buy-btn {
+	padding: 0;
+	width: 120px
+}
+
+.popular .popular-list .popular-box .p-price {
+	padding-right: 5px;
+	font-size: 21px;
+	font-family: 'Microsoft yahei'
+}
+
+.popular .popular-list .popular-box .p-name {
+	height: 36px;
+	padding-top: 8px;
+	margin-bottom: 8px;
+	overflow: hidden
+}
+
+.popular .popular-list .popular-box .p-name a {
+	color: #333
+}
+
+.popular .popular-list .hover {
+	border-color: #362c39
+}
+
+.loading {
+	text-align: center;
+	padding-bottom: 25px;
+	font: 14px/ 26px "Microsoft yahei";
+	color: #666
+}
+
+#go-top li.item a:hover {
+	background: #c81623
+}
+
+@
+-webkit-keyframes sliderBanner { 0%{
+	height: 0
+}
+
+100%{
+height
+:
+220px
+}
+}
+@
+-moz-keyframes sliderBanner { 0%{
+	height: 0
+}
+
+100%{
+height
+:
+220px
+}
+}
+@
+-o-keyframes sliderBanner { 0%{
+	height: 0
+}
+
+100%{
+height
+:
+220px
+}
+}
+@
+-ms-keyframes sliderBanner { 0%{
+	height: 0
+}
+
+100%{
+height
+:
+220px
+}
+}
+@
+keyframes sliderBanner { 0%{
+	height: 0
+}
+
+100%{
+height
+:
+220px
+}
+}
+#w-slider {
+	height: 220px;
+	background: #fff9e3;
+	overflow: hidden;
+	position: relative;
+	display: block;
+	-webkit-animation: sliderBanner 1s ease-in-out;
+	-moz-animation: sliderBanner 1s ease-in-out;
+	-ms-animation: sliderBanner 1s ease-in-out;
+	-o-animation: sliderBanner 1s ease-in-out;
+	animation: sliderBanner 1s ease-in-out
+}
+
+#w-slider .slide-close {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 2;
+	background:
+		url(//misc.360buyimg.com/product/cosmetic/1.0.0/css/i/cosmetic_bg02.png)
+		-38px 0 no-repeat;
+	cursor: pointer
+}
+
+.slide-b {
+	position: relative;
+	height: 220px;
+	overflow: hidden;
+	z-index: 1
+}
+
+.slide-b li {
+	width: 990px
+}

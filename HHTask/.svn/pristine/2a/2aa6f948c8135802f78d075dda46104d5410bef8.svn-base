@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="CircuitCustomize" table="ta_sys_CircuitCustomize">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="more" />
+		<property name="addUserName" />
+		<property name="addDateTime" />
+		<property name="auditType" />
+		<property name="isVerification" />
+		<property name="isopinion" />
+		<property name="isspoption"/>
+		<property name="danxuanorduoxuan"/>
+		
+		<!-- 定制流程对审批节点(一对多) -->
+		<set name="auditNodeSet" inverse="true" cascade="all" lazy="true" order-by="auditLevel">
+			<key column="fk_circuitId"></key>
+			<one-to-many class="AuditNode" />
+		</set>
+		<!-- 定制流程对审批选项(一对多) -->
+		<set name="setoption" inverse="false" cascade="all" lazy="true" >
+			<key column="fk_circuitId"></key>
+			<one-to-many class="Option" />
+		</set>
+		<!-- 流程对部门-->
+		<set name="deptset" inverse="false" table="ta_dept_CircuitCustomize" cascade="all" lazy="true">
+			<key column="ta_cId"></key>
+			<many-to-many class="com.task.entity.DeptNumber" column="ta_deptId"/>
+		</set>
+	</class>
+</hibernate-mapping>

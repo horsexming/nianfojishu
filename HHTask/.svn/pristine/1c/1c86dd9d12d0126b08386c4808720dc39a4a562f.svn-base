@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************陈曦管理****************************************************
+	-->
+	<!-- 加班管理 -->
+	<bean id="overtimeServerImpl" class="com.task.ServerImpl.OvertimeServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="overtimeAction" class="com.task.action.OvertimeAction"
+		scope="prototype">
+		<property name="overtimeServer" ref="overtimeServerImpl" />
+		<property name="rewardPunishServer" ref="rewardPunishServerImpl" />
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+
+	<!-- 奖扣管理 -->
+	<bean id="rewardPunishServerImpl" class="com.task.ServerImpl.RewardPunishServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="rewardPunishAction" class="com.task.action.RewardPunishAction"
+		scope="prototype">
+		<property name="rewardPunishServer" ref="rewardPunishServerImpl" />
+	</bean>
+
+	<!-- 项目管理 -->
+	<bean id="proServerImpl" class="com.task.ServerImpl.pro.ProServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="proAction" class="com.task.action.pro.ProAction" scope="prototype">
+		<property name="proServer" ref="proServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 项目人员管理 -->
+	<bean id="proUserServerImpl" class="com.task.ServerImpl.pro.ProUserServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="proUserAction" class="com.task.action.pro.ProUserAction"
+		scope="prototype">
+		<property name="proUserServer" ref="proUserServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 项目产品管理 -->
+	<bean id="proProductServerImpl" class="com.task.ServerImpl.pro.ProProductServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="proProductAction" class="com.task.action.pro.ProProductAction"
+		scope="prototype">
+		<property name="proProductServer" ref="proProductServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 项目工装管理 -->
+	<bean id="proToolingServerImpl" class="com.task.ServerImpl.pro.ProToolingServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="proToolingAction" class="com.task.action.pro.ProToolingAction"
+		scope="prototype">
+		<property name="proToolingServer" ref="proToolingServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 屏幕管理 -->
+	<bean id="scrnServerImpl" class="com.task.ServerImpl.bbs.ScrnServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="scrnAction" class="com.task.action.bbs.ScrnAction"
+		scope="prototype">
+		<property name="scrnServer" ref="scrnServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 屏幕评论 -->
+	<bean id="boardReviewServerImpl" class="com.task.ServerImpl.bbs.BoardReviewServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="boardReviewAction" class="com.task.action.bbs.BoardReviewAction"
+		scope="prototype">
+		<property name="boardReviewServer" ref="boardReviewServerImpl"></property>
+		<property name="boardServer" ref="boardService"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 附件管理 -->
+	<bean id="affixServerImpl" class="com.task.ServerImpl.bbs.AffixServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="affixAction" class="com.task.action.bbs.AffixAction"
+		scope="prototype">
+		<property name="affixServer" ref="affixServerImpl"></property>
+	</bean>
+	<!-- 工艺规程管理 -->
+	<bean id="gongyiGuichengServerImpl" class="com.task.ServerImpl.gongyi.GongyiGuichengServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="gongyiGuichengAction" class="com.task.action.gongyi.GongyiGuichengAction"
+		scope="prototype">
+		<property name="gongyiGuichengServer" ref="gongyiGuichengServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+		<property name="procardTemplateServer" ref="ProcardTemplateServerImpl"></property>
+		<property name="processDataServer" ref="processDataServerImpl"></property>
+		<property name="gongyiGuichengScoreServer" ref="gongyiGuichengScoreServerImpl"></property>
+	</bean>
+	<!-- 工序数据管理 -->
+	<bean id="processDataServerImpl" class="com.task.ServerImpl.gongyi.gongxu.ProcessDataServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+<!--	<bean id="processDataAction" class="com.task.action.gongyi.gongxu.ProcessDataAction"-->
+<!--		scope="prototype">-->
+<!--		<property name="processDataServer" ref="processDataServerImpl"></property>-->
+<!--	</bean>-->
+	<!-- 工艺规程打分管理 -->
+	<bean id="gongyiGuichengScoreServerImpl"
+		class="com.task.ServerImpl.gongyi.score.GongyiGuichengScoreServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="gongyiGuichengScoreAction" class="com.task.action.gongyi.score.GongyiGuichengScoreAction"
+		scope="prototype">
+		<property name="gongyiGuichengScoreServer" ref="gongyiGuichengScoreServerImpl"></property>
+	</bean>
+	<!-- 防护用品管理 -->
+	<bean id="fanghuYongpinImpl" class="com.task.ServerImpl.sop.fhyp.FanghuYongpinImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="fanghuYongpinAction" class="com.task.action.sop.fhyp.FanghuYongpinAction"
+		scope="prototype">
+		<property name="fanghuYongpinServer" ref="fanghuYongpinImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+</beans>

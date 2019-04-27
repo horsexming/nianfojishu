@@ -1,0 +1,142 @@
+package com.task.entity.onemark;
+
+/**
+ * @author Li_Cong
+ * 表名 ta_cw_OneLight
+ * 2016-03-10
+ */
+import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.android.processpush.OneMachine;
+import com.task.entity.menjin.AccessEquipment;
+
+public class OneLight implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String lightNum;// 灯编号
+	private String lightType;// 灯类型
+	private String lightStatus;// 灯状态(打开/关闭)
+	private String lightIP;// 灯IP
+	private String lightPort;// 灯端口
+	private String lightOpen;// 灯打开
+	private String lightClose;// 灯关闭
+	private Integer lightOpenMin;// 灯打开(延时)
+	private Integer lightCloseMin;// 灯关闭(延时)
+	private Integer lightZhiLing;// 灯指令(开关指令)
+	private String addTime;// 添加时间
+	private String updateTime;// 修改时间
+	private Integer parkSpaceUseInforId;// 使用记录
+	private String aceIs;// 是否可与门禁绑定（是/否）
+	private OneMachine machiness;// 与一体机建立关系 多方
+	private AccessEquipment accessEquipment;// 绑定门禁设备
+	
+	public Integer getLightZhiLing() {
+		return lightZhiLing;
+	}
+	public void setLightZhiLing(Integer lightZhiLing) {
+		this.lightZhiLing = lightZhiLing;
+	}
+	public String getAceIs() {
+		return aceIs;
+	}
+	public void setAceIs(String aceIs) {
+		this.aceIs = aceIs;
+	}
+	@JSONField(serialize = false)
+	public AccessEquipment getAccessEquipment() {
+		return accessEquipment;
+	}
+	public void setAccessEquipment(AccessEquipment accessEquipment) {
+		this.accessEquipment = accessEquipment;
+	}
+	public String getLightNum() {
+		return lightNum;
+	}
+	public void setLightNum(String lightNum) {
+		this.lightNum = lightNum;
+	}
+	public String getLightType() {
+		return lightType;
+	}
+	public void setLightType(String lightType) {
+		this.lightType = lightType;
+	}
+	public String getLightStatus() {
+		return lightStatus;
+	}
+	public void setLightStatus(String lightStatus) {
+		this.lightStatus = lightStatus;
+	}
+	public String getLightIP() {
+		return lightIP;
+	}
+	public void setLightIP(String lightIP) {
+		this.lightIP = lightIP;
+	}
+	public String getLightPort() {
+		return lightPort;
+	}
+	public void setLightPort(String lightPort) {
+		this.lightPort = lightPort;
+	}
+	public String getLightOpen() {
+		return lightOpen;
+	}
+	public void setLightOpen(String lightOpen) {
+		this.lightOpen = lightOpen;
+	}
+	public String getLightClose() {
+		return lightClose;
+	}
+	public void setLightClose(String lightClose) {
+		this.lightClose = lightClose;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public Integer getParkSpaceUseInforId() {
+		return parkSpaceUseInforId;
+	}
+	public void setParkSpaceUseInforId(Integer parkSpaceUseInforId) {
+		this.parkSpaceUseInforId = parkSpaceUseInforId;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@JSONField(serialize = false)
+	public OneMachine getMachiness() {
+		return machiness;
+	}
+	public void setMachiness(OneMachine machiness) {
+		this.machiness = machiness;
+	}
+	public Integer getLightOpenMin() {
+		return lightOpenMin;
+	}
+	public void setLightOpenMin(Integer lightOpenMin) {
+		this.lightOpenMin = lightOpenMin;
+	}
+	public Integer getLightCloseMin() {
+		return lightCloseMin;
+	}
+	public void setLightCloseMin(Integer lightCloseMin) {
+		this.lightCloseMin = lightCloseMin;
+	}
+}

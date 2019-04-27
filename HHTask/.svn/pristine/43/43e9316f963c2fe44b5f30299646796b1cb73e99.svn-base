@@ -1,0 +1,69 @@
+package com.task.entity;
+/**
+ * @Title: Invoice.java
+ * @Package com.task.entity
+ * @Description: 发票
+ * @author 曾建森
+ * @date 2012-10-29 上午10:31:25
+ * @version V1.0
+ */
+public class Invoice {
+	
+	/**ID*/
+	private int id;
+	/**业务*/
+	private Business business;
+	/**收款单位*/
+	private String collectionUnit;
+	/**号码*/
+	private String number;
+	/**费用金额*/
+	private float money;
+	/**附件*/
+	private String file;
+	/**货币类型*/
+	private String currencyType;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+	public float getMoney() {
+		return money;
+	}
+	public void setMoney(float money) {
+		this.money = money;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public String getCollectionUnit() {
+		return collectionUnit;
+	}
+	public void setCollectionUnit(String collectionUnit) {
+		this.collectionUnit = collectionUnit;
+	}
+	public String getCurrencyType() {
+		return currencyType;
+	}
+	public void setCurrencyType(String currencyType) {
+		this.currencyType = currencyType;
+	}
+}

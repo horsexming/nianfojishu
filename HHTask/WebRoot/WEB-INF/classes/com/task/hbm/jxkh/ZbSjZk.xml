@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="ZbSjZk" table="ta_ZbSjZk">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="name"/>
+		<property name="rank"/>
+		<property name="rankNo"/>
+		<property name="years"/>
+		<property name="month0"/>
+		<property name="months"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+		
+		<property name="lardyDept"/>
+		<property name="larzhibiao"/>
+		<property name="riddyDept"/>
+		<property name="ridzhibiao"/>
+		<property name="zczdyDept"/>
+		<property name="zczzhibiao"/>
+		<property name="rjxsdyDept"/>
+		<property name="rjxszhibiao"/>
+		<property name="sjrsdyDept"/>
+		<property name="sjrszhibiao"/>
+		<property name="salzsdyDept"/>
+		<property name="salzszhibiao"/>
+		<property name="bdfydyDept"/>
+		<property name="bdfyzhibiao"/>
+		<property name="larzhimubiao"/>
+		<property name="larscore"/>
+		<property name="ridmubiao"/>
+		<property name="ridscore"/>
+		<property name="zczmubiao"/>
+		<property name="zczscore"/>
+		<property name="rjxsmubiao"/>
+		<property name="rjxsscore"/>
+		<property name="sjrsmubiao"/>
+		<property name="sjrsscore"/>
+		<property name="salzsmubiao"/>
+		<property name="salzsscore"/>
+		<property name="bdfymubiao"/>
+		<property name="bdfyscore"/>
+		<property name="sumscocer"/>
+		<property name="ranking"/>
+		
+	</class>
+</hibernate-mapping>

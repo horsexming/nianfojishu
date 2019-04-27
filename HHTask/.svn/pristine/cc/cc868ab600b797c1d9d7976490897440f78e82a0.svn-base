@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardReProduct" table="ta_sop_w_ProcardReProduct"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="sbNumber" />
+	<property name="fxNumber" />
+	<property name="source" />
+	<property name="ptbbApplyId" />
+	<property name="procardId" />
+	<property name="markId" />
+	<property name="proName" />
+	<property name="banbenNumber" />
+	<property name="banci" />
+	<property name="procardStyle" />
+	<property name="kgliao" />
+	<property name="selfCard" />
+	<property name="orderNumber" />
+	<property name="fxCount" />
+	<property name="processId" />
+	<property name="processNo" />
+	<property name="processName" />
+	<property name="rootMarkId" />
+	<property name="rootSelfCard" />
+	<property name="status" />
+	<property name="addTime" />
+	<property name="tuhao" />
+	<property name="specification" />
+	<property name="unit" />
+	<property name="wgType" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,127 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+
+		<title>评分界面</title>
+
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	    <link rel="stylesheet" type="text/css" href="styles.css">
+	    -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=0.5, maximum-scale=1.0"/>
+        <script type="text/javascript" src="System/lpanclear/jquery-1.8.3.js"></script>
+	</head>
+  <style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+img{vertical-align:middle;}
+#QuacorGrading input{background:url(images/lpanclear/grading.png) no-repeat scroll right center;cursor:pointer;height:30px;width:30px;padding:0;border:0;}
+</style>
+  <body style="text-align: center;">
+      <div style="border:3px solid;width:460px;height:600px;margin-top:120px;background-color:#FFF0F5;text-align: center;border-color:E38EFF;">
+          <input type="hidden" value="${User.name}" id="ycempName"/>
+          <input type="hidden" value="${tId}" id="yctitleName"/>
+          <table border="1" style="width:458px;height:380px;margin-top:120px;border-color: #9370DB;color:#9932CC;text-align: center;">
+              <tr style="height:30px;">
+                  <th colspan="2" style="color:#BA55D3;">打扫日期:${cleanrecord2.theDay}</th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </th>
+              </tr>
+              <tr style="height:10px;">
+                  
+              </tr>
+              <tr style="height:30px;">
+                  <th colspan="2" style="color:#BA55D3;" id="titleName">${homeTitle.titleName}</th>
+              </tr>
+              <tr style="height:10px;">
+                  
+              </tr>         
+              <tr>                 
+                  <th style="color:#BA55D3;">领取人员</th>
+                  <th style="color:#BA55D3;">提交人员</th>
+              </tr>
+              
+              <tr style="height:30px;">
+                  <th style="color:#BA55D3;">${cleanrecord2.receive}</th>
+
+                  <th style="color:#BA55D3;">${cleanrecord2.submitter}</th>
+              </tr>
+              
+              <tr style="height:10px;">
+
+              </tr>
+              <tr>
+                  <th colspan="8">
+                      <div id="QuacorGrading" >
+							<strong style="color:#BA55D3;">评分</strong>
+							<input name="1" type="button" />
+							<input name="2" type="button" />
+							<input name="3" type="button" />
+							<input name="4" type="button" />
+							<input name="5" type="button" />
+							<input name="6" type="button" />
+							<input name="7" type="button" />
+							<input name="8" type="button" />
+							<input name="9" type="button" />
+							<input name="10" type="button" />
+							<span id="QuacorGradingValue"><b><font size="5" color="#fd7d28" class="fenshu">6</font></b>分</span>						
+						</div>
+                  </th>
+              </tr>
+              <tr style="height:10px;">
+
+              </tr>
+              <tr>
+                  <th colspan="8"><input type="button" id="queren" value="确认" style="width:65px; background-color:#DDA0DD; font-size: 16px;"/></th>
+              </tr>
+          </table>
+      </div>
+      <script type="text/javascript">
+			var GradList = document.getElementById("QuacorGrading").getElementsByTagName("input");
+			
+			for(var di=0;di<parseInt(document.getElementById("QuacorGradingValue").getElementsByTagName("font")[0].innerHTML);di++){
+				GradList[di].style.backgroundPosition = 'left center';
+			}
+			
+			for(var i=0;i < GradList.length;i++){
+				GradList[i].onmouseover = function(){
+					for(var Qi=0;Qi<GradList.length;Qi++){
+						GradList[Qi].style.backgroundPosition = 'right center';
+					}
+					for(var Qii=0;Qii<this.name;Qii++){
+						GradList[Qii].style.backgroundPosition = 'left center';
+					}
+					document.getElementById("QuacorGradingValue").innerHTML = '<b><font size="5" class="fenshu" color="#fd7d28">'+this.name+'</font></b>分';
+				}
+			}
+			var employeeName = $("#ycempName").val();
+			alert(employeeName);
+			var titleName = $("#yctitleName").val();
+			alert(titleName);		
+			$("#queren").click(function(){
+			    alert("提交评分");
+			    var fraction =  $(".fenshu").text();
+			    //alert(fraction);
+			    location.href="ClearInfoAction_evaluatorOperation.action?fraction="+fraction+"&titleId=${homeTitle.id}";
+			    
+			})
+
+			
+     </script>
+  </body>
+</html>

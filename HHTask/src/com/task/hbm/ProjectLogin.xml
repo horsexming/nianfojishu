@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="ProjectLogin" table="ta_sys_projectLogin">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<many-to-one name="projectRecord" column="ta_pro_ProRecordId"  cascade="save-update"
+			lazy="false" class="ProjectRecord" />
+
+		<property name="userId" column="ta_pro_userId" />
+		<property name="code" column="ta_pro_code" />
+		<property name="cardId" column="ta_pro_cardId" />
+		<property name="loginFieldValue" column="ta_pro_loginFieldValue" />
+	</class>
+</hibernate-mapping>

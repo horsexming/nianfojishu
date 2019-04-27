@@ -1,0 +1,480 @@
+package com.task.action.caiwu.receivePayment;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Server.caiwu.AccountCheckService;
+import com.task.Server.caiwu.receivePayment.ReceiptServer;
+import com.task.entity.caiwu.AccountCheck;
+import com.task.entity.caiwu.receivePayment.Receipt;
+import com.task.entity.caiwu.receivePayment.ReceiptLog;
+import com.task.util.Util;
+
+import java.io.File;
+import java.util.List;
+import java.util.Set;
+
+/*****
+ * 付款单Action
+ *
+ * @author liupei
+ *
+ */
+public class ReceiptAction extends ActionSupport {
+	private ReceiptServer receiptServer;// Server层
+	private AccountCheckService accountCheckService;//对账单
+	private Receipt receipt;// 对象
+	private ReceiptLog receiptLog;// 对象
+	private List<Receipt> receiptList;// 集合
+	private List<ReceiptLog> receiptLogList;// 集合
+	private List<ReceiptLog> receiptLogListAudit;// 集合
+	private List<ReceiptLog> receiptLogListSkqr;// 集合
+	private List<ReceiptLog> receiptLogListUpload;// 集合
+	private List list;// 集合
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private int id;// id
+	private Integer[] ids;// ids
+	private String pageStatus;// 页面状态
+	private String qrTag;// 账单确认状态(yes/no)
+	private String tages;// 重新上传标识
+	private File attachment;
+	private String attachmentFileName;
+	private String attachmentContentType;
+	private String bwtCompany;
+	private String payWay;// 支付方式
+	private Integer subId;
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+
+	/****
+	 * 查询付款账单
+	 *
+	 * @return
+	 */
+	public String findReceiptList() {
+		if (receipt != null) {
+			ActionContext.getContext().getSession().put("receipt", receipt);
+		} else {
+			receipt = (Receipt) ActionContext.getContext().getSession().get(
+					"receipt");
+		}
+		Object[] object = receiptServer.findReceiptList(receipt, Integer
+				.parseInt(cpage), pageSize, pageStatus);
+		if (receipt != null && receipt.getFukuanMonth() != null
+				&& receipt.getFukuanMonth().length() > 0) {
+			qrTag = Util.getDateTime("yyyy-MM")
+					.equals(receipt.getFukuanMonth())
+					+ "";
+		}
+		if (object != null && object.length > 0) {
+			receiptList = (List<Receipt>) object[0];
+			if (receiptList != null && receiptList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				if (pageStatus == null) {
+					pageStatus = "";
+				}
+				this.setUrl("ReceiptAction!findReceiptList.action?pageStatus="
+						+ pageStatus);
+				errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+		return "Receipt_showList";
+	}
+
+	/***
+	 * 申请付款
+	 *
+	 * @param list
+	 * @return
+	 */
+	public String applyForPay() {
+		errorMessage = receiptServer.applyForPay(receiptList);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "申请成功!";
+			url = "ReceiptAction!findReceiptList.action?pageStatus=viewAuditPay";
+		}
+		return ERROR;
+	}
+
+	/****
+	 * 查询付款记录
+	 *
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String findReceiptLogList() {
+		if (receiptLog != null) {
+			ActionContext.getContext().getSession().put("receiptLog",
+					receiptLog);
+		} else {
+			receiptLog = (ReceiptLog) ActionContext.getContext().getSession()
+					.get("receiptLog");
+		}
+		if ("all".equals(pageStatus)||"lishi".equals(pageStatus)) {
+			// 待审批记录
+			Object[] object = receiptServer.findReceiptLogList(receiptLog, 0,
+					0, "audit",false);
+			if (object != null && object.length > 0) {
+				receiptLogListAudit = (List<ReceiptLog>) object[0];
+			}
+			// 待付款&待确认记录
+			object = receiptServer.findReceiptLogList(receiptLog, 0, 0, "skqr",false);
+			if (object != null && object.length > 0) {
+				receiptLogListSkqr = (List<ReceiptLog>) object[0];
+			}
+			// 待上传凭证
+			object = receiptServer.findReceiptLogList(receiptLog, Integer
+					.parseInt(cpage), pageSize, "wtfk",false);
+			if (object != null && object.length > 0) {
+				receiptLogListUpload = (List<ReceiptLog>) object[0];
+			}
+		}
+		Object[] object = receiptServer.findReceiptLogList(receiptLog, Integer
+				.parseInt(cpage), pageSize, pageStatus,false);
+		if (object != null && object.length > 0) {
+			receiptLogList = (List<ReceiptLog>) object[0];
+			if (receiptLogList != null && receiptLogList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				if (pageStatus == null) {
+					pageStatus = "";
+				}
+				this
+						.setUrl("ReceiptAction!findReceiptLogList.action?pageStatus="
+								+ pageStatus);
+				errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+		if ("audit".equals(pageStatus)) {
+			return "ReceiptLog_auditList";
+		}
+		return "ReceiptLog_showList";
+	}
+
+	/***
+	 * 付款审核
+	 *
+	 * @param list
+	 * @return
+	 */
+	public String auditPay() {
+		errorMessage = receiptServer.auditPay(receiptLogList,subId);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "审批成功!";
+			url = "ReceiptAction!findReceiptLogList.action?pageStatus=audit";
+			//添加对账单
+			try{
+				ReceiptLog receiptLog=new ReceiptLog();
+				if(receiptLogList.size()>0){
+					receiptLog=receiptLogList.get(0);
+				}
+				Receipt receipt = receiptLog.getReceipt();
+				AccountCheck accountCheck = new AccountCheck();
+				accountCheck.setReceiptLogid(receiptLog.getId());
+				accountCheck.setAccountUnit(receipt.getPayee());
+				accountCheck.setAllMoney(receipt.getAllMoney());
+				accountCheck.setAccountCategory("付款");
+				accountCheck.setAccountNumber("未上传");
+				accountCheck.setAccountUsers(receiptLog.getApplyUserName());
+				accountCheck.setAccountDescription(receipt.getSummary());
+				accountCheck.setState(receiptLog.getStatus());
+				accountCheck.setAddTime(Util.getDateTime("yyyy-MM-dd"));
+				accountCheckService.AddAccountCheck(accountCheck);
+			}catch (Exception e){
+			};
+
+		}
+		return ERROR;
+	}
+
+	public String sendKey(){
+		receiptServer.quKey(2163,null);
+		return "error";
+	}
+
+	/****
+	 * 收款确认
+	 *
+	 * @return
+	 */
+	public String chenkreceiptLog() {
+		errorMessage = receiptServer.chenkreceiptLog(id);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "确认收款完成!";
+			url = "ReceiptAction!findReceiptLogList.action?pageStatus=skqr";
+		}
+		return ERROR;
+	}
+
+	/***
+	 * 上传付款记录凭证
+	 *
+	 * @param list
+	 * @return
+	 */
+	public String uploadPayProof() {
+		if ("chong".equals(tages)) {
+			errorMessage = receiptServer.chongxin(receiptLog, id,
+					attachment, attachmentFileName);
+		} else {
+			errorMessage = receiptServer.uploadPayProof(receiptLog, id,
+					attachment, attachmentFileName);
+		}
+		if ("true".equals(errorMessage)) {
+			//更新对账单状态
+			accountCheckService.checkUplodState(receiptLog.getId());
+			errorMessage = "上传成功!";
+			url = "ReceiptAction!findReceiptLogList.action?pageStatus=" + pageStatus;
+		}
+		return ERROR;
+	}
+
+	public String weituo() {
+		try {
+			String msg = receiptServer.weituo(ids, bwtCompany, payWay);
+			if (msg.equals("true")) {
+				errorMessage = "委托成功!";
+				this
+						.setUrl("ReceiptAction!findReceiptLogList.action?pageStatus="
+								+ pageStatus);
+			} else {
+				errorMessage = msg;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			errorMessage = e.getMessage();
+		}
+		return ERROR;
+	}
+
+	public ReceiptServer getReceiptServer() {
+		return receiptServer;
+	}
+
+	public void setReceiptServer(ReceiptServer receiptServer) {
+		this.receiptServer = receiptServer;
+	}
+
+	public Receipt getReceipt() {
+		return receipt;
+	}
+
+	public void setReceipt(Receipt receipt) {
+		this.receipt = receipt;
+	}
+
+	public List<Receipt> getReceiptList() {
+		return receiptList;
+	}
+
+	public void setReceiptList(List<Receipt> receiptList) {
+		this.receiptList = receiptList;
+	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Integer[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Integer[] ids) {
+		this.ids = ids;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getQrTag() {
+		return qrTag;
+	}
+
+	public void setQrTag(String qrTag) {
+		this.qrTag = qrTag;
+	}
+
+	public File getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(File attachment) {
+		this.attachment = attachment;
+	}
+
+	public String getAttachmentFileName() {
+		return attachmentFileName;
+	}
+
+	public void setAttachmentFileName(String attachmentFileName) {
+		this.attachmentFileName = attachmentFileName;
+	}
+
+	public String getAttachmentContentType() {
+		return attachmentContentType;
+	}
+
+	public void setAttachmentContentType(String attachmentContentType) {
+		this.attachmentContentType = attachmentContentType;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public ReceiptLog getReceiptLog() {
+		return receiptLog;
+	}
+
+	public void setReceiptLog(ReceiptLog receiptLog) {
+		this.receiptLog = receiptLog;
+	}
+
+	public List<ReceiptLog> getReceiptLogList() {
+		return receiptLogList;
+	}
+
+	public void setReceiptLogList(List<ReceiptLog> receiptLogList) {
+		this.receiptLogList = receiptLogList;
+	}
+
+	public String getBwtCompany() {
+		return bwtCompany;
+	}
+
+	public void setBwtCompany(String bwtCompany) {
+		this.bwtCompany = bwtCompany;
+	}
+
+	public String getPayWay() {
+		return payWay;
+	}
+
+	public void setPayWay(String payWay) {
+		this.payWay = payWay;
+	}
+
+	public List<ReceiptLog> getReceiptLogListAudit() {
+		return receiptLogListAudit;
+	}
+
+	public void setReceiptLogListAudit(List<ReceiptLog> receiptLogListAudit) {
+		this.receiptLogListAudit = receiptLogListAudit;
+	}
+
+	public List<ReceiptLog> getReceiptLogListSkqr() {
+		return receiptLogListSkqr;
+	}
+
+	public void setReceiptLogListSkqr(List<ReceiptLog> receiptLogListSkqr) {
+		this.receiptLogListSkqr = receiptLogListSkqr;
+	}
+
+	public List<ReceiptLog> getReceiptLogListUpload() {
+		return receiptLogListUpload;
+	}
+
+	public void setReceiptLogListUpload(List<ReceiptLog> receiptLogListUpload) {
+		this.receiptLogListUpload = receiptLogListUpload;
+	}
+
+	public Integer getSubId() {
+		return subId;
+	}
+
+	public void setSubId(Integer subId) {
+		this.subId = subId;
+	}
+
+	public String getTages() {
+		return tages;
+	}
+
+	public void setTages(String tages) {
+		this.tages = tages;
+	}
+
+	public AccountCheckService getAccountCheckService() {
+		return accountCheckService;
+	}
+
+	public void setAccountCheckService(AccountCheckService accountCheckService) {
+		this.accountCheckService = accountCheckService;
+	}
+}

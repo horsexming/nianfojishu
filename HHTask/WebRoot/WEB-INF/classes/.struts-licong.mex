@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-licong" location="50,50" size="170,113">
+    <action name="interviewLogAction_*" location="10,20" size="150,83">
+      <result name="interviewLog_add">
+        <resourceEdge source="interviewLog_add" routing="0" target="interview_add.jsp" />
+      </result>
+      <result name="interviewLog_show">
+        <resourceEdge source="interviewLog_show" routing="0" target="interview_show.jsp" />
+      </result>
+      <result name="interviewLog_update">
+        <resourceEdge source="interviewLog_update" routing="0" target="interview_update.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="interview_add.jsp" path="/System/renshi/interview_add.jsp" location="350,50" size="150,55" />
+  <webResource name="interview_show.jsp" path="/System/renshi/interview_show.jsp" location="50,200" size="150,55" />
+  <webResource name="interview_update.jsp" path="/System/renshi/interview_update.jsp" location="350,200" size="150,55" />
+</Struts2Diagram>
+

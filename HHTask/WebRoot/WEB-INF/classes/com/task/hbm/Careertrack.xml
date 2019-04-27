@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Careertrack" table="ta_Careertrack" >
+		  <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+		<property name="userName"/>
+		<property name="userId"/>
+		<property name="mianshiTime"/>
+		<property name="ruzhiTime"/>
+		<property name="zzkhTime"/>
+		<property name="zhuanzhengTime"/>
+		<property name="jixiaoTime"/>
+		<property name="jiangchengTime"/>
+		<property name="diaodongTime"/>
+		<property name="jinshengTime"/>
+		<property name="lizhiTime"/>
+		 <property name="dept"/>
+		 <property name="education"/>
+		 <property name="cardId"/>
+		 <property name="nation"/>
+		 <property name="birthplace"/>
+		 <property name="bothday"/>
+		 <property name="phoneNumber"/>
+		 <property name="status"/>
+		 <property name="code"/>
+	</class>
+</hibernate-mapping>

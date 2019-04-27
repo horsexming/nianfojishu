@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Tequipment" table="ta_Tequipment">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" length="50"/>
+		<property name="productionYear" length="40"/>
+		<property name="factory" length="80"/>
+		<property name="equipmentType" length="50"/>
+		<property name="deviceNumber" length="50"/>
+		<property name="location" length="40"/>
+		<property name="equipmentValue" type="int"/>
+		<property name="residual" type="int"/>
+		<property name="power" type="double"/>
+		
+		<many-to-one name="project" column="f_project_id" /> 
+
+	</class>
+
+</hibernate-mapping>

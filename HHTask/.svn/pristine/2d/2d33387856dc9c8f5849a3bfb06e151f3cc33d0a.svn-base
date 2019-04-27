@@ -1,0 +1,508 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<div id="printDiv">
+					<br />
+					<div style="font-weight: bolder; font-size: 30px; height: 50px;"
+						align="center">
+						送货单明细 
+						<s:if test='waigouDelivery.status!="待确认"'>
+							<s:if test='pageStatus=="gys" || pageStatus=="print" || pageStatus=="sh"'>
+								<a
+								href="WaigouwaiweiPlanAction!findDNDetailForPrint.action?id=${waigouDelivery.id}">打印</a>
+								<br />
+								<br />
+								<font color="red" style="font-size: 20px;">(本页面打印无效,请点击打印按钮前往打印!)</font>
+							</s:if>
+							<s:else>
+								<font style="color: gray;">打印</font>
+							</s:else>
+						</s:if>
+						<s:else>
+							<font style="color: gray;">打印</font>
+						</s:else>
+					</div>
+					<s:if test="waigouDelivery!=null">
+						<table
+							style="border-collapse: collapse; width: 95%; line-height: 20px;">
+							<tr>
+								<td align="left">
+									<img
+										src="barcode.action?msg=${waigouDelivery.planNumber}&type=code128"
+										width="180px" height="60px" />
+								</td>
+								<td>
+									更新时间:${waigouDelivery.addTime}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									供应商:${waigouDelivery.gysName}
+								</td>
+								<td>
+									客户名称:${waigouDelivery.customer}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									供应商编号:${waigouDelivery.userCode}
+								</td>
+								<td>
+									地址:${companyInfo.address}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									供联系人:${waigouDelivery.gysContacts}
+								</td>
+								<td>
+									客联系人:${waigouDelivery.contacts}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									供联系电话:${waigouDelivery.gysPhone}
+								</td>
+								<td>
+									客联系电话:${waigouDelivery.contactsPhone}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									出发地址:${waigouDelivery.chufaDizhi}
+								</td>
+								<td>
+									到达地址:${waigouDelivery.daodaDizhi}
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									送货人姓名: ${waigouDelivery.shContacts}
+								</td>
+								<td>
+									送货人联系电话: ${waigouDelivery.shContactsPhone}
+								</td>
+							</tr>
+							<tr>
+								<td align="left" colspan="2">
+									车牌: ${waigouDelivery.chepai}
+								</td>
+							</tr>
+						</table>
+					</s:if>
+					<br />
+					<br />
+					<form action="WaigouwaiweiPlanAction!querenDelivery.action"
+						method="post">
+						<table class="table">
+							<tr bgcolor="#c0dcf2" height="50px">
+								<th align="center">
+									序号
+								</th>
+								<th align="center">
+									采购订单号
+								</th>
+								<th align="center">
+									产品编码
+								</th>
+								<th align="center">
+									件号
+								</th>
+								<th align="center">
+									零件名称
+								</th>
+								<s:if test="tag=='外委'">
+								<th align="center">
+									委外工序
+								</th>
+								<th align="center">
+									下工序
+								</th>
+								</s:if>
+								<th align="center">
+									规格
+								</th>
+								<th align="center">
+									图号
+								</th>
+								<th align="center">
+									版本
+								</th>
+								<th align="center">
+									供货属性
+								</th>
+								<th align="center">
+									单位
+								</th>
+								<th align="center">
+									箱(包)数
+								</th>
+								<th align="center">
+									送货数量
+								</th>
+								<th align="center">
+									送货时间
+								</th>
+								<th align="center">
+									签收数量
+								</th>
+								<th align="center">
+									确认时间
+								</th>
+								<th align="center">
+									合格数量
+								</th>
+								<th align="center">
+									检验时间
+								</th>
+								<th align="center">
+									入库时间
+								</th>
+								<th align="center">
+									状态
+								</th>
+								<th align="center">
+									备注
+								</th>
+								<th align="center">
+									签收人
+								</th>
+								<th align="center">
+									其他
+									<input type="hidden" value="<s:property value="list.size()"/>"
+										id="listsize" />
+								</th>
+							</tr>
+							<s:iterator value="list" id="pageWgww2" status="pageStatus2">
+								<s:if test="#pageStatus2.index%2==1">
+									<tr align="center" bgcolor="#e6f3fb" style="height: 50px;"
+										onmouseover="chageBgcolor(this)"
+										onmouseout="outBgcolor(this,'#e6f3fb')">
+								</s:if>
+								<s:else>
+									<tr align="center" onmouseover="chageBgcolor(this)"
+										style="height: 50px;" onmouseout="outBgcolor(this,'')">
+								</s:else>
+								<td>
+									<s:property value="#pageStatus2.index+1" />
+									<input type="hidden" value="${pageWgww2.id}"
+										name="list_wdd[${pageStatus2.index}].id" />
+									<input type="hidden" value="${pageWgww2.shNumber}"
+										id="shNumber_${pageStatus2.index}" />
+								</td>
+								<td>
+									${pageWgww2.cgOrderNum}
+								</td>
+								<td>
+									${pageWgww2.strs}
+								</td>
+								<td>
+									${pageWgww2.markId}
+								</td>
+								<td>
+									${pageWgww2.proName}
+								</td>
+								<s:if test="tag=='外委'">
+								<td>
+									${pageWgww2.processName}
+								</td>
+								<td>
+									${pageWgww2.nextProcessName}
+								</td>
+								</s:if>
+								<td>
+									${pageWgww2.specification}
+								</td>
+								<td>
+									${pageWgww2.tuhao}
+								</td>
+								<td>
+									${pageWgww2.banben}
+								</td>
+								<td>
+									${pageWgww2.kgliao}
+								</td>
+								<td>
+									${pageWgww2.unit}
+								</td>
+								<td>
+									${pageWgww2.ctn}
+								</td>
+								<th id="shth_${pageStatus2.index}" align="right">
+									<s:if test="pageStatus=='dqr'">
+										<input type="text"
+											name="list_wdd[${pageStatus2.index}].shNumber" id="shNumber0"
+											style="width: 100px; height: 20px;"
+											value="${pageWgww2.shNumber}">
+									</s:if>
+									<s:else>
+										${pageWgww2.shNumber}
+										<input type="hidden" value="${pageWgww2.shNumber}" id="shNumber_${pageWgww2.id}" />
+									 </s:else>
+								</th>
+								<td>
+									${pageWgww2.printTime}
+								</td>
+								<td id="qrtd_${pageWgww2.id}">
+									<s:if test="#pageWgww2.qrNumber<#pageWgww2.shNumber">
+										<font color="red">${pageWgww2.qrNumber}</font>
+									</s:if>
+									<s:else>${pageWgww2.qrNumber}</s:else>
+								</td>
+								<td>
+									${pageWgww2.querenTime}
+								</td>
+								<td>
+									<s:if test="#pageWgww2.hgNumber<#pageWgww2.qrNumber">
+										<font color="red">${pageWgww2.hgNumber}</font>
+									</s:if>
+									<s:else>
+										${pageWgww2.hgNumber}
+									</s:else>
+								</td>
+								<td>
+									${pageWgww2.checkTime}
+								</td>
+								<td>
+									${pageWgww2.rukuTime}
+								</td>
+								<td>
+									${pageWgww2.status}
+								</td>
+								<td>
+									${pageWgww2.remarks}
+								</td>
+								<td>
+									${pageWgww2.qrUsersName}
+								</td>
+								<td>
+									<s:if test='#pageWgww2.status!="待检验"'>
+										<a
+											href="OsRecord_showScope.action?record.wwddId=${pageWgww2.id}">检验记录</a>
+										<%--<a
+											href="WaigouwaiweiPlanAction!sqrk.action?id=${pageWgww2.id}">申请入库</a>
+																				<input type="button" value="申请入库" style="height: 35px;" onclick="javascript:location.href='WaigouwaiweiPlanAction!sqrk.action?id=${pageWgww2.id}';">--%>
+									</s:if>
+									<s:if
+										test="(#pageWgww2.status=='待确认' ||#pageWgww2.status=='待打印' 
+										 ||#pageWgww2.status=='送货中') && pageStatus=='dqr'">
+										/<a
+											href="WaigouwaiweiPlanAction!delwgdd.action?id=${pageWgww2.id}&id2=${pageWgww2.waigouDelivery.id}"
+											onclick="return confirm('确定要删除该送货单明细吗?')">删除</a>
+									</s:if>
+									<s:if test="(#pageWgww2.status=='待确认' ||#pageWgww2.status=='待打印' 
+									 || #pageWgww2.status=='送货中' )&&pageStatus!='ss'">
+										/<a href="javascript:;"
+											onclick="showXgNum('${pageStatus2.index}','${pageWgww2.shNumber}','${pageWgww2.id}')">修改数量</a>
+									</s:if>
+									<s:if test="#pageWgww2.status== '待检验'">
+										<a href="javascript:;" onclick="showUpdateQrNumber('${pageWgww2.id}',${pageWgww2.qrNumber})" >重新签收</a>
+									</s:if>
+								</td>
+							</s:iterator>
+							<tr>
+								<th colspan="11"></th>
+								<th>
+									${sumNum}
+								</th>
+								<th></th>
+								<th>
+									${sumbdhNUmber}
+								</th>
+								<th></th>
+								<th>
+									${sumwshNum}
+								</th>
+								<th colspan="11"></th>
+							</tr>
+							<s:if test="pageStatus=='dqr' && waigouDelivery.status == '待确认'">
+								<tr align="center">
+									<td colspan="25">
+										<div id="div_sub">
+											<input type="hidden" value="${waigouDelivery.id}" name="id" />
+											<input type="submit" value="确认" class="input"
+												id="shNumbersub" />
+										</div>
+									</td>
+								</tr>
+							</s:if>
+						</table>
+					</form>
+				</div>
+				<br />
+			</div>
+			<div align="center">
+				<s:if
+					test='waigouDelivery.status=="待打印"'>
+						<input type="button" value="确认送货" class="input" 
+							onclick="javascript:location.href='WaigouwaiweiPlanAction!updateDeliveryToPrint.action?id=${waigouDelivery.id}';" />
+				</s:if>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+function printDelivery() {
+	pagePrint('printDiv');
+	$.ajax( {
+		type : "POST",
+		url : "WaigouwaiweiPlanAction!updateDeliveryToPrint.action",
+		data : {
+			id : "${waigouDelivery.id}"
+		},
+		dataType : "json",
+		cache : false,//防止数据缓存
+		success : function(msg) {
+			alert(msg);
+		}
+	});
+}
+
+function check(num) {
+	var size = $("#listsize").val();
+	var shNumber = $("#shNumber" + num).val();
+	var shNumber1 = $("#shNumber_" + num).val();
+	shNumber = parseInt(shNumber);
+	shNumber1 = parseInt(shNumber1);
+	if (shNumber > shNumber1) {
+		alert("不能大于原本的送货数量");
+		$("#shNumber" + num).val("");
+	}
+	var bool = true;
+	for ( var i = 0; i < size; i++) {
+		if ($("#shNumber" + i).val() == '') {
+			bool = false;
+			break;
+		}
+	}
+	if (bool) {
+		$("#shNumbersub").removeAttr("disabled");
+	} else {
+		$("#shNumbersub").attr("disabled", "disabled");
+	}
+}
+
+function showXgNum(num, num1, id) {
+	$("#shth_" + num)
+			.html(
+					'<input type="text" id="xgNum_'
+							+ num
+							+ '" value="'
+							+ num1
+							+ '" style="width: 50px;" onchange="numyanzheng(this)" /><br/> <input type="button" id="xgbutton_'
+							+ num
+							+ '" value="确认" style="width: 50px;" onclick="xgshNum(&apos;'
+							+ id + '&apos;,&apos;' + num + '&apos;)"/>');
+}
+
+function xgshNum(id, num) {
+	var shNum = $("#xgNum_" + num).val();
+	if (shNum == '') {
+		alert('送货数量不能为空')
+	}
+	$("#xgbutton_" + num).attr("disabled", "disabled")
+	$.ajax( {
+		type : "POST",
+		url : "WaigouwaiweiPlanAction!updatewgddNum.action",
+		data : {
+			id : id,
+			sumNum : shNum
+		},
+		dataType : "json",
+		cache : false,//防止数据缓存
+		success : function(data) {//
+			if (data == 'true') {
+				$("#shth_" + num).html(shNum);
+				alert('修改成功')
+			} else {
+				alert(data);
+				$("#xgbutton_" + num).removeAttr("disabled");
+			}
+		}
+	});
+}
+function showUpdateQrNumber(id,qrNumber){
+	if(id!=''){
+		$("#qrtd_"+id).html('<input type="text" value='+qrNumber+' id="qrNumber_'+id+'" ' +
+		' onchange="numyanzheng(this);qrNumberCheck(this,'+id+')" style="width:50px;" > <input type="button" value="修改"' +
+		' onclick="updateQrNumber('+id+')" >');
+	}
+}
+function qrNumberCheck(obj,id){
+	if(obj!=null){
+		if(obj.value!=''){
+			var qrNumber = parseFloat(obj.value);
+			var shNumber =	$("#shNumber_"+id).val();
+			shNumber = parseFloat(shNumber);
+			if(qrNumber>shNumber){
+				alert('签收数量不能大于送货数量');
+				obj.value = '';
+			}
+		}
+	}
+}
+
+function updateQrNumber(id){
+	var qrNumber = $("#qrNumber_"+id).val();
+	if(qrNumber!=''){
+		qrNumber =  parseFloat(qrNumber);
+		$.ajax( {
+		type : "POST",
+		url : "WaigouwaiweiPlanAction!UpdateQrNumber.action",
+		data : {
+				id:id,
+				goodsCount:qrNumber
+			},
+		dataType : "json",
+		success : function(data) {
+			if(data=="true"){
+				var shNumber =	$("#shNumber_"+id).val();
+				shNumber = parseFloat(shNumber);
+				if(qrNumber<shNumber){
+					$("#qrtd_"+id).html('<font color="red">'+qrNumber+'</font>');
+				}else{
+					$("#qrtd_"+id).html(qrNumber);
+				}
+				alert("签收数量修改成功!~")
+			}else{
+				alert(data)
+			}
+		}
+	})
+	}else{
+		alert("请填写确认数量!~");
+		 $("#qrNumber_"+id).focus();
+	}
+}
+document.onkeydown=function(){
+with(window.event){
+	//禁用 Ctrl+p 打印
+  //Ctrl + p keyCode == 80
+	if (event.ctrlKey && event.keyCode == 80){
+		event.keyCode=0;event.returnValue=false;
+	} 
+  
+}
+}
+//禁用右键
+document.oncontextmenu = function(){
+    event.returnValue = false;
+}
+</script>
+	</body>
+</html>

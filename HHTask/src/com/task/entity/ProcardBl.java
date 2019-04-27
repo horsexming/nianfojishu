@@ -1,0 +1,224 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+import com.task.entity.sop.Procard;
+
+/**
+ * 备料 （ta_ProcardBl）
+ * 
+ * @author txb
+ *
+ */
+public class ProcardBl implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer rootId;
+	private Integer fatherId;
+	private Integer procardRootId;
+	private Integer procardId;//
+	private String markId;//
+	private String ywMarkId;// 业务件号（总成对外使用）
+	private String proName;// 名称
+	private String procardStyle;// 卡片类型(总成，外购，自制)
+	private String productStyle;// 产品类型(试制，批产)
+	private Float pcCount;// 排产数量
+	private Float qlCount;// 齐料数量
+	private Float ylCount;// 已领数量
+	private String unit;// 单位
+	private String ylingliaoTime;// 预领料时间
+	private String rlingliaoTime;// 实际领料时间
+	private String lingliaoStatus;// 是否需要领料
+	private String status;// 未领,未领完，已领完、完成
+	private String yjiagongTime;// 预加工时间
+	private String rjiagongTime;// 实际加工时间
+	private String beforeSelfcard;// 页面显示之前有批次未领
+	private String addtime;// 添加時間
+
+	private Procard procard;// 页面显示使用
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getProcardId() {
+		return procardId;
+	}
+
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public String getYlingliaoTime() {
+		return ylingliaoTime;
+	}
+
+	public void setYlingliaoTime(String ylingliaoTime) {
+		this.ylingliaoTime = ylingliaoTime;
+	}
+
+	public String getRlingliaoTime() {
+		return rlingliaoTime;
+	}
+
+	public void setRlingliaoTime(String rlingliaoTime) {
+		this.rlingliaoTime = rlingliaoTime;
+	}
+
+	public Procard getProcard() {
+		return procard;
+	}
+
+	public void setProcard(Procard procard) {
+		this.procard = procard;
+	}
+
+	public Integer getProcardRootId() {
+		return procardRootId;
+	}
+
+	public void setProcardRootId(Integer procardRootId) {
+		this.procardRootId = procardRootId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getBeforeSelfcard() {
+		return beforeSelfcard;
+	}
+
+	public void setBeforeSelfcard(String beforeSelfcard) {
+		this.beforeSelfcard = beforeSelfcard;
+	}
+
+	public String getLingliaoStatus() {
+		return lingliaoStatus;
+	}
+
+	public void setLingliaoStatus(String lingliaoStatus) {
+		this.lingliaoStatus = lingliaoStatus;
+	}
+
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	public String getProcardStyle() {
+		return procardStyle;
+	}
+
+	public void setProcardStyle(String procardStyle) {
+		this.procardStyle = procardStyle;
+	}
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	public Float getPcCount() {
+		return pcCount;
+	}
+
+	public void setPcCount(Float pcCount) {
+		this.pcCount = pcCount;
+	}
+
+	public Float getQlCount() {
+		return qlCount;
+	}
+
+	public void setQlCount(Float qlCount) {
+		this.qlCount = qlCount;
+	}
+
+	public Float getYlCount() {
+		return ylCount;
+	}
+
+	public void setYlCount(Float ylCount) {
+		this.ylCount = ylCount;
+	}
+
+	public String getYjiagongTime() {
+		return yjiagongTime;
+	}
+
+	public void setYjiagongTime(String yjiagongTime) {
+		this.yjiagongTime = yjiagongTime;
+	}
+
+	public String getRjiagongTime() {
+		return rjiagongTime;
+	}
+
+	public void setRjiagongTime(String rjiagongTime) {
+		this.rjiagongTime = rjiagongTime;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Integer getFatherId() {
+		return fatherId;
+	}
+
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+
+	public String getAddtime() {
+		return addtime;
+	}
+
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+}

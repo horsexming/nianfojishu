@@ -1,0 +1,143 @@
+package com.task.Server.payment;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.payment.FundApply;
+import com.task.entity.payment.FundApplyDetailed;
+import com.task.entity.payment.InvoiceCheck;
+import com.task.entity.payment.InvoiceCheckRecording;
+
+public interface FundApplyServer {
+	
+	/**
+	 * 查询资金使用申请单
+	 */
+	public Object[] findFundApplyList(FundApply fundApply,int pageNo,int pageSize,String pagestatus,String firstTime,String endTime);
+	/**
+	 * 添加资金使用申请单
+	 */
+	public String addFundApply(FundApply fundApply);
+	/**
+	 * 申请支付资金使用
+	 */
+	public String updateFundApply(FundApply fundApply);
+	/**
+	 * 删除资金使用申请单
+	 */
+	public String delFundApply(FundApply fundApply);
+	/**
+	 * 
+	 */
+	public FundApply getFundApplyById(Integer id);
+	/**
+	 * 获得设备报修编号或者KVP号
+	 */
+	List	getzjStyleMx(String style);
+	public List<FundApplyDetailed> findfadListByid(Integer id);
+	/**
+	 * 同意申请
+	 * @param id
+	 * @return
+	 */
+	public String agreeApply(Integer id);
+	/**
+	 * 打回申请
+	 * @param id
+	 * @return
+	 */
+	public String backApply(Integer id);
+	/**
+	 * 个人输入密码确认
+	 *
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	public String sureSelf(Integer id, String password);
+	/**
+	 * 获取申请单和其下明细
+	 * @param id
+	 * @return
+	 */
+	public FundApply getFundApplyAndDetailById(Integer id);
+	public Map<Integer, Object> findPay_ExecutionNode(Integer id);
+	/**
+	 * 转移历史数据到新的表中
+	 * @return
+	 */
+	public String zyjl();
+	/**
+	 * 申请委托付款
+	 * @param ids
+	 * @param bwtCompany 委托公司
+	 * @return
+	 */
+	public String weituo(int[] ids,String bwtCompany);
+	/**
+	 * 查询外委订单号
+	 * @param wwNumber
+	 * @return
+	 */
+	public Integer findwwOrder(String wwNumber);
+	/**
+	 * 获取收款单位
+	 * @return
+	 */
+	public List getskdw();
+	void bushuju(Integer id);
+	
+	/**
+	 * 发票查验
+	 * @param invoiceCheckRecording
+	 */
+	public String addInvoiceCheckRecording(
+			InvoiceCheckRecording invoiceCheckRecording);
+	
+	/**
+	 * 发票查询
+	 * @param invoiceCheck
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pagestatus
+	 * @return
+	 */
+	public Object[] findInvoiceCheckList(InvoiceCheck invoiceCheck,
+			int parseInt, int pageSize, String pagestatus,String fapiaohao);
+	/**
+	 * 根据id得到发票信息
+	 * @param id
+	 * @return
+	 */
+	public InvoiceCheck findInvoiceCheckbyId(Integer id);
+	
+	/**
+	 * 根据发票代码获取发票信息
+	 */
+	public InvoiceCheck findInvoickCheckByFpdm(String fpdm);
+	/**
+	 * 查询是否有发票复核功能
+	 * @return
+	 */
+	public boolean selectInvoice();
+	
+	/**
+	 * 定额发票录入
+	 * @param invoiceCheck
+	 * @return
+	 */
+	public String addInvoiceQuota(InvoiceCheck invoiceCheck);
+	
+	/**
+	 * 上传发票附件
+	 */
+	public String uploadInvoiceCheckFile(InvoiceCheck ic);
+	
+	/****
+	 * 获取个人当前欠款总额
+	 * @param userid
+	 * @return
+	 */
+	Double getbackmoney(Integer userid);
+	
+}

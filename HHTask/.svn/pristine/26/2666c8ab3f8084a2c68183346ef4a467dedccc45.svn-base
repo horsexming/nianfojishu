@@ -1,0 +1,367 @@
+package com.task.ServerImpl.caiwu;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.task.Server.caiwu.AccountCheckService;
+import org.apache.struts2.ServletActionContext;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.caiwu.CwVouchersServer;
+import com.task.Server.caiwu.receivePayment.ReceiptServer;
+import com.task.entity.Asset;
+import com.task.entity.Users;
+import com.task.entity.caiwu.CwUseDetail;
+import com.task.entity.caiwu.CwVouchers;
+import com.task.entity.caiwu.CwVouchersDetail;
+import com.task.entity.fin.budget.SubBudgetRate;
+import com.task.entity.sop.ProcardTemplateBanBenApply;
+import com.task.util.Upload;
+import com.task.util.Util;
+
+/***
+ * 银行账户实现类
+ * 
+ * @author 刘培
+ * 
+ */
+public class CwVouchersServerImpl implements CwVouchersServer {
+
+	private TotalDao totalDao;
+	private ReceiptServer receiptServer;
+	private AccountCheckService accountCheckService;
+
+	public ReceiptServer getReceiptServer() {
+		return receiptServer;
+	}
+
+	public void setReceiptServer(ReceiptServer receiptServer) {
+		this.receiptServer = receiptServer;
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	public AccountCheckService getAccountCheckService() {
+		return accountCheckService;
+	}
+
+	public void setAccountCheckService(AccountCheckService accountCheckService) {
+		this.accountCheckService = accountCheckService;
+	}
+
+	/***
+	 * 查询凭证
+	 */
+	@Override
+	public Map<Integer, Object> findCwVouchersByCondition(
+			CwVouchers cwVouchers, int pageNo, int pageSize, String startTime,
+			String endTime, String tages) {
+		if (cwVouchers == null) {
+			cwVouchers = new CwVouchers();
+		}
+		String hql = totalDao.criteriaQueries(cwVouchers, null,"zzStatus");
+		if("pz".equals(tages)){
+			if("已做账".equals(cwVouchers.getZzStatus()))
+				hql +=" and zzStatus = '已做账'";
+			else {
+				hql +=" and (zzStatus is null or zzStatus = '' or zzStatus = '未做账')";
+				cwVouchers.setZzStatus("未做账");
+			}
+		}
+		if (endTime == null || endTime.equals("")) {
+			endTime = Util.getDateTime();
+		}
+		if (startTime != null && !startTime.equals("")) {
+			hql = hql + " and createtime between '" + startTime + "' and '"
+					+ endTime + "'";
+		}
+		int count = totalDao.getCount(hql);
+		List objs = totalDao.findAllByPage(hql, pageNo, pageSize);
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		map.put(1, objs);
+		map.put(2, count);
+		return map;
+	}
+
+	/**
+	 * 通过财务凭证id获取其下分录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public List<CwVouchersDetail> findDetailByVouchersById(int id) {
+		List<CwVouchersDetail> list = totalDao.query(
+				"from CwVouchersDetail where cwVouchers.id=?", id);
+		return list;
+	}
+
+	/**
+	 * 通过分录查询对应辅助明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public List<CwUseDetail> findCwUseDetailByCvdId(int id) {
+		List<CwUseDetail> list = totalDao.query(
+				"from CwUseDetail where cwVouchersDetail.id=?", id);
+		return list;
+	}
+
+	/****
+	 * 根据科目id查询对应的借贷记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public List<CwVouchersDetail> findDetailBysubId(int id) {
+		List<CwVouchersDetail> list = totalDao.query(
+				"from CwVouchersDetail where subId=?", id);
+		return list;
+	}
+
+	@Override
+	public CwVouchers getCwVouchersById(int id) {
+		// TODO Auto-generated method stub
+		return (CwVouchers) totalDao.getObjectById(CwVouchers.class, id);
+	}
+
+	/********
+	 * 固定资产月度折旧---计提
+	 * 
+	 * @return
+	 */
+	@Override
+	public boolean accetMonthZhejiu() {
+		String month = Util.getDateTime("yyyy-MM");
+		/************************ 根据净值与月折旧额 生成凭证 *****************************/
+		String hql = "select tausingobject,sum(tayuezhejiudepreciation) from Asset where taassetsNetworth>0 group by tausingobject ";
+		List assetList = totalDao.query(hql);
+		CwVouchers cwVouchers = new CwVouchers();
+		// 生成编号
+		String num = "P" + Util.getDateTime("yyyyMM");
+		String hql_finMaxnum = "select max(number) from CwVouchers where number like '%"
+				+ num + "%'";
+		String maxfkNumber = (String) totalDao
+				.getObjectByCondition(hql_finMaxnum);
+		if (maxfkNumber != null && maxfkNumber.length() > 0) {
+			String subnum = "";
+			Integer maxnum = Integer.parseInt(maxfkNumber.substring(7,
+					maxfkNumber.length())) + 1;
+			if (maxnum < 10) {
+				subnum += "0000" + maxnum;// 00009
+			} else if (maxnum < 100) {
+				subnum += "000" + maxnum;// 00099
+			} else if (maxnum < 1000) {
+				subnum += "00" + maxnum;// 00999
+			} else if (maxnum < 10000) {
+				subnum += "0" + maxnum;// 09999
+			} else {
+				subnum += "" + maxnum;
+			}
+			num += subnum;
+		} else {
+			num += "00001";
+		}
+		cwVouchers.setNumber(num);
+		cwVouchers.setVouchermonth(Util.getDateTime("yyyy-MM"));
+		cwVouchers.setVoucherdate(Util.getDateTime("yyyy-MM-dd"));
+		cwVouchers.setCreatetime(Util.getDateTime());
+		cwVouchers.setUserName(Util.getLoginUser().getName());
+		cwVouchers.setCreateCode(Util.getLoginUser().getCode());
+		cwVouchers.setCreateName(Util.getLoginUser().getName());
+		Float jieMoney = 0F;
+		Float daiMoney = 0F;
+
+		Set<CwVouchersDetail> cwVouchersDetailSet = new HashSet<CwVouchersDetail>();
+		for (int i = 0; i < assetList.size(); i++) {
+			Object[] assetobj = (Object[]) assetList.get(i);
+			String dept = (String) assetobj[0];
+			Double zhejiu_d = (Double) assetobj[1];
+			Float zhejiufei = zhejiu_d.floatValue();
+
+			SubBudgetRate subBudgetRate_jie = null;
+			if ("研发".equals(dept)) {
+				subBudgetRate_jie = (SubBudgetRate) totalDao
+						.getObjectByCondition("from SubBudgetRate where name='折旧费' and fatherName='费用化支出' "
+								+ " and rootId=(select id from SubBudgetRate where name='研发支出' and belongLayer=1)");
+			} else if ("总成班".equals(dept) || "加工".equals(dept)
+					|| "设备".equals(dept) || "品质".equals(dept)
+					|| "物流".equals(dept)) {
+				subBudgetRate_jie = (SubBudgetRate) totalDao
+						.getObjectByCondition("from SubBudgetRate where name='折旧费' and rootId=(select id from SubBudgetRate where name='制造费用' and belongLayer=1)");
+			} else {
+				subBudgetRate_jie = (SubBudgetRate) totalDao
+						.getObjectByCondition("from SubBudgetRate where name='折旧费' and rootId=(select id from SubBudgetRate where name='管理费用' and belongLayer=1)");
+			}
+
+			/******************* 冲销 凭证分录 ***********************/
+
+			// ***************** 凭证分录 --借方*********************
+			CwVouchersDetail cwVouchersDetail_jie = new CwVouchersDetail();
+			Set<CwUseDetail> cwUseDetailSet = new HashSet<CwUseDetail>();
+
+			// ***************** 分录--辅助明细********************
+			CwUseDetail cwUseDetail = new CwUseDetail();
+			cwUseDetail.setPayee(dept);
+			cwUseDetail.setUseFor("计提" + month + "固定资产折旧");
+			cwUseDetail.setUsemoney(zhejiufei);
+			cwUseDetail.setAboutNum("");
+			cwUseDetail.setPayNum("");
+			cwUseDetail.setPayType("计提");
+			cwUseDetail.setCwVouchersDetail(cwVouchersDetail_jie);
+			cwUseDetailSet.add(cwUseDetail);
+
+			cwVouchersDetail_jie.setRemark("计提" + month + "固定资产折旧");
+			cwVouchersDetail_jie.setvClass("转");
+			// 查找一级科目
+			SubBudgetRate oneLevelsub_jie = (SubBudgetRate) totalDao
+					.getObjectById(SubBudgetRate.class, subBudgetRate_jie
+							.getRootId());
+			cwVouchersDetail_jie.setSub(oneLevelsub_jie.getName());
+			cwVouchersDetail_jie.setSubId(oneLevelsub_jie.getId());
+			// 明细科目
+			cwVouchersDetail_jie.setDetailSub(receiptServer
+					.findBudgetRateNames(subBudgetRate_jie.getId())
+					+ "-" + dept);
+			cwVouchersDetail_jie.setDetailSubId(subBudgetRate_jie.getId());
+
+			cwVouchersDetail_jie.setJieMoney(zhejiufei);
+			cwVouchersDetail_jie.setDaiMoney(0F);
+			cwVouchersDetail_jie.setCreateTime(Util.getDateTime());
+			cwVouchersDetail_jie.setCreateName(Util.getLoginUser().getName());
+			cwVouchersDetail_jie.setCreateCode(Util.getLoginUser().getCode());
+			cwVouchersDetail_jie.setCwUseDetails(cwUseDetailSet);
+			cwVouchersDetail_jie.setCwVouchers(cwVouchers);
+			cwVouchersDetailSet.add(cwVouchersDetail_jie);
+
+			cwVouchers.setCwVouchersDetails(cwVouchersDetailSet);
+			totalDao.save(cwVouchers);
+			// 更新借方科目余额
+			receiptServer.updatesubBudgetRate(subBudgetRate_jie.getId(),
+					zhejiufei.doubleValue(), 0D);
+			jieMoney += zhejiufei;
+			daiMoney += 0F;
+
+			// --*****************凭证分录-贷方********************
+			CwVouchersDetail cwVouchersDetail_dai = new CwVouchersDetail();
+			cwVouchersDetail_dai.setvClass("转");
+			cwVouchersDetail_dai.setRemark("计提" + month + "固定资产折旧");
+
+			// 明细科目需根据科目矩阵图查询
+			SubBudgetRate subBudgetRate = (SubBudgetRate) totalDao
+					.getObjectByCondition("from SubBudgetRate where name='本月提取折旧费' and rootId=(select id from SubBudgetRate where name='累计折旧' and belongLayer=1)");
+
+			// 查找一级科目
+			SubBudgetRate oneLevelsub = (SubBudgetRate) totalDao.getObjectById(
+					SubBudgetRate.class, subBudgetRate.getRootId());
+			cwVouchersDetail_dai.setSub(oneLevelsub.getName());
+			cwVouchersDetail_dai.setSubId(oneLevelsub.getId());
+
+			// 明细科目
+			cwVouchersDetail_dai.setDetailSub(receiptServer
+					.findBudgetRateNames(subBudgetRate.getId())
+					+ "-" + dept);
+			cwVouchersDetail_dai.setDetailSubId(subBudgetRate.getId());
+			cwVouchersDetail_dai.setJieMoney(0F);
+			cwVouchersDetail_dai.setDaiMoney(zhejiufei);
+			cwVouchersDetail_dai.setCreateTime(Util.getDateTime());
+			cwVouchersDetail_dai.setCreateName(Util.getLoginUser().getName());
+			cwVouchersDetail_dai.setCreateCode(Util.getLoginUser().getCode());
+			cwVouchersDetail_dai.setCwVouchers(cwVouchers);
+			cwVouchersDetailSet.add(cwVouchersDetail_dai);
+			// 更新贷方科目余额
+			receiptServer.updatesubBudgetRate(subBudgetRate.getId(), 0D,
+					zhejiufei);
+			jieMoney += 0F;
+			daiMoney += zhejiufei;
+		}
+		cwVouchers.setJieMoney(jieMoney);
+		cwVouchers.setDaiMoney(daiMoney);
+		totalDao.save(cwVouchers);
+
+		/***************** 设备折旧--设备净值-月折旧额 ********************************/
+		String hql_asset = "from Asset where taassetsNetworth>0";
+		List assetLists = totalDao.query(hql_asset);
+		for (int i = 0; i < assetLists.size(); i++) {
+			Asset asset = (Asset) assetLists.get(i);
+			Float assetsNetworth = asset.getTaassetsNetworth()
+					- asset.getTayuezhejiudepreciation();
+			if (assetsNetworth < 0) {
+				assetsNetworth = 0F;
+			}
+			asset.setTaassetsNetworth(assetsNetworth);
+			totalDao.update(asset);
+		}
+		return false;
+	}
+
+	@Override
+	public String queren(int id) {
+		// TODO Auto-generated method stub
+		CwVouchers cwVouchers = getCwVouchersById(id);
+		if(cwVouchers!=null){
+			cwVouchers.setZzStatus("已做账");
+			if(totalDao.update(cwVouchers)){
+				return "true";
+			}else{
+				return "保存失败！";
+			}
+		}else {
+			return "数据异常，请刷新后重试！";
+		}
+	}
+	
+	@Override
+	public String shangchuan(CwVouchers cwVoucherss, File proofFile,
+			String fileName) {
+		// TODO Auto-generated method stub
+		CwVouchers cwVouchers = getCwVouchersById(cwVoucherss.getId());
+		if(cwVouchers!=null){
+			cwVouchers.setZzStatus("已做账");
+			cwVouchers.setZzPizNumber(cwVoucherss.getZzPizNumber());//凭证编号
+			cwVouchers.setZzTime(Util.getDateTime());
+			// 上传凭证附件
+			String realFilePath = "/upload/file/payPz";
+			String path = ServletActionContext.getServletContext()
+					.getRealPath(realFilePath);
+			File file = new File(path);
+			if (!file.exists()) {
+				file.mkdirs();// 如果不存在文件夹就新建
+			}
+			Upload upload = new Upload();
+			String filenewname = upload.UploadFile(proofFile, fileName,
+					null, realFilePath, null);
+			cwVouchers.setZzFile(filenewname);//附件名称
+			if(totalDao.update(cwVouchers)){
+				//更新对账单
+				accountCheckService.checkCwVouchersState(cwVouchers.getFk_receiptLogId());
+				return "上传成功";
+			}else{
+				return "上传失败！";
+			}
+		}else {
+			return "数据异常，请刷新后重试！";
+		}
+	}
+
+
+	@Override
+	public CwVouchers findCwVouchersByReceiptLogId(Integer id){
+		CwVouchers cwVouchers= (CwVouchers) totalDao.getObjectByCondition("from CwVouchers where fk_receiptLogId=?",id);
+		return cwVouchers;
+	}
+}

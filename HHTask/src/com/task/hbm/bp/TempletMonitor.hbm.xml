@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bp.TempletMonitor" table="ta_bp_TempletMonitor">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="tId"/>
+		<property name="parentId" />
+		<property name="name" not-null="true" length="50" />
+		<property name="partsNumber" length="50" />
+		<property name="advPosition" not-null="true" type="float" />
+		<property name="models" length="50" />
+
+		<property name="directions" length="255" />
+		<property name="specification" length="200" />
+		<property name="category" />
+		<property name="unit" />
+		<property name="resPerson" />
+		<property name="reason" length="50" />
+			
+		<property name="trademark" length="50"/>
+		<property name="thickness" type="float" />
+		<property name="thicknessT" type="float" />
+		<property name="width" type="float" />
+		<property name="widthT" type="float" />
+		<property name="length" />
+		<property name="lengthT" type="float" />
+		<property name="diameter" type="float" />
+		<property name="standards" length="100"/>
+
+
+	</class>
+
+</hibernate-mapping>

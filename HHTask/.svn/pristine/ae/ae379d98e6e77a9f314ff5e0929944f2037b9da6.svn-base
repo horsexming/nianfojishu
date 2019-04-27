@@ -1,0 +1,346 @@
+package com.task.entity.sop;
+
+/***
+ * ProcessInforReceiveLog工序领取记录
+ * 
+ * @表名 ta_sop_w_ProcessInforReceiveLog
+ * @author liupei
+ * 
+ */
+public class ProcessInforReceiveLog {
+
+	private Integer id;
+	private String usercodes;// 员工号
+	private String userCardId;// 员工卡号
+	private String usernames;// 员工姓名
+	private Integer userId;// 员工id
+	private String firstApplyDate;// 领取时间
+	private String sumitApplyDate;// 提交时间
+	private Float allJiepai;// 本次生产节拍(S)
+	private Float allSbJiepai;// 本次设备总节拍(S)
+	private Float nowCsJiepai;// 本次生产超时节拍(S)
+	private Float allNenghao;// 本次生产能耗(kw/h)
+	private Float allDjJiepai;// 本次待机节拍(S)
+	private Float allDjNenghao;// 本次待机能耗(kw/h)
+	private Float receiveNumber;// 领取数量
+	private Float submitNumber;// 提交数量
+	private Float breakCount;// 不合格数量
+	private String status;// 生产状态(领取/提交)
+	private String gongwei;// 生产工位
+	private String shebeiNo;// 设备编号;
+	private Integer fk_pirLId;// 用于标识对应的领取记录明细(自身树形结构)
+	private String barcode;// 唯一编码;UUID生产;
+	private Integer fk_processInforId;
+	private String gxstatus;// （初始/待领/已领/）页面传值
+	private String sjStatus;// 是否已经首检过(yes/no)
+	private String hadsj;// 是否已提交首检（yes/no）
+	private String fzwork;// 辅助人员卡号和奖金比例 卡号:奖金比例,卡号:奖金比例,卡号:奖金比例
+	// 如（501:10,473:20）
+	private String fzworkname;// // 辅助人员姓名和奖金比例 姓名:奖金比例,姓名:奖金比例,姓名:奖金比例
+	// 如(张三:10,李四:20)
+	private String istuliao;// 退料标志(是,null,否)
+
+	// 计件工资计算;
+	private Double processjjMoney;// 工序分配单价 (计件工资使用)
+	private Double procesdianshu;// 点数
+	private Double processjjAllMoney;// 总额;提交数*工序单价*计价系数
+	private Double jjratio;// 计件单价系数
+	private Double sjprocessMomey;// 实际单价
+	private Double ykprocessMomey;// 盈亏单价
+
+	// private ProcessInfor processInfor;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUsercodes() {
+		return usercodes;
+	}
+
+	public void setUsercodes(String usercodes) {
+		this.usercodes = usercodes;
+	}
+
+	public String getUserCardId() {
+		return userCardId;
+	}
+
+	public void setUserCardId(String userCardId) {
+		this.userCardId = userCardId;
+	}
+
+	public String getUsernames() {
+		return usernames;
+	}
+
+	public void setUsernames(String usernames) {
+		this.usernames = usernames;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstApplyDate() {
+		return firstApplyDate;
+	}
+
+	public void setFirstApplyDate(String firstApplyDate) {
+		this.firstApplyDate = firstApplyDate;
+	}
+
+	public String getSumitApplyDate() {
+		return sumitApplyDate;
+	}
+
+	public void setSumitApplyDate(String sumitApplyDate) {
+		this.sumitApplyDate = sumitApplyDate;
+	}
+
+	public Float getAllJiepai() {
+		return allJiepai;
+	}
+
+	public void setAllJiepai(Float allJiepai) {
+		this.allJiepai = allJiepai;
+	}
+
+	public Float getAllNenghao() {
+		return allNenghao;
+	}
+
+	public void setAllNenghao(Float allNenghao) {
+		this.allNenghao = allNenghao;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Float getReceiveNumber() {
+		return receiveNumber;
+	}
+
+	public void setReceiveNumber(Float receiveNumber) {
+		if (receiveNumber != null) {
+			int aa = receiveNumber.intValue();
+			if (aa != receiveNumber) {
+				throw new RuntimeException(
+						"Exceptional number of process logs collected");
+			}
+		}
+		this.receiveNumber = receiveNumber;
+	}
+
+	public Float getSubmitNumber() {
+		return submitNumber;
+	}
+
+	public void setSubmitNumber(Float submitNumber) {
+		if (submitNumber != null) {
+			int aa = submitNumber.intValue();
+			if (aa != submitNumber) {
+				throw new RuntimeException(
+						"Exceptional number of process log submissions");
+			}
+		}
+		this.submitNumber = submitNumber;
+	}
+
+	public Float getBreakCount() {
+		return breakCount;
+	}
+
+	public void setBreakCount(Float breakCount) {
+		if(breakCount!=null){
+			int aa = breakCount.intValue();
+			if (aa != breakCount) {
+				throw new RuntimeException(
+				"Exceptional number of process log breakCount");
+			}
+		}
+		this.breakCount = breakCount;
+	}
+
+	public Integer getFk_pirLId() {
+		return fk_pirLId;
+	}
+
+	public void setFk_pirLId(Integer fkPirLId) {
+		fk_pirLId = fkPirLId;
+	}
+
+	public Float getAllDjJiepai() {
+		return allDjJiepai;
+	}
+
+	public void setAllDjJiepai(Float allDjJiepai) {
+		this.allDjJiepai = allDjJiepai;
+	}
+
+	public Float getAllDjNenghao() {
+		return allDjNenghao;
+	}
+
+	public void setAllDjNenghao(Float allDjNenghao) {
+		this.allDjNenghao = allDjNenghao;
+	}
+
+	public Integer getFk_processInforId() {
+		return fk_processInforId;
+	}
+
+	public void setFk_processInforId(Integer fkProcessInforId) {
+		fk_processInforId = fkProcessInforId;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+
+	public String getShebeiNo() {
+		return shebeiNo;
+	}
+
+	public void setShebeiNo(String shebeiNo) {
+		this.shebeiNo = shebeiNo;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	public String getGxstatus() {
+		return gxstatus;
+	}
+
+	public void setGxstatus(String gxstatus) {
+		this.gxstatus = gxstatus;
+	}
+
+	public String getSjStatus() {
+		return sjStatus;
+	}
+
+	public void setSjStatus(String sjStatus) {
+		this.sjStatus = sjStatus;
+	}
+
+	public String getHadsj() {
+		return hadsj;
+	}
+
+	public void setHadsj(String hadsj) {
+		this.hadsj = hadsj;
+	}
+
+	public Float getNowCsJiepai() {
+		return nowCsJiepai;
+	}
+
+	public void setNowCsJiepai(Float nowCsJiepai) {
+		this.nowCsJiepai = nowCsJiepai;
+	}
+
+	public String getFzwork() {
+		return fzwork;
+	}
+
+	public void setFzwork(String fzwork) {
+		this.fzwork = fzwork;
+	}
+
+	public String getFzworkname() {
+		return fzworkname;
+	}
+
+	public void setFzworkname(String fzworkname) {
+		this.fzworkname = fzworkname;
+	}
+
+	public Double getProcessjjMoney() {
+		return processjjMoney;
+	}
+
+	public void setProcessjjMoney(Double processjjMoney) {
+		this.processjjMoney = processjjMoney;
+	}
+
+	public Double getProcesdianshu() {
+		return procesdianshu;
+	}
+
+	public void setProcesdianshu(Double procesdianshu) {
+		this.procesdianshu = procesdianshu;
+	}
+
+	public Double getProcessjjAllMoney() {
+		return processjjAllMoney;
+	}
+
+	public void setProcessjjAllMoney(Double processjjAllMoney) {
+		this.processjjAllMoney = processjjAllMoney;
+	}
+
+	public Double getJjratio() {
+		return jjratio;
+	}
+
+	public void setJjratio(Double jjratio) {
+		this.jjratio = jjratio;
+	}
+
+	public Float getAllSbJiepai() {
+		return allSbJiepai;
+	}
+
+	public void setAllSbJiepai(Float allSbJiepai) {
+		this.allSbJiepai = allSbJiepai;
+	}
+
+	public Double getSjprocessMomey() {
+		return sjprocessMomey;
+	}
+
+	public void setSjprocessMomey(Double sjprocessMomey) {
+		this.sjprocessMomey = sjprocessMomey;
+	}
+
+	public Double getYkprocessMomey() {
+		return ykprocessMomey;
+	}
+
+	public void setYkprocessMomey(Double ykprocessMomey) {
+		this.ykprocessMomey = ykprocessMomey;
+	}
+
+	public String getIstuliao() {
+		return istuliao;
+	}
+
+	public void setIstuliao(String istuliao) {
+		this.istuliao = istuliao;
+	}
+
+}

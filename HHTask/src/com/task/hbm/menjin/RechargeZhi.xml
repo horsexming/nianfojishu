@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="RechargeZhi" table="ta_mj_RechargeZhi">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="10"/>
+		<property name="code" length="50"/>
+		<property name="dept" length="50"/>
+		<property name="cardId" length="30"/>
+		<property name="userId" length="20"/>
+		<property name="balance" length="20"/>
+		<property name="balanceMoney" length="20"/>
+		<property name="dateTime" length="30"/>
+		<property name="addTime" length="30"/>
+		<property name="allId" length="20"/>
+		<property name="useWhat"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.lpanclear">
+	<class name="Employee" table="ta_employee">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="employeeName"/>	
+		<property name="password"/>	
+		<property name="userId"/>	
+		
+		<set name="clearInfo" inverse="false" cascade="delete" lazy="false">
+			<key column="fk_employeeId"></key>
+			<one-to-many class="ClearInfo"/>
+		</set>
+		
+		<set name="score" inverse="false" cascade="all" lazy="false">
+			<key column="fk_employeeId"></key>
+			<one-to-many class="Score"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

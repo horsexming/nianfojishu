@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="WeiWaiJieGou" table="ta_WeiWaiJieGou">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="changzhi"/>
+		<property name="bgbl"/>
+		<property name="gxww"/>
+		<property name="wwgj"/>
+		<property name="wwb"/>
+		<property name="wwxs"/>
+		<property name="rkcz"/>
+		<property name="scBOM"/>
+		<property name="jgb"/>
+		<property name="jgxs"/>
+		<property name="jgbmb"/>
+		<property name="wwbmb"/>
+		<property name="years"/>
+		<property name="months"/>
+		<property name="month0"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

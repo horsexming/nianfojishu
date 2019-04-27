@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+
+	<class name="ProcessPeople" table="ta_sop_tj_ProcessPeople">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="processId" />
+		<property name="code" />
+		<property name="name" />
+		<property name="dept" />
+		<property name="status" />
+		<property name="sum" />
+
+		<property name="addUserid" />
+		<property name="addUserCode" />
+		<property name="addUserName" />
+
+
+	</class>
+</hibernate-mapping>

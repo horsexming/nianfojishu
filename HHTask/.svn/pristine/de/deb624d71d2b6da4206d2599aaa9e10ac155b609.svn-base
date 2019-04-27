@@ -1,0 +1,274 @@
+package com.task.entity;
+
+import java.util.Date;
+
+public class StorageForm {
+	private String number; // 编号
+	private String matetag; // 名称
+	private String format; // 规格
+	private String unit; // 单位
+	private String storehouse; // 仓库
+	private String parClass; // 类别
+	private String place; // 位置
+	private String duizhang; // 对账
+	private Float num; // 数量
+	private Integer carePeriod; // 维修周期
+
+	private String appDept; // 部门
+	private Date date; // 时间
+	private String more; // 依据
+	/** 入库属性 */
+	private String storageInvoice; // 发票号
+	private String storageCompany; // 供应商
+	private Float storageTaxPrice; // 含税价格
+	private String storageIsTax; // 是否含税
+	private Float storageTaxRate; // 税率
+	private String taxRate; // 百分比税率
+	private String jinbanren; // 经办人
+
+	private Float unitPrice; // 单价
+
+	private String isTranslation; // 是否换算
+	private String category; // 分类(块\箱)
+	private Float conversionNum; // 对应数量
+	private Float categoryNum; // 分类的数量
+	private Float beginning_num;//期初数量
+
+	private String classify; // (可借用/领用)
+	private Float budgetPrice;//送货单价格(含税)
+	private String bzStatus;//报账状态（入库(无价格)，预报账（送货价），可开票/打回，已开票（发票价），报账）
+
+	
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getMatetag() {
+		return matetag;
+	}
+
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getStorehouse() {
+		return storehouse;
+	}
+
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+
+	public String getParClass() {
+		return parClass;
+	}
+
+	public void setParClass(String parClass) {
+		this.parClass = parClass;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getDuizhang() {
+		return duizhang;
+	}
+
+	public void setDuizhang(String duizhang) {
+		this.duizhang = duizhang;
+	}
+
+	public Integer getCarePeriod() {
+		return carePeriod;
+	}
+
+	public void setCarePeriod(Integer carePeriod) {
+		this.carePeriod = carePeriod;
+	}
+
+	public String getAppDept() {
+		return appDept;
+	}
+
+	public void setAppDept(String appDept) {
+		this.appDept = appDept;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public String getStorageInvoice() {
+		return storageInvoice;
+	}
+
+	public void setStorageInvoice(String storageInvoice) {
+		this.storageInvoice = storageInvoice;
+	}
+
+	public String getStorageCompany() {
+		return storageCompany;
+	}
+
+	public void setStorageCompany(String storageCompany) {
+		this.storageCompany = storageCompany;
+	}
+
+	public Float getStorageTaxPrice() {
+		return storageTaxPrice;
+	}
+
+	public void setStorageTaxPrice(Float storageTaxPrice) {
+		this.storageTaxPrice = storageTaxPrice;
+	}
+
+	public String getStorageIsTax() {
+		return storageIsTax;
+	}
+
+	public void setStorageIsTax(String storageIsTax) {
+		this.storageIsTax = storageIsTax;
+	}
+
+	public Float getStorageTaxRate() {
+		return storageTaxRate;
+	}
+
+	public void setStorageTaxRate(Float storageTaxRate) {
+		this.storageTaxRate = storageTaxRate;
+	}
+
+	public String getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(String taxRate) {
+		this.taxRate = taxRate;
+	}
+
+	public String getJinbanren() {
+		return jinbanren;
+	}
+
+	public void setJinbanren(String jinbanren) {
+		this.jinbanren = jinbanren;
+	}
+
+	public Float getNum() {
+		return num;
+	}
+
+	public void setNum(Float num) {
+		this.num = num;
+	}
+
+	public Float getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Float unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public String getIsTranslation() {
+		return isTranslation;
+	}
+
+	public void setIsTranslation(String isTranslation) {
+		this.isTranslation = isTranslation;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Float getConversionNum() {
+		return conversionNum;
+	}
+
+	public void setConversionNum(Float conversionNum) {
+		this.conversionNum = conversionNum;
+	}
+
+	public Float getCategoryNum() {
+		return categoryNum;
+	}
+
+	public void setCategoryNum(Float categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+
+	public String getClassify() {
+		return classify;
+	}
+
+	public void setClassify(String classify) {
+		this.classify = classify;
+	}
+
+	public Float getBudgetPrice() {
+		return budgetPrice;
+	}
+
+	public void setBudgetPrice(Float budgetPrice) {
+		this.budgetPrice = budgetPrice;
+	}
+
+	public String getBzStatus() {
+		return bzStatus;
+	}
+
+	public void setBzStatus(String bzStatus) {
+		this.bzStatus = bzStatus;
+	}
+
+	public Float getBeginning_num() {
+		return beginning_num;
+	}
+
+	public void setBeginning_num(Float beginningNum) {
+		beginning_num = beginningNum;
+	}
+
+}

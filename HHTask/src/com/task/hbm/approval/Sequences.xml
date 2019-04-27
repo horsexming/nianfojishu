@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.approval.Sequences" table="ta_Sequences">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" />
+		<property name="module_name" />
+		<property name="se_number" />
+		<property name="se_date" />
+	</class>
+</hibernate-mapping>

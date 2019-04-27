@@ -1,0 +1,80 @@
+package com.task.entity.diaoyan;
+
+import com.task.entity.CampanyName;
+
+/**
+ *	调研报告表:(ta_diaoyan_ResearchReport)
+ * @author wxf
+ *
+ */
+public class ResearchReport {
+
+	private Integer id;//id
+	private String dept;//部门
+	private String cases;//问题点
+	private String expectedEffec;//期望效果
+	private String solution;//解决方案
+	private String addTime;//添加时间
+	private String addUsersName;//添加人姓名
+	private String addUsersCode;//添加人工号
+	private CampanyName campanyName;//对应调研公司 多对一
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getCases() {
+		return cases;
+	}
+	public void setCases(String cases) {
+		this.cases = cases;
+	}
+	public String getExpectedEffec() {
+		return expectedEffec;
+	}
+	public void setExpectedEffec(String expectedEffec) {
+		this.expectedEffec = expectedEffec;
+	}
+	public String getSolution() {
+		return solution;
+	}
+	public void setSolution(String solution) {
+		this.solution = solution;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public String getAddUsersCode() {
+		return addUsersCode;
+	}
+	public void setAddUsersCode(String addUsersCode) {
+		this.addUsersCode = addUsersCode;
+	}
+	public CampanyName getCampanyName() {
+		return campanyName;
+	}
+	public void setCampanyName(CampanyName campanyName) {
+		this.campanyName = campanyName;
+	}
+	
+	
+	
+	
+	
+}

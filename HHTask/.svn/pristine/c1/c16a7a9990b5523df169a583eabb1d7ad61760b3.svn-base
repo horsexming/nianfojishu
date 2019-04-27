@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="ProjectMaterial" table="ta_pro_ProjectMaterial">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proName" />
+		<property name="markId" />
+		<property name="materialName" />
+		<property name="guige"  />
+		<property name="paihao" />
+		<property name="needNumber" />
+		<property name="supplier" />
+		<property name="unit" />
+		<property name="isbaomi" />
+		<property name="kgliao" />
+
+		<!-- 【配置材料和清单的对应关系(多对一)】 -->
+		<many-to-one name="projectMaterialOrder" class="ProjectMaterialOrder"
+			cascade="save-update" lazy="proxy" column="orderId" />
+	</class>
+
+</hibernate-mapping>

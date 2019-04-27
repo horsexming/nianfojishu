@@ -1,0 +1,83 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+/***
+ * 项目登录记录表(表名:ta_sys_projectRecord)
+ * 
+ * @author 刘培
+ * 
+ */
+
+public class ProjectRecord  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer Id;
+	private String projectName;// 项目名称
+	private String websiteName;// 网站名称
+	private String loginAction;// 登录Action
+	private String loginField;// 登录字段(多个用逗号分割)
+	private String loginFieldName;// 登录字段所对应名称(多个用逗号分割)
+	private Set<ProjectLogin> projectLogin;
+
+	public Integer getId() {
+		return Id;
+	}
+
+	public void setId(Integer id) {
+		Id = id;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getLoginAction() {
+		return loginAction;
+	}
+
+	public void setLoginAction(String loginAction) {
+		this.loginAction = loginAction;
+	}
+
+	public String getLoginField() {
+		return loginField;
+	}
+
+	public void setLoginField(String loginField) {
+		this.loginField = loginField;
+	}
+
+	public String getLoginFieldName() {
+		return loginFieldName;
+	}
+
+	public void setLoginFieldName(String loginFieldName) {
+		this.loginFieldName = loginFieldName;
+	}
+
+	public String getWebsiteName() {
+		return websiteName;
+	}
+
+	public void setWebsiteName(String websiteName) {
+		this.websiteName = websiteName;
+	}
+
+	public Set<ProjectLogin> getProjectLogin() {
+		return projectLogin;
+	}
+
+	public void setProjectLogin(Set<ProjectLogin> projectLogin) {
+		this.projectLogin = projectLogin;
+	}
+
+}

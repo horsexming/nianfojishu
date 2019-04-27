@@ -1,0 +1,81 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.zgkh.AssessPersonnel;
+
+/**
+ * 人员分组(表名:ta_sys_usersGroup)
+ * 
+ * @author 刘培
+ * 
+ */
+public class UsersGroup implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;// id
+	private Integer userId;// 添加人id
+	private String code;// 添加人工号
+	private String groupName;// 组名
+	private String addDateTime;// 添加时间
+	private String status;// 状态(审核)
+	private Set<AssessPersonnel> assessPersonnel;// 成员(多对一)
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+	@JSONField(serialize = false)
+	public Set<AssessPersonnel> getAssessPersonnel() {
+		return assessPersonnel;
+	}
+
+	public void setAssessPersonnel(Set<AssessPersonnel> assessPersonnel) {
+		this.assessPersonnel = assessPersonnel;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+}

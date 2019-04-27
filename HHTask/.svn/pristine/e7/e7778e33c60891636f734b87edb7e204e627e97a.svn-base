@@ -1,0 +1,74 @@
+package com.task.entity.rfid;
+/**
+ * RFID表
+ * 射频识别技术
+ * @author LiCong 17-04-13 表名 ta_mj_Rfid
+ */
+public class Rfid {
+	private Integer id;
+	private String number;//编号
+	private String identifies;//唯一标识
+	private String status;//状态(待发送、已发送)
+	private String storeLast;// 上一次储存信息
+	private String storeInfor;// 当前储存信息
+	private String addTime;// 添加时间
+	private String addRenName;// 添加用户名称
+	private Integer addRenId;// 添加用户ID
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getIdentifies() {
+		return identifies;
+	}
+	public void setIdentifies(String identifies) {
+		this.identifies = identifies;
+	}
+	public String getStoreLast() {
+		return storeLast;
+	}
+	public void setStoreLast(String storeLast) {
+		this.storeLast = storeLast;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getStoreInfor() {
+		return storeInfor;
+	}
+	public void setStoreInfor(String storeInfor) {
+		this.storeInfor = storeInfor;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddRenName() {
+		return addRenName;
+	}
+	public void setAddRenName(String addRenName) {
+		this.addRenName = addRenName;
+	}
+	public Integer getAddRenId() {
+		return addRenId;
+	}
+	public void setAddRenId(Integer addRenId) {
+		this.addRenId = addRenId;
+	}
+	
+}

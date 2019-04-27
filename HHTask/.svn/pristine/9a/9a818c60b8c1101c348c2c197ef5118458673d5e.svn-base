@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin">
+	<class name="UserMoneyDetail" table="ta_fin_UserMoneyDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardId" />
+		<property name="procardRootId" />
+		<property name="markId" />
+		<property name="markIdRoot" />
+		<property name="proName" />
+		<property name="selfCard" />
+		<property name="processInforId" />
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="productStyle" />
+		<property name="gongwei" />
+		<property name="receiveLogId" />
+		<property name="firstApplyDate" />
+		<property name="submitDate" />
+		<property name="submmitCount" />
+		<property name="submmitJiepai" />
+		<property name="nowCsJiepai" />
+		<property name="nowMoney" />
+		<property name="nowKcMoney" />
+		<property name="addTime" />
+		<property name="subnmitBZJiepai" />
+		<property name="processjjAllMoneygc" />
+		<property name="ywmarkId" />
+		<property name="orderNumber"/>
+		<property name="count"/>
+		<property name="tcTime"/>
+		<property name="planfinalTime"/>
+		<property name="orderNum"/>
+		<many-to-one name="userMonthMoney" column="fk_umId" class="UserMonthMoney"></many-to-one>
+
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,76 @@
+package com.task.entity;
+
+/**
+ * 项目管理
+ * 
+ * @table ta_Project
+ * @author 马凯
+ */
+public class Project {
+	private Integer id;
+	private String name;
+	private String numb;
+	private Boolean closed;
+
+	private String staring;
+
+	private String createPerson;
+	private String createDate;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNumb() {
+		return numb;
+	}
+
+	public void setNumb(String numb) {
+		this.numb = numb;
+	}
+
+	public String getCreatePerson() {
+		return createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public Boolean getClosed() {
+		return closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+
+	public String getStaring() {
+		return staring;
+	}
+
+	public void setStaring(String staring) {
+		this.staring = staring;
+	}
+
+}

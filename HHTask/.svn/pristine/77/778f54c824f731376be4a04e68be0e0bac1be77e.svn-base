@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="BmzZlh" table="ta_BmzZlh">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="leaderName"/>
+		<property name="rank"/>
+		<property name="rankNo"/>
+		<property name="monthsNo"/>
+		<property name="months"/>
+		<property name="jidu"/>
+		<property name="addscore"/>
+		<property name="reducescore"/>
+		<property name="score"/>
+		<property name="ranking"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

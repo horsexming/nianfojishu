@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="InsuranceGold" table="ta_fin_InsuranceGold">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<property name="oldageInsurance" column="ta_fin_oldageInsurance"
+			not-null="true" />
+		<property name="medicalInsurance" column="ta_fin_medicalInsurance"
+			not-null="true" />
+		<property name="unemploymentInsurance" column="ta_fin_unemploymentInsurance"
+			not-null="true" />
+		<property name="injuryInsurance" column="ta_fin_injuryInsurance"
+			not-null="true" />
+		<property name="maternityInsurance" column="ta_fin_maternityInsurance"
+			not-null="true" />
+		<property name="housingFund" column="ta_fin_housingFund"
+			not-null="true" />
+		<property name="localOrField" column="ta_fin_localOrField"
+			not-null="true" />
+		<property name="cityOrCountryside" column="ta_fin_cityOrCountryside"
+			not-null="true" />
+		<property name="validityStartDate" column="ta_fin_validityStartDate"
+			not-null="true" />
+		<property name="validityEndDate" column="ta_fin_validityEndDate"
+			not-null="true" />
+		<property name="minimumWage" column="ta_fin_minimumWage" />
+		<!-- 新添字段，企业承担福利部分比例 -->
+		<property name="personClass" column="ta_fin_personClass" />
+		
+		<property name="QYoldageInsurance" column="ta_fin_QYoldageInsurance" />
+		<property name="QYmedicalInsurance" column="ta_fin_QYmedicalInsurance" />
+		<property name="QYunemploymentInsurance" column="ta_fin_QYunemploymentInsurance" />
+		<property name="QYinjuryInsurance" column="ta_fin_QYinjuryInsurance" />
+		<property name="QYmaternityInsurance" column="ta_fin_QYmaternityInsurance" />
+		<property name="QYhousingFund" column="ta_fin_QYhousingFund" />
+	</class>
+</hibernate-mapping>

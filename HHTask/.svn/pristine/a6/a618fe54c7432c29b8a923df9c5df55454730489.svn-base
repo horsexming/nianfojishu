@@ -1,0 +1,182 @@
+package com.task.entity.banci;
+/**
+ * 班次时间段表
+ * @author licong
+ * 表名ta_BanCiTime
+ */
+public class BanCiTime {
+	private Integer id;
+	private String startTime;//开始时间
+	private String endTime;//结束时间
+	private Integer xxTimeNumber;//工作时长（分钟）
+	private Boolean startIsDaka;//是否打卡(true/false)
+	private Boolean endIsDaka;//是否打卡(true/false)
+	private String startIsFor;//开始时间是否必须打卡(是/否)
+	private String endIsFor;//结束时间是否必须打卡(是/否)
+	private Boolean xiaFu;//下班是否覆盖(true/false)
+	private String xiaFuis;//下班是否覆盖(是/否)
+	
+	private Integer startBeforeMin;//开始前几分钟有效
+	private String startBeforeTime;//开始前打卡时间
+	private Integer startLaterMin;//开始后几分钟有效
+	private String startLaterTime;//开始后打卡时间
+	
+	private Integer endBeforeMin;//结束前几分钟有效
+	private String endBeforeTime;//结束前打卡时间
+	private Integer endLaterMin;//结束后几分钟有效
+	private String endLaterTime;//结束后打卡时间
+	
+	private String addTime;//添加时间
+	private String updateTime;//修改时间
+	
+	private Integer duan;//班次第几时段
+	private String dayType;//开始时间当日/次日
+	private String edayType;//结束时间当日/次日
+	private BanCi banCi;//班次
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Boolean getXiaFu() {
+		return xiaFu;
+	}
+	public void setXiaFu(Boolean xiaFu) {
+		this.xiaFu = xiaFu;
+	}
+	public String getXiaFuis() {
+		return xiaFuis;
+	}
+	public void setXiaFuis(String xiaFuis) {
+		this.xiaFuis = xiaFuis;
+	}
+	public Integer getXxTimeNumber() {
+		return xxTimeNumber;
+	}
+	public void setXxTimeNumber(Integer xxTimeNumber) {
+		this.xxTimeNumber = xxTimeNumber;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public Integer getStartBeforeMin() {
+		return startBeforeMin;
+	}
+	public void setStartBeforeMin(Integer startBeforeMin) {
+		this.startBeforeMin = startBeforeMin;
+	}
+	public String getStartBeforeTime() {
+		return startBeforeTime;
+	}
+	public void setStartBeforeTime(String startBeforeTime) {
+		this.startBeforeTime = startBeforeTime;
+	}
+	public Integer getStartLaterMin() {
+		return startLaterMin;
+	}
+	public void setStartLaterMin(Integer startLaterMin) {
+		this.startLaterMin = startLaterMin;
+	}
+	public String getStartLaterTime() {
+		return startLaterTime;
+	}
+	public void setStartLaterTime(String startLaterTime) {
+		this.startLaterTime = startLaterTime;
+	}
+	public Integer getEndBeforeMin() {
+		return endBeforeMin;
+	}
+	public void setEndBeforeMin(Integer endBeforeMin) {
+		this.endBeforeMin = endBeforeMin;
+	}
+	public String getEndBeforeTime() {
+		return endBeforeTime;
+	}
+	public void setEndBeforeTime(String endBeforeTime) {
+		this.endBeforeTime = endBeforeTime;
+	}
+	public Integer getEndLaterMin() {
+		return endLaterMin;
+	}
+	public void setEndLaterMin(Integer endLaterMin) {
+		this.endLaterMin = endLaterMin;
+	}
+	public String getEndLaterTime() {
+		return endLaterTime;
+	}
+	public void setEndLaterTime(String endLaterTime) {
+		this.endLaterTime = endLaterTime;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public BanCi getBanCi() {
+		return banCi;
+	}
+	public void setBanCi(BanCi banCi) {
+		this.banCi = banCi;
+	}
+	public Integer getDuan() {
+		return duan;
+	}
+	public void setDuan(Integer duan) {
+		this.duan = duan;
+	}
+	public String getDayType() {
+		return dayType;
+	}
+	public void setDayType(String dayType) {
+		this.dayType = dayType;
+	}
+	public Boolean getStartIsDaka() {
+		return startIsDaka;
+	}
+	public void setStartIsDaka(Boolean startIsDaka) {
+		this.startIsDaka = startIsDaka;
+	}
+	public Boolean getEndIsDaka() {
+		return endIsDaka;
+	}
+	public void setEndIsDaka(Boolean endIsDaka) {
+		this.endIsDaka = endIsDaka;
+	}
+	public String getStartIsFor() {
+		return startIsFor;
+	}
+	public void setStartIsFor(String startIsFor) {
+		this.startIsFor = startIsFor;
+	}
+	public String getEndIsFor() {
+		return endIsFor;
+	}
+	public void setEndIsFor(String endIsFor) {
+		this.endIsFor = endIsFor;
+	}
+	public String getEdayType() {
+		return edayType;
+	}
+	public void setEdayType(String edayType) {
+		this.edayType = edayType;
+	}
+	
+}

@@ -1,0 +1,265 @@
+package com.task.entity.orderQuXiao;
+
+import java.io.Serializable;
+
+/**
+ * 订单取消零件评审表:(ta_ProcardPingShen)
+ * @author wxf
+ *
+ */
+public class ProcardPingShen implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer procardId;//对应ProcardId
+	/**
+	 * 件号基本信息
+	 */
+	private String markId;//件号
+	private String proName;//名称
+	private String productStyle;//生产类型(试制、批产)
+	private String procardStyle;//卡片类型(总成、自制、外购)
+	private String selfCard;//批次
+	private String orderNumber;//订单号
+	private Float count;//订单数量
+	private Float qxcount;//取消数量
+	private String ywMarkId;//业务件号
+	private Integer rootProcardId;//对应总成Id
+	private String rootSelfCard;//总成批次
+	private String rootMarkId;//总成件号
+	private String procardStatus;//生产状态(初始、已发卡、已发料、领工序、完成、待入库、入库);
+	private Float tjNumber;//提交数量；
+	private Float hasCount;//剩余数量
+	private Float cgNumber;//采购数量
+	private Float outCgNumber;//已采购数量
+	private String cgUsersCode;//采购员工号
+	private String cgUsersName;//采购员
+	private String cgOrder;//采购单号
+	private String cgPlanIds;//采购单明细Id
+	private Integer procardFatherId;//相关联的procard的父Id
+	/**
+	 * 评审信息
+	 */
+	private String result;//评审结果
+	private Integer psUsersId;//评审人员Id
+	private String psUsersName;//评审人员
+	private String psUsersCode;//评审人工号
+	public ProcardPingShen() {
+		super();
+	}
+	
+	public ProcardPingShen(Integer procardId, String markId, String proName,
+			String productStyle, String procardStyle, String selfCard,
+			String orderNumber, Float count, Float qxcount, String ywMarkId,
+			Integer rootProcardId, String rootSelfCard, String rootMarkId,
+			String procardStatus, Float tjNumber, Float hasCount,
+			Float cgNumber, Float outCgNumber, String cgUsersCode,
+			String cgUsersName, String cgOrder, String cgPlanIds,
+			String result, Integer psUsersId, String psUsersName,
+			String psUsersCode) {
+		super();
+		this.procardId = procardId;
+		this.markId = markId;
+		this.proName = proName;
+		this.productStyle = productStyle;
+		this.procardStyle = procardStyle;
+		this.selfCard = selfCard;
+		this.orderNumber = orderNumber;
+		this.count = count;
+		this.qxcount = qxcount;
+		this.ywMarkId = ywMarkId;
+		this.rootProcardId = rootProcardId;
+		this.rootSelfCard = rootSelfCard;
+		this.rootMarkId = rootMarkId;
+		this.procardStatus = procardStatus;
+		this.tjNumber = tjNumber;
+		this.hasCount = hasCount;
+		this.cgNumber = cgNumber;
+		this.outCgNumber = outCgNumber;
+		this.cgUsersCode = cgUsersCode;
+		this.cgUsersName = cgUsersName;
+		this.cgOrder = cgOrder;
+		this.cgPlanIds = cgPlanIds;
+		this.result = result;
+		this.psUsersId = psUsersId;
+		this.psUsersName = psUsersName;
+		this.psUsersCode = psUsersCode;
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getProcardId() {
+		return procardId;
+	}
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getProductStyle() {
+		return productStyle;
+	}
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+	public String getProcardStyle() {
+		return procardStyle;
+	}
+	public void setProcardStyle(String procardStyle) {
+		this.procardStyle = procardStyle;
+	}
+	public String getSelfCard() {
+		return selfCard;
+	}
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	public Float getCount() {
+		return count;
+	}
+	public void setCount(Float count) {
+		this.count = count;
+	}
+	public Float getQxcount() {
+		return qxcount;
+	}
+	public void setQxcount(Float qxcount) {
+		this.qxcount = qxcount;
+	}
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+	public Integer getRootProcardId() {
+		return rootProcardId;
+	}
+	public void setRootProcardId(Integer rootProcardId) {
+		this.rootProcardId = rootProcardId;
+	}
+	public String getRootSelfCard() {
+		return rootSelfCard;
+	}
+	public void setRootSelfCard(String rootSelfCard) {
+		this.rootSelfCard = rootSelfCard;
+	}
+	public String getRootMarkId() {
+		return rootMarkId;
+	}
+	public void setRootMarkId(String rootMarkId) {
+		this.rootMarkId = rootMarkId;
+	}
+	public String getProcardStatus() {
+		return procardStatus;
+	}
+	public void setProcardStatus(String procardStatus) {
+		this.procardStatus = procardStatus;
+	}
+	public Float getTjNumber() {
+		return tjNumber;
+	}
+	public void setTjNumber(Float tjNumber) {
+		this.tjNumber = tjNumber;
+	}
+	public Float getHasCount() {
+		return hasCount;
+	}
+	public void setHasCount(Float hasCount) {
+		this.hasCount = hasCount;
+	}
+	public Float getCgNumber() {
+		return cgNumber;
+	}
+	public void setCgNumber(Float cgNumber) {
+		this.cgNumber = cgNumber;
+	}
+	public Float getOutCgNumber() {
+		return outCgNumber;
+	}
+	public void setOutCgNumber(Float outCgNumber) {
+		this.outCgNumber = outCgNumber;
+	}
+	public String getCgUsersCode() {
+		return cgUsersCode;
+	}
+	public void setCgUsersCode(String cgUsersCode) {
+		this.cgUsersCode = cgUsersCode;
+	}
+	public String getCgUsersName() {
+		return cgUsersName;
+	}
+	public void setCgUsersName(String cgUsersName) {
+		this.cgUsersName = cgUsersName;
+	}
+	public String getCgOrder() {
+		return cgOrder;
+	}
+	public void setCgOrder(String cgOrder) {
+		this.cgOrder = cgOrder;
+	}
+	public String getCgPlanIds() {
+		return cgPlanIds;
+	}
+	public void setCgPlanIds(String cgPlanIds) {
+		this.cgPlanIds = cgPlanIds;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public Integer getPsUsersId() {
+		return psUsersId;
+	}
+	public void setPsUsersId(Integer psUsersId) {
+		this.psUsersId = psUsersId;
+	}
+	public String getPsUsersName() {
+		return psUsersName;
+	}
+	public void setPsUsersName(String psUsersName) {
+		this.psUsersName = psUsersName;
+	}
+	public String getPsUsersCode() {
+		return psUsersCode;
+	}
+	public void setPsUsersCode(String psUsersCode) {
+		this.psUsersCode = psUsersCode;
+	}
+
+	public Integer getProcardFatherId() {
+		return procardFatherId;
+	}
+
+	public void setProcardFatherId(Integer procardFatherId) {
+		this.procardFatherId = procardFatherId;
+	}
+	
+	
+}

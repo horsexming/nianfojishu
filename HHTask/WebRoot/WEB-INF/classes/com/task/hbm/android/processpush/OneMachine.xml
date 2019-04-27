@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.processpush.OneMachine" table="ta_OneMachine">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="omNum" />
+		<property name="omStation" />
+		<property name="ipAddress"/>
+		<property name="omAddress"/>
+		<property name="addTime"/>
+		<property name="updateTime"/>
+		<!-- 一体机对应工位 多对多 -->
+		<set name="taSopGongweis" table="ta_om_gongwei" lazy="true" inverse="false">
+			<key column="om_id"></key>
+			<many-to-many class="com.task.entity.TaSopGongwei" column="gongwei_id"/>
+		</set>
+		<!-- 一体机对应灯一对多 -->
+		<set name="oneLights" inverse="false" cascade="all" lazy="true">
+			<key column="om_id"></key>
+			<one-to-many class="com.task.entity.onemark.OneLight"/>
+		</set>
+	</class>
+</hibernate-mapping>

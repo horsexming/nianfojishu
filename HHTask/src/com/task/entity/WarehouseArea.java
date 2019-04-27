@@ -1,0 +1,56 @@
+package com.task.entity;
+/**
+ * 
+ * @author wxf
+ *	仓区表：(ta_WarehouseArea)
+ *	用作物流入库 时 和库别，库位 级联使用
+ */
+public class WarehouseArea implements java.io.Serializable {
+
+	// Fields
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
+	private String name;//仓区名
+	private String wareHouseName;//所属仓库名称
+	private String addTime;//添加时间；
+	private String addUser;//添加人
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUser() {
+		return addUser;
+	}
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+	public String getWareHouseName() {
+		return wareHouseName;
+	}
+	public void setWareHouseName(String wareHouseName) {
+		this.wareHouseName = wareHouseName;
+	}
+	
+	
+	
+	
+}

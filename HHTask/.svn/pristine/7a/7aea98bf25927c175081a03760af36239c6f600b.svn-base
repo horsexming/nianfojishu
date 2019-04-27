@@ -1,0 +1,203 @@
+package com.task.entity.sop;
+/**
+ *  ta_sop_w_ProcardTemplateAboutsbDetail
+ * @author txb
+ *
+ */
+public class ProcardTemplateAboutsbDetail {
+	private Integer id;
+	private Integer sbptId;//设变明细Id(表明是由于哪个设变零件到导致的)
+	private String sbptMarkId;//设变明细件号
+	
+	private String scmarkId;//上层零件件号
+	private String productStyle;//生产类型
+	private String procardStyle;//生产类型
+	private String markId;//件号
+	private String proName;//名称
+	private String banben;//版本
+	private Integer banci;
+	private String wgType;//物料类别
+	private String kgliao;//客供属性
+	private String specification;//规格
+	private String unit;// 单位(自制)
+	private String tuhao;//图号
+	private Float yongliao;//单台用量增减（表示生产一个总成的用量增减 正数为增负数为减）
+	
+	private Integer ptasbId;//主表id(ProcardTemplateAboutsb)
+	
+	
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public Integer getSbptId() {
+		return sbptId;
+	}
+
+
+	public void setSbptId(Integer sbptId) {
+		this.sbptId = sbptId;
+	}
+
+
+	public String getSbptMarkId() {
+		return sbptMarkId;
+	}
+
+
+	public void setSbptMarkId(String sbptMarkId) {
+		this.sbptMarkId = sbptMarkId;
+	}
+
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+
+	public String getMarkId() {
+		return markId;
+	}
+
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+
+	public String getProName() {
+		return proName;
+	}
+
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+
+	public String getBanben() {
+		return banben;
+	}
+
+
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+
+	public String getWgType() {
+		return wgType;
+	}
+
+
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+
+	public String getSpecification() {
+		return specification;
+	}
+
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+
+	public String getUnit() {
+		return unit;
+	}
+
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+
+	public String getTuhao() {
+		return tuhao;
+	}
+
+
+	public String getScmarkId() {
+		return scmarkId;
+	}
+
+
+	public void setScmarkId(String scmarkId) {
+		this.scmarkId = scmarkId;
+	}
+
+
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+
+
+
+
+	public Integer getBanci() {
+		return banci;
+	}
+
+
+	public void setBanci(Integer banci) {
+		this.banci = banci;
+	}
+
+
+	public Float getYongliao() {
+		return yongliao;
+	}
+
+
+	public void setYongliao(Float yongliao) {
+		this.yongliao = yongliao;
+	}
+
+
+	public Integer getPtasbId() {
+		return ptasbId;
+	}
+
+
+	public void setPtasbId(Integer ptasbId) {
+		this.ptasbId = ptasbId;
+	}
+
+
+	public String getProcardStyle() {
+		return procardStyle;
+	}
+
+
+	public void setProcardStyle(String procardStyle) {
+		this.procardStyle = procardStyle;
+	}
+	
+	
+	
+}

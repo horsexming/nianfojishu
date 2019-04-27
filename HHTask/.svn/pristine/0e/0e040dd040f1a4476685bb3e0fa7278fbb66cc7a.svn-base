@@ -1,0 +1,152 @@
+package com.task.entity.ess;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 报废处理单
+ * @author wcy
+ * ta_waste_disponsal_total
+ */
+public class WasteDisponsalTotal implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer totalId; //id
+	@FieldMeta(name = "处理数量", order = 6)
+	private Integer totalCount;//报废品种类数量
+	@FieldMeta(name = "处理总价格", order = 7)
+	private Float totalMoney;//报废总价格
+	@FieldMeta(name = "创建时间", order = 1)
+	private String createTime;  //创建时间
+	private String createUserCode; //创建用户code
+	@FieldMeta(name = "创建人名称", order = 3)
+	private String createUserName;//创建人名称
+	private Integer epId;  //审批id
+	private String epStatus;//审批状态
+	@FieldMeta(name = "部门", order = 2)
+	private String createDept;//创建人部门
+	//报废详细
+	private Set<WasteDisponsal> wasteDisponsals;
+	//添加卖给谁
+	@FieldMeta(name = "购买方信息", order = 4)
+	private String sellToName;//卖给信息
+	private String sellPhone; //卖给人联系电话
+	private String sellPerson;//卖给人
+	@FieldMeta(name = "申请说明", order = 5)
+	private String explain;//申请说明
+	private String serialNumber; //处理单编号
+	private String attachmentName;//附件名称
+	private Integer caiwuEpId;//财务审批id
+	private String caiwuEpStatus;//财务审批状态
+	public Integer getTotalId() {
+		return totalId;
+	}
+	public void setTotalId(Integer totalId) {
+		this.totalId = totalId;
+	}
+	public Integer getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
+	}
+	public Float getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(Float totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getCreateUserCode() {
+		return createUserCode;
+	}
+	public void setCreateUserCode(String createUserCode) {
+		this.createUserCode = createUserCode;
+	}
+	public String getCreateUserName() {
+		return createUserName;
+	}
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEpStatus() {
+		return epStatus;
+	}
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+	public String getCreateDept() {
+		return createDept;
+	}
+	public void setCreateDept(String createDept) {
+		this.createDept = createDept;
+	}
+	public Set<WasteDisponsal> getWasteDisponsals() {
+		return wasteDisponsals;
+	}
+	public void setWasteDisponsals(Set<WasteDisponsal> wasteDisponsals) {
+		this.wasteDisponsals = wasteDisponsals;
+	}
+	public String getSellToName() {
+		return sellToName;
+	}
+	public void setSellToName(String sellToName) {
+		this.sellToName = sellToName;
+	}
+	public String getExplain() {
+		return explain;
+	}
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+	public String getSellPhone() {
+		return sellPhone;
+	}
+	public void setSellPhone(String sellPhone) {
+		this.sellPhone = sellPhone;
+	}
+	public String getSellPerson() {
+		return sellPerson;
+	}
+	public void setSellPerson(String sellPerson) {
+		this.sellPerson = sellPerson;
+	}
+	public String getAttachmentName() {
+		return attachmentName;
+	}
+	public void setAttachmentName(String attachmentName) {
+		this.attachmentName = attachmentName;
+	}
+	public Integer getCaiwuEpId() {
+		return caiwuEpId;
+	}
+	public void setCaiwuEpId(Integer caiwuEpId) {
+		this.caiwuEpId = caiwuEpId;
+	}
+	public String getCaiwuEpStatus() {
+		return caiwuEpStatus;
+	}
+	public void setCaiwuEpStatus(String caiwuEpStatus) {
+		this.caiwuEpStatus = caiwuEpStatus;
+	}
+	
+	
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplateBanBenApply" table="ta_ProcardTemplateBanBenApply">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="applicantId" />
+	<property name="sbNumber" unique="true"/>
+	<property name="outbsNumber" />
+	<property name="applicantName" />
+	<property name="applicantdept" />
+	<property name="applyTime" />
+	<property name="remark" />
+	<property name="epId" />
+	<property name="processStatus" index="pebs_index_ptb_processStatus"/>
+	<property name="oldProcessStatus" />
+	 <property name="markId"  index="pebs_index_ptb_markId"/>
+	<property name="proName" />
+	<property name="banbenNumber" />
+	<property name="ywMarkId" />
+	<property name="banci" />
+	<property name="needDeptJudege" />
+	<property name="fileName" />
+	<property name="oldFileName" />
+	<property name="tbProcard" />
+	<property name="productStyle" />
+	<property name="rootId" />
+	<property name="zpTime" />
+	<property name="qznext" />
+	<property name="sbType" />
+	<property name="sbSource" />
+	<property name="colseUserId" />
+	<property name="colseUserName" />
+	<property name="colseTime" />
+	<property name="dzcount" />
+	<property name="wjhcount" />
+	<property name="wpccount" />
+	<property name="pccount" />
+	<property name="lastop" />
+	<property name="lastUserId" />
+	<property name="lastUserName" />
+	<property name="lastTime" />
+	<property name="workItemId" />
+	<property name="ecType" />
+	<property name="execute" />
+	<property name="aboutPlace" />
+	<property name="needzz" />
+	<property name="zzremark" />
+	<property name="isold" />
+   <set name="procardTemplateBanBen" cascade="all" inverse="false" lazy="true" order-by="xuhao">
+			<key column="applyId"></key>
+			<one-to-many class="ProcardTemplateBanBen" />
+	</set>
+   <set name="ptbbjset" cascade="all" inverse="false" lazy="true" order-by="id">
+			<key column="applyId"></key>
+			<one-to-many class="ProcardTemplateBanBenJudges" />
+	</set>
+
+	</class>
+</hibernate-mapping>

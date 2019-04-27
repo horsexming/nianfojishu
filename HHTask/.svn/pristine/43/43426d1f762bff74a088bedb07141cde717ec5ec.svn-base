@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Taskmanager" table="ta_Taskmanager">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="description" type="text" />
+		<property name="taskType" type="java.lang.String">
+			<column name="taskType" length="10" />
+		</property>
+		<property name="taskCategory" />
+		<property name="demand" type="text" />
+		<property name="suggestion" type="text" />
+		<property name="note" />
+		<property name="applyUsersId" />
+		<property name="applyUsersName" type="java.lang.String">
+			<column name="applyUsersName" length="10" />
+		</property>
+		<property name="applyUsersDept" type="java.lang.String">
+			<column name="applyUsersDept" length="10" />
+		</property>
+		<property name="applyUsersTel" type="java.lang.String">
+			<column name="applyUsersTel" length="20" />
+		</property>
+		<property name="startTime" type="java.lang.String">
+			<column name="startTime" length="20" />
+		</property>
+		<property name="finishTime" type="java.lang.String">
+			<column name="finishTime" length="20" />
+		</property>
+		<property name="receiver" type="java.lang.String">
+			<column name="receiver" length="10" />
+		</property>
+		<property name="verifier" type="java.lang.String">
+			<column name="verifier" length="10" />
+		</property>
+		<property name="taskState" />
+		<property name="attachmentPath" />
+		<property name="feedback" />
+		<property name="urgency" />
+		
+		<property name="process" type="java.lang.String">
+			<column name="process" length="10" />
+		</property>
+		<property name="exceptionType" type="java.lang.String">
+			<column name="exceptionType" length="10" />
+		</property>
+		<property name="functionType" type="java.lang.String">
+			<column name="functionType" length="10" />
+		</property>
+		<property name="repeatTime" />
+		<property name="difficulty" />
+		<property name="epId"/>
+		<property name="ep_status"/>
+
+	</class>
+</hibernate-mapping>

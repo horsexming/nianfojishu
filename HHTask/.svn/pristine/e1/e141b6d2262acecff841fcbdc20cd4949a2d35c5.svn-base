@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-mdd" extends="struts-stack" >
+		<!--
+			****************************************马逗逗Action操作**********************************************************************
+		-->
+	
+		<!-- 库存中借领还管理method="${1}" -->
+		<action name="LendNectAction" class="LendNectAction" >
+			<!--借用-->
+			<result name="goods_listfindLend">/System/SOP/goods_listfindLend.jsp</result>
+			<result name="goods_listfindNect">/System/SOP/goods_listfindNect.jsp</result>
+			<result name="goods_initLend">/System/SOP/goods_initLend.jsp</result>
+			<result name="goodsLend_print">/System/SOP/goodsLend_print.jsp</result>
+			
+			
+			<!--归还-->
+			<result name="goods_initGiveBack">/System/SOP/goods_initGiveBack.jsp</result>
+			<result name="goods_oneGiveBack">/System/SOP/goods_oneGiveBack.jsp</result>
+			<result name="goodsRepay_print" >/System/SOP/goodsRepay_print.jsp</result>
+			<result name="error">/error.jsp</result>
+			
+			
+			
+			<!--领用-->
+			<result name="goods_initNect">/System/SOP/goods_initNect.jsp</result>
+			<result name="goodsNect_print">/System/SOP/goodsNect_print.jsp</result>
+			
+			<!--历史-->
+			<result name="goods_findHistoryLend">/System/SOP/goods_findHistoryLend.jsp</result>
+			<result name="goods_findHistoryNect">/System/SOP/goods_findHistoryNect.jsp</result>
+			<result name="goods_findHistoryRepay">/System/SOP/goods_findHistoryRepay.jsp</result>
+			<result name="goods_findHistoryScrap">/System/SOP/goods_findHistoryScrap.jsp</result>
+			<result name="queryLendHistory" type="redirect">LendNectAction!queryLendHistory.action?cpage=${cpage}&amp;errorMessage=${errorMessage}</result>
+			<result name="queryNectHistory" type="redirect">LendNectAction!queryNectHistory.action?cpage=${cpage}&amp;errorMessage=${errorMessage}</result>
+			<result name="queryRepayHistory" type="redirect">LendNectAction!queryRepayHistory.action?cpage=${cpage}&amp;errorMessage=${errorMessage}</result>
+			
+			
+			<!--申请报废-->
+			<result name="goods_oneScrap">/System/SOP/goods_oneScrap.jsp</result>
+			<result name="goodsScrap_print" >/System/SOP/goodsScrap_print.jsp</result>
+			
+			
+			<!--以旧换新-->
+			<result name="goods_initChangeNew">/System/SOP/goods_initChangeNew.jsp</result>
+			<result name="goods_submitChangeNew">/System/SOP/goods_submitChangeNew.jsp</result>
+			<result name="goodsChangeNewNect_print">/System/SOP/goodsChangeNewNect_print.jsp</result>
+		</action>
+		
+		
+		<!-- 甘特图 -->
+		<action name="GanttAction" class="GanttAction">
+			<result name="gantt" type="redirect">/gantt.jsp?errorMessage=${errorMessage}&amp;urlPageNum=${urlPageNum}</result>
+		</action>
+		
+	</package>
+	
+	
+</struts>

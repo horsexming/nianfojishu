@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.FundApply" table="ta_FundApply">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+			<property name="number"/>
+			<property name="unitname"/>
+			<property name="relationclient"/>
+			<property name="relationclientId"/>
+			<property name="approvalApplier"/>
+			<property name="approvaldept"/>
+			<property name="accreditationnum"/>
+			<property name="voucherNature"/>
+			<property name="voucherbasis"/>
+			<property name="voucherway"/>
+			<property name="jingbanren"/>
+			<property name="vouchersituation"/>
+			<property name="vouchercondition"/>
+			<property name="category"/>
+			<property name="payStyle"/>
+			<property name="baoxiaoDate"/>
+			<property name="attachmentsCount"/>
+			<property name="attachmentsFile"/>
+			<property name="oldFileName"/>
+			<property name="isSelfDept"/>
+			<property name="isTax"/>
+			<property name="invoiceNum" length="1020"/>
+			<property name="zhifuoryufu"/>
+			<property name="addTime"/>
+			<property name="userId"/>
+			<property name="currency"/>
+			<property name="planMonth"/>
+			<property name="epId"/>
+			<property name="epStattus"/>
+			<property name="explain" column="ta_explain"/>
+			<property name="totalMoney"/>
+			<property name="backMoney"/>
+			<property name="about"/>
+			<property name="cwUserCode"/>
+			<property name="cwUserName"/>
+			<property name="status"/>
+			<property name="sureTime1"/>
+			<property name="sureTime2"/>
+			<property name="contractnum"/>
+			<property name="heTongId"/>
+			<property name="shoukuanZhanghao"/>
+			<property name="haswt"/>
+			<property name="payMoney"/>
+			<property name="jituan"/>
+			<set name="fadSet" inverse="false" cascade="all" lazy="true">
+				<key column="fundId"></key>
+				<one-to-many class="com.task.entity.payment.FundApplyDetailed" />
+			</set>
+		</class>
+		</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="ExecutionNode" table="ta_sys_ExecutionNode">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="auditLevel" />
+		<property name="auditUserName" />
+		<property name="auditUserDept" />
+		<property name="auditUserId" />
+		<property name="auditStatus" />
+		<property name="auditOpinion" />
+		<property name="startDateTime" />
+		<property name="auditDateTime" />
+		<property name="timeLong" />
+		<property name="auditOption" />
+
+		<!-- 审批节点对定制流程对(多对一) -->
+		<many-to-one name="circuitRun" class="CircuitRun"
+			column="fk_exeProId" />
+	</class>
+</hibernate-mapping>

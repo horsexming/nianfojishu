@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.kvp.ImproveKVP" table="ta_ImproveKVP" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="improved_beforeproblems" />
+        <property name="improved_endproblems" />
+        <property name="beforeimage_Path" />
+        <property name="afterimage_Path" />
+         <!-- 与kvp产品评估主表多对一   -->
+		<many-to-one name="kvpAssess" class="com.task.entity.kvp.KVPAssess"
+			column="kvp_id" lazy="proxy">
+			</many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="OutSourcingApp" table="ta_sop_outSourcingApp">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="osaNO" />
+		<property name="code" />
+		<property name="username" />
+		<property name="dept" />
+		<property name="number" />
+		<property name="osaSubmitTime" />
+		<property name="customer" />
+		<property name="status" />
+		<property name="executeStatus" />
+		<property name="explain">
+		    <column name="[explain]" />
+		</property>
+		<property name="partName" />
+		<property name="markID" />
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="deliveryCount" />
+		<property name="deliveryDate" />
+		<property name="isJiaji" />
+		<property name="lotId" />
+		<property name="outSourceCount" />
+		<property name="receiveCount" />
+		<property name="breakCount" />
+		<property name="inforFile" />
+		<!-- 新添 -->
+		<property name="procardCycle" />
+		<property name="productCysle" />
+		<property name="yuceCount" />
+		<property name="selefMaxBalanceCount" />
+		<property name="addChengMinBalanceCount" />
+		<property name="ospriceFile" />
+		<property name="addNewMachineFile" />
+		<property name="orderId" />
+		<property name="selfRenshu" />
+
+		<property name="timeLimit" />
+		<property name="alertNum" />
+		<property name="machineFail" />
+		<property name="repairCycle" />
+		<property name="repairBudget" />
+		<property name="machineFile" />
+		<property name="abilityLack" />
+		<property name="abilityLackFile" />
+		<property name="othersLack" />
+		<property name="othersLackFile" />
+		<property name="osOneRengong" />
+		<property name="osOneMater" />
+		<property name="osOneOthsers" />
+		<property name="osOneHeji" />
+		<property name="selfOneRengong" />
+		<property name="selfOneMater" />
+		<property name="selfOneOthsers" />
+		<property name="selfOneHeji" />
+		<property name="lotChae" />
+		<property name="addWorker" />
+		<property name="oneWorkerMoney" />
+		<property name="addMachineCost" />
+		<property name="zhejiuCost" />
+		<property name="recoryPeriod" />
+		<property name="addAssistWorker" />
+		<property name="oneAssistWorkerMoney" />
+		<property name="othersCosts" />
+		<property name="othersCost" />
+		<property name="more" />
+		<property name="machineFailAnalysis" />
+		<property name="abilityLackAnalysis" />
+		<property name="selfCode" />
+		
+			<!-- 原材料表读取-->
+		<property name="paihao" />
+		<property name="guige" />
+		<property name="danwei" />
+		<property name="jiage" />
+		<property name="shuliang" />	
+		<property name="rootId" />	
+		<property name="qpId" />	
+		<property name="qpinfoId" />
+		
+		<!--lc_20150818加 标识零部件及工序外委采购 对象-->
+		<property name="per_status" />
+
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Yusuantianbaobiao" table="ta_Yusuantianbaobiao">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="xiangmumingda"  />
+		<property name="gudingzichan"  />
+		<property name="renlichengbenzengjia"  />
+		<property name="shiyanfeiyong"  />
+		<property name="qitafeiyong"  />
+		<property name="shouyijine"  />
+		<property name="shouyinianxian"  />
+		<property name="yusuanleixing"  />
+		<property name="niandu"  />
+		<property name="bumen"  />
+		<property name="name"  />
+		<property name="code"  />
+		<property name="time"  />
+		<property name="addtime"  />
+		<property name="shenpi"  />
+		<property name="beizhu"  />
+		<property name="zongjine"  />
+		<property name="shengyu"  />
+		<property name="kx1"  />
+		<property name="kx2"  />
+		<property name="kx3"  />
+		<property name="kx4"  />
+		<property name="kx5"  />
+		<property name="kx6"  />
+		<property name="kx7"  />
+		<property name="kx8"  />
+		<property name="kx9"  />
+		<property name="kx10"  />
+		<property name="kx11"  />
+		<property name="kx12"  />
+		<property name="epid"  />	
+		<property name="currency"  />	
+		<many-to-one name="yusuantianbaototal" class="Yusuantianbaototal" column="ta_yusuantianbaototal" />
+		
+	</class>
+</hibernate-mapping>

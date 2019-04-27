@@ -1,0 +1,242 @@
+package com.task.entity.ess;
+
+import java.io.Serializable;
+
+/**
+ * 报废处理详细 
+ * @author wcy
+ * ta_waste_disponsal
+ */
+
+public class WasteDisponsal implements Serializable {
+
+	// Fields
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer goodsId;
+//	处理数量
+	private Float disposeNum;
+//	品名
+	private String goodsFullName;
+//	单位
+	private String goodsUnit;
+//	仓区
+	private String goodssHouseName;
+//	库位
+	private String goodsPosition;
+//	件号
+	private String partNumber;
+//	批次
+	private String goodsLotId;
+//	处理价格
+	private Float disposePrice;
+//	供料属性
+	private String goodsKgliao;
+//	物料类别
+	private String goodsWgType;
+//	规格
+	private String goodsFormat;
+//	供应商
+	private String goodsSupplier;
+//	入库类型
+	private String goodsStyle;
+//	入库时间
+	private String goodsChangeTime;
+//	状态
+	private String fcStatus;
+//	创建人code
+	private String userCode;
+/*//	报废单id
+	private Integer totalId;*/
+//	库存中的数量，一般不使用，在获取库存中数量时添加属性
+	private Float goodsCurQuantity;
+	private Float goodsPrice;
+	//报废单总表 ta_waste_disponsal_total.total_id
+	private WasteDisponsalTotal wasteDisponsalTotal;
+	
+	public WasteDisponsalTotal getWasteDisponsalTotal() {
+		return wasteDisponsalTotal;
+	}
+
+	public void setWasteDisponsalTotal(WasteDisponsalTotal wasteDisponsalTotal) {
+		this.wasteDisponsalTotal = wasteDisponsalTotal;
+	}
+
+	// Constructors
+	/** default constructor */
+	public WasteDisponsal() {
+	}
+
+	/** minimal constructor */
+	public WasteDisponsal(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public Float getDisposeNum() {
+		return disposeNum;
+	}
+
+	public void setDisposeNum(Float disposeNum) {
+		this.disposeNum = disposeNum;
+	}
+
+	public String getGoodsFullName() {
+		return goodsFullName;
+	}
+
+	public void setGoodsFullName(String goodsFullName) {
+		this.goodsFullName = goodsFullName;
+	}
+
+	public String getGoodsUnit() {
+		return goodsUnit;
+	}
+
+	public void setGoodsUnit(String goodsUnit) {
+		this.goodsUnit = goodsUnit;
+	}
+
+	public String getGoodssHouseName() {
+		return goodssHouseName;
+	}
+
+	public void setGoodssHouseName(String goodssHouseName) {
+		this.goodssHouseName = goodssHouseName;
+	}
+
+	public String getGoodsPosition() {
+		return goodsPosition;
+	}
+
+	public void setGoodsPosition(String goodsPosition) {
+		this.goodsPosition = goodsPosition;
+	}
+
+	public String getPartNumber() {
+		return partNumber;
+	}
+
+	public void setPartNumber(String partNumber) {
+		this.partNumber = partNumber;
+	}
+
+	public String getGoodsLotId() {
+		return goodsLotId;
+	}
+
+	public void setGoodsLotId(String goodsLotId) {
+		this.goodsLotId = goodsLotId;
+	}
+
+	public Float getDisposePrice() {
+		return disposePrice;
+	}
+
+	public void setDisposePrice(Float disposePrice) {
+		this.disposePrice = disposePrice;
+	}
+
+	public String getGoodsKgliao() {
+		return goodsKgliao;
+	}
+
+	public void setGoodsKgliao(String goodsKgliao) {
+		this.goodsKgliao = goodsKgliao;
+	}
+
+	public String getGoodsWgType() {
+		return goodsWgType;
+	}
+
+	public void setGoodsWgType(String goodsWgType) {
+		this.goodsWgType = goodsWgType;
+	}
+
+	public String getGoodsFormat() {
+		return goodsFormat;
+	}
+
+	public void setGoodsFormat(String goodsFormat) {
+		this.goodsFormat = goodsFormat;
+	}
+
+	public String getGoodsSupplier() {
+		return goodsSupplier;
+	}
+
+	public void setGoodsSupplier(String goodsSupplier) {
+		this.goodsSupplier = goodsSupplier;
+	}
+
+	public String getGoodsStyle() {
+		return goodsStyle;
+	}
+
+	public void setGoodsStyle(String goodsStyle) {
+		this.goodsStyle = goodsStyle;
+	}
+
+	public String getGoodsChangeTime() {
+		return goodsChangeTime;
+	}
+
+	public void setGoodsChangeTime(String goodsChangeTime) {
+		this.goodsChangeTime = goodsChangeTime;
+	}
+
+	public String getFcStatus() {
+		return fcStatus;
+	}
+
+	public void setFcStatus(String fcStatus) {
+		this.fcStatus = fcStatus;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public Float getGoodsCurQuantity() {
+		return goodsCurQuantity;
+	}
+
+	public void setGoodsCurQuantity(Float goodsCurQuantity) {
+		this.goodsCurQuantity = goodsCurQuantity;
+	}
+
+	public Float getGoodsPrice() {
+		return goodsPrice;
+	}
+
+	public void setGoodsPrice(Float goodsPrice) {
+		this.goodsPrice = goodsPrice;
+	}
+
+	public WasteDisponsal(Integer id, Float disposeNum, Float disposePrice) {
+		this.id = id;
+		this.disposeNum = disposeNum;
+		this.disposePrice = disposePrice;
+	}
+
+	
+}

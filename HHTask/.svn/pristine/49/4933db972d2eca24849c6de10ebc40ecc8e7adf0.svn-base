@@ -1,0 +1,76 @@
+package com.task.entity.jxkh;
+/**
+ * 车间效率增长情况表:(ta_WorkShopXiaoLvZz)
+ * @author wxf
+ *全部手动填写
+ */
+public class WorkShopXiaoLvZz {
+
+	private Integer id;//
+	private String dept;//部门/车间
+	private Integer deptId;//
+	private String years;//年份(yyyy年)
+	private String months;//月份(yyyy-MM)
+	private Integer month0;//月
+	private Float xiaolv;// 
+	
+	private String addTime;
+	private String addUsersName;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getYears() {
+		return years;
+	}
+	public void setYears(String years) {
+		this.years = years;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	public Integer getMonth0() {
+		return month0;
+	}
+	public void setMonth0(Integer month0) {
+		this.month0 = month0;
+	}
+	public Float getXiaolv() {
+		return xiaolv;
+	}
+	public void setXiaolv(Float xiaolv) {
+		this.xiaolv = xiaolv;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public Integer getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
+
+	
+}

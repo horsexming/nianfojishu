@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="TryMake" table="ta_sk_TryMake">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="approvalNum" />
+		<property name="inputNum" />
+		<property name="partName" />
+		<property name="projectStatu" />
+		<property name="remark" />
+		
+		<property name="cloadScore" />
+	<property name="bloadScore" />
+	<property name="ploadScore" />
+	<property name="cimScore" />
+	
+	<property name="cloadRate" />
+	<property name="bloadRate" />
+	<property name="ploadRate" />
+	<property name="cimRate" />
+	<property name="totalRate" />
+	<property name="allTotalRate" />
+	
+	<property name="bonus" />
+		<property name="totalBonus" />
+		
+		<property name="qpId" />
+		<property name="markId" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		
+		<!-- 对项目试制评分表 -->
+		<many-to-one name="proTryMakeScore" class="ProTryMakeScore"
+			column="protry_id" />
+
+	</class>
+</hibernate-mapping>

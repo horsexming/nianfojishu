@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.FundApplyDetailed" table="ta_FundApplyDetailed">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId"/>
+		<property name="proname"/>
+		<property name="saveTime"/>
+		<property name="more"/>
+		<property name="budgetDept"/>
+		<property name="status"/>
+		<property name="deptMonthBudgetID"/>
+		<property name="deptMonthBudgetName"/>
+		<property name="planMonth"/>
+		<property name="goodsStoreMarkId"/>
+		<property name="goodsStoreLot"/>
+		<property name="goodsStoreCount"/>
+		<property name="processesNo"/>
+		<property name="processesName"/>
+		<property name="invoiceNo"/>
+		<property name="goodsStoreId"/>
+		<property name="partName"/>
+		<property name="confirmCode"/>
+		<property name="confirmTime"/>
+		<property name="zjStyle"/>
+		<property name="fk_SubBudgetRateId"/>
+		<property name="zjStyleMx"/>
+		<property name="pay_use"/>
+		<property name="voucherMoney"/>
+		 <many-to-one name="fundApply" class="com.task.entity.payment.FundApply" column="fundId" lazy="proxy"></many-to-one>
+		</class>
+		</hibernate-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Repair" table="ta_xinxi_equipmentrepair">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="userid" length="10" />
+		<property name="jobnumber" length="50" />
+		<property name="name" length="50" />
+		<property name="department" length="50" />
+		<property name="repairdept" length="50"></property>
+		<property name="devicename" length="50" />
+		<property name="repairfailed" length="100" />
+		<property name="repairtime" length="100" />
+		<property name="personalnominee" length="50" />
+		<property name="maintenancedesignee" length="50" />
+		<property name="repairers" length="50" />
+		<property name="repairfeedback" length="50" />
+		<property name="timetorepair" length="50" />
+		<property name="repairpersontime" length="50" />
+		<property name="repairfeedbacks" length="50" />
+		<property name="countdowntime" length="50" />
+		<property name="status" length="50" />
+		<property name="category" length="200" />
+		<property name="remark" length="200" />
+		<property name="fk_id"  length="10" />
+		
+		
+		
+
+	</class>
+
+</hibernate-mapping>

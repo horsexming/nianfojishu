@@ -1,0 +1,181 @@
+package com.task.entity;
+
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @ClassName: OutLib
+ * @Description: 出库
+ * @author Damon
+ * @date 2013-4-24 上午09:17:59
+ * 
+ * add relaction Fields
+ * private Store store   关系:OutLib(many-to-one) : Store(one-to-many)
+ * private COnsuming con 关系:OutLib(one-to-one) : Consuming(one-to-one);
+ */
+public class OutLib  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id; //主键
+	private Date date;//日期
+	private String cardNum; //卡号
+	private String dept; //部门
+	private String peopleName;//姓名
+	private String matetag;
+	private String format;//规格
+	private String unit;//单位
+	private String storehouse;//仓库
+	private String parClass;//分类
+	private String place;//位置
+	private Float num;//数量
+	private Float price;//价格
+	private Float money;//金额
+	private String detail;//描述
+	private Integer adminId;//管理员iD
+	private String admin;//管理员
+	private String mix;//合成主码
+	private String danjuhao;//单据号
+	private String more;//备注
+	
+	private Store store;
+	private Consuming con;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getStorehouse() {
+		return storehouse;
+	}
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+	public String getParClass() {
+		return parClass;
+	}
+	public void setParClass(String parClass) {
+		this.parClass = parClass;
+	}
+	public Float getNum() {
+		return num;
+	}
+	public void setNum(Float num) {
+		this.num = num;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	public Float getMoney() {
+		return money;
+	}
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	public Integer getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+	public String getMix() {
+		return mix;
+	}
+	public void setMix(String mix) {
+		this.mix = mix;
+	}
+	public String getDanjuhao() {
+		return danjuhao;
+	}
+	public void setDanjuhao(String danjuhao) {
+		this.danjuhao = danjuhao;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public Store getStore() {
+		return store;
+	}
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	public Consuming getCon() {
+		return con;
+	}
+	public void setCon(Consuming con) {
+		this.con = con;
+	}
+	public String getCardNum() {
+		return cardNum;
+	}
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+	public String getPeopleName() {
+		return peopleName;
+	}
+	public void setPeopleName(String peopleName) {
+		this.peopleName = peopleName;
+	}
+	public String getMatetag() {
+		return matetag;
+	}
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	
+}

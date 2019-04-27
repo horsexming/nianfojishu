@@ -1,0 +1,472 @@
+package com.task.util;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+public class FaceBaiDuUtil {
+
+	private static String accessToken = "";
+
+	public static String getAccessToken() {
+		return accessToken;
+	}
+
+	public static void setAccessToken(String accessToken) {
+		FaceBaiDuUtil.accessToken = accessToken;
+	}
+
+	public FaceBaiDuUtil() {
+
+	}
+
+	/**
+	 * 获取API访问token该token有一定的有效期，需要自行管理，当失效时需重新获取.
+	 * 
+	 * @param ak
+	 *            - 百度云官网获取的 API Key
+	 * @param sk
+	 *            - 百度云官网获取的 Securet Key
+	 * @return assess_token 示例：
+	 *         "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567"
+	 */
+	public static String getAuth(String ak, String sk) {
+		// 获取token地址
+		String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
+		String getAccessTokenUrl = authHost
+				// 1. grant_type为固定参数
+				+ "grant_type=client_credentials"
+				// 2. 官网获取的 API Key
+				+ "&client_id=" + ak
+				// 3. 官网获取的 Secret Key
+				+ "&client_secret=" + sk;
+		try {
+			URL realUrl = new URL(getAccessTokenUrl);
+			// 打开和URL之间的连接
+			HttpURLConnection connection = (HttpURLConnection) realUrl.openConnection();
+			connection.setRequestMethod("GET");
+			connection.connect();
+			// 定义 BufferedReader输入流来读取URL的响应
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String result = "";
+			String line;
+			while ((line = in.readLine()) != null) {
+				result += line;
+			}
+			JSONObject jsonObject = JSON.parseObject(result);
+			accessToken = jsonObject.getString("access_token");
+			System.out.println(accessToken);
+		} catch (Exception e) {
+			System.err.printf("获取token失败！");
+			e.printStackTrace(System.err);
+		}
+		return null;
+	}
+
+	/**
+	 * 添加人脸识别用户 成功返回user_id 否则返回null
+	 * 
+	 * @return image 是 string 图片信息(总数据大小应小于10M)，图片上传方式根据image_type来判断 image_type 是
+	 *         string 图片类型 BASE64:图片的base64值，base64编码后的图片数据，编码后的图片大小不超过2M； URL:图片的
+	 *         URL地址( 可能由于网络等原因导致下载图片时间过长)；
+	 *         FACE_TOKEN：人脸图片的唯一标识，调用人脸检测接口时，会为每个人脸图片赋予一个唯一的FACE_TOKEN，同一张图片多次检测得到的FACE_TOKEN是同一个。
+	 *         group_id 是 string
+	 *         用户组id，标识一组用户（由数字、字母、下划线组成），长度限制48B。产品建议：根据您的业务需求，可以将需要注册的用户，按照业务划分，分配到不同的group下，例如按照会员手机尾号作为groupid，用于刷脸支付、会员计费消费等，这样可以尽可能控制每个group下的用户数与人脸数，提升检索的准确率
+	 *         user_id 是 string 用户id（由数字、字母、下划线组成），长度限制128B user_info 否 string
+	 *         用户资料，长度限制256B 默认空 quality_control 否 string 图片质量控制 NONE: 不进行控制
+	 *         LOW:较低的质量要求 NORMAL: 一般的质量要求 HIGH: 较高的质量要求 默认 NONE
+	 *         若图片质量不满足要求，则返回结果中会提示质量检测失败 liveness_control 否 string 活体检测控制 NONE:
+	 *         不进行控制 LOW:较低的活体要求(高通过率 低攻击拒绝率) NORMAL: 一般的活体要求(平衡的攻击拒绝率, 通过率) HIGH:
+	 *         较高的活体要求(高攻击拒绝率 低通过率) 默认NONE 若活体检测结果不满足要求，则返回结果中会提示活体检测失败
+	 */
+	public static Map<String, Object> add(Map<String, Object> map) {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 先检测人脸，以保证人脸质量符合后续业务操作要求。
+		map.put("max_face_num", "10");
+		map.put("face_field", "landmark,quality,beauty");//landmark地标
+		String detect = detect(map);
+		JSONObject detectJSON = JSON.parseObject(detect).getJSONObject("result");
+		if(detectJSON==null) {
+			map.put("error_msg", detect);
+			return map;
+		}
+		Integer face_num = detectJSON.getInteger("face_num");
+		if (face_num == null || face_num > 1) {
+			map.put("error_msg", "人脸数量大于1或人脸不清楚");
+			return map;
+		}
+		JSONArray jsonArray = detectJSON.getJSONArray("face_list");
+		Object faceObj = jsonArray.get(0);
+		JSONObject qualityJson = JSON.parseObject(faceObj.toString()).getJSONObject("quality");// 人脸质量
+		double blur = qualityJson.getDouble("blur");// 人脸模糊程度，范围[0~1]，0表示清晰，1表示模糊
+		if (blur > 0.5) {
+			map.put("error_msg", "人脸模糊程度小于0.5，请使用像素更高的照片");
+			return map;
+		}
+		Double completeness = qualityJson.getDouble("completeness");// 脸完整度，0或1, 0为人脸溢出图像边界，1为人脸都在图像边界内
+		if (completeness != 1.0) {
+			map.put("error_msg", "人脸照片不够完整");
+			return map;
+		}
+
+		Double face_probability = JSON.parseObject(faceObj.toString()).getDouble("face_probability");// 人脸置信度，范围【0~1】，代表这是一张人脸的概率，0最小、1最大。
+		if (face_probability < 0.6) {
+			map.put("error_msg", "人脸置信度较小");
+			return map;
+		}
+		Double beauty = JSON.parseObject(faceObj.toString()).getDouble("beauty");// 美丑打分，范围0-100，越大表示越美。当face_fields包含beauty时返回
+		System.out.println(beauty);
+
+		// 请求url
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add";
+		try {
+			String param = new Gson().toJson(map);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+			JSONObject parseObject = JSON.parseObject(result);
+			String error_msg = parseObject.getString("error_msg");
+			JSONObject resultJSON = parseObject.getJSONObject("result");
+			if (resultJSON != null) {
+				String face_token = resultJSON.getString("face_token");
+				resultMap.put("face_token", face_token);
+			}
+			resultMap.put("error_msg", error_msg);
+			return resultMap;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 人脸搜索 1：N和M：N
+	 * 
+	 * @param map
+	 * @return faceCode列表
+	 */
+	public static List<String> search(Map<String, Object> map) {
+
+		// 请求url
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/search";
+		try {
+			String param = new Gson().toJson(map);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+			JSONObject parseObject = JSON.parseObject(result);
+			String error_msg = parseObject.getString("error_msg");
+			if (error_msg != null && error_msg.equals("SUCCESS")) {
+				JSONArray jsonArray = parseObject.getJSONObject("result").getJSONArray("user_list");
+				List<String> userCodeList = new ArrayList<String>();
+				for (Object objInfo : jsonArray) {
+					JSONObject joUser = JSON.parseObject(objInfo.toString());
+					Float score = joUser.getFloat("score");
+					if (score >= 80) {// 用户的匹配得分，推荐阈值80分
+						userCodeList.add(joUser.getString("user_id"));
+					}
+				}
+				return userCodeList;
+			} else {
+				String error_code = parseObject.getString("error_code");
+				System.out.println("人脸比对返回error:" + error_code + ",信息:" + error_msg);
+				if (error_code.equals("110")) {// Access token invalid or no longer valid
+					// (accessToken)失效
+					String clientId = "ckLcrZcKdEVVuH9qtdywIMeQ";
+					// 官网获取的 Secret Key 更新为你注册的
+					String clientSecret = "8NhEgoXmuZ370QUBaUSyDgBuMLGRpbfI";
+					getAuth(clientId, clientSecret);
+					return search(map);
+				} else if (error_code.equals("222207")) { // 布防报警222207 match user is not found 未找到匹配的用户
+					throw new RuntimeException("");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 人脸搜索 M：N
+	 * 
+	 * @param map
+	 * @return faceCode列表
+	 */
+	public static List<String> searchMulti(Map<String, Object> map) {
+
+		// 先检测人脸，以保证人脸质量符合后续业务操作要求。
+		map.put("max_face_num", "10");
+		map.put("face_field", "landmark,quality,beauty");//landmark地标
+		String detect = detect(map);
+		JSONObject detectJSON = JSON.parseObject(detect);
+		Integer error_code = detectJSON.getInteger("error_code");
+		if (error_code!=null && error_code==110) {// Access token invalid or no longer valid
+			// (accessToken)失效
+			String clientId = "ckLcrZcKdEVVuH9qtdywIMeQ";
+			// 官网获取的 Secret Key 更新为你注册的
+			String clientSecret = "8NhEgoXmuZ370QUBaUSyDgBuMLGRpbfI";
+			getAuth(clientId, clientSecret);
+			return searchMulti(map);
+		}
+		JSONObject detectResultJson = detectJSON.getJSONObject("result");
+		if(detectResultJson==null) {//没有人脸
+			System.out.println("没有找到人脸");
+			return null;
+		}
+		Integer face_num = detectResultJson.getInteger("face_num");
+		if (face_num == null || face_num <= 0) {
+			System.out.println("人脸数量小于1");
+			return null;
+		}
+		Object faceObj = detectResultJson.getJSONArray("face_list").get(0);
+		JSONObject qualityJson = JSON.parseObject(faceObj.toString()).getJSONObject("quality");// 人脸质量
+		double blur = qualityJson.getDouble("blur");// 人脸模糊程度，范围[0~1]，0表示清晰，1表示模糊
+		if (blur >= 0.8) {
+			System.out.println("人脸质量：" + blur);
+			return null;
+		}
+
+		Double face_probability = JSON.parseObject(faceObj.toString()).getDouble("face_probability");// 人脸置信度，范围【0~1】，代表这是一张人脸的概率，0最小、1最大。
+		System.out.println("人脸置信度：" + face_probability);
+		if (face_probability < 0.1) {
+		}
+		// 请求url
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/multi-search";
+		try {
+			String param = new Gson().toJson(map);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+
+			JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+			String error_msg = jsonObject.get("error_msg").getAsString();
+			if (error_msg != null && error_msg.equals("SUCCESS")) {
+				JsonObject resultJson = jsonObject.getAsJsonObject("result");
+				List<String> userCodeList = new ArrayList<String>();
+				JsonArray jsonArray = resultJson.getAsJsonArray("face_list");
+				for (JsonElement faceJson : jsonArray) {
+					JsonArray userJsonList = faceJson.getAsJsonObject().getAsJsonArray("user_list");// .getAsJsonArray();
+					for (JsonElement userJson : userJsonList) {
+						float score = userJson.getAsJsonObject().get("score").getAsFloat();// .getAsFloat();
+						if (score >= 75) {
+							String user = userJson.getAsJsonObject().get("user_id").getAsString();// .getAsString();
+							userCodeList.add(user);
+						}
+					}
+				}
+				return userCodeList;
+			} else {
+				 error_code = jsonObject.get("error_code").getAsInt();
+				System.out.println("人脸比对返回error:" + error_code + ",信息:" + error_msg);
+				if (error_code!=null && error_code==110) {// Access token invalid or no longer valid
+					// (accessToken)失效
+					String clientId = "ckLcrZcKdEVVuH9qtdywIMeQ";
+					// 官网获取的 Secret Key 更新为你注册的
+					String clientSecret = "8NhEgoXmuZ370QUBaUSyDgBuMLGRpbfI";
+					getAuth(clientId, clientSecret);
+					return searchMulti(map);
+				} else if (error_code!=null && error_code==222207) { // 布防报警222207 match user is not found 未找到匹配的用户
+					throw new RuntimeException(result);
+				}
+			}
+		} catch (Exception e) {
+			if (e.getMessage().indexOf("match user is not found") >= 0) {
+				throw new RuntimeException(e.getMessage());
+			}
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 人脸比对 比对两张人脸的相似度
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public static List<String> bidui(Map<String, Object> map) {
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
+		try {
+			List<Map<String, Object>> images = new ArrayList<Map<String, Object>>();
+			images.add(map);
+			String param = new Gson().toJson(images);
+			System.out.println(param);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+			JSONObject parseObject = JSON.parseObject(result);
+			String error_msg = parseObject.getString("error_msg");
+			if (error_msg != null && error_msg.equals("SUCCESS")) {
+				JSONArray jsonArray = parseObject.getJSONObject("result").getJSONArray("user_list");
+				List<String> userCodeList = new ArrayList<String>();
+				for (Object objInfo : jsonArray) {
+					JSONObject joUser = JSON.parseObject(objInfo.toString());
+					userCodeList.add(joUser.getString("user_id"));
+				}
+				return userCodeList;
+			} else {
+				String error_code = parseObject.getString("error_code");
+				System.out.println("人脸比对返回error:" + error_code + ",信息:" + error_msg);
+				if (error_code.equals("110")) {// Access token invalid or no longer valid
+					// (accessToken)失效
+					String clientId = "ckLcrZcKdEVVuH9qtdywIMeQ";
+					// 官网获取的 Secret Key 更新为你注册的
+					String clientSecret = "8NhEgoXmuZ370QUBaUSyDgBuMLGRpbfI";
+					getAuth(clientId, clientSecret);
+					return bidui(map);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 检测人脸信息 返回信息 face_num 是 int 检测到的图片中的人脸数量 face_list 是 array
+	 * 人脸信息列表，具体包含的参数参考下面的列表。 +face_token 是 string 人脸图片的唯一标识 +location 是 array
+	 * 人脸在图片中的位置 ++left 是 double 人脸区域离左边界的距离 ++top 是 double 人脸区域离上边界的距离 ++width 是
+	 * double 人脸区域的宽度 ++height 是 double 人脸区域的高度 ++rotation 是 int64
+	 * 人脸框相对于竖直方向的顺时针旋转角，[-180,180] +face_probability 是 double
+	 * 人脸置信度，范围【0~1】，代表这是一张人脸的概率，0最小、1最大。 +angel 是 array 人脸旋转角度参数 ++yaw 是 double
+	 * 三维旋转之左右旋转角[-90(左), 90(右)] ++pitch 是 double 三维旋转之俯仰角度[-90(上), 90(下)] ++roll 是
+	 * double 平面内旋转角[-180(逆时针), 180(顺时针)] +age 否 double 年龄 ，当face_field包含age时返回
+	 * +beauty 否 int64 美丑打分，范围0-100，越大表示越美。当face_fields包含beauty时返回 +expression 否
+	 * array 表情，当 face_field包含expression时返回 ++type 否 string
+	 * none:不笑；smile:微笑；laugh:大笑 ++probability 否 double 表情置信度，范围【0~1】，0最小、1最大。
+	 * +face_shape 否 array 脸型，当face_field包含face_shape时返回 ++type 否 double square: 正方形
+	 * triangle:三角形 oval: 椭圆 heart: 心形 round: 圆形 ++probability 否 double
+	 * 置信度，范围【0~1】，代表这是人脸形状判断正确的概率，0最小、1最大。 +gender 否 array 性别，face_field包含gender时返回
+	 * ++type 否 string male:男性 female:女性 ++probability 否 double
+	 * 性别置信度，范围【0~1】，0代表概率最小、1代表最大。 +glasses 否 array 是否带眼镜，face_field包含glasses时返回
+	 * ++type 否 string none:无眼镜，common:普通眼镜，sun:墨镜 ++probability 否 double
+	 * 眼镜置信度，范围【0~1】，0代表概率最小、1代表最大。 +eye_status 否 array 双眼状态（睁开/闭合）
+	 * face_field包含eye_status时返回 ++left_eye 否 double 左眼状态 [0,1]取值，越接近0闭合的可能性越大
+	 * ++right_eye 否 double 右眼状态 [0,1]取值，越接近0闭合的可能性越大 +emotion 否 array 情绪
+	 * face_field包含emotion时返回 ++type 否 string angry:愤怒 disgust:厌恶 fear:恐惧 happy:高兴
+	 * sad:伤心 surprise:惊讶 neutral:无情绪 ++probability 否 double 情绪置信度，范围0~1 +race 否
+	 * array 人种 face_field包含race时返回 ++type 否 string yellow: 黄种人 white: 白种人 black:黑种人
+	 * arabs: 阿拉伯人 ++probability 否 double 人种置信度，范围【0~1】，0代表概率最小、1代表最大。 +face_type 否
+	 * array 真实人脸/卡通人脸 face_field包含face_type时返回 ++type 否 string human: 真实人脸 cartoon:
+	 * 卡通人脸 ++probability 否 double 人脸类型判断正确的置信度，范围【0~1】，0代表概率最小、1代表最大。 +landmark 否
+	 * array 4个关键点位置，左眼中心、右眼中心、鼻尖、嘴中心。face_field包含landmark时返回 +landmark72 否 array
+	 * 72个特征点位置 face_field包含landmark时返回 +quality 否 array
+	 * 人脸质量信息。face_field包含quality时返回 ++occlusion 否 array
+	 * 人脸各部分遮挡的概率，范围[0~1]，0表示完整，1表示不完整 +++left_eye 否 double 左眼遮挡比例，[0-1] ，1表示完全遮挡
+	 * +++right_eye 否 double 右眼遮挡比例，[0-1] ， 1表示完全遮挡 +++nose 否 double 鼻子遮挡比例，[0-1] ，
+	 * 1表示完全遮挡 +++mouth 否 double 嘴巴遮挡比例，[0-1] ， 1表示完全遮挡 +++left_cheek 否 double
+	 * 左脸颊遮挡比例，[0-1] ， 1表示完全遮挡 +++right_cheek 否 double 右脸颊遮挡比例，[0-1] ， 1表示完全遮挡
+	 * +++chin 否 double 下巴遮挡比例，，[0-1] ， 1表示完全遮挡 ++blur 否 double
+	 * 人脸模糊程度，范围[0~1]，0表示清晰，1表示模糊 ++illumination 否 double 取值范围在[0~255], 表示脸部区域的光照程度
+	 * 越大表示光照越好 ++completeness 否 int64 人脸完整度，0或1, 0为人脸溢出图像边界，1为人脸都在图像边界内
+	 * 
+	 * @return
+	 */
+	public static String detect(Map<String, Object> map) {
+		// 请求url
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/detect";
+		try {
+			String param = new Gson().toJson(map);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 删除人脸信息
+	 * 
+	 * @return user_id 是 string 用户id（由数字、字母、下划线组成），长度限制128B group_id 是 string
+	 *         用户组id（由数字、字母、下划线组成） 长度限制48B，删除指定group_id中的user_id信息 face_token 是
+	 *         string 需要删除的人脸图片token，（由数字、字母、下划线组成）长度限制64B
+	 */
+	public static String delete(Map<String, Object> map) {
+		String url = "https://aip.baidubce.com/rest/2.0/face/v3/faceset/face/delete";
+		try {
+			String param = new Gson().toJson(map);
+			String result = HttpUtil.post(url, accessToken, "application/json", param);
+			JSONObject parseObject = JSON.parseObject(result);
+			/**
+			 * // 删除成功 { "error_code": 0, "log_id": 73473737, } // 删除发生错误 { "error_code":
+			 * 223106, "log_id": 1382953199, "error_msg": "face is not exist" }
+			 */
+
+			String error_msg = parseObject.getString("error_msg");
+			if (error_msg == null || error_msg.equals("")) {
+				return "SUCCESS";
+			}
+			return error_msg;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}
+
+class HttpUtil {
+
+	public static String post(String requestUrl, String accessToken, String params) throws Exception {
+		String contentType = "application/x-www-form-urlencoded";
+		return HttpUtil.post(requestUrl, accessToken, contentType, params);
+	}
+
+	public static String post(String requestUrl, String accessToken, String contentType, String params)
+			throws Exception {
+		String encoding = "UTF-8";
+		if (requestUrl.contains("nlp")) {
+			encoding = "GBK";
+		}
+		return HttpUtil.post(requestUrl, accessToken, contentType, params, encoding);
+	}
+
+	public static String post(String requestUrl, String accessToken, String contentType, String params, String encoding)
+			throws Exception {
+		String url = requestUrl + "?access_token=" + accessToken;
+		return HttpUtil.postGeneralUrl(url, contentType, params, encoding);
+	}
+
+	public static String postGeneralUrl(String generalUrl, String contentType, String params, String encoding)
+			throws Exception {
+		URL url = new URL(generalUrl);
+		// 打开和URL之间的连接
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("POST");
+		// 设置通用的请求属性
+		connection.setRequestProperty("Content-Type", contentType);
+		connection.setRequestProperty("Connection", "Keep-Alive");
+		connection.setUseCaches(false);
+		connection.setDoOutput(true);
+		connection.setDoInput(true);
+
+		// 得到请求的输出流对象
+		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+		out.write(params.getBytes(encoding));
+		out.flush();
+		out.close();
+
+		// 建立实际的连接
+		connection.connect();
+		// 定义 BufferedReader输入流来读取URL的响应
+		BufferedReader in = null;
+		in = new BufferedReader(new InputStreamReader(connection.getInputStream(), encoding));
+		String result = "";
+		String getLine;
+		while ((getLine = in.readLine()) != null) {
+			result += getLine;
+		}
+		in.close();
+		return result;
+	}
+}

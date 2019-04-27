@@ -1,0 +1,106 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<link rel="stylesheet" type="text/css"
+			href="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%=basePath%>javascript/calendar/css/mainstructure.css">
+		<link rel="stylesheet" href="<%=basePath%>javascript/calendar/css/maincontent.css">
+		
+		<script type="text/javascript"src="<%=basePath%>javascript/calendar/js/jquery-ui-1.8.6.custom.min.js"></script>
+
+		<script type="text/javascript" src="<%=basePath%>javascript/calendar/js/jquery-ui-timepicker-addon.js"></script>
+
+		<link rel="stylesheet" href="<%=basePath%>javascript/calendar/css/redmond/jquery-ui-1.8.1.custom.css">
+		<!-- 表单验证CSS -->
+		<script	src="<%=basePath%>javascript/calendar/js/formValidator/js/jquery.validationEngine.js" type="text/javascript"></script>
+		<script	src="<%=basePath%>javascript/calendar/js/formValidator/js/jquery.validationEngine-en.js" type="text/javascript"></script>
+		<link rel="stylesheet"	href="<%=basePath%>javascript/calendar/js/formValidator/css/validationEngine.jquery.css"
+			type="text/css" media="screen" charset="utf-8" />
+
+		<!-- FullCalender -->
+
+		<link rel='stylesheet' type='text/css'	href='<%=basePath%>javascript/calendar/fullcalendar/fullcalendar.css' />
+		<link	href='<%=basePath%>javascript/calendar/fullcalendar/fullcalendar.print.css'rel='stylesheet' media='print' />
+		<script type='text/javascript'	src='<%=basePath%>javascript/calendar/fullcalendar/fullcalendar.min.js'></script>
+		<link rel="stylesheet" type="text/css"
+			href="${pageContext.request.contextPath}/css/mobiscroll.core-2.5.2.css">
+		<script src="${pageContext.request.contextPath}/javascript/jquery/jquery-3.2.1.js"> </script> 
+ 		<script type="text/javascript"
+  			src="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/js/bootstrap.js"> </script>  
+<!--  		<script type="text/javascript" -->
+<%--  			src="${pageContext.request.contextPath}/js/mobiscroll.core-2.5.2.js"> </script>  --%>
+		<script type="text/javascript">
+			// 现在window.$和window.jQuery是3.2.1版本:
+			console.log($().jquery); // => '3.2.1'
+			var $jq = jQuery.noConflict(true);
+			// 现在window.$和window.jQuery被恢复成1.5版本:
+			console.log($().jquery); // => '1.5.0'
+		
+		</script>
+		<style type="text/css">
+			.ellipsis{
+				margin: 0;
+				padding: 0;	
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<ul class="nav nav-tabs">
+					<li class="col-md-6 active">
+						<a href="#banci" data-toggle="tab">
+							<p class="ellipsis">批量排班</p>
+							<p class="ellipsis">按照班次排班</p>
+						</a>
+					</li>
+					<li class="col-md-6">
+						<a href="#self" data-toggle="tab">
+							<p class="ellipsis">个人排班</p>
+							<p class="ellipsis">对个别员工排班</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tab-content">
+						<!-- 班次排班 -->
+						<div class="tab-pane fade in active" id="banci">
+							<ul class="nav nav-tabs">
+								<s:iterator value="banciList" id="bl" status="ps">
+									<li ><a href="#" onclick="loadCalendar(${bl.id})">${bl.name }</a></li>
+								</s:iterator>
+							</ul>
+							<div class="row col-md-12" id="rili">
+							</div>
+						</div>
+						<!-- 个人排班 -->
+						<div class="tab-pane fade" id="self"></div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<script type="text/javascript">
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+			function loadCalendar(id){
+				$("#rili").load("${pageContext.request.contextPath}/System/banCi/SchedultCalendar.jsp?id="+id);	
+			}
+		</script>
+	</body>
+</html>

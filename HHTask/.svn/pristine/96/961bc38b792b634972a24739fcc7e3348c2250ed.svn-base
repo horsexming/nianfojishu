@@ -1,0 +1,58 @@
+package com.task.entity;
+/**
+ * 消费表 
+ * 所对应项目表 ：ta_xiaofei
+ * @author 王晓飞
+ *
+ */
+public class XiaoFei implements java.io.Serializable {
+
+	// Fields
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer xiaofeijifen;//消费积分
+	private String xiaofeitime;//消费时间
+	private String neirong;//消费内容
+	private String in_code;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Integer getXiaofeijifen() {
+		return xiaofeijifen;
+	}
+	public void setXiaofeijifen(Integer xiaofeijifen) {
+		this.xiaofeijifen = xiaofeijifen;
+	}
+	public String getXiaofeitime() {
+		return xiaofeitime;
+	}
+	public void setXiaofeitime(String xiaofeitime) {
+		this.xiaofeitime = xiaofeitime;
+	}
+	public String getNeirong() {
+		return neirong;
+	}
+	public void setNeirong(String neirong) {
+		this.neirong = neirong;
+	}
+	public String getIn_code() {
+		return in_code;
+	}
+	public void setIn_code(String inCode) {
+		in_code = inCode;
+	}
+	
+	
+	
+	
+	
+
+}

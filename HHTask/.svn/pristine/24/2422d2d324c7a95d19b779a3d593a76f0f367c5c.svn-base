@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Wage" table="ta_fin_wage">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" column="ta_fin_code" not-null="true" />
+		<property name="cardId" column="ta_fin_cardId" not-null="true" />
+		<property name="userName" column="ta_fin_userName" not-null="true" />
+		<property name="dept" column="ta_fin_dept" not-null="true" />
+		<property name="mouth" column="ta_fin_mouth" not-null="true" />
+		<property name="gangweigongzi" column="ta_fin_gangweigongzi"
+			not-null="true" />
+		<property name="baomijintie" column="ta_fin_baomijintie"
+			not-null="true" />
+		<property name="dianhuabutie" column="ta_fin_dianhuabutie" />
+		<property name="jixiaokaohegongzi" column="ta_fin_jixiaokaohegongzi"
+			not-null="true" />
+		<property name="jinenggongzi" column="ta_fin_jinenggongzi"
+			length="4" />
+		<property name="gonglinggongzi" column="ta_fin_gonglinggongzi"
+			length="4" />
+		<property name="jiabanfei" column="ta_fin_jiabanfei" />
+		<property name="other" column="ta_fin_other" />
+		<property name="yingfagongzi" column="ta_fin_yingfagongzi" />
+		<property name="bingshikangdeng" column="ta_fin_bingshikangdeng" />
+		
+		
+		<property name="ssBase" column="ta_fin_ssBase" />
+		<property name="tongchoujin" column="ta_fin_tongchoujin" />
+		<property name="yiliaobaoxian" column="ta_fin_yiliaobaoxian" />
+		<property name="shiyebaoxian" column="ta_fin_shiyebaoxian" />
+		<property name="gongshangbaoxian" column="ta_fin_gongshangbaoxian" />
+		<property name="shengyubaoxian" column="ta_fin_shengyubaoxian" />
+		
+		<property name="dwtongchoujin" column="ta_fin_dwtongchoujin" />
+		<property name="dwyiliaobaoxian" column="ta_fin_dwyiliaobaoxian" />
+		<property name="dwshiyebaoxian" column="ta_fin_dwshiyebaoxian" />
+		<property name="dwgongshangbaoxian" column="ta_fin_dwgongshangbaoxian" />
+		<property name="dwshengyubaoxian" column="ta_fin_dwshengyubaoxian" />
+		
+		<property name="gjjBase" column="ta_fin_gjjBase" />
+		<property name="gongjijin" column="ta_fin_gongjijin" />
+		<property name="dwgongjijin" column="ta_fin_dwgongjijin" />		
+		
+		<property name="wucanfei" column="ta_fin_wucanfei" />
+		<property name="shuidianfei" column="ta_fin_shuidianfei" />
+		<property name="fangzufei" column="ta_fin_fangzufei" />
+		<property name="jiangjin" column="ta_fin_jiangjin" />
+		<property name="bfgongzi" column="ta_fin_bfgongzi" />
+		<property name="yingjiaoshuijin" column="ta_fin_yingjiaoshuijin" />
+		<property name="shifagongzi" column="ta_fin_shifagongzi" />
+		<property name="addDateTime" column="ta_fin_addDateTime" />
+		<property name="wageStatus" column="ta_fin_wageStatus" />
+		<property name="outsourcing" column="ta_fin_outsourcing" />
+		<property name="buchagongzi" column="ta_fin_buchagongzi" />
+		<property name="isBucha" column="ta_fin_isBucha" />
+		<property name="noBucha" column="ta_fin_noBucha" />
+		<property name="noJishui" column="ta_fin_noJishui" />
+
+		<property name="addChageTime" column="ta_fin_addChageTime" />
+		<property name="auditDateTime" column="ta_fin_auditDateTime" />
+		<property name="addUserName" column="ta_fin_addUserName" />
+		<property name="addUserId" column="ta_fin_addUserId" />
+		<property name="wageClass" column="ta_fin_wageClass" />
+		<property name="wageStatue" column="ta_fin_wageStatue" />
+		<property name="userId" column="ta_fin_userId" />
+
+		<property name="leaveNumber" column="ta_fin_leaveNumber" />
+		<property name="directions" column="ta_fin_directions" />
+		<property name="leaveBuchang" column="ta_fin_leaveBuchang" />
+		<property name="printDate" column="ta_fin_printDate" />
+		
+		<property name="scoreId"/>
+		<property name="jiangjinId"/>
+		<property name="gaowenfeiId"/>
+
+
+	</class>
+</hibernate-mapping>

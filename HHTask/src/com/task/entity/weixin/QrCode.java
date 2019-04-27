@@ -1,0 +1,198 @@
+package com.task.entity.weixin;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.task.entity.Users;
+
+/**
+ * QrCode entity. @author MyEclipse Persistence Tools
+ */
+
+public class QrCode implements Serializable {
+
+	// Fields
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer userId;
+	private String userName;
+	private String userCode;
+	private String userDept;
+	private Qr qr;
+	private WeChatUser weChatUser;
+	private String code;
+	private String creattime;
+	private String edittime;
+	private Integer status;
+	private Integer attr;
+	private Integer destroy;
+	private String remark;
+	private Set wechatCards = new HashSet(0);
+
+	// Constructors
+
+	/** default constructor */
+	public QrCode() {
+	}
+
+	/** minimal constructor */
+	public QrCode(Users user, Qr qr, String code, String creattime,
+			String edittime, Integer status, Integer attr, Integer destroy) {
+		userId = user.getId();
+		userName=user.getName();
+		userCode=user.getCode();
+		userDept=user.getDept();
+		this.qr = qr;
+		this.code = code;
+		this.creattime = creattime;
+		this.edittime = edittime;
+		this.status = status;
+		this.attr = attr;
+		this.destroy = destroy;
+	}
+
+	/** full constructor */
+	public QrCode(Users user, Qr qr, WeChatUser weChatUser, String code,
+			String creattime, String edittime, Integer status,
+			Integer attr, Integer destroy, String remark, Set wechatCards) {
+		this.qr = qr;
+		this.weChatUser = weChatUser;
+		this.code = code;
+		this.creattime = creattime;
+		this.edittime = edittime;
+		this.status = status;
+		this.attr = attr;
+		this.destroy = destroy;
+		this.remark = remark;
+		this.wechatCards = wechatCards;
+	}
+
+	// Property accessors
+
+
+
+	public Qr getQr() {
+		return this.qr;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setQr(Qr qr) {
+		this.qr = qr;
+	}
+
+	public WeChatUser getWeChatUser() {
+		return this.weChatUser;
+	}
+
+	public void setWeChatUser(WeChatUser weChatUser) {
+		this.weChatUser = weChatUser;
+	}
+
+	public String getCode() {
+		return this.code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getAttr() {
+		return this.attr;
+	}
+
+	public void setAttr(Integer attr) {
+		this.attr = attr;
+	}
+
+	public Integer getDestroy() {
+		return this.destroy;
+	}
+
+	public void setDestroy(Integer destroy) {
+		this.destroy = destroy;
+	}
+
+	public String getRemark() {
+		return this.remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	
+
+	public Set getWechatCards() {
+		return wechatCards;
+	}
+
+	public void setWechatCards(Set wechatCards) {
+		this.wechatCards = wechatCards;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public String getUserDept() {
+		return userDept;
+	}
+
+	public void setUserDept(String userDept) {
+		this.userDept = userDept;
+	}
+
+	public String getCreattime() {
+		return creattime;
+	}
+
+	public void setCreattime(String creattime) {
+		this.creattime = creattime;
+	}
+
+	public String getEdittime() {
+		return edittime;
+	}
+
+	public void setEdittime(String edittime) {
+		this.edittime = edittime;
+	}
+
+}

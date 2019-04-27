@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="Overtime" table="overtime">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="applyId" />
+		<property name="applyName" />
+		<property name="applyCode" />
+		<property name="applyDept" />
+		<property name="overtimeId" />
+		<property name="overtimeName" />
+		<property name="overtimeCode" />
+		<property name="overtimeCardId" />
+		<property name="overtimeDept" />
+		<property name="startDate"/>
+		<property name="endDate"/>
+		<property name="createDate"/>
+		<property name="filnalStartDate"/>
+		<property name="filnalEndDate"/>
+		<property name="xiuxi"/>
+		<property name="markId" />
+		<property name="amount" />
+		<property name="status" />
+		<property name="epId" type="integer" column="ep_id"/>
+		<property name="overTimeLong" />
+		
+		<property name="huanxiu" />
+		<property name="huanxiustatus" />
+		<property name="shuoming" />
+		
+		<property name="overtimeType" />
+		<property name="overtimeNeirong" />
+		<property name="accessStatus" />
+		<property name="carPaiNum" />
+		<property name="reCost" />
+		<property name="zhongjian" />
+		<property name="usablehxTime" />
+		<property name="actualEpId" />
+		<property name="actualEpStatus" />
+		
+		
+	</class>
+</hibernate-mapping>

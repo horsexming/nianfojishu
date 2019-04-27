@@ -1,0 +1,744 @@
+package com.task.entity.gys;
+
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.ProductProcess;
+
+/**
+ * 流水卡片工序信息表（ta_sop_w_ProcessGysInfor）
+ * 
+ * @author txb
+ * 
+ */
+public class ProcessGysInfor implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;// 主键
+	private Integer processNO;// 工序号
+	private String processName;// 工序名
+	private String processStatus;// 状态(并行/单独)
+	private Integer parallelId;// 并行工序开始id
+	private String status;// 工序状态(初始/自检/已领/完成)
+	private String zjStatus;// 是否首检(yes/no)
+
+	private float totalCount;// 可领取量
+	private float applyCount;// 已领数量
+
+	private String usercodes;// 员工号
+	private String userCardId;// 员工卡号
+	private String usernames;// 员工姓名
+	private Integer userId;// 员工id
+	private float submmitCount;// 提交数量
+	private float breakCount;// 不合格量
+	private String firstApplyDate;// 初次领取时间
+	private String submitDate;// 提交时间
+	private String checkUsersId;// 检验人员id
+	private String checkUsersCode;// 检验人员工号
+	private String checkUsers;// 检验人员
+	private String checkDate;// 检验时间
+	private String checkIdea;// 检验意见
+
+	private String productStyle;// 生产类型（自制，外委）
+	private String isPrice;// 是否参与奖金分配(true/false)
+
+	/***************** 设备及其他相关 *********/
+
+	private String gongwei; // 工位*(多个工位","分割)
+	private String shebeiNo; // 设备编号*
+	private String shebeiName; // 设备名称
+	private String operatorDept;// 操作人部门***
+	private String operatorCode;// 操作人工号***
+	private String operatorCardId;// 操作人卡号***
+	private String operatorName;// 操作人姓名***
+	private Integer operatorUserId;// 操作人id***
+
+	/*
+	 * 操作指数
+	 */
+	private Float optechnologyRate;// 技能指数
+	private Float opCouldReplaceRate;// 可替换人数
+	private Float opfuheRate;// 负荷指数
+	private Float opcaozuojiepai;// 操作人工节拍
+	private Float opshebeijiepai;// 操作设备节拍
+	private Float opnoReplaceRate;// 操作不可替换系数
+	private Float opzonghezhishu;// 操作综合指数
+	private Float opzongheqiangdu;// 操作综合强度
+	/*
+	 * 工装调试指数 准备过程
+	 */
+	private Float gztechnologyRate;// 技术指数
+	private Float gzCouldReplaceRate;// 可替换人数
+	private Float gzfuheRate;// 负荷指数
+	private Float gzzhunbeijiepai;// 准备过程人工节拍
+	private Float gzzhunbeicishu;// 准备次数
+	private Float gznoReplaceRate;// 准备过程不可替换系数
+	private Float gzzonghezhishu;// 准备过程综合指数
+	private Float gzzongheqiangdu;// 综合强度
+
+	private String guding;// 固定节拍(是/否)
+
+	/**** 自检相关 ****/
+
+	private ProcardGys procardGys;// 对应流水卡片信息(多对一)
+	//private OutSourcingWorkList osWork;// 对应外委工资单（多对一）
+	//private Set<ProcardPro> procardPro = new HashSet<ProcardPro>();// 领取的生产工序信息表
+	private ProductProcess productProcess;// 产品核价信息表
+	private Set<ProcessGysZj> processGysZjSet = new HashSet<ProcessGysZj>();// 领取的生产工序信息表
+
+	/*** 量具 ***/
+	private Integer measuringId;// 主键
+	private String measuringNumber;// 编号
+	private String measuringMatetag;// 名称
+	private String measuring_no; // 本厂编号
+
+	/*** 工装 ***/
+	private Integer gzstoreId;// 工装Id
+	private String number;// 工装名称
+	private String matetag;// 工装编号
+	/*** 精益生产相关 */
+	private Float allJiepai;// 总节拍
+	private Float capacity;// 产能(单班时长)
+	private Float capacitySurplus;// 产能盈余
+	private Float capacityRatio;// 产能比
+	private Float alldeliveryDuration;// 总延误时长
+	private Float deliveryDuration;// 配送时长
+	private Float deliveryRatio;// 配送比
+	private Integer deliveryPeriod;// 配送周期(X天/次)
+	private Float deliveryAmount;// 送货量
+	private Float proSingleDuration;// 总成单班生产时长
+
+	private Integer zhuserId;// 供应商的Id
+	private String gys;// 供应商
+
+	/*** 设备验证、工装验证、量具验证、规范验证、考勤验证 ***/
+	private String shebeistatus;// 设备验证
+	private String gongzhuangstatus;// 工装验证
+	private String liangjustatus;// 量具验证
+	private String guifanstatus;// 规范验证
+	private String kaoqingstatus;// 考勤验证
+
+	private Float gzDateTime;// 工作时长
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getProcessNO() {
+		return processNO;
+	}
+
+	public void setProcessNO(Integer processNO) {
+		this.processNO = processNO;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getProcessStatus() {
+		return processStatus;
+	}
+
+	public void setProcessStatus(String processStatus) {
+		this.processStatus = processStatus;
+	}
+
+	public Integer getParallelId() {
+		return parallelId;
+	}
+
+	public void setParallelId(Integer parallelId) {
+		this.parallelId = parallelId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public float getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(float totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public float getApplyCount() {
+		return applyCount;
+	}
+
+	public void setApplyCount(float applyCount) {
+		this.applyCount = applyCount;
+	}
+
+	public String getUsercodes() {
+		return usercodes;
+	}
+
+	public void setUsercodes(String usercodes) {
+		this.usercodes = usercodes;
+	}
+
+	public String getUserCardId() {
+		return userCardId;
+	}
+
+	public void setUserCardId(String userCardId) {
+		this.userCardId = userCardId;
+	}
+
+	public String getUsernames() {
+		return usernames;
+	}
+
+	public void setUsernames(String usernames) {
+		this.usernames = usernames;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public float getSubmmitCount() {
+		return submmitCount;
+	}
+
+	public void setSubmmitCount(float submmitCount) {
+		this.submmitCount = submmitCount;
+	}
+
+	public float getBreakCount() {
+		return breakCount;
+	}
+
+	public void setBreakCount(float breakCount) {
+		this.breakCount = breakCount;
+	}
+
+	public String getFirstApplyDate() {
+		return firstApplyDate;
+	}
+
+	public void setFirstApplyDate(String firstApplyDate) {
+		this.firstApplyDate = firstApplyDate;
+	}
+
+	public String getSubmitDate() {
+		return submitDate;
+	}
+
+	public void setSubmitDate(String submitDate) {
+		this.submitDate = submitDate;
+	}
+
+	public String getCheckUsersId() {
+		return checkUsersId;
+	}
+
+	public void setCheckUsersId(String checkUsersId) {
+		this.checkUsersId = checkUsersId;
+	}
+
+	public String getCheckUsersCode() {
+		return checkUsersCode;
+	}
+
+	public void setCheckUsersCode(String checkUsersCode) {
+		this.checkUsersCode = checkUsersCode;
+	}
+
+	public String getCheckUsers() {
+		return checkUsers;
+	}
+
+	public void setCheckUsers(String checkUsers) {
+		this.checkUsers = checkUsers;
+	}
+
+	public String getCheckDate() {
+		return checkDate;
+	}
+
+	public void setCheckDate(String checkDate) {
+		this.checkDate = checkDate;
+	}
+
+	public String getCheckIdea() {
+		return checkIdea;
+	}
+
+	public void setCheckIdea(String checkIdea) {
+		this.checkIdea = checkIdea;
+	}
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	public String getIsPrice() {
+		return isPrice;
+	}
+
+	public void setIsPrice(String isPrice) {
+		this.isPrice = isPrice;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+
+	public String getShebeiNo() {
+		return shebeiNo;
+	}
+
+	public void setShebeiNo(String shebeiNo) {
+		this.shebeiNo = shebeiNo;
+	}
+
+	public String getShebeiName() {
+		return shebeiName;
+	}
+
+	public void setShebeiName(String shebeiName) {
+		this.shebeiName = shebeiName;
+	}
+
+	public String getOperatorDept() {
+		return operatorDept;
+	}
+
+	public void setOperatorDept(String operatorDept) {
+		this.operatorDept = operatorDept;
+	}
+
+	public String getOperatorCode() {
+		return operatorCode;
+	}
+
+	public void setOperatorCode(String operatorCode) {
+		this.operatorCode = operatorCode;
+	}
+
+	public String getOperatorCardId() {
+		return operatorCardId;
+	}
+
+	public void setOperatorCardId(String operatorCardId) {
+		this.operatorCardId = operatorCardId;
+	}
+
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
+	}
+
+	public Integer getOperatorUserId() {
+		return operatorUserId;
+	}
+
+	public void setOperatorUserId(Integer operatorUserId) {
+		this.operatorUserId = operatorUserId;
+	}
+
+	public Float getOptechnologyRate() {
+		return optechnologyRate;
+	}
+
+	public void setOptechnologyRate(Float optechnologyRate) {
+		this.optechnologyRate = optechnologyRate;
+	}
+
+	public Float getOpCouldReplaceRate() {
+		return opCouldReplaceRate;
+	}
+
+	public void setOpCouldReplaceRate(Float opCouldReplaceRate) {
+		this.opCouldReplaceRate = opCouldReplaceRate;
+	}
+
+	public Float getOpfuheRate() {
+		return opfuheRate;
+	}
+
+	public void setOpfuheRate(Float opfuheRate) {
+		this.opfuheRate = opfuheRate;
+	}
+
+	public Float getOpcaozuojiepai() {
+		return opcaozuojiepai;
+	}
+
+	public void setOpcaozuojiepai(Float opcaozuojiepai) {
+		this.opcaozuojiepai = opcaozuojiepai;
+	}
+
+	public Float getOpshebeijiepai() {
+		return opshebeijiepai;
+	}
+
+	public void setOpshebeijiepai(Float opshebeijiepai) {
+		this.opshebeijiepai = opshebeijiepai;
+	}
+
+	public Float getOpnoReplaceRate() {
+		return opnoReplaceRate;
+	}
+
+	public void setOpnoReplaceRate(Float opnoReplaceRate) {
+		this.opnoReplaceRate = opnoReplaceRate;
+	}
+
+	public Float getOpzonghezhishu() {
+		return opzonghezhishu;
+	}
+
+	public void setOpzonghezhishu(Float opzonghezhishu) {
+		this.opzonghezhishu = opzonghezhishu;
+	}
+
+	public Float getOpzongheqiangdu() {
+		return opzongheqiangdu;
+	}
+
+	public void setOpzongheqiangdu(Float opzongheqiangdu) {
+		this.opzongheqiangdu = opzongheqiangdu;
+	}
+
+	public Float getGztechnologyRate() {
+		return gztechnologyRate;
+	}
+
+	public void setGztechnologyRate(Float gztechnologyRate) {
+		this.gztechnologyRate = gztechnologyRate;
+	}
+
+	public Float getGzCouldReplaceRate() {
+		return gzCouldReplaceRate;
+	}
+
+	public void setGzCouldReplaceRate(Float gzCouldReplaceRate) {
+		this.gzCouldReplaceRate = gzCouldReplaceRate;
+	}
+
+	public Float getGzfuheRate() {
+		return gzfuheRate;
+	}
+
+	public void setGzfuheRate(Float gzfuheRate) {
+		this.gzfuheRate = gzfuheRate;
+	}
+
+	public Float getGzzhunbeijiepai() {
+		return gzzhunbeijiepai;
+	}
+
+	public void setGzzhunbeijiepai(Float gzzhunbeijiepai) {
+		this.gzzhunbeijiepai = gzzhunbeijiepai;
+	}
+
+	public Float getGzzhunbeicishu() {
+		return gzzhunbeicishu;
+	}
+
+	public void setGzzhunbeicishu(Float gzzhunbeicishu) {
+		this.gzzhunbeicishu = gzzhunbeicishu;
+	}
+
+	public Float getGznoReplaceRate() {
+		return gznoReplaceRate;
+	}
+
+	public void setGznoReplaceRate(Float gznoReplaceRate) {
+		this.gznoReplaceRate = gznoReplaceRate;
+	}
+
+	public Float getGzzonghezhishu() {
+		return gzzonghezhishu;
+	}
+
+	public void setGzzonghezhishu(Float gzzonghezhishu) {
+		this.gzzonghezhishu = gzzonghezhishu;
+	}
+
+	public Float getGzzongheqiangdu() {
+		return gzzongheqiangdu;
+	}
+
+	public void setGzzongheqiangdu(Float gzzongheqiangdu) {
+		this.gzzongheqiangdu = gzzongheqiangdu;
+	}
+
+
+	@JSONField(serialize = false)
+	public ProductProcess getProductProcess() {
+		return productProcess;
+	}
+
+	public void setProductProcess(ProductProcess productProcess) {
+		this.productProcess = productProcess;
+	}
+
+	public String getZjStatus() {
+		return zjStatus;
+	}
+
+	public void setZjStatus(String zjStatus) {
+		this.zjStatus = zjStatus;
+	}
+
+	public Integer getMeasuringId() {
+		return measuringId;
+	}
+
+	public void setMeasuringId(Integer measuringId) {
+		this.measuringId = measuringId;
+	}
+
+	public String getMeasuringNumber() {
+		return measuringNumber;
+	}
+
+	public void setMeasuringNumber(String measuringNumber) {
+		this.measuringNumber = measuringNumber;
+	}
+
+	public String getMeasuringMatetag() {
+		return measuringMatetag;
+	}
+
+	public void setMeasuringMatetag(String measuringMatetag) {
+		this.measuringMatetag = measuringMatetag;
+	}
+
+	public String getMeasuring_no() {
+		return measuring_no;
+	}
+
+	public void setMeasuring_no(String measuringNo) {
+		measuring_no = measuringNo;
+	}
+
+	public Integer getGzstoreId() {
+		return gzstoreId;
+	}
+
+	public void setGzstoreId(Integer gzstoreId) {
+		this.gzstoreId = gzstoreId;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getMatetag() {
+		return matetag;
+	}
+
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+
+	public Float getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Float capacity) {
+		this.capacity = capacity;
+	}
+
+	public Float getCapacitySurplus() {
+		return capacitySurplus;
+	}
+
+	public void setCapacitySurplus(Float capacitySurplus) {
+		this.capacitySurplus = capacitySurplus;
+	}
+
+	public Float getCapacityRatio() {
+		return capacityRatio;
+	}
+
+	public void setCapacityRatio(Float capacityRatio) {
+		this.capacityRatio = capacityRatio;
+	}
+
+	public Float getDeliveryDuration() {
+		return deliveryDuration;
+	}
+
+	public void setDeliveryDuration(Float deliveryDuration) {
+		this.deliveryDuration = deliveryDuration;
+	}
+
+	public Float getDeliveryRatio() {
+		return deliveryRatio;
+	}
+
+	public void setDeliveryRatio(Float deliveryRatio) {
+		this.deliveryRatio = deliveryRatio;
+	}
+
+	public Integer getDeliveryPeriod() {
+		return deliveryPeriod;
+	}
+
+	public void setDeliveryPeriod(Integer deliveryPeriod) {
+		this.deliveryPeriod = deliveryPeriod;
+	}
+
+	public Float getDeliveryAmount() {
+		return deliveryAmount;
+	}
+
+	public void setDeliveryAmount(Float deliveryAmount) {
+		this.deliveryAmount = deliveryAmount;
+	}
+
+	public Float getProSingleDuration() {
+		return proSingleDuration;
+	}
+
+	public void setProSingleDuration(Float proSingleDuration) {
+		this.proSingleDuration = proSingleDuration;
+	}
+
+	public String getShebeistatus() {
+		return shebeistatus;
+	}
+
+	public void setShebeistatus(String shebeistatus) {
+		this.shebeistatus = shebeistatus;
+	}
+
+	public String getGongzhuangstatus() {
+		return gongzhuangstatus;
+	}
+
+	public void setGongzhuangstatus(String gongzhuangstatus) {
+		this.gongzhuangstatus = gongzhuangstatus;
+	}
+
+	public String getLiangjustatus() {
+		return liangjustatus;
+	}
+
+	public void setLiangjustatus(String liangjustatus) {
+		this.liangjustatus = liangjustatus;
+	}
+
+	public String getGuifanstatus() {
+		return guifanstatus;
+	}
+
+	public void setGuifanstatus(String guifanstatus) {
+		this.guifanstatus = guifanstatus;
+	}
+
+	public String getKaoqingstatus() {
+		return kaoqingstatus;
+	}
+
+	public void setKaoqingstatus(String kaoqingstatus) {
+		this.kaoqingstatus = kaoqingstatus;
+	}
+
+	public Integer getZhuserId() {
+		return zhuserId;
+	}
+
+	public void setZhuserId(Integer zhuserId) {
+		this.zhuserId = zhuserId;
+	}
+
+	public String getGys() {
+		return gys;
+	}
+
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+
+	public Float getAllJiepai() {
+		return allJiepai;
+	}
+
+	public void setAllJiepai(Float allJiepai) {
+		this.allJiepai = allJiepai;
+	}
+
+	public Float getAlldeliveryDuration() {
+		return alldeliveryDuration;
+	}
+
+	public void setAlldeliveryDuration(Float alldeliveryDuration) {
+		this.alldeliveryDuration = alldeliveryDuration;
+	}
+
+	public Float getGzDateTime() {
+		return gzDateTime;
+	}
+
+	public void setGzDateTime(Float gzDateTime) {
+		this.gzDateTime = gzDateTime;
+	}
+
+	public String getGuding() {
+		return guding;
+	}
+
+	public void setGuding(String guding) {
+		this.guding = guding;
+	}
+	@JSONField(serialize = false)
+	public ProcardGys getProcardGys() {
+		return procardGys;
+	}
+
+	public void setProcardGys(ProcardGys procardGys) {
+		this.procardGys = procardGys;
+	}
+	@JSONField(serialize = false)
+	public Set<ProcessGysZj> getProcessGysZjSet() {
+		return processGysZjSet;
+	}
+
+	public void setProcessGysZjSet(Set<ProcessGysZj> processGysZjSet) {
+		this.processGysZjSet = processGysZjSet;
+	}
+
+	
+}

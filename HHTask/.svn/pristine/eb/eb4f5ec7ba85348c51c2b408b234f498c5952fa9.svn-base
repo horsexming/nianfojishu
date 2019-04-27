@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-niewei" extends="struts-stack">
+		<!--
+			****************************************聂威Action操作**********************************************************************
+		-->
+		<!-- PFMEAS问题管理 -->
+		<action name="pfmeasAction_*" class="pfmeasAction" method="{1}">
+			<result name="findPfmeas">/System/Pfmeas/fmeas_show.jsp</result>
+			<result name="toaddPfmeas">/System/Pfmeas/addpfmeas.jsp</result>
+			<result name="addPfmeas">/System/Pfmeas/addpfmeas.jsp</result>
+			<result name="delPfmeas" type="redirect">pfmeasAction_findPfmeas.action?pfmeas_file=
+			</result>
+			<result name="delPfmeas1" type="redirect">pfmeasAction_findPfmeas.action?test=1&amp;pfmeas_file=
+			</result>
+			<result name="salPfmeas">/System/Pfmeas/editpfmeas.jsp</result>
+			<result name="updatePfmeas">/System/Pfmeas/editpfmeas.jsp</result>
+		</action>
+		<!-- 班次管理 -->
+		<action name="banCiAction_*" class="banCiAction" method="{1}">
+			<result name="findbanCi">/System/banCi/findbanCi.jsp</result>
+			<result name="findbanCi1">/System/banCi/findbanCi1.jsp</result>
+			<result name="addbanCi">/System/banCi/addbanCi.jsp</result>
+			<result name="changeBanCi">/System/banCi/changeBanCi.jsp</result>
+			<result name="delBanCi" type="redirect">banCiAction_findbanCi.action?tag=${tag}
+			</result>
+			<result name="salBanCiByid">/System/banCi/salBanCiByid.jsp</result>
+			<result name="updateBanCi">/System/banCi/salBanCiByid.jsp</result>
+			<result name="jiebangding_show">/System/banCi/jiebangding_show.jsp</result>
+			<result name="bancibangding_show">/System/banCi/bancibangding_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 销售价格管理 -->
+		<action name="SellPriceAction" class="sellPriceAction">
+			<result name="addSellPriceSuccess">
+				/System/caiwu/addSellPrice.jsp
+			</result>
+			<result name="SellPrice_add">
+				/System/caiwu/addSellPrice.jsp
+			</result>
+			<result name="SellPrice_find">
+				/System/caiwu/findAllSellPrice.jsp
+			</result>
+			<result name="deleteSellPrice" type="redirect">SellPriceAction!tofind.action
+			</result>
+			<result name="SellPrice_update">/System/caiwu/salSellPriceByid.jsp</result>
+		</action>
+
+		<!-- 气密入库表 -->
+		<action name="gasAction_*" class="gasAction" method="{1}">
+			<result name="Gas_toadd">/System/qimi/Gas_add.jsp</result>
+			<result name="Gas_add">
+				/System/qimi/Gas_add.jsp</result>
+			<result name="Gas_add" type="redirect">gasAction_findGas.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 来访登记表 -->
+		<action name="VisitAction_*" class="VisitAction" method="{1}">
+			<result name="Visit_add">
+				/System/menjin/Visit_add.jsp</result>
+			<result name="Visit_addwithoutApply">
+				/System/menjin/Visit_addwithoutApply.jsp</result>
+			<result name="ineShen_add">
+				/System/menjin/ineShen_add.jsp</result>
+			<result name="Visit_add_mobile">
+				/System/menjin/Visit_add_mobile.jsp</result>
+			<result name="Visit_find">
+				/System/menjin/Visit_find.jsp</result>
+		</action>
+	</package>
+</struts>

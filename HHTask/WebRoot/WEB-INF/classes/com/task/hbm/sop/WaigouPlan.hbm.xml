@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouPlan" table="ta_sop_w_WaigouPlan">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId"  index="pebs_index_wp_markId"/>
+		<property name="proName" />
+		<property name="type" />
+		<property name="number" />
+		<property name="syNumber" />
+		<property name="kgliao" index="pebs_index_wp_kgliao"/>
+		<property name="banben" />
+		<property name="banci" />
+		<property name="price" />
+		<property name="hsPrice" />
+		<property name="taxprice" />
+		<property name="money" />
+		<property name="priceId" />
+		<property name="gysId"  index="pebs_index_wp_gysId"/>
+		<property name="gysName" />
+		<property name="userId" />
+		<property name="userCode" />
+		<property name="addTime" />
+		<property name="querenTime" />
+		<property name="shArrivalTime" />
+		<property name="acArrivalTime" />
+		<property name="jianyanTime" />
+		<property name="rukuTime" />
+		<property name="status"  index="pebs_index_wp_status" />
+		<property name="oldStatus" />
+		<property name="allJiepai" />
+		<property name="deliveryDuration" />
+		<property name="singleDuration" />
+		<property name="applyDate" />
+		<property name="applyCount" />
+		<property name="rukuCount" />
+		<property name="hasruku" />
+		<property name="keruku" />
+		<property name="comeCount" />
+		<property name="specification" />
+		<property name="kuCunCount" />
+		<property name="jiaofuTime" />
+		<property name="processNOs" />
+		<property name="processNames" />
+		<property name="wwType" />
+		<property name="payDate" />
+		<property name="remark" />
+		<property name="unit" />
+		<property name="wlKw" />
+		<property name="wwDetailId" />
+		<property name="wgType" />
+		<property name="ywmarkId" />
+		<property name="hgNumber"/>
+		<property name="wwSource"/>
+		<property name="tuhao"/>
+		<property name="yfMoney"/>
+		<property name="hasjk"/>
+		<property name="qsNum"/>
+		<property name="mopId" index="pebs_index_mopId"/>
+		<property name="sbjdApplyCount"/>
+		<property name="sbjdCount"/>
+		<property name="gysjc"/>
+		<property name="more"/>
+		<property name="proNumber"/>
+		<property name="hadChange"/>
+		<property name="cordTime"/>
+		<property name="demanddept"/>
+		<property name="blNum"/>
+		<!-- 【与流水卡片对应关系】 -->
+		<many-to-one name="waigouOrder" column="fk_wgOrderId"
+			lazy="false" class="WaigouOrder" cascade="save-update" />
+
+		<!--
+			【配置采购明细对应送货明细关系(一对多)】 <set name="wddSet" inverse="false"
+			cascade="all" lazy="true"> <key column="fk_wpId"></key> <one-to-many
+			class="WaigouDeliveryDetail" /> </set>
+		-->
+	</class>
+</hibernate-mapping>
+

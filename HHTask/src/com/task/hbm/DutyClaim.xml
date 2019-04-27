@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="DutyClaim" table="ta_hr_dutyClaim">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="duty" length="50" />
+		<property name="eduClaim" length="500" />
+		<property name="speClaim" length="500" />
+		<property name="expClaim" length="500" />
+		<property name="skillClaim" length="5000" />
+		<property name="quaClaim" length="5000" />
+		<property name="posClaim" length="1000" />
+		<property name="deptClaim" length="100" />
+		<property name="claimStatus" length="20" />
+		<property name="userId" />
+		<property name="code" />
+		<property name="userName" />
+		<property name="dept" />
+		<property name="floor" />
+
+		<set name="dutyClaimSet" lazy="true" inverse="false" cascade="none">
+			<key column="fk_dutyId"></key>
+			<one-to-many class="DutyClaim" />
+		</set>
+
+		<many-to-one name="dutyClaim" class="DutyClaim" column="fk_dutyId"
+			lazy="false" insert="true" cascade="save-update"></many-to-one>
+
+
+	</class>
+</hibernate-mapping>

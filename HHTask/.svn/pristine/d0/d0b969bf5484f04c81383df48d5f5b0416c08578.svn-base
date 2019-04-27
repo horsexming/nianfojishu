@@ -1,0 +1,222 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * * 固定资产表
+ * 
+ * @author 钟永林
+ * 
+ */
+
+public class Asset  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id; // 序号
+	private String taassetsnumber; // 资产编号
+	private String taassetsname; // 资产名称
+	private String taassetsclass; // 资产类别
+	private String taassetsuse; // 资产用途
+	private String tademolitionmethods; // 折旧方法
+	private Float taassetscost; // 资产原值
+	private Float taaccumulateddepreciation; // 累计折旧
+	private Float taassetsNetworth;// 资产净值
+	private Float taassetsQuantity; // 资产数量
+	private String tayearsof; // 年限
+	private Float tamonthlydepreciation; // 月折旧率（%）
+	private Float tayuezhejiudepreciation;// 月折旧额（%）
+	private Float taannualrate;// 年折旧率（%）
+	private Float tanianzhejiudepreciation;// 年折旧额（%）
+	private String taspecificationsmodel;// 规格型号
+	private String tastartdatetime;// 开始使用日期
+	private String tanumber;// 编号
+	private String tastatus;// 状态
+	private String tausingobject;// 使用部门
+	private String tadatetime;// 时间锥
+
+	private String tascrappedwilling;// 报废原因及根据
+	private String taequipmentModel;// 设备型号
+	private String tamanufacturer;// 制造厂家
+	private String tafactorynumber;// 出厂编号
+	private String tafactorydate;// 出厂日期
+	private String tainstallationsite;// 安装地点
+	private String tainstallationdate;// 安装时间
+	private String taremarks;// 备注
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getTaassetsnumber() {
+		return taassetsnumber;
+	}
+	public void setTaassetsnumber(String taassetsnumber) {
+		this.taassetsnumber = taassetsnumber;
+	}
+	public String getTaassetsname() {
+		return taassetsname;
+	}
+	public void setTaassetsname(String taassetsname) {
+		this.taassetsname = taassetsname;
+	}
+	public String getTaassetsclass() {
+		return taassetsclass;
+	}
+	public void setTaassetsclass(String taassetsclass) {
+		this.taassetsclass = taassetsclass;
+	}
+	public String getTaassetsuse() {
+		return taassetsuse;
+	}
+	public void setTaassetsuse(String taassetsuse) {
+		this.taassetsuse = taassetsuse;
+	}
+	public String getTademolitionmethods() {
+		return tademolitionmethods;
+	}
+	public void setTademolitionmethods(String tademolitionmethods) {
+		this.tademolitionmethods = tademolitionmethods;
+	}
+	public Float getTaassetscost() {
+		return taassetscost;
+	}
+	public void setTaassetscost(Float taassetscost) {
+		this.taassetscost = taassetscost;
+	}
+	public Float getTaaccumulateddepreciation() {
+		return taaccumulateddepreciation;
+	}
+	public void setTaaccumulateddepreciation(Float taaccumulateddepreciation) {
+		this.taaccumulateddepreciation = taaccumulateddepreciation;
+	}
+	public Float getTaassetsNetworth() {
+		return taassetsNetworth;
+	}
+	public void setTaassetsNetworth(Float taassetsNetworth) {
+		this.taassetsNetworth = taassetsNetworth;
+	}
+	public Float getTaassetsQuantity() {
+		return taassetsQuantity;
+	}
+	public void setTaassetsQuantity(Float taassetsQuantity) {
+		this.taassetsQuantity = taassetsQuantity;
+	}
+	public String getTayearsof() {
+		return tayearsof;
+	}
+	public void setTayearsof(String tayearsof) {
+		this.tayearsof = tayearsof;
+	}
+	public Float getTamonthlydepreciation() {
+		return tamonthlydepreciation;
+	}
+	public void setTamonthlydepreciation(Float tamonthlydepreciation) {
+		this.tamonthlydepreciation = tamonthlydepreciation;
+	}
+	public Float getTayuezhejiudepreciation() {
+		return tayuezhejiudepreciation;
+	}
+	public void setTayuezhejiudepreciation(Float tayuezhejiudepreciation) {
+		this.tayuezhejiudepreciation = tayuezhejiudepreciation;
+	}
+	public Float getTaannualrate() {
+		return taannualrate;
+	}
+	public void setTaannualrate(Float taannualrate) {
+		this.taannualrate = taannualrate;
+	}
+	public Float getTanianzhejiudepreciation() {
+		return tanianzhejiudepreciation;
+	}
+	public void setTanianzhejiudepreciation(Float tanianzhejiudepreciation) {
+		this.tanianzhejiudepreciation = tanianzhejiudepreciation;
+	}
+	public String getTaspecificationsmodel() {
+		return taspecificationsmodel;
+	}
+	public void setTaspecificationsmodel(String taspecificationsmodel) {
+		this.taspecificationsmodel = taspecificationsmodel;
+	}
+	public String getTastartdatetime() {
+		return tastartdatetime;
+	}
+	public void setTastartdatetime(String tastartdatetime) {
+		this.tastartdatetime = tastartdatetime;
+	}
+	public String getTanumber() {
+		return tanumber;
+	}
+	public void setTanumber(String tanumber) {
+		this.tanumber = tanumber;
+	}
+	public String getTastatus() {
+		return tastatus;
+	}
+	public void setTastatus(String tastatus) {
+		this.tastatus = tastatus;
+	}
+	public String getTausingobject() {
+		return tausingobject;
+	}
+	public void setTausingobject(String tausingobject) {
+		this.tausingobject = tausingobject;
+	}
+	public String getTadatetime() {
+		return tadatetime;
+	}
+	public void setTadatetime(String tadatetime) {
+		this.tadatetime = tadatetime;
+	}
+	public String getTascrappedwilling() {
+		return tascrappedwilling;
+	}
+	public void setTascrappedwilling(String tascrappedwilling) {
+		this.tascrappedwilling = tascrappedwilling;
+	}
+	public String getTaequipmentModel() {
+		return taequipmentModel;
+	}
+	public void setTaequipmentModel(String taequipmentModel) {
+		this.taequipmentModel = taequipmentModel;
+	}
+	public String getTamanufacturer() {
+		return tamanufacturer;
+	}
+	public void setTamanufacturer(String tamanufacturer) {
+		this.tamanufacturer = tamanufacturer;
+	}
+	public String getTafactorynumber() {
+		return tafactorynumber;
+	}
+	public void setTafactorynumber(String tafactorynumber) {
+		this.tafactorynumber = tafactorynumber;
+	}
+	public String getTafactorydate() {
+		return tafactorydate;
+	}
+	public void setTafactorydate(String tafactorydate) {
+		this.tafactorydate = tafactorydate;
+	}
+	public String getTainstallationsite() {
+		return tainstallationsite;
+	}
+	public void setTainstallationsite(String tainstallationsite) {
+		this.tainstallationsite = tainstallationsite;
+	}
+	public String getTainstallationdate() {
+		return tainstallationdate;
+	}
+	public void setTainstallationdate(String tainstallationdate) {
+		this.tainstallationdate = tainstallationdate;
+	}
+	public String getTaremarks() {
+		return taremarks;
+	}
+	public void setTaremarks(String taremarks) {
+		this.taremarks = taremarks;
+	}
+
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouOrder" table="ta_sop_w_WaigouOrder">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="gysId" index="pebs_index_gysid"/>
+		<property name="userId" />
+		<property name="userCode" />
+		<property name="gysName" />
+		<property name="gysPhone" />
+		<property name="status" />
+		<property name="caigouMonth" />
+		<property name="planNumber" unique="true"/>
+		<property name="addTime" />
+		<property name="tongzhiTime" />
+		<property name="tzUserCode" />
+		<property name="tzUserName" />
+		<property name="tzUserPhone" />
+		<property name="querenTime" />
+		<property name="printTime" />
+		<property name="piaojuType" />
+		<property name="payType" />
+		<property name="fax" />
+		<property name="lxPeople" />
+		<property name="ghAddress" />
+		<property name="shAddress" />
+		<property name="wwType" />
+		<property name="type" />
+		<property name="processApplyId" />
+		<property name="applystatus" />
+		<property name="epId" />
+		<property name="rootId" />
+		<property name="addUserCode" />
+		<property name="addUserName" />
+		<property name="addUserPhone" />
+		<property name="addUserYx" />
+		
+		<property name="rootMarkId" />
+		<property name="ywMarkId" />
+		<property name="wwSource" />
+		<property name="wlStatus" />
+		<property name="allMoney" />
+		<property name="isprint" />
+		<property name="oldstatus"/>
+
+		<!-- 【配置流水卡片对应采购计划信息关系】 -->
+		<set name="wwpSet" inverse="false" cascade="all" lazy="true" order-by="markId">
+			<key column="fk_wgOrderId"></key>
+			<one-to-many class="WaigouPlan" />
+		</set>
+	</class>
+</hibernate-mapping>

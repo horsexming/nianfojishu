@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bargain.Bargain" table="ta_Bargain">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="bargain_number" />
+		<property name="bargain_date" />
+		<property name="applicants_dept"></property>
+		<property name="user_name"></property>
+		<property name="status"></property>
+		<property name="epId" />
+		<property name="bargain_num" />
+		<property name="bargain_source" />
+		<property name="pk_id" />
+		<!-- 与议价物品一对多 -->
+		<set name="bargainGoods" inverse="false" cascade="all" lazy="true">
+			<key column="bargain_id"></key>
+			<one-to-many class="com.task.entity.bargain.BargainGoods" />
+		</set>
+		<!-- 与议价明细一对多 -->
+		<set name="bargainingDetails" inverse="false" cascade="all" lazy="true">
+			<key column="bargain_id"></key>
+			<one-to-many class="com.task.entity.bargain.BargainingDetails" />
+		</set>
+		
+		 
+	</class>
+	</hibernate-mapping>

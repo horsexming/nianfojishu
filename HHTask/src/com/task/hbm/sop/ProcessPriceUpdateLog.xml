@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessPriceUpdateLog" table="ta_sop_w_ProcessPriceUpdateLog">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="processId"/>
+		<property name="processNo"/>
+		<property name="processName"/>
+		<property name="userName"/>
+		<property name="usercode"/>
+		<property name="updateTime"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="procardId"/>
+		<property name="procesdianshu"/>
+		<property name="processjjMoney"/>
+		<property name="jjratio"/>
+		<property name="ywMarkId"/>
+		<property name="selfCard"/>
+		<property name="processInforId"/>
+		<property name="procardpcId"/>
+		<property name="more" length="500"/>
+		<property name="sjprocessMomey"/>
+		<property name="ykprocessMomey"/>
+		
+	</class>
+</hibernate-mapping>

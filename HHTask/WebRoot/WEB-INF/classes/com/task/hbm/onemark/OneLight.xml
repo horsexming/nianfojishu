@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.onemark.OneLight" table="ta_cw_OneLight">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="lightNum" />
+		<property name="lightType" />
+		<property name="lightStatus" />
+		<property name="lightIP" />
+		<property name="lightPort" />
+		<property name="lightOpen" />
+		<property name="lightClose" />
+		<property name="lightOpenMin" />
+		<property name="lightCloseMin" />
+		<property name="lightZhiLing" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="parkSpaceUseInforId" />
+		<property name="aceIs" />
+		<!-- 灯对一体机 -->
+		<many-to-one name="machiness"
+			class="com.task.entity.android.processpush.OneMachine" column="om_id" />
+		<!-- 灯对门禁设备 -->
+		<many-to-one name="accessEquipment"
+			class="com.task.entity.menjin.AccessEquipment" column="ace_id" />
+	</class>
+</hibernate-mapping>

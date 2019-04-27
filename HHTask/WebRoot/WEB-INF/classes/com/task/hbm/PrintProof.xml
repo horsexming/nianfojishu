@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.PrintProof" table="ST_PrintProof">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+	<property name="correlationCustomer" column="f_correlationCustomer" type="string"></property>
+	<property name="reviewNumber" column="f_reviewNumber" type="string"></property>
+	<property name="contractNumber" column="f_contractNumber" type="string"></property>
+	<property name="date" column="f_date" type="string"></property>
+	<property name="total" column="f_total" type="string"></property>
+	<property name="way" column="f_way" type="string"></property>
+	<property name="situation" column="f_situation" type="string"></property>
+	<property name="conditions" column="f_conditions" type="string"></property>
+	<property name="agent" column="f_agent" type="string"></property>
+	<property name="collectionUnit" column="f_collectionUnit" type="string"></property>
+	<property name="numbers" column="f_numbers" type="string"></property>
+	<property name="lowMoney" column="f_lowMoney" type="string"></property>
+	<property name="status" column="f_status" type="string"/>
+	<property name="nature" column="f_nature" type="string"></property>
+	<property name="category" column="f_category" type="string"></property>
+	
+	<!-- 配置发票集合 -->
+	<set name="buss" table="ST_Business" cascade="all" inverse="true" lazy="false">
+		<key column="fk_printProof_id"></key>
+		<one-to-many class="com.task.entity.Business"/>
+	</set>
+	</class>
+</hibernate-mapping>

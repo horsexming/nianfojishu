@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="YcProduct" table="ta_yc_YcProduct">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="productId"/>
+		<property name="orderNo"/>
+		<property name="outOrderNo"/>
+		<property name="markId"/>
+		<property name="num"/>
+		<property name="yfpNum"/>
+		<property name="ycgNum"/>
+		<property name="status"/>
+		<property name="ysqNum"/>
+		<property name="cxNum"/>
+		<property name="addTime"/>
+		<property name="proName"/>
+		<property name="addUserName"/>
+		<set name="setycWeekFeiPei" cascade="all" inverse="false">
+			<key column="ycproId"></key>
+			<one-to-many class="YcWeekFePei" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,305 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+public class ProjectQuotationList  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private String vendor;//供货单位
+	private String partNum;//零件代号
+	private String description;//零件名称
+	private String project;//项目名称
+	private String annualForecast;//年度预测
+	private String buyer;//采购
+	private Double logisticsDistance;//运输距离
+	private String location;//发货地
+	private String quotationDate;//报价日期
+
+	private Boolean closed;//是否关闭
+
+	private Double rawMaterial;//材料
+	private Double subContract;//外购外协
+	private Double purchasingCost;//**采购成本
+	private Double toolingCost;//模具成本
+	private Double directLaborCost;//直接人工
+	private Double indirectLaborCost;//间接人工
+	private Double energyCost;//能耗
+	private Double equipmentDepreciation;//设备折旧
+	private Double maintenanceCost;//维护费用
+	private Double subTotal;//小计
+	private Double transportation;//运输
+	private Double pack;//包装
+	private Double logistics;//物流
+	private Double freePrice;//管理费用
+	private Double finicialInterest;//财务费用
+	private Double oi;//利润
+	private Double totalPrice;
+	private Double sellingPrice;//销售价
+
+	private Project root;
+	private ProjectQuotationList myroot;
+	private Set<ProjectQuotation> quotations;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	public String getPartNum() {
+		return partNum;
+	}
+
+	public void setPartNum(String partNum) {
+		this.partNum = partNum;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public String getAnnualForecast() {
+		return annualForecast;
+	}
+
+	public void setAnnualForecast(String annualForecast) {
+		this.annualForecast = annualForecast;
+	}
+
+	public String getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public Double getLogisticsDistance() {
+		return logisticsDistance;
+	}
+
+	public void setLogisticsDistance(Double logisticsDistance) {
+		this.logisticsDistance = logisticsDistance;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getQuotationDate() {
+		return quotationDate;
+	}
+
+	public void setQuotationDate(String quotationDate) {
+		this.quotationDate = quotationDate;
+	}
+
+	public Boolean getClosed() {
+		return closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+
+	public Double getRawMaterial() {
+		return rawMaterial;
+	}
+
+	public void setRawMaterial(Double rawMaterial) {
+		this.rawMaterial = rawMaterial;
+	}
+
+	public Double getSubContract() {
+		return subContract;
+	}
+
+	public void setSubContract(Double subContract) {
+		this.subContract = subContract;
+	}
+
+	public Double getPurchasingCost() {
+		return purchasingCost;
+	}
+
+	public void setPurchasingCost(Double purchasingCost) {
+		this.purchasingCost = purchasingCost;
+	}
+
+	public Double getToolingCost() {
+		return toolingCost;
+	}
+
+	public void setToolingCost(Double toolingCost) {
+		this.toolingCost = toolingCost;
+	}
+
+	public Double getDirectLaborCost() {
+		return directLaborCost;
+	}
+
+	public void setDirectLaborCost(Double directLaborCost) {
+		this.directLaborCost = directLaborCost;
+	}
+
+	public Double getIndirectLaborCost() {
+		return indirectLaborCost;
+	}
+
+	public void setIndirectLaborCost(Double indirectLaborCost) {
+		this.indirectLaborCost = indirectLaborCost;
+	}
+
+	public Double getEnergyCost() {
+		return energyCost;
+	}
+
+	public void setEnergyCost(Double energyCost) {
+		this.energyCost = energyCost;
+	}
+
+	public Double getEquipmentDepreciation() {
+		return equipmentDepreciation;
+	}
+
+	public void setEquipmentDepreciation(Double equipmentDepreciation) {
+		this.equipmentDepreciation = equipmentDepreciation;
+	}
+
+	public Double getMaintenanceCost() {
+		return maintenanceCost;
+	}
+
+	public void setMaintenanceCost(Double maintenanceCost) {
+		this.maintenanceCost = maintenanceCost;
+	}
+
+	public Double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(Double subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public Double getTransportation() {
+		return transportation;
+	}
+
+	public void setTransportation(Double transportation) {
+		this.transportation = transportation;
+	}
+
+	public Double getPack() {
+		return pack;
+	}
+
+	public void setPack(Double pack) {
+		this.pack = pack;
+	}
+
+	public Double getLogistics() {
+		return logistics;
+	}
+
+	public void setLogistics(Double logistics) {
+		this.logistics = logistics;
+	}
+
+	public Double getFreePrice() {
+		return freePrice;
+	}
+
+	public void setFreePrice(Double freePrice) {
+		this.freePrice = freePrice;
+	}
+
+	public Double getFinicialInterest() {
+		return finicialInterest;
+	}
+
+	public void setFinicialInterest(Double finicialInterest) {
+		this.finicialInterest = finicialInterest;
+	}
+
+	public Double getOi() {
+		return oi;
+	}
+
+	public void setOi(Double oi) {
+		this.oi = oi;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Project getRoot() {
+		return root;
+	}
+
+	public void setRoot(Project root) {
+		this.root = root;
+	}
+
+	public Set<ProjectQuotation> getQuotations() {
+		return quotations;
+	}
+
+	public void setQuotations(Set<ProjectQuotation> quotations) {
+		this.quotations = quotations;
+	}
+
+	public ProjectQuotationList getMyroot() {
+		return myroot;
+	}
+
+	public void setMyroot(ProjectQuotationList myroot) {
+		this.myroot = myroot;
+	}
+
+	public Double getSellingPrice() {
+		return sellingPrice;
+	}
+
+	public void setSellingPrice(Double sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+
+
+}

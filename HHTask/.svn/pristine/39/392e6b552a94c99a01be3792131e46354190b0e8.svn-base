@@ -1,0 +1,500 @@
+\html,body {
+	height: 100%;
+}
+
+body {
+	background: #dadbdf;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #737373
+}
+
+div,ul,li {
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu
+	{
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.menucontainer {
+	width: 300px;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 126px;
+	z-index: 9;
+	/*   overflow-y: scroll;*/
+	overflow-x: hidden;
+	display: none;
+	background: #33363f;
+}
+
+.togglebtn {
+	width: 20px;
+	height: 35px;
+	top: 15px;
+	margin-right: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	z-index: 10;
+	float: right;
+	background: url(../img/rightbtn2.png) no-repeat 0 0;
+	overflow: hidden;
+}
+
+#menu {
+	height: 100%;
+	width: 126px;
+	overflow: hidden;
+	position: relative;
+	float: left;
+	background: #252733;
+	padding-top: 10px;
+}
+
+#menu ul li {
+	line-height: 50px;
+	width: 126px;
+	text-align: center;
+}
+
+.active {
+	background: #33363f !important;
+}
+
+#menu ul li a {
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 12px;
+	font-family: "microsoft yahei";
+}
+
+#list li a {
+	margin-left: 8px;
+}
+
+#menu ul li a img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.left {
+	width: 300px !important;
+	height: 600px;
+	background: #33363f;
+	position: relative;
+	float: left;
+	z-index: 1 !important;
+}
+
+.left .logoleft {
+	width: 100%;
+	height: 79px;
+	background: #252733;
+	text-align: center;
+}
+
+.left .settings {
+	width: 100%;
+	height: 127px;
+	border-bottom: 1px solid #242730;
+	background: #33363f;
+	overflow: hidden;
+}
+
+.left .settings .person {
+	width: 88px;
+	height: 89px;
+	border-radius: 50%;
+	float: left;
+	margin: 8% 0px 0px 2%;
+	display: inline;
+	overflow: hidden;
+}
+
+.left .personinfo {
+	font-family: "microsoft yahei";
+	font-size: 24px;
+	color: #acadaf;
+	margin: 56px 0px 0px 20px;
+	float: left;
+	display: inline;
+}
+
+.left .personinfo h1 {
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #acadaf;
+}
+
+/*树形菜单样式*/
+.files {
+	margin: 0px auto !important;
+	width: 300px;
+}
+
+.tree li a.tree-parent {
+	background: url(../img/icon-folder.png) 10% 50% no-repeat;
+	width: 300px
+}
+
+.tree li.secondnode a.tree-parent {
+	background: url(../img/icon-folder.png) 87% 50% no-repeat;
+}
+
+.tree li.thirdnode a.tree-parent {
+	background: url(../img/icon-folder.png) 87% 50% no-repeat;
+}
+
+.tree li.fournode a.tree-parent {
+	background: url(../img/icon-folder.png) 87% 50% no-repeat;
+}
+
+.tree,.tree ul,.tree li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	zoom: 1;
+	width: 100%;
+	background: #33363f;
+	border-top: 1px solid #4e515b;
+	border-bottom: 1px solid #242730;
+}
+
+.tree,.tree ul:last-child,.tree li:last-child {
+	border-bottom: none;
+}
+
+.tree ul {
+	margin-left: 0px;
+}
+
+.tree li a {
+	color: #ffffff;
+	padding: 15px 7px 15px 20px;
+	display: block;
+	text-decoration: none;
+	color: #939393; /*padding: 0px 7px 0px 80px;line-height: 82px;*/
+	display: block;
+	text-decoration: none;
+	outline: none;
+	background: #33363f;
+	font-size: 14px;
+	font-family: "黑体";
+}
+
+.tree li a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat;
+	background-color: #252832
+}
+
+.tree li a.tree-parent-collapsed {
+	background: url(../img/icon-folder.png) 87% 50% no-repeat;
+}
+
+.tree li a:hover,.tree li a.tree-parent:hover,.tree li a:focus,.tree li a:visited,.tree li a.tree-parent:focus,.tree li a.tree-item-active
+	{
+	color: #ffffff;
+	/*border:1px solid#eee;/*background-color:#fafafa;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;*/
+}
+
+.tree li a:focus,.tree li a.tree-parent:focus,.tree li a.tree-item-active
+	{ /*border:1px solid #e2f3fb;background-color:#f2fafd;*/
+	
+}
+
+.tree ul.tree-group-collapsed {
+	display: none;
+}
+
+.tree li.firstnode[aria-expanded="true"] a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat;
+	background-color: #252832
+}
+
+.tree li.secondnode[aria-expanded="true"] a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat;
+	background-color: #252832
+}
+
+.tree li.thirdnode[aria-expanded="true"] a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat;
+	background-color: #252832
+}
+
+.tree li.fournode[aria-expanded="true"] a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat;
+	background-color: #252832
+}
+
+.tree ul[role="group"] li a.tree-parent {
+	background: url(../img/icon-folder-open.png) 87% 50% no-repeat
+		!important;
+	background-color: #252832
+}
+
+/*中间内容部分*/
+.centercontainer {
+	width: 98%;
+	margin: 0px;
+	position: relative;
+	float: left;
+}
+
+.centercontainer .header {
+	width: 54%;
+	padding: 0 0% 0 46%;
+	height: 60px;
+	background: #edf3f3;
+}
+
+.centercontainer .header .headrinfo {
+	width: 100%;
+	height: 60px;
+}
+
+.centercontainer .headrinfo ul li {
+	float: left;
+	padding: 0px .7em;
+	height: 60px;
+	line-height: 60px;
+}
+
+.centercontainer .headrinfo ul li a {
+	color: #4b4b4b;
+	text-decoration: none;
+}
+
+.centercontainer .headrinfo ul li a span {
+	color: #d30000;
+}
+
+.centercontainer .headrinfo ul li h1 {
+	font-size: 16px;
+	font-family: "microsoft yahei";
+	color: #4b4b4b;
+}
+
+.searchbox {
+	float: left;
+}
+
+.form {
+	height: 40px;
+	padding: 10px 0 0 0;
+}
+
+.form .form-item {
+	width: 240px;
+	height: 40px;
+	position: relative;
+	border: 1px solid #dedede;
+	background: #ffffff;
+	overflow: hidden;
+}
+
+.form .form-item input[type="submit"] {
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	z-index: 2;
+	opacity: 0;
+	visibility: hidden;
+	background: none;
+	border: none;
+}
+
+.form .form-item input[type="text"] {
+	width: 200px;
+	height: 40px;
+	background: #ffffff;
+	border: none;
+	outline: none;
+	text-indent: 10px;
+}
+
+.form .form-item  label {
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.centercontainer  .notice {
+	width: 100%;
+	height: 60px;
+	background: #dadbdf;
+	overflow: hidden;
+}
+
+.notice .header_bt {
+	height: 60px;
+	line-height: 60px;
+}
+
+.notice .noticeleft {
+	float: left;
+	width: 7%;
+	text-align: right;
+}
+
+.notice .noticeleft strong {
+	padding: 0px 20px;
+}
+
+.notice .noticeleft strong img {
+	vertical-align: middle;
+}
+
+.notice .header_bt .marquee {
+	float: left;
+	width: 60%;
+	height: 60px;
+	overflow: hidden;
+	padding-right: 3%;
+	display: inline;
+}
+
+.notice .time {
+	width: 30%;
+	float: right;
+	height: 60px;
+	line-height: 60px;
+	color: #737373;
+	font-size: 14px;
+}
+
+.time a {
+	color: #737373;
+}
+
+.time span {
+	width: 24px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 4px;
+	background: #33363f;
+	display: inline-block;
+	margin: 0px 5px;
+	text-align: center;
+	color: #e8e9ee;
+}
+
+.time span.zxrs {
+	width: 10px;
+	height: 16px;
+	border-radius: 4px;
+	background: none;
+	color: red;
+	line-height: 16px;
+	text-align: center;
+}
+
+/*中间面包屑导航*/
+.centernav {
+	width: 100%;
+	height: 50px;
+	background: #f1f1f1;
+}
+
+.centernav .leftindexnav {
+	width: 160px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	padding-left: 1%;
+	float: left;
+}
+
+.centernav .leftindexnav li {
+	float: left;
+	padding: 0px 10px 0 0;
+	display: inline;
+	width: 21px;
+	height: 20px;
+	line-height: 60px;
+}
+
+.cenjinav {
+	width: 70%;
+	float: left;
+	display: inline;
+}
+
+.cenjinav p {
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	color: #737373;
+	line-height: 50px;
+	height: 50px;
+}
+
+.cenjinav p a {
+	text-decoration: none;
+	color: #737373;
+}
+
+/**／／返回顶部*/
+#fix_sidebar {
+	width: 55px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+#fix_sidebar .returnback {
+	background: #ea5413;
+	color: #ffffff;
+	font-size: 20px;
+	font-family: "microsoft yahei";
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	line-height: 26px;
+}
+
+#back_top {
+	position: fixed;
+	z-index: 9999;
+	bottom: 0px;
+	right: 10px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	padding: 2px;
+	margin-bottom: 1px;
+}
+
+#back_top a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: url("../img/top.jpg") 50% 50% no-repeat;
+	text-indent: -9999px;
+}
+
+.moname {
+	font-size: 4px;
+	height: 35px;
+	color: #ffffff;
+}

@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--
+		*****************************贾辉辉Server层管理**********************************
+	-->
+
+	<!-- 流水卡片server -->
+	<bean id="ProcardServerImpl" class="com.task.ServerImpl.sop.ProcardServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="ledServer" ref="LEDServerImpl"></property>
+		<property name="igs" ref="insuranceGoldServerImpl" />
+		<property name="wss" ref="wageStandardServerImpl" />
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+		<property name="procardBlServer" ref="procardBlServerImpl" />
+		<property name="manualPlanServer" ref="ManualOrderPlanServerImpl" />
+		<property name="mdyServer" ref="MachineDayYZSJServerImpl"></property>
+		<property name="productEBServer" ref="productEBServer"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<bean id="RunningWaterCardImpl" class="com.task.ServerImpl.sop.RunningWaterCardServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+
+	</bean>
+	<!--  回款跟踪SERVER-->
+	<bean id="HuiKuanServerImpl" class="com.task.ServerImpl.HuikuanServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- 送货单信息 -->
+	<bean id="HKSellStaServerImpl" class="com.task.ServerImpl.HKSellStaSerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 工位信息 -->
+	<bean id="gongweiServerImpl" class="com.task.ServerImpl.SopGongweiImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	<!-- 提奖计价单价核算 -->
+	<bean id="ProductPriceServerImpl" class="com.task.ServerImpl.ProductPriceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="wss" ref="wageStandardServerImpl" />
+		<property name="igs" ref="insuranceGoldServerImpl" />
+	</bean>
+	<!-- 质量标识贴 -->
+	<bean id="LogoStickerServerImpl" class="com.task.ServerImpl.sop.qd.LogoStickerServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+	</bean>
+	<!-- 报销单管理 -->
+	<bean id="baoXiaoDanServerImpl" class="com.task.ServerImpl.fin.BaoXiaoDanServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="sellServerImpl" class="com.task.ServerImpl.ess.SellServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+		<property name="corePayableServer" ref="corePayableServerImpl"></property>
+	</bean>
+	<!-- 库存 -->
+	<bean id="goodsServerImpl" class="com.task.ServerImpl.ess.GoodsServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+		<property name="smsService" ref="smsServiceImpl" />
+		<property name="corePayableServer" ref="corePayableServerImpl"></property>
+	</bean>
+	<bean id="sellNewServerImpl" class="com.task.ServerImpl.ess.SellNewServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl"></property>
+	</bean>
+	<!-- 外委工作单 -->
+	<bean id="OSWorkServerImpl" class="com.task.ServerImpl.sop.OSWorkServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+	</bean>
+	<!-- 出入管理 -->
+	<bean id="IAOServerImpl" class="com.task.ServerImpl.iao.IAOServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 外委申请申报单 -->
+	<bean id="OSAppServerImpl" class="com.task.ServerImpl.sop.OSApplyServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="smsService" ref="smsServiceImpl"></property>
+	</bean>
+
+	<!-- 预算决算管理 -->
+	<!-- 部门预算 -->
+	<bean id="DeptBudgetServerImpl" class="com.task.ServerImpl.fin.budget.DeptBudgetServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 销售收入 -->
+	<bean id="saleBudgetServerImpl" class="com.task.ServerImpl.fin.budget.SaleBudgetServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- 科目预算比例及科目金额 -->
+	<bean id="SubjectBudgetServerImpl" class="com.task.ServerImpl.fin.budget.SubjectBudgetServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- OA采购管理 -->
+	<!-- 采购明细 -->
+	<bean id="oaappDetailServerImpl" class="com.task.ServerImpl.oa.OAAppDetailServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+		<property name="smsService" ref="smsServiceImpl"></property>
+
+	</bean>
+	<!-- OA报账 -->
+	<bean id="oaReimBursementImpl" class="com.task.ServerImpl.oa.OAreimBursementServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 机密文件 -->
+	<bean id="fileManagerServerImpl" class="com.task.ServerImpl.fin.FileManagerserverImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 非主营业务应收-->
+	<bean id="noncoreReceServerImpl" class="com.task.ServerImpl.caiwu.noncore.NoncoreReceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 非主营业务应付 -->
+	<bean id="noncorePaybaleServerImpl"
+		class="com.task.ServerImpl.caiwu.noncore.NoncorePaybaleServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 委托付款 -->
+	<bean id="escrowServerImpl" class="com.task.ServerImpl.fin.EscrowServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 车补申请 -->
+	<bean id="carAllowServerImpl" class="com.task.ServerImpl.caiwu.CarAllowServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="receiptServer" ref="ReceiptServerImpl"></property>
+		
+	</bean>	
+	<!--
+		*****************************贾辉辉Action层管理**********************************
+	-->
+	<!-- 浪潮账务处理 -->
+	<!-- 外币字典 -->
+	<bean id="WbzdAction" class="com.lc.action.WbzdAction" scope="prototype">
+		<property name="wbzdServer" ref="WbzdServerImpl"></property>
+	</bean>
+
+	<bean id="sopGongweiAction" class="com.task.action.SopGongweiAction"
+		scope="prototype">
+		<property name="gongweiServer" ref="gongweiServerImpl"></property>
+	</bean>
+	<bean id="productPriceAction" class="com.task.action.ProductPriceAction"
+		scope="prototype">
+		<property name="productPriceServer" ref="ProductPriceServerImpl" />
+		<property name="userServer" ref="userServerImpl" />
+	</bean>
+	<bean id="huikuanAction" class="com.task.action.hk.HuiKuanAction"
+		scope="prototype">
+		<property name="hkserver" ref="HuiKuanServerImpl" />
+	</bean>
+	<bean id="HKSellStaAction" class="com.task.action.hk.HKSellStaAction"
+		scope="prototype">
+		<property name="hkSellStaserver" ref="HKSellStaServerImpl" />
+	</bean>
+
+	<!-- 质量标识贴 -->
+	<bean id="LogoStickerAction" class="com.task.action.sop.qd.LogoStickersAction"
+		scope="prototype">
+		<property name="logoStickerServer" ref="LogoStickerServerImpl"></property>
+	</bean>
+	<!-- 报销单 -->
+	<bean id="BaoXiaoDanAction" class="com.task.action.fin.BaoXiaoDanAction"
+		scope="prototype">
+		<property name="baoXiaoDanServer" ref="baoXiaoDanServerImpl"></property>
+	</bean>
+	<!-- 二维码 -->
+	<bean id="TwoDimensionCode" class="com.task.action.xinxi.TwoDimensionCode"
+		scope="prototype">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 生产流水卡片 -->
+	<bean id="RunningWaterCardAction" class="com.task.action.sop.RunningWaterCardAction"
+		scope="prototype">
+		<property name="runningWaterCardServer" ref="RunningWaterCardImpl"></property>
+	</bean><!-- 流水卡片Action -->
+	<bean id="ProcardAction" class="com.task.action.sop.ProcardAction"
+		scope="prototype">
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+		<property name="runningWCServer" ref="RunningWaterCardImpl"></property>
+		<property name="mdyServer" ref="MachineDayYZSJServerImpl"></property>
+	</bean>
+	<!-- 出库历史记录action -->
+	<bean id="sellAction" class="com.task.action.ess.SellAction"
+		scope="prototype">
+		<property name="sellServer" ref="sellServerImpl"></property>
+		<property name="sellNewServer" ref="sellNewServerImpl"></property>
+		<property name="runningWaterCardServer" ref="RunningWaterCardImpl"></property>
+		<property name="goodsServer" ref="goodsServerImpl"></property>
+		<property name="wareHouseAuthService" ref="wareHouseAuthService"></property>
+	</bean>
+	<!-- 库存action -->
+	<bean id="goodsAction" class="com.task.action.ess.GoodsAction"
+		scope="prototype">
+		<property name="wareHouseAuthService" ref="wareHouseAuthService"></property>
+		<property name="goodsServer" ref="goodsServerImpl"></property>
+	</bean>
+	<!-- 外委单action -->
+	<bean id="OSWorkAction" class="com.task.action.sop.OSWorkAction"
+		scope="prototype">
+		<property name="osWorkServer" ref="OSWorkServerImpl"></property>
+	</bean>
+	<!-- 出入管理action -->
+	<bean id="iaoAction" class="com.task.action.iao.IAOAction" scope="prototype">
+		<property name="iaoServer" ref="IAOServerImpl"></property>
+	</bean>
+	<!-- 外委申报单申请 -->
+	<bean id="osaAction" class="com.task.action.sop.OSApplyAction"
+		scope="prototype">
+		<property name="osaServer" ref="OSAppServerImpl"></property>
+	</bean>
+	<!-- 预算决算管理 -->
+	<!-- 部门预算 -->
+	<bean id="deptBudgetAction" class="com.task.action.fin.DeptBudgetAction"
+		scope="prototype">
+		<property name="deptBudgetServer" ref="DeptBudgetServerImpl"></property>
+	</bean>
+	<!-- 销售收入 -->
+	<bean id="saleBudgetAction" class="com.task.action.fin.SaleBudgetAction"
+		scope="prototype">
+		<property name="saleBudgetServer" ref="saleBudgetServerImpl"></property>
+	</bean>
+	<!-- 科目预算比例及科目金额 -->
+	<bean id="subjectBudgetAction" class="com.task.action.fin.SubjectBudgetAction"
+		scope="prototype">
+		<property name="subjectBudgetServer" ref="SubjectBudgetServerImpl"></property>
+	</bean>
+
+	<!-- OA采购明细管理 -->
+	<bean id="oaAppDetailAction" class="com.task.action.oa.OAAppDetailAction"
+		scope="prototype">
+		<property name="oaappDetailServer" ref="oaappDetailServerImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- OA报账 -->
+	<bean id="oaReimBursementAction" class="com.task.action.oa.OAreimBursementAction"
+		scope="prototype">
+		<property name="oareimBurServer" ref="oaReimBursementImpl"></property>
+	</bean>
+	<!-- 机密文件保存anction -->
+	<bean id="fileManagerAction" class="com.task.action.fin.FileManagerAction"
+		scope="prototype">
+		<property name="fileManagerServer" ref="fileManagerServerImpl"></property>
+	</bean>
+	<!-- 非主营业务应收 -->
+	<bean id="noncoreReceAction" class="com.task.action.caiwu.noncore.NoncoreReceAction"
+		scope="prototype">
+		<property name="noncoreReceServer" ref="noncoreReceServerImpl"></property>
+	</bean>
+	<!-- 非主营业务应付 -->
+	<bean id="noncorePayableAction" class="com.task.action.caiwu.noncore.NoncorePayableAction"
+		scope="prototype">
+		<property name="noncorePaybaleServer" ref="noncorePaybaleServerImpl"></property>
+	</bean>
+	<!-- 委托付款 -->
+	<bean id="escrowAction" class="com.task.action.fin.EscrowAction" scope="prototype">
+		<property name="escrowServer" ref="escrowServerImpl"></property>
+	</bean>
+	<!-- 车补申请 -->
+	<bean id="carAllowAction" class="com.task.action.caiwu.chebu.CarAllowAction" scope="prototype">
+		<property name="carAllowServer" ref="carAllowServerImpl"></property>
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+		
+	</bean>
+	
+</beans>

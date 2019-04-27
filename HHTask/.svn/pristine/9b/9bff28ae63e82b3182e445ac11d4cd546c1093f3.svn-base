@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="DocumentWord" table="ta_DocumentWord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="qianzhui" />
+		<property name="status" />
+	</class>
+</hibernate-mapping>

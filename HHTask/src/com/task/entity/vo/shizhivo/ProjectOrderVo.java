@@ -1,0 +1,190 @@
+package com.task.entity.vo.shizhivo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import com.task.entity.shizhi.ProjectOrder;
+import com.task.entity.shizhi.ProjectOrderPart;
+
+
+public class ProjectOrderVo implements Serializable{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	 private String proName;//项目名称
+	 private String groupName;//分组名称
+	 private String month;//项目时间
+	 private String orderNO;//试制订单编号
+	 private String productEngineer;//产品工程师
+	 private String technicalEngineer;//技术工程师
+	 private String projectBy;//项目依据
+	 private String projectTo;//项目目的
+	 private String deliveryInfo;//交付信息
+	 private Integer deal;//项目处理1冲抵生产计划,入库销售,2.试验用,不予入库
+	 private String remark;//备注
+	 private String cusName;//客户名称
+	 private String status;//项目状态
+	 private Integer epId;//流程id
+	 private String userName;//创建人名字
+	 private String userCode;//创建人工号
+	 private Integer userId;//创建人Id
+	 private List<ProjectOrderPart> projectOrderPart;//项目需求单零件
+	 private List<String> qianmingUrl;//电子签名地址
+	 
+	public ProjectOrderVo(ProjectOrder projectOrder) {
+		super();
+		this.id = projectOrder.getId();
+		this.proName = projectOrder.getProName();
+		this.groupName = projectOrder.getGroupName();
+		this.month = projectOrder.getMonth();
+		this.userName=projectOrder.getUserName();
+		this.userCode=projectOrder.getUserCode();
+		this.userId=projectOrder.getUserId();
+		this.orderNO = projectOrder.getOrderNO();
+		this.productEngineer = projectOrder.getProductEngineer();
+		this.technicalEngineer = projectOrder.getTechnicalEngineer();
+		this.projectBy = projectOrder.getProjectBy();
+		this.projectTo = projectOrder.getProjectTo();
+		this.deliveryInfo = projectOrder.getDeliveryInfo();
+		this.deal = projectOrder.getDeal();
+		this.remark = projectOrder.getRemark();
+		this.cusName = projectOrder.getCusName();
+		this.status = projectOrder.getStatus();
+		this.epId = projectOrder.getEpId();
+		Set<ProjectOrderPart> popSet= projectOrder.getProjectOrderPart();
+		List<ProjectOrderPart> popList=new ArrayList<ProjectOrderPart>();
+		if(popSet.size()>0){
+			for(ProjectOrderPart pop:popSet){
+				popList.add(pop);
+			}
+		}
+		this.projectOrderPart=popList;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getOrderNO() {
+		return orderNO;
+	}
+	public void setOrderNO(String orderNO) {
+		this.orderNO = orderNO;
+	}
+	public String getProductEngineer() {
+		return productEngineer;
+	}
+	public void setProductEngineer(String productEngineer) {
+		this.productEngineer = productEngineer;
+	}
+	public String getTechnicalEngineer() {
+		return technicalEngineer;
+	}
+	public void setTechnicalEngineer(String technicalEngineer) {
+		this.technicalEngineer = technicalEngineer;
+	}
+	public String getProjectBy() {
+		return projectBy;
+	}
+	public void setProjectBy(String projectBy) {
+		this.projectBy = projectBy;
+	}
+	public String getProjectTo() {
+		return projectTo;
+	}
+	public void setProjectTo(String projectTo) {
+		this.projectTo = projectTo;
+	}
+	public String getDeliveryInfo() {
+		return deliveryInfo;
+	}
+	public void setDeliveryInfo(String deliveryInfo) {
+		this.deliveryInfo = deliveryInfo;
+	}
+	public Integer getDeal() {
+		return deal;
+	}
+	public void setDeal(Integer deal) {
+		this.deal = deal;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public List<ProjectOrderPart> getProjectOrderPart() {
+		return projectOrderPart;
+	}
+	public void setProjectOrderPart(List<ProjectOrderPart> projectOrderPart) {
+		this.projectOrderPart = projectOrderPart;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public List<String> getQianmingUrl() {
+		return qianmingUrl;
+	}
+	public void setQianmingUrl(List<String> qianmingUrl) {
+		this.qianmingUrl = qianmingUrl;
+	}
+	
+	
+	 
+}

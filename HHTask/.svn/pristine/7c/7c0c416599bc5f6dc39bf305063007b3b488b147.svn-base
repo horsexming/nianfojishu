@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.caiwu.baobiao.ProfitSheet" table="ta_baobiao_ProfitSheet" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+			<!-- 月份 -->
+		  <property name="months"/>	
+		<!-- 
+		一、营业收入
+		 -->
+		 <property name="ywsr"/>
+		 <property name="zyywsr"/>
+		 <property name="qtywsr"/>
+		 <property name="ywcb"/>
+		 <property name="zyywcb"/>
+		 <property name="qtywcb"/>
+		 <property name="ywsjandfj"/>
+		 <property name="xsfy"/>
+		 <property name="glfy"/>
+		 <property name="ywzdf"/>
+		 <property name="yjykff"/>
+		 <property name="cwfy"/>
+		 <property name="lxzc"/>
+		 <property name="lxsr"/>
+		 <property name="hdjss"/>
+		 <property name="zcjzss"/>
+		 <property name="gyzbdsy"/>
+		 <property name="tzsy"/>
+		 <property name="lyqyAndhyqysy"/>
+		 <!-- 
+	 		营业利润（亏损以“－”号填列）
+		  -->
+		 <property name="ywsr1"/>
+		 <property name="fldzcdl"/>
+		 <property name="fhbzcdl"/>
+		 <property name="zfbz"/>
+		 <property name="zwczdl"/>
+		 <property name="ywzc"/>
+		 <property name="fldzcss"/>
+		 <property name="fhbzcss"/>
+		 <property name="zwczss"/>
+		  <property name="ywlr"/>
+		 <!-- 
+		三、利润总额（亏损总额以“－”号填列）
+		  -->
+		  <property name="lrze"/>
+		 <property name="sdsfy"/>
+		 <property name="wqrtzss"/>
+		 <!-- 
+		 	/**
+	 * 净利润(净利润（净亏损以“－”号填列）)
+	 */
+	private Float littlegdsy;//  减：* 少数股东损益
+		  -->
+		  <property name="jlr"/>
+		 <property name="littlegdsy"/>
+		 <!-- 
+		 	/**
+	 * 五、归属于母公司所有者的净利润
+	 */
+	private Float parentCompanyLR;//五、归属于母公司所有者的净利润
+	/**
+	 * 六、每股收益：
+	 */
+	private Float jbmgsy;//基本每股收益
+	private Float xsmgsy;//稀释每股收益
+		  -->
+		 <property name="parentCompanyLR"/>
+		 <property name="jbmgsy"/>
+		 <property name="xsmgsy"/>
+		 
+		 
+		 
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WorkLog" table="ta_log_workLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" column="ta_log_code" length="10" />
+		<property name="cardId" column="ta_log_cardId" length="20" />
+		<property name="dept" column="ta_log_dept" length="10" />
+		<property name="mouth" column="ta_log_mouth" length="50" />
+		<property name="title" column="ta_log_title" length="200" />
+		<property name="content" column="ta_log_content" length="400" />
+		<property name="remarks" column="ta_log_remarks" length="800" />
+		<property name="addDateTime" column="ta_log_addDateTime"
+			length="50" />
+		<property name="endDateTime" column="ta_log_endDateTime"
+			length="50" />
+		<property name="logStatus" column="ta_log_logStatus" length="10" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="jindu" column="ta_log_jindu"/>
+		<property name="zpname" column="ta_log_ZPname"/>
+		<property name="zpdept" column="ta_log_ZPdept"/>
+		<property name="submitDateTime" column="ta_log_submitDateTime"/>
+		<property name="wgcount" column="ta_log_wgcount"/>
+		<property name="zptime" column="ta_log_zptime"/>
+		<property name="caoshi" column="ta_log_caoshi"/>
+		<property name="zpStatus" column="ta_log_zpStatus"/>
+		<property name="zpuserId" column="ta_log_zpuserId"/>
+		<property name="yjtime" column="ta_log_yjtime"/>
+		<property name="qrStatus" column="ta_log_qrStatus"/>
+		<property name="addZpDataTime" column="ta_log_addZpDataTime"/>
+		<!-- 日志对日志类别 -->
+		<many-to-one name="workLogClass" class="WorkLogClass"
+			column="ta_log_classId" lazy="false" />
+	</class>
+</hibernate-mapping>

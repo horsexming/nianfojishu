@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.gongxu.ProcessTable" table="ta_sop_GongyiGuicheng_ProcessTable">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="diPage" type="integer" column="di_page"/>
+		<property name="gongPage" type="integer" column="gong_page"/>
+		<property name="suoyinNumb" type="string" column="suoyin_numb"/>
+		<property name="danNumb" type="string" column="dan_numb"/>
+		<property name="qianming" type="string" column="qianming"/>
+		<property name="qianmingDate" type="timestamp" column="qianming_date"/>
+		<property name="gongyiGuichengId" type="integer" column="gongyi_guicheng_id"/>
+	</class>
+</hibernate-mapping>

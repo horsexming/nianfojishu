@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectQuotationSubContract" table="ta_ProjectQuotation_SubContract">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="50"/>
+		<property name="partNumber" length="100"/>
+		<property name="subSupplier" length="40"/>
+		<property name="directed" length="40"/>
+		<property name="quantity" type="double"  />
+		<property name="unitPrice" type="double" />
+		<property name="cost" type="double"  />
+		<many-to-one name="root" column="pid" />
+	</class>
+
+</hibernate-mapping>

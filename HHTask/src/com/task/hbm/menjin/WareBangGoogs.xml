@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="WareBangGoogs" table="ta_mj_WareBangGoogs">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fk_good_id" />
+		<property name="fk_waigouDeliveryDetail_id" />
+		<property name="fk_ware_id" />
+		<property name="fk_oadetail_id" />
+		<property name="fk_store_id" />
+		<property name="fk_goodsStore_id" />
+		<property name="status" />
+		<property name="number"/>
+		<property name="towCode"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.TclaimsRecord" table="ta_TclaimsRecord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="partNumber" length="50"/>
+		<property name="name" length="30"/>
+		<property name="quantity" type="int"/>
+		<property name="description" length="150"/>
+		<property name="cause" length="150"/>
+		<property name="status" length="30"/>
+		<property name="model" length="50"/>
+		<property name="productionDate" length="30"/>
+		
+		<property name="reason" length="250" />
+		<property name="reasonPerson" length="50" />
+		<property name="reasonFilename" length="60" />
+		<property name="handle" length="250" />
+		<property name="handleFilename" length="50" />
+		<property name="handlePerson" length="50" />
+		<property name="responsibility" length="30" />
+
+		<many-to-one name="root" column="f_TclaimsRecord_id"></many-to-one>
+
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop.muju">
+	<class name="MouldDetail" table="ta_sop_muju_MouldDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="mojuNo"/>
+		<property name="yongliang"/>
+		<property name="yuanyin"/>
+		<property name="more"/>
+		<property name="fileName"/>
+		<property name="otherName"/>
+		 <property name="processNo"/>
+		 <property name="processName"/>
+		 <property name="wwProcessNo"/>
+		 <property name="wwProcessName"/>
+		 <property name="wtcNumber"/>
+		<many-to-one name="mao"  class="MouldApplyOrder" column="ta_moaId"  lazy="false"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bybz.BaoYangBiaoZhun" table="ta_bybz_BaoYangBiaoZhun" >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="baoyangCycle" />
+		<property name="baoyangCondition" />
+		<property name="baoyangMeans" />
+		<property name="nextbyTime" />
+		<many-to-one name="machine"  class="com.task.entity.Machine"  column="fk_machineId"  /> 
+		<many-to-one name="checkoutAndGages" class="com.task.entity.bybz.CheckoutAndGages"  column="cagId" /> 
+	</class>
+</hibernate-mapping>

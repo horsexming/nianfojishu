@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.paymonth">
+	<class name="PayMonth" table="ta_payMonth">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="supplierId"/>		
+		<property name="supplierName" />
+		<property name="proName" />
+		<property name="recNumber"/>
+		<property name="jine" />
+		<property name="jineOfChiness" />
+		<property name="taxprice" />
+		<property name="jzMonth" />
+		<property name="fukuanZq" />
+		<property name="saveTime" />
+		<property name="zhidanDate" />
+		<property name="zhidanPerson" />
+		<property name="saveUser" />
+		<property name="fukuanfs" />
+		<property name="fkfs" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,132 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+	<title></title>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<h1>员工工作时长分析</h1>
+				<form action="${pageContext.request.contextPath}/faceAction!toWorkTimeLongList.action" method="post" id="submitForm">
+					<table class="table">
+						<tr>
+							<td colspan="10" align="center">
+								
+									<input type="button" class="input" value="按天分析" onclick="submitBtn('day')" <s:if test="pageStatus==null ||pageStatus.toString()=='' || pageStatus=='day'">disabled="disabled"</s:if>>
+								
+									<input type="button" class="input" value="按周分析" onclick="submitBtn('week')" <s:if test="pageStatus=='week'">disabled="disabled"</s:if>>
+								
+									<input type="button" class="input" value="按月分析" onclick="submitBtn('month')" <s:if test="pageStatus=='month'">disabled="disabled"</s:if>>
+								
+									<input type="button" class="input" value="按年分析" onclick="submitBtn('year')" <s:if test="pageStatus=='year'">disabled="disabled"</s:if>>
+									
+									<input type="button" class="input" value="按时间分析" onclick="submitBtn('dateTime')" <s:if test="pageStatus=='dateTime'">disabled="disabled"</s:if>>
+							</td>
+						</tr>
+						<tr>
+<!-- 							<td align="right">部门</td> -->
+<!-- 							<td> -->
+<!-- 								<SELECT id="dept" name="systemFile.department"> -->
+<%-- 									<option  value="${systemFile.department }">${systemFile.department }</option> --%>
+<!-- 								</SELECT> -->
+								
+<!-- 							</td> -->
+							<td align="right">工号</td>
+							<td>
+								<input type="text" name="workTime.userCode" value="${workTime.userCode}" >
+							</td>
+							<td align="right">姓名</td>
+							<td>
+								<input type="text" name="workTime.userName" value="${workTime.userName}" >
+							</td>
+						</tr>
+						
+						<tr <s:if test="pageStatus==null || pageStatus!='dateTime'">style="display: none;"</s:if>>
+							<td align="right">开始时间</td>
+							<td>
+								<input name="workTime.startTime" class="Wdate" id="startTime" value="${workTime.startTime }"
+										onClick="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})">
+							</td>
+							<td align="right">结束时间</td>
+							<td>
+								<input name="workTime.endTime" class="Wdate" id="endTime" value="${workTime.endTime }"
+										onClick="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})">
+							</td>
+						</tr>
+						
+							
+						<tr>
+							<td align="center" colspan="6">
+								<input type="hidden" value="${pageStatus}" name="pageStatus" id="pageStatus">
+								<input type="submit" class="input" value="查询">
+							</td>
+						</tr>
+					</table>
+				</form>
+				<table class="table">
+					<tr>
+						<th>序号</th>
+<!-- 						<th>部门</th> -->
+						<th>卡号</th>
+						<th>工号</th>
+						<th>姓名</th>
+						<th>总工作时长(分钟)</th>
+						<th>操作</th>
+					</tr>
+					<s:iterator value="workTimeList" id="sl" status="ps">
+						<s:if test="#ps.index%2==1">
+							<tr align="center" bgcolor="#e6f3fb"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#e6f3fb')">
+						</s:if>
+						<s:else>
+							<tr align="center" onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'')">
+						</s:else>
+							<td>${ps.index+1 }</td>
+<%-- 							<td>${sl[0] }</td> --%>
+							<td>${sl.cardId}</td>
+							<td>${sl.userCode}</td>
+							<td>${sl.userName }</td>
+							<td>${sl.workTime}</td>
+							<td>
+								<input type="button" value="查看进出明细" onclick="toDetail('${sl.ids}')" >
+								<input type="button" value="折线图展示" onclick="searchLineChart('${sl.userCode}')" >
+							</td>
+						</tr>
+					</s:iterator>
+				</table>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+			function submitBtn(pageStatus){
+				$("#pageStatus").val(pageStatus);
+				$("#submitForm").submit();
+			}
+			
+			function toDetail(ids){
+				location.href="${pageContext.request.contextPath}/faceAction!toWorkTimeDetail.action?ids="+ids;
+			}
+			
+			function searchLineChart(userCode){
+				var startTime = $("#startTime").val();
+				var endTime = $("#endTime").val();
+				location.href="${pageContext.request.contextPath}/faceAction!toSearchLineChart.action?userCode="+
+						userCode+"&startTime="+startTime+"&endTime="+endTime;
+			}
+		</script>
+	</body>
+</html>

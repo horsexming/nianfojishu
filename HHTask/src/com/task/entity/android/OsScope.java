@@ -1,0 +1,82 @@
+package com.task.entity.android;
+
+import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/***
+ * 外购件检验&巡检 检验模板明细表(表名:ta_m_OsScope)
+ * @author jhh
+ *
+ */
+public class OsScope implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String title;// 检查标题
+	private String type;// 检查类型
+	private String zltz;// 质量特征
+	private String jcff;// 检测方法
+	private String content;// 巡检内容
+	private OsTemplate osTemplate;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+        
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getZltz() {
+		return zltz;
+	}
+
+	public void setZltz(String zltz) {
+		this.zltz = zltz;
+	}
+
+	public String getJcff() {
+		return jcff;
+	}
+
+	public void setJcff(String jcff) {
+		this.jcff = jcff;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	@JSONField(serialize = false)
+	public OsTemplate getOsTemplate() {
+		return osTemplate;
+	}
+
+	public void setOsTemplate(OsTemplate osTemplate) {
+		this.osTemplate = osTemplate;
+	}
+
+	
+}

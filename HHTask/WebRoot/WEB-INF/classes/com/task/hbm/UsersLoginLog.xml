@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="UsersLoginLog" table="ta_UsersLoginLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="userId" index="sy_userId"></property>
+		<property name="userName"></property>
+		<property name="userCode"></property>
+		<property name="userCardId"></property>
+		<property name="dept"></property>
+		<property name="duty"></property>
+		<property name="post"></property>
+		<property name="jobtitle"></property>
+		<property name="dataTime"></property>
+		<property name="firstLoginTime"></property>
+		<property name="whenOnlineLong"></property>
+		<property name="loginIP"></property>
+		<property name="sex"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.DJNR" table="ta_DJNR">
+		<id name="id" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="nr" type="java.lang.String"/>
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="machine" table="ta_ma_dj" cascade="save-update" inverse="true">
+			
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="dj_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.Machine"
+				column="machine_id">
+			</many-to-many>
+		</set>
+	</class>
+
+</hibernate-mapping>

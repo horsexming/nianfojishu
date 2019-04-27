@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.dangan">
+	<class name="ArchiveUnarchiverAplt" table="ta_da_ArchiveUnarchiverAplt">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cqType" />
+		<property name="daNum" />
+		<property name="daName" />
+		<property name="daId" />
+		<property name="sealId" />
+		<property name="receipId" />
+		<property name="inCodes" />
+		<property name="openTime" />
+		<property name="cardId" />
+		<property name="useType" />
+		<property name="fileName" />
+		<property name="daGuiId" />
+		<property name="daGuihao" />
+		<property name="daGuiposition" />
+		<property name="addTime" />
+		<property name="shixiaoTime" />
+		<property name="ace_Ip" />
+		<!-- 存取档与进门申请 多对一 -->
+		<many-to-one name="dangan" class="DangAn" column="ta_dangan"></many-to-one>
+	</class>
+</hibernate-mapping>

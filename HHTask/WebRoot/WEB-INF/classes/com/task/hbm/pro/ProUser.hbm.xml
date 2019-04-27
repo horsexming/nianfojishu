@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.pro.ProUser" table="p_pro_user">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proId" type="integer" column="pro_id"/>
+		<property name="userId" type="integer" column="user_id"/>
+		<property name="userGroup" type="string" column="user_group"/>
+	</class>
+</hibernate-mapping>

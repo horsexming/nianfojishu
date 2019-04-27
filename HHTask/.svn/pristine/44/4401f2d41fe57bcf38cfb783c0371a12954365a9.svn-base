@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+		<!--
+		***********************************王晓飞Server层管理****************************************************
+	-->
+	<!-- 不合格品类型类server层 -->
+	<bean id="buhegepinserverImpl" class="com.task.ServerImpl.sop.BeHeGePinServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 机密类型类server层 -->
+	<bean id="jimileixingserverImpl" class="com.task.ServerImpl.JiMiLeiXingServerDaoImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 用户类Server层 -->
+	<bean id="userServerImpl" class="com.task.ServerImpl.UserServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 积分Server层 -->
+	<bean id="IntegralServerDaoImpl" class="com.task.ServerImpl.IntegralServerDaoImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 积分来源Server层 -->
+	<bean id="IntegralsourceServerDaoImpl" class="com.task.ServerImpl.IntegralsourceServerDaoImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 消费Server层 -->
+	<bean id="XiaoFeiServerDaoImpl" class="com.task.ServerImpl.XiaoFeiServerDaoImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 设备点检内容Server层 -->
+	<bean id="DJNRServerImpl" class="com.task.ServerImpl.DJNRServerImpl"> 
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!--设备点检月汇总Server层  -->
+	<bean id="MachineMonthDjServerImpl" class="com.task.ServerImpl.MachineMonthDjServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 设备日点检Server层 -->
+	<bean id="MachineDayDjServerImpl" class="com.task.ServerImpl.MachineDayDjServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 设备日运行时长Server层 -->
+	<bean id="MachineDayYZSJServerImpl" class="com.task.ServerImpl.MachineDayYZSJServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 企业会员基本资料Server层 -->
+	<bean id="CompanyVIPSeverImpl" class="com.task.ServerImpl.CompanyVIPSeverImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 职业轨迹sever层 -->
+	<bean id = "CareertrackServerImpl" class="com.task.ServerImpl.CareertrackServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--人员调动sever层 -->
+	<bean id = "TransferServerImpl" class="com.task.ServerImpl.TransferServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--人员晋升sever层 -->
+	<bean id = "PromotionServerImpl" class="com.task.ServerImpl.PromotionServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--员工转正sever层 -->
+	<bean id = "BecomingServerImpl" class="com.task.ServerImpl.BecomingServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--调查问卷模板sever层 -->
+	<bean id = "QuestionTemplateServerImpl" class="com.task.ServerImpl.QuestionTemplateServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--调查问卷使用人sever层 -->
+	<bean id = "QuestionnairePersonServerImpl" class="com.task.ServerImpl.QuestionnairePersonServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--智能诊断系统sever层 -->
+	<bean id = "IntelligentDiagnosisServerImpl" class="com.task.ServerImpl.IntelligentDiagnosisServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 客户满意度调查server -->
+	<bean id = "KeHuManYiDiaoChaServerImpl" class="com.task.ServerImpl.KeHuManYiDiaoChaServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 礼品兑换server -->
+	<bean id = "IntegralGiftServerImpl" class="com.task.ServerImpl.IntegralGiftServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 工序汇总server -->
+	<bean id = "ProcessCollectServerImpl" class="com.task.ServerImpl.sop.ProcessCollectServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 仓区工位server -->
+	<bean id = "WarehouseAreaServerDaoImpl" class="com.task.ServerImpl.WarehouseAreaServerDaoImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 类别server -->
+	<bean id = "CategoryServerImpl" class="com.task.ServerImpl.CategoryServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 货别类别server -->
+	<bean id = "MoneyTypeServerImpl" class="com.task.ServerImpl.caiwu.MoneyTypeServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 成本动态server -->
+	<bean id = "ProcardCBDTSeverImpl" class="com.task.ServerImpl.sop.cb.ProcardCBDTSeverImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 资金使用使用server -->
+	<bean id = "FundApplyServerImpl" class="com.task.ServerImpl.payment.FundApplyServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 生产退料申请单server -->
+	<bean id = "SCTuiliaoSqDanServerImpl" class="com.task.ServerImpl.sop.SCTuiliaoSqDanServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+	</bean>
+	<!-- 图号申请server -->
+	<bean id = "ChartNOSQServerImpl" class="com.task.ServerImpl.ChartNOSQServerImpl" >
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!-- 打印记录Server -->
+	<bean id="PrintedOutServerImpl" class="com.task.ServerImpl.ess.PrintedOutServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--板材尺寸密度Server -->
+	<bean id="PanelSizeServerImpl" class="com.task.ServerImpl.sop.ycl.PanelSizeServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--量、检具Server -->
+	<bean id="CheckoutAndGagesServerImpl" class="com.task.ServerImpl.bybz.CheckoutAndGagesServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--模具开模申请Server -->
+	<bean id="MouldApplyOrderServerImpl" class="com.task.ServerImpl.sop.muju.MouldApplyOrderServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--  spc控制 Server -->
+	<bean id="SpcControlServerImpl" class="com.task.ServerImpl.sop.spc.SpcControlServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--  辅料追溯控制 Server -->
+	<bean id="FuLiaoZhuiSuServerImpl" class="com.task.ServerImpl.sop.FuLiaoZhuiSuServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--  条码锁定通知单 Server -->
+	<bean id="TbBarcodeLockNoticeServerImpl" class="com.task.ServerImpl.TbBarcode.TbBarcodeLockNoticeServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	
+		<!--
+		***********************************王晓飞Action层管理****************************************************
+	-->
+	<!-- 不合格品类型管理 Action-->
+	<bean id="behegepinAction" class="com.task.action.sop.BuHeGePinAction" scope="prototype">
+		<property name="buhegepinServer" ref="buhegepinserverImpl"></property>
+	</bean>
+	<!-- 机密类型管理Action-->
+	<bean id="jimileixingAction" class="com.task.action.JiMiLeiXingAction" scope="prototype">
+		<property name="jimileixingserver" ref="jimileixingserverImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 积分项管理Action -->
+	<bean id="IntegralAction" class="com.task.action.IntegralAction" scope="prototype">
+		<property name="integralServer" ref="IntegralServerDaoImpl"></property>
+		<property name="isServer" ref="IntegralsourceServerDaoImpl"></property>
+		<property name="xfServer" ref="XiaoFeiServerDaoImpl"></property>
+	</bean>
+	<!-- 设备点检内容Action -->
+	<bean id="DJNRAction" class="com.task.action.DJNRAction" scope="prototype">
+		<property name="djnrServer" ref="DJNRServerImpl"></property>
+	</bean>
+	<!--设备点检月汇总Action层  -->
+	<bean id="MachineMonthDjAction" class="com.task.action.MachineMonthDjAction" scope="prototype">
+		<property name="mmdServer" ref="MachineMonthDjServerImpl"></property>
+		<property name="mdyServer" ref="MachineDayYZSJServerImpl"></property>
+	</bean>
+	<!--设备日运行时长Action层  -->
+	<bean id="MachineDayYZSJAction" class="com.task.action.MachineDayYZSJAction" scope="prototype">
+		<property name="mdyServer" ref="MachineDayYZSJServerImpl"></property>
+	</bean>
+	<!--设备日运行时长Action层  -->
+	<bean id="MachineDayDjAction" class="com.task.action.MachineDayDjAction" scope="prototype">
+		<property name="mddserver" ref="MachineDayDjServerImpl"></property>
+	</bean>
+	<!--企业会员基本资料Action层  -->
+	<bean id="CompanyVIPAction" class="com.task.action.CompanyVIPAction" scope="prototype">
+		<property name="cpserver" ref="CompanyVIPSeverImpl"></property>
+	</bean>
+	<!-- 职业轨迹Action层 -->
+	<bean id ="CareertrackAction" class="com.task.action.CareertrackAction" scope="prototype">
+		<property name="cksever" ref="CareertrackServerImpl"></property>
+	</bean>
+	<!-- 人员调动Action层 -->
+	<bean id ="TransferAction" class="com.task.action.TransferAction" scope="prototype">
+		<property name="transfersever" ref="TransferServerImpl"></property>
+	</bean>
+	<!-- 人员晋升Action层 -->
+	<bean id ="PromotionAction" class="com.task.action.PromotionAction" scope="prototype">
+		<property name="pnserver" ref="PromotionServerImpl"></property>
+	</bean>
+	<!-- 员工转正Action层 -->
+	<bean id ="BecomingAction" class="com.task.action.BecomingAction" scope="prototype">
+		<property name="becomingServer" ref="BecomingServerImpl"></property>
+	</bean>
+	<!-- 调查问卷模板Action层 -->
+	<bean id ="QuestionTemplateAction" class="com.task.action.QuestionTemplateAction" scope="prototype">
+		<property name="qtserver" ref="QuestionTemplateServerImpl"></property>
+	</bean>
+	<!-- 调查问卷使用人Action层 -->
+	<bean id ="QuestionnairePersonAction" class="com.task.action.QuestionnairePersonAction" scope="prototype">
+		<property name="qpserver" ref="QuestionnairePersonServerImpl"></property>
+		<property name="qtserver" ref="QuestionTemplateServerImpl"></property>
+	</bean>
+	<!-- 智能诊断系统Action层 -->
+	<bean id="IntelligentDiagnosisAction" class="com.task.action.IntelligentDiagnosisAction" scope="prototype">
+		<property name="isserver" ref="IntelligentDiagnosisServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 客户满意度调查Action层 -->
+	<bean id="KeHuManYiDiaoChaAction" class="com.task.action.KeHuManYiDiaoChaAction" scope="prototype">
+		<property name="khmydcserver" ref="KeHuManYiDiaoChaServerImpl"></property>
+	</bean>
+	<!-- 订单时长试算Action层 -->
+	<bean id="PtCNFXAction" class="com.task.action.sop.PtCNFXAction" scope="prototype">
+	</bean>
+	<!-- 礼品领取Action层 -->
+	<bean id="IntegralGiftAction" class="com.task.action.IntegralGiftAction" scope="prototype">
+		<property name="igserver" ref="IntegralGiftServerImpl"></property>
+	</bean>
+	<!-- 工序汇总Action层 -->
+	<bean id="ProcessCollectAction" class="com.task.action.sop.ProcessCollectAction" scope="prototype">
+		<property name="pcserver" ref="ProcessCollectServerImpl"></property>
+	</bean>
+	<!-- 仓区工位Action层 -->
+	<bean id="WarehouseAreaAction" class="com.task.action.WarehouseAreaAction" scope="prototype">
+		<property name="waserver" ref="WarehouseAreaServerDaoImpl"></property>
+	</bean>
+	<!-- 类别Action 层-->
+	<bean id="CategoryAction" class="com.task.action.CategoryAction"  scope="prototype">
+		<property name="cyServer" ref="CategoryServerImpl"></property>
+	</bean>
+	<!-- 货币类别Action 层-->
+	<bean id="MoneyTypeAction" class="com.task.action.caiwu.MoneyTypeAction"  scope="prototype">
+		<property name="mtserver" ref="MoneyTypeServerImpl"></property>
+	</bean>
+	<!-- 成本动态Action 层-->
+<!--	<bean id="ProcardCBDTAction" class="com.task.action.sop.cb.ProcardCBDTAction"  scope="prototype">-->
+<!--		<property name="cbdtSever" ref="ProcardCBDTSeverImpl"></property>-->
+<!--	</bean>-->
+	<!-- 资金使用Action 层-->
+	<bean id="FundApplyAction" class="com.task.action.payment.FundApplyAction"  scope="prototype">
+		<property name="fundserver" ref="FundApplyServerImpl"></property>
+	</bean>
+	<!-- 生产退料申请单Action 层-->
+	<bean id="SCTuiliaoSqDanAction" class="com.task.action.sop.SCTuiliaoSqDanAction"  scope="prototype">
+		<property name="sqdSever" ref="SCTuiliaoSqDanServerImpl"></property>
+	</bean>
+	<!-- 图号申请Action 层-->
+	<bean id="ChartNOSQAction" class="com.task.action.ChartNOSQAction"  scope="prototype">
+		<property name="cqSever" ref="ChartNOSQServerImpl"></property>
+	</bean>
+	<!-- 打印记录Server -->
+	<bean id="PrintedOutAction" class="com.task.action.ess.PrintedOutAction" scope="prototype">
+		<property name="printServer" ref="PrintedOutServerImpl"/>
+	</bean>
+	<!-- 板材尺寸密度Action -->
+	<bean id="PanelSizeAction" class="com.task.action.sop.ycl.PanelSizeAction" scope="prototype">
+		<property name="panelSzieServer" ref="PanelSizeServerImpl"/>
+	</bean>
+	<!-- 板材尺寸密度Action -->
+	<bean id="CheckoutAndGagesAction" class="com.task.action.bybz.CheckoutAndGagesAction" scope="prototype">
+		<property name="cagServer" ref="CheckoutAndGagesServerImpl"/>
+	</bean>
+	<!-- 手动下单Action -->
+	<bean id="ManualOrderPlanAction" class="com.task.action.sop.ManualOrderPlanAction" scope="prototype">
+		<property name="manualPlanServer" ref="ManualOrderPlanServerImpl"/>
+	</bean>
+	<!-- 模具开模申请Action -->
+	<bean id="MouldApplyOrderAction" class="com.task.action.sop.muju.MouldApplyOrderAction" scope="prototype">
+		<property name="maoserver" ref="MouldApplyOrderServerImpl"/>
+	</bean>
+	<!-- spc控制Action -->
+	<bean id="SpcControlAction" class="com.task.action.sop.spc.SpcControlAction" scope="prototype">
+		<property name="spcserver" ref="SpcControlServerImpl"/>
+	</bean>
+	<!-- 辅料追溯控制Action -->
+	<bean id="FuLiaoZhuiSuAction" class="com.task.action.sop.FuLiaoZhuiSuAction" scope="prototype">
+		<property name="flzsServer" ref="FuLiaoZhuiSuServerImpl"/>
+	</bean>
+	<!-- 条码通知单Action -->
+	<bean id="TbBarcodeLockNoticeAction" class="com.task.action.TbBarcode.TbBarcodeLockNoticeAction" scope="prototype">
+		<property name="tblnserver" ref="TbBarcodeLockNoticeServerImpl"/>
+	</bean>
+</beans>

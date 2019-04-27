@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.InsTemplate" table="ta_m_InsTemplate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="productType" length="50" />
+		<property name="partNumber" length="50" />
+		<property name="processNumber" length="50" />
+		<property name="workStation" length="50" />
+		<property name="type" length="50" />
+		<property name="createDate" type="timestamp" />
+		<property name="checkpc" length="50" />
+		<property name="username" />
+		<property name="dept" length="50" />
+		<set name="scope" inverse="false" cascade="all" lazy="false">
+			<key column="scopeId"></key>
+			<one-to-many class="com.task.entity.android.InsScope" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

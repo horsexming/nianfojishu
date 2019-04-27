@@ -1,0 +1,127 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>人脸列表</title>
+		<%@include file="/util/sonHead.jsp"%>
+		<style type="text/css">
+			#pictureFace{
+				text-align: center;
+				width: 80%;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<h1 align="center" style="font-size: 25px;">添加人脸识别人员</h1>
+				<br><br>
+				<div align="center">
+					<s:if test="pageStatus!=null">
+						请选择人脸识别摄像头
+						<select name="pageStatus" onchange="changeCamera()" id="pageStatus">
+							<s:iterator value="cameraList" id="cl" status="ps">
+								<s:if test="pageStatus!=null && pageStatus.equals('face_'+#cl.id + '.jpg')">
+									<option value="face_${cl.id}.jpg" selected="selected">${cl.name }</option>
+								</s:if>
+								<s:else>
+									<option value="face_${cl.id}.jpg" >${cl.name }</option>
+								</s:else>
+							</s:iterator>
+						</select>
+						<br>
+					</s:if>
+					<s:else>
+						<font color="red" size="10">没有找到人脸识别摄像头，请上传人脸图片添加。</font>
+					</s:else>
+					<br>
+				</div>
+				<div align="center" id="faceDiv" style="width: 50%;float: left;">
+					<h1 align="center" style="font-size: 20px;">请注视人脸识别摄像头</h1>
+					<iframe src="${pageContext.request.contextPath}/System/face/face_picture.jsp?pageStatus=${pageStatus}" 
+							id="iframe" width="95%" height="400px" >
+					</iframe>
+<!-- 					<canvas id="pictureCanvas"  width="752" height="400px"></canvas> -->
+					
+					<div align="left">
+						<p>注：</p>
+						<p>视频图片5秒刷新一次。</p>
+						<p>请注视摄像头，待人脸清晰可见，并只有一个人后，点击图片进行确认。</p>
+					</div>
+					<%-- <img src="${pageContext.request.contextPath}/upload/file/dll/face/picture/face.jpg" alt="摄像头图片"> --%>
+				</div>
+				<div  align="center" id="uploadDiv" style="width: 100%;">
+					<h1 align="center" style="font-size: 20px;">选择图片上传</h1>
+					<form action="${pageContext.request.contextPath}/faceAction!uploadFacePicture.action" 
+							enctype="multipart/form-data" method="post" id="pictureForm">
+						<br><br><br><br><br><br>
+						<input type="file" name="picture" id="picture">
+						<input type="hidden" name="pageStatus" value="${pageStatus }">
+						<input type="hidden" name="faceUsers.userId" value="${userId }">
+						<br><br><br>
+						<input type="button" value="提交" class="input" onclick="submitPicture()">
+					</form>
+				</div>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+		
+// 		$(function(){
+// 			setInterval(loop,1000);
+// 			function loop(){
+// 				var canvas = document.getElementById("pictureCanvas");
+// 				var picContext = canvas.getContext('2d');
+// 				var image = new Image();
+// 	    		image.src = "${pageContext.request.contextPath}/upload/file/dll/face/picture/face.jpg";
+// 	    		image.onload= function(){
+// 	    			var width = image.width/2;
+// 	    			var height = image.height/2;
+// 	    			picContext.clearRect(0,0, width , height);
+// 					picContext.drawImage(image, 0, 0, width, height);
+// 	    		}
+// 			}
+// 		});
+		function submitPicture(){
+			var picture = document.getElementById("picture");
+			if (picture.value != '') {
+				idx = picture.value.lastIndexOf(".");
+				if (idx != -1) {
+					ext = picture.value.substr(idx + 1).toUpperCase();
+					if ( ext != 'JPG' && ext != 'JPEG' && ext != 'PNG' && ext!='bmp') {
+						alert("只能上传.jpg,.jpeg,.png,.bmp类型的文件!");
+						return false;
+					}else{
+						$("#pictureForm").submit();
+					}
+				} else {
+					alert("只能上传.jpg,.jpeg,.png,.bmp类型的文件!");
+					return false;
+				}
+			}else{
+				alert("请选择文件");
+			}
+		}
+		
+		function pictureClickSubmit(){
+			$("#pictureForm").submit();
+		}
+		function changeCamera(){
+			var pageStatus = $("#pageStatus").val();
+			location.href="${pageContext.request.contextPath}/faceAction!toAddFaceUsers.action?userId=${userId}&pageStatus="+pageStatus;
+		}
+		
+// 		var dataURL=canvas.toDataURL('image/jpeg',1);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,364 @@
+package com.task.entity.caiwu.baobiao.laozi;
+/**
+ * 
+ * @author 王晓飞
+ *
+ *经营效益及人工成本月:(ta_baobiao_laozi_Mrooeal)
+ */
+public class Mrooeal {
+
+	private Integer id;
+	private String companyName;//单位名称
+	//单位情况
+	private String dwxz;//单位性质
+	private String sshylb;//所属行业类别
+	private String scdy;//所处地域
+	private String ddsnpjgz;//当地上年社会平均工资（元/年）
+	private String dwgm;//单位规模
+	private String dwcj;//单位层级
+	//社会保险
+	private Double ylbxdw;//单位- 养老保险
+	private Double ylbxgr;//个人 -养老保险
+	//工伤保险
+	private Double gsbxdw;//单位 
+	private Double gsbxgr;//个人
+	//失业保险
+	private Double sybxdw;//单位
+	private Double sybxgr;//个人
+	//生育保险
+	private Double shengyubxdw;//单位
+	private Double shengyubxgr;//个人
+	//医疗保险
+	private Double yiliaobxdw;//单位
+	private Double yiliaobxgr;//个人
+	
+	private Double rgcbzr;//人工成本总额（不包含劳务派遣人员）
+	private Double gzzr;//工资总额
+	private Double shbxfy;//社会保险费用
+	private Double yanglaobx;//养老保险
+	private Double nj;//其中：年金（补充养老保险）
+	private Double ylbx;//医疗保险
+	private Double bcylbx;//其中：补充医疗保险
+	private Double sybx;//失业保险
+	private Double gsbx;//工伤保险
+	private Double shengyubx;//生育保险
+	private Double sybxfy;//商业保险费用
+	private Double flfy;//福利费用
+	private Double jypxjf;//教育培训经费
+	private Double ghjf;//工会经费
+	private Double ldbhfy;//劳动保护费用
+	private Double zfgjj;//住房公积金
+	private Double ycxzfdzfbt;//一次性支付的住房补贴‘
+	private Double jsjcj;//技术奖酬金及业余设计奖
+	private Double fhbxfl;//非货币性福利
+	private Double ctfl;//辞退福利
+	private Double ycxzfbc;//其中：一次性支付补偿
+	private Double nbtxryzc;//内部退休人员支出
+	private Double gfzc;//股份支出
+	private Double qtrgcb;//其他人工成本
+	private Double lwpqfy;//劳务派遣费用
+	private Double ndgzzr;//年度工资总额计划/预控数
+	private Double bnyfshj;//本年已发生合计
+	private Double sntqje;//上年同期金额
+	private Double yfgzncje;//应付工资余额年初金额
+	private Double yfgzqmje;//应付工资余额期末金额
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getDwxz() {
+		return dwxz;
+	}
+	public void setDwxz(String dwxz) {
+		this.dwxz = dwxz;
+	}
+	public String getSshylb() {
+		return sshylb;
+	}
+	public void setSshylb(String sshylb) {
+		this.sshylb = sshylb;
+	}
+	public String getScdy() {
+		return scdy;
+	}
+	public void setScdy(String scdy) {
+		this.scdy = scdy;
+	}
+	public String getDdsnpjgz() {
+		return ddsnpjgz;
+	}
+	public void setDdsnpjgz(String ddsnpjgz) {
+		this.ddsnpjgz = ddsnpjgz;
+	}
+	public String getDwgm() {
+		return dwgm;
+	}
+	public void setDwgm(String dwgm) {
+		this.dwgm = dwgm;
+	}
+	public String getDwcj() {
+		return dwcj;
+	}
+	public void setDwcj(String dwcj) {
+		this.dwcj = dwcj;
+	}
+	public Double getYlbxdw() {
+		return ylbxdw;
+	}
+	public void setYlbxdw(Double ylbxdw) {
+		this.ylbxdw = ylbxdw;
+	}
+	public Double getYlbxgr() {
+		return ylbxgr;
+	}
+	public void setYlbxgr(Double ylbxgr) {
+		this.ylbxgr = ylbxgr;
+	}
+	public Double getGsbxdw() {
+		return gsbxdw;
+	}
+	public void setGsbxdw(Double gsbxdw) {
+		this.gsbxdw = gsbxdw;
+	}
+	public Double getGsbxgr() {
+		return gsbxgr;
+	}
+	public void setGsbxgr(Double gsbxgr) {
+		this.gsbxgr = gsbxgr;
+	}
+	public Double getSybxdw() {
+		return sybxdw;
+	}
+	public void setSybxdw(Double sybxdw) {
+		this.sybxdw = sybxdw;
+	}
+	public Double getSybxgr() {
+		return sybxgr;
+	}
+	public void setSybxgr(Double sybxgr) {
+		this.sybxgr = sybxgr;
+	}
+	public Double getShengyubxdw() {
+		return shengyubxdw;
+	}
+	public void setShengyubxdw(Double shengyubxdw) {
+		this.shengyubxdw = shengyubxdw;
+	}
+	public Double getShengyubxgr() {
+		return shengyubxgr;
+	}
+	public void setShengyubxgr(Double shengyubxgr) {
+		this.shengyubxgr = shengyubxgr;
+	}
+	public Double getYiliaobxdw() {
+		return yiliaobxdw;
+	}
+	public void setYiliaobxdw(Double yiliaobxdw) {
+		this.yiliaobxdw = yiliaobxdw;
+	}
+	public Double getYiliaobxgr() {
+		return yiliaobxgr;
+	}
+	public void setYiliaobxgr(Double yiliaobxgr) {
+		this.yiliaobxgr = yiliaobxgr;
+	}
+	public Double getRgcbzr() {
+		return rgcbzr;
+	}
+	public void setRgcbzr(Double rgcbzr) {
+		this.rgcbzr = rgcbzr;
+	}
+	public Double getGzzr() {
+		return gzzr;
+	}
+	public void setGzzr(Double gzzr) {
+		this.gzzr = gzzr;
+	}
+	public Double getShbxfy() {
+		return shbxfy;
+	}
+	public void setShbxfy(Double shbxfy) {
+		this.shbxfy = shbxfy;
+	}
+	public Double getYanglaobx() {
+		return yanglaobx;
+	}
+	public void setYanglaobx(Double yanglaobx) {
+		this.yanglaobx = yanglaobx;
+	}
+	public Double getNj() {
+		return nj;
+	}
+	public void setNj(Double nj) {
+		this.nj = nj;
+	}
+	public Double getYlbx() {
+		return ylbx;
+	}
+	public void setYlbx(Double ylbx) {
+		this.ylbx = ylbx;
+	}
+	public Double getBcylbx() {
+		return bcylbx;
+	}
+	public void setBcylbx(Double bcylbx) {
+		this.bcylbx = bcylbx;
+	}
+	public Double getSybx() {
+		return sybx;
+	}
+	public void setSybx(Double sybx) {
+		this.sybx = sybx;
+	}
+	public Double getGsbx() {
+		return gsbx;
+	}
+	public void setGsbx(Double gsbx) {
+		this.gsbx = gsbx;
+	}
+	public Double getShengyubx() {
+		return shengyubx;
+	}
+	public void setShengyubx(Double shengyubx) {
+		this.shengyubx = shengyubx;
+	}
+	public Double getSybxfy() {
+		return sybxfy;
+	}
+	public void setSybxfy(Double sybxfy) {
+		this.sybxfy = sybxfy;
+	}
+	public Double getFlfy() {
+		return flfy;
+	}
+	public void setFlfy(Double flfy) {
+		this.flfy = flfy;
+	}
+	public Double getJypxjf() {
+		return jypxjf;
+	}
+	public void setJypxjf(Double jypxjf) {
+		this.jypxjf = jypxjf;
+	}
+	public Double getGhjf() {
+		return ghjf;
+	}
+	public void setGhjf(Double ghjf) {
+		this.ghjf = ghjf;
+	}
+	public Double getLdbhfy() {
+		return ldbhfy;
+	}
+	public void setLdbhfy(Double ldbhfy) {
+		this.ldbhfy = ldbhfy;
+	}
+	public Double getZfgjj() {
+		return zfgjj;
+	}
+	public void setZfgjj(Double zfgjj) {
+		this.zfgjj = zfgjj;
+	}
+	public Double getYcxzfdzfbt() {
+		return ycxzfdzfbt;
+	}
+	public void setYcxzfdzfbt(Double ycxzfdzfbt) {
+		this.ycxzfdzfbt = ycxzfdzfbt;
+	}
+	public Double getJsjcj() {
+		return jsjcj;
+	}
+	public void setJsjcj(Double jsjcj) {
+		this.jsjcj = jsjcj;
+	}
+	public Double getFhbxfl() {
+		return fhbxfl;
+	}
+	public void setFhbxfl(Double fhbxfl) {
+		this.fhbxfl = fhbxfl;
+	}
+	public Double getCtfl() {
+		return ctfl;
+	}
+	public void setCtfl(Double ctfl) {
+		this.ctfl = ctfl;
+	}
+	public Double getYcxzfbc() {
+		return ycxzfbc;
+	}
+	public void setYcxzfbc(Double ycxzfbc) {
+		this.ycxzfbc = ycxzfbc;
+	}
+	public Double getNbtxryzc() {
+		return nbtxryzc;
+	}
+	public void setNbtxryzc(Double nbtxryzc) {
+		this.nbtxryzc = nbtxryzc;
+	}
+	public Double getGfzc() {
+		return gfzc;
+	}
+	public void setGfzc(Double gfzc) {
+		this.gfzc = gfzc;
+	}
+	public Double getQtrgcb() {
+		return qtrgcb;
+	}
+	public void setQtrgcb(Double qtrgcb) {
+		this.qtrgcb = qtrgcb;
+	}
+	public Double getLwpqfy() {
+		return lwpqfy;
+	}
+	public void setLwpqfy(Double lwpqfy) {
+		this.lwpqfy = lwpqfy;
+	}
+	public Double getNdgzzr() {
+		return ndgzzr;
+	}
+	public void setNdgzzr(Double ndgzzr) {
+		this.ndgzzr = ndgzzr;
+	}
+	public Double getBnyfshj() {
+		return bnyfshj;
+	}
+	public void setBnyfshj(Double bnyfshj) {
+		this.bnyfshj = bnyfshj;
+	}
+	public Double getSntqje() {
+		return sntqje;
+	}
+	public void setSntqje(Double sntqje) {
+		this.sntqje = sntqje;
+	}
+	public Double getYfgzncje() {
+		return yfgzncje;
+	}
+	public void setYfgzncje(Double yfgzncje) {
+		this.yfgzncje = yfgzncje;
+	}
+	public Double getYfgzqmje() {
+		return yfgzqmje;
+	}
+	public void setYfgzqmje(Double yfgzqmje) {
+		this.yfgzqmje = yfgzqmje;
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+}

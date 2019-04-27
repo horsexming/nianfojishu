@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectUser" table="ta_Project_User">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="telphone" length="20" />
+		<property name="email" length="30" />
+		<property name="responsibilities" />
+		<property name="pGroup" length="20" />
+		<many-to-one name="root" column="f_project_id" />
+		<many-to-one name="user" column="f_users_id" lazy="false" />
+	</class>
+
+</hibernate-mapping>

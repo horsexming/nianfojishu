@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="Qexamine" table="ta_Qexamine">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="productname"/>
+		<property name="productdraw"/>
+		<property name="customername"/>
+		<property name="auditdate"/>
+		<property name="batchsampling"/>
+		<property name="referencestandard"/>
+	
+		<property name="qtotal"/>
+		<property name="conclusion"/>
+		<property name="disposals"/>
+		<property name="checkname"/>
+		<property name="explain">
+		    <column name="[explain]" />
+		</property>
+		<property name="checkstatus"/>
+		<property name="remarks"/>
+		<property name="status"/>
+		<property name="writename"/>
+		<property name="totalstyle"/>
+	</class>
+</hibernate-mapping>

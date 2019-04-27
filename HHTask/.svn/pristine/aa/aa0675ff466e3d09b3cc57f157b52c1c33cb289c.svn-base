@@ -1,0 +1,615 @@
+/**
+ * 
+ */
+package com.task.ServerImpl.b2b;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import jxl.read.biff.File;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.huawei.openapi.openaipexample.client.http.OrderForB2B;
+import com.huawei.openapi.openaipexample.client.http.TokenUtil;
+import com.task.Dao.TotalDao;
+import com.task.Server.IOrderManagerService;
+import com.task.Server.PriceServerDao;
+import com.task.Server.b2b.HttpRestClientServer;
+import com.task.entity.ClientManagement;
+import com.task.entity.OrderManager;
+import com.task.entity.Price;
+import com.task.entity.ProductManager;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.util.Util;
+
+public class HttpRestClientServerImpl implements HttpRestClientServer {
+	private TotalDao totalDao;
+	private IOrderManagerService iomsErvice;
+	private PriceServerDao priceServerDao;
+
+	public PriceServerDao getPriceServerDao() {
+		return priceServerDao;
+	}
+
+	public void setPriceServerDao(PriceServerDao priceServerDao) {
+		this.priceServerDao = priceServerDao;
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	public IOrderManagerService getIomsErvice() {
+		return iomsErvice;
+	}
+
+	public void setIomsErvice(IOrderManagerService iomsErvice) {
+		this.iomsErvice = iomsErvice;
+	}
+
+	/***
+	 * 查询PO列表
+	 * 
+	 * @param colTaskOrPoStatus
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param pageOrderForB2B
+	 * @param fbStartDate
+	 * @param fbEndDate
+	 * @param cnStartDate
+	 * @param cnEndDate
+	 * @return
+	 * @throws IOException
+	 */
+	public Object[] getList(Integer pageIndex, Integer pageSize,
+			OrderForB2B pageOrderForB2B, String fbStartDate, String fbEndDate,
+			String cnStartDate, String cnEndDate) throws IOException {
+		String poStatus = "all";
+		String colTaskOrPoStatus = "all";
+		String shipmentStatus = "all";
+		String poSubType = "P";
+		String itemCode = "";
+		String poNumber = "";
+
+		if (pageOrderForB2B != null) {
+			if (pageOrderForB2B.getPoStatus() != null) {
+				poStatus = pageOrderForB2B.getPoStatus();
+			}
+			if (pageOrderForB2B.getColTaskOrPoStatus() != null) {
+				colTaskOrPoStatus = pageOrderForB2B.getColTaskOrPoStatus();
+			}
+			if (pageOrderForB2B.getShipmentStatus() != null) {
+				shipmentStatus = pageOrderForB2B.getShipmentStatus();
+			}
+			if (pageOrderForB2B.getPoSubType() != null) {
+				poSubType = pageOrderForB2B.getPoSubType();
+			}
+			if (pageOrderForB2B.getItemCode() != null) {
+				itemCode = pageOrderForB2B.getItemCode();
+			}
+			if (pageOrderForB2B.getPoNumber() != null) {
+				poNumber = pageOrderForB2B.getPoNumber();
+			}
+		}
+		if (fbStartDate == null) {
+			fbStartDate = "";
+		}
+		if (fbEndDate == null) {
+			fbEndDate = "";
+		}
+		if (cnStartDate == null) {
+			cnStartDate = "";
+		}
+		if (cnEndDate == null) {
+			cnEndDate = "";
+		}
+		if (pageIndex == null || pageIndex <= 0) {
+			pageIndex = 1;
+		}
+		String LIST_URL = "https://openapi.huawei.com:443/service/esupplier/findPoLineList/1.0.0/"
+				+ pageIndex;
+		// String LIST_URL =
+		// "https://api-beta.huawei.com:443/service/esupplier/findPoLineList/1.0.0/"
+		// + pageIndex;
+
+		HttpURLConnection connection = TokenUtil.getConnection(LIST_URL);
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("Content-Type", "application/json");
+
+		StringBuilder sb = new StringBuilder();
+		sb
+				.append("{\"poStatus\":\""
+						+ poStatus
+						+ "\",\"shipmentStatus\":\""
+						+ shipmentStatus
+						+ "\",\"statusType\":\"COL_TASK_STATUS\",\"colTaskOrPoStatus\":\""
+						+ colTaskOrPoStatus + "\",\"poSubType\":\"" + poSubType
+						+ "\",\"itemCode\":\"" + itemCode
+						+ "\",\"poNumber\":\"" + poNumber
+						+ "\",\"publishDateStart\":\"" + fbStartDate
+						+ "\",\"publishDateEnd\":\"" + fbEndDate
+						+ "\",\"promiseDateStart\":\"" + cnStartDate
+						+ "\",\"promiseDateEnd\":\"" + cnEndDate + "\"}");
+
+		// sb
+		// .append("{\"instanceId\":\"1\",\"poHeaderId\":\"140658778\",\"poReleaseId\":\"2079606\",\"calculateOrderAmount\":true}");
+
+		OutputStream output = connection.getOutputStream();
+		output.write(sb.toString().getBytes("UTF-8"));
+		output.flush();
+		output.close();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				connection.getInputStream(), "UTF-8"));
+		String line = "";
+		Integer count = 0;
+		ArrayList<OrderForB2B> orderList = new ArrayList<OrderForB2B>();
+		while ((line = reader.readLine()) != null) {
+			// System.out.println(line);
+			JsonObject jsonObject = new JsonParser().parse(line)
+					.getAsJsonObject();
+			JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+			Gson gson = new Gson();
+			for (JsonElement jsonElement : jsonArray) {
+				OrderForB2B orderForB2B = gson.fromJson(jsonElement,
+						new TypeToken<OrderForB2B>() {
+						}.getType());
+				String publishDate = Util.DateToString(Util.StringToDate(
+						orderForB2B.getPublishDate(),
+						"yyyy-MM-dd'T'HH:mm:ss.000+0800"),
+						"yyyy-MM-dd HH:mm:ss");
+				String promiseDate = Util.DateToString(Util.StringToDate(
+						orderForB2B.getPromiseDate(),
+						"yyyy-MM-dd'T'HH:mm:ss.000+0800"),
+						"yyyy-MM-dd HH:mm:ss");
+				orderForB2B.setPublishDate(publishDate);
+				orderForB2B.setPromiseDate(promiseDate);
+				orderList.add(orderForB2B);
+			}
+
+			// JsonParser parser = new JsonParser(); // 创建JSON解析器
+			// JsonObject object = (JsonObject) parser.parse(line);
+			// JsonArray array = object.get("result").getAsJsonArray(); //
+			// 得到为json的数组
+			// for (int i = 0; i < array.size(); i++) {
+			// JsonObject subObject = array.get(i).getAsJsonObject();
+			// String a = subObject.toString();
+			// OrderForB2B orderForB2B = MKUtil.fromJson(a, OrderForB2B.class);
+			// orderList.add(orderForB2B);
+			//
+			// // System.out.println("---------------");
+			// // String b=MKUtil.toJson(orderForB2B);
+			// // System.out.println("供应商编码="
+			// // + subObject.get("vendorCode").getAsString());
+			// // System.out.println("供应商名称="
+			// // + subObject.get("vendorName").getAsString());
+			// // System.out.println("PO号="
+			// // + subObject.get("poNumber").getAsString());
+			// // System.out.println("订单行号="
+			// // + subObject.get("poLineNum").getAsInt());
+			// // System.out.println("Item编码="
+			// // + subObject.get("itemCode").getAsString());
+			// // System.out.println("PR号="
+			// // + subObject.get("prNumber").getAsString());
+			// // System.out.println("订单下发日期="
+			// // + subObject.get("publishDate").getAsString());
+			// // System.out.println("订单状态="
+			// // + subObject.get("shipmentStatus").getAsString());
+			// // try {
+			// // System.out.println("需求数量="
+			// // + subObject.get("needQuantity").getAsFloat());
+			// // } catch (Exception e) {
+			// // e.printStackTrace();
+			// // System.out.println("需求数量=0");
+			// // }
+			// // try {
+			// // System.out.println("未交付数量="
+			// // + subObject.get("dueQty").getAsFloat());
+			// // } catch (Exception e) {
+			// // e.printStackTrace();
+			// // System.out.println("需求数量=0");
+			// // }
+			// // try {
+			// // System.out.println("任务令="
+			// // + subObject.get("taskNum").getAsString());
+			// // } catch (Exception e) {
+			// // System.out.println("任务令=");
+			// // }
+			// }
+			// "pageVO":{"startIndex":701,"curPage":8,"mysqlStartIndex":700,"endIndex":800,"resultMode":0,"totalPages":8,"pageSize":100,"totalRows":766,"mysqlEndIndex":100}
+			JsonObject data = jsonObject.get("pageVO").getAsJsonObject();
+			pageSize = data.get("pageSize").getAsInt();
+			count = data.get("totalRows").getAsInt();
+		}
+
+		Map<String, List<String>> headerFields = connection.getHeaderFields();
+		for (Map.Entry<String, List<String>> element : headerFields.entrySet()) {
+			if ("activityID".equals(element.getKey())) {
+				System.out.println("Please log the value: " + element.getKey()
+						+ "===>>" + element.getValue().get(0));
+			}
+		}
+		reader.close();
+		connection.disconnect();
+		return new Object[] { orderList, count, pageSize };
+	}
+
+	/****
+	 * 通过id获得PO明细
+	 * 
+	 * @param pageOrderForB2B
+	 * @return
+	 * @throws IOException
+	 */
+	@Override
+	public OrderForB2B findPOById(OrderForB2B pageOrderForB2B) {
+		try {
+			String LIST_URL = "https://openapi.huawei.com:443/service/esupplier/findPoLineList/1.0.0/1";
+
+			HttpURLConnection connection = TokenUtil.getConnection(LIST_URL);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("{\"instanceId\":\"1\",\"poHeaderId\":\""
+					+ pageOrderForB2B.getPoHeaderId() + "\",\"poReleaseId\":\""
+					+ pageOrderForB2B.getPoReleaseId()
+					+ "\",\"calculateOrderAmount\":true,\"poLineId\":"+pageOrderForB2B.getPoLineId()+"}");
+
+			OutputStream output = connection.getOutputStream();
+			output.write(sb.toString().getBytes("UTF-8"));
+			output.flush();
+			output.close();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream(), "UTF-8"));
+			String line = "";
+			OrderForB2B orderForB2B = null;
+			while ((line = reader.readLine()) != null) {
+				//System.out.println(line);
+				JsonObject jsonObject = new JsonParser().parse(line)
+						.getAsJsonObject();
+				JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+				Gson gson = new Gson();
+				for (JsonElement jsonElement : jsonArray) {
+					orderForB2B = gson.fromJson(jsonElement,
+							new TypeToken<OrderForB2B>() {
+							}.getType());
+					String publishDate = Util.DateToString(Util.StringToDate(
+							orderForB2B.getPublishDate(),
+							"yyyy-MM-dd'T'HH:mm:ss.000+0800"),
+							"yyyy-MM-dd HH:mm:ss");
+					String promiseDate = Util.DateToString(Util.StringToDate(
+							orderForB2B.getPromiseDate(),
+							"yyyy-MM-dd'T'HH:mm:ss.000+0800"), "yyyy-MM-dd");
+					String needByDate = Util.DateToString(Util.StringToDate(
+							orderForB2B.getNeedByDate(),
+							"yyyy-MM-dd'T'HH:mm:ss.000+0800"), "yyyy-MM-dd");
+					orderForB2B.setPublishDate(publishDate);
+					orderForB2B.setPromiseDate(promiseDate);
+					orderForB2B.setNeedByDate(needByDate);
+				}
+			}
+			reader.close();
+			connection.disconnect();
+			return orderForB2B;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/***
+	 * 添加价格
+	 * 
+	 * @param pageOrderForB2B
+	 * @return
+	 */
+	@Override
+	public String addPrice(OrderForB2B pageOrderForB2B) {
+		OrderForB2B dbOrderForB2B = findPOById(pageOrderForB2B);
+		if (dbOrderForB2B != null) {
+			// 查询价格信息
+			String hql_price = "from Price where partNumber=? and pricePeriodStart<'"
+					+ Util.getDateTime()
+					+ "' and (pricePeriodEnd>'"
+					+ Util.getDateTime()
+					+ "' or pricePeriodEnd is null or pricePeriodEnd='') ";
+			if (dbOrderForB2B.getItemRevision() != null
+					&& dbOrderForB2B.getItemRevision().length() > 0) {
+				hql_price += " and banbenhao='"
+						+ dbOrderForB2B.getItemRevision() + "' ";
+			}
+			Price price = (Price) totalDao.getObjectByCondition(hql_price,
+					dbOrderForB2B.getItemCode());
+//			if (price == null) {
+				price = new Price();
+				price.setContractNumber(dbOrderForB2B.getPoNumber());
+				price.setChargePerson(Util.getLoginUser().getName());
+				String hql_cliet = "from ClientManagement where clientcompanyname='华为技术有限公司'";
+				ClientManagement cl = (ClientManagement) totalDao
+						.getObjectByCondition(hql_cliet);
+				price.setKehuId(cl.getId());
+				price.setProduceType("销售");
+				price.setProductCategory("总成");
+				price.setPricePeriodStart(Util.getDateTime());
+				price.setPricePeriodEnd("");
+				List<Price> priceList = new ArrayList<Price>();
+				Price price1 = new Price();
+				price1.setPartNumber(dbOrderForB2B.getItemCode());
+				price1.setName(dbOrderForB2B.getItemDescription());
+				price1.setTaxprice(dbOrderForB2B.getTaxRate().doubleValue());
+				price1.setFirstnum(0);
+				price1.setEndnum(0);
+				price1.setHsPrice(dbOrderForB2B.getPriceOverride()
+						.doubleValue()
+						* (1 + dbOrderForB2B.getTaxRate()));
+				price1.setBhsPrice(dbOrderForB2B.getPriceOverride()
+						.doubleValue());
+				priceList.add(price1);
+				return priceServerDao.addPrice(priceList, price, null, null,
+						"B2BAdd", null);
+//			}
+		}
+		return "未查到订单信息!请重试!";
+	}
+
+	/****
+	 * 接受/遣返订单
+	 * 
+	 * @param pageOrderForB2B
+	 * @param operateType
+	 * @return
+	 * @throws IOException
+	 */
+	@Override
+	public String signBackPOList(OrderForB2B pageOrderForB2B, String operateType)
+			throws IOException {
+		String mess = "处理失败!";
+		OrderForB2B dbOrderForB2B = findPOById(pageOrderForB2B);
+		if (dbOrderForB2B != null) {
+			String LIST_URL = "https://openapi.huawei.com:443/service/esupplier/signBackPOList/1.0.0";
+			HttpURLConnection connection = TokenUtil.getConnection(LIST_URL);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("{\"operateType\":\"" + operateType
+					+ "\",\"colTaskQueries\":[{\"lineLocationId\": "
+					+ dbOrderForB2B.getLineLocationId() + ",\"instanceId\": "
+					+ dbOrderForB2B.getInstanceId()
+					+ ",\"poLineId\": "
+					+ dbOrderForB2B.getPoLineId()
+					+ ",\"businessType\":\"new_po\"}]}");
+
+			OutputStream output = connection.getOutputStream();
+			output.write(sb.toString().getBytes("UTF-8"));
+			output.flush();
+			output.close();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream(), "UTF-8"));
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				 //System.out.println(line);
+//				 {"result":"操作成功!","code":"success","data":[{"msg":"操作成功","taskIndex":"null","lineLocationId":205677090,"code":"00000","instanceId":1,"poLineNum":"1","poNum":"HW20226748-1","taskId":2056770900100124}],"success":true,"failed":false}
+				JsonParser parser = new JsonParser(); // 创建JSON解析器
+				JsonObject object = (JsonObject) parser.parse(line);
+				String code = object.get("code").getAsString();
+				// System.out.println("code=" + code);
+				if ("success".equals(code)) {
+					if ("accept".equals(operateType)) {
+						// 查询华为订单在PEBS系统是否存在
+						String hql_order = "from OrderManager where poHeaderId=? and poReleaseId=?";
+						OrderManager oldOrderManager = (OrderManager) totalDao
+								.getObjectByCondition(hql_order, dbOrderForB2B
+										.getPoHeaderId(), dbOrderForB2B
+										.getPoReleaseId());
+						if (oldOrderManager == null) {
+							// 将华为订单转换为PEBS内部订单 dbOrderForB2B
+							OrderManager outOrderManager = new OrderManager();
+							outOrderManager.setPoHeaderId(dbOrderForB2B
+									.getPoHeaderId());
+							outOrderManager.setPoReleaseId(dbOrderForB2B
+									.getPoReleaseId());
+							outOrderManager.setOutOrderNumber(dbOrderForB2B
+									.getPoNumber());
+							outOrderManager.setOrderType("正式");
+							outOrderManager.setType("正常");
+							outOrderManager.setProducttype("批产");
+							outOrderManager.setDeliveryStatus("否");
+							outOrderManager.setBackSection("否");
+							outOrderManager.setOrderStatus("no");
+							outOrderManager.setPaymentDate(dbOrderForB2B
+									.getPromiseDate());
+							String hql_cliet = "from ClientManagement where clientcompanyname='华为技术有限公司'";
+							ClientManagement cl = (ClientManagement) totalDao
+									.getObjectByCondition(hql_cliet);
+							outOrderManager.setCustome(cl);
+							outOrderManager.setClientName(cl
+									.getClientcompanyname());
+							outOrderManager.setClientDz(cl.getClientdz());
+							outOrderManager.setClientFzr(dbOrderForB2B
+									.getAgentName());
+							outOrderManager.setDeliveryStatus("否");
+							outOrderManager.setDocumentaryPeople(Util
+									.getLoginUser().getName());
+							outOrderManager.setDocumentaryPeopleId(Util
+									.getLoginUser().getId());
+							outOrderManager.setBillingPeople(Util
+									.getLoginUser().getName());
+							outOrderManager.setAddTime(Util.getDateTime());
+
+							List<ProductManager> pmList = new ArrayList<ProductManager>();
+							ProductManager productManager = new ProductManager();
+							productManager.setName(dbOrderForB2B
+									.getItemDescription());
+							productManager.setPieceNumber(dbOrderForB2B
+									.getItemCode());
+							productManager.setYwMarkId(dbOrderForB2B
+									.getItemCode());
+							productManager.setNum(dbOrderForB2B.getQuantity());
+							productManager.setUnitPrice(dbOrderForB2B
+									.getTotalAmount().doubleValue());
+							productManager.setRemark(dbOrderForB2B.getRemark());
+							productManager.setUnit(dbOrderForB2B
+									.getPriceOverride().doubleValue()
+									* (1 + dbOrderForB2B.getTaxRate()));
+							productManager.setBhsPrice(dbOrderForB2B
+									.getPriceOverride().doubleValue());
+							productManager.setTaxprice(dbOrderForB2B
+									.getTaxRate().doubleValue());
+							productManager.setBanben(dbOrderForB2B
+									.getItemRevision());
+							productManager.setDanwei(dbOrderForB2B
+									.getUnitOfMeasure());
+							productManager.setPaymentDate(dbOrderForB2B
+									.getPromiseDate());
+							productManager.setOrderManager(outOrderManager);
+							// 查询价格信息
+							String hql_price = "from Price where partNumber=? and pricePeriodStart<'"
+									+ Util.getDateTime()
+									+ "' and (pricePeriodEnd>'"
+									+ Util.getDateTime()
+									+ "' or pricePeriodEnd is null or pricePeriodEnd='') ";
+							if (dbOrderForB2B.getItemRevision() != null
+									&& dbOrderForB2B.getItemRevision().length() > 0) {
+								hql_price += " and banbenhao='"
+										+ dbOrderForB2B.getItemRevision()
+										+ "' ";
+							}
+							Price price = (Price) totalDao
+									.getObjectByCondition(hql_price,
+											dbOrderForB2B.getItemCode());
+							if (price != null) {
+								productManager.setPriceId(price.getId());
+							}
+							pmList.add(productManager);
+							iomsErvice.add(outOrderManager, pmList);
+							mess = "处理成功!";
+						}else{
+							List<ProductManager> pmList = new ArrayList<ProductManager>();
+							ProductManager productManager = new ProductManager();
+							productManager.setName(dbOrderForB2B
+									.getItemDescription());
+							productManager.setPieceNumber(dbOrderForB2B
+									.getItemCode());
+							productManager.setYwMarkId(dbOrderForB2B
+									.getItemCode());
+							productManager.setNum(dbOrderForB2B.getQuantity());
+							productManager.setUnitPrice(dbOrderForB2B
+									.getTotalAmount().doubleValue());
+							productManager.setRemark(dbOrderForB2B.getRemark());
+							productManager.setUnit(dbOrderForB2B
+									.getPriceOverride().doubleValue()
+									* (1 + dbOrderForB2B.getTaxRate()));
+							productManager.setBhsPrice(dbOrderForB2B
+									.getPriceOverride().doubleValue());
+							productManager.setTaxprice(dbOrderForB2B
+									.getTaxRate().doubleValue());
+							productManager.setBanben(dbOrderForB2B
+									.getItemRevision());
+							productManager.setDanwei(dbOrderForB2B
+									.getUnitOfMeasure());
+							productManager.setPaymentDate(dbOrderForB2B
+									.getPromiseDate());
+							productManager.setOrderManager(oldOrderManager);
+							// 查询价格信息
+							String hql_price = "from Price where partNumber=? and pricePeriodStart<'"
+									+ Util.getDateTime()
+									+ "' and (pricePeriodEnd>'"
+									+ Util.getDateTime()
+									+ "' or pricePeriodEnd is null or pricePeriodEnd='') ";
+							if (dbOrderForB2B.getItemRevision() != null
+									&& dbOrderForB2B.getItemRevision().length() > 0) {
+								hql_price += " and banbenhao='"
+										+ dbOrderForB2B.getItemRevision()
+										+ "' ";
+							}
+							Price price = (Price) totalDao
+									.getObjectByCondition(hql_price,
+											dbOrderForB2B.getItemCode());
+							if (price != null) {
+								productManager.setPriceId(price.getId());
+							}
+							pmList.add(productManager);
+							iomsErvice.add(oldOrderManager, pmList);
+							mess = "处理成功!";
+						}
+
+					}
+				}
+			}
+		}
+		return mess;
+	}
+
+	/****
+	 * 修改订单
+	 * 
+	 * @param pageOrderForB2B
+	 * @throws IOException
+	 */
+	@Override
+	public String updateOrderForB2B(OrderForB2B pageOrderForB2B)
+			throws IOException {
+		OrderForB2B dbOrderForB2B = findPOById(pageOrderForB2B);
+		if (dbOrderForB2B != null) {
+			String LIST_URL = "https://openapi.huawei.com:443/service/esupplier/applyPromiseDateChange/1.0.0";
+			HttpURLConnection connection = TokenUtil.getConnection(LIST_URL);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+
+			StringBuilder sb = new StringBuilder();
+			String quantityOrdate = "";
+			if ("1".equals(pageOrderForB2B.getTypeLookupCode())) {
+				quantityOrdate = "\"needQuantity\":\""
+						+ pageOrderForB2B.getQuantity().intValue() + "\",";
+			} else if ("2".equals(pageOrderForB2B.getTypeLookupCode())) {
+				quantityOrdate = "\"promiseDateStr\":\""
+						+ pageOrderForB2B.getPromiseDate() + "\",";
+			}
+			sb.append("{\"instanceId\":\"" + dbOrderForB2B.getInstanceId()
+					+ "\",\"lineLocationId\":\""
+					+ dbOrderForB2B.getLineLocationId() + "\","
+					+ quantityOrdate + "\"promiseDateChangeReason\":\""
+					+ pageOrderForB2B.getRemark() + "\",\"typeLookupCode\":\""
+					+ pageOrderForB2B.getTypeLookupCode() + "\"}");
+			OutputStream output = connection.getOutputStream();
+			output.write(sb.toString().getBytes("UTF-8"));
+			output.flush();
+			output.close();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream(), "UTF-8"));
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+				//
+				// {"result":"操作成功!","code":"success","data":[{"msg":"操作成功","taskIndex":"null","lineLocationId":205677090,"code":"00000","instanceId":1,"poLineNum":"1","poNum":"HW20226748-1","taskId":2056770900100124}],"success":true,"failed":false}
+				JsonParser parser = new JsonParser(); // 创建JSON解析器
+				JsonObject object = (JsonObject) parser.parse(line);
+				String code = object.get("code").getAsString();
+				// System.out.println("code=" + code);
+				if ("success".equals(code)) {
+					return "处理成功!";
+				}
+			}
+			reader.close();
+			connection.disconnect();
+		}
+		return "处理失败!";
+	}
+
+}

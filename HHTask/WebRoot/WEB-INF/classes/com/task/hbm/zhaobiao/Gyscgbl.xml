@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.Gyscgbl" table="ta_Gyscgbl" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		 <property name="gmId"/>
+		 <property name="zhuserId"/>
+		 <property name="markId"></property>
+		 <property name="proName"></property>
+		 <property name="username"></property>
+		 <property name="dept"></property>
+		 <property name="sqtime"></property>
+		 <property name="gys"></property>
+		 <property name="epId"></property>
+		 <property name="ep_status"></property>
+		 <property name="cgbl"></property>
+		 <property name="qcgbl"></property>
+	</class>
+</hibernate-mapping>

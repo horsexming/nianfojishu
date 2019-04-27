@@ -1,0 +1,80 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 管理员
+ * 
+ * @author 刘培
+ */
+public class Admin  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private String adminName;// 用户名
+	private String adminPassword;// 密码
+	private String lastLogin;// 最后一次登录时间
+	private String nowLogin;// 当前登录时间
+	private String type;//管理员类型系统管理员和超级管理员
+	private Integer count;// 登录次数
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAdminName() {
+		return adminName;
+	}
+
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
+
+	public String getAdminPassword() {
+		return adminPassword;
+	}
+
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
+
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getNowLogin() {
+		return nowLogin;
+	}
+
+	public void setNowLogin(String nowLogin) {
+		this.nowLogin = nowLogin;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+}

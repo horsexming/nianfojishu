@@ -1,0 +1,32 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+public class SmsGroup implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String name;
+	private Set<SmsUser> users;
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Set<SmsUser> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<SmsUser> users) {
+		this.users = users;
+	}
+	
+	
+}

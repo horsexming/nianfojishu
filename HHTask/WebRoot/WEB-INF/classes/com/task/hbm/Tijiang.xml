@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+  <class name="com.task.entity.Tijiang" table="tijiang">
+		<id name="tjid" column="tj_id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="tjstyle" type="java.lang.String">
+		 <column name="tj_style"></column>
+		</property>
+		<property name="tjmarkId" type="java.lang.String">
+		 <column name="tj_markID"></column>
+		</property>
+		<property name="tjformat" type="java.lang.String">
+		 <column name="tj_format"></column>
+		</property>
+		<property name="tjmonth" type="java.lang.String">
+		 <column name="tj_month"></column>
+		</property>
+		<property name="tjprice" type="java.lang.Float">
+		 <column name="tj_price" precision="53" scale="0"></column>
+		</property>
+		<property name="tjdinge" type="java.lang.Float">
+		 <column name="tj_dinge" precision="53" scale="0"></column>
+		</property>
+		<property name="tjcount" type="java.lang.Float">
+		 <column name="tj_count" precision="53" scale="0"></column>
+		</property>
+		<property name="tjmoney" type="java.lang.Float">
+		 <column name="tj_money" precision="53" scale="0"></column>
+		</property>
+		<property name="tjtimer">
+		 <column name="tj_timer"></column>
+		</property>
+		<property name="tjmore" type="java.lang.String">
+		 <column name="tj_more"></column>
+		</property>
+		<property name="epId"></property>
+		</class>
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.OrderManager" table="TA_OrderManager">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="totalAmount" column="f_totalAmount" />
+		<property name="orderNum" column="f_orderNum" type="string" />
+		<property name="outOrderNumber" type="java.lang.String" />
+		<property name="type" type="java.lang.String" />
+		<property name="orderFil" column="f_orderFil" type="string" />
+		<property name="deliveryStatus" column="f_deliveryStatus"
+			type="string" />
+		<property name="backSection" column="f_backSection" type="string" />
+		<property name="orderStatus" column="f_orderStatus" type="string" />
+		<property name="documentaryPeople" column="f_documentaryPeople"
+			type="string" />
+		<property name="documentaryPeopleId" column="documentaryPeopleId" />
+		<property name="billingPeople" column="f_billingPeople" type="string" />
+		<property name="paymentDate" column="f_paymentDate" type="string" />
+		<property name="paymentDate2" column="f_paymentDate2" type="string" />
+		<property name="contractDocuments" column="f_contractDocuments"
+			type="string" />
+		<property name="dept" column="f_deptName" type="string" />
+		<property name="conversionStatus" column="f_conversionStatus"
+			type="string" />
+		<property name="addTime" />
+		<property name="inputRate" />
+		<property name="completionrate" />
+		<property name="timeRate" />
+		<property name="hkrate" />
+		<property name="kprate" />
+		<property name="orderType" />
+
+		<property name="rengongfei" />
+		<property name="shebeiZjFei" />
+		<property name="nyxhFei" />
+		<property name="clFei" />
+		<property name="wgFei" />
+		<property name="flFei" />
+		<property name="glFei" />
+		<property name="clvFei" />
+		<property name="canFei" />
+		<property name="allMoney" />
+		<property name="epId"/>
+		<property name="ep_statuts"/>
+		<property name="ypaymentDate"/>
+		<property name="producttype"/>
+		<property name="clientName"/>
+		<property name="clientFzr"/>
+		<property name="clientDz"/>
+		<property name="remark"/>
+		<property name="orderId"/>
+		<property name="poHeaderId"/>
+		<property name="poReleaseId"/>
+		
+		<!-- 客户引用 -->
+		<many-to-one name="custome" class="com.task.entity.ClientManagement"
+			column="fk_clientManagement_id" lazy="false" />
+
+		<!-- 产品集合 -->
+		<set name="products" table="TA_Product" cascade="all" inverse="false"
+			order-by="id" lazy="false">
+			<key column="fk_orderManager_id"></key>
+			<one-to-many class="com.task.entity.ProductManager" />
+		</set>
+		<!--
+			<one-to-one name="innerOrder" class="com.task.entity.InternalOrder"/>
+		-->
+		<set name="innerOrders" table="ta_crm_orderManager_internalOrder"
+			cascade="all" inverse="true" lazy="false">
+			<key column="fk_orderManager_id" />
+			<many-to-many column="fk_internalOrder_id" class="com.task.entity.InternalOrder"
+				order-by="id" />
+		</set>
+
+		<set name="innerOrderszhaobiao" table="ta_crm_orderManager_internalOrderzhaobiao"
+			cascade="all" inverse="true" lazy="false">
+			<key column="fk_orderManagerzhaobiao_id" />
+			<many-to-many column="fk_internalOrderzhaobiao_id"
+				class="com.tast.entity.zhaobiao.InternalOrderzhaobiao" order-by="id" />
+		</set>
+
+
+
+		<!-- 采购相信表 -->
+		<!-- name：本XML文件中对应Bean定义对方的一个SET集合属性 -->
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="orderzhaobiaos" table="Order_caigoujihua">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="oderId"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.tast.entity.zhaobiao.InternalOrderzhaobiao"
+				column="jihuaId"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

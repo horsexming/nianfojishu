@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Promotion" table="ta_Promotion" >
+		  <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="userId"/>
+        <property name="name"/>
+        <property name="code"/>
+        <property name="dept"/>
+        <property name="beforeRank"/>
+        <property name="rank"/>
+        <property name="sqName"/>
+        <property name="sqDept"/>
+        <property name="sqTime"/>
+        <property name="jsTime"/>
+        <property name="cause"/>
+        <property name="more"/>
+        <property name="fujian"/>
+        <property name="epId"/>
+        <property name="ep_status"/>
+        <property name="beforeDuty"/>
+        <property name="duty"/>
+	</class>
+</hibernate-mapping>

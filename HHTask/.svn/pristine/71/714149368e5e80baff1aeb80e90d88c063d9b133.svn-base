@@ -1,0 +1,215 @@
+package com.task.entity.menjin;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 来访登记表(表名:ta_visit)
+ * 
+ * @author 聂威
+ * 
+ */
+public class Visit {
+	private Integer id;
+	@FieldMeta(name = "申请人")
+	private String applyName; // 申请人
+	@FieldMeta(name = "申请人工号")
+	private String code;// 工号
+	@FieldMeta(name = "被访人")
+	private String shouFangName;// 被访人
+	@FieldMeta(name = "被访人部门")
+	private String shouFangDept;// 被访人部门
+	@FieldMeta(name = "是否开车")
+	private String verifycar;// 是否开车
+	@FieldMeta(name = "验证方式（手机/车牌）")
+	private String verifyManner;// 验证方式（手机/车牌）
+	@FieldMeta(name = "来访人")
+	private String visitsName;// 来访人
+	private String visitsTel;// 来访人电话（如果验证内容选择车牌）
+	private String visitsPop;// 来访人人数
+	private String visitsLic;// 来访（车牌号）
+	@FieldMeta(name = "来访人公司")
+	private String visitsCom;// 来访人公司
+	@FieldMeta(name = "来访当前有效凭证")
+	private String visitsCode;// 来访当前有效凭证
+	@FieldMeta(name = "来访验证码")
+	private String visitsAllCode;// 来访所有凭证
+	@FieldMeta(name = "申请来访时间")
+	private String visitstime;// 申请来访时间
+	private String addTime;// 添加时间
+	@FieldMeta(name = "来访缘由")
+	private String visitsPer;// 来访缘由
+	private String rmarks;// 备注
+
+	private Integer epId;// 审批流程id
+	private String visitStatus;// 审批状态
+	private String visit_laiStatus;// 来访状态(未进门/进门中/已进门/出门中/再出门/已出门)用来判定是否可以确认出门。只有在已进门的情况下才可以确认出门
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getApplyName() {
+		return applyName;
+	}
+
+	public void setApplyName(String applyName) {
+		this.applyName = applyName;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getVisitsName() {
+		return visitsName;
+	}
+
+	public void setVisitsName(String visitsName) {
+		this.visitsName = visitsName;
+	}
+
+	public String getVisitsTel() {
+		return visitsTel;
+	}
+
+	public void setVisitsTel(String visitsTel) {
+		this.visitsTel = visitsTel;
+	}
+
+	public String getVisitsPop() {
+		return visitsPop;
+	}
+
+	public void setVisitsPop(String visitsPop) {
+		this.visitsPop = visitsPop;
+	}
+
+	public String getVisitsLic() {
+		return visitsLic;
+	}
+
+	public void setVisitsLic(String visitsLic) {
+		this.visitsLic = visitsLic;
+	}
+
+	public String getVisitsCom() {
+		return visitsCom;
+	}
+
+	public void setVisitsCom(String visitsCom) {
+		this.visitsCom = visitsCom;
+	}
+
+	public String getVisitsCode() {
+		return visitsCode;
+	}
+
+	public void setVisitsCode(String visitsCode) {
+		this.visitsCode = visitsCode;
+	}
+
+	public String getVisitstime() {
+		return visitstime;
+	}
+
+	public void setVisitstime(String visitstime) {
+		this.visitstime = visitstime;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getVisitsPer() {
+		return visitsPer;
+	}
+
+	public void setVisitsPer(String visitsPer) {
+		this.visitsPer = visitsPer;
+	}
+
+	public String getRmarks() {
+		return rmarks;
+	}
+
+	public void setRmarks(String rmarks) {
+		this.rmarks = rmarks;
+	}
+
+	public String getVerifyManner() {
+		return verifyManner;
+	}
+
+	public void setVerifyManner(String verifyManner) {
+		this.verifyManner = verifyManner;
+	}
+
+	public String getShouFangName() {
+		return shouFangName;
+	}
+
+	public void setShouFangName(String shouFangName) {
+		this.shouFangName = shouFangName;
+	}
+
+	public String getShouFangDept() {
+		return shouFangDept;
+	}
+
+	public void setShouFangDept(String shouFangDept) {
+		this.shouFangDept = shouFangDept;
+	}
+
+	public String getVerifycar() {
+		return verifycar;
+	}
+
+	public void setVerifycar(String verifycar) {
+		this.verifycar = verifycar;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getVisitStatus() {
+		return visitStatus;
+	}
+
+	public void setVisitStatus(String visitStatus) {
+		this.visitStatus = visitStatus;
+	}
+
+	public String getVisit_laiStatus() {
+		return visit_laiStatus;
+	}
+
+	public void setVisit_laiStatus(String visitLaiStatus) {
+		visit_laiStatus = visitLaiStatus;
+	}
+
+	public String getVisitsAllCode() {
+		return visitsAllCode;
+	}
+
+	public void setVisitsAllCode(String visitsAllCode) {
+		this.visitsAllCode = visitsAllCode;
+	}
+
+}

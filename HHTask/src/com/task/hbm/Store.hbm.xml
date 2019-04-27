@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Store" table="store">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="number" type="java.lang.String">
+			<column name="number" length="50" />
+		</property>
+		<property name="matetag" type="java.lang.String">
+			<column name="matetag" length="50" />
+		</property>
+		<property name="total" type="java.lang.Float">
+			<column name="total" />
+		</property>
+		<property name="unit" type="java.lang.String">
+			<column name="unit" length="50" />
+		</property>
+		<property name="format" type="java.lang.String">
+			<column name="format" length="5000" />
+		</property>
+		<property name="storehouse" type="java.lang.String">
+			<column name="storehouse" length="50" />
+		</property>
+		<property name="mix" type="java.lang.String">
+			<column name="mix" length="50" />
+		</property>
+		<property name="parClass" type="java.lang.String">
+			<column name="parClass" length="50" />
+		</property>
+		<property name="place" type="java.lang.String">
+			<column name="place" length="50" />
+		</property>
+		<property name="period" type="java.lang.Integer">
+			<column name="period" />
+		</property>
+		<property name="startDate" type="java.sql.Date">
+			<column name="startDate" length="23" />
+		</property>
+		<property name="curAmount" type="java.lang.Float">
+			<column name="curAmount" />
+		</property>
+		<property name="maxBorrowNum" type="java.lang.Integer">
+			<column name="maxBorrowNum" />
+		</property>
+		<property name="more" type="java.lang.String">
+			<column name="more" length="200" />
+		</property>
+		<property name="more1" type="java.lang.String">
+			<column name="more1" length="200" />
+		</property>
+		<property name="price" type="java.lang.Float">
+			<column name="price"></column>
+		</property>
+		<property name="carePeriod" type="java.lang.Integer">
+			<column name="carePeriod"></column>
+		</property>
+		<property name="curworkAmount" type="java.lang.Integer">
+			<column name="curworkAmount"></column>
+		</property>
+		<property name="lastCareDate" type="java.util.Date">
+			<column name="lastCareDate" length="23"></column>
+		</property>
+		<property name="serverCardId" type="java.lang.String">
+			<column name="serverCardId" length="5000" />
+		</property>
+		<property name="carModel" type="java.lang.String">
+			<column name="carModel" length="200" />
+		</property>
+		<property name="duizhang" type="java.lang.String">
+			<column name="duizhang" length="200" />
+		</property>
+		<property name="minStore" type="java.lang.Float">
+			<column name="minStore"></column>
+		</property>
+		<property name="appDept" type="java.lang.String">
+			<column name="appDept" length="200" />
+		</property>
+		<property name="totMoney" type="java.lang.Float">
+			<column name="totMoney"></column>
+		</property>
+		<property name="id1" type="java.lang.String">
+			<column name="id1"></column>
+		</property>
+		<property name="classify" column="classify" />
+		<!-- Relation configuration -->
+		<!-- 入库 one-to-many -->
+		<set name="storages" table="storage" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Storage" />
+		</set>
+		<!-- 报废 one-to-many -->
+		<set name="scraps" table="scrap" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Scrap" />
+		</set>
+		<!-- 维修 one-to-many -->
+		<set name="maintains" table="repair" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Maintain" />
+		</set>
+		<!-- 借 one-to-many -->
+		<set name="borrows" table="ta_Borrow" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Borrow" />
+		</set>
+		<!-- 还 one-to-many -->
+		<set name="alsos" table="ta_Also" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Also" />
+		</set>
+		<!-- 以旧换新 one-to-many -->
+		<set name="renews" table="exchange" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Renew" />
+		</set>
+		<!-- 出库 one-to-many -->
+		<set name="outlibs" table="outLib" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.OutLib" />
+		</set>
+		<!-- 领 -->
+		<set name="consumings" table="ta_Consuming" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_store_id" />
+			<one-to-many class="com.task.entity.Consuming" />
+		</set>
+	</class>
+</hibernate-mapping>

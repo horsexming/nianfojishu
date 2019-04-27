@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.zhuseroffer.Sample" table="ta_Simple" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="status" />
+		<property name="yangPin" />
+		<property name="pic" />
+		<property name="checkNote" />
+		<property name="caiZhi"/>
+		<property name="huanBao" />
+		<property name="caiLiao" />
+		<property name="yanWu" />
+		<property name="moJuRenZhen" />
+		<property name="gongYi"/>
+		<property name="epId"></property>
+		<!-- 样品对报价表 多对一 -->
+		<many-to-one name="zhuserOffer" class="com.task.entity.zhuseroffer.ZhuserOffer" column="ta_zhuserOfferId"></many-to-one>
+	</class>
+</hibernate-mapping>

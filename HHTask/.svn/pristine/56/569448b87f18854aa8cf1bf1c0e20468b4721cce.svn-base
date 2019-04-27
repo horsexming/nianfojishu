@@ -1,0 +1,41 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 项目启动书_会签纪要(第四步)
+ * @author 马凯
+ *
+ */
+public class ProjectStartCountersigned implements Serializable {
+	private Integer id;
+	private String minutes;//会签纪要上传路径
+
+	private ProjectStart root;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMinutes() {
+		return minutes;
+	}
+
+	public void setMinutes(String minutes) {
+		this.minutes = minutes;
+	}
+
+	public ProjectStart getRoot() {
+		return root;
+	}
+
+	public void setRoot(ProjectStart root) {
+		this.root = root;
+	}
+
+
+}

@@ -1,0 +1,211 @@
+/**
+ * 
+ */
+package com.task.entity.lpanclear;
+
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+/**
+ * 公共方法类
+ */
+public class LpanUtils {
+
+    
+	/**
+	 * 获取当前时间格式为yyyy-MM-dd的方法
+	 */
+	public String getNowDate(){		
+		String temp_str="";
+		Date dt = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		temp_str = sdf.format(dt);
+		return temp_str;
+	}
+	
+	/**
+	 * 获取当前时间格式为yyyy-MM-dd HH:mm:ss的方法
+	 */
+	public String getNowDateHms(){		
+		String temp_str="";
+		Date dt = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		temp_str = sdf.format(dt);
+		return temp_str;
+	}
+	
+	/**
+	 * 获取Date类型的当前时间
+	 */
+	public static Date getDateNowDate() {
+	    Date currentTime = new Date();
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String dateString = formatter.format(currentTime);
+	    ParsePosition pos = new ParsePosition(8);
+	    Date currentTime_2 = formatter.parse(dateString, pos);
+	    return currentTime_2;
+	  }
+	
+	/** 
+	* 获得指定日期的后一天 
+	* @param specifiedDay 
+	* @return 
+	*/ 
+	public String getSpecifiedDayAfter(String specifiedDay){ 
+		Calendar c = Calendar.getInstance(); 
+		Date date=null; 
+		
+		try {
+			date = new SimpleDateFormat("yy-MM-dd").parse(specifiedDay);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		c.setTime(date); 
+		int day=c.get(Calendar.DATE); 
+		c.set(Calendar.DATE,day+1); 
+	
+		String dayAfter=new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
+		return dayAfter; 
+	} 
+	/** 
+	* 获得指定日期的前一天 
+	* @param specifiedDay 
+	* @return 
+	* @throws Exception 
+	*/ 
+	public String getSpecifiedDayBefore(String specifiedDay){  
+		Calendar c = Calendar.getInstance(); 
+		Date date=null; 
+	
+		try {
+			date = new SimpleDateFormat("yy-MM-dd").parse(specifiedDay);
+		} catch (ParseException e) {
+		
+			e.printStackTrace();
+		} 
+		c.setTime(date); 
+		int day=c.get(Calendar.DATE); 
+		c.set(Calendar.DATE,day-1); 
+	
+		String dayBefore=new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()); 
+		return dayBefore;
+	}
+	
+	/**
+	 * 计算下周的开始的第一天日期,以周日为第一天(未校准),需要手动在上面方面中操作
+	 * @param flag
+	 * @return
+	 */
+	public Date getWeek(Integer flag){
+		Calendar gc = new GregorianCalendar();
+		gc.add(3, flag);
+		Date week = null;
+		if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+			gc.add(5, 1);
+			week = gc.getTime();
+		} else if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+			gc.add(5, 2);
+			week = gc.getTime();
+		} else if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
+			gc.add(5, 3);
+			week = gc.getTime();
+		} else if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
+			gc.add(5, -3);
+			week = gc.getTime();
+		} else if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
+			gc.add(5, -2);
+			week = gc.getTime();
+		} else if (gc.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+			gc.add(5, -1);
+			week = gc.getTime();
+		} else {
+			week = gc.getTime();
+		}
+		return week;
+	}
+	
+	
+	
+	
+	public static Date getNowWeekBegin() {
+		int mondayPlus;
+		Calendar cd = Calendar.getInstance();
+		// 获得今天是一周的第几天，星期日是第一天，星期二是第二天......
+		int dayOfWeek = cd.get(Calendar.DAY_OF_WEEK) - 1; // 因为按中国礼拜一作为第一天所以这里减1
+		if (dayOfWeek == 1) {
+		mondayPlus = 0;
+		} else {
+		mondayPlus = 1 - dayOfWeek;
+		}
+		GregorianCalendar currentDate = new GregorianCalendar();
+		currentDate.add(GregorianCalendar.DATE, mondayPlus);
+		Date monday = currentDate.getTime();
+		//DateFormat df = DateFormat.getDateInstance();
+		//String preMonday = df.format(monday);
+		return monday;
+
+
+		}
+	
+	
+	/**
+	 * 返回某个日期的后一天的日期
+	 */
+    public Date getNextDay(Date date) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 1);
+        return cal.getTime();
+    }
+    
+  /**
+   * 返回某个日期的第三天的日期
+   */
+    public Date getNextSanDay(Date date) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 3);
+        return cal.getTime();
+    }
+    
+    /**
+     * 返回某个日期的前一天的日期
+     */
+    public Date getFrontDay(Date date) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.set(Calendar.DATE, cal.get(Calendar.DATE) - 1);
+        return cal.getTime();
+    }
+    
+    /**
+     * 返回某个日期的前三天的日期
+     */
+    public Date getFrontSanDay(Date date) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.set(Calendar.DATE, cal.get(Calendar.DATE) - 3);
+        return cal.getTime();
+    }
+	
+	/**
+	 * 返回今天是周几,时间可自定义
+	 */
+	public String getWeekOfDate(Date date) {
+		String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		if (w < 0)
+			w = 0;
+		return weekDays[w];
+	}
+	
+	
+}

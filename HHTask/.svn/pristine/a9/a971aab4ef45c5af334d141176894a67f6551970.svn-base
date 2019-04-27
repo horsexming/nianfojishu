@@ -1,0 +1,397 @@
+package com.task.action.renshi;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.lpanclear.ClearInfoServer;
+import com.task.Server.renshi.InDoorScreenServer;
+import com.task.ServerImpl.AlertMessagesServerImpl;
+import com.task.ServerImpl.sys.ShortLinkServerImpl;
+import com.task.entity.Users;
+import com.task.entity.lpanclear.Cleanrecord;
+import com.task.entity.lpanclear.ClearInfo;
+import com.task.entity.lpanclear.Score;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.renshi.InDoorScreen;
+import com.task.entity.renshi.InDoorScreenUsers;
+import com.task.entity.renshi.Meeting;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+public class InDoorScreenAction {
+
+	private Integer id;
+	private InDoorScreen screen;
+	private List<InDoorScreen> screenList;
+	
+	private String pageStatus;
+	private String cpage="1";
+	private Integer pageSize = 15;
+	private String url;
+	private String total;
+	private String tag;
+	private String errorMessage;
+	private Integer usersId;
+	private InDoorScreenServer inDoorScreenServer;
+	private ClearInfoServer clearInfoServer;
+
+	private List<InDoorScreenUsers> screenUserList;
+	
+	private List<Visitor> visitorList;
+	private List<Users> usersList;
+	private List<Users> usersList2;
+	private List<Users> usersList3;
+
+	
+	private List<ResAccess> resList;
+
+	private List<Score> scoreList;
+
+
+	private List<Meeting> meetingList;
+	private String dateTime;
+	private String nextDateTime;
+	private String dutyRandomToScreenIndex;
+	private String dutyRandomByScreen;
+	
+	public String toAddScreen() {
+		
+		if(id!=null ) {
+			screen = inDoorScreenServer.getScreenById(id, pageStatus);
+		}
+		return "inDoorScreen_add";
+	}
+	
+	public String addScreen() {
+		errorMessage = inDoorScreenServer.addInDoorScreen(screen, pageStatus);
+		setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+		return "error";
+	}
+	
+	public String updateScreen() {
+		errorMessage = inDoorScreenServer.addInDoorScreen(screen, pageStatus);
+		setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+		return "error";
+	}
+	
+	public String findScreenByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(screen!=null) {
+			session.put("findScreenByCon", screen);
+		}else {
+			screen = (InDoorScreen) session.get("findScreenByCon");
+		}
+		
+		Map<String, Object> map = inDoorScreenServer.findInDoorScreenByCon(screen, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null && map.size()>0) {
+			screenList = (List<InDoorScreen>) map.get("list");
+			if(screenList!=null && screenList.size()>0) {
+				Integer count  = (Integer) map.get("count");
+				setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+				Integer pageCount=(count + pageSize - 1) / pageSize;
+				setTotal(pageCount+"");
+			}
+		}
+		
+		return "inDoorScreen_list";
+	}
+	
+	/**
+	 * 更新屏幕信息
+	 * @return
+	 */
+	public String toScreenUpdate() {
+		
+		return "inDoorScreen_bindUsers";
+	}
+	
+	/**
+	 * 绑定屏幕人员
+	 * @return
+	 */
+	public void bindScreenUsers() {
+		
+		errorMessage = inDoorScreenServer.bindScreenUsers(id, usersId);
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	public void cancelScreenUsers() {
+		errorMessage = inDoorScreenServer.cancelScreenUsers(id, usersId);
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	public String toBindUsers() {
+		screenUserList = inDoorScreenServer.getScreenUsersById(id);
+		
+		return "inDoorScreen_bindUsers";
+	}
+	
+	//查看屏幕
+	@SuppressWarnings("unchecked")
+	public String toScreenIndex() {
+		Map<String, Object> map = inDoorScreenServer.findScreenInfoByScreenId(id);
+		if(map!=null ) {
+			usersList =(List<Users>) map.get("users");			
+			visitorList = (List<Visitor>) map.get("visitor");
+			resList = (List<ResAccess>) map.get("res");
+
+			//获取前一次打扫人员和名称及头像
+			usersList2  = (List<Users>) map.get("usersList2");
+			//获取今日打扫人员和名称及头像
+			usersList3 =(List<Users>)map.get("usersList3");
+			meetingList = (List<Meeting>) map.get("meeting");
+
+		}
+		Calendar instance = Calendar.getInstance();
+		instance.add(Calendar.DATE, 1);//增加天数
+		dateTime = new SimpleDateFormat("MM-dd 日").format(instance.getTime());
+		
+		//生成值日二维码的随机数
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		dutyRandomToScreenIndex = (String) session.getAttribute("dutyRandomToScreenIndex");
+		dutyRandomByScreen = (String) session.getAttribute("dutyRandomByScreen");
+//		session.removeAttribute("dutyRandomToScreenIndex");
+//		dutyRandomToScreenIndex = (String) session.getAttribute("dutyRandomToScreenIndex");
+		if(dutyRandomToScreenIndex==null || dutyRandomToScreenIndex.equals("")) {
+			dutyRandomByScreen = ((int)((Math.random()*9+1)*100000000))+"";
+			session.setMaxInactiveInterval(60*60*2);//2个小时
+			//dutyRandomToScreenIndex = AlertMessagesServerImpl.pebsUrl+"ClearInfoAction_userOperation.action?titleId=1&homeTitle.randomNum="+dutyRandomByScreen;
+			dutyRandomToScreenIndex = AlertMessagesServerImpl.pebsUrl+"ClearInfoAction_userOperation.action";
+			String shortUrl = ShortLinkServerImpl.addStaticShortLink(dutyRandomToScreenIndex, null);
+			session.setAttribute("dutyRandomToScreenIndex", shortUrl);
+			session.setAttribute("dutyRandomByScreen", dutyRandomByScreen);
+		}
+		String operation = clearInfoServer.userOperation();
+		if(operation.equals("系统评分")){
+			boolean xtpfjg = clearInfoServer.insCleanAndScore();
+			System.out.println("系统领取和评分返回结果xtpfjg"+xtpfjg);
+		}
+		scoreList = clearInfoServer.selectDateRecord();
+		String inDoorScreenPage = inDoorScreenServer.getInDoorScreenPage();
+		return inDoorScreenPage;
+//		return "inDoorScreen_index_person";
+////		nextDateTime = Util.getSpecifiedDayAfter(dateTime, 1);
+//		return "inDoorScreen_index";
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public InDoorScreen getScreen() {
+		return screen;
+	}
+
+
+
+
+	public void setScreen(InDoorScreen screen) {
+		this.screen = screen;
+	}
+
+
+
+
+	public List<InDoorScreen> getScreenList() {
+		return screenList;
+	}
+
+
+
+
+	public void setScreenList(List<InDoorScreen> screenList) {
+		this.screenList = screenList;
+	}
+
+
+
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public InDoorScreenServer getInDoorScreenServer() {
+		return inDoorScreenServer;
+	}
+
+	public void setInDoorScreenServer(InDoorScreenServer inDoorScreenServer) {
+		this.inDoorScreenServer = inDoorScreenServer;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public Integer getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(Integer usersId) {
+		this.usersId = usersId;
+	}
+
+	public List<InDoorScreenUsers> getScreenUserList() {
+		return screenUserList;
+	}
+
+	public void setScreenUserList(List<InDoorScreenUsers> screenUserList) {
+		this.screenUserList = screenUserList;
+	}
+
+	public List<Visitor> getVisitorList() {
+		return visitorList;
+	}
+
+	public void setVisitorList(List<Visitor> visitorList) {
+		this.visitorList = visitorList;
+	}
+
+	public List<Users> getUsersList() {
+		return usersList;
+	}
+
+	public void setUsersList(List<Users> usersList) {
+		this.usersList = usersList;
+	}
+
+	public List<ResAccess> getResList() {
+		return resList;
+	}
+
+	public void setResList(List<ResAccess> resList) {
+		this.resList = resList;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public String getNextDateTime() {
+		return nextDateTime;
+	}
+
+	public void setNextDateTime(String nextDateTime) {
+		this.nextDateTime = nextDateTime;
+	}
+
+	public String getDutyRandomToScreenIndex() {
+		return dutyRandomToScreenIndex;
+	}
+
+	public void setDutyRandomToScreenIndex(String dutyRandomToScreenIndex) {
+		this.dutyRandomToScreenIndex = dutyRandomToScreenIndex;
+	}
+
+	public String getDutyRandomByScreen() {
+		return dutyRandomByScreen;
+	}
+
+	public void setDutyRandomByScreen(String dutyRandomByScreen) {
+		this.dutyRandomByScreen = dutyRandomByScreen;
+	}
+
+	public ClearInfoServer getClearInfoServer() {
+		return clearInfoServer;
+	}
+
+	public void setClearInfoServer(ClearInfoServer clearInfoServer) {
+		this.clearInfoServer = clearInfoServer;
+	}
+
+	public List<Score> getScoreList() {
+		return scoreList;
+	}
+	public void setScoreList(List<Score> scoreList) {
+		this.scoreList = scoreList;
+	}
+	public List<Users> getUsersList2() {
+		return usersList2;
+	}
+	public void setUsersList2(List<Users> usersList2) {
+		this.usersList2 = usersList2;
+	}
+	public List<Users> getUsersList3() {
+		return usersList3;
+	}
+	public void setUsersList3(List<Users> usersList3) {
+		this.usersList3 = usersList3;
+	}
+
+	public List<Meeting> getMeetingList() {
+		return meetingList;
+	}
+
+	public void setMeetingList(List<Meeting> meetingList) {
+		this.meetingList = meetingList;
+	}
+
+}

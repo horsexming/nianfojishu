@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.caiwu.baobiao.laozi">
+	<class name="PersonneQk" table="ta_baobiao_laozi_PersonneQk" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="lastmontNum"/>
+		<property name="monthadd"/>
+		<property name="montdec"/>
+		<property name="monthNum"/>
+		<property name="dygz"/>
+		<property name="avgLastYearNum"/>
+		<property name="avgYearNum"/>
+		<property name="gzzr"/>
+		<many-to-one name="personnelType" class="PersonnelType" column="fkId"/>
+	</class>
+</hibernate-mapping>

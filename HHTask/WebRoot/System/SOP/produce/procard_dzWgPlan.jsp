@@ -1,0 +1,183 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+	<title></title>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<h2>采购明细快速对账</h2>
+				<form action="WaigouwaiweiPlanAction!WaigouPlanduiZhang.action
+				" method="POST"  >
+					<table class="table">
+						<tr>
+							<th align="right">
+								订单类型:
+							</th>
+							<td>
+								<select name="type" >
+									<option value="${type}">${type}</option>
+									<option value="外购">外购</option>
+									<option value="外委">外委</option>
+									<option value="辅料">辅料</option>
+								</select>
+							</td>
+							<th align="right">
+								对账方式:
+							</th>
+							<td>
+								<input type="radio" value="months" name="dzfs" checked="checked" onclick="changDzfs(this)">月
+								<input type="radio" value="years" name="dzfs" onclick="changDzfs(this)" >年
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								从:
+							</th>
+							<td>
+								<input type="text" value="" name="months0"  id="months0"
+								onClick="WdatePicker({dateFmt:'yyyy-MM',skin:'whyGreen'})" class ="Wdate" >
+								<input type="text" value="" name="years0"  id="years0" 
+								style="display: none;"
+								onClick="WdatePicker({dateFmt:'yyyy',skin:'whyGreen'})" class ="Wdate" >
+							</td>
+							<th align="right">
+								止:
+							</th>
+							<td>
+								<input type="text" value="" name="months1"  id="months1"
+								onClick="WdatePicker({dateFmt:'yyyy-MM',skin:'whyGreen'})" class ="Wdate" >
+								<input type="text" value="" name="years1"  id="years1"
+								style="display: none;"
+								onClick="WdatePicker({dateFmt:'yyyy',skin:'whyGreen'})" class ="Wdate" >
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								件号:
+							</th>
+							<td>
+								<input type="text"  value="${waigouPlan.markId}" name="waigouPlan.markId"/>
+							</td>
+						</tr>
+					</table>
+					<input type="submit" value="查询" class="input">
+				</form>
+				<table class="table">
+					<tr align="center" bgcolor="#c0dcf2" height="50px">
+						<th>
+							序号
+						</th>
+						<th>
+							订单类型
+						</th>
+						<th>
+							年份
+						</th>
+						<th>
+							月份
+						</th>
+						<th>
+							总条数
+						</th>
+						<th>
+							总数量
+						</th>
+						<th>
+							总金额（单价*数量）
+						</th>
+					</tr>
+					<s:iterator value="list" id="dzwgPlan" status="statussdf" >
+						<s:if test="#statussdf.index%2==1">
+									<tr align="center" bgcolor="#e6f3fb"
+										onmouseover="chageBgcolor(this)"
+										onmouseout="outBgcolor(this,'#e6f3fb')">
+								</s:if>
+								<s:else>
+									<tr align="center" onmouseover="chageBgcolor(this)"
+										onmouseout="outBgcolor(this,'')">
+								</s:else>
+							<td>
+									<s:property value="#statussdf.index+1" />
+							</td>	
+							<td align="left">
+								${dzwgPlan.type}
+							</td>
+							<td align="left">
+								${dzwgPlan.yeras}
+							</td>
+							<td align="left">
+								${dzwgPlan.months}
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${dzwgPlan.count}" pattern="###,###,###"></fmt:formatNumber>
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${dzwgPlan.number}" pattern="###,###,###.00"></fmt:formatNumber>
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${dzwgPlan.money0}" pattern="###,###,###.00"></fmt:formatNumber>
+							</td>
+						</tr>
+					</s:iterator>
+				</table>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+<SCRIPT type="text/javascript">
+function changDzfs(obj){
+	if(obj.checked){
+		if(obj.value=="months"){
+			$("#years0").hide();
+			$("#years1").hide();
+			$("#years0").val('');
+			$("#years1").val('');
+			
+			$("#months0").show();
+			$("#months1").show();
+		}else if(obj.value=="years"){
+			$("#months0").hide();
+			$("#months1").hide();
+			$("#months0").val('');
+			$("#months1").val('');
+			
+			$("#years0").show();
+			$("#years1").show();
+		}
+	}else{
+		if(obj.value=="months"){
+			$("#months0").hide();
+			$("#months1").hide();
+			$("#months0").val('');
+			$("#months1").val('');
+			
+			$("#years0").show();
+			$("#years1").show();
+		}else if(obj.value=="years"){
+			$("#years0").hide();
+			$("#years1").hide();
+			$("#years0").val('');
+			$("#years1").val('');
+			
+			$("#months0").show();
+			$("#months1").show();
+		}
+		
+	}
+}
+
+</SCRIPT>
+	</body>
+</html>

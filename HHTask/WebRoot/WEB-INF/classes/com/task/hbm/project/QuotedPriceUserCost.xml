@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPriceUserCost" table="ta_pro_QuotedPriceUserCost">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="costType" />
+	<property name="timeMoney" />
+	<property name="tzMoney" />
+	<property name="tzFenshu" />
+	<property name="klMoney" />
+	<property name="proStatus" />
+	<property name="qpId" />
+	<property name="investorId" />
+	<property name="markId" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="dept" />
+	<property name="remark" />
+	<property name="applyStatus" />
+	<property name="tzStatus" />
+	<property name="epId" />
+	<property name="addTime" />
+	</class>
+</hibernate-mapping>

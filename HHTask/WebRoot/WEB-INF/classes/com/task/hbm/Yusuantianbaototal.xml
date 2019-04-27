@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Yusuantianbaototal" table="ta_Yusuantianbaototal">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="xiangmumingda"  />	
+		<property name="niandu"  />
+		<property name="bumen"  />
+		<property name="name"  />
+		<property name="code"  />
+		<property name="addtime"  />
+		<property name="shenpi"  />
+		<property name="epid"  />
+		<property name="zongshu"  />
+		<property name="shengyu"  />
+		<set name="yusuantianbaobiao" inverse="true" cascade="all" lazy="true">
+			<key column="ta_yusuantianbaototal"></key>
+			<one-to-many class="Yusuantianbaobiao" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,200 @@
+package com.task.Server.sys;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.AnnualLeave;
+import com.task.entity.payment.PaymentVoucher;
+import com.task.entity.system.CircuitRun;
+import com.task.entity.system.ExecutionNode;
+import com.task.entity.system.OptionRun;
+
+/***
+ * 流程执行
+ * 
+ * @author 刘培
+ * 
+ */
+public interface CircuitRunServer {
+
+	/***
+	 * 查询epId对应的所有已审批的节点
+	 * 
+	 * @param epId
+	 *            流程Id
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	List findAllExNodeByEpId(Integer epId);
+
+	/***
+	 * 通过id查询执行流程
+	 * 
+	 * @param id
+	 * @return
+	 */
+	CircuitRun findCircuitRunById(Integer id);
+
+	/****
+	 * 通过执行流程Id查询当前登录用户是否应审核
+	 * 
+	 * @param id
+	 *            执行流程Id
+	 * @return
+	 */
+	ExecutionNode findAuditExeNode(Integer id);
+
+	/****
+	 * 通过执行流程Id查询当前登录用户所有可以审核的数据id集合
+	 * 
+	 * @param id
+	 *            Integer[] 执行流程Id数组
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	List findAuditExeNode(Integer[] id);
+
+	/***
+	 * 审批统一处理
+	 * 
+	 * @param id
+	 *            节点id
+	 * @param auditStatus
+	 *            审批操作(同意/打回)
+	 * @param auditOpinion
+	 *            审批意见
+	 * @param nextMessage
+	 *            是否发提醒消息
+	 * @param more
+	 *            消息内容
+	 * @param isMessage
+	 *            是否发短息提醒
+	 * @return
+	 */
+	String updateAllExeNode(ExecutionNode executionNode, CircuitRun circuitRun,
+			boolean nextMessage, String more, boolean isMessage);
+
+	/****
+	 * 审批操作(下级无消息提醒)
+	 * 
+	 * @param id
+	 *            节点id
+	 * @param auditStatus
+	 *            审批操作(true/false)
+	 * @param auditOpinion
+	 *            审批意见
+	 * @return
+	 */
+	String updateExecutionNode(Integer id, boolean auditStatus,
+			String auditOpinion);
+
+	/****
+	 * 
+	 * @param id
+	 *            节点id
+	 * @param auditStatus
+	 *            审批操作(true/false)
+	 * @param auditOpinion
+	 *            审批意见
+	 * @param nextMessage
+	 *            下级审批人员是否发送消息
+	 * @param isMessage
+	 *            是否发送短息
+	 * @return
+	 */
+	String updateExecutionNode(Integer id, boolean auditStatus,
+			String auditOpinion, boolean nextMessage, boolean isMessage,
+			String auditOption);
+
+	/****
+	 * 审批操作
+	 * 
+	 * @param id
+	 *            执行流程id
+	 * @param auditStatus
+	 *            审批操作(true/false)
+	 * @param auditOpinion
+	 *            审批意见
+	 * @param nextMessage
+	 *            下个审批人是否发送提醒消息
+	 * @return
+	 */
+	String updateExeNodeByCirId(Integer id, boolean auditStatus,
+			String auditOpinion, boolean nextMessage, String more,
+			boolean isMessage);
+
+	/***
+	 * 查询谋层审批人Id
+	 * 
+	 * @param epId
+	 *            流程Id
+	 * @param auditLevel
+	 *            审批等级
+	 * @return
+	 */
+	Integer[] findAuditUserIds(Integer epId, Integer auditLevel);
+
+	/***
+	 * 通过流程id,获得对应实体对象
+	 * 
+	 * @param circuitRunId
+	 *            流程id
+	 * @return
+	 */
+	String findEntityByCcId(Integer circuitRunId);
+
+	// 查看借款审批
+	PaymentVoucher findPaymentVoucher(int id);
+
+	/***
+	 * 通过消息提醒id，获得审批
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Integer findCirRunByMesId(Integer id);
+
+	// 分页查询审批
+	Object[] findCircuitRun(CircuitRun circuitRun, int parseInt, int pageSize);
+
+	// //修改审批
+	// boolean updateCircuitRun(CircuitRun circuitRun);
+	// //根据id查找审批
+	// CircuitRun salCircuitRunByid(CircuitRun circuitRun);
+
+	List<OptionRun> findListOptionRun(Integer id);
+
+	/**
+	 * 我的工作台(审批记录)
+	 * 
+	 * @return
+	 */
+	Object[] showWorksCircuitRun(CircuitRun circuitRun, int parseInt,
+			int pageSize, String pageStatus);
+
+	/**
+	 * 我的工作台
+	 * 
+	 * @return
+	 */
+	List showWorks(String pageStatus);
+
+	void CircuitRunRemind();
+
+	/***
+	 * 人员审批时间分析
+	 * 
+	 * @param userId
+	 *            人员id
+	 * @param processName
+	 *            流程名称
+	 * @param startTime
+	 *            开始时间
+	 * @param endTime
+	 *            结束时间
+	 * @return
+	 */
+	Map<String, Object> findAuditTime(Integer userId, String processName,
+			String startTime, String endTime);
+
+}

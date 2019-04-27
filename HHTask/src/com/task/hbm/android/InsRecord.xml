@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.InsRecord" table="ta_m_InsRecord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="czg" length="50"/>
+		<property name="jcpc" length="50"/>
+		<property name="quantity" length="50"/>
+		<property name="username" length="50"/>
+		<property name="verification" length="10"/>
+		
+		<property name="nextDate" length="50" />
+		<property name="nowDate" length="50" />
+		<property name="groupDate" length="50" />
+		
+		<set name="recordScope"  inverse="false" cascade="all" lazy="false">
+			<key column="f_insRecordScope_id"></key>
+			<one-to-many class="com.task.entity.android.InsRecordScope"/>
+		</set>
+		<many-to-one name="root" column="rootId" />
+	</class>
+</hibernate-mapping>

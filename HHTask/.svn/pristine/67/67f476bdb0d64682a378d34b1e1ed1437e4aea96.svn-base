@@ -1,0 +1,11 @@
+package com.task.entity.peb;
+
+/**
+ * 生产效率简报（人事借入、借出表）
+ * ta_pebProductSuccess
+ * @author xs-cy
+ *
+ */
+public class PebProductSuccess {
+
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectQuotationList" table="ta_ProjectQuotationList">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="vendor" length="50"/>
+		<property name="partNum" length="50"/>
+		<property name="description" length="50"/>
+		<property name="project" length="50"/>
+		<property name="annualForecast" length="50"/>
+		<property name="buyer" length="50"/>
+		<property name="logisticsDistance" type="double"/>
+		<property name="location" length="50"/>
+		<property name="quotationDate" length="50"/>
+
+		<property name="closed" type="true_false"/>
+
+		<property name="rawMaterial" type="double"  />
+		<property name="subContract" type="double"  />
+		<property name="purchasingCost" type="double"  />
+		<property name="toolingCost" type="double"  />
+		<property name="directLaborCost" type="double"  />
+		<property name="indirectLaborCost" type="double"  />
+		<property name="energyCost" type="double"  />
+		<property name="equipmentDepreciation" type="double"  />
+		<property name="maintenanceCost" type="double"  />
+		<property name="subTotal" type="double"  />
+		<property name="transportation" type="double"  />
+		<property name="pack" type="double"  />
+		<property name="logistics" type="double"  />
+		<property name="freePrice" type="double"  />
+		<property name="finicialInterest" type="double"  />
+		<property name="oi" type="double"  />
+		<property name="totalPrice" type="double"  />
+		<many-to-one name="root" column="f_project_id" lazy="false" cascade="all" /> 
+		<set name="quotations" lazy="false">
+			<key column="f_quotationList_id"></key>
+			<one-to-many class="com.task.entity.ProjectQuotation"/>
+		</set>
+		
+		<many-to-one name="myroot" column="pid" lazy="false" ></many-to-one>
+	</class>
+
+</hibernate-mapping>

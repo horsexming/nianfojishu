@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.score.GongyiGuichengScore" table="ta_sop_GongyiGuicheng_Score">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="model" type="string" column="model"/>
+		<!--  -->
+		<property name="xingbieScoreGygc" type="integer" column="xingbie_Score_Gygc"/>
+		<property name="xingbieScoreGygcRemark" type="string" length="500" column="xingbie_Score_Gygc_Remark"/>
+		
+		<property name="jianNumbScoreGygc" type="integer" column="jian_Numb_Score_Gygc"/>
+		<property name="jianNumbScoreGygcRemark" type="string" length="500" column="jian_Numb_Score_Gygc_Remark"/>
+		
+		<property name="jianNameScoreGygc" type="integer" column="jian_Name_Score_Gygc"/>
+		<property name="jianNameScoreGygcRemark" type="string" length="500" column="jian_Name_Score_Gygc_Remark"/>
+		
+		<property name="pageTotalScoreGygc" type="integer" column="page_Total_Score_Gygc"/>
+		<property name="pageTotalScoreGygcRemark" type="string" length="500" column="page_Total_Score_Gygc_Remark"/>
+		
+		<property name="numbScoreGygc" type="integer" column="numb_Score_Gygc"/>
+		<property name="numbScoreGygcRemark" type="string" length="500" column="numb_Score_Gygc_Remark"/>
+		
+		<property name="banciScoreGygc" type="integer" column="banci_Score_Gygc"/>
+		<property name="banciScoreGygcRemark" type="string" length="500" column="banci_Score_Gygc_Remark"/>
+		
+		<property name="xingbieScoreGycxtb" type="integer" column="xingbie_Score_Gycxtb"/>
+		<property name="xingbieScoreGycxtbRemark" type="string"  length="500" column="xingbie_Score_Gycxtb_Remark"/>
+		
+		<property name="jianNumbScoreGycxtb" type="integer" column="jian_Numb_Score_Gycxtb"/>
+		<property name="jianNumbScoreGycxtbRemark" type="string" length="500" column="jian_Numb_Score_Gycxtb_Remark"/>
+		
+		<property name="jianNameScoreGycxtb" type="integer" column="jian_Name_Score_Gycxtb"/>
+		<property name="jianNameScoreGycxtbRemark" type="string" length="500" column="jian_Name_Score_Gycxtb_Remark"/>
+		
+		<property name="pageTotalScoreGycxtb" type="integer" column="page_Total_Score_Gycxtb"/>
+		<property name="pageTotalScoreGycxtbRemark" type="string" length="500" column="page_Total_Score_Gycxtb_Remark"/>
+		
+		<property name="contentScoreGxtblmfqmx" type="integer" column="content_Score_Gxtblmfqmx"/>
+		<property name="contentScoreGxtblmfqmxRemark" type="string" length="500" column="content_Score_Gxtblmfqmx_Remark"/>
+		
+		<property name="shebeiScoreGxsmlq" type="integer" column="shebei_Score_Gxsmlq"/>
+		<property name="shebeiScoreGxsmlqRemark" type="string" length="500" column="shebei_Score_Gxsmlq_Remark"/>
+		
+		<property name="gongxuNameScoreGxsmlq" type="integer" column="gongxu_Name_Score_Gxsmlq"/>
+		<property name="gongxuNameScoreGxsmlqRemark" type="string" length="500" column="gongxu_Name_Score_Gxsmlq_Remark"/>
+		
+		<property name="gongxuNumbScoreGxsmlq" type="integer" column="gongxu_Numb_Score_Gxsmlq"/>
+		<property name="gongxuNumbScoreGxsmlqRemark" type="string" length="500" column="gongxu_Numb_Score_Gxsmlq_Remark"/>
+		
+		<property name="toolsScoreGxsmlq" type="integer" column="tools_Score_Gxsmlq"/>
+		<property name="toolsScoreGxsmlqRemark" type="string" length="500" column="tools_Score_Gxsmlq_Remark"/>
+		
+		<property name="pageNumbScoreGxsmlq" type="integer" column="page_Numb_Score_Gxsmlq"/>
+		<property name="pageNumbScoreGxsmlqRemark" type="string" length="500" column="page_Numb_Score_Gxsmlq_Remark"/>
+		
+		<property name="chicunBiaozhuYilouScoreGxsmlq" type="integer" column="chicun_Biaozhu_Yilou_Score_Gxsmlq"/>
+		<property name="chicunBiaozhuYilouScoreGxsmlqRemark" type="string" length="500" column="chicun_Biaozhu_Yilou_Score_Gxsmlq_Remark"/>
+		
+		<property name="chicunBiaozhuWudaoScoreGxsmlq" type="integer" column="chicun_Biaozhu_Wudao_Score_Gxsmlq"/>
+		<property name="chicunBiaozhuWudaoScoreGxsmlqRemark" type="string" length="500" column="chicun_Biaozhu_Wudao_Score_Gxsmlq_Remark"/>
+		
+		<property name="chicunBiaozhuBiaozhunScoreGxsmlq" type="integer" column="chicun_Biaozhu_Biaozhun_ScoreGxsmlq"/>
+		<property name="chicunBiaozhuBiaozhunScoreGxsmlqRemark" type="string" length="500" column="chicun_Biaozhu_Biaozhun_ScoreGxsmlq_Remark"/>
+		
+		<property name="tuxingBiaozhunScoreGxsmlq" type="integer" column="tuxing_Biaozhun_Score_Gxsmlq"/>
+		<property name="tuxingBiaozhunScoreGxsmlqRemark" type="string" length="500" column="tuxing_Biaozhun_Score_Gxsmlq_Remark"/>
+		
+		<property name="zhucetuShiyiScoreGxsmlq" type="integer" column="zhucetu_Shiyi_Score_Gxsmlq"/>
+		<property name="zhucetuShiyiScoreGxsmlqRemark" type="string" length="500" column="zhucetu_Shiyi_Score_Gxsmlq_Remark"/>
+		
+		<property name="zhucetuBiaozhunScoreGxsmlq" type="integer" column="zhucetu_Biaozhun_Score_Gxsmlq"/>
+		<property name="zhucetuBiaozhunScoreGxsmlqRemark" type="string" length="500" column="zhucetu_Biaozhun_Score_Gxsmlq_Remark"/>
+		
+		<property name="xiangmuScoreGxsmlq" type="integer" column="xiangmu_Score_Gxsmlq"/>
+		<property name="xiangmuScoreGxsmlqRemark" type="string" length="500" column="xiangmu_Score_Gxsmlq_Remark"/>
+		
+		<property name="zuoyeGuifanScoreGxsmlq" type="integer" column="zuoye_Guifan_Score_Gxsmlq"/>
+		<property name="zuoyeGuifanScoreGxsmlqRemark" type="string" length="500" column="zuoye_Guifan_Score_Gxsmlq_Remark"/>
+		
+		<property name="jishuCanshuScoreGxsmlq" type="integer" column="jishu_Canshu_Score_Gxsmlq"/>
+		<property name="jishuCanshuScoreGxsmlqRemark" type="string" length="500" column="jishu_Canshu_Score_Gxsmlq_Remark"/>
+		
+		<property name="suoyinScoreGxsmlq" type="integer" column="suoyin_Score_Gxsmlq"/>
+		<property name="suoyinScoreGxsmlqRemark" type="string" length="500" column="suoyin_Score_Gxsmlq_Remark"/>
+		
+		<property name="danNumbScoreGxsmlq" type="integer" column="danNumb_Score_Gxsmlq"/>
+		<property name="danNumbScoreGxsmlqRemark" type="string" length="500" column="danNumb_Score_Gxsmlq_Remark"/>
+		
+		<property name="qianmingScoreGxsmlq" type="integer" column="qianming_Score_Gxsmlq"/>
+		<property name="qianmingScoreGxsmlqRemark" type="string" length="500" column="qianming_Score_Gxsmlq_Remark"/>
+		
+		<property name="xuhaoScoreJyxmlq" type="integer" column="xuhao_Score_Jyxmlq"/>
+		<property name="xuhaoScoreJyxmlqRemark" type="string" length="500" column="xuhao_Score_Jyxmlq_Remark"/>
+		
+		<property name="xiangmuScoreJyxmlq" type="integer" column="xiangmu_Score_Jyxmlq"/>
+		<property name="xiangmuScoreJyxmlqRemark" type="string" length="500" column="xiangmu_Score_Jyxmlq_Remark"/>
+		
+		<property name="qijuScoreJyxmlq" type="integer" column="qiju_Score_Jyxmlq"/>
+		<property name="qijuScoreJyxmlqRemark" type="string" length="500" column="qiju_Score_Jyxmlq_Remark"/>
+		
+		<property name="cedingPinlvScoreJyxmlq" type="integer" column="ceding_Pinlv_Score_Jyxmlq"/>
+		<property name="cedingPinlvScoreJyxmlqRemark" type="string" length="500" column="ceding_Pinlv_Score_Jyxmlq_Remark"/>
+		
+		<property name="fuzhuScoreJyxmlq" type="integer" column="fuzhu_Score_Jyxmlq"/>
+		<property name="fuzhuScoreJyxmlqRemark" type="string" length="500" column="fuzhu_Score_Jyxmlq_Remark"/>
+		
+		<property name="score" type="integer" column="score"/>
+		<property name="gongyiGuichengId" type="integer" column="gongyi_guicheng_id"/>
+		<property name="processDataId" type="integer" column="process_data_id"/>
+	</class>
+</hibernate-mapping>

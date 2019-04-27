@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.renshi.InDoorScreen" table="ta_hr_indoorScreen" >
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="position" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		
+		<set name="users" lazy="false" order-by="id" >
+			<key column="ta_inDoorScreenId"></key>
+			<one-to-many class="com.task.entity.renshi.InDoorScreenUsers"/>
+		</set>
+	</class>
+</hibernate-mapping>

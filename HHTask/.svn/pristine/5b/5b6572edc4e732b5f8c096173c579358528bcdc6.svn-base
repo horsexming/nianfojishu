@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+<class name="com.task.entity.Orderprocesstabler" table="ta_crm_orderprocesstabler">
+<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="ordertype" type="java.lang.String">
+		<column name="order_type"></column>
+		</property>
+		<property name="orderprocess" type="java.lang.String">
+		<column name="order_process"></column>
+		</property>
+</class>
+</hibernate-mapping>

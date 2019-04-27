@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+<class name="com.task.entity.Oabusiness" table="oa_business" >
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="oaproductnumber" type="java.lang.String">
+            <column name="oa_productnumber" />
+        </property>
+        <property name="oaproductName" type="java.lang.String">
+         <column name="oa_productName"></column>
+        </property>
+        
+        <property name="oaspecification" type="java.lang.String">
+        <column name="oa_specification"></column>
+        </property>
+          <property name="oaunit" type="java.lang.String">
+        <column name="oa_unit"></column>
+        </property>
+          <property name="oaquantity" type="java.lang.Float">
+        <column name="oa_quantity"></column>
+        </property>
+          <property name="oaunitprice" type="java.lang.Float">
+        <column name="oa_unitprice" precision="53" scale="0"></column>
+        </property>
+          <property name="oatotalMon" type="java.lang.Float">
+        <column name="oa_totalMon" precision="53" scale="0"></column>
+        </property>
+          <property name="oastatus" type="java.lang.String">
+        <column name="oa_status"></column>
+        </property>
+          <property name="oausername" type="java.lang.String">
+        <column name="oa_username"></column>
+        </property>
+          <property name="oafastatus" type="java.lang.String">
+        <column name="oa_fastatus"></column>
+        </property>
+        <property name="oauniNum" type="java.lang.String">
+         <column name="oa_uniNum"></column>
+        </property>
+           <property name="oadate" type="java.lang.String">
+         <column name="oa_date"></column>
+        </property>
+	<property name="oafactory" type="java.lang.String">
+         <column name="oa_factory"></column>
+        </property>
+	<property name="oainvoicenumber" type="java.lang.String">
+         <column name="oa_invoicenumber"></column>
+        </property>
+	<property name="oacontractNumber" type="java.lang.String">
+         <column name="oa_contractNumber"></column>
+        </property>
+           <property name="oaremarks" type="java.lang.String">
+         <column name="oa_remarks"></column>
+        </property>
+           <property name="oatemporarystatus" type="java.lang.String">
+         <column name="oa_temporarystatus"></column>
+        </property>
+        <property name="oafkpznumber" type="java.lang.String">
+        <column name="oa_fkpznumber"></column>
+        </property>
+        <property name="oahetongnumber" type="java.lang.String">
+        <column name="oa_hetongnumber"></column>
+        </property>
+        <!-- 与报账表表多对一的管关系 -->
+		<many-to-one name="oarbs" class="com.task.entity.Oareimbursement" lazy="false" cascade="save-update" column="oarbs_id" />
+        </class>
+</hibernate-mapping>

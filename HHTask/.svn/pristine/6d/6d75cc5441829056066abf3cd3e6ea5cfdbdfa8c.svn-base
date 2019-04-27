@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Machine" table="machine">
+		<id name="id" column="machine_id">
+			<generator class="identity"></generator>
+		</id>
+		<!--		<property name="fk_progzid" />-->
+		<property name="workArea" column="machine_workArea" length="255" />
+		<property name="barcode" column="machine_barcode" length="255" />
+		<property name="workPosition" column="machine_workPosition"
+			length="255" />
+		<property name="no" column="machine_no" length="255" />
+		<property name="type" column="machine_type" length="255" />
+		<property name="name" column="machine_name" length="50" />
+		<property name="classGroup" column="machine_classGroup"
+			length="255" />
+		<property name="status" column="machine_status" length="255" />
+		<property name="statusMore" column="machine_statusMore"
+			length="1000" />
+		<property name="more" column="machine_More" length="1000" />
+		<property name="addTime" length="1000" />
+		
+		<property name="depreciationYear" />
+		<property name="endtime" />
+		<property name="buytime" />
+		<property name="buyamount"></property>
+		<property name="equipmentworth"></property>
+		<property name="isGys"></property>
+		<property name="isKey"></property>
+		<property name="Manufacturer"></property>
+		<property name="isdj"></property>
+		<property name="jdlfirstdate"></property>
+		<property name="jiadonglv"></property>
+		<property name="machine_yzsj"></property>
+		<property name="isManual"></property>
+		<property name="islsxgw"></property>
+		<property name="useStatus"/>
+		<property name="stdev"/>
+		<property name="cp"/>
+		<property name="ca"/>
+		<property name="cpk"/>
+		<property name="unitType"/>
+		<property name="brand"/>
+		<property name="pic"/>
+		<property name="baoyangType"/>
+		<!-- 多方 对应pmi表 -->
+		<many-to-one name="pmiManagements" class="com.task.entity.pmi.PmiManagement"
+			cascade="all" column="pmi_id" lazy="false">
+		</many-to-one>
+
+		<!--设备对移动记录( 一对多)  -->
+		<set name="equChanges" inverse="true" lazy="true" cascade="save-update">
+			<key column="fk_machineId"></key>
+			<one-to-many class="com.task.entity.EquipmentChanges" />
+		</set>
+
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="machines" table="ta_many1" cascade="save-update"
+			inverse="false">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="machine_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.gzbj.ProcessGzstore"
+				column="process_id">
+			</many-to-many>
+		</set>
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="djnr" table="ta_ma_dj" cascade="save-update"
+			inverse="false">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="machine_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.DJNR"
+				column="dj_id">
+			</many-to-many>
+		</set>
+		<!-- 用户对应工位设备 -->
+		<set name="userset" table="ta_machine_user" cascade="save-update"
+			>
+			<key column="ta_machineId"></key>
+			<many-to-many class="com.task.entity.Users"
+				column="ta_userId">
+			</many-to-many>
+		</set>
+		
+		<!--关键备件( 一对多) -->
+		<set name="machineSpareParts" inverse="false" lazy="true" cascade="save-update">
+			<key column="fk_machineId"></key>
+			<one-to-many class="com.task.entity.MachineSparePart" />
+		</set>
+		<!--保养标准( 一对多) -->
+		<set name="bybzSet"  lazy="true" cascade="all">
+			<key column="fk_machineId"></key>
+			<one-to-many class="com.task.entity.bybz.BaoYangBiaoZhun" />
+		</set>
+	</class>
+
+</hibernate-mapping>

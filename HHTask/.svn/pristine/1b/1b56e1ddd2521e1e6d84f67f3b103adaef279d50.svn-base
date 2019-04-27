@@ -1,0 +1,63 @@
+package com.task.entity.gongyi.score;
+
+public class GongyiGuichengScoreItem {
+	private Integer id;
+	private String model;
+	private String biaoshi;
+	private Integer score;
+	private Integer gongyiGuichengId;
+	private Integer processDataId;
+	private String remark;
+	private String params;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public String getBiaoshi() {
+		return biaoshi;
+	}
+	public void setBiaoshi(String biaoshi) {
+		this.biaoshi = biaoshi;
+	}
+	public Integer getScore() {
+		return score;
+	}
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	public Integer getGongyiGuichengId() {
+		return gongyiGuichengId;
+	}
+	public void setGongyiGuichengId(Integer gongyiGuichengId) {
+		this.gongyiGuichengId = gongyiGuichengId;
+	}
+	public Integer getProcessDataId() {
+		return processDataId;
+	}
+	public void setProcessDataId(Integer processDataId) {
+		this.processDataId = processDataId;
+	}
+	public String getParams() {
+		if(params!=null){
+			return params.replace("\\t", "").replace("\\r","").replace("\\n","").replace("\\f","").replace("\\","");
+		}
+		return params;
+	}
+	public void setParams(String params) {
+		this.params = params;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+}

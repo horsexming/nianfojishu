@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="BankAccounts" table="ta_fin_Accounts">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="bankNC" />
+		<property name="bankZH" />
+		<property name="bankZE" />
+		<property name="allZC" />
+		<property name="allSR" />
+		<property name="addDateTime" />
+	</class>
+</hibernate-mapping>

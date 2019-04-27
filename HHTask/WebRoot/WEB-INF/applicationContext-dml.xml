@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+		
+		
+	<!-- Server层 -->
+		<bean id="HttpRestClientForYcServerImpl" class="com.task.ServerImpl.b2b.HttpRestClientForYcServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"></property>
+		</bean>
+	<!-- Action -->
+		<bean id="HttpRestClientForaction" class="com.task.action.yuce.HttpRestClientForaction" scope="prototype">
+			<property name="httpRestClientForYcServer" ref="HttpRestClientForYcServerImpl"></property>
+		</bean>
+	<!-- Server层 -->
+		<bean id="ConditioningServerimpl" class="com.task.ServerImpl.dmltry.ConditioningServerimpl">
+			<property name="totalDao" ref="totalDaoImpl"></property>
+		</bean>
+	<!-- Action -->
+		<bean id="ConditioningAction" class="com.task.action.dmltry.ConditioningAction" scope="prototype">
+		<property name="conditioningServer" ref="ConditioningServerimpl"></property>	
+	</bean>
+	
+
+	
+		
+		
+		
+</beans>

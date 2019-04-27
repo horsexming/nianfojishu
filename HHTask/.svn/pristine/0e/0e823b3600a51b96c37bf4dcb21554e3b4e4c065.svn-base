@@ -1,0 +1,113 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+		<title>评分分数统计图表</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+		<script type="text/javascript" src="System/lpanclear/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="System/lpanclear/canvas.js"></script>
+        <script type="text/javascript" src="System/lpanclear/jquery-1.8.3.js"></script>
+	</head>
+  
+  <body style="width:1300px;">
+      <div>
+          <p><input type="button" id="bz" value="显示本周分数记录"/>
+          <input type="button" id="by" value="显示本月分数记录"/>
+          <a href="javascript:history.go(-1);">返回上一页</a> </p> 
+      </div>
+      <div style="width:800px;margin-top:100px;">
+          <div id="chartContainer" ></div>   
+          
+	  </div>
+	  
+<script type="text/javascript">		
+    $.ajax({
+		url     : "ClearInfoAction_ajaxchart.action", //访问路径
+		type    : "post",                      //提交方式
+		data    : "",//传递到后台的参数
+		dataType: "json",                      //后台返回结果的类型
+		success : function(data){//成功时执行的代码  					                         								
+		        new CanvasJS.Chart('chartContainer',{
+			    theme:'light7',
+				animationEnabled: true, 	
+				title: {
+				     text: "值日分数总记录"
+				},
+				     data: [
+				     {
+				          type: "column",
+				          dataPoints:data
+				      }
+				     ]
+				}).render();
+			}
+	});
+        $("#bz").click(function(){
+        	var bz = 7;
+        	$.ajax({
+				url     : "ClearInfoAction_ajaxchart.action", //访问路径
+				type    : "post",                      //提交方式
+				data    : "days="+bz,//传递到后台的参数
+				dataType: "json",                      //后台返回结果的类型
+				success : function(data){//成功时执行的代码  					                         								
+				        new CanvasJS.Chart('chartContainer',{
+					    theme:'light7',
+						animationEnabled: true, 	
+						title: {
+						     text: "本周值日分数总记录"
+						},
+						     data: [
+						     {
+						          type: "column",
+						          dataPoints:data
+						      }
+						     ]
+						}).render();
+					}
+			});      	
+        })  
+        
+        $("#by").click(function(){
+        	var by = 30;
+        	$.ajax({
+				url     : "ClearInfoAction_ajaxchart.action", //访问路径
+				type    : "post",                      //提交方式
+				data    : "days="+by,//传递到后台的参数
+				dataType: "json",                      //后台返回结果的类型
+				success : function(data){//成功时执行的代码  					                         								
+				        new CanvasJS.Chart('chartContainer',{
+					    theme:'light7',
+						animationEnabled: true, 	
+						title: {
+						     text: "本月值日分数总记录"
+						},
+						     data: [
+						     {
+						          type: "column",
+						          dataPoints:data
+						      }
+						     ]
+						}).render();
+					}
+			});      	
+        })
+	</script>
+  </body>
+</html>

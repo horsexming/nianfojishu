@@ -1,0 +1,1501 @@
+package com.task.Server.sop;
+
+import java.io.File;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.DeptNumberVo;
+import com.task.entity.sop.DesignfeedbackNotice;
+import com.task.entity.sop.DesignfeedbackNoticeFile;
+import com.task.entity.sop.ManualOrderPlan;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.ProcardBanBenJudge;
+import com.task.entity.sop.ProcardReProduct;
+import com.task.entity.sop.ProcardReProductFile;
+import com.task.entity.sop.ProcardSbWaster;
+import com.task.entity.sop.ProcardSbWasterxc;
+import com.task.entity.sop.ProcardSbWg;
+import com.task.entity.sop.ProcardSbWw;
+import com.task.entity.sop.ProcardTBanbenRelation;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.entity.sop.ProcardTemplateBanBen;
+import com.task.entity.sop.ProcardTemplateBanBenApply;
+import com.task.entity.sop.ProcardTemplateBanBenJudges;
+import com.task.entity.sop.ProcardTemplateBanBenJudgesFile;
+import com.task.entity.sop.ProcardTemplateChangeLog;
+import com.task.entity.sop.ProcessAndWgProcardTem;
+import com.task.entity.sop.ProcessChangeNotice;
+import com.task.entity.sop.ProcessChangeNoticeFile;
+import com.task.entity.sop.ProcessInforWWApplyDetail;
+import com.task.entity.sop.ProcessTemplate;
+import com.task.entity.sop.ProcessTemplateFile;
+import com.task.entity.sop.TechnicalchangeLog;
+import com.task.entity.sop.WaigouPlan;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+
+import ext.huawei.gdp.ecfeeback.bean.ECAFeedBackBean;
+
+public interface ProcardTemplateGyServer {
+
+	Object[] findProcardTem(ProcardTemplate procardTemplate, int parseInt,
+			int pageSize, String pageStatus);
+
+	Object[] findProcardTem2(ProcardTemplate procardTemplate, int parseInt,
+			int pageSize, String status);
+
+	Object[] findProcardTem3(ProcardTemplate procardTemplate, int parseInt,
+			int pageSize);
+
+	/**
+	 * 获取工艺编制人员名称
+	 */
+	List getGyPeople(String pageStatus, String typename);
+
+	/**
+	 * 提交模板卡片
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String submitProcard(Integer id, Integer type);
+
+	/**
+	 * 通过id获取模板卡片
+	 * 
+	 * @return
+	 */
+	ProcardTemplate getProcardTemplateById(Integer id);
+
+	/**
+	 * 获取最大层数
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	Integer findMaxbelongLayer(Integer rootId);
+
+	/**
+	 * 根据fatherId查询显示的节点
+	 * 
+	 * @param id
+	 * @param maxBelongLayer
+	 * @return
+	 */
+	List<ProcardTemplate> findProByBel(Integer fatherId, Integer maxBelongLayer);
+
+	/***
+	 * 通过流水卡id查询对应工艺卡片
+	 * 
+	 * @param cardId
+	 * @return
+	 */
+	Object[] findProcardByRunCard(Integer procarId);
+
+	/**
+	 * 复制原工艺图纸
+	 * 
+	 * @return
+	 */
+	boolean copyTzXinxi();
+
+	/**
+	 * 通过id获取Bom卡片图纸
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findCardTemplateTz(Integer id);
+
+	/**
+	 * 保存
+	 * 
+	 * @param processTemplateFile
+	 * @param id
+	 * @return
+	 */
+	String saveProcessTemplateFile(ProcessTemplateFile processTemplateFile,
+			Integer id, String ytRadio, String pageStatus);
+
+	Map<Integer, Object> findYuanclAndWaigjsByCondition(
+			YuanclAndWaigj yclAndWgj, int parseInt, int pageSize, String type);
+
+	/**
+	 * BOM模版自检
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> checkSelf(Integer id);
+
+	/**
+	 * 导入BOM
+	 * 
+	 * @param bomTree
+	 * @param bomTreeFileName
+	 * @return
+	 */
+	String daoRuBomK3(File bomTree, String bomTreeFileName);
+
+	/**
+	 * 通过卡片Id获取其下工序
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcessTemplate> getProcessTemplateByProcardId(Integer id);
+
+	/***
+	 * 查询工艺规范
+	 * 
+	 * @param id
+	 *            工序id
+	 * @return
+	 */
+	List findProcessGongyiGuifan(Integer id);
+
+	/***
+	 * 查看零件封面图纸
+	 * 
+	 * @param id
+	 *            零件id
+	 * @return
+	 */
+	List findProcardGongyiGuifan(Integer id);
+
+	/**
+	 * 打回
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String backProcard(Integer id);
+
+	/**
+	 * 根据件号和工序号更新工艺规范的工序名称
+	 * 
+	 * @return
+	 */
+	boolean updateProcessNameOfFile();
+
+	/**
+	 * 根据id获取bom模板的编制状态
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String getBzStatus(Integer id);
+
+	/**
+	 * 显示想要升级版本的bom模板
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	List<ProcardTemplate> showToUpdatebanben(String ids);
+
+	/**
+	 * 申请升级BOM模板
+	 * 
+	 * @param procardTemplateList
+	 * @param remark
+	 * @return
+	 */
+	String applyUpdateBan(List<ProcardTemplate> procardTemplateList,
+			String remark);
+
+	/**
+	 * 分页显示版本升级申请
+	 * 
+	 * @param bbAply
+	 * @param parseInt
+	 * @param pageSize
+	 * @param startTime
+	 * @param endTime
+	 * @param pageStatus
+	 * @return
+	 */
+	Map<Integer, Object> findBbAplyListByCondition(
+			ProcardTemplateBanBenApply bbAply, int parseInt, int pageNo,
+			String startTime, String endTime, String pageStatus);
+
+	/**
+	 * 通过Id获取版本升级申请对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardTemplateBanBenApply getBBApplyById(Integer id);
+
+	/**
+	 * 通过版本升级申请id获取申请明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplateBanBen> findptBBListByBBApplyId(Integer id);
+
+	/**
+	 * 版本关系展示
+	 * 
+	 * @return
+	 */
+	Map<Integer, Object> findPtbbRelationListByCondition(
+			ProcardTBanbenRelation ptbbRelation, int parseInt, int pageSize);
+
+	/**
+	 * 导出bom
+	 * 
+	 * @param rootId
+	 */
+	void findDaoChuBom(Integer rootId, String pageStatus);
+
+	String checkAndUpdateTz(Integer id, String path, String path2);
+
+	String zpbz(ProcardTemplate procardTemplate, Integer type);
+
+	/**
+	 * 通过fatherId获取Bom信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> findPtListByFatherId(Integer id);
+
+	/**
+	 * 修改零件排序
+	 * 
+	 * @param procardTemplateList
+	 * @param id
+	 * @return
+	 */
+	String sonMoveStatus(List<ProcardTemplate> procardTemplateList, Integer id);
+
+	/**
+	 * 导入华为bom
+	 * 
+	 * @param bomTree
+	 * @param bomTreeFileName
+	 * @param id
+	 *            有id表示为导入子BOM
+	 * @return
+	 */
+	String daoRuHwBom(File bomTree, String bomTreeFileName, Integer id);
+
+	/**
+	 * 导入华为试制BOM
+	 * 
+	 * @param bomTree
+	 * @param bomTreeFileName
+	 * @param id
+	 *            有Id时表示导入子件BOM
+	 * @return
+	 */
+	String daoRuHwSZBom(File bomTree, String bomTreeFileName, Integer id);
+
+	List<ProcardTemplate> getProcardTemListById(Integer id);
+
+	/**
+	 * 版本升级申请
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	String upptlv(ProcardTemplate procardTemplate);
+
+	/**
+	 * 通过零件id获取版本升级申请
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardTemplateBanBenApply getBanBenApplyByptId(Integer id);
+
+	/**
+	 * 查看版本关系
+	 * 
+	 * @param ptbbRelation
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Map<Integer, Object> findPtbbRelationsByCondition(
+			ProcardTBanbenRelation ptbbRelation, int parseInt, int pageSize);
+
+	/**
+	 * 申请停止使用
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String stoprealtion(Integer id);
+
+	/**
+	 * 申请设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String applySb(Integer id);
+
+	/**
+	 * 导出华为BOM
+	 * 
+	 * @param id
+	 */
+	void findDaoChuHWBom(Integer id);
+
+	/**
+	 * 找到历史版本
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> findHistoryList(Integer id);
+
+	/**
+	 * 找到要编制的零件总成
+	 * 
+	 * @param procardTemplate
+	 * @param parseInt
+	 * @param pageSize
+	 * @param type
+	 * @return
+	 */
+	Object[] findProcardTemForBz(ProcardTemplate procardTemplate, int parseInt,
+			int pageSize, String type);
+
+	/**
+	 * 找到在同一个总成下的要编制的零件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> findSonsForBz(Integer id,
+			ProcardTemplate procardTemplate);
+
+	/**
+	 * 批量审批
+	 * 
+	 * @param checkboxs
+	 * @param tag
+	 * @return
+	 */
+	String batchApprovalBz(int[] checkboxs, String tag);
+
+	/**
+	 * bom配比明细展示
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> findBOMasExl(Integer id);
+
+	/**
+	 * 申请BOM结构审批
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String applyBomTree(Integer id);
+
+	/**
+	 * 通过零件id获取零件历史申请记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplateBanBenApply> getHistoryBanBenApplyByptId(Integer id,
+			String type);
+
+	/**
+	 * 指派BOM结构审批人员
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	String zpBOmTree(ProcardTemplate procardTemplate);
+
+	/**
+	 * 获取要升级件号所在的所有总成号
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	List<ProcardTemplate> findUPtotalPtList(String markId);
+
+	/**
+	 * 获取连带升级的BOM树枝干
+	 * 
+	 * @param checkboxs
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplate> findSonToUP(int[] checkboxs, Integer id);
+
+	/**
+	 * 批量指派
+	 * 
+	 * @param procardTemplateList
+	 * @return
+	 */
+	String batchZpBz(List<ProcardTemplate> procardTemplateList);
+
+	/**
+	 * 修改将要导入的文件的名称
+	 * 
+	 * @param id
+	 * @param path
+	 * @return
+	 */
+	String updateUnuploadTzname(Integer id, String path);
+
+	/**
+	 * 查询被覆盖数据
+	 * 
+	 * @param string
+	 * @param string2
+	 * @return
+	 */
+	List findTzfg(String string, String string2);
+
+	/**
+	 * 比对零件设变或版本升级之后的改变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<Integer, Object> getProcardTemDifference(Integer id);
+
+	/**
+	 * 批量删除下阶层
+	 * 
+	 * @param checkboxs
+	 * @return
+	 */
+	String deleteSons(int[] checkboxs, Integer id);
+
+	/**
+	 * 删除重复工序
+	 * 
+	 * @return
+	 */
+	String deleteSameProcess();
+
+	/**
+	 * 通过Id获取工艺文件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessTemplateFile findGyTzById(Integer id);
+
+	/**
+	 * 原材料下移
+	 */
+	void changeycl();
+
+	/**
+	 * 导入自制件的长、宽、厚
+	 */
+	String daorutest(File bomTree);
+
+	/**
+	 * 通过id获取零件，并计算上个位置的id
+	 * 
+	 * @param id
+	 * @param rootId
+	 * @return
+	 */
+	ProcardTemplate getProcardTemplateById(Integer id, Integer rootId);
+
+	/**
+	 * 版本升级
+	 * 
+	 * @param ptbbList
+	 * @param rootId
+	 * @param id设变申请Id
+	 * @param ptbbJudges
+	 *            项目工程师
+	 * @return
+	 */
+	Object[] upptlvnew(List<ProcardTemplateBanBen> ptbbList, Integer rootId,
+			ProcardTemplateBanBenApply bbAply,
+			ProcardTemplateBanBenJudges ptbbJudges);
+
+	/**
+	 * 按条件查询设变申请记录
+	 * 
+	 * @param bbAply
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Map<Integer, Object> findSbApplyList(ProcardTemplateBanBenApply bbAply,
+			int parseInt, int pageSize, String pageStatus, String markId,
+			String startDate, String endDate, String tag);
+
+	/**
+	 * 获取设变申请进度
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] showSbApplyJd(Integer id);
+
+	/**
+	 * 获取设变申请进度（新流程）
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] showSbApplyJd2(Integer id);
+
+	List findCpryList();
+
+	/**
+	 * 查询BOM为设变展示树形
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	List<ProcardTemplate> findSbProcardTemByRootId(Integer rootId);
+
+	/**
+	 * 设变初评
+	 * 
+	 * @param ptbbJudges
+	 * @return
+	 */
+	String submitchupin(ProcardTemplateBanBenJudges ptbbJudges, String remark);
+
+	/**
+	 * 无相关生产零件内部评审
+	 * 
+	 * @param ptbbJudges
+	 * @return
+	 */
+	String noprocardns(ProcardTemplateBanBenJudges ptbbJudges);
+
+	/**
+	 * 获取设变影响部门
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	List<DeptNumberVo> getDeptTreeVos(String ids);
+
+	/**
+	 * 获取零件信息
+	 * 
+	 * @param type
+	 * @param markId
+	 * @return
+	 */
+	List<ProcardTemplate> getProcardTemplateMsg(String type, String markId);
+
+	/**
+	 * 发起设变
+	 * 
+	 * @param bbAply
+	 * @param id
+	 * @return
+	 */
+
+	Object[] addSbApply(ProcardTemplateBanBenApply bbAply, Integer id,
+			String gygfFileName, String newFileName);
+
+	/**
+	 * 通过版本升级id获取bom总成id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Integer getPtIdBybbApplyId(Integer id);
+
+	/**
+	 * 
+	 * @param ptbbJudges
+	 *            评审员
+	 * @param pbbJudgeList
+	 *            同总成评审
+	 * @param pbbJudgeList2
+	 *            非同总成评审
+	 * @param tag
+	 *            (1:内部评审，2:几轮)
+	 * @return
+	 */
+	String submitnp(ProcardTemplateBanBenJudges ptbbJudges,
+			List<ProcardBanBenJudge> pbbJudgeList,
+			List<ProcardBanBenJudge> pbbJudgeList2, String tag);
+
+	/**
+	 * 确认设变
+	 * 
+	 * @param id
+	 * @param ptbbJudges
+	 *            BOM资料编制通知人员
+	 * @return
+	 */
+	String suresb(Integer id, ProcardTemplateBanBenJudges ptbbJudges,
+			List<ProcardTemplateBanBen> ptbbList);
+
+	/**
+	 * 同步生产件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String tbProcard(ProcardTemplateBanBenApply bbAply,
+			ProcardTemplateBanBenJudges ptbbJudges);
+
+	/**
+	 * 获取BOM编制节点数量
+	 * 
+	 * @return
+	 */
+	String getSpjdCount();
+
+	/**
+	 * 删除设变申请
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String deleteSb(Integer id);
+
+	/**
+	 * 查询显示设变外购影响
+	 * 
+	 * @param procardsbwg
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Map<Integer, Object> findprocardsbwgsByCondition(ProcardSbWg procardsbwg,
+			int parseInt, int pageSize);
+
+	/**
+	 * 通过id获取生产件设变后外购件增减情况
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardSbWg getProcardsbwgByid(Integer id);
+
+	/**
+	 * 添加设变采购进入物料需求
+	 * 
+	 * @param procardsbwg
+	 * @return
+	 */
+	String addsbcgTowlxq(ProcardSbWg procardsbwg);
+
+	/**
+	 * 关闭设变采购记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String closesbcg(Integer id);
+
+	/**
+	 * 查询设变减采购关联的采购数据
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<Integer, Object> findSbdeleteAboutcg(Integer id);
+
+	/**
+	 * 设变对物料需求减单
+	 * 
+	 * @param id
+	 * @param mop
+	 * @return
+	 */
+	String manyalOrderPlansbld(Integer id, ManualOrderPlan mop);
+
+	/**
+	 * 设变对外购订单减单
+	 * 
+	 * @param id
+	 * @param mop
+	 * @return
+	 */
+	String waigouPlansbld(Integer id, WaigouPlan waigouplan);
+
+	/**
+	 * 通过条件来获取返修单
+	 * 
+	 * @param preProduct
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findPreProduct(ProcardReProduct preProduct, int parseInt,
+			int pageSize, String pageStatus);
+
+	/**
+	 * 通过Id获取返修单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardReProduct getProcardReProductById(Integer id);
+
+	/**
+	 * 获取返修单相关信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] getProcardReProductMsgById(Integer id);
+
+	/**
+	 * 上传返修文件
+	 * 
+	 * @param prpFile
+	 * @param id
+	 * @return
+	 */
+	String savefxFile(ProcardReProductFile prpFile, Integer id);
+
+	/**
+	 * 指派各部门评审人员
+	 * 
+	 * @param bbAply
+	 * @param ptbbJudges
+	 * @return
+	 */
+	Object[] sbzpgbm(ProcardTemplateBanBenApply bbAply,
+			ProcardTemplateBanBenJudges ptbbJudges);
+
+	Object[] findProcardSbWwList(ProcardSbWw procardSbWw, int cpage,
+			int pageSize);
+
+	/**
+	 * 查询外委设变相关用以判断处理
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findwwSbforJudeg(Integer id);
+
+	/**
+	 * 终止外委订单
+	 * 
+	 * @param id
+	 *            设变记录Id
+	 * @return id2 外委订单Id
+	 */
+	String wwsbbreakwP(Integer id, Integer id2);
+
+	/**
+	 * 前往调整设变外委
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	Object[] toUpdateSbwp(Integer id, Integer id2);
+
+	/**
+	 * 设变调整手动外委
+	 * 
+	 * @param wwApplyDetail
+	 * @param id
+	 * @param id2
+	 * @param procard
+	 * @param checkboxs
+	 * @return
+	 */
+	String updateSbsdwp(ProcessInforWWApplyDetail wwApplyDetail, Integer id,
+			Integer id2, Procard procard, int[] checkboxs);
+
+	/**
+	 * 设变调整BOM外委
+	 * 
+	 * @param wwApplyDetail
+	 * @param id
+	 * @param id2
+	 * @param procard
+	 * @param checkboxs
+	 * @return
+	 */
+	String updateSbbomwp(Integer id, Integer id2, Procard procard,
+			int[] checkboxs);
+
+	/**
+	 * 停止手动外委申请
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	String wwsbbreaksdd(Integer id, Integer id2);
+
+	/**
+	 * 停止待委外序列
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	String wwsbbreakbomwwp(Integer id, Integer id2);
+
+	/**
+	 * 前往调整手动外委
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	Object[] toUpdatesdd(Integer id, Integer id2);
+
+	/**
+	 * 替换外委申请
+	 * 
+	 * @param wwApplyDetail
+	 * @param id
+	 * @param id2
+	 * @param procard
+	 * @param checkboxs
+	 * @return
+	 */
+	String updateSbsdd(ProcessInforWWApplyDetail wwApplyDetail, Integer id,
+			Integer id2, Procard procard, int[] checkboxs);
+
+	/**
+	 * 前往调整BOM外委
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	Object[] toUpdatebomwwp(Integer id, Integer id2);
+
+	/**
+	 * 调整BOM外委序列
+	 * 
+	 * @param id
+	 * @param id2
+	 * @param procard
+	 * @param checkboxs
+	 * @return
+	 */
+	String updateSbbomwwp(Integer id, Integer id2, Procard procard,
+			int[] checkboxs);
+
+	/**
+	 * 继续外委订单
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	String jxsbwp(Integer id, Integer id2);
+
+	/**
+	 * 继续委外申请
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	String jxsbsdd(Integer id, Integer id2);
+
+	/**
+	 * 继续外委序列
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	String jxsbbomwwp(Integer id, Integer id2);
+
+	/**
+	 * 打回设变申请
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String backsbApply(Integer id);
+
+	/**
+	 * 查询设变退下来的在制品
+	 * 
+	 * @param procardSbWaster
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findProcardSbWasterList(ProcardSbWaster procardSbWaster,
+			int parseInt, int pageSize);
+
+	/**
+	 * 获取设变废弃来下的在制品
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardSbWaster getProcardSbWasterById(Integer id);
+
+	/**
+	 * 判定设变半成品处理
+	 * 
+	 * @param procardSbWaster
+	 * @return
+	 */
+	String judegWaster(ProcardSbWaster procardSbWaster);
+
+	/**
+	 * 通过BOM零件Id查看对应的设变单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] getsbjdByProcardTId(Integer id, ProcardTemplate pt2);
+
+	/**
+	 * 查询所有待处理
+	 * 
+	 * @param procardSbWasterxc
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] finddrkProcardSbWasterxcList(ProcardSbWasterxc procardSbWasterxc,
+			ProcardSbWaster procardSbWaster, int parseInt, int pageSize);
+
+	/**
+	 * 通过Id获取设变在制品待处理内容
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardSbWasterxc getProcardSbWasterxcById(Integer id);
+
+	/**
+	 * 获取本版次零件修改日志
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardTemplateChangeLog> getChangeLogshow(Integer id);
+
+	/**
+	 * 取消设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String quxiaoSb(Integer id);
+
+	/**
+	 * 批量导出所有
+	 * 
+	 * @param pageStatus
+	 */
+	void findDaoChuBom1(String pageStatus);
+
+	/**
+	 * 获取BOM下有工序的零件
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	List<ProcardTemplate> getGongxuPt(Integer rootId);
+
+	/**
+	 * 删除错误文件
+	 * 
+	 * @return
+	 */
+	String deleteerrorFile();
+
+	Object[] updatedaoRuProcessTemplate(ProcardTemplate pt, Statement sql,
+			ResultSet rs);
+
+	/**
+	 * 指派主管
+	 * 
+	 * @param bbAply
+	 * @param id
+	 * @return
+	 */
+	String sbffxmz(ProcardTemplateBanBenApply bbAply, Integer id);
+
+	/**
+	 * 获取设变必须通知的部门
+	 * 
+	 * @return
+	 */
+	String gettzDept();
+
+	public Map<String, String> findAllByRootId(Integer id, String status);
+
+	/**
+	 * 弥补关联生产数据
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String mibuglsc(Integer id);
+
+	/**
+	 * 强制跳过内部评审
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String submitnp(Integer id);
+
+	public Map<String, String> findPicbyMarkId(Integer id);
+
+	/**
+	 * 比对BOM
+	 * 
+	 * @param bomTree
+	 * @param bomTreeFileName
+	 * @param object
+	 */
+	String getbomCompare(File bomTree, String bomTreeFileName);
+
+	public Map<String, String> findPICforProduct(Procard procard);
+
+	public Procard getProcardById(Integer id);
+
+	/**
+	 * 添加EC
+	 * 
+	 * @param technicalchangeLog
+	 * @param checkboxs
+	 * @return
+	 */
+	String addtclog(TechnicalchangeLog technicalchangeLog, int[] checkboxs);
+
+	/**
+	 * 展示EC
+	 * 
+	 * @param technicalchangeLog
+	 * @param parseInt
+	 * @param pageSize
+	 * @param end
+	 * @param start
+	 * @return
+	 */
+	Map<Integer, Object> findTechnicalchangeLogByCondition(
+			TechnicalchangeLog technicalchangeLog, int parseInt, int pageSize,
+			String start, String end, String tag);
+
+	/**
+	 * 通过Id获取EC
+	 * 
+	 * @param id
+	 * @return
+	 */
+	TechnicalchangeLog gettclById(Integer id);
+
+	String updatetclog(TechnicalchangeLog technicalchangeLog, int[] checkboxs);
+
+	/**
+	 * 删除EC
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String detetetcl(Integer id);
+
+	/**
+	 * 导出设变信息
+	 * 
+	 * @param bbAply
+	 */
+	void exprotBbAply(ProcardTemplateBanBenApply bbAply);
+
+	/**
+	 * 通过Id获取EC和其下明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	TechnicalchangeLog gettclById2(Integer id);
+
+	/**
+	 * 查询pcn
+	 * 
+	 * @param pcn
+	 * @param parseInt
+	 * @param pageSize
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	Map<Integer, Object> findPcnByCondition(ProcessChangeNotice pcn,
+			int parseInt, int pageSize, String start, String end);
+
+	/**
+	 * 获取pcn对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessChangeNotice getpcnById(Integer id);
+
+	/**
+	 * 修改pcn
+	 * 
+	 * @param pcn
+	 * @return
+	 */
+	String updatepcn(ProcessChangeNotice pcn);
+
+	/**
+	 * 删除pcn
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String detetepcn(Integer id);
+
+	/**
+	 * 添加pcn
+	 * 
+	 * @param pcn
+	 * @return
+	 */
+	String addpcn(ProcessChangeNotice pcn,
+			List<ProcessChangeNoticeFile> pcnFileList);
+
+	/**
+	 * pcn
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcessChangeNoticeFile> findPcnfilesBypcnId(Integer id);
+
+	/**
+	 * 添加pcn文件
+	 * 
+	 * @param id
+	 * @param pcnFileList
+	 * @return
+	 */
+	String addpcnFile(Integer id, List<ProcessChangeNoticeFile> pcnFileList);
+
+	/**
+	 * 通过文件获取pcn对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessChangeNotice getpcnByfileId(Integer id);
+
+	/*
+	 * 删除pcn文件
+	 */
+	String detetepcnFile(Integer id);
+
+	/**
+	 * pcn文件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessChangeNoticeFile getpcnfileByfileId(Integer id);
+
+	/**
+	 * 添加ecar
+	 * 
+	 * @param ecar
+	 * @param ecarFileList
+	 * @return
+	 */
+	String addecar(DesignfeedbackNotice ecar,
+			List<DesignfeedbackNoticeFile> ecarFileList);
+
+	/**
+	 * 按条件查找ecar
+	 * 
+	 * @param ecar
+	 * @param parseInt
+	 * @param pageSize
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	Map<Integer, Object> findEcarByCondition(DesignfeedbackNotice ecar,
+			int parseInt, int pageSize, String start, String end);
+
+	/**
+	 * 通过Id获取ecar
+	 * 
+	 * @param id
+	 * @return
+	 */
+	DesignfeedbackNotice getecarById(Integer id);
+
+	/**
+	 * 通过ecar的Id 获取其下文件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<DesignfeedbackNoticeFile> findEcarfilesByecarId(Integer id);
+
+	/**
+	 * 修改ecar
+	 * 
+	 * @param ecar
+	 * @return
+	 */
+	String updateecar(DesignfeedbackNotice ecar);
+
+	/**
+	 * 删除ecar
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String deteteecar(Integer id);
+
+	/**
+	 * 通过文件id获取ecar
+	 * 
+	 * @param id
+	 * @return
+	 */
+	DesignfeedbackNotice getecarByfileId(Integer id);
+
+	/**
+	 * 删除ecar文件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String deteteecarFile(Integer id);
+
+	/**
+	 * 通过Id 获取ecar文件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	DesignfeedbackNoticeFile getecarfileByfileId(Integer id);
+
+	/**
+	 * 添加ecar文件
+	 * 
+	 * @param id
+	 * @param ecarFileList
+	 * @return
+	 */
+	String addecarFile(Integer id, List<DesignfeedbackNoticeFile> ecarFileList);
+
+	/**
+	 * 修改设变明细备注
+	 * 
+	 * @param ptbb
+	 * @return
+	 */
+	String updatepbbremark(ProcardTemplateBanBen ptbb);
+
+	/**
+	 * 查询未结案pcn
+	 * 
+	 * @param pcn
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	List findwjaPcnByCondition(ProcessChangeNotice pcn, String start, String end);
+
+	/**
+	 * 获取待确认或者关闭的E-CAR
+	 * 
+	 * @param ecar
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	List findEcarByCondition(DesignfeedbackNotice ecar, String start, String end);
+
+	/**
+	 * NC和镭射图纸按件号上传
+	 * 
+	 * @param path
+	 * @param path2
+	 * @return
+	 */
+	String ncAndleisheFile(String path, String path2);
+
+	/**
+	 * 关闭设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String closeSb(Integer id, String execute);
+
+	/**
+	 * 打回设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String dahuisb(Integer id, String remark);
+
+	/**
+	 * 通过Id获取设变单对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardTemplateBanBenApply getProcardTemplateBanbenApplyById(Integer id);
+
+	/**
+	 * 关闭设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String closeSb2(Integer id, String remark);
+
+	/**
+	 * 导出设变基本信息
+	 * 
+	 * @param bbAply
+	 * @param startDate
+	 * @param endDate
+	 */
+	public void exprotBbAply_new(ProcardTemplateBanBenApply bbAply,
+			String startDate, String endDate);
+
+	/**
+	 * 导出工序人工成本
+	 */
+	public void exportProcessExcel(Integer id);
+
+	/***
+	 * 获取华为设变待反馈清单--下发
+	 * 
+	 * @param ecaFeedBackBean
+	 * @return
+	 */
+	List updateHWEcList(ECAFeedBackBean ecaFeedBackBean);
+
+	/**
+	 * 上传设变佐证
+	 * 
+	 * @param id
+	 * @param ptbbjFileList
+	 * @return
+	 */
+	Map<Integer, Object> uploadzzfile(Integer id,
+			List<ProcardTemplateBanBenJudgesFile> ptbbjFileList);
+
+	/**
+	 * 评论佐证
+	 * 
+	 * @param ptbbjfile
+	 * @return
+	 */
+	String plzz(ProcardTemplateBanBenJudgesFile ptbbjfile);
+
+	/**
+	 * 删除佐证
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String deletezz(Integer id);
+
+	/**
+	 * 获取佐证文件对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcardTemplateBanBenJudgesFile getPtbbjFileByfileId(Integer id);
+
+	/**
+	 * 上传佐证之后工程师关闭设变
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String closeclosenoremark(Integer id);
+
+	/**
+	 * 获取人员组别
+	 * 
+	 * @return
+	 */
+	List<String> getRyzbList(String type);
+
+	/**
+	 * 添加佐证人员
+	 * 
+	 * @param id
+	 * @param ptbbJudges
+	 * @return
+	 */
+	String addzzry(Integer id, ProcardTemplateBanBenJudges ptbbJudges);
+
+	/**
+	 * 查询所有工序外购件绑定关系
+	 */
+	Object[] findProcessAndWgProcard(Integer pageSize, Integer pageNo,
+			String status, ProcessAndWgProcardTem pawp);
+
+	/**
+	 * 
+	 */
+	void exprotPwap(ProcessAndWgProcardTem pawp);
+
+	/**
+	 * 获取待处理设变单
+	 * 
+	 * @param bbAply
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @param markId
+	 * @param startDate
+	 * @param endDate
+	 * @param tag
+	 * @return
+	 */
+	List<ProcardTemplateBanBenApply> finddclSbApplyList(
+			ProcardTemplateBanBenApply bbAply, int parseInt, int pageSize,
+			String pageStatus, String markId, String startDate, String endDate,
+			String tag);
+
+	String updategzprocess(Statement sql, ResultSet rs);
+
+	/***
+	 * 设变时间分析
+	 * 
+	 * @param userId
+	 *            人员id
+	 * @param startTime
+	 *            开始时间
+	 * @param endTime
+	 *            结束时间
+	 * @return
+	 */
+	Map<String, Object> findSbTime(Integer userId, String startTime,
+			String endTime);
+	/**
+	 * 在生产件上复制一个工程零件作为子件
+	 * @param procardId
+	 * @param ptId
+	 * @return
+	 */
+	String addsonProcard(Integer id, Integer id2,Procard procard,ProcardTemplate procardTemplate);
+
+}

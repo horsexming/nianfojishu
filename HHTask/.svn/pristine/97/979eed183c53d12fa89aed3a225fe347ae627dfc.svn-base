@@ -1,0 +1,1464 @@
+package com.task.action.menjin;
+
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.FileManager;
+import com.task.Server.menjin.AccessEquipmentServer;
+import com.task.entity.Price;
+import com.task.entity.Users;
+import com.task.entity.caiwu.pz.CwCertificate;
+import com.task.entity.menjin.AccessEquipment;
+import com.task.entity.menjin.AccessTime;
+import com.task.entity.menjin.AccessWebcam;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.XungengRecord;
+import com.task.entity.menjin.XungengTime;
+import com.task.entity.onemark.OneLight;
+import com.task.entity.seal.SealLogType;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+/**
+ * 门禁设备表 20151010_licong
+ * 
+ * @author Li_Cong
+ * 
+ */
+@SuppressWarnings("unchecked")
+public class AccessEquipmentAction {
+	private AccessWebcam accessWebcam;// 摄像头&&档案柜
+	private AccessTime accessTime;// 设备可用时间段
+	private AccessEquipmentServer accessEquipmentServer;
+	private AccessEquipment accessEquipment;// 设备
+	private ResAccess resAccess;// 快递柜
+	private List<ResAccess> resAccessList;// 快递柜
+	private CwCertificate certificate;//财务档案
+	private List<AccessEquipment> accessEquipmentList;// 门禁设备列表
+	private List<AccessWebcam> accessWebcamList;// 摄像头列表
+	private List<AccessWebcam> webcamFGuiAllList;// 所有档案柜列表
+	private List<AccessWebcam> webcamGuiList;// 可用档案柜列表
+	private List<AccessTime> accessTimeList;// 可用档案柜列表
+	private XungengRecord xungengRecord;// 巡更记录
+	private XungengTime xungengTime;//巡更时段
+	private List<XungengRecord> xungengRecordList;// 巡更记录列表
+	private List<XungengTime> xungengTimeList;// 巡更时段列表
+	private String errorMessage;
+	private String successMessage;
+	private String doorIp;
+	private String doorPort;
+
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	private Integer opensize = 0;
+
+	// 标识功能
+	private String tag;// 标识（dag）
+	private int id;// 是否绑定时间1or2
+	private int userid;// 用户Id
+	private Integer id1;// shuifa
+	private String tage;//开关（open）
+	private String type;//柜子类型(dag/pz/fp/yz)
+
+	// 绑定功能
+	private List<Users> userList;// 未绑定用户
+	private List<Users> bangUserTimeList;// 已绑定用户
+	private List<Users> bangUserList;// 已绑定用户
+	private Users user;
+	private Price price;
+	private List<Price> priceList;// 未绑定用户
+	private List<Price> bangpriceList;// 已绑定用户
+	private List<FileManager> fileManagerList;// 机密档案表
+	private List<SealLogType> sealLogTypeList;// 印章类型
+	private List<CwCertificate> cwCertificateList;// 财务凭证
+	private Integer[] usersId;// 绑定人员
+	private Integer[] priceId;// 绑定档案
+	private Integer[] lightId;// 选中要绑定灯的id数组
+	private int count = 0;// 已绑定用户数量
+
+	private OneLight light;
+	private List<OneLight> lightList;// 未绑定灯集合（ace_id为空）
+	private List<OneLight> banglightList;// 已绑定灯集合（ace_id=AccessEquipmentAction.id）
+
+	public String text(){
+//		accessEquipmentServer.huifuXunGeng();//生成指定日期的巡更记录
+		//accessEquipmentServer.fuzhiXunGeng();//生成指定日期的巡更记录
+		accessEquipmentServer.closeJuanlianmen();//生成指定日期的巡更记录
+		return "error";
+	}
+	
+	public void findDescription(){
+		MKUtil.writeJSON(accessEquipmentServer.findDescription(type));
+	}
+	public void findDescriptionById(){
+		MKUtil.writeJSON(accessEquipmentServer.findDescription(id1));
+	}
+	
+	// 显示所有门禁设备
+	public String findAllAce() {
+		accessEquipmentList = accessEquipmentServer.findallAce();
+		if (accessEquipmentList != null && accessEquipmentList.size() > 0) {
+			try {
+				return MKUtil.writeJSON(accessEquipmentList);
+			} catch (Exception e) {
+				return MKUtil.writeJSON(e);
+			}
+		}
+		return null;
+	}
+	// 显示所有水阀设备
+	public String findAllAceShui() {
+		accessEquipmentList = accessEquipmentServer.findAllAceShui(tag);
+		if (accessEquipmentList != null && accessEquipmentList.size() > 0) {
+			try {
+				return MKUtil.writeJSON(accessEquipmentList);
+			} catch (Exception e) {
+				return MKUtil.writeJSON(e);
+			}
+		}
+		return null;
+	}
+
+	//关闭未关的卷帘门
+	public void juanlianmen (){
+		accessEquipmentServer.closeJuanlianmen();
+//		accessEquipmentServer.closeShuiFa();
+	}
+	
+	/**
+	 * 发送01指令
+	 * 
+	 */
+	public String openZj() {
+		AccessEquipment accessEquipment1 = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment1 != null) {
+			errorMessage = accessEquipmentServer.openZj(accessEquipment1
+					.getEquipmentIP(), Integer.parseInt(accessEquipment1
+					.getEquipmentPort()), opensize);
+		}
+		return "error";
+	}
+
+	/**
+	 * 跳转到添加方法
+	 * 
+	 * @return
+	 */
+	public String toadd() {
+		return "accessEquipment_add";
+	}
+
+	public String toadd_Web() {
+		if (accessEquipment == null) {
+			errorMessage = "请选择对应门禁设备";
+			return "error";
+		}
+		return "accessWebcam_add";
+	}
+
+	public String toadd_danganGui() {
+		tag = "dag";
+		return "accessWebcam_add";
+	}
+
+	/**
+	 * 添加方法
+	 * 
+	 * @return
+	 */
+	public String add() {
+		errorMessage = accessEquipmentServer
+				.addAccessEquipment(accessEquipment);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "添加成功";
+			url = "AccessEquipmentAction_showList.action?tag=admin";
+			return "error";
+		}
+		return "error";
+	}
+
+	public String add_Web() {
+		if ("dag".equals(tag)) {
+			errorMessage = accessEquipmentServer.addDanganGui(accessWebcam);
+			if ("档案柜添加成功!".equals(errorMessage))
+				url = "AccessEquipmentAction_showList_Dag.action";
+		} else {
+			errorMessage = accessEquipmentServer.addAccessWebcam(accessWebcam,
+					accessEquipment);
+			if ("true".equals(errorMessage)) {
+				errorMessage = "添加成功";
+				url = "AccessEquipmentAction_showList_Web.action?accessEquipment.id="
+						+ accessEquipment.getId();
+				return "error";
+			} else {
+				errorMessage = "添加失败";
+			}
+		}
+		return "error";
+	}
+
+	// 生成验证码
+	public String addAceYanZ() {
+		errorMessage = accessEquipmentServer.addAceyanZ(accessEquipment);
+		if ("验证码已生成".equals(errorMessage))
+			url = "AccessEquipmentAction_showList.action?tag=" + tag
+					+ "&cpage=" + cpage;
+		return "error";
+	}
+
+	/**
+	 * 跳转到修改方法
+	 * 
+	 * @return
+	 */
+
+	public String toupdate() {
+		AccessEquipment accessEquipment1 = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment1 != null) {
+			accessEquipment = accessEquipment1;
+			if ("administrator".equals(tag))
+				return "accessEquipment_admin";
+			else
+				return "accessEquipment_update";
+		}
+		errorMessage = "不存在该数据!请检查";
+		return "error";
+	}
+
+	/**
+	 * 绑定管理员卡号方法
+	 * 
+	 * @return
+	 */
+	public String updateAdmin() {
+		if (accessEquipment != null) {
+			errorMessage = accessEquipmentServer.BindingAdmin(accessEquipment);
+			if ("设置成功，请前往对应设备刷卡".equals(errorMessage))
+				return "accessEquipment_admin";
+			else
+				return "error";
+		}
+		errorMessage = "选择设备为空！";
+		return "error";
+	}
+
+	public String toupdate_Web() {
+		AccessWebcam accessWebcam1 = accessEquipmentServer
+				.getbyIdAccessWebcam(accessWebcam.getId());
+		if (accessWebcam1 != null) {
+			accessWebcam = accessWebcam1;
+			return "accessWebcam_update";
+		}
+		errorMessage = "不存在该数据!请检查";
+		return "error";
+	}
+
+	/**
+	 * 修改方法
+	 * 
+	 * @return
+	 */
+	public String update() {
+		errorMessage = accessEquipmentServer
+				.updateAccessEquipment(accessEquipment);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "修改成功";
+			url = "AccessEquipmentAction_showList.action?tag=" + tag;
+			return "error";
+		}
+		return "error";
+	}
+
+	public String update_Web() {
+		errorMessage = accessEquipmentServer.updateAccessWebcam(accessWebcam,
+				tag);
+		if ("true".equals(errorMessage)) {
+			errorMessage = "修改成功";
+			if ("dag".equals(tag)) {
+				url = "AccessEquipmentAction_showList_Dag.action?cpage="+cpage;
+			} else {
+				url = "AccessEquipmentAction_showList_Web.action?accessEquipment.id="
+						+ accessEquipment.getId();
+			}
+		}
+		return "error";
+	}
+
+	/**
+	 * 删除方法 门禁设备
+	 * 
+	 * @return
+	 */
+	public String delete() {
+		try {
+			errorMessage = accessEquipmentServer
+					.deleteAccessEquipment(accessEquipment);
+			if ("删除成功".equals(errorMessage))
+				url = "AccessEquipmentAction_showList.action?cpage=" + cpage
+						+ "&tag=" + tag;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorMessage = "级连关系删除失败！";
+		}
+		return "error";
+	}
+
+	/**
+	 * 删除方法 门禁设备
+	 * 
+	 * @return
+	 */
+	public String delete_web() {
+		errorMessage = accessEquipmentServer.deleteAccessWebcam(accessWebcam);
+		if ("删除成功".equals(errorMessage))
+			url = "AccessEquipmentAction_showList_Web.action?accessWebcam.id="
+					+ accessWebcam.getId() + "&cpage=" + cpage;
+		return "error";
+	}
+
+	public String closeDeng(){
+		errorMessage = accessEquipmentServer.closeDeng(accessEquipment);
+		return "error";
+	}
+	
+	/**
+	 * 分页查询
+	 * 
+	 * @return
+	 */
+	public String showList() {
+		if (accessEquipment != null) {
+			ActionContext.getContext().getSession().put("AccessEquipment",
+					accessEquipment);
+		} else {
+			accessEquipment = (AccessEquipment) ActionContext.getContext()
+					.getSession().get("AccessEquipment");
+		}
+		Map<Integer, Object> map = accessEquipmentServer
+				.findAccessEquipmentByCondition(accessEquipment, Integer
+						.parseInt(cpage), pageSize, tag);
+		accessEquipmentList = (List<AccessEquipment>) map.get(1);// 显示门禁设备列表
+		if (accessEquipmentList != null && accessEquipmentList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_showList.action?tag=" + tag);
+			errorMessage = null;
+		} else {
+			errorMessage = "没有符合条件的信息,请检查后重试!";
+		}
+		return "accessEquipment_show";
+	}
+
+	// 分页查询门禁摄像头
+	public String showList_Web() {
+		pageSize = 2;
+		// accessEquipment =
+		// accessEquipmentServer.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessWebcam != null) {
+			ActionContext.getContext().getSession().put("AccessWebcams",
+					accessWebcam);
+		} else {
+			accessWebcam = (AccessWebcam) ActionContext.getContext()
+					.getSession().get("AccessWebcams");
+		}
+		Map<Integer, Object> map = accessEquipmentServer
+				.findAccessWebcamByCondition(accessEquipment, Integer
+						.parseInt(cpage), pageSize);
+		accessWebcamList = (List<AccessWebcam>) map.get(1);// 显示摄像头列表
+		if (accessWebcamList != null && accessWebcamList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this
+					.setUrl("AccessEquipmentAction_showList_Web.action?accessEquipment.id="
+							+ accessEquipment.getId());
+			errorMessage = null;
+		} else {
+			errorMessage = "没有符合条件的信息,请检查后重试!";
+		}
+		return "accessWebcam_show";
+	}
+	
+	/**
+	 * 分页查询水阀水量
+	 * @return
+	 */
+	public String showList_shui() {
+		if (accessEquipment != null) {
+			ActionContext.getContext().getSession().put("AccessEquipmentshui",
+					accessEquipment);
+		} else {
+			accessEquipment = (AccessEquipment) ActionContext.getContext()
+					.getSession().get("AccessEquipmentshui");
+		}
+		Map<Integer, Object> map = accessEquipmentServer
+				.findAccessEquipmentByCondition(accessEquipment, Integer
+						.parseInt(cpage), pageSize, tag);
+		accessEquipmentList = (List<AccessEquipment>) map.get(1);// 显示门禁设备列表
+		if (accessEquipmentList != null && accessEquipmentList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_showList.action?tag=" + tag);
+			errorMessage = null;
+		} else {
+			errorMessage = "没有符合条件的信息,请检查后重试!";
+		}
+		return "accessEquipment_show";
+	}
+
+	// 分页查看档案柜
+	public String showList_Dag() {
+		if (accessWebcam != null) {
+			ActionContext.getContext().getSession().put("AccessWebcam",
+					accessWebcam);
+		} else {
+			accessWebcam = (AccessWebcam) ActionContext.getContext()
+					.getSession().get("AccessWebcam");
+		}
+		Map<Integer, Object> map = accessEquipmentServer
+				.findDanganGuiByCondition(accessWebcam,
+						Integer.parseInt(cpage), pageSize);
+		webcamFGuiAllList = (List<AccessWebcam>) map.get(1);// 显示列表
+		if (webcamFGuiAllList != null && webcamFGuiAllList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_showList_Dag.action");
+			errorMessage = null;
+		} else {
+			errorMessage = "没有符合条件的信息,请检查后重试!";
+		}
+		return "accessWebcam_dag";
+	}
+
+	// 1、通过Id查询门禁设备getbyIdAccessEquipment,
+	// 2、查询已绑定findAllBangUser，3、和根据条件查询未绑定的用户findUsersByCondition
+	public String findUsersByCondition() {
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			if (user != null) {
+				ActionContext.getContext().getSession().put("User", user);
+			} else {
+				user = (Users) ActionContext.getContext().getSession().get(
+						"User");
+			}
+			Object[] object = accessEquipmentServer.findUsersByCondition(user,
+					Integer.parseInt(cpage), pageSize, accessEquipment.getId());// 条件查询所有用户
+			if (object != null && object.length > 0) {
+				userList = (List<Users>) object[0];
+				if (userList != null && userList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findUsersByCondition.action?accessEquipment.id="
+									+ accessEquipment.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的用户不存在或者已经与该设备绑定!";
+				}
+				// 已绑定人员处理
+				bangUserList = accessEquipmentServer.findAllBangUser(
+						"accessEquipments", accessEquipment.getId());
+				if (bangUserList != null && bangUserList.size() > 0) {
+					count = bangUserList.size();// 绑定人员数量
+					// 去除已绑定人员
+					// for (int i = 0; i < userList.size(); i++) {
+					// Users listUser = userList.get(i);
+					// for (int j = 0; j < bangUserList.size(); j++) {
+					// Users binUser = bangUserList.get(j);
+					// if (listUser.getId().equals(binUser.getId())) {
+					// userList.remove(listUser);
+					// i--;
+					// }
+					// }
+					// }
+				}
+				// 已绑定限时人员处理
+				bangUserTimeList = accessEquipmentServer
+						.findAllBangTimeUser(accessEquipment.getId());
+				if (bangUserTimeList != null && bangUserTimeList.size() > 0) {
+					count += bangUserTimeList.size();
+				}
+			} else {
+				errorMessage = "抱歉!您查询的用户不存在或者已经与该设备绑定!";
+			}
+			return "aceSBbangding_show";
+		} else {
+			errorMessage = "该功能不存在，请重试!";
+			return "error";
+		}
+	}
+
+	// 1、通过Id查询门禁设备getbyIdAccessEquipment,2、查询未绑定人员findAllUser,3、查询已绑定人员findAllBangUser
+	public String findMfById() {
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			// 未绑定人员处理
+			Object[] object = accessEquipmentServer.findAllUser(
+					"accessEquipments", accessEquipment.getId(), Integer
+							.parseInt(cpage), pageSize);// 条件查询所有用户
+			if (object != null && object.length > 0) {
+				userList = (List<Users>) object[0];
+				if (userList != null && userList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findMfById.action?accessEquipment.id="
+									+ accessEquipment.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的用户不存在或者已经与该设备绑定!";
+				}
+			} else {
+				errorMessage = "抱歉!您查询的用户不存在或者已经与该设备绑定!";
+			}
+			// 已绑定人员处理
+			bangUserList = accessEquipmentServer.findAllBangUser(
+					"accessEquipments", accessEquipment.getId());
+			if (bangUserList != null && bangUserList.size() > 0) {
+				count = bangUserList.size();
+			}
+			// 已绑定限时人员处理
+			bangUserTimeList = accessEquipmentServer
+					.findAllBangTimeUser(accessEquipment.getId());
+			if (bangUserTimeList != null && bangUserTimeList.size() > 0) {
+				count += bangUserTimeList.size();
+			}
+			return "aceSBbangding_show";
+		} else {
+			errorMessage = "不存在该功能!";
+		}
+		return "error";
+	}
+
+	// 绑定用户
+	public String binDingUsers() {
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			errorMessage = accessEquipmentServer.binDingUsers(accessEquipment,
+					usersId);
+			if (!"绑定失败".equals(errorMessage)) {
+				url = "AccessEquipmentAction_findMfById.action?accessEquipment.id="
+						+ accessEquipment.getId();
+				return "error";
+			}
+			errorMessage = "绑定用户失败";
+		} else {
+			errorMessage = "不存在该功能!请检查后重试!";
+		}
+		return "error";
+	}
+
+	// 更改用户时间控制类型
+	public String isTrueTime() {
+		boolean b = false;
+		if (id == 1 || id == 2) {
+			b = accessEquipmentServer.updateDoorBangDing(accessEquipment
+					.getId(), userid, id);
+		}
+		return MKUtil.writeJSON(b);
+	}
+
+	/******************************* 档案柜绑定档案 ******************************/
+	// 1、通过Id查询门禁设备getbyIdAccessEquipment,
+	// 2、查询已绑定findAllBangUser，3、和根据条件查询未绑定的用户findUsersByCondition
+	// 条件查询未绑定档案
+	public String findPriceByCondition() {
+		accessWebcam = accessEquipmentServer.getbyIdAccessWebcam(accessWebcam
+				.getId());
+		if (accessWebcam != null) {
+			if (price != null) {
+				ActionContext.getContext().getSession().put("Price", price);
+			} else {
+				price = (Price) ActionContext.getContext().getSession().get(
+						"Price");
+			}
+			Object[] object = accessEquipmentServer.findPriceByCondition(price,
+					Integer.parseInt(cpage), pageSize);// 条件查询所有档案
+			if (object != null && object.length > 0) {
+				priceList = (List<Price>) object[0];
+				if (priceList != null && priceList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findPriceByCondition.action?accessWebcam.id="
+									+ accessWebcam.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的档案不存在或者已经绑定过档案柜!";
+				}
+				// 已绑定档案处理
+				bangpriceList = accessEquipmentServer
+						.findAllBangPrice(accessWebcam.getId());
+				if (bangpriceList != null && bangpriceList.size() > 0) {
+					count = bangpriceList.size();// 绑定档案数量
+					// 去除已绑定档案
+					for (int i = 0; i < priceList.size(); i++) {
+						Price listprice = priceList.get(i);
+						for (int j = 0; j < bangpriceList.size(); j++) {
+							Price binprice = bangpriceList.get(j);
+							if (listprice.getId() == binprice.getId()) {
+								priceList.remove(listprice);
+								i--;
+							}
+						}
+					}
+				}
+			} else {
+				errorMessage = "抱歉!您查询的档案不存在或者已经与该设备绑定!";
+			}
+			return "acWbangding_show";
+		} else {
+			errorMessage = "该功能不存在，请重试!";
+			return "error";
+		}
+	}
+
+	// 跳转到绑定页面
+	public String findPriceById() {
+		accessWebcam = accessEquipmentServer.getbyIdAccessWebcam(accessWebcam
+				.getId());
+		if (accessWebcam != null) {
+			// 未绑定档案处理
+			Object[] object = accessEquipmentServer.findAllPrice(accessWebcam
+					.getId(), Integer.parseInt(cpage), pageSize);// 条件查询所有未绑定档案
+			if (object != null && object.length > 0) {
+				priceList = (List<Price>) object[0];
+				if (priceList != null && priceList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findPriceById.action?accessWebcam.id="
+									+ accessWebcam.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的档案不存在或者已经与该设备绑定!";
+				}
+			} else {
+				errorMessage = "抱歉!您查询的档案不存在或者已经与该设备绑定!";
+			}
+			// 已绑定档案处理
+			bangpriceList = accessEquipmentServer.findAllBangPrice(accessWebcam
+					.getId());
+			if (bangpriceList != null && bangpriceList.size() > 0) {
+				count = bangpriceList.size();
+			}
+			return "acWbangding_show";
+		} else {
+			errorMessage = "不存在该功能!";
+		}
+		return "error";
+	}
+
+	// 绑定档案
+	public String binDingPrice() {
+		accessWebcam = accessEquipmentServer.getbyIdAccessWebcam(accessWebcam
+				.getId());
+		if (accessWebcam != null) {
+			errorMessage = accessEquipmentServer.binDingPrice(accessWebcam,
+					priceId);
+			if (!"绑定失败".equals(errorMessage)) {
+				url = "AccessEquipmentAction_findPriceById.action?accessWebcam.id="
+						+ accessWebcam.getId();
+				return "error";
+			}
+			errorMessage = "绑定档案失败";
+		} else {
+			errorMessage = "不存在该功能!请检查后重试!";
+		}
+		return "error";
+	}
+	
+	public String selectPrice(){
+		if(id>0){
+			if(!accessEquipmentServer.dangQuan(Util.getLoginUser().getId())){
+				errorMessage = "您没有查看权限！";
+				return "error";
+			}
+			bangpriceList = accessEquipmentServer.findAllBangPrice(id);
+			sealLogTypeList = accessEquipmentServer.findAllBangXinxi(id);
+			fileManagerList = accessEquipmentServer.findAllManager(id);
+			cwCertificateList = accessEquipmentServer.findCwCertificate(certificate,id);
+			if((bangpriceList!=null&&bangpriceList.size()>0)||(sealLogTypeList!=null&&sealLogTypeList.size()>0)||(fileManagerList!=null&&fileManagerList.size()>0)){
+			}else {
+				errorMessage = "存档为空！";
+			}
+			return "priceGui_show";
+		}
+		errorMessage = "二维码信息有误，请联系系统管理员！";
+		return "error";
+	}
+
+	// 显示可用的柜号
+	public void finAllGuihao() {
+		webcamGuiList = accessEquipmentServer.findDanganGui(tag);
+		if (webcamGuiList != null && webcamGuiList.size() > 0) {
+			try {
+				MKUtil.writeJSON(webcamGuiList);
+			} catch (Exception e) {
+				MKUtil.writeJSON(e);
+			}
+		}
+	}
+
+	/************************* 添加时间 **************************/
+	public String toaddTime() {
+		return "accessTime_add";
+	}
+
+	// 添加方法
+	public String addAT() {
+		if (accessTime != null) {
+			errorMessage = accessEquipmentServer.addAccessTime(accessTime,
+					accessEquipment);
+			if ("添加成功".equals(errorMessage))
+				return "accessTime_add";
+			else
+				return "error";
+		}
+		errorMessage = "数据为空，添加失败！";
+		return "error";
+	}
+
+	// 跳转到修改页面的方法
+	public String toupdateAT() {
+		if (accessTime.getId() != null && accessTime.getId() > 0
+				&& accessTime != null) {
+			accessTime = accessEquipmentServer.getbyIdAccessTime(accessTime
+					.getId());
+			if (accessTime != null)
+				return "accessTime_update";
+		}
+		errorMessage = "数据为空!请检查";
+		return "error";
+	}
+
+	// 修改方法
+	public String updateAT() {
+		if (accessTime.getId() != null && accessTime.getId() > 0) {
+			errorMessage = accessEquipmentServer.updateAccessTime(accessTime);
+			if ("修改成功".equals(errorMessage))
+				return "accessTime_update";
+			else
+				return "error";
+		}
+		errorMessage = "不存在该对象！删除失败！";
+		return "error";
+	}
+
+	// 删除方法
+	public String deleteAT() {
+		if (accessTime.getId() != null && accessTime.getId() > 0) {
+			errorMessage = accessEquipmentServer.deleteAccessTime(accessTime
+					.getId());
+			if ("删除成功".equals(errorMessage))
+				url = "AccessEquipmentAction_findallAceTime.action?accessEquipment.id="
+						+ accessEquipment.getId();
+			return "error";
+		}
+		errorMessage = "不存在该对象！删除失败！";
+		return "error";
+	}
+
+	public String findallAceTime() {
+		if (accessEquipment != null) {
+			accessTimeList = accessEquipmentServer
+					.findAccessTimeByCondition(accessEquipment.getId());
+			if (accessTimeList != null && accessTimeList.size() > 0) {
+				errorMessage = null;
+			} else {
+				errorMessage = "抱歉!当前设备还未添加时间!";
+			}
+		}
+		return "accessTime_show";
+	}
+
+	//
+	/******************************* 灯 *******************************/
+	// 条件查询设备没绑定的灯
+	public String findOneLightCondition() {
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			if (light != null) {
+				ActionContext.getContext().getSession().put("Lights", light);
+			} else {
+				light = (OneLight) ActionContext.getContext().getSession().get(
+						"Lights");
+			}
+			Object[] object = accessEquipmentServer.findAllOneLight(light,
+					Integer.parseInt(cpage), pageSize);// 条件查询所有未绑定的灯
+			if (object != null && object.length > 0) {
+				lightList = (List<OneLight>) object[0];
+				if (lightList != null && lightList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findOneLightCondition.action?accessEquipment.id="
+									+ accessEquipment.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的灯不存在或者已经与该设备绑定!";
+				}
+				// 已绑定灯处理
+				banglightList = accessEquipmentServer
+						.findAllBangLight(accessEquipment.getId());
+				if (banglightList != null && banglightList.size() > 0) {
+					count = banglightList.size();// 绑定灯数量
+				} else {
+					count = 0;
+				}
+			} else {
+				errorMessage = "抱歉!您查询的灯不存在或者已经与该一体机绑定!";
+			}
+			return "oneLightbangdingace";
+		} else {
+			errorMessage = "该功能不存在，请重试!";
+			return "error";
+		}
+	}
+
+	// 跳转到绑定灯泡页面(查看该设备已绑定的灯和所有未绑定的灯)
+	public String findOneLightById() {
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			// 未绑定灯处理
+			Object[] object = accessEquipmentServer.findAllOneLight(light,
+					Integer.parseInt(cpage), pageSize);// 条件查询所有未绑定
+			if (object != null && object.length > 0) {
+				lightList = (List<OneLight>) object[0];
+				if (lightList != null && lightList.size() > 0) {
+					int sum = (Integer) object[1];
+					int pageCount = (sum + pageSize - 1) / pageSize;
+					this.setTotal(pageCount + "");
+					this
+							.setUrl("AccessEquipmentAction_findOneLightById.action?accessEquipment.id="
+									+ accessEquipment.getId());
+					errorMessage = null;
+				} else {
+					errorMessage = "抱歉!您查询的灯号不存在或者已经与该设备绑定!";
+				}
+			} else {
+				errorMessage = "抱歉!您查询的灯号不存在或者已经与该设备绑定!";
+			}
+			// 已绑定灯处理
+			banglightList = accessEquipmentServer
+					.findAllBangLight(accessEquipment.getId());
+			if (banglightList != null && banglightList.size() > 0) {
+				count = banglightList.size();
+			} else {
+				count = 0;
+			}
+			return "oneLightbangdingace";
+		} else {
+			errorMessage = "不存在该功能!";
+		}
+		return "error";
+	}
+
+	// 给设备绑定灯泡
+	public String bindingOneLight() {
+		if (accessEquipment.getId() == null || accessEquipment.getId() <= 0) {
+			errorMessage = "不存在该门禁设备!请检查后重试!";
+			return "error";
+		}
+		accessEquipment = accessEquipmentServer
+				.getbyIdAccessEquipment(accessEquipment.getId());
+		if (accessEquipment != null) {
+			errorMessage = accessEquipmentServer.binDingOneLight(
+					accessEquipment.getId(), lightId);
+			if ("绑定成功！".equals(errorMessage)) {
+				url = "AccessEquipmentAction_findOneLightById.action?accessEquipment.id="
+						+ accessEquipment.getId();
+				return "error";
+			}
+			errorMessage = "绑定用户失败";
+		} else {
+			errorMessage = "不存在该一体机!请检查后重试!";
+		}
+		return "error";
+	}
+	/**
+	 * 打开库位门
+	 * @return
+	 */
+	public void BossOpenDoorById(){
+		errorMessage =  accessEquipmentServer.BossOpenDoorById(id,doorIp,doorPort);
+		if("true".equals(errorMessage)) {
+			MKUtil.writeJSON(true, "操作成功", null);
+		}else {
+			MKUtil.writeJSON(false, "开门失败", null);
+		}
+	}
+	/**
+	 * 关闭库位门
+	 * @return
+	 */
+	public void BossColseDoorById(){
+		errorMessage =  accessEquipmentServer.BossColseDoorById(id, doorIp,doorPort);
+		if("true".equals(errorMessage)){
+			MKUtil.writeJSON(true, "操作成功", null);
+		}else {
+			MKUtil.writeJSON(false, "关门失败", null);
+		}
+	}
+
+	/**
+	 * 添加巡更时段
+	 * @return
+	 */
+	public String addXungengTime(){
+		if(xungengTime!=null){
+			errorMessage = accessEquipmentServer.addXungengTime(xungengTime);
+		}else{
+			errorMessage = "重新填写！！";
+		}
+		return "error";
+	}
+	/**
+	 * 删除巡更时段
+	 * @return
+	 */
+	public String delXungengTime(){
+		if(xungengTime!=null){
+			errorMessage = accessEquipmentServer.delet(xungengTime.getId());
+		}else{
+			errorMessage = "重新填写！！";
+		}
+		return "error";
+	}
+	/**
+	 * 查询所有巡更时段
+	 * @return
+	 */
+	public String findAllXungengTime() {
+		if (xungengTime != null) {
+			ActionContext.getContext().getSession().put("xungengTime",
+					xungengTime);
+		} else {// 用来保持分页时带着查询条件
+			xungengTime = (XungengTime) ActionContext.getContext().getSession()
+					.get("xungengTime");
+		}
+		Map<Integer, Object> map = accessEquipmentServer.findAllXungengTime(
+				xungengTime, Integer.parseInt(cpage), pageSize);
+		xungengTimeList = (List<XungengTime>) map.get(1);// 显示页的原材料和外购件列表
+		if (xungengTimeList != null & xungengTimeList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_findAllXungengTime.action");
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+		return "xungengTime_all";
+	}
+
+	/**
+	 * 查询所有巡更记录
+	 * 
+	 * @return
+	 */
+	public String findAllXungengRecord() {
+		if (xungengRecord != null) {
+			ActionContext.getContext().getSession().put("xungengRecord",
+					xungengRecord);
+		} else {// 用来保持分页时带着查询条件
+			xungengRecord = (XungengRecord) ActionContext.getContext()
+					.getSession().get("xungengRecord");
+		}
+		Map<Integer, Object> map = accessEquipmentServer.findAllXungengRecord(
+				xungengRecord, Integer.parseInt(cpage), pageSize);
+		xungengRecordList = (List<XungengRecord>) map.get(1);// 显示页的原材料和外购件列表
+		if (xungengRecordList != null & xungengRecordList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_findAllXungengRecord.action");
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+
+		return "xungengRecord_showList";
+	}
+	
+	/**
+	 * 关闭水阀
+	 * @return
+	 */
+	public String closeShuiFa(){
+		errorMessage = accessEquipmentServer.closeShuiFa(id1,tage);
+		return "error";
+	}
+	
+	/**
+	 * 添加快递单号
+	 * @return
+	 */
+	public String toAddResAccess(){
+		return "resAccess_add";
+	}
+	/**
+	 * 添加快递单号
+	 * @return
+	 */
+	public String addResAccess(){
+		errorMessage = accessEquipmentServer.addResAccess(resAccess);
+		if("添加成功！".equals(errorMessage)){
+			url = "AccessEquipmentAction_showResAccess.action?tag="+tag;
+		}
+		return "error";
+	}
+	/**
+	 * 寄快递
+	 * @return
+	 */
+	public String toAddResAccessJi(){
+		return "resAccess_addji";
+	}
+	/**
+	 * 查询快递记录
+	 * @return
+	 */
+	public String showResAccess(){
+		if (resAccess != null) {
+			ActionContext.getContext().getSession().put("ResAccess",
+					resAccess);
+		} else {
+			resAccess = (ResAccess) ActionContext.getContext()
+					.getSession().get("ResAccess");
+		}
+		Map<Integer, Object> map = accessEquipmentServer
+				.findResAccess(resAccess, Integer.parseInt(cpage), pageSize, tag);
+		resAccessList = (List<ResAccess>) map.get(1);// 显示申请列表
+		if (resAccessList != null && resAccessList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("AccessEquipmentAction_showResAccess.action?tag=" + tag);
+			errorMessage = null;
+		} else {
+			errorMessage = "没有符合条件的信息,请检查后重试!";
+		}
+		return "resAccess_show";
+	}
+	
+	public String toupdateResAccess(){
+		return "";
+	}
+	
+	/**
+	 * 取消快递记录
+	 * @return
+	 */
+	public String updateResAccess(){
+		resAccess = accessEquipmentServer.findResAccessbyId(id);
+		if(resAccess!=null){
+			errorMessage = accessEquipmentServer.updateResAccess(resAccess);
+			if("取消成功！".equals(errorMessage)){
+				url = "AccessEquipmentAction_showResAccess.action?tag="+tag;
+			}
+		}else {
+			errorMessage = "数据异常，请刷新！";
+		}
+		return "error";
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	/**
+	 * @return the id1
+	 */
+	public Integer getId1() {
+		return id1;
+	}
+	/**
+	 * @param id1 the id1 to set
+	 */
+	public void setId1(Integer id1) {
+		this.id1 = id1;
+	}
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public AccessEquipmentServer getAccessEquipmentServer() {
+		return accessEquipmentServer;
+	}
+
+	public void setAccessEquipmentServer(
+			AccessEquipmentServer accessEquipmentServer) {
+		this.accessEquipmentServer = accessEquipmentServer;
+	}
+
+	public AccessEquipment getAccessEquipment() {
+		return accessEquipment;
+	}
+
+	public void setAccessEquipment(AccessEquipment accessEquipment) {
+		this.accessEquipment = accessEquipment;
+	}
+
+	public List<AccessEquipment> getAccessEquipmentList() {
+		return accessEquipmentList;
+	}
+
+	public void setAccessEquipmentList(List<AccessEquipment> accessEquipmentList) {
+		this.accessEquipmentList = accessEquipmentList;
+	}
+
+	public AccessWebcam getAccessWebcam() {
+		return accessWebcam;
+	}
+
+	public void setAccessWebcam(AccessWebcam accessWebcam) {
+		this.accessWebcam = accessWebcam;
+	}
+
+	public List<AccessWebcam> getAccessWebcamList() {
+		return accessWebcamList;
+	}
+
+	public void setAccessWebcamList(List<AccessWebcam> accessWebcamList) {
+		this.accessWebcamList = accessWebcamList;
+	}
+
+	public Integer getOpensize() {
+		return opensize;
+	}
+
+	public void setOpensize(Integer opensize) {
+		this.opensize = opensize;
+	}
+
+	public List<Users> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<Users> userList) {
+		this.userList = userList;
+	}
+
+	public List<Users> getBangUserList() {
+		return bangUserList;
+	}
+
+	public void setBangUserList(List<Users> bangUserList) {
+		this.bangUserList = bangUserList;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public Integer[] getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(Integer[] usersId) {
+		this.usersId = usersId;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public List<AccessWebcam> getWebcamGuiList() {
+		return webcamGuiList;
+	}
+
+	public void setWebcamGuiList(List<AccessWebcam> webcamGuiList) {
+		this.webcamGuiList = webcamGuiList;
+	}
+
+	public List<AccessWebcam> getWebcamFGuiAllList() {
+		return webcamFGuiAllList;
+	}
+
+	public void setWebcamFGuiAllList(List<AccessWebcam> webcamFGuiAllList) {
+		this.webcamFGuiAllList = webcamFGuiAllList;
+	}
+
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
+	}
+
+	public List<Price> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(List<Price> priceList) {
+		this.priceList = priceList;
+	}
+
+	public List<Price> getBangpriceList() {
+		return bangpriceList;
+	}
+
+	public void setBangpriceList(List<Price> bangpriceList) {
+		this.bangpriceList = bangpriceList;
+	}
+
+	public Integer[] getPriceId() {
+		return priceId;
+	}
+
+	public void setPriceId(Integer[] priceId) {
+		this.priceId = priceId;
+	}
+
+	public AccessTime getAccessTime() {
+		return accessTime;
+	}
+
+	public void setAccessTime(AccessTime accessTime) {
+		this.accessTime = accessTime;
+	}
+
+	public List<AccessTime> getAccessTimeList() {
+		return accessTimeList;
+	}
+
+	public void setAccessTimeList(List<AccessTime> accessTimeList) {
+		this.accessTimeList = accessTimeList;
+	}
+
+	public List<Users> getBangUserTimeList() {
+		return bangUserTimeList;
+	}
+
+	public void setBangUserTimeList(List<Users> bangUserTimeList) {
+		this.bangUserTimeList = bangUserTimeList;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public Integer[] getLightId() {
+		return lightId;
+	}
+
+	public void setLightId(Integer[] lightId) {
+		this.lightId = lightId;
+	}
+
+	public OneLight getLight() {
+		return light;
+	}
+
+	public void setLight(OneLight light) {
+		this.light = light;
+	}
+
+	public List<OneLight> getLightList() {
+		return lightList;
+	}
+
+	public void setLightList(List<OneLight> lightList) {
+		this.lightList = lightList;
+	}
+
+	public List<OneLight> getBanglightList() {
+		return banglightList;
+	}
+
+	public void setBanglightList(List<OneLight> banglightList) {
+		this.banglightList = banglightList;
+	}
+
+	public String getDoorIp() {
+		return doorIp;
+	}
+
+	public void setDoorIp(String doorIp) {
+		this.doorIp = doorIp;
+	}
+
+	public String getDoorPort() {
+		return doorPort;
+	}
+
+	public void setDoorPort(String doorPort) {
+		this.doorPort = doorPort;
+	}
+
+	public List<SealLogType> getSealLogTypeList() {
+		return sealLogTypeList;
+	}
+
+	public void setSealLogTypeList(List<SealLogType> sealLogTypeList) {
+		this.sealLogTypeList = sealLogTypeList;
+	}
+
+	public List<FileManager> getFileManagerList() {
+		return fileManagerList;
+	}
+
+	public void setFileManagerList(List<FileManager> fileManagerList) {
+		this.fileManagerList = fileManagerList;
+	}
+
+	public List<CwCertificate> getCwCertificateList() {
+		return cwCertificateList;
+	}
+
+	public void setCwCertificateList(List<CwCertificate> cwCertificateList) {
+		this.cwCertificateList = cwCertificateList;
+	}
+
+	public CwCertificate getCertificate() {
+		return certificate;
+	}
+
+	public void setCertificate(CwCertificate certificate) {
+		this.certificate = certificate;
+	}
+
+	public XungengRecord getXungengRecord() {
+		return xungengRecord;
+	}
+	public void setXungengRecord(XungengRecord xungengRecord) {
+		this.xungengRecord = xungengRecord;
+	}
+	public XungengTime getXungengTime() {
+		return xungengTime;
+	}
+	public void setXungengTime(XungengTime xungengTime) {
+		this.xungengTime = xungengTime;
+	}
+	public List<XungengRecord> getXungengRecordList() {
+		return xungengRecordList;
+	}
+	public void setXungengRecordList(List<XungengRecord> xungengRecordList) {
+		this.xungengRecordList = xungengRecordList;
+	}
+	public List<XungengTime> getXungengTimeList() {
+		return xungengTimeList;
+	}
+	public void setXungengTimeList(List<XungengTime> xungengTimeList) {
+		this.xungengTimeList = xungengTimeList;
+	}
+	
+	public String getTage() {
+		return tage;
+	}
+	public void setTage(String tage) {
+		this.tage = tage;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public ResAccess getResAccess() {
+		return resAccess;
+	}
+
+	public void setResAccess(ResAccess resAccess) {
+		this.resAccess = resAccess;
+	}
+
+	public List<ResAccess> getResAccessList() {
+		return resAccessList;
+	}
+
+	public void setResAccessList(List<ResAccess> resAccessList) {
+		this.resAccessList = resAccessList;
+	}
+
+}

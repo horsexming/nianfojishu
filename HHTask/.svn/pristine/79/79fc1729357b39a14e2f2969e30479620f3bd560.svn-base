@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Register" table="ST_Register" >
+		<id name="id" column="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		<property name="personName" column="person_name"></property>
+		<property name="badgenumber" column="Badgenumber"></property>
+		<property name="cardNo" column="cardNo"></property>
+	</class>
+</hibernate-mapping>

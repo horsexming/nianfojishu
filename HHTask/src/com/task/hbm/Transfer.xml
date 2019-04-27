@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Transfer" table="ta_Transfer" >
+		  <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+		<property name="name"/>
+		<property name="userId" type="java.lang.Integer"/>
+		<property name="code"/>
+		<property name="dgTime"/>
+		<property name="beforeDept"/>
+		<property name="beforeDeptId" type="java.lang.Integer"/>
+		<property name="dept"/>
+		<property name="deptId" type="java.lang.Integer"/>
+		<property name="sqTime"/>
+		<property name="sqName"/>
+		<property name="more"/>
+		<property name="sqdept"/>
+		<property name="ep_statuts"/>
+		<property name="befroedeptNo"/>
+		<property name="deptNo"/>
+		<property name="epId" type="java.lang.Integer"/>
+	</class>
+</hibernate-mapping>

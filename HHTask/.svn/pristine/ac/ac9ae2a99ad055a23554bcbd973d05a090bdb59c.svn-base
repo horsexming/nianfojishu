@@ -1,0 +1,100 @@
+package com.task.entity.sop;
+/**
+ * 高温费明细ta_sop_HotFree
+ * @author txb
+ *
+ */
+public class HotFree {
+	public Integer id;//
+	public Integer userId;//用户id
+	public String name;//名字
+	public String code;//工号
+	public String dept;//部门
+	public Float time;//工作时长
+	public String month;//月份
+	public String type;//类型
+	public Float money;//奖金
+	public Float cqCount;//出勤天数
+	public Float qqCount;//缺勤天数
+	public Float qqMoney;//缺勤扣费
+	public Float sfMoney;//实发高温费
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public Float getTime() {
+		return time;
+	}
+	public void setTime(Float time) {
+		this.time = time;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Float getMoney() {
+		return money;
+	}
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public Float getCqCount() {
+		return cqCount;
+	}
+	public void setCqCount(Float cqCount) {
+		this.cqCount = cqCount;
+	}
+	public Float getQqCount() {
+		return qqCount;
+	}
+	public void setQqCount(Float qqCount) {
+		this.qqCount = qqCount;
+	}
+	public Float getSfMoney() {
+		return sfMoney;
+	}
+	public void setSfMoney(Float sfMoney) {
+		this.sfMoney = sfMoney;
+	}
+	public Float getQqMoney() {
+		return qqMoney;
+	}
+	public void setQqMoney(Float qqMoney) {
+		this.qqMoney = qqMoney;
+	}
+	
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.noncore">
+	<class name="PayableType" table="ta_PayableType">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="type"/>
+		<set name="usersList" inverse="false" table="ta_caiwu_ptyUser"
+			cascade="all" lazy="true">
+			<key column="ta_ptId"></key>
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+	</class>
+</hibernate-mapping>

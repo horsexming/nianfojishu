@@ -1,0 +1,110 @@
+package com.task.entity.menjin;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/**
+ * 卷帘门操作表
+ * 
+ * @author YYHB 2017-2-8 表名ta_jlm_operation 卷帘门操作表
+ */
+public class Operation {
+	private Integer id;//操作表ID
+	private String doorName;//门名称
+	private Integer doorId;//门ID
+	private String doorIP;// 设备IP equipmentIP
+	private String doorPort;// 设备端口
+	private String startTime;//开始时间
+	private String endTime;//结束时间
+	private String timeLength;//时长(显示)
+	private Integer timeInt;//时长（毫秒）
+	private String status;//使用状态(未使用/已使用)
+	private String openTime;//开门时间
+	private String closeTime;//关门时间
+	private JLMApplication jlmapplication;
+	@JSONField(serialize = false)
+	public Integer getTimeInt() {
+		return timeInt;
+	}
+	public void setTimeInt(Integer timeInt) {
+		this.timeInt = timeInt;
+	}
+	
+	public String getDoorIP() {
+		return doorIP;
+	}
+	public void setDoorIP(String doorIP) {
+		this.doorIP = doorIP;
+	}
+	public String getDoorPort() {
+		return doorPort;
+	}
+	public void setDoorPort(String doorPort) {
+		this.doorPort = doorPort;
+	}
+	public String getOpenTime() {
+		return openTime;
+	}
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+	
+	public String getCloseTime() {
+		return closeTime;
+	}
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	@JSONField(serialize = false)
+	public JLMApplication getJlmapplication() {
+		return jlmapplication;
+	}
+	public void setJlmapplication(JLMApplication jlmapplication) {
+		this.jlmapplication = jlmapplication;
+	}
+	public String getDoorName() {
+		return doorName;
+	}
+	public void setDoorName(String doorName) {
+		this.doorName = doorName;
+	}
+	public Integer getDoorId() {
+		return doorId;
+	}
+	public void setDoorId(Integer doorId) {
+		this.doorId = doorId;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public String getTimeLength() {
+		return timeLength;
+	}
+	public void setTimeLength(String timeLength) {
+		this.timeLength = timeLength;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+	
+}

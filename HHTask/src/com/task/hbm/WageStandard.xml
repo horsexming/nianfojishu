@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WageStandard" table="ta_fin_wageStandard">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" column="ta_fin_code" length="10"
+			not-null="true" />
+		<property name="cardId" column="ta_fin_cardId" length="20"
+			not-null="true" />
+		<property name="userName" column="ta_fin_userName" length="10"
+			not-null="true" />
+		<property name="dept" column="ta_fin_dept" length="10"
+			not-null="true" />
+		<property name="gangweigongzi" column="ta_fin_gangweigongzi"
+			not-null="true" />
+		<property name="baomijintie" column="ta_fin_baomijintie"
+			not-null="true" />
+		<property name="dianhuabutie" column="ta_fin_dianhuabutie" />
+		<property name="jixiaokaohegongzi" column="ta_fin_jixiaokaohegongzi"
+			not-null="true" />
+		<property name="jinenggongzi" column="ta_fin_jinenggongzi" />
+		<property name="gonglinggongzi" column="ta_fin_gonglinggongzi" />
+		<property name="yingfagongzi" column="ta_fin_yingfagongzi" />
+
+		<property name="ssBase" column="ta_fin_ssBase" />
+		<property name="tongchoujin" column="ta_fin_tongchoujin" />
+		<property name="yiliaobaoxian" column="ta_fin_yiliaobaoxian" />
+		<property name="shiyebaoxian" column="ta_fin_shiyebaoxian" />
+		<property name="gongshangbaoxian" column="ta_fin_gongshangbaoxian" />
+		<property name="shengyubaoxian" column="ta_fin_shengyubaoxian" />
+
+		<property name="dwtongchoujin" column="ta_fin_dwtongchoujin" />
+		<property name="dwyiliaobaoxian" column="ta_fin_dwyiliaobaoxian" />
+		<property name="dwshiyebaoxian" column="ta_fin_dwshiyebaoxian" />
+		<property name="dwgongshangbaoxian" column="ta_fin_dwgongshangbaoxian" />
+		<property name="dwshengyubaoxian" column="ta_fin_dwshengyubaoxian" />
+
+		<property name="gjjBase" column="ta_fin_gjjBase" />
+		<property name="gongjijin" column="ta_fin_gongjijin" />
+		<property name="dwgongjijin" column="ta_fin_dwgongjijin" />
+
+		<property name="localOrField" column="ta_fin_localOrField"
+			not-null="true" length="20" />
+		<property name="cityOrCountryside" column="ta_fin_cityOrCountryside"
+			not-null="true" length="20" />
+		<property name="inputPeople" column="ta_fin_inputPeople"
+			length="20" />
+		<property name="inputDate" column="ta_fin_inputDate" length="20" />
+		<property name="updatePeople" column="ta_fin_updatePeople"
+			length="20" />
+		<property name="updateDate" column="ta_fin_updateDate"
+			length="20" />
+		<property name="standardStatus" column="ta_fin_standardStatus"
+			length="20" />
+		<property name="isOnWork" column="ta_fin_isOnWork" />
+		<property name="processStatus" column="ta_fin_processStatus" />
+		<property name="bucha" column="ta_fin_bucha" length="10" />
+		<property name="personClass" column="ta_fin_personClass"
+			length="20" />
+		<property name="fangzufei" column="ta_fin_fangzufei" length="50" />
+		<property name="chageStatus" column="ta_fin_chageStatus"
+			length="50" />
+		<property name="insuranceGoldId" column="fk_insuranceGoldId" />
+		<property name="zxfjkc"/>
+	</class>
+</hibernate-mapping>

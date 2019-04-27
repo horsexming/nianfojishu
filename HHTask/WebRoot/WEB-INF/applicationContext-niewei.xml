@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************聂威Server层管理****************************************************
+	-->
+	<!-- 品质部门审核管理 -->
+	<!-- server -->
+	<bean id="pfmeasServerImpl" class="com.task.ServerImpl.Pfmeas.PfmeasServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="pfmeasAction" class="com.task.action.pfmeas.PfmeasAction" scope="prototype">
+			<property name="pfmeasServer" ref="pfmeasServerImpl"></property>
+	</bean>
+	
+	<!-- 班次管理 -->
+	<bean id="banCiServerImpl" class="com.task.ServerImpl.banci.BanCiServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="banCiAction" class="com.task.action.banci.BanCiAction" scope="prototype">
+			<property name="banCiServer" ref="banCiServerImpl"></property>
+	</bean>
+	
+	<!-- 销售价格管理 -->
+	<bean id="sellPriceServerImpl" class="com.task.ServerImpl.sop.SellPriceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="sellPriceAction" class="com.task.action.sop.SellPriceAction" scope="prototype">
+			<property name="sellPriceServer" ref="sellPriceServerImpl"></property>
+	</bean>
+   
+   <!-- 气密入库表 -->
+	<bean id="gasServerImpl" class="com.task.ServerImpl.qimi.GasServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="gasAction" class="com.task.action.qimi.GasAction" scope="prototype">
+			<property name="gasServer" ref="gasServerImpl"></property>
+	</bean>
+	
+</beans>

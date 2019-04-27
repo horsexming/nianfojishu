@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectStartUser" table="ta_ProjectStart_User">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept" length="20" />
+		<property name="telphone" length="20" />
+		<property name="email" length="30" />
+		<property name="userId" />
+		<property name="userCard" length="30" />
+		<property name="inCharge" length="20" />
+		<property name="responsibilities" />
+		<property name="pGroup" length="20" />
+		<many-to-one name="root" column="pid" lazy="false" />
+	</class>
+
+</hibernate-mapping>

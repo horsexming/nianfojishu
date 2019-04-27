@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-chenyang" location="0,0" size="0,0">
+    <action name="mealAction" location="0,0" size="0,0">
+      <result name="saveSuccess" />
+      <result name="rekan" />
+      <result name="rekan3" />
+      <result name="list" />
+      <result name="personlist" />
+      <result name="f" />
+      <result name="meal1" />
+      <result name="h" />
+      <result name="fuck" />
+      <result name="reKan" />
+      <result name="reKan3" />
+      <result name="look" />
+      <result name="look1" />
+      <result name="error" />
+    </action>
+    <action name="AddUserAction" location="0,0" size="0,0" />
+    <action name="InformAction" location="0,0" size="0,0">
+      <result name="leave" />
+      <result name="print" />
+      <result name="findli" />
+      <result name="iaoAddCInform" />
+      <result name="iaoComeInform" />
+      <result name="caiwuAdd" />
+      <result name="caiwulizhiadd" />
+      <result name="caiwulizhiprint" />
+      <result name="caiwuruzhi" />
+      <result name="caiwuruzhiprint" />
+      <result name="caiwutstzAdd" />
+      <result name="caiwutstzprint" />
+      <result name="xingzhengtzprint" />
+      <result name="xingzhengtz" />
+      <result name="li" />
+      <result name="ru" />
+      <result name="ti" />
+      <result name="cli" />
+      <result name="cru" />
+      <result name="cgrlm" />
+      <result name="cnt" />
+      <result name="cwts" />
+      <result name="xztz" />
+      <result name="error" />
+    </action>
+    <action name="NoticeAction" location="0,0" size="0,0">
+      <result name="addpage" />
+      <result name="save" />
+      <result name="search" />
+    </action>
+    <action name="QexamineAction" location="0,0" size="0,0">
+      <result name="addQexamine" />
+      <result name="qexamineList" />
+      <result name="addstylebook" />
+      <result name="fixqexamine" />
+      <result name="addcoffficient" />
+      <result name="qexamineListfind" />
+      <result name="findQexamine" />
+      <result name="stylebooklist" />
+      <result name="stylebook" />
+      <result name="fixStylebook" />
+      <result name="fixCoffficient" />
+      <result name="adddefect" />
+    </action>
+    <action name="QualityccAction" location="0,0" size="0,0">
+      <result name="qualitychecktolist" />
+      <result name="qualitychecktolist0" />
+      <result name="addQualitycheckta" />
+      <result name="qualityto" />
+      <result name="qualitytos" />
+      <result name="qualitytoo" />
+      <result name="qualitytoox" />
+      <result name="qualitytooxt" />
+      <result name="qualitytolist" />
+      <result name="lookqualityto" />
+      <result name="qualitytooxts" />
+      <result name="qualitychecktorp" />
+    </action>
+    <action name="YusuantianbaobiaoAction" location="0,0" size="0,0">
+      <result name="yusuantianbaobiaolist" />
+      <result name="getAllList" />
+      <result name="yusuantianbaobiao" />
+      <result name="updateyusuantianbaobiao" />
+      <result name="getZlist" />
+      <result name="yusuantianbaototallist" />
+      <result name="addyusuan" />
+      <result name="updateyusuantianbaototal" />
+      <result name="getSlist" />
+      <result name="getAllgerenlist" />
+    </action>
+  </package>
+</Struts2Diagram>
+

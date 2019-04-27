@@ -1,0 +1,77 @@
+package com.task.entity.sop;
+
+public class ProcardReProductFile implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;
+	private Integer reProductId;
+	private Integer processNo;//
+	private String processName;
+	private String fileName;//地址:upload/file/fxtz/
+	private String oldFileName;
+	private String addTime;
+	private String addUser;//添加人
+	private Integer addUserId;//
+	private String addCode;//
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getReProductId() {
+		return reProductId;
+	}
+	public void setReProductId(Integer reProductId) {
+		this.reProductId = reProductId;
+	}
+	public String getProcessName() {
+		return processName;
+	}
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getOldFileName() {
+		return oldFileName;
+	}
+	public void setOldFileName(String oldFileName) {
+		this.oldFileName = oldFileName;
+	}
+	public Integer getProcessNo() {
+		return processNo;
+	}
+	public void setProcessNo(Integer processNo) {
+		this.processNo = processNo;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUser() {
+		return addUser;
+	}
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+	public String getAddCode() {
+		return addCode;
+	}
+	public void setAddCode(String addCode) {
+		this.addCode = addCode;
+	}
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+	
+	
+}

@@ -1,0 +1,234 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body onload="createDept('markId','overtimeAction!finAllMarkIdForSetlect.action')">
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng"
+			style="width: 100%; border: solid 1px #0170b8; margin-top: 10px;">
+			<div id="xitong"
+				style="width: 100%; font-weight: bold; height: 50px; "
+				align="left">
+				<div
+					style="float: left; width: 50%; padding-left: 30px; padding-top: 5px;"
+					align="left">
+					
+				</div>
+				<div style="float: left; width: 45%; padding-top: 5px;"
+					align="right">
+				</div>
+			</div>
+			
+			<div align="center">
+				<form action="overtimeAction!backupOvertime.action" method="post" onsubmit="return check()">
+					<br>
+					<table border="0" width="100%" class="table">
+						<input id="id" type="hidden" name="overtime.id" value="${overtime.id}" />
+						<%--<tr>
+							
+							<td align="right">
+								申请人工号:
+							</td>
+							<td>
+								<input id="applyCode" type="text" name="overtime.applyCode" value="${overtime.applyCode}" />
+							</td>
+							<td align="right">
+								申请人姓名:
+							</td>
+							<td>
+								<input id="applyName" type="text" name="overtime.applyName" value="${overtime.applyName}" />
+							</td>
+							<td align="right">
+								申请人部门:
+							</td>
+							<td>
+								<input id="applyDept" type="text" name="overtime.applyDept" value="${overtime.applyDept}" />
+							</td>
+						</tr>
+						--%><tr>
+							<td align="right">
+								加班人工号:
+							</td>
+							<td>
+								<input id="overtimeCode" type="text" name="overtime.overtimeCode" value="${overtime.overtimeCode}" disabled="disabled"/>
+							</td>
+							<td align="right">
+								加班人姓名:
+							</td>
+							<td>
+								<input id="overtimeName" type="text" name="overtime.overtimeName" value="${overtime.overtimeName}" disabled="disabled"/>
+							</td>
+							<td align="right">
+								加班人部门:
+							</td>
+							<td>
+								<input id="overtimeDept" type="text" name="overtime.overtimeDept" value="${overtime.overtimeDept}" disabled="disabled"/>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								加班开始时间:
+							</td>
+							<td>
+								<input type="text" value="${overtime.startDate}" disabled="disabled" />
+							</td>
+							<td align="right">
+								加班结束时间:
+							</td>
+							<td>
+								<input type="text" value="${overtime.endDate}" disabled="disabled"/>
+							</td>
+							
+						</tr>
+						<tr>
+							<th align="right">打卡时间：</th>
+							<td colspan="5">
+								<div id="startList">
+									<s:iterator value="attendanceTowList" id="st" status="status">
+										<span>${st.addTime}&nbsp;&nbsp;&nbsp;</span>
+										
+									</s:iterator>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								实际开始时间:
+							</th>
+							<td colspan="5">
+								<input id="startDate" class="Wdate" type="text" name="overtime.filnalStartDate" value="${overtime.filnalStartDate}"
+										onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" />
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								实际结束时间:
+							</th>
+							<td colspan="5">
+								<input id="endDate" class="Wdate" type="text" name="overtime.filnalEndDate" value="${overtime.filnalEndDate}"
+										onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" />
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								加工件号:
+							</td>
+							<td>
+								<select name="overtime.markId" id="markId" multiple="multiple" size="2">
+								</select>
+							</td>
+							<td align="right">
+								数量:
+							</td>
+							<td>
+								<input id="amount" type="text" name="overtime.amount" value="${overtime.amount}" />
+							</td>
+						
+						</tr>
+						<tr>
+							<th align="right">
+								加班说明：
+							</th>
+							<td>
+								<textarea rows="3" cols="50" id="overtime.shuoming"
+									name="overtime.shuoming" />${overtime.shuoming}</textarea>
+							</td>
+							<th></th><th></th>
+						</tr>
+						<tr>
+							<td align="center" colspan="8">
+								<input type="submit" value="提交"
+									style="width: 100px; height: 50px;" />
+							</td>
+						</tr>
+					</table>
+				</form>
+				
+				<br/>
+				<br/><br/>
+				<div align="left">
+					<strong>说明</strong><br/>
+					<p>1.加班后补功能只能在加班以后才能后补。</p>
+					<p>2.后补加班时长必须在打卡记录以内。</p>
+					<p>3.如果加班结束忘记打卡不能后补。</p>
+				</div>
+			</div>
+			<br />
+			
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		</center>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+$(function(){
+	$.ajax({
+		type: "get",
+		dataType: "text",
+        url: "overtimeAction!finAllMarkIdForSetlect.action",
+		async: false,
+		success: function(data){
+			var dept=data.split("|");
+			for(var i=0;i<dept.length-1;i++){
+				$("<option value='"+dept[i]+"'>"+dept[i]+"</option>").appendTo("#markId");
+			}
+			$("<option value=''>其它</option>").appendTo("#markId");
+		}
+	});
+	var markIds='${overtime.markId}';
+	var markIdArry=markIds.split(',');
+    for(var i in markIdArry){
+		$("#markId").find("option[value='"+i+"']").attr("selected",true);
+    }
+});
+
+function check(){
+	var startDate =  $("#startDate").val();
+	var endDate = $("#endDate").val();
+	if(startDate==null || startDate==""){
+		alert("实际开始时间不能为空");
+		return false;
+	}
+	if(endDate ==null || endDate==""){
+		alert("实际结束时间不能为空");
+		return false;
+	}
+	var d1 = Date.parse(new Date(startDate));
+	var d2 = Date.parse(new Date(endDate));
+	
+	var min = $("#startList span:first-child").text();
+	var max = $("#startList span:last-child").text();
+	
+	if(min==null || min=="" || max==null || max==""){
+		alert("没有找到打卡记录，不能补加班");
+		return false;
+	}
+	min = min.trim();
+	max = max.trim();
+	var d3 = Date.parse(new Date(min));
+	var d4 = Date.parse(new Date(max));
+	
+	if(d1<d3){
+		alert("实际开始时间不正确");
+		return false;
+	}
+	if(d2>d4){
+		alert("实际结束时间不正确");
+		return false;
+	}
+	
+	return true;
+}
+</script>
+	</body>
+</html>
+

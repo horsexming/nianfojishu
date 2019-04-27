@@ -1,0 +1,185 @@
+package com.task.entity;
+
+public class EquipmentChanges {
+	private Integer id;// id
+	private Integer userid;// 用户Id
+	private String name;// 申报人姓名
+	private String dapt; // 申报人部门
+	private String changesdate;// 申报时间
+	private String completiontime;// 移动完成时间
+	private String changesname;//设备移动人员
+	private String processingtime;// 副总审批时间
+	private String zhongtime;// 总经理审批时间
+	private String status;// 审批状态
+	private String equipmentName;// 设备名称
+	private String devicenumber;// 设备编号
+	private String devicetype;// 设备类型
+	private String partsname;// 设备生产的零件名
+	private String oldworkarea;// 旧工区
+	private String oldstation;// 旧工位
+	private String newworkarea;// 新工区
+	private String newstation;// 新工位
+	private String reason;// 变动原因说明
+	private Machine machine;// 设备表
+
+	public Machine getMachine() {
+		return machine;
+	}
+
+	public void setMachine(Machine machine) {
+		this.machine = machine;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDapt() {
+		return dapt;
+	}
+
+	public void setDapt(String dapt) {
+		this.dapt = dapt;
+	}
+
+	public String getChangesdate() {
+		return changesdate;
+	}
+
+	public void setChangesdate(String changesdate) {
+		this.changesdate = changesdate;
+	}
+
+	public String getCompletiontime() {
+		return completiontime;
+	}
+
+	public void setCompletiontime(String completiontime) {
+		this.completiontime = completiontime;
+	}
+
+	public String getProcessingtime() {
+		return processingtime;
+	}
+
+	public void setProcessingtime(String processingtime) {
+		this.processingtime = processingtime;
+	}
+
+	public String getEquipmentName() {
+		return equipmentName;
+	}
+
+	public void setEquipmentName(String equipmentName) {
+		this.equipmentName = equipmentName;
+	}
+
+	public String getDevicenumber() {
+		return devicenumber;
+	}
+
+	public void setDevicenumber(String devicenumber) {
+		this.devicenumber = devicenumber;
+	}
+
+	public String getDevicetype() {
+		return devicetype;
+	}
+
+	public void setDevicetype(String devicetype) {
+		this.devicetype = devicetype;
+	}
+
+	public String getPartsname() {
+		return partsname;
+	}
+
+	public void setPartsname(String partsname) {
+		this.partsname = partsname;
+	}
+
+	public String getOldworkarea() {
+		return oldworkarea;
+	}
+
+	public void setOldworkarea(String oldworkarea) {
+		this.oldworkarea = oldworkarea;
+	}
+
+	public String getOldstation() {
+		return oldstation;
+	}
+
+	public void setOldstation(String oldstation) {
+		this.oldstation = oldstation;
+	}
+
+	public String getNewworkarea() {
+		return newworkarea;
+	}
+
+	public void setNewworkarea(String newworkarea) {
+		this.newworkarea = newworkarea;
+	}
+
+	public String getNewstation() {
+		return newstation;
+	}
+
+	public void setNewstation(String newstation) {
+		this.newstation = newstation;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public String getZhongtime() {
+		return zhongtime;
+	}
+
+	public void setZhongtime(String zhongtime) {
+		this.zhongtime = zhongtime;
+	}
+
+	public String getChangesname() {
+		return changesname;
+	}
+
+	public void setChangesname(String changesname) {
+		this.changesname = changesname;
+	}
+
+}

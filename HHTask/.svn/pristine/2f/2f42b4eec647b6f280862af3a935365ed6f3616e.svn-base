@@ -1,0 +1,185 @@
+package com.task.entity.sop;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 
+ * @author 王晓飞
+ * 项目名 外购件MOQ控制表: (ta_sop_w_WgProcardMOQ)
+ */
+public class WgProcardMOQ {
+	
+	private Integer id;
+	@FieldMeta(name="物料类别")
+	private String wgType;//物料类别
+	@FieldMeta(name="总成件号")
+	private String rootMakrId;//总成件号
+	@FieldMeta(name="总成批次")
+	private String rootSelfCard;//总成批次
+	@FieldMeta(name="件号")
+	private String markId;//件号
+	@FieldMeta(name="业务件号")
+	private String ywMarkId;//业务件号
+	@FieldMeta(name="名字")
+	private String proName;//名字
+	@FieldMeta(name="供货属性")
+	private String kgliao;//名字
+	@FieldMeta(name="需求数量")
+	private Float cgNumber;// 数量(实际需要生产数量)
+	@FieldMeta(name="单位")
+	private String unit;//单位
+	@FieldMeta(name="版本号")
+	private String banBenNumber;//版本号
+	@FieldMeta(name="规格")
+	private String specification;// 规格
+	private Integer rootId;//总成Id;
+	private Float cgbl;//
+	private String isUse;//是启用MOQ ; YES/NO
+	@FieldMeta(name="MOQ数量")
+	private Float moqNum;////MOQ数量
+	@FieldMeta(name="供应商编码与(将要)分配数量")
+	private String gyscodeAndNum;//供应商编码与(将要)分配数量  gys001:50;gys002:80;gys003:90
+	@FieldMeta(name="备注")
+	private String remarks;//备注
+	private String addTime;//添加时间
+	private String epTime;//审批时间;
+	private Integer epId;//审批流程Id
+	private String epStatus;//审批状态
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	
+	public Float getCgNumber() {
+		return cgNumber;
+	}
+	public void setCgNumber(Float cgNumber) {
+		this.cgNumber = cgNumber;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getBanBenNumber() {
+		return banBenNumber;
+	}
+	public void setBanBenNumber(String banBenNumber) {
+		this.banBenNumber = banBenNumber;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public Integer getRootId() {
+		return rootId;
+	}
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+	public String getRootMakrId() {
+		return rootMakrId;
+	}
+	public void setRootMakrId(String rootMakrId) {
+		this.rootMakrId = rootMakrId;
+	}
+	public String getRootSelfCard() {
+		return rootSelfCard;
+	}
+	public void setRootSelfCard(String rootSelfCard) {
+		this.rootSelfCard = rootSelfCard;
+	}
+	public Float getCgbl() {
+		return cgbl;
+	}
+	public void setCgbl(Float cgbl) {
+		this.cgbl = cgbl;
+	}
+	public String getIsUse() {
+		return isUse;
+	}
+	public void setIsUse(String isUse) {
+		this.isUse = isUse;
+	}
+	public Float getMoqNum() {
+		return moqNum;
+	}
+	public void setMoqNum(Float moqNum) {
+		this.moqNum = moqNum;
+	}
+	public String getGyscodeAndNum() {
+		return gyscodeAndNum;
+	}
+	public void setGyscodeAndNum(String gyscodeAndNum) {
+		this.gyscodeAndNum = gyscodeAndNum;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getEpTime() {
+		return epTime;
+	}
+	public void setEpTime(String epTime) {
+		this.epTime = epTime;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEpStatus() {
+		return epStatus;
+	}
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	
+	
+	
+}

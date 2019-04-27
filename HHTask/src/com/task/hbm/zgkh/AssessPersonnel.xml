@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.zgkh">
+	<class name="AssessPersonnel" table="ta_hr_zgkh_AssessPersonnel">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="userId" />
+		<property name="code" />
+		<property name="cardId" />
+		<property name="userName" />
+		<property name="dept" />
+		<property name="addUserId" />
+		<property name="addUserCode" />
+		<property name="addTime" />
+		<property name="remark" />
+		<!-- 成员对模板 -->
+		<set name="template" table="ta_sys_usersTemplate" inverse="false"
+			cascade="save-update" lazy="true">
+			<key column="userId"></key>
+			<many-to-many class="com.task.entity.Template" column="templateId"></many-to-many>
+		</set>
+
+		<!-- 成员对分组 -->
+		<many-to-one name="usersGroup" column="usersGroupId" lazy="false"
+			class="com.task.entity.UsersGroup" />
+	</class>
+</hibernate-mapping>

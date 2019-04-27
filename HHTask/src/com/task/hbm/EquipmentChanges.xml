@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.EquipmentChanges" table="ta_EquipmentChanges">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="10" />
+		<property name="dapt" length="50" />
+		<property name="changesdate" length="50" />
+		<property name="completiontime" length="50" />
+		<property name="processingtime" length="50" />
+		<property name="zhongtime" length="50" />
+		<property name="equipmentName" length="100" />
+		<property name="devicenumber" length="100" />
+		<property name="devicetype" length="50" />
+		<property name="partsname" length="50" />
+		<property name="oldworkarea" length="50" />
+		<property name="oldstation" length="50" />
+		<property name="newworkarea" length="50" />
+		<property name="newstation" length="50" />
+		<property name="reason" length="500" />
+		<property name="status" length="50" />
+		<property name="userid" length="10" />
+		<property name="changesname" length="10" />
+		<many-to-one name="machine" column="fk_machineId" lazy="false"
+			cascade="save-update" class="com.task.entity.Machine"></many-to-one>
+	</class>
+
+</hibernate-mapping>

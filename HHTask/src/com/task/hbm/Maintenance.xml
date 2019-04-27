@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Maintenance" table="macrepair">
+		<id name="id" column="macRepair_id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="workArea" column="macRepair_workArea" length="255" />
+		<property name="workPosition" column="macRepair_workPosition"
+			length="255" />
+		<property name="no" column="macRepair_no" length="255" />
+		<property name="type" column="machine_type" length="255" />
+		<property name="name" column="macRepair_name" length="255" />
+		<property name="classGroup" column="macRepair_classGroup"
+			length="255" />
+		<property name="status" column="macRepair_status" length="255" />
+		<property name="alarmTime" column="macRepair_alarmTime"
+			length="8" />
+		<property name="alermManId" column="macRepair_alermManId"
+			length="4" />
+		<property name="alermMan" column="macRepair_alermMan" length="255" />
+		<property name="alermDeptId" column="macRepair_alermDeptId"
+			length="4" />
+		<property name="alermDept" column="macRepair_alermDept"
+			length="255" />
+		<property name="alermBossId" column="macRepair_alermBossId"
+			length="4" />
+		<property name="alermBoss" column="macRepair_alermBoss"
+			length="255" />
+		<property name="barcode" column="macRepair_barcode" length="255" />
+		<property name="startTime" column="macRepair_startTime"
+			length="8" />
+		<property name="repTime" column="macRepair_repTime" length="8" />
+		<property name="endTime" column="macRepair_endTime" length="8" />
+		<property name="repairMan" column="macRepair_repairMan"
+			length="255" />
+		<property name="faultDetail" column="macRepair_faultDetail"
+			length="1000" />
+		<property name="faultReason" column="macRepair_faultReason"
+			length="1000" />
+		<property name="repairDetail" column="macRepair_repairDetail"
+			length="255" />
+		<property name="checkManId" column="macRepair_checkManId"
+			length="4" />
+		<property name="checkMan" column="macRepair_checkMan" length="255" />
+		<property name="checkTime" column="macRepair_checkTime"
+			length="8" />
+		<property name="checkIdea" column="macRepair_checkIdea"
+			length="1000" />
+		<property name="changeParts" column="macRepair_changeParts"
+			length="255" />
+		<property name="more" column="macRepair_more" length="1000" />
+		<property name="countdowntime" length="10" />
+		<property name="timetorepair" length="255" />
+		<property name="persontime" length="255" />
+		<property name="userid" length="10" />
+		<property name="updateTime"  />
+
+		<set name="partsset" inverse="true" cascade="all" lazy="true">
+			<key column="ta_mainId"></key>
+			<one-to-many class="com.task.entity.Parts" />
+		</set>
+
+
+	</class>
+</hibernate-mapping>

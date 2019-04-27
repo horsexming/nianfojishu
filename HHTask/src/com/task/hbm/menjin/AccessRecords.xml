@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="AccessRecords" table="ta_mj_AccessRecords">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="recordType" />
+		<property name="recordContents" />
+		<property name="recordisIn" />
+		<property name="recordStatus" />
+		<property name="openTime" />
+		<property name="enterTime" />
+		<property name="openType" />
+		<property name="equipmentDaoType" />
+		<property name="outOfPosition" />
+		<property name="asWeam_id" />
+		<property name="asEqt_id" />
+		<property name="asWeam_ip" />
+		<property name="asEqt_ip" />
+		<property name="addTime" />
+		<property name="recordPass" />
+		<property name="inCode" />
+		<property name="inDept" />
+		<property name="inId" />
+		<property name="inName" />
+		<property name="inmarkId" />
+		<property name="waitCheck" />
+		<property name="checkName" />
+		<property name="urgentCar" />
+		<property name="banciId" />
+		<property name="entityName" />
+		<property name="entityId" />
+		<property name="isKong" length="4"/>
+	</class>
+</hibernate-mapping>

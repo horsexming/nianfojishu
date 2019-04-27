@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.MachineMonthDj" table="ta_MachineMonthDj">
+		<id name="id" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="machineNo"/>
+		<property name="machineMonth"/>
+		<property name="machineZYZSJ"/>
+		<property name="machineZWXSJ"/>
+		<property name="machineZTZSJ"/>
+		<property name="machineZYZSJ2"/>
+		<property name="zjiadonglv" column="zjiadonglv1"/>
+		
+		
+		<property name="machine_id" type="integer"/>
+	</class>
+
+</hibernate-mapping>

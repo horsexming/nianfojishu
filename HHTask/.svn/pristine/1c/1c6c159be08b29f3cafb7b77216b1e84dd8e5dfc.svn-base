@@ -1,0 +1,133 @@
+package com.task.entity.payment;
+
+/***
+ * 付款凭证明细
+ * @author Administrator
+ *表名：ta_PaymentDetail
+ */
+public class PaymentDetail {
+	private Integer id;
+	private String businesscontent;//业务内容
+	private String askrequisition_num;//请购申请单编号
+	private String orders_num;//订购单编号
+	private String receipt_num;//入库单编号
+	private String invoice_num;//发票号码
+	private Float voucherMoney;//借款金额
+	private String isOk;//是否借款
+	private String borrowerlist_num;//借款单号码
+	private PaymentVoucher voucher;//关联付款凭证主表
+	private Integer paymentid1;//关联主表id
+	private String number1;//标识主表编号
+	private String unitname1;//收款单位
+	private String detailStatus;//状态(已付款、未付清、未付款)
+	private String dept;//借款科目
+	private String pay_use;//用途
+	private String remark;//备注
+	
+	public String getDetailStatus() {
+		return detailStatus;
+	}
+	public void setDetailStatus(String detailStatus) {
+		this.detailStatus = detailStatus;
+	}
+	public String getUnitname1() {
+		return unitname1;
+	}
+	public void setUnitname1(String unitname1) {
+		this.unitname1 = unitname1;
+	}
+	public String getNumber1() {
+		return number1;
+	}
+	public void setNumber1(String number1) {
+		this.number1 = number1;
+	}
+	public Integer getPaymentid1() {
+		return paymentid1;
+	}
+	public void setPaymentid1(Integer paymentid1) {
+		this.paymentid1 = paymentid1;
+	}
+	public Float getVoucherMoney() {
+		return voucherMoney;
+	}
+	public void setVoucherMoney(Float voucherMoney) {
+		this.voucherMoney = voucherMoney;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getBusinesscontent() {
+		return businesscontent;
+	}
+	public void setBusinesscontent(String businesscontent) {
+		this.businesscontent = businesscontent;
+	}
+	public String getAskrequisition_num() {
+		return askrequisition_num;
+	}
+	public void setAskrequisition_num(String askrequisitionNum) {
+		askrequisition_num = askrequisitionNum;
+	}
+	public String getOrders_num() {
+		return orders_num;
+	}
+	public void setOrders_num(String ordersNum) {
+		orders_num = ordersNum;
+	}
+	public String getReceipt_num() {
+		return receipt_num;
+	}
+	public void setReceipt_num(String receiptNum) {
+		receipt_num = receiptNum;
+	}
+	public String getInvoice_num() {
+		return invoice_num;
+	}
+	public void setInvoice_num(String invoiceNum) {
+		invoice_num = invoiceNum;
+	}
+	public String getIsOk() {
+		return isOk;
+	}
+	public void setIsOk(String isOk) {
+		this.isOk = isOk;
+	}
+	public String getBorrowerlist_num() {
+		return borrowerlist_num;
+	}
+	public void setBorrowerlist_num(String borrowerlistNum) {
+		borrowerlist_num = borrowerlistNum;
+	}
+	public PaymentVoucher getVoucher() {
+		return voucher;
+	}
+	public void setVoucher(PaymentVoucher voucher) {
+		this.voucher = voucher;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getPay_use() {
+		return pay_use;
+	}
+	public void setPay_use(String payUse) {
+		pay_use = payUse;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,1882 @@
+package com.task.Server.sop;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.task.entity.Goods;
+import com.task.entity.OrderManager;
+import com.task.entity.Price;
+import com.task.entity.ProcardBl;
+import com.task.entity.Provision;
+import com.task.entity.Sell;
+import com.task.entity.Users;
+import com.task.entity.android.OsRecord;
+import com.task.entity.android.OsTemplate;
+import com.task.entity.caigou.MonthlySummary;
+import com.task.entity.fin.UserMoneyDetail;
+import com.task.entity.fin.UserMonthMoney;
+import com.task.entity.gzbj.Gzstore;
+import com.task.entity.sop.BreakSubmit;
+import com.task.entity.sop.OnorderInventory;
+import com.task.entity.sop.OutSourcingWorkList;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.ProcardCsBl;
+import com.task.entity.sop.ProcardCsBlOrder;
+import com.task.entity.sop.ProcardMaterialHead;
+import com.task.entity.sop.ProcardSpecification;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.entity.sop.ProcardVo;
+import com.task.entity.sop.ProcardWxTuiLiao;
+import com.task.entity.sop.ProcessAndWgProcardTem;
+import com.task.entity.sop.ProcessInfor;
+import com.task.entity.sop.ProcessInforReceiveLog;
+import com.task.entity.sop.ProcessInforWWApply;
+import com.task.entity.sop.ProcessInforWWApplyDetail;
+import com.task.entity.sop.ProcessInforWWProcard;
+import com.task.entity.sop.ProcessSaveLog;
+import com.task.entity.sop.ProcessinforFuLiao;
+import com.task.entity.sop.WaigouWaiweiPlan;
+import com.task.entity.sop.qd.LogoStickers;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+import com.tast.entity.zhaobiao.ZhUser;
+
+/**
+ * 流水卡片server层
+ * 
+ * @author 刘培
+ * 
+ */
+
+@SuppressWarnings("unchecked")
+public interface ProcardServer {
+	/**
+	 * 查询流水卡片
+	 * 
+	 * @param procard
+	 *            (流水卡片条件查询对象)
+	 * @param startDate
+	 *            (制卡开始时间)
+	 * @param endDate
+	 *            (制卡结束时间)
+	 * @param cpage
+	 *            (当前页)
+	 * @param PageSize
+	 *            (页显示条数)
+	 * @return
+	 */
+	Object[] findProcard(Procard procard, String startDate, String endDate,
+			Integer cpage, Integer PageSize);
+
+	/***
+	 * 生成流水卡片
+	 * 
+	 * @param orderId
+	 *            订单id
+	 * @return
+	 */
+	Object[] addProCard(Integer orderId, Integer[] inorderId, Float[] number,
+			String[] rootJihuoDate, String pageStatus, String tag,Integer procardId)
+			throws Exception;
+
+	/***
+	 * 查询所有总成流水卡片(分页)
+	 * 
+	 * @param pageStatus
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	Object[] findAllProcard(Procard procard, int pageNo, int pageSize,
+			String startDate, String endDate, String pageStatus);
+
+	/**
+	 * 查出所有总成为待定的
+	 * 
+	 * @param procard
+	 * @param startDate
+	 * @param endDate
+	 * @param pageStatus
+	 * @return
+	 */
+	List<Procard> findAllProcarddcl(Procard procard, String startDate,
+			String endDate, String pageStatus);
+
+	/***
+	 * 根据首层父类id查询流水卡片
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	List findProcardByRootId(int rootId, String status);
+
+	/***
+	 * 根据首层父类id查询不包含外购件流水卡片
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	List findNoWaiProcardByRootId(int rootId);
+
+	/***
+	 * 根据id查询流水卡片
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	Procard findProcardById(int id);
+
+	/***
+	 * 查询流水卡片(页面显示流水卡片详细使用)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findCardForShow(int id);
+
+	/***
+	 * 通过流水卡id查询对应工艺卡片
+	 * 
+	 * @param cardId
+	 * @return
+	 */
+	Object[] findProcardByRunCard(Integer cardId, String pageStatus);
+
+	/***
+	 * 根据id查询工序(判断如何领取工序)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findProcess(Integer id);
+
+	/***
+	 * 根据id查询工序(判断如何领取工序)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessInfor findProcessById(Integer id);
+
+	/***
+	 * 领取工序
+	 * 
+	 * @param processIds
+	 * @param processNumbers
+	 * @param processCards
+	 * @return
+	 */
+	String collorProcess(Integer[] processIds, Float[] processNumbers,
+			List processCards);
+
+	/***
+	 * 提交工序
+	 * 
+	 * @return
+	 */
+	String updateProcess(ProcessInfor process, ProcessInfor oldProcess,
+			String barcode, ProcessSaveLog processSaveLog, String[] markIds,
+			Float[] breakscount, BreakSubmit breaksubmit);
+
+	/***
+	 * 通过废品单Id查询流水单
+	 * 
+	 * @param stickersId
+	 * @return
+	 */
+	List findProcardForzj(Integer stickersId);
+
+	/***
+	 * 生成新的报废单以及新流水单
+	 * 
+	 * @param stickersId
+	 * @return
+	 */
+	String addNewzj(Integer stickersId, Integer[] procardId, String responsible);
+
+	/***
+	 * 通过条码查询流水单
+	 * 
+	 * @param number
+	 * @return
+	 */
+	LogoStickers findLogoSBynumber(String number);
+
+	/***
+	 * 通过卡号查询件号，并查询出件号对应的当前最小批次
+	 * 
+	 * @param cardNumber
+	 * @return
+	 */
+	Procard findMinProcard(String cardNumber);
+
+	/***
+	 * 交卡管理
+	 * 
+	 * @param cardNum
+	 *            卡号
+	 * @return
+	 */
+	Object[] postCard(String cardNum);
+
+	void updateProcess();
+
+	/***
+	 * 流水单以及流水卡直接跳到"已领料"状态
+	 * 
+	 * @param cardNum
+	 * @return
+	 */
+	boolean updateFkToLl(String cardNum);
+
+	/***
+	 * 已领料直接跳到"已发卡"状态
+	 * 
+	 * @param cardNum
+	 * @return
+	 */
+	boolean updateLlToFk(String cardNum);
+
+	/***
+	 * 查询最大层数
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	Integer findMaxbelongLayer(Integer rootId);
+
+	/***
+	 * 根据fatherId查询显示的节点
+	 * 
+	 * @param fatherId
+	 *            Id
+	 * @return
+	 */
+	List findProByBel(Integer fatherId, Integer belongLayer, String pageStatus);
+
+	/***
+	 * 通过卡号查询流水单信息
+	 * 
+	 * @param cardNumber
+	 *            卡号
+	 * @return
+	 */
+	Procard findProcardByCardNum(String cardNumber);
+
+	/***
+	 * 提交激活
+	 * 
+	 * @param processId
+	 * @param op
+	 * @return
+	 */
+	String updateJihuo(Integer processId, Integer id, String op);
+
+	/***
+	 * 获得自检表项
+	 * 
+	 * @return
+	 */
+	List findZjXiang();
+
+	/***
+	 * 添加自检表
+	 * 
+	 * @param contentList
+	 *            自检项
+	 * @param isQualifiedList
+	 *            是否合格
+	 * @param processId
+	 *            工序id
+	 * @return
+	 */
+	String saveZj(List contentList, List isQualifiedList, int processId,
+			Integer machineId);
+
+	/***
+	 * 根据内部计划id查询对应的生产周转单
+	 * 
+	 * @param planOrderId
+	 *            内部计划单id
+	 * @return
+	 */
+	List findProcardByPlanOrderId(Integer planOrderId, String markid);
+
+	/***
+	 * 查询工艺规范
+	 * 
+	 * @param markid
+	 *            件号
+	 * @param processNO
+	 *            工序号
+	 * @return
+	 */
+	List findGongyiGuifan(String markid, Integer processNO,
+			Integer productStyle, Integer banci);
+
+	/***
+	 * 根据件号查询批次号
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	public List findPici(String markId);
+
+	/**
+	 * 生成生成周期卡excel文件
+	 * 
+	 * @param procard
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public String getExcelpath(Procard procard, String startDate,
+			String endDate, Integer id);
+
+	/***
+	 * 无卡激活
+	 * 
+	 * @param procard
+	 *            流水卡片
+	 * @param op
+	 *            操作
+	 * @return
+	 */
+	@Deprecated
+	String sendRunCard(Procard procard, String op);
+
+	/***
+	 * 根据卡号查询人员，得到人员对应工序的对应最小批次、已发卡的件号
+	 * 
+	 * @param cardNumber
+	 *            员工卡卡号
+	 * @param pageStatus
+	 *            操作状态（noCardLingliao、领工序）
+	 * @return
+	 */
+	List findProcardListByUserCard(String cardNumber, String pageStatus,
+			String tag);
+
+	/**
+	 * 得到人员对应工序的对应最小批次、已发卡的件号 分页
+	 * 
+	 * @param p
+	 * @param parseInt
+	 * @param pageSize
+	 * @param cardNumber
+	 * @param pageStatus
+	 * @param tag
+	 * @return
+	 */
+	Object[] findProcardListByUserCard(Procard p, int parseInt, int pageSize,
+			String cardNumber, String pageStatus, String tag);
+
+	/***
+	 * 根据卡号查询人员，得到人员对应工序的对应最小批次、已发卡的件号(辅料)
+	 * 
+	 * @param cardNumber
+	 *            员工卡卡号
+	 * @param pageStatus
+	 *            操作状态（noCardLingliao、领工序）
+	 * @return
+	 */
+	List<Procard> findFlProcardListByUserCard(String cardNumber);
+
+	Object[] listmarkId(ProcardTemplate procardTemplate, Integer parseInt,
+			Integer pageSize);
+
+	Object[] listprovision(Provision provision, Integer parseInt,
+			Integer pageSize);
+
+	List listbandingZijian(Integer id);
+
+	void addMarkIdZijian(Integer id, int[] selected);
+
+	List listProvisionByMarkId(String markId);
+
+	/**
+	 * 根据rootId删除整个流水卡片树并返还内部计划数量
+	 * 
+	 * @param id
+	 * @return
+	 */
+	boolean deleteprocardtree(Integer id);
+
+	ProcessInfor getObjectByIdProcessInfor(Integer id);
+
+	Gzstore getObjectByIdGzstore(Integer gzstoreId);
+
+	void updateGzstore(Gzstore old);
+
+	/***
+	 * BOM激活------查可领工序人员列表
+	 * 
+	 * @return
+	 */
+	List chagePeople(Integer id);
+
+	List chagePeople(Integer id, Users user, String pageStatus);
+
+	/****
+	 * 绑定领取人员 * @param id 总成id
+	 * 
+	 * @param userIds
+	 *            用户id
+	 * @return
+	 */
+	public String bangAnd(Integer id, int[] userIds);
+
+	/***
+	 * 绑定领取成员、激活本批次 、计算生产周期、生成外购、外委的采购计划
+	 * 
+	 * @param id
+	 *            总成id
+	 * @param userIds
+	 *            用户id
+	 * @return
+	 */
+	String bangAndJihuo(Integer id, int[] userIds);
+
+	/***
+	 * 查找外购外委采购计划
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findWgWwPlan(Integer id);
+
+	/***
+	 * 查询需要领工序的产品信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Procard> findProcardById1(Integer id);
+
+	/***
+	 * 查找外购或外委采购计划
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findWgWwPlanList(String pageStatus);
+
+	/***
+	 * 激活外购采购计划
+	 * 
+	 * @param wwPlanId
+	 * @throws Exception
+	 */
+	void jihuoWgPlan(Integer wwPlanId) throws Exception;
+
+	/***
+	 * 前往激活前验证最小批次、外购件采购计划
+	 * 
+	 * @param id
+	 *            产品id
+	 * @return
+	 */
+	String toChagePeoBefor(int id);
+
+	/***
+	 * 所有待干产品列表
+	 * 
+	 * @return
+	 */
+	// List findViewList(Integer serrnId, int page, int rows);
+	Object[] findViewList(Integer serrnId, int page, int rows);
+
+	/****
+	 * 外购外委查询列表
+	 * 
+	 * @param wwPlan
+	 *            对象
+	 * @param pageNo
+	 *            页码
+	 * @param pageSize
+	 *            每页大小
+	 * @param pageStatus
+	 *            外购外委状态
+	 * @return
+	 */
+	public Object[] findWgWwPlanList(WaigouWaiweiPlan wwPlan, int pageNo,
+			int pageSize, String pageStatus, MonthlySummary ms,
+			String jhStatus, String noZhuser);
+
+	/***
+	 * 根据件号查找批次
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	List Android_findSelfCardBymarkId(String markId);
+
+	/***
+	 * 根据件号、批次查找数量
+	 * 
+	 * @param markId
+	 * @param selfCard
+	 * @return
+	 */
+	WaigouWaiweiPlan Android_findnumBymarkIdAndCard(String markId,
+			String selfCard);
+
+	WaigouWaiweiPlan ByIdWaigouWaiweiPlan(Integer id);
+
+	void updateWaigouWaiweiPlan(WaigouWaiweiPlan wwPlan);
+
+	void addOutSourcingWorkList(OutSourcingWorkList newos);
+
+	/***
+	 * 更新所有的工作时长
+	 */
+	void updateGzDateTime();
+
+	/****
+	 * 查询出存在三检记录、巡检记录的已提交产品,用户入库
+	 * 
+	 * @return
+	 */
+	List findNeedRukuPro(Procard procard);
+
+	List listByIdAll(String[] mrkIds);
+
+	Procard listMarkIdselfCard(String[] mrkIds);
+
+	List getProcessInforById(Integer pid, String[] mrkIds);
+
+	/****
+	 * 根据procardID 查询人员信息
+	 */
+	List findManByProcardID(int procardID, Users user);
+
+	List findManByProcardID(int procardID);
+
+	/**
+	 * 整个bom确认采购计划激活完成后，设置bom的激活时间
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	void setJihuoTime(Integer id) throws Exception;
+
+	/***
+	 * 打开或关闭继电器
+	 * 
+	 * @param ip
+	 *            ip地址或域名
+	 * @param port
+	 *            端口
+	 * @param openOrClose
+	 *            开(00)或关(01 )
+	 */
+	String openJdq(String ip, int port, int openOrClose);
+
+	/***
+	 * 根据编号查询外购外委采购
+	 * 
+	 * @param id
+	 * @return
+	 */
+	WaigouWaiweiPlan findWaigouWaiweiPlanByid(Integer id);
+
+	/***
+	 * 根据件号查询价格
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	List findPrice(String markId);
+
+	/***
+	 * 查询所有被选中的付款明细
+	 * 
+	 * @param detailSelect
+	 * @return
+	 */
+	List salWaigouWaiweiPlanByid(Integer[] detailSelect);
+
+	/***
+	 * 根据编号查询(外委)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	WaigouWaiweiPlan findWaigouWaiweiPlanByid1(Integer id);
+
+	/***
+	 * 查询所有被选中的付款明细(外委)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List salWaigouWaiweiPlanByid1(Integer[] detailSelect);
+
+	/***
+	 * 月度考核汇总
+	 */
+	void updateMonthLv();
+
+	/***
+	 * 查询月度考核汇总数据
+	 * 
+	 * @param ms
+	 * @return
+	 */
+	MonthlySummary showMsLv(MonthlySummary ms);
+
+	/***
+	 * 强制收卡
+	 * 
+	 * @param cardNum
+	 * @return
+	 */
+	boolean updateQzsk(String cardNum);
+
+	/***
+	 * 激活产品层次接口
+	 * 
+	 * @param rootId
+	 *            bom总id
+	 * @param belonglayer
+	 *            层次
+	 * @param op
+	 *            操作
+	 * @return
+	 */
+	boolean jihuoProcard(Integer rootId, Integer belonglayer, String op);
+
+	/***************
+	 * 激活单个Proard
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	boolean jihuoSingleProcard(Procard procard);
+
+	/****
+	 * 激活外购件统一调用程序
+	 * 
+	 * @param waiProcard
+	 *            外购件Procard
+	 * @return
+	 */
+	Procard jihuoWaiProcard(Procard waiProcard);
+
+	/**
+	 * 核对卡片的权值比例和是否存在工序
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String checkProcard(Integer[] inorderId, Float[] number, String tag);
+
+	/***
+	 * 打开或关闭继电器(强控)
+	 * 
+	 * @param ip
+	 *            ip地址或域名
+	 * @param port
+	 *            端口
+	 * @param num
+	 *            序号
+	 * @param openOrClose
+	 *            开(00)或关(01 )
+	 * @param number
+	 *            领取数量
+	 */
+	String openJdqQ(String ip, int port, Integer num, int openOrClose,
+			float number, float eddl);
+
+	/**
+	 * PMI自动提交程序
+	 * 
+	 * @param process
+	 * @return
+	 */
+	String updateProcessForPMI(ProcessInfor process);
+
+	/***
+	 * 打开或关闭PMI
+	 * 
+	 * @param pmiId
+	 * @param openOrClose
+	 *            1/0
+	 * @return
+	 */
+	String openOrClosePmi(Integer pmiId, int openOrClose);
+
+	/**
+	 * 获取辅料列表
+	 * 
+	 * @param id
+	 * @param cardNumber
+	 * @return
+	 */
+	List<ProcessinforFuLiao> getProcessInForFuLiao(Integer id, String cardNumber);
+
+	/****
+	 * 计算批产员工工资
+	 * 
+	 * @return
+	 */
+	Object[] jisunLpPeoPleMoney(String setDate, String endDate, String markid,
+			String month);
+
+	/****
+	 * 生产奖金分配查询
+	 * 
+	 * @param userMonthMoney
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findUMMoneyByCondition(UserMonthMoney userMonthMoney, int pageNo,
+			int pageSize, String pageStatus);
+
+	/***
+	 * 生产奖金分配月度查询明细
+	 * 
+	 * @param ummId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findUserMoneyDetailByFkId(Integer ummId, int pageNo, int pageSize,
+			String pageStatus, UserMoneyDetail umd, String firstTime,
+			String endTime, String tag);
+
+	/***
+	 * 根据id查询月度奖金分配
+	 * 
+	 * @param id
+	 * @return
+	 */
+	UserMonthMoney findUserMonthMoneyById(Integer id);
+
+	public Object[] androidfindbonus(String code, int pageNo1, int pageSize1); // 根据code查询奖金-android
+
+	public Object[] androidfindById(Integer idd, int pageNo1, int pageSize1); // 根据id查询奖金详情-android
+
+	/**
+	 * 领取辅料
+	 * 
+	 * @param procard
+	 * @param processinforFuLiaoList
+	 * @return
+	 */
+	String submitLingFL(Procard procard,
+			List<ProcessinforFuLiao> processinforFuLiaoList, String cardNumber);
+
+	Object[] findAllProcard1(Procard procard, int parseInt, int pageSize,
+			String startDate, String endDate);
+
+	/****
+	 * 批产产品节拍矫正
+	 * 
+	 * @return
+	 */
+	String jisunLpPeoPleJiepai(String setDate, String endDate, String markid,
+			String month);
+
+	/***
+	 * 按照月份查询汇总奖金分配
+	 * 
+	 * @param month
+	 *            查询月份
+	 * @return
+	 */
+	List findUMMAll(String month);
+
+	/**
+	 * 通过工序的id获取可选的设备
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List getPrcocessMachine(Integer id);
+
+	/**
+	 * 给工序选择设备
+	 * 
+	 * @param processId
+	 * @param machineId
+	 * @return
+	 */
+	String updateProcessMachine(Integer processId, Integer machineId);
+
+	/****
+	 * 发送工序对应led推送统一调用接口
+	 * 
+	 * @param processInfroId
+	 *            工序id
+	 */
+	void processToLedSend(Integer[] processInfroIds);
+	void processToupdate(Integer[] processInfroIds);
+	void processToShebei(Integer[] processInfroIds);
+	void processToBanChenPin(Integer[] processInfroIds);
+
+	/**
+	 * 保存生产效率周报，获取总成最后一道工序提交
+	 */
+	void processToPebProduction(Integer[] processInfroIds);
+	/**
+	 * 弥补首检
+	 * 
+	 * @return
+	 */
+	int mibushoujian();
+
+	/**
+	 * 弥补采购计划
+	 */
+	void unCreateWaiWei();
+
+	/***
+	 * 根据产品查询工序信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findProcessByProcard(Integer id);
+
+	/***
+	 * 工序补打
+	 */
+	Map findProcessForBd(ProcessInfor process);
+
+	/**
+	 * 焊接统计
+	 * 
+	 * @return
+	 */
+	List hjtj(String satrTime, String endTime, Integer allDay);
+
+	/**
+	 * 
+	 * 获得所有件号
+	 * 
+	 * @author LiCong 16-08-17
+	 * @return
+	 */
+	public List findAllMarkId();
+
+	/**
+	 * 
+	 * 根据件号获得所有批次
+	 * 
+	 * @author LiCong 16-08-18
+	 * @return
+	 */
+	public List findAllPiCi(String markId);
+
+	/**
+	 * 添加测试结果
+	 * 
+	 * @param procardSpecification
+	 *            procardSpecification对象
+	 * @return
+	 */
+	public ProcardSpecification addProcardSpeci(
+			ProcardSpecification procardSpecification);
+
+	public ProcardTemplate procardTemplates(String markId);
+
+	Map<Integer, Object> getSonMaterial(String markId, String selfCard,
+			Integer num);
+
+	/***
+	 * 查询件号的订单和批次状态数据
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	Object[] showOrderAndProcard(String markId, int page, int rows);
+
+	String sxPeopleSkill();
+
+	String sendMaterialsNotify(ProcardMaterialHead pmHead,
+			List<Procard> procardList);
+
+	Object[] findPmHeadByCondition(ProcardMaterialHead pmHead, int pageNo,
+			int pageSize, String pageStatus);
+
+	ProcardMaterialHead getProcardMatrialHead(Integer id);
+
+	List getProcardMatrialDetail(Integer id);
+
+	String sureMatrial(Integer id);
+
+	/**
+	 * 供应商查看采购计划
+	 * 
+	 * @param wwPlan
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @param ms
+	 * @return
+	 */
+	Object[] findGysWgPlanList(WaigouWaiweiPlan wwPlan, int parseInt,
+			int pageSize, String pageStatus, Integer userId);
+
+	ProcardTemplate getProcardTemplateBywgplanId(Integer id);
+
+	List findCardTemplateTz(Integer id);
+
+	/**
+	 * 通过零件Id获取其下的工序
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcessInfor> findProcessListByCardId(Integer id);
+
+	/**
+	 * 通过总成Id获取整个bom
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Procard> findProcardTemByRootId(Integer id, int type);
+
+	/**
+	 * 通过零件获取其下工序并查看是否含有外委合同用以工序申请外委
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcessInfor> findProcessListForWWByCardId(Integer id);
+
+	Map<Integer, Object> wwyx(List<ProcessInforWWApplyDetail> pwwApplyDetailList,
+			Integer procardId);
+
+	/**
+	 * 查询整个BOM树已预选好的准备外委的工序
+	 * 
+	 * @return
+	 */
+	List<Procard> findWwsqDetailList(Integer rootId);
+
+	/**
+	 * 工序外委申请
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<Integer, String> wwsq(ProcessInforWWApply pwwApply);
+
+	/**
+	 * 获取外委合同
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	List<Price> getwwPriceByMarkId(String markId);
+
+	List<ProcessInforWWApply> findProcesswwApplyList(Integer id);
+
+	/**
+	 * 获取第一道工序工序号
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Integer getFisrtProcessNo(Integer id);
+
+	public List<String[]> findSonMarkId(Integer id, String processNos,
+			String processNames);
+
+	/**
+	 * 查找没有合同的外委申请
+	 * 
+	 * @param pwwApplyDetail
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findUnhasPriceList(ProcessInforWWApplyDetail pwwApplyDetail,
+			int parseInt, int pageSize);
+
+	/**
+	 * 根据外委申请明细查找可匹配的价格
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Price> findPriceByWWApplyDetail(Integer id);
+
+	/**
+	 * 通过外委申请明细id获取对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessInforWWApplyDetail getPwwApplyDetailById(Integer id);
+
+	/**
+	 * 根据外委申请覆盖合同的工序信息
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	Map<Integer, String> updatePrice(Integer id, Integer id2);
+
+	/**
+	 * 通过id获取外委预选对象与明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessInforWWApply getProcesswwApplyById(Integer id);
+
+	/**
+	 * 删除委外申请明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<Integer, String> deleteWwApplyDetail(Integer id);
+	/**
+	 * 批量删除委外申请明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String deleteWwApplyDetails(Integer id,Integer[] ids,String remark);
+	/**
+	 * 查询外委申请序列
+	 * 
+	 * @param pwwApply
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findAllPwwApplyList(ProcessInforWWApply pwwApply, int parseInt,
+			int pageSize, String pageStatus);
+
+	/**
+	 *核对外委申请下明细的合同状态
+	 * 
+	 * @param id
+	 * @return
+	 */
+
+	List<ProcessInforWWApplyDetail> checkDetailByPwwApplyId(Integer id);
+
+	/**
+	 * 获取外委申请表头对象
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessInforWWApply getPwwApplyById(Integer id);
+
+	/**
+	 * 确认外委申请合同
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String surewwapplyht(Integer id);
+
+	/**
+	 * 设定为无工序外委，通知生成物料采购计划
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String nowwyx(Integer id, String noPlan);
+
+	/**
+	 * 打回
+	 * 
+	 * @param pwwApply
+	 * @return
+	 */
+	String backwwApply(ProcessInforWWApply pwwApply);
+
+	/**
+	 * 弥补包工包料外委零件
+	 */
+	void mibuProcessinforWWProcard();
+
+	/**
+	 * 根据ProcardId 查出工序信息
+	 */
+	List<ProcessInfor> getProcessInforByprocardId(Integer procardId,
+			String pageStatus,String workShop);
+
+	/***
+	 * 读取上一批次的委外记录，自动添加
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String addHistoryWW(Integer id);
+
+	/**
+	 * 通过部门编号获取员工
+	 * 
+	 * @param id
+	 * @param markId
+	 * @param selfCard
+	 * @return
+	 */
+	List getUsersByDeptId(Integer id, String markId, String selfCard);
+
+	/**
+	 * 叫料内容
+	 * 
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findProcardMaterialHeadCondition(int pageNo, int pageSize);
+
+	/**
+	 * 导出未录入价格外委
+	 * 
+	 * @return
+	 */
+	public String OutDetailByPwwApply();
+
+	public Map<Integer, Object> findAllWei(ProcessInforWWApplyDetail pwwApply,
+			int pageNo, int pageSize, String pageStatus);
+
+	/**
+	 * 通过外委待激活序列寻找对应的可用合同
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Price> findPriceBywwplan(Integer id);
+
+	/**
+	 * 外委待激活序列匹配合同
+	 * 
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	Map<Integer, String> updatePrice2(Integer id, Integer id2);
+
+	/**
+	 * 激活BOM外委序列，生成外委订单
+	 * 
+	 * @param processIds
+	 * @return
+	 */
+	String jihuowwPlanList(int[] selected);
+
+	/***
+	 * 工序外委申请同意后，执行采购物料以及生产激活信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String wwAuditToJihuo(Integer id);
+
+	public void exportExcel(Integer rootId);
+
+	/**
+	 *根据父层Id查询procard
+	 * 
+	 * @param fatherId
+	 * @param status
+	 * @return
+	 */
+	List<Procard> findProcardByfatherId(Integer fatherId, String status);
+
+	/**
+	 * 扫描二维码领工序
+	 */
+	List<Procard> findprocardBybarcode(String barcode);
+
+	/**
+	 * 根据小组卡卡号和工序ID查询有考勤记录和有工序技能的员工;
+	 * 
+	 */
+
+	List<ProcessInforWWProcard> findProcessInforWWProcardById(Integer id);
+
+	List<String> findUserByGroupCard(String cardId, Integer processId);
+
+	/**
+	 * 刷个人卡时自动去掉绑定的小组卡
+	 * 
+	 * @param cardId
+	 * @return
+	 */
+	boolean qxUserscardBd(String cardId);
+
+	/**
+	 * 更新procard第一步操作
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String procardUpdateFirst(Integer id);
+
+	/**
+	 * 更新procard第二步操作
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String procardUpdateSecond(Integer id);
+
+	/**
+	 * 单独激活零件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String jihuoAgain(Integer id);
+
+	/**
+	 * 查看包工包料自制件所关联的外购件件号
+	 * 
+	 */
+	public Object[] showwgjmarkId(Integer id);
+
+	/**
+	 * 该工序所关联的所有外购件
+	 */
+	List<ProcessAndWgProcardTem> findProcessAndwgProcard(Integer id);
+
+	/**
+	 * 提交不合格品
+	 */
+	String submintBreak(BreakSubmit breaksubmit, String[] markIds,
+			Float[] breakscount, String pagestatus);
+
+	/**
+	 * 判断不合格数量不能大与提交数量
+	 */
+	Object[] bhgNumPd(BreakSubmit breaksubmit);
+
+	/***
+	 * 件号批次查询产品信息(总成)
+	 * 
+	 * @param markId
+	 * @param selfCard
+	 * @return
+	 */
+	public Procard findProcardForQx(Procard procard, Integer goodsBzsqId);
+
+	/***
+	 * 产品全息信息
+	 * 
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	String packageData(Integer id, Map map);
+
+	/***
+	 * 订单信息
+	 * 
+	 * @param markId
+	 * @param selfCard
+	 * @return
+	 */
+	OrderManager findOrderManagerById(Integer id);
+
+	OrderManager findOrderManagerByIoId(Integer id);
+
+	/***
+	 * 辅料填报列表
+	 * 
+	 * @return
+	 */
+	List<ProcessinforFuLiao> fuliaoTiaobaoList();
+
+	public boolean exportFuliaoList();
+
+	Object[] findbreaksubmitByprocesId(Integer id);
+
+	/**
+	 * 查询所有不合格品提交记录;
+	 */
+	Object[] findbreaksubmitList(BreakSubmit breakSubmit, String status,
+			int parseInt, int pageSize);
+
+	void copyWaigouDeliveryDetailcq();
+
+	/**
+	 * 根据Id查询不合格品提交记录
+	 */
+	BreakSubmit findBreakSubmitById(Integer id);
+
+	/**
+	 * 查询不合格品提交记录相关责任人;
+	 */
+	List<ProcessInforReceiveLog> findpersonLiableList(BreakSubmit breakSubmit);
+
+	/**
+	 * 选择责任人
+	 * 
+	 * @param breakSubmit
+	 * @return
+	 */
+	String choseUsers(BreakSubmit breakSubmit);
+
+	/**
+	 * 不合格品返修
+	 * 
+	 * @param breakSubmit
+	 * @return
+	 */
+	String fanxiu(BreakSubmit breakSubmit);
+
+	void setMachineJdl();
+
+	/**
+	 * 根据总成Id查出需要领料的外购件和半成品;
+	 * 
+	 * @param rootId
+	 *            总成Id
+	 * @return
+	 */
+	Object[] finddllProcard(Integer rootId, int pageNo);
+
+	/**
+	 * 给总成添加入库工序
+	 */
+	void setRuKuProcess();
+
+	/**
+	 * 根据工号查询月度奖金
+	 * 
+	 * @param code
+	 * @return
+	 */
+	List findByUserCodeMonthMoney(String code);
+
+	void exportExcelumd(UserMoneyDetail umd, String pageStatus,
+			String firstTime, String endTime);
+
+	/**
+	 * 查询所有工位
+	 */
+	List<String> findAllgongwei();
+
+	/**
+	 * 临时走代码该数据使用
+	 */
+	void linshi();
+
+	/***
+	 * 调整生产及激活时间
+	 * 
+	 * @param pageProcard
+	 * @return
+	 */
+	boolean updateProcardForTime(Procard pageProcard);
+
+	/***
+	 * 生产计划管理 （入库计划、组装计划、日排产工序计划）
+	 * 
+	 * @param pageStatus
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	Map<String, String> findAllPlan(String pageStatus, String startDate,
+			String endDate, Procard pageProcard);
+
+	/**
+	 * 获取外委合同核对和下单是否分开设置
+	 * 
+	 * @return
+	 */
+	String getWwxdStatus();
+
+	/**
+	 * 取消某一条外委
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] backsdWwdetail(Integer id);
+
+	/**
+	 * 给激活未绑定的自制件绑定人员
+	 * 
+	 * @param id
+	 */
+	void bdPeopleByRootId(Integer id);
+
+	String updateProcardWwblCount(Procard procard, Float wwblCount, int type);
+
+	String updateDownWwProcess(Procard procard, Float applyCount,
+			Integer detailId, int type);
+
+	String zijihuoww(WaigouWaiweiPlan wwp);
+
+	/**
+	 * 查询所有供应商
+	 */
+	List<ZhUser> findAllzZhUsers();
+
+	/**
+	 * 查看BOM中所有有需要半成品转库的数据已经手动另外申请的半成品转库记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardVo> findBcprkDate(Integer id, String type);
+
+	/***
+	 * 无卡激活（模式2）
+	 * 
+	 * @param 根据采购周期正推装配时间
+	 * @return
+	 */
+	@Deprecated
+	String sendRunCard2(Procard procard, String op);
+
+	/***
+	 * 无卡激活（模式3）
+	 * 
+	 * 按照总成装配(激活时间) 反推生产计划
+	 * 
+	 * @return
+	 */
+	String sendRunCard3(Procard procard,
+			Map<Integer, List<Procard>> procardMap,
+			Map<Integer, List<ProcessInfor>> processInforMap,
+			Map<String, YuanclAndWaigj> yuanclAndWaigjMap,
+			String needFinishTime, boolean isJihuo, String op);
+
+	/****
+	 * 计算bom的生产计划、外购供货计划、外委计划供货计划、包工包料外委供货计划
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	String jihuoProcardForPlan(Procard procard, boolean isJihuo);
+
+	/**
+	 * 获取图纸
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findtzBywwapplyDetail(Integer id);
+
+	/***
+	 * 调整是否领料
+	 * 
+	 * @param pageProcard
+	 * @return
+	 */
+	boolean updateProcardForLingliao(Procard pageProcard);
+
+	/**
+	 * 修改领料状态
+	 * 
+	 * @return
+	 */
+	List findLingliaoStatus();
+
+	/**
+	 * 修改领料状态
+	 * 
+	 * @return
+	 */
+	boolean updateLingliaoStatus(Integer procardId);
+
+	/**
+	 *内部计划转换物料预览功能
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] yulan_nowwyx(Integer id);
+
+	/**
+	 * 导出外委申请明细
+	 * 
+	 * @param id
+	 */
+	void exportWwApplyDetail(Integer id);
+
+	/**
+	 * 导出外委申请明细图纸
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<String, String> findtzBywwapplyDetail2(Integer id);
+
+	/**
+	 * 导出外委申请图纸
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<String, String> findtzBywwapply2(Integer id);
+
+	/**
+	 * 导出生产单个bom结构
+	 * 
+	 * @param rootId
+	 */
+	void findDaoChuBomByRootId(Integer rootId, String pageStatus);
+
+	void findDaoChuBomByRootIdWaigou(Set<Integer> rootIdSet, String pageStatus);
+
+	/**
+	 * 生产计划管理 （入库计划、组装计划、日排产工序计划）导出至Excel
+	 * 
+	 * @author licong
+	 * @param map
+	 * @param firstTime
+	 * @param endTime
+	 */
+	void findAllPlanDaochu(Map<String, String> map, String firstTime,
+			String endTime);
+
+	/**
+	 * 条件查询导出外购件
+	 * 
+	 * @param list
+	 * @param pageStatus
+	 */
+	void findDaoChuBomByWaigou(List<Procard> list, String pageStatus);
+
+	/**
+	 * 获取所有待处理的委外申请单
+	 * 
+	 * @param pwwApply
+	 * @return
+	 */
+	List<ProcessInforWWApply> finddclPwwApplyList(ProcessInforWWApply pwwApply);
+
+	/**
+	 * 根据rootId查出总成外购件欠料情况;
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	List<Procard> findLackWgProcardByRootId(Integer rootId);
+
+	/**
+	 * 导出单个总成 生产零件 Excel
+	 * 
+	 * @param id
+	 */
+	void exportProcard(Integer id);
+
+	/**
+	 * 导出生产零件时计算出单台数量(递归)
+	 */
+	Float gainDanTai(Procard procard, Float result);
+
+	/**
+	 * 根据外委申请明细Id查询出该件号对应的所有工序和外委申请明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+
+	Object[] totzgongxu(Integer id);
+
+	String tzgongxu(Integer id, Integer[] ids);
+
+	/**
+	 * 批量生成BOM外委待报价数据
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	String pladddbjBomww(Integer rootId);
+
+	/**
+	 * 通过外委申请明细Id获取外委可调整外购件
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Procard> getwwWgj(Integer id);
+
+	/**
+	 * 调整外委关联外购件
+	 * 
+	 * @param selected
+	 * @param id
+	 * @return
+	 */
+	String wwtzwgj(int[] selected, Integer id);
+
+	String wwgxcf(Integer id, int[] selected);
+
+	// 导出和页面显示一样的效果
+	public void exportforpage(Procard procard, String startTime, String endTime);
+
+	/**
+	 * 删除外委申请 id 外委申请明细
+	 * 
+	 * @return
+	 */
+	String deleteWwApply(Integer id);
+
+	/**
+	 * 通过工序Id查询工序
+	 */
+	ProcessInfor getProcessById(Integer id);
+
+	/**
+	 * 工序确认物料数量
+	 */
+	String wlqueren(Integer id, Integer count);
+
+	public String isCheck(String processNos, String processNames, String markId);
+
+	/**
+	 * 
+	 */
+	List<Procard> tocsbl(Integer id, Procard procard);
+
+	/**
+	 * 
+	 */
+	String csbl(Integer id, Integer[] ids, Float[] blNums,Integer waigouplanId,String[] remarks);
+
+	/**
+	 * 获取总成BOM列表用来显示外委数据
+	 * 
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findRootProcardListForww(Procard procard, int parseInt,
+			int pageSize);
+
+	/**
+	 * 展示生产BOM委外情况
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardVo> showProcardwwList(Integer id);
+
+	/**
+	 * 生产件上领取外委
+	 * 
+	 * @param selected
+	 * @param lqCounts
+	 * @param processnos
+	 * @param cardId
+	 * @return
+	 */
+	String procardOutww(int[] selected, Float[] lqCounts, Integer[] processnos,
+			String cardId,String pwsswords);
+
+	/**
+	 * 生成补料流水单
+	 */
+	String chengcsblProcard(ProcardCsBlOrder csblorder);
+
+	/**
+	 *查询所有超损补料单
+	 */
+	Object[] findAllCsblOrderList(ProcardCsBlOrder csblOrder, int parseInt,
+			int pageSize, String status);
+
+	/**
+	 * 根据补料单Id查询补料明细
+	 */
+	Object[] findCsblListById(Integer id, ProcardCsBl csbl);
+
+	/**
+	 * 删除超损补料信息
+	 */
+	String delCsblOrder(ProcardCsBlOrder csblOrder);
+
+	/**
+	 * 一键设置不采购
+	 */
+	String OneUpdateCgStatus(Integer[] ids,Procard procard);
+
+	/**
+	 * 外委供应商超损补料
+	 */
+	String gysCsbl(Integer[] ids, Float[] blNums,Integer id);
+
+	/***
+	 * 无卡激活（模式4）
+	 * 
+	 * 排产拆分 按照总成装配(激活时间) 反推生产计划
+	 * 
+	 * @return
+	 */
+	String sendRunCard4(Procard procard,
+			Map<Integer, List<Procard>> procardMap,
+			Map<Integer, List<ProcessInfor>> processInforMap,
+			Map<String, YuanclAndWaigj> yuanclAndWaigjMap,
+			String needFinishTime, boolean isCreat, String op,
+			ProcardBl procardBl);
+	
+	public String xiufuTotalCount(Procard procard);
+	/**
+	 * 同一个bom下同件号一起添加外委申请
+	 * @param id
+	 * @return
+	 */
+	String tclwwyx(Integer id);
+	/**
+	 * 查询零件图纸
+	 * @param id
+	 * @return
+	 */
+	List showProcessinforTz(Integer id,String type);
+	public void waigouforPrice(Procard procard, String startTime, String endTime);
+	public List<ProcessInfor> findAllProcessInfor(Procard procard);
+	public String passProcessInfor(Procard procard ,Integer[] ids);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<ProcardWxTuiLiao>  findWxTUILiaoByRootId(Integer id);
+	/**
+	 * 根据rootId获取设变单号，设变Id
+	 * @param rootId
+	 */
+	Procard	getSbNumByRootId(Integer rootId);
+	/**
+	 * 外协退料申请
+	 * @param wxtlList
+	 */
+	String 	WxTuiLiaoSq(List<ProcardWxTuiLiao> wxtlList);
+	
+	public String backProcessInfor(Procard procard ,Integer[] ids);
+	public void findOorderInventory(OnorderInventory onorderInventory);
+	public void waiweiforPrice();
+	/**
+	 * 显示BOM半成品转库进度
+	 * @param id
+	 * @return
+	 */
+	List showProcardbcpList(Integer id);
+	/**
+	 * 半成品批量出库
+	 * @param selected
+	 * @param lqCounts
+	 * @param processIds
+	 * @param code1
+	 * @param pwsswords
+	 * @return
+	 */
+	String procardOutbcp(int[] selected, Float[] lqCounts,
+			Integer[] processIds, String code1, String pwsswords);
+	/**
+	 * 将原被删除的BOM的外委单转移到新的BOM上（包工包料）
+	 */
+	void thwaiwei(int rootId, int applyId);
+	
+	/**
+	 * 判断某人是否有半成品接收的权限。
+	 */
+	boolean isbcpqx(Users user,Procard procard);
+	/**
+	 * 获取零件图纸
+	 * @param id
+	 * @param string
+	 * @return
+	 */
+	List showProcardtzforsc(Integer id, String string);
+	/**
+	 * 
+	 */
+	Object[] findAllWtcProcard(Procard procard,Integer pageNo,Integer pagesize);
+	/**
+	 * 超损补料生产procard
+	 * @param csblorder
+	 * @return
+	 */
+	 String chengcsblProcard2(ProcardCsBlOrder csblorder);
+	 /**
+	  * 审批人查询外委未审批的明细
+	  * showWeiApplyDetail
+	  */
+	 List<ProcessInforWWApplyDetail> showWeiApplyDetail();
+	 
+	 /**
+	  * 批量审批外委明细
+	  * 
+	  */
+	 String shenPiApplyDetail(Integer[] ids,String tag);
+	 
+	 /**
+	  * 根据外购procard Id 查询所有相关的领料批次和供应商
+	  * findLingLiaoLotById
+	  */
+	 List<Sell> findLingLiaoLotById(Integer id);
+	 /**
+	  * 获取外委预选数据
+	  * @param id
+	  * @return
+	  */
+	Map<Integer,Object> findtowwyxDataByrootId(Integer id);
+	/**
+	 * 可领数量为0异常数据排查
+	 */
+	List<ProcessInfor> huoquAllKlNumExceptionList();
+	/**
+	 * 导出在制品
+	 * @return
+	 */
+	String getzzpExcel();
+	/**
+	 * 修改物料状态(改为待定)
+	 * @param procard
+	 * @return
+	 */
+	public  String  passbgbl(Procard procard);
+	/**
+	 * 导出生产进度
+	 * @param procard
+	 * @param startDate
+	 * @param endDate
+	 * @param id
+	 * @return
+	 */
+	String getscjdExcel(Procard procard, String startDate, String endDate,
+			Integer id);
+	public String delProcessInfor(Procard procard, Integer[] ids);
+	/**
+	 * 查询所有需要检验的总成。
+	 */
+	public Object[] finddjyRootProcard(Procard procard,Integer pageSize,Integer pageNo,String status);
+	/**
+	 * 查询总成检验模板
+	 */
+	public Object[] getOsTemplate(String markId,String banben,Float djyNumber);
+	/**
+	 * 成品检验
+	 */
+	public String checkwgww(Integer procardId,OsRecord osRecord,Integer jyNumber,
+			List<OsRecord> osRecordList,List<OsRecord> bugOsRecordList,int bugNumber,
+			String pageStatus);
+	
+	/**
+	 * 根据工序Id查询最近一次的工序领取日志
+	 */
+	public ProcessInforReceiveLog findProcessLogByProcessId(Integer processId);
+	
+	/**
+	 * 根据订单Id查询订单信息
+	 */
+	OrderManager findOrderById(Integer id);
+	/**
+	 * 根据检验数量查询相应的抽检数量
+	 */
+	Float getcjNumber(Integer jyNumber,Integer xjbzId);
+}

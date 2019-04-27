@@ -1,0 +1,1017 @@
+package com.task.action.ess;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import jxl.write.DateTime;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.Server.WareHouseAuthService;
+import com.task.Server.ess.GoodsServer;
+import com.task.Server.ess.ProcardBlServer;
+import com.task.entity.GoodHouse;
+import com.task.entity.Goods;
+import com.task.entity.ProcardBl;
+import com.task.entity.Users;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.ProcardWxTuiLiao;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+@SuppressWarnings("unchecked")
+public class ProcardBlAction {
+	private ProcardBlServer procardBlServer;
+	private int[] selected;
+	private ProcardBl procardBl;
+	private List<ProcardBl> procardBlList;
+	private List<Procard> procardTlList;// 可退料
+	private List<Procard> procardYTlList;// 已申请退料
+	private List<Procard> procardYtyTlList;// 已退料
+	private Procard procard;
+	private List<Procard> procardList;
+	private List<Procard> procardWaigouTuiLiaoList;
+	private List<ProcardBl> procardBlList2;
+	private List<ProcardBl> procardBlList3;
+	private List<ProcardWxTuiLiao> wxtlList;
+	private ProcardWxTuiLiao wxtl;
+	private float[] peiqiCount;
+	private int[] checkboxs;
+	private int[] checkboxs2;
+	private Integer id;
+	private List<Goods> goodsList;
+	private String cardId;// 卡号
+	private String password;// 密码
+	private Integer rootId;
+	private Goods goods;
+	private String tag;// 退料状态
+	private String okNo;// 同意打回
+	private Integer[] procardIds;// 退料申请和审批批量ID
+	private Integer[] procardIds1;// 退料申请和审批批量ID
+	private Integer[] procardIds2;// 退料确认ID
+	private Float[] stuiLiaoNumber;// 申请退料数量
+	private String startime;
+	private String endtime;
+	
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	private String pagestatus;// 页面状态
+
+	private String errorMessage;// 错误消息
+	private String successMessage;// 错误消息
+	// 缺料查看
+	private double sumcount;
+	private boolean isall;
+	private List<Goods> list;
+	private List<Procard> listProcardTl;
+	private List<GoodHouse> goodHouseList;
+	private WareHouseAuthService wareHouseAuthService;
+	private GoodsServer goodsServer;
+
+	public String Text() {
+		procardBlServer.tuihuiWaiweiLingliao();
+		return "error";
+	}
+
+	/**
+	 * 外购退料确认
+	 * 
+	 * @return
+	 */
+	public String waigouTuiLiao() {
+		try {
+			errorMessage = procardBlServer.waigouTuiliaoQueren(procardIds2);
+			if ("退料成功！".equals(errorMessage)) {
+				url = "procardBlAction_findAllWaigouTuiLiaoQueRen.action?pagestatus="
+						+ pagestatus;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorMessage = e.toString();
+		}
+		return "error";
+	}
+
+	/**
+	 * 获取需确认退料
+	 * 
+	 * @return
+	 */
+	public String findAllWaigouTuiLiaoQueRen() {
+		pageSize = 30;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (null != procard) {
+			request.getSession().setAttribute("procardWaigouTuiliao", procard);
+		} else {
+			procard = (Procard) request.getSession().getAttribute(
+					"procardWaigouTuiliao");
+		}
+		Object[] objs = procardBlServer.findAllDaiTuiliao(procard, Integer
+				.parseInt(cpage), pageSize, pagestatus,startime,endtime);
+		if (objs != null && objs.length > 0) {
+			procardWaigouTuiLiaoList = (List<Procard>) objs[0];
+			if (procardWaigouTuiLiaoList != null
+					&& procardWaigouTuiLiaoList.size() > 0) {
+				int count = (Integer) objs[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this
+						.setUrl("procardBlAction_findAllWaigouTuiLiaoQueRen.action?pagestatus="
+								+ pagestatus);
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "procardWaiGouTuiLiao_show";
+	}
+
+	/**
+	 * 获取需领料的BOM
+	 * 
+	 * @return
+	 */
+	public String findRootProcardBlbyCondition() {
+		// pageSize = 30;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (null != procard) {
+			request.getSession().setAttribute("rootprocardforbl", procard);
+		} else {
+			procard = (Procard) request.getSession().getAttribute(
+					"rootprocardforbl");
+		}
+		if (procard == null) {
+			procard = new Procard();
+		}
+		Object[] objs = procardBlServer.findRootProcardBlbyCondition(procard,
+				Integer.parseInt(cpage), pageSize, pagestatus);
+		if (objs != null && objs.length > 0) {
+			procardList = (List<Procard>) objs[0];
+			if (procardList != null && procardList.size() > 0) {
+				int count = (Integer) objs[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this
+						.setUrl("procardBlAction_findRootProcardBlbyCondition.action?pagestatus="
+								+ pagestatus);
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "procardBl_showRoot";
+	}
+
+	/**
+	 * 获取需领料的BOM
+	 * 
+	 * @return
+	 */
+	public String findRootProcardforblList() {
+		pageSize = 30;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (null != procard) {
+			request.getSession().setAttribute("rootprocardforbl", procard);
+		} else {
+			procard = (Procard) request.getSession().getAttribute(
+					"rootprocardforbl");
+		}
+		if (procard == null) {
+			procard = new Procard();
+		}
+		Object[] objs = procardBlServer.findRootProcardBlbyCondition(procard,
+				Integer.parseInt(cpage), pageSize, pagestatus);
+		if (objs != null && objs.length > 0) {
+			procardList = (List<Procard>) objs[0];
+			if (procardList != null && procardList.size() > 0) {
+				int count = (Integer) objs[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this
+						.setUrl("procardBlAction_findRootProcardforblList.action?pagestatus="
+								+ pagestatus + "&tag=" + tag);
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		if ("tuiliao".equals(pagestatus))
+			return "procardBl_showRoot3";
+		return "procardBl_showRoot2";
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String findProcardBlbyCondition() {
+		pageSize = 30;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (null != procard) {
+			request.getSession().setAttribute("procardforbl", procard);
+		} else {
+			procard = (Procard) request.getSession().getAttribute(
+					"procardforbl");
+		}
+		if (procard == null) {
+			procard = new Procard();
+		}
+		Object[] objs = procardBlServer.findProcardBlbyCondition(procard,
+				Integer.parseInt(cpage), pageSize);
+		if (objs != null && objs.length > 0) {
+			procardList = (List<Procard>) objs[0];
+			if (procardList != null && procardList.size() > 0) {
+				int count = (Integer) objs[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("procardBlAction_findProcardBlbyCondition.action");
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "";
+	}
+
+	/**
+	 * 通过rootId获取其下备料数据
+	 * 
+	 * @return
+	 */
+	public String findProcardBlDetailbyRootId() {
+		Object[] objs = procardBlServer.findProcardBlDetailbyRootId(id);
+		if (objs[0] != null) {
+			procardBlList = (List<ProcardBl>) objs[0];
+		}
+		if (objs[1] != null) {
+			procardBlList2 = (List<ProcardBl>) objs[1];
+		}
+		if (objs[2] != null) {
+			procardBlList3 = (List<ProcardBl>) objs[2];
+		}
+		return "procardBl_showDetail2";
+	}
+
+	/**
+	 * 通过rootId获取其下可退料数据 procardBlAction_findProcardTlDetailbyRootId.action
+	 * 
+	 * @return
+	 */
+	public String findProcardTlDetailbyRootId() {
+		Object[] objs = procardBlServer.findProcardTlDetailbyRootId(id);
+		if (objs[0] != null) {
+			procardTlList = (List<Procard>) objs[0];
+		}
+		if (objs[1] != null) {
+			procardYTlList = (List<Procard>) objs[1];
+		}
+		if (objs[2] != null) {
+			procardYtyTlList = (List<Procard>) objs[2];
+		}
+		return "procardTl_showDetail3";
+	}
+
+	/**
+	 * 查询所有待审批的退料申请 procardBlAction_findAllTuiLiao.action?tag=wei
+	 * procardBlAction_findAllTuiLiao.action?tag=all
+	 * procardBlAction_findAllTuiLiao.action?tag=wei
+	 * 
+	 * @return
+	 */
+	public String findAllTuiLiao() {
+		if (procard != null)
+			ActionContext.getContext().getSession().put("procardss1", procard);
+		else
+			procard = (Procard) ActionContext.getContext().getSession().get(
+					"procardss1");
+		Object[] object = procardBlServer.findAllTuiLiao(procard, Integer
+				.parseInt(cpage), pageSize, tag,startime,endtime);
+		if (object != null && object.length > 0) {
+			listProcardTl = (List<Procard>) object[0];
+			if (listProcardTl != null && listProcardTl.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("procardBlAction_findAllTuiLiao.action?tag=" + tag);
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "procardTlAll";
+	}
+
+	/**
+	 * 审批退料
+	 * 
+	 * @return
+	 */
+	public String shenPiTuiLiao() {
+		errorMessage = procardBlServer.auditTuiliao(procardIds1, okNo);
+		url = "procardBlAction_findAllTuiLiao.action?tag=" + tag;
+		return "error";
+	}
+
+	/**
+	 * 查询所有外协退料信息
+	 * 
+	 * @return
+	 */
+	public String findAllWxTuiliao() {
+		if (wxtl != null) {
+			ActionContext.getContext().getSession().put("wxtl", wxtl);
+		} else {
+			wxtl = (ProcardWxTuiLiao) ActionContext.getContext().getSession()
+					.get("wxtl");
+		}
+		Object[] object = procardBlServer.findAllWxTuiliao(wxtl, Integer
+				.parseInt(cpage), pageSize, tag);
+		if (object != null && object.length > 0) {
+			wxtlList = (List<ProcardWxTuiLiao>) object[0];
+			if (wxtlList != null && wxtlList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("procardBlAction_findAllWxTuiliao.action?tag="
+						+ tag);
+			}
+			errorMessage = null;
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "procard_AllWxTuiLiao";
+	}
+
+	/**
+	 * 审批外协退料
+	 * 
+	 * @return
+	 */
+	public String auditWxTuiliao() {
+		errorMessage = procardBlServer.auditWxTuiliao(procardIds1, okNo);
+		return "error";
+	}
+
+	/**
+	 * 通过rootId获取其下待领料数据
+	 * 
+	 * @return
+	 */
+	public String findProcardllDetailbyRootId() {
+		Object[] objs = procardBlServer.findProcardllDetailbyRootId(id, rootId);
+		if (objs[0] != null) {
+			procardBlList = (List<ProcardBl>) objs[0];
+		}
+		if (objs[1] != null) {
+			procardBlList2 = (List<ProcardBl>) objs[1];
+		}
+		if (objs[2] != null) {
+			procardBlList3 = (List<ProcardBl>) objs[2];
+		}
+		if (objs[3] != null) {
+			procard = (Procard) objs[3];
+		}
+		return "procardBl_showDetail";
+	}
+
+	/**
+	 * 根据上次自制件及其要配数量获取其下需要领的外购件
+	 * 
+	 * @return
+	 */
+	public String findProcardForbeiliao() {
+		try {
+			Map<Integer, Object> map = procardBlServer.findProcardForbeiliao(
+					checkboxs, peiqiCount);
+			if (map != null) {
+				if (map.get(1) != null) {
+					procard = (Procard) map.get(1);
+				}
+				if (map.get(2) != null) {
+					goodsList = (List<Goods>) map.get(2);
+				}
+				if (map.get(3) != null) {
+					checkboxs2 = (int[]) map.get(3);
+				}
+			}
+			HttpServletRequest request = ServletActionContext.getRequest();
+			request.getSession().setAttribute("procardblcheckboxs", checkboxs2);
+			request.getSession()
+					.setAttribute("procardblpeiqiCount", peiqiCount);
+		} catch (Exception e) {
+			// TODO: handle exception
+			errorMessage = e.getMessage();
+			return "error";
+		}
+
+		return "procardBl_showoutDetail2";
+	}
+
+	/**
+	 * 根据上次自制件及其要配数量获取其下需要领料的外购件
+	 * 
+	 * @return
+	 */
+	public String findProcardForbllingliao() {
+		if (checkboxs == null || checkboxs.length == 0) {
+			errorMessage = "请至少选择一项物料，才能领料!";
+			return "error";
+		}
+		try {
+			Map<Integer, Object> map = procardBlServer
+					.findProcardForbllingliao(checkboxs, peiqiCount, goods,
+							cardId);
+			if (map != null) {
+				if (map.get(1) != null) {
+					procard = (Procard) map.get(1);
+				}
+				if (map.get(2) != null) {
+					goodsList = (List<Goods>) map.get(2);
+				}
+				if (map.get(3) != null) {
+					checkboxs2 = (int[]) map.get(3);
+				}
+			}
+			// HttpServletRequest request = ServletActionContext.getRequest();
+			// request.getSession().setAttribute("procardblcheckboxs",
+			// checkboxs2);
+			// request.getSession()
+			// .setAttribute("procardblpeiqiCount", peiqiCount);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+			return "error";
+		}
+		return "procardBl_showoutDetail";
+	}
+
+	public String outDetail() {
+		Long time1 = new Date().getTime();
+		try {
+//			Thread.sleep(1000 * 3);
+//			HttpServletRequest request = ServletActionContext.getRequest();
+//			checkboxs2 = (int[]) request.getSession().getAttribute(
+//					"procardblcheckboxs");
+//			peiqiCount = (float[]) request.getSession().getAttribute(
+//					"procardblpeiqiCount");
+			String msg = procardBlServer.updateblDetailNew(checkboxs2, peiqiCount,
+					goodsList, selected, cardId, password, rootId);
+			// String msg = "true";
+			if (msg.equals("true")) {
+				errorMessage = "出库成功! &nbsp;&nbsp;&nbsp;<a target='_showprint' href='PrintedOutAction_findSellprintList.action?status=SOUT'>生产领料单打印</a>";
+				url = "procardBlAction_findProcardllDetailbyRootId.action?id="
+						+ id + "&rootId=" + rootId;
+			} else {
+				errorMessage = msg;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
+		Long time2 = new Date().getTime();
+		Float t = (time2 - time1) / 1000F;
+		MKUtil
+				.writeJSON(new Object[] { cpage, errorMessage + ";用时" + t + "s" });
+		return "error";
+	}
+
+	public String toProductlingliao() {
+		Object[] objs = procardBlServer.findGoodstoProductlingliao(id);
+		return null;
+	}
+
+	/***
+	 * 查看缺料 件号查询的库存（待检库、外购件库）
+	 * 
+	 * @return
+	 */
+	public String findLackGoodsDetail() {
+		String msg = "findGoodsOK";
+		if (pagestatus != null && "zz".equals(pagestatus)) {
+			msg = "findGoodsZZ";
+		}
+		this.pageSize = 15;
+		this.setUrl("goodsAction!findGoods.action?pagestatus=" + pagestatus);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (null != goods) {
+			request.getSession().setAttribute("goods", goods);
+		} else {
+			goods = (Goods) request.getSession().getAttribute("goods");
+			if (pagestatus != null && "zz".equals(pagestatus)) {
+				request.getSession().removeAttribute("goods");
+			} else if ("bhg".equals(pagestatus)) {
+				request.getSession().removeAttribute("goods");
+			}
+		}
+
+		goodsServer.pushkc1();
+		// Object[] obj = goodsServer.findGoods(goods, startDate, endDate,
+		// Integer
+		// .parseInt(cpage), pageSize, role, pagestatus,age);
+		Object[] obj = procardBlServer.findLackGoods(goods, null, null, Integer
+				.parseInt(cpage), pageSize, "manager", pagestatus, null);
+		int count = (Integer) obj[0];
+		int pageCount = (count + pageSize - 1) / pageSize;
+		this.setTotal(pageCount + "");
+		list = (List) obj[1];
+		sumcount = (Double) obj[2];
+		isall = (Boolean) obj[3];
+		Map session = ActionContext.getContext().getSession();
+		goodHouseList = wareHouseAuthService.findgoodHouselist();
+		Users user = (Users) session.get(TotalDao.users);
+		String code = user.getCode();
+
+		for (Goods g : list) {
+			String warehouse = g.getGoodsClass();
+			if (wareHouseAuthService.getOut(code).contains(warehouse)) {
+				g.setBout(true);
+			}
+			if (wareHouseAuthService.getEdit(code).contains(warehouse)) {
+				g.setBedit(true);
+			}
+		}
+
+		return "procardBl_showoutDetail_showLackDetail";
+	}
+
+	public String applicationTuiliao() {
+		if (procardList != null && procardList.size() >0) {
+			// errorMessage = procardBlServer.addApplicationTuiliao(procard);
+//			errorMessage = procardBlServer.addApplicationTuiliao(procardIds,
+//					stuiLiaoNumber);
+			errorMessage = procardBlServer.addApplicationTuiliao(procardList);
+			if ("申请成功！".equals(errorMessage))
+				url = "procardBlAction_findProcardTlDetailbyRootId.action?id="
+						+ rootId;
+			return "error";
+		}
+		errorMessage = "数据为空，申请失败！请刷新";
+		return "error";
+	}
+
+	/****
+	 * 通过ProcardId 查找备料信息
+	 * 
+	 * @param procardId
+	 * @return
+	 */
+	public String findProcardBlByPId() {
+		procardBlList = procardBlServer.findProcardBlByPId(rootId);
+		if ("lingliao".equals(pagestatus)) {
+			for (int i = 0; i < procardBlList.size(); i++) {
+				ProcardBl procardBl = procardBlList.get(i);
+				// 可领料时间（延伸13天）
+				String needdate = Util.getCalendarModified(procardBl
+						.getYlingliaoTime(), 5, -13);
+				procardBl.setYjiagongTime(needdate);
+
+				/*****
+				 * 和当前时间比较，是否可以开始领料
+				 */
+				String nowDate = Util.getDateTime();
+				try {
+					Long time = Util.getDateDiff(needdate, "yyyy-MM-dd",
+							nowDate, "yyyy-MM-dd");
+					if (time >= 0) {
+						procardBl.setLingliaoStatus("yes");
+					} else {
+						procardBl.setLingliaoStatus("no");
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return "procardBl_showLingliao";
+		} else {
+			return "procardBl_showpaichan";
+		}
+	}
+
+	/****
+	 * 创建/调整 备料排产计划
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	public String creatBlPlan() {
+		try {
+			errorMessage = procardBlServer.creatBlPlan(procard);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = "数据异常,排产失败!请联系管理员!异常原因:" + e.getMessage();
+		}
+		return "error";
+	}
+
+	public ProcardBlServer getProcardBlServer() {
+		return procardBlServer;
+	}
+
+	public void setProcardBlServer(ProcardBlServer procardBlServer) {
+		this.procardBlServer = procardBlServer;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public ProcardBl getProcardBl() {
+		return procardBl;
+	}
+
+	public void setProcardBl(ProcardBl procardBl) {
+		this.procardBl = procardBl;
+	}
+
+	public List<ProcardBl> getProcardBlList() {
+		return procardBlList;
+	}
+
+	public void setProcardBlList(List<ProcardBl> procardBlList) {
+		this.procardBlList = procardBlList;
+	}
+
+	public Procard getProcard() {
+		return procard;
+	}
+
+	public void setProcard(Procard procard) {
+		this.procard = procard;
+	}
+
+	public String getPagestatus() {
+		return pagestatus;
+	}
+
+	public void setPagestatus(String pagestatus) {
+		this.pagestatus = pagestatus;
+	}
+
+	public List<Procard> getProcardList() {
+		return procardList;
+	}
+
+	public void setProcardList(List<Procard> procardList) {
+		this.procardList = procardList;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<ProcardBl> getProcardBlList2() {
+		return procardBlList2;
+	}
+
+	public void setProcardBlList2(List<ProcardBl> procardBlList2) {
+		this.procardBlList2 = procardBlList2;
+	}
+
+	public List<ProcardBl> getProcardBlList3() {
+		return procardBlList3;
+	}
+
+	public void setProcardBlList3(List<ProcardBl> procardBlList3) {
+		this.procardBlList3 = procardBlList3;
+	}
+
+	public float[] getPeiqiCount() {
+		return peiqiCount;
+	}
+
+	public void setPeiqiCount(float[] peiqiCount) {
+		this.peiqiCount = peiqiCount;
+	}
+
+	public int[] getCheckboxs() {
+		return checkboxs;
+	}
+
+	public void setCheckboxs(int[] checkboxs) {
+		this.checkboxs = checkboxs;
+	}
+
+	public List<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Goods> goodsList) {
+		this.goodsList = goodsList;
+	}
+
+	public int[] getSelected() {
+		return selected;
+	}
+
+	public void setSelected(int[] selected) {
+		this.selected = selected;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+
+	public int[] getCheckboxs2() {
+		return checkboxs2;
+	}
+
+	public void setCheckboxs2(int[] checkboxs2) {
+		this.checkboxs2 = checkboxs2;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public double getSumcount() {
+		return sumcount;
+	}
+
+	public void setSumcount(double sumcount) {
+		this.sumcount = sumcount;
+	}
+
+	public boolean isIsall() {
+		return isall;
+	}
+
+	public void setIsall(boolean isall) {
+		this.isall = isall;
+	}
+
+	public List<Goods> getList() {
+		return list;
+	}
+
+	public void setList(List<Goods> list) {
+		this.list = list;
+	}
+
+	public List<GoodHouse> getGoodHouseList() {
+		return goodHouseList;
+	}
+
+	public void setGoodHouseList(List<GoodHouse> goodHouseList) {
+		this.goodHouseList = goodHouseList;
+	}
+
+	public WareHouseAuthService getWareHouseAuthService() {
+		return wareHouseAuthService;
+	}
+
+	public void setWareHouseAuthService(
+			WareHouseAuthService wareHouseAuthService) {
+		this.wareHouseAuthService = wareHouseAuthService;
+	}
+
+	public GoodsServer getGoodsServer() {
+		return goodsServer;
+	}
+
+	public void setGoodsServer(GoodsServer goodsServer) {
+		this.goodsServer = goodsServer;
+	}
+
+	public List<Procard> getProcardTlList() {
+		return procardTlList;
+	}
+
+	public void setProcardTlList(List<Procard> procardTlList) {
+		this.procardTlList = procardTlList;
+	}
+
+	public List<Procard> getProcardYTlList() {
+		return procardYTlList;
+	}
+
+	public void setProcardYTlList(List<Procard> procardYTlList) {
+		this.procardYTlList = procardYTlList;
+	}
+
+	public List<Procard> getProcardYtyTlList() {
+		return procardYtyTlList;
+	}
+
+	public void setProcardYtyTlList(List<Procard> procardYtyTlList) {
+		this.procardYtyTlList = procardYtyTlList;
+	}
+
+	/**
+	 * @return the tag
+	 */
+	public String getTag() {
+		return tag;
+	}
+
+	/**
+	 * @param tag
+	 *            the tag to set
+	 */
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	/**
+	 * @return the listProcardTl
+	 */
+	public List<Procard> getListProcardTl() {
+		return listProcardTl;
+	}
+
+	/**
+	 * @param listProcardTl
+	 *            the listProcardTl to set
+	 */
+	public void setListProcardTl(List<Procard> listProcardTl) {
+		this.listProcardTl = listProcardTl;
+	}
+
+	/**
+	 * @return the procardIds
+	 */
+	public Integer[] getProcardIds() {
+		return procardIds;
+	}
+
+	/**
+	 * @return the okNo
+	 */
+	public String getOkNo() {
+		return okNo;
+	}
+
+	/**
+	 * @param okNo
+	 *            the okNo to set
+	 */
+	public void setOkNo(String okNo) {
+		this.okNo = okNo;
+	}
+
+	/**
+	 * @param procardIds
+	 *            the procardIds to set
+	 */
+	public void setProcardIds(Integer[] procardIds) {
+		this.procardIds = procardIds;
+	}
+
+	/**
+	 * @return the stuiLiaoNumber
+	 */
+	public Float[] getStuiLiaoNumber() {
+		return stuiLiaoNumber;
+	}
+
+	/**
+	 * @param stuiLiaoNumber
+	 *            the stuiLiaoNumber to set
+	 */
+	public void setStuiLiaoNumber(Float[] stuiLiaoNumber) {
+		this.stuiLiaoNumber = stuiLiaoNumber;
+	}
+
+	/**
+	 * @return the procardIds1
+	 */
+	public Integer[] getProcardIds1() {
+		return procardIds1;
+	}
+
+	/**
+	 * @param procardIds1
+	 *            the procardIds1 to set
+	 */
+	public void setProcardIds1(Integer[] procardIds1) {
+		this.procardIds1 = procardIds1;
+	}
+
+	public List<ProcardWxTuiLiao> getWxtlList() {
+		return wxtlList;
+	}
+
+	public void setWxtlList(List<ProcardWxTuiLiao> wxtlList) {
+		this.wxtlList = wxtlList;
+	}
+
+	public ProcardWxTuiLiao getWxtl() {
+		return wxtl;
+	}
+
+	public void setWxtl(ProcardWxTuiLiao wxtl) {
+		this.wxtl = wxtl;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<Procard> getProcardWaigouTuiLiaoList() {
+		return procardWaigouTuiLiaoList;
+	}
+
+	public void setProcardWaigouTuiLiaoList(
+			List<Procard> procardWaigouTuiLiaoList) {
+		this.procardWaigouTuiLiaoList = procardWaigouTuiLiaoList;
+	}
+
+	public Integer[] getProcardIds2() {
+		return procardIds2;
+	}
+
+	public void setProcardIds2(Integer[] procardIds2) {
+		this.procardIds2 = procardIds2;
+	}
+
+	public String getStartime() {
+		return startime;
+	}
+
+	public void setStartime(String startime) {
+		this.startime = startime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+
+}

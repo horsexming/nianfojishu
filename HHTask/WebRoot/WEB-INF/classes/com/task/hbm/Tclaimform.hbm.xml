@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Tclaimform" table="ta_Tclaimform">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="ourPerson" length="20"/>
+		<property name="otherPerson" length="20"/>
+		<property name="otherPhone" length="30"/>
+		<property name="otherCompany" length="80"/>
+		<property name="claimAmount" type="double"/>
+		<property name="regDate" length="30"/>
+		<property name="status" length="30"/>
+		<property name="tclaimNumber" length="30"/>
+
+		<property name="notification" length="30"/>
+		<property name="notificationDate" length="30"/>
+
+		<property name="debit" length="30"/>
+		<property name="debitDate" length="30"/>
+		<property name="debitAmount" type="double"/>
+
+		<set name="records" cascade="all">
+			<key column="f_TclaimsRecord_id"></key>
+			<one-to-many class="com.task.entity.TclaimsRecord"/>
+		</set>
+
+	</class>
+
+</hibernate-mapping>

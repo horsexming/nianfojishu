@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ReturnSingle" table="ta_sop_w_ReturnSingle">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="gysId"/>
+		<property name="gysName"/>
+		<property name="gysdizhi"/>
+		<property name="gysUser"/>
+		<property name="gysPhone"/>
+		<property name="thNumber"/>
+		 <property name="status"/>
+		 <property name="planNum"/>
+		 <property name="printUser"/>
+		 <property name="printUserId"/>
+		 <property name="printTime"/>
+		 <property name="addTime"/>
+		 <property name="gysuserId"/>
+		 <property name="zhidan"/>
+		 <property name="cangguan"/>
+		 <property name="iqc"/>
+		 <property name="caikuzg"/>
+		 <property name="caigou"/>
+		 <property name="caigouzg"/>
+		<property name="epstatus"/>
+		<property name="epId"/>
+		<property name="gysjc"/>
+		<property name="type"/>
+		<property name="approvalTime"/>
+		 <set name="rdsSet" inverse="false" cascade="all" lazy="true" >
+		 	<key column="rs_Id"></key>
+		 	<one-to-many class="ReturnsDetails"/>
+		 </set>
+ 	</class>
+</hibernate-mapping>

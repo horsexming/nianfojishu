@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tast.entity.zhaobiao">
+    <class name="ChargebackNotice" table="ta_zh_ChargebackNotice" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="number" />
+        <property name="zhUser_name" />
+        <property name="description" />
+        <property name="jbName" />
+        <property name="shName" />
+        <property name="pzName" />
+        
+        <property name="kkCause" />
+        <property name="kkMoney" />
+        <property name="reportUnit" />
+        <property name="kkMouth" />
+        
+        <property name="addTime"/>
+		<property name="addName" />
+		<property name="fileName" />
+		<property name="waiGouPlanId" />
+		<property name="csblOrderId" />
+		<property name="epstatus"/>
+		<property name="epId"/>
+		
+        <!-- 扣款单对供应商 多对一-->
+		<many-to-one name="zhUser" class="ZhUser" column="ta_gys"></many-to-one>
+    </class>
+</hibernate-mapping>

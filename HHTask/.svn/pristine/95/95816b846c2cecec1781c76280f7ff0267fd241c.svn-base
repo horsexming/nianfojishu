@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.GongyiGuicheng" table="ta_sop_GongyiGuicheng">
+		<id name="id"  column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="numb" type="string" column="numb"/>
+		<property name="xingbie" type="string" column="xingbie"/>
+		<property name="jianId"  column="jian_id"/>
+		<property name="jianNumb" type="string" column="jian_numb"/>
+		<property name="jianName" type="string" column="jian_name"/>
+		<property name="pageTotal"  column="page_total"/>
+		<property name="bianzhiName" type="string" column="bianzhi_name"/>
+		<property name="jiaoduiName" type="string" column="jiaodui_name"/>
+		<property name="shenheName" type="string" column="shenhe_name"/>
+		<property name="pizhunName" type="string" column="pizhun_name"/>
+		<property name="fachuDate" type="timestamp" column="fachu_date"/>
+		<property name="banci" type="string" column="banci"/>
+		<property name="cuntuNumb" type="string" column="cuntu_numb"/>
+		<property name="createUserId"  column="create_user_id"/>
+		<property name="createUserName" type="string" column="create_user_name"/>
+		<property name="createDate" type="timestamp" column="create_date"/>
+		
+		<property name="suoyinNumb" type="string" column="suoyin_numb"/>
+		<property name="danNumb" type="string" column="dan_numb"/>
+		<property name="qianming" type="string" column="qianming"/>
+		<property name="qianmingDate" type="timestamp" column="qianming_date"/>
+		
+		<property name="epId"  column="ep_id"/>
+		<property name="status" type="string" column="status"/>
+		
+		<property name="bianzhiId"  column="bianzhi_id"></property>
+		<property name="jiaoduiId"  column="jiaodui_id"></property>
+		<property name="shenheId"  column="shenhe_id"></property>
+		<property name="pizhunId"  column="pizhun_id"></property>
+		
+		<property name="bianzhiDate" type="timestamp" column="bianzhi_date"></property>
+		<property name="jiaoduiDate" type="timestamp" column="jiaodui_date"></property>
+		<property name="shenheDate" type="timestamp" column="shenhe_date"></property>
+		<property name="pizhunDate" type="timestamp" column="pizhun_date"></property>
+		
+		<property name="jiagongDate" type="timestamp" column="jiagong_date"></property>
+		<property name="pinzhiDate" type="timestamp" column="pinzhi_date"></property>
+		
+		<property name="jiagongId"  column="jiagong_id"></property>
+		<property name="jiagongName" type="string" column="jiagong_name"></property>
+		<property name="pinzhiId"  column="pinzhi_id"></property>
+		<property name="pinzhiName" type="string" column="pinzhi_name"></property>
+		
+		<property name="score"  column="score"></property>
+		<property name="totalScore"  column="total_score"></property>
+		<!-- 工艺规程 -->
+		<property name="gongyiGuichengType" type="string" column="gongyi_guicheng_type"></property>
+		<!-- 版本 -->
+		<property name="parentId"  column="parent_id"></property>
+		<!-- 对应报价bom -->
+		<property name="qpRootId"  column="qpRootId"></property>
+		<property name="procardStyle"  column="procardStyle"></property>
+	</class>
+</hibernate-mapping>

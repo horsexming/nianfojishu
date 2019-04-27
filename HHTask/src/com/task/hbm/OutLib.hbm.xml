@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.OutLib" table="outLib" >
+        <id name="id" type="java.lang.Integer">
+           <column name="OutLib_id" />
+           <generator class="identity" />
+        </id>
+       <property name="date" type="java.sql.Date">
+           <column name="OutLib_date" length="53" />
+       </property>
+       <property name="cardNum" type="java.lang.String">
+           <column name="OutLib_cardId" length="100" />
+       </property>
+       <property name="dept" type="java.lang.String">
+           <column name="OutLib_dept" length="100" />
+       </property>
+       <property name="peopleName" type="java.lang.String">
+           <column name="OutLib_person" length="100" />
+       </property>
+       <property name="matetag" type="java.lang.String">
+           <column name="OutLib_matetag" length="100" />
+       </property>
+       <property name="format" type="java.lang.String">
+           <column name="OutLib_format" length="100" />
+       </property>
+       <property name="unit" type="java.lang.String">
+           <column name="OutLib_unit" length="100" />
+       </property>
+       <property name="storehouse" type="java.lang.String">
+           <column name="OutLib_storehouse" length="100" />
+       </property>
+       <property name="parClass" type="java.lang.String">
+           <column name="OutLib_parClass" length="100" />
+       </property>
+       <property name="place" type="java.lang.String">
+           <column name="OutLib_position" length="100" />
+       </property>
+       <property name="num" type="java.lang.Float">
+           <column name="OutLib_num" length="23" />
+       </property>
+       <property name="price" type="java.lang.Float">
+           <column name="OutLib_price" length="23" />
+       </property>
+       <property name="money" type="java.lang.Float">
+           <column name="OutLib_money" length="23" />
+       </property>
+       <property name="detail" type="java.lang.String">
+           <column name="OutLib_detail" length="500" />
+       </property>
+       <property name="adminId" type="java.lang.Integer">
+           <column name="OutLib_adminId" length="4" />
+       </property>
+       <property name="admin" type="java.lang.String">
+           <column name="OutLib_admin" length="100" />
+       </property>
+       <property name="mix" type="java.lang.String">
+           <column name="OutLib_mix" length="200" />
+       </property>
+       <property name="danjuhao" type="java.lang.String">
+           <column name="OutLib_danjuhao" length="200" />
+       </property>
+       <property name="more" type="java.lang.String">
+           <column name="OutLib_more" length="500" />
+       </property>
+       
+       <!-- 库存 -->
+		<many-to-one name="store" class="com.task.entity.Store" column="fk_store_id" lazy="false" />
+		<!-- 出库 -->
+		<one-to-one name="con" class="com.task.entity.Consuming" property-ref="out" lazy="false"/>
+   </class>
+</hibernate-mapping>

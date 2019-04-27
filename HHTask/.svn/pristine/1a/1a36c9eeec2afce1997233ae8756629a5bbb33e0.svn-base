@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.OsRecord" table="ta_m_OsRecord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId" />
+		<property name="proName" />
+		<property name="kgliao" />
+		<property name="gysId" />
+		<property name="gysName" />
+
+
+		<property name="banbenNumber" />
+		<property name="banci" />
+		<property name="specification" />
+		<property name="unit" />
+
+		<property name="jcpc" length="100" />
+		<property name="quantity" />
+		<property name="jyNumber" />
+		<property name="hgNumber" />
+
+
+		<property name="verification" length="20" />
+		<property name="buhegeId" length="150" />
+		<property name="code" length="150" />
+		<property name="type" length="800" />
+
+		<property name="userId" length="40" />
+		<property name="userCode" length="40" />
+		<property name="username" length="40" />
+		<property name="jinhuoDate" length="50" />
+		<property name="nowDate" length="50" />
+		<property name="seeDate" length="50" />
+
+		<property name="ruku" type="true_false" />
+		<property name="ppiId" />
+		<property name="zhonglei" />
+		<property name="czg" />
+		<property name="nextDate" />
+		<property name="dateCount" />
+		<property name="groupDate" />
+		<property name="wwddId" index="pebs_index_or_wwddId"/>
+		<property name="wwdNumber" />
+		<property name="wgType" />
+		<property name="ywmakrId"/>
+		<property name="neiordeNum"/>
+		<property name="selfCard"/>
+		<property name="tuhao"/>
+		<property name="bhgclass"/>
+		<property name="bhgTypeNum"/>
+		<property name="gongxuNum"/>
+		<property name="gongxuName"/>
+		<property name="measuringMatetag"/>
+		<property name="measuring_no"/>
+		<property name="gongwei"/>
+		<set name="recordScope" cascade="all" lazy="false">
+			<key column="f_osRecordScope_id"></key>
+			<one-to-many class="com.task.entity.android.OsRecordScope" />
+		</set>
+		<many-to-one name="template" column="rootId" />
+		<many-to-one name="breaksubmit" column="fk_breakId"/>
+	</class>
+</hibernate-mapping>

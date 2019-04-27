@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+		<!-- 客户索赔Server层 -->
+		<bean id="customerClaimServerImpl" class="com.task.ServerImpl.claim.CustomerClaimServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<!-- 客户索赔Action -->
+		<bean id="customerClaimAction" class="com.task.action.claim.CustomerClaimAction"
+			scope="prototype">
+			<property name="customerClaimServer" ref="customerClaimServerImpl"/>
+		</bean>
+		
+		<!-- 编码翻译Server层 -->
+		<bean id="codeTranslationServerImpl" class="com.task.ServerImpl.codetranslation.CodeTranslationServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<!-- 编码翻译Action -->
+		<bean id="codeTranslationAction" class="com.task.action.codetranslation.CodeTranslationAction"
+			scope="prototype">
+			<property name="codeTranslationServer" ref="codeTranslationServerImpl"/>
+		</bean>
+		<bean id="competenceTypeServerImpl" class="com.task.ServerImpl.competencetype.CompetenceTypeServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<!-- 编码翻译Action -->
+		<bean id="competenceTypeAction" class="com.task.action.competencetype.CompetenceTypeAction"
+			scope="prototype">
+			<property name="competenceTypeServer" ref="competenceTypeServerImpl"/>
+		</bean>
+		<!-- 体系文件Server层 -->
+		<bean id="systemFileServerImpl" class="com.task.ServerImpl.systemfile.SystemFileServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+			<property name="circuitRunServer" ref="CircuitRunServerImpl"/>
+		</bean>
+		<!-- 体系文件Action -->
+		<bean id="systemFileAction" class="com.task.action.systemfile.SystemFileAction"
+			scope="prototype">
+			<property name="systemFileServer" ref="systemFileServerImpl"/>
+			<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+		</bean>
+		<!-- 体系审核Server层 -->
+		<bean id="setupCheckServerImpl" class="com.task.ServerImpl.setupcheck.SetupCheckServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<!-- 体系审核Action -->
+		<bean id="setupCheckAction" class="com.task.action.setupcheck.SetupCheckAction"
+			scope="prototype">
+			<property name="setupCheckServer" ref="setupCheckServerImpl"/>
+		</bean>
+		<!--  -->
+		<bean id="checkTypeServerImpl" class="com.task.ServerImpl.checktype.CheckTypeServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<bean id="checkTypeAction" class="com.task.action.checktype.CheckTypeAction"
+			scope="prototype">
+			<property name="checkTypeServer" ref="checkTypeServerImpl"/>
+		</bean>
+		<bean id="checkNoteServerImpl" class="com.task.ServerImpl.checktype.CheckNoteServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<bean id="checkNoteAction" class="com.task.action.checktype.CheckNoteAction"
+			scope="prototype">
+			<property name="checkNoteServer" ref="checkNoteServerImpl"/>
+		</bean>
+		<bean id="questionServerImpl" class="com.task.ServerImpl.question.QuestionServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<bean id="questionAction" class="com.task.action.question.QuestionAction"
+			scope="prototype">
+			<property name="questionServer" ref="questionServerImpl"/>
+		</bean>
+		<bean id="zhuserOfferServerImpl" class="com.task.ServerImpl.zhuseroffer.ZhuserOfferServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<bean id="zhuserOfferAction" class="com.task.action.zhuseroffer.ZhuserOfferAction"
+			scope="prototype">
+			<property name="zhuserOfferServer" ref="zhuserOfferServerImpl"/>
+		</bean>
+		
+<!--		<bean id="fixtureServerImpl" class="com.task.ServerImpl.fixture.FixtureServerImpl">-->
+<!--			<property name="totalDao" ref="totalDaoImpl"/>-->
+<!--		</bean>-->
+<!--		<bean id="fixtureAction" class="com.task.action.fixture.FixtureAction"-->
+<!--			scope="prototype">-->
+<!--			<property name="fixtureServer" ref="fixtureServerImpl"/>-->
+<!--		</bean>-->
+<!--		-->
+<!--		<bean id="spotQuestionServerImpl" class="com.task.ServerImpl.spotquestion.SpotQuestionServerImpl">-->
+<!--			<property name="totalDao" ref="totalDaoImpl"/>-->
+<!--		</bean>-->
+<!--		<bean id="spotQuestionAction" class="com.task.action.spotquestion.SpotQuestionAction"-->
+<!--			scope="prototype">-->
+<!--			<property name="spotQuestionServer" ref="spotQuestionServerImpl"/>-->
+<!--		</bean>-->
+		<bean id="noPriceprocessServerImpl" class="com.task.ServerImpl.zhuseroffer.NoPriceprocessServerImpl">
+			<property name="totalDao" ref="totalDaoImpl"/>
+		</bean>
+		<bean id="noPriceprocessAction" class="com.task.action.zhuseroffer.NoPriceprocessAction"
+			scope="prototype">
+			<property name="noPriceprocessServer" ref="noPriceprocessServerImpl"/>
+		</bean>
+		
+</beans>

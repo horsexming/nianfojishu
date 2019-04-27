@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.singlecar.SingleCarAll" table="ta_SingleCarAll" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="pilotname" />
+        <property name="car_number" />
+        <property name="hjkilometers" />
+        <property name="hjmoney" />
+        <property name="ctkilometers" />
+        <property name="ctmoney" />
+        <property name="zcwgcs" />
+        <property name="zcwgmoney" />
+        <property name="zccs" />
+        <property name="zcmoney" />
+        <property name="allmoney" />
+        <property name="permoney" />
+        <property name="firsttime" />
+        <property name="finishtime" />
+        <property name="status" />
+        <property name="epId" />
+    </class>
+</hibernate-mapping>

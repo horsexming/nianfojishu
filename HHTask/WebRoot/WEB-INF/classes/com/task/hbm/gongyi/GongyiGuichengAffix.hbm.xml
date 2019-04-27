@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.GongyiGuichengAffix" table="ta_sop_gygc_affix">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="url" type="string" column="url"/>
+		<property name="fileName" type="string" column="file_name"/>
+		<property name="affixType" type="string" column="affix_type"/>
+		<property name="fileType" type="string" column="file_type"/>
+		<property name="weizhi" type="string" column="weizhi"/>
+		<property name="gongyiGuichengId" type="integer" column="gongyi_guicheng_id"/>
+		<property name="processDataId" type="integer" column="process_data_id"/>
+		<property name="isGys"></property>
+	</class>
+</hibernate-mapping>

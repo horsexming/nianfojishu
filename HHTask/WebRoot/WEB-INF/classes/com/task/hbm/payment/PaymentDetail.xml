@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.PaymentDetail" table="ta_PaymentDetail">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="businesscontent" />
+		<property name="askrequisition_num" />
+		<property name="orders_num" />
+		<property name="receipt_num" />
+		<property name="invoice_num" />
+		<property name="voucherMoney" />
+		<property name="isOk" />
+		<property name="borrowerlist_num" />
+		<property name="paymentid1"></property>
+		<property name="number1"></property>
+		<property name="unitname1"></property>
+		<property name="detailStatus"></property>
+		<property name="dept"></property>
+		<property name="pay_use"></property>
+		<property name="remark"></property>
+		 <many-to-one name="voucher" class="com.task.entity.payment.PaymentVoucher" column="paymentid" lazy="proxy"></many-to-one>
+		</class>
+		</hibernate-mapping>

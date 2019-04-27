@@ -1,0 +1,281 @@
+package com.task.entity.caiwu.noncore;
+import java.io.Serializable;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.util.FieldMeta;
+/**
+ * 非主营业务应收总表
+ * @author 贾辉辉
+ * 表名：ta_fin_caiwu_NonCoreReceivables
+ *
+ */
+public class NonCoreReceivables implements Serializable{
+	private Integer id;
+	private Set<NonCoreReceivablesDetail> nonCoreReceivablesDetail;
+	@FieldMeta(name = "类型")
+	private String receiveType;//类型（地产租赁/设备租赁/水电代缴/其他）
+	@FieldMeta(name = "承租方")
+	private String chengzufang;//承租方
+	private String chengzudizhi;//承租地址
+	@FieldMeta(name = "合同编号")
+	private String hetongbianhao;//合同编号
+	private String hetongfujian;//合同附件
+	@FieldMeta(name = "缴租周期")
+	private String jiaozuzhouqi;//缴租周期 /月(多久交款一次)
+	private String kemu;//收款明目
+	private String zhaiyao;//摘要
+	@FieldMeta(name = "经办人")
+	private String jignbanren;//经办人
+	private String youxiaoqiStart;//有开始效期
+	@FieldMeta(name = "有截止效期")
+	private String youxiaoqi;//有截止效期
+	@FieldMeta(name = "缴租日期")
+	private String jiaozuDate;//缴租日期(空闲)
+	@FieldMeta(name = "保证金")
+	private Float baozhegnjin;//保证金
+	@FieldMeta(name = "租金")
+	private Float zujin;//租金
+	private Integer epId;//流程id
+	@FieldMeta(name = "审批状态")
+	private String status;//审批状态
+	@FieldMeta(name = "备注")
+	private String more;//备注
+	private String isNeeddaitijiaofei;//是否需要企业代缴费用
+	private String addTime;//添加时间
+	@FieldMeta(name = "申请人")
+	private String addUserName;//添加人名
+	private String addUserDept;//添加人部门
+	private Integer addUserId;//添加人ID
+	private Integer scpId;//应收ID
+	private String fujianQueren;//加章后确认附件
+	private String fujian2Status;//加章后确认附件状态(未上传、已上传)
+	private String typeStatus;//类型状态(未到/有效/失效/过期)(通过定时器计算)
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getTypeStatus() {
+		return typeStatus;
+	}
+
+	public void setTypeStatus(String typeStatus) {
+		this.typeStatus = typeStatus;
+	}
+
+	public String getAddUserDept() {
+		return addUserDept;
+	}
+
+	public void setAddUserDept(String addUserDept) {
+		this.addUserDept = addUserDept;
+	}
+
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+
+	public String getYouxiaoqiStart() {
+		return youxiaoqiStart;
+	}
+
+	public void setYouxiaoqiStart(String youxiaoqiStart) {
+		this.youxiaoqiStart = youxiaoqiStart;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	@JSONField(serialize = false)
+	public Set<NonCoreReceivablesDetail> getNonCoreReceivablesDetail() {
+		return nonCoreReceivablesDetail;
+	}
+
+	public void setNonCoreReceivablesDetail(
+			Set<NonCoreReceivablesDetail> nonCoreReceivablesDetail) {
+		this.nonCoreReceivablesDetail = nonCoreReceivablesDetail;
+	}
+	
+	public String getReceiveType() {
+		return receiveType;
+	}
+
+	public void setReceiveType(String receiveType) {
+		this.receiveType = receiveType;
+	}
+
+	public String getChengzufang() {
+		return chengzufang;
+	}
+
+	public void setChengzufang(String chengzufang) {
+		this.chengzufang = chengzufang;
+	}
+
+	public String getChengzudizhi() {
+		return chengzudizhi;
+	}
+
+	public void setChengzudizhi(String chengzudizhi) {
+		this.chengzudizhi = chengzudizhi;
+	}
+
+	public String getHetongbianhao() {
+		return hetongbianhao;
+	}
+
+	public void setHetongbianhao(String hetongbianhao) {
+		this.hetongbianhao = hetongbianhao;
+	}
+
+	public String getHetongfujian() {
+		return hetongfujian;
+	}
+
+	public void setHetongfujian(String hetongfujian) {
+		this.hetongfujian = hetongfujian;
+	}
+
+	public String getJiaozuzhouqi() {
+		return jiaozuzhouqi;
+	}
+
+	public void setJiaozuzhouqi(String jiaozuzhouqi) {
+		this.jiaozuzhouqi = jiaozuzhouqi;
+	}
+
+	public String getKemu() {
+		return kemu;
+	}
+
+	public void setKemu(String kemu) {
+		this.kemu = kemu;
+	}
+
+	public String getZhaiyao() {
+		return zhaiyao;
+	}
+
+	public void setZhaiyao(String zhaiyao) {
+		this.zhaiyao = zhaiyao;
+	}
+
+	public String getJignbanren() {
+		return jignbanren;
+	}
+
+	public void setJignbanren(String jignbanren) {
+		this.jignbanren = jignbanren;
+	}
+
+	public String getYouxiaoqi() {
+		return youxiaoqi;
+	}
+
+	public void setYouxiaoqi(String youxiaoqi) {
+		this.youxiaoqi = youxiaoqi;
+	}
+
+	public String getJiaozuDate() {
+		return jiaozuDate;
+	}
+
+	public void setJiaozuDate(String jiaozuDate) {
+		this.jiaozuDate = jiaozuDate;
+	}
+
+	public Float getBaozhegnjin() {
+		return baozhegnjin;
+	}
+
+	public void setBaozhegnjin(Float baozhegnjin) {
+		this.baozhegnjin = baozhegnjin;
+	}
+
+	public Float getZujin() {
+		return zujin;
+	}
+
+	public void setZujin(Float zujin) {
+		this.zujin = zujin;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public String getIsNeeddaitijiaofei() {
+		return isNeeddaitijiaofei;
+	}
+
+	public void setIsNeeddaitijiaofei(String isNeeddaitijiaofei) {
+		this.isNeeddaitijiaofei = isNeeddaitijiaofei;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public Integer getScpId() {
+		return scpId;
+	}
+
+	public void setScpId(Integer scpId) {
+		this.scpId = scpId;
+	}
+
+	public String getFujianQueren() {
+		return fujianQueren;
+	}
+
+	public void setFujianQueren(String fujianQueren) {
+		this.fujianQueren = fujianQueren;
+	}
+
+	public String getFujian2Status() {
+		return fujian2Status;
+	}
+
+	public void setFujian2Status(String fujian2Status) {
+		this.fujian2Status = fujian2Status;
+	}
+	
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectQuotationRawMaterial" table="ta_ProjectQuotation_RawMaterial">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="materialGrade" length="50"/>
+		<property name="density" type="double"  />
+		<property name="price" type="double"  />
+		<property name="scrapPrice" type="double"  />
+		<property name="thickness" type="double"  />
+		<property name="unitLength" type="double"  />
+		<property name="unitWidth" type="double"  />
+		<property name="coilScrap" type="double"  />
+		<property name="nonQuality" type="double"  />
+		<property name="netWeight" type="double"  />
+		<property name="grossWeight" type="double"  />
+		<property name="usage" >
+			<column name="[usage]" />
+		</property>
+		<property name="materialCost" type="double"  />
+		<property name="scrapValue" type="double"  />
+		<property name="totalCost" type="double"  />
+		<property name="rmType" length="5" />
+		<property name="maker" length="80" />
+		<property name="local" length="10" />
+		<many-to-one name="root" column="pid"/>
+
+	</class>
+
+</hibernate-mapping>

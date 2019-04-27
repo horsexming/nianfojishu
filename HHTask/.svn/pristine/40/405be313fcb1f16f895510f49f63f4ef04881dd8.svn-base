@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.TakeFund" table="ST_TakeFund" >
+	
+		<id name="id" column="id_key" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="personId" column="person_Id" type="int"></property>
+		<property name="takeDate" column="take_Date" type="timestamp"></property>
+		<property name="takeFund" column="take_Fund"></property>
+		<property name="cardBalance" column="card_Balance"></property>
+		<property name="userNo" column="user_No"></property>
+	</class>
+</hibernate-mapping>

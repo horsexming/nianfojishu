@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- ***********************************刘晓霆Server层管理**************************************************** -->
+	<!-- **********注入接口********* -->
+	<!-- 注入请假接口 -->
+	<bean id="leaveServerImpl" class="com.task.ServerImpl.LeaveServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- 注入考勤接口 -->
+	<bean id="attendanceServerImpl" class="com.task.ServerImpl.AttendanceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 注入考勤人员维护接口 -->
+	<bean id="atPersonServerImpl" class="com.task.ServerImpl.AtPersonServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 注入考勤出勤人员信息接口 -->
+	<bean id="atPersonInforServerImpl" class="com.task.ServerImpl.AtPersonInforServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 注入考勤统计接口 -->
+	<bean id="atCountServerImpl" class="com.task.ServerImpl.AtCountServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	
+	<!-- 请假Action层 -->
+	<bean id="AskForLeaveAction" class="com.task.action.AskForLeaveAction"
+		scope="prototype">
+		<property name="leaveServer" ref="leaveServerImpl" />
+	</bean>
+	<!-- 考勤Action层 -->
+	<bean id="AttendanceAction" class="com.task.action.AttendanceAction"
+		scope="prototype">
+		<property name="attendanceServer" ref="attendanceServerImpl" />
+	</bean>
+	<!-- 考勤维护Action层 -->
+	<bean id="PersonAction" class="com.task.action.PersonAction"
+		scope="prototype">
+		<property name="atPersonServer" ref="atPersonServerImpl" />
+	</bean>
+	<!-- 出勤人员信息维护 Action层 -->
+	<bean id="AttendancePersonInformationAction" class="com.task.action.AttendancePersonInformationAction"
+		scope="prototype">
+		<property name="atPersonInforServer" ref="atPersonInforServerImpl" />
+		
+	</bean>
+	<!-- 考勤统计Action层 -->
+	<bean name="AttendanceCountAction" class="com.task.action.AttendanceCountAction"
+		scope="prototype">
+		<property name="atCountServer" ref="atCountServerImpl" />
+		<property name="attendanceServer" ref="attendanceServerImpl" />
+	</bean>
+	<!-- JfreeChartAction层 -->
+
+</beans>

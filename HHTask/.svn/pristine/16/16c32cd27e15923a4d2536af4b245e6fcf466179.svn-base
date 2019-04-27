@@ -1,0 +1,94 @@
+package com.task.entity.sop;
+
+/****
+ * 产品工序对应成员
+ * 
+ * @author 刘培
+ * @表名 ta_sop_w_ProcessinforPeople
+ * 
+ */
+public class ProcessinforPeople {
+	private Integer id;
+	private Integer userId;// 成员对应users id
+	private String code;// 成员工号
+	private String name;// 成员名称
+	private String dept;// 成员部门
+	private String addTime;// 添加时间
+	private String status;// 状态(激活、完成)
+	private String isTuijian;// 推荐(是/否)
+
+	private Procard procard;// 对应流水单
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Procard getProcard() {
+		return procard;
+	}
+
+	public void setProcard(Procard procard) {
+		this.procard = procard;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getIsTuijian() {
+		return isTuijian;
+	}
+
+	public void setIsTuijian(String isTuijian) {
+		this.isTuijian = isTuijian;
+	}
+
+}

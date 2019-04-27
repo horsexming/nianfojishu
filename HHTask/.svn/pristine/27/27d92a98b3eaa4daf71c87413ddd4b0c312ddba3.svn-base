@@ -1,0 +1,394 @@
+package com.task.action.caiwu;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Server.caiwu.CwVouchersServer;
+import com.task.entity.caiwu.CwUseDetail;
+import com.task.entity.caiwu.CwVouchers;
+import com.task.entity.caiwu.CwVouchersDetail;
+import com.task.entity.sop.ProcardTemplateBanBenApply;
+import com.task.util.MKUtil;
+
+public class CwVouchersAction extends ActionSupport {
+	private CwVouchersServer cwVouchersServer;
+	private CwVouchers cwVouchers;
+	private CwVouchersDetail cwVouchersDetail;
+	private CwUseDetail cwUseDetail;
+	private List<CwVouchers> cwVouchersList;
+	private List<CwVouchersDetail> cwVouchersDetailList;
+	private List<CwUseDetail> cwUseDetailList;
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private int id;// id
+	private String pageStatus;// 页面状态
+	private String start;
+	private String end;
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String tages;//做账抛转标识
+	private String url;
+	private int pageSize = 15;
+	
+	private File files;
+	private String filesFileName;
+	private String filesContentType;
+	private String createTime;
+	private Integer cwVouChersId;
+
+
+
+
+	/**
+	 * 查询凭证
+	 * 
+	 * @return
+	 */
+	public String showList() {
+		if (cwVouchers != null) {
+			ActionContext.getContext().getSession().put("cwVouchers",
+					cwVouchers);
+		} else {// 用来保持分页时带着查询条件
+			cwVouchers = (CwVouchers) ActionContext.getContext().getSession()
+					.get("cwVouchers");
+		}
+		Map<Integer, Object> map = cwVouchersServer.findCwVouchersByCondition(
+				cwVouchers, Integer.parseInt(cpage), pageSize, start, end,tages);
+		cwVouchersList = (List<CwVouchers>) map.get(1);// 显示页的技能系数列表
+		if (cwVouchersList != null & cwVouchersList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("CwVouchersAction!showList.action?tages="+tages);
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+		return "cwVouchers_show";
+	}
+
+	/**
+	 * 确认已做账
+	 */
+	public void queren(){
+		MKUtil.writeJSON(cwVouchersServer.queren(id));
+	}
+	/**
+	 * 确认已做账
+	 */
+	public String shangchuan(){
+		errorMessage = cwVouchersServer.shangchuan(cwVouchers, files, filesFileName);
+		if("上传成功".equals(errorMessage)){
+			url = "CwVouchersAction!showList.action?tages="+tages;
+		}
+		return "error";
+	}
+	
+	/**
+	 * 查询凭证分录
+	 * 
+	 * @return
+	 */
+	public String showDetailList() {
+		cwVouchers = cwVouchersServer.getCwVouchersById(id);
+		if (cwVouchers == null) {
+			errorMessage = "对不起没有找到对应的凭证!";
+			return "error";
+		}
+		cwVouchersDetailList = cwVouchersServer.findDetailByVouchersById(id);
+		return "cwVouchers_detailshow";
+	}
+
+	/**
+	 * 查询凭证辅助明细
+	 * 
+	 * @return
+	 */
+	public String findCwUseDetailByCvdId() {
+		cwUseDetailList = cwVouchersServer.findCwUseDetailByCvdId(id);
+		return "CwUseDetail_detailshow";
+	}
+
+	/****
+	 * 根据科目id查询对应的借贷记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String findDetailBysubId() {
+		cwVouchersDetailList = cwVouchersServer.findDetailBysubId(id);
+		return "cwVouchers_DC_detailshow";
+	}
+	
+	/****
+	 * 计提固定资产折旧
+	 * @return
+	 */
+	public String accetMonthZhejiu(){
+ 		cwVouchersServer.accetMonthZhejiu();
+		errorMessage="计提固定资产折旧完成";
+		return ERROR;
+	}
+	
+	
+	/**
+	 * 手动添加凭证明细
+	 * @return
+	 */
+	public void insertCwVouchersDetail(){		
+		if(cwVouchersDetailList !=null&&cwVouchersDetailList.size()>1){
+			try {
+				errorMessage = cwVouchersServer.insertCwVouchersDetail(cwVouchersDetailList,createTime);
+				//url="/HHTask/System/caiwu/pingzheng/cw_usedetail_sdluru.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMessage = e.toString();
+			}			
+		}else{
+			errorMessage ="添加失败";
+		}	
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	/**
+	 * 根据id查询需要修改的凭证明细及辅助明细
+	 * @return
+	 */
+	public String updateShowDetailList(){
+		cwVouchers = cwVouchersServer.getCwVouchersById(id);
+		if (cwVouchers == null) {
+			errorMessage = "对不起没有找到对应的凭证!";
+			return "error";
+		}
+		cwVouchersDetailList = cwVouchersServer.findCwVouchersDetailById(id);
+		return "cw_pzmx_update";		
+	}
+	
+    /**
+     * 修改凭证明细
+     * @return
+     */
+	public void updateDetailList(){	
+		if(cwVouchersDetailList !=null &&cwVouchersDetailList.size()>1&&cwVouChersId !=null&&!(cwVouChersId.equals(""))){			
+			try {
+				errorMessage = cwVouchersServer.updateCwVouchersDetail(cwVouchersDetailList,cwVouChersId);
+				url="CwVouchersAction!showList.action?tages="+tages;
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMessage = e.toString();
+			}
+		}else{
+			errorMessage = "修改失败";
+			
+		}	
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	
+	/**
+	 * 删除凭证
+	 * @return
+	 */
+	public String deleteCwVouChers(){
+		if(cwVouChersId !=null){
+			boolean decv = cwVouchersServer.deleteCwVouchers(cwVouChersId);
+			if(decv){
+				errorMessage = "删除成功";
+				url="CwVouchersAction!showList.action?tages="+tages;		
+			}else{
+				errorMessage = "删除成功";
+			}
+		}		
+		return "error";
+	}
+	
+
+	public CwVouchersServer getCwVouchersServer() {
+		return cwVouchersServer;
+	}
+
+	public void setCwVouchersServer(CwVouchersServer cwVouchersServer) {
+		this.cwVouchersServer = cwVouchersServer;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public CwVouchers getCwVouchers() {
+		return cwVouchers;
+	}
+
+	public void setCwVouchers(CwVouchers cwVouchers) {
+		this.cwVouchers = cwVouchers;
+	}
+
+	public CwVouchersDetail getCwVouchersDetail() {
+		return cwVouchersDetail;
+	}
+
+	public void setCwVouchersDetail(CwVouchersDetail cwVouchersDetail) {
+		this.cwVouchersDetail = cwVouchersDetail;
+	}
+
+	public CwUseDetail getCwUseDetail() {
+		return cwUseDetail;
+	}
+
+	public void setCwUseDetail(CwUseDetail cwUseDetail) {
+		this.cwUseDetail = cwUseDetail;
+	}
+
+	public List<CwVouchers> getCwVouchersList() {
+		return cwVouchersList;
+	}
+
+	public void setCwVouchersList(List<CwVouchers> cwVouchersList) {
+		this.cwVouchersList = cwVouchersList;
+	}
+
+	public List<CwVouchersDetail> getCwVouchersDetailList() {
+		return cwVouchersDetailList;
+	}
+
+	public void setCwVouchersDetailList(
+			List<CwVouchersDetail> cwVouchersDetailList) {
+		this.cwVouchersDetailList = cwVouchersDetailList;
+	}
+
+	public List<CwUseDetail> getCwUseDetailList() {
+		return cwUseDetailList;
+	}
+
+	public void setCwUseDetailList(List<CwUseDetail> cwUseDetailList) {
+		this.cwUseDetailList = cwUseDetailList;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public String getTages() {
+		return tages;
+	}
+
+	public void setTages(String tages) {
+		this.tages = tages;
+	}
+
+	public File getFiles() {
+		return files;
+	}
+
+	public void setFiles(File files) {
+		this.files = files;
+	}
+
+	public String getFilesFileName() {
+		return filesFileName;
+	}
+
+	public void setFilesFileName(String filesFileName) {
+		this.filesFileName = filesFileName;
+	}
+
+	public String getFilesContentType() {
+		return filesContentType;
+	}
+
+	public void setFilesContentType(String filesContentType) {
+		this.filesContentType = filesContentType;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	
+	public Integer getCwVouChersId() {
+		return cwVouChersId;
+	}
+
+	public void setCwVouChersId(Integer cwVouChersId) {
+		this.cwVouChersId = cwVouChersId;
+	}
+}

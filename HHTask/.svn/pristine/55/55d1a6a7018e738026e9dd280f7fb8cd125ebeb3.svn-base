@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-wxf" location="0,0" size="0,0">
+    <action name="BuHeGePinAction_*" location="0,0" size="0,0">
+      <result name="BuHeGePin_add">
+        <resourceEdge source="BuHeGePin_add" routing="0" target="buhegepin_add.jsp" />
+      </result>
+      <result name="BuHeGePin_del" />
+      <result name="BuHeGePin_update" />
+      <result name="BuHeGePin_findAll" />
+      <result name="BuHeGePin_Byid" />
+      <result name="error" />
+    </action>
+    <action name="jimileixing_*" location="0,0" size="0,0">
+      <result name="addJiMi" />
+      <result name="showJiMiList" />
+      <result name="showJiMiListByid" />
+      <result name="findMfByIdSuccess" />
+      <result name="updateMfSuccess" />
+    </action>
+    <action name="IntegralAction_*" location="0,0" size="0,0">
+      <result name="tiaozhuan" />
+      <result name="tiaozhuan1" />
+      <result name="tiaozhuan2" />
+      <result name="showlist" />
+      <result name="delSuccess" />
+      <result name="ShowListIs" />
+      <result name="ShowListXf" />
+      <result name="delXiaoFei" />
+      <result name="delIsSuccess" />
+      <result name="listxferror" />
+      <result name="error" />
+    </action>
+    <action name="DJNRAction_*" location="0,0" size="0,0">
+      <result name="findAlldjnr" />
+      <result name="adddjnr" />
+      <result name="initupdate" />
+      <result name="findAlldjnrbd" />
+      <result name="getdjnr" />
+      <result name="error" />
+    </action>
+    <action name="MachineDayYZSJAction_*" location="0,0" size="0,0">
+      <result name="addmdy" />
+    </action>
+    <action name="MachineMonthDjAction_*" location="0,0" size="0,0">
+      <result name="findallbyid" />
+    </action>
+    <action name="MachineDayDjAction_*" location="0,0" size="0,0" />
+    <action name="CompanyVIPAction_*" location="0,0" size="0,0">
+      <result name="companvip_show" />
+      <result name="companvip_showlist" />
+      <result name="ComanyVIPadd1" />
+      <result name="ComanyVIPadd" />
+      <result name="companvip_update" />
+      <result name="adderror" />
+      <result name="addsuccess" />
+      <result name="delcompanvip" />
+      <result name="updateComanyVIP" />
+      <result name="error" />
+    </action>
+    <action name="CareertrackAction_*" location="0,0" size="0,0">
+      <result name="Careertrack_ByUid" />
+      <result name="Careertrack_showlist" />
+      <result name="Promotion_add" />
+      <result name="transferadd" />
+      <result name="hr_rewardPunish_add" />
+      <result name="showckById" />
+      <result name="error" />
+    </action>
+    <action name="TransferAction_*" location="0,0" size="0,0">
+      <result name="transferList" />
+      <result name="transferadd" />
+      <result name="showtransfer" />
+      <result name="updatetransfer" />
+      <result name="error" />
+    </action>
+    <action name="PromotionAction_*" location="0,0" size="0,0">
+      <result name="showAllpnlist" />
+      <result name="Promotion_add" />
+      <result name="Promotion_List" />
+      <result name="Promotion_show" />
+      <result name="error" />
+    </action>
+    <action name="BecomingAction_*" location="0,0" size="0,0">
+      <result name="becoming_list" />
+      <result name="becoming_show" />
+      <result name="becoming_kh" />
+      <result name="showbecomingList" />
+    </action>
+    <action name="QuestionTemplateAction_*" location="0,0" size="0,0">
+      <result name="qt_showlist" />
+      <result name="showAllqtList" />
+      <result name="qt_add" />
+      <result name="qt_show" />
+      <result name="qe_showlist" />
+      <result name="findqeListbyid" />
+    </action>
+    <action name="QuestionnairePersonAction_*" location="0,0" size="0,0">
+      <result name="qp_showlist" />
+      <result name="showAllqplist" />
+      <result name="qp_add" />
+      <result name="qu_showlist" />
+      <result name="qp_show" />
+      <result name="findqpByid" />
+    </action>
+    <action name="IntelligentDiagnosisAction_*" location="0,0" size="0,0">
+      <result name="cn_add" />
+      <result name="cn_showlist" />
+      <result name="cn_hzshow" />
+      <result name="cn_show" />
+      <result name="finaAllcnList" />
+      <result name="findisByid" />
+      <result name="initadd" />
+      <result name="pn_add" />
+      <result name="findAllpnlist" />
+      <result name="pn_showlist" />
+      <result name="pn_show" />
+      <result name="QRCOdetest" />
+      <result name="initadduser" />
+      <result name="QRCodeList" />
+      <result name="findAllQRCodeList" />
+    </action>
+    <action name="KeHuManYiDiaoChaAction_*" location="0,0" size="0,0">
+      <result name="kehumanyi" />
+      <result name="findAllkhmydcList" />
+    </action>
+    <action name="PtCNFXAction_*" location="0,0" size="0,0">
+      <result name="Pt_cnfx" />
+    </action>
+    <action name="IntegralGiftAction_*" location="0,0" size="0,0">
+      <result name="gift_add" />
+      <result name="showgiftList" />
+      <result name="showigList" />
+      <result name="gift_List" />
+      <result name="Igift_add" />
+      <result name="gift_update" />
+      <result name="initaddintegralgift" />
+      <result name="Igift_List" />
+      <result name="Igift_add1" />
+      <result name="gift_index" />
+      <result name="gift_choujiang" />
+      <result name="igift_set" />
+      <result name="integral_jy" />
+      <result name="indianaGift_kj" />
+      <result name="igift_set" />
+      <result name="igSet_list" />
+      <result name="igSet_showlist" />
+      <result name="idgift_list" />
+      <result name="error" />
+    </action>
+    <action name="ProcessCollectAction_*" location="0,0" size="0,0">
+      <result name="pc_showList" />
+    </action>
+    <action name="WarehouseAreaAction_*" location="0,0" size="0,0">
+      <result name="WarehouseNumber_list" />
+      <result name="findwnList" />
+      <result name="findwaList" />
+      <result name="WarehouseNumber_update" />
+      <result name="WarehouseNumber_plkuma" />
+    </action>
+    <action name="CategoryAction_*" location="0,0" size="0,0">
+      <result name="error" />
+      <result name="findAllcylist" />
+      <result name="category_add" />
+      <result name="category_List" />
+      <result name="category_update" />
+    </action>
+  </package>
+  <webResource name="buhegepin_add.jsp" path="/System/SOP/buhegepin_add.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

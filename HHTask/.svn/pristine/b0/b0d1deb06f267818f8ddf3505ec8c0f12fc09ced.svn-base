@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="SkillType" table="ta_sk_SkillType">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+        <property name="name" />
+		<property name="minscore" />
+		<property name="maxscore" />
+		<!-- 对工艺复杂系数-->		
+		<many-to-one name="craftComplexity" class="CraftComplexity" column="cc_id" />
+			<!-- 对加工难点系数-->	
+			<many-to-one name="proProcessDifficulty" class="ProProcessDifficulty" column="ppd_id" />			
+		<!--对技能分值 -->
+        <set name="skillScore" inverse="false" cascade="all" lazy="true">
+			<key column="sstype_id"></key>
+			<one-to-many class="SkillScore" />
+		</set>
+	</class>
+</hibernate-mapping>

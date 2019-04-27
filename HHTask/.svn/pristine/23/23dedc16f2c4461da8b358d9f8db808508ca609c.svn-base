@@ -1,0 +1,191 @@
+package com.task.entity.caiwu;
+
+import java.util.Set;
+
+/**
+ * 车补汇总表
+ * @author 贾辉辉
+ * ta_fin_carAllowSumApp
+ *
+ */
+public class CarAllowSumApp {
+	private Integer id;// id
+	private String code;//工号
+	private String name;//姓名
+	private String platenumber;//车牌号码
+	private Float oilcost;//油费
+	private Float roadcost;//过路费
+	private Float parkcost;//停车费
+	private Float repaircost;//修理费
+	private Float insurancecost;//保险费费
+	private Float sumcost;//总费用 sum上面所有
+	private Float sumchognzhi;//财务总充值
+	private Float sumbaoxiao;//当前可申领补贴额
+	private Float sumremainbaoxiao;//申请余额(待用)/可充值金额
+	
+	private String icNumber;//充值卡号
+	private Set<CarAllowOneApp> oneApp;//
+	
+	private Float chognzhiedu;//充值额度
+	private Float chongzhiMax;//单次充值上限
+	
+	private String lastChongzhiMonth;//最后充值月份
+	private String fujian;//附件
+	private String more;//备注
+	
+	public Set<CarAllowOneApp> getOneApp() {
+		return oneApp;
+	}
+	public void setOneApp(Set<CarAllowOneApp> oneApp) {
+		this.oneApp = oneApp;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPlatenumber() {
+		return platenumber;
+	}
+	public void setPlatenumber(String platenumber) {
+		this.platenumber = platenumber;
+	}
+	public Float getOilcost() {
+		if (null != oilcost) {
+			return Float.parseFloat(String.format("%.2f", oilcost));
+		}
+		return oilcost;
+	}
+	public void setOilcost(Float oilcost) {
+		this.oilcost = oilcost;
+	}
+	public Float getRoadcost() {
+		if (null != roadcost) {
+			return Float.parseFloat(String.format("%.2f", roadcost));
+		}
+		return roadcost;
+	}
+	public void setRoadcost(Float roadcost) {
+		this.roadcost = roadcost;
+	}
+	public Float getParkcost() {
+		if (null != parkcost) {
+			return Float.parseFloat(String.format("%.2f", parkcost));
+		}
+		return parkcost;
+	}
+	public void setParkcost(Float parkcost) {
+		this.parkcost = parkcost;
+	}
+	public Float getRepaircost() {
+		if (null != repaircost) {
+			return Float.parseFloat(String.format("%.2f", repaircost));
+		}
+		return repaircost;
+	}
+	public void setRepaircost(Float repaircost) {
+		this.repaircost = repaircost;
+	}
+	public Float getInsurancecost() {
+		if (null != insurancecost) {
+			return Float.parseFloat(String.format("%.2f", insurancecost));
+		}
+		return insurancecost;
+	}
+	public void setInsurancecost(Float insurancecost) {
+		this.insurancecost = insurancecost;
+	}
+	public Float getSumcost() {
+		if (null != sumcost) {
+			return Float.parseFloat(String.format("%.2f", sumcost));
+		}
+		return sumcost;
+	}
+	public void setSumcost(Float sumcost) {
+		this.sumcost = sumcost;
+	}
+	public Float getSumchognzhi() {
+		if (null != sumchognzhi) {
+			return Float.parseFloat(String.format("%.2f", sumchognzhi));
+		}
+		return sumchognzhi;
+	}
+	public void setSumchognzhi(Float sumchognzhi) {
+		this.sumchognzhi = sumchognzhi;
+	}
+	public Float getSumbaoxiao() {
+		if (null != sumbaoxiao) {
+			return Float.parseFloat(String.format("%.2f", sumbaoxiao));
+		}
+		return sumbaoxiao;
+	}
+	public void setSumbaoxiao(Float sumbaoxiao) {
+		this.sumbaoxiao = sumbaoxiao;
+	}
+	public Float getSumremainbaoxiao() {
+		if (null != sumremainbaoxiao) {
+			return Float.parseFloat(String.format("%.2f", sumremainbaoxiao));
+		}
+		return sumremainbaoxiao;
+	}
+	public void setSumremainbaoxiao(Float sumremainbaoxiao) {
+		this.sumremainbaoxiao = sumremainbaoxiao;
+	}
+	public Float getChognzhiedu() {
+		if (null != chognzhiedu) {
+			return Float.parseFloat(String.format("%.2f", chognzhiedu));
+		}
+		return chognzhiedu;
+	}
+	public void setChognzhiedu(Float chognzhiedu) {
+		this.chognzhiedu = chognzhiedu;
+	}
+	public Float getChongzhiMax() {
+		if (null != chongzhiMax) {
+			return Float.parseFloat(String.format("%.2f", chongzhiMax));
+		}
+		return chongzhiMax;
+	}
+	public void setChongzhiMax(Float chongzhiMax) {
+		this.chongzhiMax = chongzhiMax;
+	}
+	public String getLastChongzhiMonth() {
+		return lastChongzhiMonth;
+	}
+	public void setLastChongzhiMonth(String lastChongzhiMonth) {
+		this.lastChongzhiMonth = lastChongzhiMonth;
+	}
+	public String getFujian() {
+		return fujian;
+	}
+	public void setFujian(String fujian) {
+		this.fujian = fujian;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public String getIcNumber() {
+		return icNumber;
+	}
+	public void setIcNumber(String icNumber) {
+		this.icNumber = icNumber;
+	}
+	
+	
+}

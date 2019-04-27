@@ -1,0 +1,445 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng">
+
+			<div align="center">
+				<form action="GoodsStoreAction!findCPGoodsStoreList.action"
+					method="post">
+					<table class="table" style="width: 95%;">
+						<s:if test="pagestatus == 'CIN'">
+							<tr>
+								<th>
+									件号:
+								</th>
+								<td>
+									<input type="text" name="goodsStore.goodsStoreMarkId"
+										value="${goodsStore.goodsStoreMarkId }" />
+								</td>
+								<th>
+									业务件号:
+								</th>
+								<td>
+									<input type="text" name="goodsStore.ywmarkId"
+										value="${goodsStore.ywmarkId }" />
+								</td>
+								<th>
+									产品名称：
+								</th>
+								<td>
+									<input type="text" name="goodsStore.goodsStoreGoodsName"
+										value="${goodsStore.goodsStoreGoodsName}" />
+								</td>
+								<th>
+									生产批次：
+								</th>
+								<td>
+									<input type="text" name="goodsStore.goodsStoreLot"
+										value="${goodsStore.goodsStoreLot}" />
+								</td>
+							</tr>
+						</s:if>
+						<tr>
+							<s:if test="pagestatus == 'WGRK' || pagestatus == 'WWRK'
+							 || pagestatus == 'FLRK' ">
+								<th>
+									送货单号:
+								</th>
+								<td>
+									<input type="text" id="goodsStoreSendId" value="${goodsStore.goodsStoreSendId}"
+										name="goodsStore.goodsStoreSendId">
+								</td>
+								<th>
+									内部订单号:
+								</th>
+								<td>
+									<input type="text" value="${goodsStore.neiorderId}"
+										name="goodsStore.neiorderId" />
+								</td>
+								<th>
+									件号:
+								</th>
+								<td>
+									<input type="text" value="${goodsStore.goodsStoreMarkId}"
+										name="goodsStore.goodsStoreMarkId">
+								</td>
+							</s:if>
+						</tr>
+						<tr>
+							<th>
+								排序规则
+							</th>
+							<td>
+								<select name="tag" id="orderByTag" >
+									<option></option>
+									<s:iterator id="t" value="{'date','songhuodanhao','pici'}">
+										<s:if test="#t=='date'">
+											<s:if test="#t==tag">
+												<option value="date" selected="selected">按时间排序</option>
+											</s:if>
+											<s:else>
+												<option value="date">按时间排序</option>
+											</s:else>
+										</s:if>
+										<s:elseif test="#t=='songhuodanhao'">
+											<s:if test="#t==tag">
+												<option value="songhuodanhao" selected="selected">按送货单号</option>
+											</s:if>
+											<s:else>
+												<option value="songhuodanhao">按送货单号</option>
+											</s:else>
+										</s:elseif>
+										<s:elseif test="#t=='pici'">
+											<s:if test="#t==tag">
+											<option value="pici" selected="selected">按生产批次</option>
+											</s:if>
+											<s:else>
+											<option value="pici">按生产批次</option>
+											</s:else>
+										</s:elseif>
+									</s:iterator>
+								</select>
+							</td>
+							<th>
+								显示条数
+							</th>
+							<td>
+								<input type="text" name="pageSize" value="${pageSize }">
+							</td>
+							<th>
+								仓区:
+							</th>
+							<td>
+								<input type="hidden" value="${goodsStore.goodHouseName}"
+									id="house" />
+								<select name="goodsStore.goodHouseName" id="goodHouseName">
+									<option></option>
+								</select>
+							</td>
+							<th>
+								订单号:
+							</th>
+							<td>
+								<input type="text" value="${goodsStore.neiorderId}"
+										name="goodsStore.neiorderId">
+							</td>
+							
+						</tr>
+						<tr>
+							<th colspan="8">
+								<input type="hidden" name="pagestatus" value="${pagestatus}">
+								<input type="submit" value="查找" class="input" />
+							</th>
+						</tr>
+					</table>
+				</form>
+				<form action="GoodsStoreAction!printStorage.action" method="post"
+					onsubmit="return vali()" id="printform">
+					<table class="table" style="width: 95%;">
+						<tr bgcolor="#c0dcf2" height="30px"
+							style="border-collapse: separate;">
+							<th>
+								<input type="checkbox" id="checkAll" onchange="checkAllBoxs()">
+								全选未打印
+							</th>
+							<th align="center">
+								序号
+							</th>
+							<s:if test="pagestatus == 'CIN'">
+								<th align="center">
+									内部订单号
+								</th>
+								<th align="center">
+									外部订单号
+								</th>
+								<th align="center">
+									业务件号
+								</th>
+							</s:if>
+							<s:elseif test="pagestatus == 'WGRK' || pagestatus == 'WWRK'||pagestatus=='SCTL' || pagestatus=='FLRK' ">
+								<th align="center">
+									送货单号
+								</th>
+								<th >
+									内部订单号
+								</th>
+								<th>
+									仓区
+								</th>
+								<th>
+									打印单号
+								</th>
+							</s:elseif>
+							<th align="center">
+								件号
+							</th>
+							<th align="center">
+								生产批次
+							</th>
+							<th align="center">
+								产品名称
+							</th>
+							<s:if test="pagestatus == 'WWRK'">
+								<th align="center">
+									工序名称
+								</th>
+							</s:if>
+							<th align="center">
+								规格型号
+							</th>
+							<th align="center">
+								版本
+							</th>
+							<th align="center">
+								图号
+							</th>
+							<th align="center">
+								单位
+							</th>
+							<th align="center">
+								数量
+							</th>
+							<th align="center">
+								入库日期
+							</th>
+						</tr>
+						<s:iterator value="list" status="se" id="pageList">
+
+							<tr align="center" bgcolor="#FFB6C1"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#FFB6C1')">
+								<td>
+									<input type="checkbox" name="selected"
+										value="${pageList.goodsStoreId}" class="toCheckSingle"
+										onchange="checkSingle()" />
+								</td>
+								<td>
+									<s:property value="#se.index+1" />
+								</td>
+								<s:if test="pagestatus == 'CIN'">
+									<td>
+										${pageList.neiorderId}
+									</td>
+									<td>
+										${pageList.waiorderId}
+									</td>
+									<td>
+										${pageList.ywmarkId}
+									</td>
+								</s:if>
+								<s:elseif test="pagestatus == 'WGRK' || pagestatus == 'WWRK' ||pagestatus=='SCTL'|| pagestatus=='FLRK' ">
+									<td >
+										${pageList.goodsStoreSendId}
+										<input type="hidden" value="${pageList.goodsStoreSendId}" name="hid_goodsStoreSendId"/>
+									</td>
+									<td>
+										${pageList.neiorderId}
+									</td>
+									<td>
+										${pageList.goodHouseName}
+									</td>
+									<td>
+										${pageList.printNumber}
+									</td>
+								</s:elseif>
+								<td>
+									${pageList.goodsStoreMarkId}
+								</td>
+								<td>
+									${pageList.goodsStoreLot}
+								</td>
+								<td>
+									${pageList.goodsStoreGoodsName}
+								</td>
+								<s:if test="pagestatus == 'WWRK'">
+									<td>
+										${pageList.processName}
+									</td>
+								</s:if>
+								<td>
+									${pageList.goodsStoreFormat}
+								</td>
+								<td>
+									${pageList.banBenNumber}
+								</td>
+								<td>
+									${pageList.tuhao}
+								</td>
+								<td>
+									${pageList.goodsStoreUnit}
+								</td>
+								<td>
+									${pageList.goodsStoreCount}
+								</td>
+								<td>
+									${pageList.goodsStoreDate}
+								</td>
+							</tr>
+						</s:iterator>
+						<tr>
+							<td colspan="22" align="right">
+								共
+								<s:property value="total" />
+								页 第
+								<s:property value="cpage" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+
+							</td>
+						</tr>
+						<tr>
+							<td colspan="22">
+								<input type="hidden" value="print_goodsStoreList" name="tag" />
+								<input type="hidden" value="${pagestatus}" name="pagestatus" />
+								<input type="submit" style="width: 80px; height: 50px;"
+									value="打印" onclick="todisabled(this)" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<br>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		</center>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+
+$(function() {
+	$("#orderByTag").tinyselect();
+	var house = $("#house").val();
+	var wareHouseName = '外购件库'
+	if ("WGRK" == '${pagestatus}') {
+		wareHouseName = '外购件库'
+	} else if ("WWRK" == '${pagestatus}') {
+		wareHouseName = '外协库'
+	} else if ('CIN' == '${pagestatus}') {
+		wareHouseName = "成品库,备货库,半成品库"
+	}
+	$.ajax( {
+		type : "POST",
+		url : "WarehouseAreaAction_findwaListByNO.action",
+		data : {
+			wareHouseName : wareHouseName
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data != null) {
+				$("#goodHouseName").empty();
+				$("#goodHouseName").append(
+						'<option value="' + house + '" selected="selected" >'
+								+ house + '</option>');
+				$("#goodHouseName").append('<option value=""></option>');
+				$(data)
+						.each(
+								function() {
+									$("#goodHouseName").append(
+											'<option value='
+													+ this.goodHouseName + '>'
+													+ this.goodHouseName
+													+ '</option>');
+								});
+				$("#goodHouseName").tinyselect();
+			}
+		}
+	});
+	checkSendId();
+})
+function vali() {
+	var nums = document.getElementsByName("selected");
+	for ( var i = 0; i < nums.length; i++) {
+		if (nums[i].checked) {
+			return true;
+		}
+	}
+	alert("请选择需要打印的记录！谢谢");
+	return false;
+}
+
+function checkAllBoxs() {
+	var checkAll = document.getElementById("checkAll");
+	var checkboxs = $(".toCheckSingle");
+	if (checkAll.checked == true) {
+		for ( var i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = true;
+		}
+	} else {
+		for ( var i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = false;
+		}
+	}
+
+}
+
+function checkSingle() {
+	var checkAll = document.getElementById("checkAll");
+	var checkboxs = $(".toCheckSingle");
+	var count = 0;
+	for ( var i = 0; i < checkboxs.length; i++) {
+		if (checkboxs[i].checked == false) {
+			checkAll.checked = false;
+			return;
+		} else {
+			count++;
+		}
+	}
+	if (count == checkboxs.length) {
+		checkAll.checked = true;
+	}
+}
+function addSelect() {
+	$
+			.ajax( {
+				type : "POST",
+				url : "GoodsStoreAction!getViewAuth.action",
+				data : {},
+				dataType : "json",
+				success : function(msg) {
+					if (msg.success) {
+						for (k in msg.data) {
+							$('#whView').append(
+									"<option>" + msg.data[k] + "</option>");
+						}
+					} else {
+						alert(msg.message);
+					}
+				}
+			});
+
+}
+
+function checkSendId(){
+	var goodsStoreSendId =	$("#goodsStoreSendId").val();
+	var hid_goodsStoreSendIds = document.getElementsByName("hid_goodsStoreSendId");
+	if(goodsStoreSendId!='' && hid_goodsStoreSendIds!=null && hid_goodsStoreSendIds.length>0){
+		for(var i=0;i<hid_goodsStoreSendIds.length;i++){
+			var obj = hid_goodsStoreSendIds[i];
+			if(obj.value == goodsStoreSendId){
+				var tr = obj.parentNode.parentNode;
+				var td =tr.cells[0];
+				var checkbox =	$(td).children("input")[0];
+				$(checkbox).attr("checked","checked");
+			}
+		}
+		$("#printform").submit();
+	}
+}
+
+addSelect();
+</script>
+	</body>
+</html>

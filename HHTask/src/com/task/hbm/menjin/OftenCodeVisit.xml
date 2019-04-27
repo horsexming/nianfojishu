@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="OftenCodeVisit" table="ta_mj_OftenCodeVisit">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="oftenName" />
+		<property name="name" />
+		<property name="nage" />
+		<property name="nameInfor" />
+		<property name="ncode" />
+		<property name="nuid" />
+		<property name="renFiles" />
+		<property name="addTime" />
+		<property name="updateTime" />
+	</class>
+</hibernate-mapping>

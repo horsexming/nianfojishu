@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Board" table="ta_Board">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="name" length="100"/>
+		<property name="content" />
+		<property name="scrnId" type="integer" column="scrn_id" />
+		<property name="createUserId" type="integer" column="create_user_id" />
+		<property name="parentId" type="integer" column="parent_id" />
+		<property name="createDate" type="timestamp" column="create_date" />
+	</class>
+</hibernate-mapping>

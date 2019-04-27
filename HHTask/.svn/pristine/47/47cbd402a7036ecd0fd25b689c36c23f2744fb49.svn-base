@@ -1,0 +1,380 @@
+package com.task.entity.bargain;
+
+import java.util.List;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.util.FieldMeta;
+
+/***
+ * 表名:ta_BarContract
+ * 
+ * @author 毛小龙
+ * 
+ */
+public class BarContract implements java.io.Serializable {
+	private Integer id;
+	private String contract_num;// 合同编号
+	@FieldMeta(name = "合同名称")
+	private String contract_name;// 合同名称
+	private String contract_according;// 合同依据
+	private String startDate;// 合同开始时间
+	private String endDate;// 合同结束时间
+	@FieldMeta(name = "乙方")
+	private String supplier;// 供方
+	@FieldMeta(name = "甲方")
+	private String demandside;// 需方
+	private String signedPlace;// 签订地点
+	private String signedDate;// 签订时间
+	@FieldMeta(name = "来源")
+	private String contract_source;// 来源
+	@FieldMeta(name = "单号")
+	private String contract_num1;// 单号
+	@FieldMeta(name = "合计金额")
+	private Float heji;// 合计总金额
+	private Integer epId;// 审批流程
+	private String status;// 审批流程
+	private String paymentDate;// 付款时间
+	private String deliveryPlace;// 交货地点
+	private String username;// 添加人
+	private String dept;//添加人部门
+	
+	private String transpor_tway;// 运输方式
+	private String pack_ask;// 包装要求
+	private String istax;// 是否含税
+	private String contract_affix;// 合同附件
+	private String deliverydate;// 交货日期
+	private String projectname;// 项目名称
+
+	private String paymentway1;// 付款方式分期付款1
+	private String paymentway2;// 付款方式分期付款2
+	private String paymentway3;// 付款方式分期付款3
+
+	/***** 乙方 *******/
+	private String unit_name;// 乙方单位
+	private String address;// 乙方单位地址
+	private String tel;// 乙方电话
+	private String accountBank;// 开户银行
+	private String accountnum;// 开户账号
+	private String zip;// 邮政编码
+
+	private Set SetbarContractDetails;// 对应议价明细
+	
+	private List<BarContractDetails> bcdList;//合同明细List 页面传值使用
+	private Integer	gysId;//供应商Id;
+	
+	private String gyscode;//供应商编号(页面传值)
+	
+	// private String detailAppName;// 物品名称 ------
+	// private String detailChildClass;// 类型（办公用品，金属五金，杂品）
+	// private String detailFormat;// 规格---
+	// private Float detailCount;// 数量（申报）---
+	// private String detailUnit;// 单位---
+	// private Float detailBudgetMoney;// 预算单价（报修和采购需填）---
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getContract_num() {
+		return contract_num;
+	}
+
+	public void setContract_num(String contractNum) {
+		contract_num = contractNum;
+	}
+
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
+	public String getDemandside() {
+		return demandside;
+	}
+
+	public void setDemandside(String demandside) {
+		this.demandside = demandside;
+	}
+
+	public String getSignedPlace() {
+		return signedPlace;
+	}
+
+	public void setSignedPlace(String signedPlace) {
+		this.signedPlace = signedPlace;
+	}
+
+	public String getSignedDate() {
+		return signedDate;
+	}
+
+	public void setSignedDate(String signedDate) {
+		this.signedDate = signedDate;
+	}
+
+	public String getContract_source() {
+		return contract_source;
+	}
+
+	public void setContract_source(String contractSource) {
+		contract_source = contractSource;
+	}
+
+	public String getContract_num1() {
+		return contract_num1;
+	}
+
+	public void setContract_num1(String contractNum1) {
+		contract_num1 = contractNum1;
+	}
+
+	public String getContract_name() {
+		return contract_name;
+	}
+
+	public void setContract_name(String contractName) {
+		contract_name = contractName;
+	}
+
+	public String getContract_according() {
+		return contract_according;
+	}
+
+	public void setContract_according(String contractAccording) {
+		contract_according = contractAccording;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public Float getHeji() {
+		return heji;
+	}
+
+	public void setHeji(Float heji) {
+		this.heji = heji;
+	}
+
+	@JSONField(serialize = false)
+	public Set getSetbarContractDetails() {
+		return SetbarContractDetails;
+	}
+
+	public void setSetbarContractDetails(Set setbarContractDetails) {
+		SetbarContractDetails = setbarContractDetails;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
+	public String getDeliveryPlace() {
+		return deliveryPlace;
+	}
+
+	public void setDeliveryPlace(String deliveryPlace) {
+		this.deliveryPlace = deliveryPlace;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getTranspor_tway() {
+		return transpor_tway;
+	}
+
+	public void setTranspor_tway(String transporTway) {
+		transpor_tway = transporTway;
+	}
+
+	public String getPack_ask() {
+		return pack_ask;
+	}
+
+	public void setPack_ask(String packAsk) {
+		pack_ask = packAsk;
+	}
+
+	public String getIstax() {
+		return istax;
+	}
+
+	public void setIstax(String istax) {
+		this.istax = istax;
+	}
+
+	public String getContract_affix() {
+		return contract_affix;
+	}
+
+	public void setContract_affix(String contractAffix) {
+		contract_affix = contractAffix;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
+	}
+
+	public String getAccountnum() {
+		return accountnum;
+	}
+
+	public void setAccountnum(String accountnum) {
+		this.accountnum = accountnum;
+	}
+
+	public String getUnit_name() {
+		return unit_name;
+	}
+
+	public void setUnit_name(String unitName) {
+		unit_name = unitName;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getDeliverydate() {
+		return deliverydate;
+	}
+
+	public void setDeliverydate(String deliverydate) {
+		this.deliverydate = deliverydate;
+	}
+
+	public String getProjectname() {
+		return projectname;
+	}
+
+	public void setProjectname(String projectname) {
+		this.projectname = projectname;
+	}
+
+	public String getPaymentway1() {
+		return paymentway1;
+	}
+
+	public void setPaymentway1(String paymentway1) {
+		this.paymentway1 = paymentway1;
+	}
+
+	public String getPaymentway2() {
+		return paymentway2;
+	}
+
+	public void setPaymentway2(String paymentway2) {
+		this.paymentway2 = paymentway2;
+	}
+
+	public String getPaymentway3() {
+		return paymentway3;
+	}
+
+	public void setPaymentway3(String paymentway3) {
+		this.paymentway3 = paymentway3;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public List<BarContractDetails> getBcdList() {
+		return bcdList;
+	}
+
+	public void setBcdList(List<BarContractDetails> bcdList) {
+		this.bcdList = bcdList;
+	}
+
+	public Integer getGysId() {
+		return gysId;
+	}
+
+	public void setGysId(Integer gysId) {
+		this.gysId = gysId;
+	}
+
+	public String getGyscode() {
+		return gyscode;
+	}
+
+	public void setGyscode(String gyscode) {
+		this.gyscode = gyscode;
+	}
+	
+}

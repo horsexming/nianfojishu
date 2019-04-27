@@ -1,0 +1,105 @@
+package com.task.entity.dmltry;
+
+import java.io.Serializable;
+
+/**
+ * 升降机操作
+ * 
+ * @author duminglong
+ *
+ */
+public class Sheibei implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String sheibeinamae; // 设备名称
+	private String sheibeiip; // 设备ip地址
+	private String use; // 生降机(生/降)
+	private String current; // 当前状态是否是最高还是最低（高/低）
+	private String duanko; // 设备端口
+	private String addTime;// 添加时间
+	private String updateTime;// 修改时间
+
+	public Sheibei() {
+	}
+
+	public Sheibei(Integer id, String sheibeinamae, String sheibeiip, String use, String current, String duanko,
+			String addTime, String updateTime) {
+		this.id = id;
+		this.sheibeinamae = sheibeinamae;
+		this.sheibeiip = sheibeiip;
+		this.use = use;
+		this.current = current;
+		this.duanko = duanko;
+		this.addTime = addTime;
+		this.updateTime = updateTime;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getSheibeinamae() {
+		return sheibeinamae;
+	}
+
+	public void setSheibeinamae(String sheibeinamae) {
+		this.sheibeinamae = sheibeinamae;
+	}
+
+	public String getSheibeiip() {
+		return sheibeiip;
+	}
+
+	public void setSheibeiip(String sheibeiip) {
+		this.sheibeiip = sheibeiip;
+	}
+
+	public String getUse() {
+		return use;
+	}
+
+	public void setUse(String use) {
+		this.use = use;
+	}
+
+	public String getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(String current) {
+		this.current = current;
+	}
+
+	public String getDuanko() {
+		return duanko;
+	}
+
+	public void setDuanko(String duanko) {
+		this.duanko = duanko;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+
+}

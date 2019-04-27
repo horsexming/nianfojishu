@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplatesb" table="ta_sop_w_ProcardTemplatesb"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId" length="50" index="sy_markId"/>
+		<property name="ywMarkId" index="sy_ywMarkId"/>
+		<property name="sbApplyId" index="pebs_ptsb_sbApplyId"/>
+		<property name="sbNumber" />
+		<property name="oldPtId" />
+		<property name="issb" />
+		<property name="sbApplyStatus" />
+		<property name="proName" />
+		<property name="maxCount" />
+		<property name="sunhao" />
+		<property name="corrCount" />
+		<property name="unit" />
+		<property name="procardStyle" />
+		<property name="productStyle" />
+		<property name="carStyle" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="luhao" />
+		<property name="actualFixed" />
+		<property name="number" />
+		<property name="rootId"  index="sy_rootId"/>
+		<property name="rootMarkId" />
+		<property name="loadMarkId" />
+		<property name="fatherId" index="sy_fatherId"/>
+		<property name="belongLayer" />
+		<property name="addDateTime" />
+		<property name="remark" column="sb_remark"/>
+		<property name="yuanName" />
+		<property name="yuanUnit" />
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="laborcost" />
+		<property name="fenpeiRate" />
+		<property name="dailyoutput" />
+		<property name="onePrice" />
+		<property name="proTemStatus" />
+		<property name="parallelId" />
+		<property name="clClass" />
+		<property name="status" />
+		<property name="jihuoType" />
+		<property name="lingliaoType" />
+		<property name="xiaohaoCount" />
+		<property name="caizhi" />
+		<property name="clType" />
+		<property name="biaochu" />
+		<property name="jgyl" />
+		<property name="tuhao" />
+		<property name="ytuhao" />
+		<property name="bili" />
+		<property name="thisLength" />
+		<property name="thisWidth" />
+		<property name="thisHight" />
+		<property name="calculateType" />
+		<property name="dataStatus"  index="sy_dataStatus"/>
+		<property name="hasChange" />
+		<property name="importance" />
+
+		<property name="needCapacity" />
+		<property name="needNumber" />
+		<property name="needZhoueqi" />
+		<property name="singleDuration" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="deliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		<property name="allJiepai" />
+		<property name="danjiaojian" />
+		<property name="lingliaostatus" />
+		<property name="zhuserId" />
+		<property name="gys" />
+		<property name="jisuanStatus" />
+		<property name="needProcess" />
+		<property name="kgliao"  index="sy_kgliao"/>
+		<property name="zzjihuo" />
+
+		<property name="jianyanjiepai" />
+		<property name="noNum" />
+		<property name="safeCount" />
+		<property name="lastCount" />
+		<!-- -工艺模块 -->
+		<property name="banbenStatus" />
+		<property name="banBenNumber"  index="sy_banBenNumber"/>
+		<property name="numb" />
+		<property name="parentId" />
+		<property name="pageTotal" />
+		<property name="fachuDate" />
+
+		<property name="bianzhiName" />
+		<property name="bianzhiId" />
+		<property name="bianzhiDate" />
+
+		<property name="jiaoduiName" />
+		<property name="jiaoduiId" />
+		<property name="jiaoduiDate" />
+		<property name="jiaoduiName2" />
+		<property name="jiaoduiId2" />
+		<property name="jiaoduiDate2" />
+
+		<property name="shenheName" />
+		<property name="shenheId" />
+		<property name="shenheDate" />
+		<property name="shenheName2" />
+		<property name="shenheId2" />
+		<property name="shenheDate2" />
+
+		<property name="pizhunName" />
+		<property name="pizhunId" />
+		<property name="pizhunDate" />
+		<property name="pizhunName2" />
+		<property name="pizhunId2" />
+		<property name="pizhunDate2" />
+
+		<property name="banci" />
+		<property name="createUserId" />
+		<property name="createUserName" />
+		<property name="createDate" />
+
+		<property name="jiagongId" />
+		<property name="jiagongName" />
+		<property name="jiagongDate" />
+		<property name="pinzhiId" />
+		<property name="pinzhiName" />
+		<property name="pinzhiDate" />
+		<property name="qianming" />
+		<property name="qianmingDate" />
+		<property name="epId" />
+		<property name="epId2" />
+		<property name="bzStatus" />
+		<property name="score" />
+		<property name="totalScore" />
+		<property name="xuhao" />
+		<property name="sbStatus" />
+		<property name="bomApplyStatus" />
+		<property name="sbId" />
+
+		<property name="standardSize" />
+		<property name="errorRange" />
+		<property name="showSize" />
+		<property name="wgType" />
+		<property name="isycl" />
+		<property name="adduser" />
+		<property name="addcode" />
+		<property name="addtime" />
+		<property name="daoruDate" />
+		<property name="changeProcess" />
+		<property name="avgProductionTakt"/>
+		<property name="changeTz" />
+		<property name="avgDeliveryTime"/>
+		<property name="cgperiod"/>
+		<property name="sunhaoType" type="integer"/>
+		<property name="isPeiJian" length="10"/>
+		<property name="gxxg"/>
+		<property name="historyId2"/>
+		
+		<!-- 占地面积 -->
+		<property name="procardArea"/>
+		<property name="procardCengNum"/>
+		<property name="actualUsedProcardArea"></property>
+		
+		
+		
+
+		<!-- 【配置本流水卡片自身的对应关系】 -->
+		<set name="procardsbTSet" cascade="all" inverse="false" lazy="true"
+			order-by="xuhao,id">
+			<key column="fk_ProcardTId"></key>
+			<one-to-many class="ProcardTemplatesb" />
+		</set>
+
+		<many-to-one name="procardTemplatesb" class="ProcardTemplatesb"
+			cascade="save-update" lazy="false" column="fk_ProcardTId" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+		<set name="processTemplatesb" cascade="all" inverse="false" lazy="true"
+			order-by="processNO">
+			<key column="fk_pricessTId"></key>
+			<one-to-many class="ProcessTemplatesb" />
+		</set>
+
+	</class>
+</hibernate-mapping>

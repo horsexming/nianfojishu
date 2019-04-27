@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPriceLog" table="ta_pro_QuotedPriceLog">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="rootId" />
+		<property name="title" />
+		<property name="msg" />
+		<property name="money" />
+		<property name="time" />
+		<property name="userName" />
+		<property name="code" />
+		<property name="accessory" />
+	</class>
+</hibernate-mapping>

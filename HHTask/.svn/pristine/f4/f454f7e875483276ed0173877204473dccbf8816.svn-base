@@ -1,0 +1,504 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<link rel="stylesheet"
+			href="${pageContext.request.contextPath}/javascript/layer/theme/default/layer.css">
+		<%--<script type="text/javascript"--%>
+		<%--			src="${pageContext.request.contextPath}/js/jquery-1.8.3.min.js">--%>
+		<%--			</script>--%>
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath}/javascript/layer/layer.js">
+			</script>
+	</head>
+	<body style="height:100%;">
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv"
+			onclick="chageDiv('none')">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="background: url(<%=basePath%>/images/bq_bg2.gif); width: 100%;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">关闭并反馈</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<form action="WaigouwaiweiPlanAction!splitwwpCount.action" method="post">
+						<h3>总数量:<lable id="splitLable"></lable></h3>
+						<input name="id" id="splitid" type="hidden"/>
+						第一条数量：<input name="splitCount1" id="splitCount1" type="text" onkeyup="mustBeNumber('splitCount1')"/></br>
+						第二条数量：<input name="splitCount2" id="splitCount2" type="text" onkeyup="mustBeNumber('splitCount2')"/>
+						<br/><input type="submit" value="确定"><br/><br/>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+			<s:if test="jhStatus=='needjh'">
+			<form action="ProcardAction!findNeedjhWgWwPlanList.action"
+					method="post">
+			</s:if>
+			<s:if test="jhStatus=='hadjh'">
+			<form action="ProcardAction!findHadjhWgWwPlanList.action"
+					method="post">
+			</s:if>
+					<table class="table" align="center">
+						<tr>
+							<td align="center">
+								件号：
+								<input type="text" name="wwPlan.markId" value="<s:property value="wwPlan.markId"/>" />
+							</td>
+							<td align="center">
+								批次：
+								<input type="text" name="wwPlan.selfCard" value="<s:property value="wwPlan.selfCard"/>" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								工序号：
+								<input type="text" name="wwPlan.processNo" value="<s:property value="wwPlan.processNo"/>" />
+							</td>
+							<td align="center">
+								工序名称：
+								<input type="text" name="wwPlan.processName" value="<s:property value="wwPlan.processName"/>" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								订单号：
+								<input type="text" name="wwPlan.orderNum" value="<s:property value="wwPlan.orderNum"/>" />
+							</td>
+							<td align="center">
+								业务件号：
+								<input type="text" name="wwPlan.ywMarkId" value="<s:property value="wwPlan.ywMarkId"/>" />
+							</td>
+						</tr>
+						<tr>
+							
+							<td align="center">
+								总成件号：
+								<input type="text" name="wwPlan.rootMarkId" value="<s:property value="wwPlan.rootMarkId"/>" />
+							</td>
+							<td align="center">
+								总成批次：
+								<input type="text" name="wwPlan.rootSelfCard" value="<s:property value="wwPlan.rootSelfCard"/>" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								状态：
+								<SELECT name="wwPlan.status">
+								<option><s:property value="wwPlan.status"/></option>
+								<option></option>
+								<option>待入库</option>
+								<option>待激活</option>
+								</SELECT>
+							</td>
+							<td align="center">
+								供应商:
+								<input type="text" name="wwPlan.gysName" value="<s:property value="wwPlan.gysName"/>" />
+<!--								<select name="wwPlan.gysId" class="cxselect">-->
+<!--										<option></option>-->
+<!--									<s:iterator value="list" id="pagegys">-->
+<!--										<s:if test="wwPlan.gysId ==#pagegys.id">-->
+<!--											<option value="${pagegys.id}" selected="selected"> ${pagegys.name}</option>-->
+<!--										</s:if>-->
+<!--										<s:else>-->
+<!--											<option value="${pagegys.id}" > ${pagegys.name}</option>-->
+<!--										</s:else>-->
+<!--									</s:iterator>-->
+<!--								</select>-->
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								是否拥有供应商
+								<SELECT name="noZhuser">
+								<option value ="${noZhuser}">${noZhuser}</option>
+									<option></option>
+									<option>否</option>
+									<option>是</option>
+								</SELECT>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td align="center" colspan="3">
+								<input type="submit" style="width: 100px; height: 40px;"
+									value="查询(select)" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div align="center">
+				<form action="ProcardAction!querencaigou.action" method="post"
+					onsubmit="return vali()">
+					<input type="hidden" name="jhStatus" value="${jhStatus}">
+					<table class="table">
+					<s:if test="jhStatus=='needjh'">
+						<tr>
+							<th colspan="18"
+								style="height: 35px; color: #ffffff; background-color: red;">
+								待通知、确认的采购计划
+							</th>
+						</tr>
+						<tr bgcolor="#c0dcf2" height="50px">
+							<th align="center">
+								序号
+							</th>
+							<th>
+								<input type="checkbox" onclick="chageAllCheck(this)"/>
+							</th>
+							<th align="center">
+								供应商
+							</th>
+							<th align="center">
+								订单号
+							</th>
+							<th align="center">
+								总成批次
+							</th>
+							<th align="center">
+								总成件号
+							</th>
+							<th align="center">
+								批次号
+							</th>
+							<th align="center">
+								件号
+							</th>
+							<th align="center">
+								工序号
+							</th>
+							<th align="center">
+								零件名称
+							</th>
+							<th align="center">
+								工序名称
+							</th>
+							<th align="center">
+								数量
+							</th>
+<%--							<th align="center">--%>
+<%--								是否设变--%>
+<%--							</th>--%>
+							<th align="center">
+								采购月份
+							</th>
+							<th align="center">
+								计划单号
+							</th>
+							<th align="center">
+								激活时间
+							</th>
+							<th align="center">
+								应到货时间
+							</th>
+							<th align="center">
+								实际到货时间
+							</th>
+							<th align="center">
+								操作
+							</th>
+						</tr>
+						<s:iterator value="wwPlanList" id="pageWgww" status="pageStatus">
+							<s:if test="#pageStatus.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb" style="height: 50px;"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									style="height: 50px;" onmouseout="outBgcolor(this,'')">
+							</s:else>
+							<td>
+								<s:property value="#pageStatus.index+1" />
+							</td>
+							<th>
+							<s:if test="#pageWgww.status=='待入库'||#pageWgww.gysId==null">
+								${pageWgww.status}
+							</s:if>
+							<s:else>
+								<input type="checkbox" name="selected"
+									value="${pageWgww.id}" />
+							</s:else>
+							</th>
+							<td>
+								${pageWgww.gysName}
+							</td>
+							<td>
+								${pageWgww.orderNum}
+							</td>
+							<td>
+								${pageWgww.rootSelfCard}
+							</td>
+							<td>
+								${pageWgww.rootMarkId}
+								<font color="green">(${pageWgww.ywMarkId})</font>	
+							</td>
+							<td>
+								${pageWgww.selfCard}
+							</td>
+							<td>
+								${pageWgww.markId}
+							</td>
+							<td>
+								${pageWgww.processNo}
+							</td>
+							<td>
+								${pageWgww.proName}
+							</td>
+							<td>
+								${pageWgww.processName}
+							</td>
+							<td>
+								${pageWgww.number}
+							</td>
+<%--							<td>--%>
+<%--								${pageWgww.hadChange}--%>
+<%--							</td>--%>
+							<td>
+								${pageWgww.caigouMonth}
+							</td>
+							<td>
+								${pageWgww.planNumber}
+							</td>
+							<td>
+								${pageWgww.jihuoTime}
+							</td>
+							<td>
+								${pageWgww.shArrivalTime}
+							</td>
+							<td>
+								${pageWgww.acArrivalTime}
+							</td>
+							<td>
+									<input id ="bind" onclick="toCheckHt(${pageWgww.id})" type="button" id="button${pageWgww.id}" value="绑定合同">
+									<input id ="splitcount" onclick="tosplitcount(${pageWgww.id},${pageWgww.number})" type="button" id="splitbutton${pageWgww.id}" value="拆分">
+							</td>
+						</s:iterator>
+						<tr>
+							<td colspan="19" align="center">
+								<input type="submit" style="width: 100px; height: 50px;" id="qrcg"
+									value="确认采购" />
+
+							</td>
+						</tr>
+						<tr>
+							<td colspan="18" align="right">
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+							</td>
+						</tr>
+						</s:if>
+						<s:if test="jhStatus=='hadjh'">
+						<tr>
+							<th colspan="18"
+								style="height: 35px; color: #ffffff; background-color: green;">
+								历史采购计划
+							</th>
+						</tr>
+						<tr bgcolor="#c0dcf2" height="50px">
+							<th align="center">
+								序号
+							</th>
+							<th align="center">
+								订单号
+							</th>
+							<th align="center">
+								总成批次
+							</th>
+							<th align="center">
+								总成件号
+							</th>
+							<th align="center">
+								供应商
+							</th>
+							
+							<th align="center">
+								件号
+							</th>
+							<s:if test="pageStatus=='wwPlan'">
+								<th align="center">
+									工序号
+								</th>
+							</s:if>
+							<th align="center">
+								零件名称
+							</th>
+							<th align="center">
+								工序名称
+							</th>
+							<th align="center">
+								数量
+							</th>
+							<th align="center">
+								批次号
+							</th>
+							<th align="center">
+								采购月份
+							</th>
+							<th align="center">
+								计划单号
+							</th>
+							<th align="center">
+								激活时间
+							</th>
+							<th align="center">
+								应到货时间
+							</th>
+							<th align="center">
+								实际到货时间
+							</th>
+							<th align="center">
+								操作
+							</th>
+						</tr>
+						<s:iterator value="wwPlanList" id="pageWgww2" status="pageStatus2">
+							<s:if test="#pageStatus2.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb" style="height: 50px;"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									style="height: 50px;" onmouseout="outBgcolor(this,'')">
+							</s:else>
+							<td>
+								<s:property value="#pageStatus2.index+1" />
+							</td>
+							<td>
+								${pageWgww2.orderNum}
+							</td>
+							<td>
+								${pageWgww2.rootSelfCard}
+							</td>
+							<td>
+								${pageWgww2.rootMarkId}
+								<font color="green">(${pageWgww2.ywMarkId})</font>	
+							</td>
+							<td>
+								${pageWgww2.gysName}
+							</td>
+							<td>
+								${pageWgww2.markId}
+							</td>
+							
+							<s:if test="pageStatus=='wwPlan'">
+								<td>
+									${pageWgww2.processNo}
+								</td>
+							</s:if>
+							<s:else>
+								<td></td>
+							</s:else>
+							<td>
+								${pageWgww2.proName}
+							</td>
+							<td>
+								${pageWgww.processName}
+							</td>
+							<td>
+								${pageWgww2.number}
+							</td>
+							<td>
+								${pageWgww2.selfCard}
+							</td>
+							<td>
+								${pageWgww2.caigouMonth}
+							</td>
+							<td>
+								${pageWgww2.planNumber}
+							</td>
+							<td>
+								${pageWgww2.jihuoTime}
+							</td>
+							<td>
+								${pageWgww2.shArrivalTime}
+							</td>
+							<td>
+								${pageWgww2.acArrivalTime}
+							</td>
+							<td>
+							</td>
+						</s:iterator>
+						<tr>
+							<td colspan="18" align="right">
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+							</td>
+						</tr>
+					</s:if>
+					</table>
+				</form>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+<SCRIPT type="text/javascript">
+		function vali() {
+	var nums = document.getElementsByName("selected");
+	for ( var i = 0; i < nums.length; i++) {
+		if (nums[i].checked) {
+			$("#qrcg").attr("disabled","disabled");
+			return true;
+		}
+	}
+	alert("请选择外委工序！！！");
+	return false;
+}
+function toCheckHt(id){
+	window.location.href="ProcardAction!toCheckHt2.action?cpage=${cpage}&id="+id;
+}
+function toCheckHt(id){
+layer.open({
+  type: 2,
+  title: '绑定合同',
+  area: ['900px', '700px'],
+  offset: '100px',
+  fixed: false, //不固定
+//  maxmin: true,
+  content: '<%=basePath%>/ProcardAction!toCheckHt2.action?cpage=${cpage}&id='+id,
+});
+}
+function tosplitcount(wwpId,wwpCount){
+	$("#splitid").val(wwpId)
+	$("#splitLable").html(wwpCount);
+	$("#splitCount1").val(wwpCount);
+	$("#splitCount2").val(0);
+	$("#operatingDiv").show();
+	chageDiv("block");
+}
+</SCRIPT>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPricejyUsers" table="ta_pro_QuotedPricejyUsers">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+		<property name="jydId" />
+	<property name="userId" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="userType" />
+	<property name="zpTime" />
+	<property name="yqTime" />
+	<property name="wcTime" />
+	<property name="userDept" />
+	<property name="zxLog" />
+	</class>
+</hibernate-mapping>

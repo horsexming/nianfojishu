@@ -1,0 +1,117 @@
+package com.task.entity.gzbj;
+
+import java.io.File;
+
+import com.task.util.FieldMeta;
+
+public class GzMsn {
+	private Integer id;
+	private String number;// 编号
+	private String matetag;// 名称
+	private String cljd;//测量精度
+	private String isyouxiao;//是否在有效期内
+	private String addDate;//添加时间
+	private String person;//测试人员
+	private String dept;//职称
+	private String GRR;//GR&R值
+	private String result;//结果
+	private Integer Gzstore_id;//模具表ID
+	//附件
+	@FieldMeta(name="附件 ")
+	private String pic;
+	private File picF;
+	private String  picFContentType;
+	private String picFFileName;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getMatetag() {
+		return matetag;
+	}
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+	public String getCljd() {
+		return cljd;
+	}
+	public void setCljd(String cljd) {
+		this.cljd = cljd;
+	}
+	public String getIsyouxiao() {
+		return isyouxiao;
+	}
+	public void setIsyouxiao(String isyouxiao) {
+		this.isyouxiao = isyouxiao;
+	}
+	public String getAddDate() {
+		return addDate;
+	}
+	public void setAddDate(String addDate) {
+		this.addDate = addDate;
+	}
+	public String getPerson() {
+		return person;
+	}
+	public void setPerson(String person) {
+		this.person = person;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getGRR() {
+		return GRR;
+	}
+	public void setGRR(String gRR) {
+		GRR = gRR;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+	public File getPicF() {
+		return picF;
+	}
+	public void setPicF(File picF) {
+		this.picF = picF;
+	}
+	public String getPicFContentType() {
+		return picFContentType;
+	}
+	public void setPicFContentType(String picFContentType) {
+		this.picFContentType = picFContentType;
+	}
+	public String getPicFFileName() {
+		return picFFileName;
+	}
+	public void setPicFFileName(String picFFileName) {
+		this.picFFileName = picFFileName;
+	}
+	public Integer getGzstore_id() {
+		return Gzstore_id;
+	}
+	public void setGzstore_id(Integer gzstoreId) {
+		Gzstore_id = gzstoreId;
+	}
+	
+	
+}

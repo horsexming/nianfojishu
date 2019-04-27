@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-cyl" location="0,0" size="0,0">
+    <action name="RequisitionAction" location="0,0" size="0,0">
+      <result name="findAll">
+        <resourceEdge source="findAll" routing="0" target="shenpidan.jsp" />
+      </result>
+      <result name="addsubmit" />
+      <result name="delsubmit" />
+      <result name="uprequisition" />
+      <result name="updrequisition" />
+      <result name="findByclientManagement" />
+      <result name="printRequisitions" />
+      <result name="updateSubmit" />
+      <result name="remark" />
+    </action>
+    <action name="RepairAction" location="0,0" size="0,0">
+      <result name="findAll" />
+      <result name="addrepairsingle" />
+      <result name="updatecondition" />
+      <result name="updateZhipai" />
+      <result name="findByclientManagement" />
+      <result name="delsubmit" />
+      <result name="updaterepair" />
+      <result name="updaterrepair" />
+      <result name="remark" />
+      <result name="findAllRe" />
+      <result name="error" />
+      <result name="findAlls" />
+      <result name="findAllpop" />
+      <result name="addRepairpop" />
+      <result name="delRepair" />
+      <result name="delRepair1" />
+      <result name="salRepairpop" />
+      <result name="toupdateRepair" />
+      <result name="toupdateRepair1" />
+      <result name="findRepairtype" />
+      <result name="saveRepairtype" />
+      <result name="saveRepairtype1" />
+      <result name="delRepairtype" />
+      <result name="delRepairtype1" />
+      <result name="salRepairtypeById" />
+      <result name="updateRepairtype" />
+      <result name="updateRepairtype1" />
+    </action>
+    <action name="EquipmentAction" location="0,0" size="0,0">
+      <result name="findAllRe" />
+      <result name="baoxiuId" />
+      <result name="addmchine" />
+      <result name="findallMaintenance" />
+      <result name="addmchine" />
+      <result name="findByclientManagement" />
+      <result name="updaterr" />
+      <result name="updateZhipai" />
+      <result name="upremarkMaintenance" />
+      <result name="remarker" />
+      <result name="findAllRer" />
+      <result name="addrepairsingler" />
+      <result name="updatermaintenancer" />
+      <result name="findAlls" />
+      <result name="findAllas" />
+      <result name="error" />
+      <result name="findallother" />
+      <result name="otherker" />
+      <result name="findAllfindAllwarehousing" />
+      <result name="procarder" />
+      <result name="findAllparts" />
+      <result name="generateexcel" />
+      <result name="listresponsibilities" />
+      <result name="addresponsibilities" />
+      <result name="toUpdateresponsibilities" />
+      <result name="updateresponsibilities" />
+    </action>
+    <action name="ProdEquipmentAction" location="0,0" size="0,0">
+      <result name="findAllRe" />
+      <result name="addmchiner" />
+      <result name="upper" />
+      <result name="updatermachin" />
+      <result name="findAll" />
+      <result name="error" />
+      <result name="success" />
+      <result name="addSuccess" />
+      <result name="findMachine" />
+      <result name="bddjnr" />
+      <result name="bdGongwei" />
+      <result name="toupdate" />
+      <result name="checkMachiner" />
+      <result name="shebeiLogin" />
+    </action>
+    <action name="EquipmentChangesAction" location="0,0" size="0,0">
+      <result name="findAll" />
+      <result name="addequipmentChanges" />
+      <result name="delsubmit" />
+      <result name="updateSubmit" />
+      <result name="addSuccess" />
+      <result name="upper" />
+      <result name="addSuccesss" />
+      <result name="findByclientManagement" />
+      <result name="updaterr" />
+      <result name="updatermaintenancer" />
+      <result name="generateexcel" />
+    </action>
+    <action name="ProcessManagementAction" location="0,0" size="0,0">
+      <result name="templateber" />
+      <result name="otherker" />
+      <result name="prorcess" />
+      <result name="addtemplatebSuccess" />
+      <result name="delsubmit" />
+      <result name="error" />
+    </action>
+  </package>
+  <webResource name="shenpidan.jsp" path="/System/xinxi/lidpas/shenpidan.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

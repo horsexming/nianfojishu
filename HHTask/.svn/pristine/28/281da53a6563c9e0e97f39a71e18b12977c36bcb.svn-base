@@ -1,0 +1,168 @@
+package com.task.ServerImpl.renshi;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.renshi.InDoorScreenServer;
+import com.task.entity.Users;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.renshi.InDoorScreen;
+import com.task.entity.renshi.InDoorScreenUsers;
+import com.task.util.Util;
+
+public class InDoorScreenServerImpl implements InDoorScreenServer{
+
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public String addInDoorScreen(InDoorScreen screen, String pageStatus) {
+		if(screen!=null) {
+			if(screen.getId()!=null) {
+				InDoorScreen inDoorScreen = (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, screen.getId());
+				if(inDoorScreen!=null) {
+					inDoorScreen.setUpdateTime(Util.getDateTime());
+					inDoorScreen.setName(screen.getName());
+					inDoorScreen.setPosition(screen.getPosition());
+					boolean update = totalDao.update(inDoorScreen);
+					if(update) {
+						return "修改成功";
+					}
+				}
+			}else {
+				screen.setAddTime(Util.getDateTime());
+				boolean save = totalDao.save(screen);
+				if(save) {
+					return "添加成功";
+				}
+				
+			}
+			
+			
+		}
+		return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findInDoorScreenByCon(InDoorScreen screen, Integer pageNo, Integer pageSize,
+			String pageStatus) {
+		if(screen==null) {
+			screen = new InDoorScreen();
+		}
+		String hql = totalDao.criteriaQueries(screen, null);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<InDoorScreen> list = totalDao.findAllByPage(hql, pageNo, pageSize);
+		if(list!=null && list.size()>0) {
+			Integer count = totalDao.getCount(hql);
+			map.put("count", count);
+			map.put("list", list);
+		}
+		
+		return map;
+	}
+
+	@Override
+	public InDoorScreen getScreenById(Integer id, String pageStatus) {
+		if(id!=null) {
+			return (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, id);
+		}
+		return null;
+	}
+
+	@Override
+	public String bindScreenUsers(Integer screenId, Integer usersId) {
+		Users users = (Users) totalDao.getObjectById(Users.class, usersId);
+		if(users!=null && screenId!=null) {
+			InDoorScreenUsers screenUsers = (InDoorScreenUsers) totalDao.getObjectByCondition(
+					"from InDoorScreenUsers where usersId = ? and screen.id=?", usersId,screenId);
+			if(screenUsers==null) {
+				InDoorScreen inDoorScreen = (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, screenId);
+				screenUsers = new InDoorScreenUsers();
+				screenUsers.setUsersId(usersId);
+				screenUsers.setScreen(inDoorScreen);
+				screenUsers.setUsersName(users.getName());
+				totalDao.save(screenUsers);
+			}
+			return "success";
+		}
+		return "error";
+	}
+
+	@Override
+	public String cancelScreenUsers(Integer screenId, Integer usersId) {
+		Users users = (Users) totalDao.getObjectById(Users.class, usersId);
+		if(users!=null && screenId!=null) {
+			InDoorScreenUsers screenUsers = (InDoorScreenUsers) totalDao.getObjectByCondition(
+					"from InDoorScreenUsers where usersId = ? and screen.id=?", usersId,screenId);
+			if(screenUsers!=null) {
+				totalDao.delete(screenUsers);
+			}
+			return "success";
+		}
+		return "error";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InDoorScreenUsers> getScreenUsersById(Integer id) {
+		List<InDoorScreenUsers> list = totalDao.query("from InDoorScreenUsers where screen.id=?", id);
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> fingScreenInfoByScreenId(Integer id){
+		List<Integer> usersIdList = totalDao.query("select usersId from InDoorScreenUsers where screen.id=?", id);
+		if(usersIdList!=null && usersIdList.size()>0) {
+			StringBuffer buffer = new StringBuffer();
+			for (Integer integer : usersIdList) {
+				if(buffer.toString().equals("")) {
+					buffer.append(integer+"");
+				}else {
+					buffer.append(","+integer);
+				}
+			}
+			String ids = buffer.toString();
+			Map<String, Object> map = new HashMap<String,Object>();
+			String dateTime = Util.getDateTime("yyyy-MM-dd");
+			
+			//--------------访客列表
+			List<Visitor> visitorList = totalDao.query("from Visitor where intervieweeId in("+ids+") and dateTime like '%"+dateTime
+					+"%' and visitorStatus in('待打印','待进门','待出门')");
+			map.put("visitor", visitorList);
+			
+			//--------------人员状态列表
+			List<Users> usersList = totalDao.query("select new  Users(u.id,u.code,u.name,u.userStatus,p.picture)"
+					+ " from Users u join u.password p where u.id in ("+ids+")");
+			map.put("users", usersList);
+			
+			//--------------快递已存入信息
+			List<ResAccess> resList = totalDao.query("from ResAccess where type='存取' and cuseType=2 and quseType = 0 and addUserId in ("+ids+")");
+			for (ResAccess resAccess : resList) {
+				String picture = (String) totalDao.getObjectByCondition("select picture from Password where user.id=?", resAccess.getAddUserId());
+				resAccess.setPicture(picture);
+			}
+			map.put("res", resList);
+			
+			//--------------
+			
+			return map;
+		}
+		
+		return null;
+	}
+	
+}

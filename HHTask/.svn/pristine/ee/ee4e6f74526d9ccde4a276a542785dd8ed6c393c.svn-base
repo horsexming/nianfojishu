@@ -1,0 +1,160 @@
+package com.task.entity.caiwu;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 车补申请表
+ * @author 贾辉辉
+ * ta_fin_carAllowOneApp
+ *
+ */
+public class CarAllowOneApp {
+	private Integer id;// id
+	@FieldMeta(name = "申请人工号")
+	private String code;//工号
+	@FieldMeta(name = "申请人姓名")
+	private String name;//姓名
+	@FieldMeta(name = "车牌号")
+	private String platenumber;//车牌号码
+	@FieldMeta(name = "油费")
+	private Float oilcost;//油费
+	@FieldMeta(name = "申请人工号")
+	private Float roadcost;//过路费
+	@FieldMeta(name = "过路费")
+	private Float parkcost;//停车费
+	@FieldMeta(name = "其他费用")
+	private Float repaircost;//其他
+	@FieldMeta(name = "保险费费")
+	private Float insurancecost;//保险费费
+	
+	private String chongzhTime;//申请时间
+	private String fujian;//附件
+	private String more;//备注
+	
+	private String invoNum;//发票号
+	private String invoCode;//发票代码
+	
+	private CarAllowSumApp sumapp;//多对一
+	private String status;//财务确认状态
+	private Integer epId;//流程id
+	 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPlatenumber() {
+		return platenumber;
+	}
+	public void setPlatenumber(String platenumber) {
+		this.platenumber = platenumber;
+	}
+	public Float getOilcost() {
+		if (null != oilcost) {
+			return Float.parseFloat(String.format("%.2f", oilcost));
+		}
+		return oilcost;
+	}
+	public void setOilcost(Float oilcost) {
+		this.oilcost = oilcost;
+	}
+	public Float getRoadcost() {
+		if (null != roadcost) {
+			return Float.parseFloat(String.format("%.2f", roadcost));
+		}
+		return roadcost;
+	}
+	public void setRoadcost(Float roadcost) {
+		this.roadcost = roadcost;
+	}
+	public Float getParkcost() {
+		if (null != parkcost) {
+			return Float.parseFloat(String.format("%.2f", parkcost));
+		}
+		return parkcost;
+	}
+	public void setParkcost(Float parkcost) {
+		this.parkcost = parkcost;
+	}
+	public Float getRepaircost() {
+		if (null != repaircost) {
+			return Float.parseFloat(String.format("%.2f", repaircost));
+		}
+		return repaircost;
+	}
+	public void setRepaircost(Float repaircost) {
+		this.repaircost = repaircost;
+	}
+	public Float getInsurancecost() {
+		if (null != insurancecost) {
+			return Float.parseFloat(String.format("%.2f", insurancecost));
+		}
+		return insurancecost;
+	}
+	public void setInsurancecost(Float insurancecost) {
+		this.insurancecost = insurancecost;
+	}
+		public String getFujian() {
+		return fujian;
+	}
+	public void setFujian(String fujian) {
+		this.fujian = fujian;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public String getChongzhTime() {
+		return chongzhTime;
+	}
+	public void setChongzhTime(String chongzhTime) {
+		this.chongzhTime = chongzhTime;
+	}
+	public CarAllowSumApp getSumapp() {
+		return sumapp;
+	}
+	public void setSumapp(CarAllowSumApp sumapp) {
+		this.sumapp = sumapp;
+	}
+	public String getInvoNum() {
+		return invoNum;
+	}
+	public void setInvoNum(String invoNum) {
+		this.invoNum = invoNum;
+	}
+	public String getInvoCode() {
+		return invoCode;
+	}
+	public void setInvoCode(String invoCode) {
+		this.invoCode = invoCode;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	
+	
+}

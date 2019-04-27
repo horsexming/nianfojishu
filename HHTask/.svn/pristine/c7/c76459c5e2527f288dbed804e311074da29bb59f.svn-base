@@ -1,0 +1,145 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css"
+			href="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<script src="${pageContext.request.contextPath}/javascript/jquery/jquery-3.2.1.js"> </script> 
+		<script type="text/javascript"
+ 			src="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/js/bootstrap.js"> </script> 
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<div class="modal fade" id="toPrintModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">提醒消息</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row">
+							<h3 class="text-center">请在下方扫描二维码</h3>
+						</div>
+						<div class="row">
+							<form method="post" action="${pageContext.request.contextPath}/visitorAction!toPrintVoucher.action"
+								autocomplete="off" id="voucherForm">
+								<input type="text" name="param" id="voucher" onkeyup="enterVoucher(this)" style="width: 0px;">
+							</form>
+						</div>
+						<div class="row">
+							<div class="alert alert-warning">
+							    	<p>注：请使用手机短信里的二维码在这里扫描。</p>
+							    	<p>如果没有收到短信请和被访人联系，谢谢。</p>
+							</div>
+						</div>
+		            </div>
+		            <div class="modal-footer" id="returnBtn">
+		                <button class="btn btn-default" data-dismiss="modal">关闭(<span id="time"></span>)</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">提醒消息</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<h3 style="color: red" id="showMessage"></h3>
+		            </div>
+		            <div class="modal-footer" id="returnBtn">
+		                <button class="btn btn-default" data-dismiss="modal">关闭</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		
+		<div class="container">
+			<div id="header">
+				<div class="row" style="height: 40px;">
+	            </div>
+				<div class="row clearfix">
+					<img src="${pageContext.request.contextPath}/${companyInfo.logo}" height="70px;" alt="${pageContext.request.contextPath}/${companyInfo.logo}">
+					<br>
+					<h1 align="center">
+						欢迎使用PEBS访客系统
+					</h1>
+					<h2 align="center">Welcome to PEBS visitor system</h2>
+	            </div>
+	            <div class="row" style="height: 40px;">
+	            	<s:if test="errorMessage!=null && errorMessage!=''">
+	            		<div class="col-lg-1"></div>
+	            		<div class="col-lg-10">
+		            		<div class="alert alert-danger" role="alert" id="errorMessage">
+								<p class="m-0" align="center">${errorMessage}</p>
+							</div>
+	            		</div>
+	            		<div class="col-lg-1"></div>
+	            	</s:if>
+	            </div>
+			</div>
+			<div id="body">
+	            <div class="row ">
+	            	<div class="col-lg-4"><!-- tanchuApply() -->
+	                   	<div class="itemClass" onclick="location.href='${pageContext.request.contextPath}/visitorAction!judgeIdentity.action'">
+	                   		<p class="custom-variables text-center" >访客登记</p>
+	                   		<p class="custom-variables-eng text-center" >visitor registration</p>
+	                   		<div class="Jumbotron">
+		                   		<ul>
+		                   			<li>身份信息采集</li>
+		                   			<li>来访信息登记</li>
+		                   			<li>等待被访人确认</li>
+		                   		</ul>
+	                   		</div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-4">
+	                   	<div class="itemClass" onclick="tanchuToPrint()">
+	                  		<p class="custom-variables text-center">访单打印</p>
+	                  		<p class="custom-variables-eng text-center" >Print visitor credentials</p>
+	                  		<div class="Jumbotron">
+		                  		<ul>
+		                  			<li>短信接收</li>
+		                  			<li>扫描手机二维码</li>
+		                  			<li>打印访单</li>
+		                  		</ul>
+		                  	</div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-4">
+	                   	<div class="itemClass" onclick="location.href='${pageContext.request.contextPath}/visitorAction!toVisitorCheck.action'">
+	                  		<p class="custom-variables text-center">进出识别</p>
+	                  		<p class="custom-variables-eng text-center" >In and out of recognition</p>
+	                  		<div class="Jumbotron">
+		                  		<ul>
+		                  			<li>身份证认证</li>
+		                  			<li>指纹认证</li>
+		                  			<li>访单认证</li>
+		                  		</ul>
+		                  	</div>
+	                    </div>
+	                </div>
+				</div>
+			</div>
+			<div id="footer">
+				<br>
+				<br>
+				<br>
+				<div class="row">
+					<p class="text-right">上海零参科技有限公司提供技术支持</p>
+				</div>
+			</div>
+		</div>
+	</body>	
+	<script type="text/javascript" >
+	</script>
+</html>

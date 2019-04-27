@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="WarehouseCertificate" table="ta_mj_WarehouseCertificate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="wareAppId" />
+		<property name="warehouseId" />
+		<property name="warehouseName" />
+		<property name="useStatus" />
+		<property name="depositTake" />
+		<property name="type" />
+		<property name="number" />
+		<property name="actualNumber" />
+		<property name="addTime" />
+		<property name="openTime" />
+		<property name="closeTime" />
+		<property name="querenTime" />
+	</class>
+</hibernate-mapping>

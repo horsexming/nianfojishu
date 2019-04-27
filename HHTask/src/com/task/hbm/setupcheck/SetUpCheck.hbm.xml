@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.setupcheck.SetupCheck" table="ta_SetupCheck">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="department"></property>
+		<property name="auditParty"></property>
+		<property name="checkType"></property>
+		<property name="checkDate"></property>
+		<property name="allId"></property>
+		<property name="allId1"></property>
+		<property name="allTime"></property>
+		<property name="description"></property>
+		<property name="uploadPerson" ></property>
+		<property name="uploadPerson1"></property>
+		<property name="reason"></property>
+		<property name="shortWay"></property>
+		<property name="shortPerson"></property>
+		<property name="shortTime"></property>
+		<property name="shortFile"></property>
+		<property name="shortId"></property>
+		<property name="longWay"></property>
+		<property name="longPerson"></property>
+		<property name="longTime"></property>
+		<property name="longFile"></property>
+		<property name="longId"></property>
+		<property name="stauts"></property>
+		<property name="jiuzhenFile"></property>
+		<property name="yufangFile"></property>
+	</class>
+</hibernate-mapping>

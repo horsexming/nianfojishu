@@ -1,0 +1,356 @@
+package com.task.entity;
+
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @ClassName: Repay
+ * @Description: 库存归还
+ * @author mdd
+ * @date  
+ * 
+ * add relaction Fields
+ */
+public class Repay  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id; //主键
+	private String cardNum; //卡号
+	private String peopleName;//姓名
+	private String dept; //部门
+	private String goodsMarkId;//件号(编号)
+	private String goodsLotId;// 批次
+	private String goodsFullName;//名称
+	private String unit;//单位
+	private Float num;//归还数量
+	private String rdate;//归还日期
+	private String rtime;//归还具体日期
+	private String ldate;//借用日期
+	private String format;//规格
+	private String storehouse;//仓库
+	private String goodHouse;//仓区
+	private String wareHouse; // 库位名称
+	private String parClass;//分类
+	private Float jiaGongNum;//加工数量
+	private String processPieceNum;//加工件号
+	private Integer adminId;//管理员iD
+	private String admin;//管理员
+	private Float price;//价格
+	private String mix;//合成主码
+	private String danjuhao;//单据号
+	private String remark;//备注	
+	private Integer goodsId;//库存Id
+	private Integer lendId;//借用Id
+	
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	/**
+	 * @return the cardNum
+	 */
+	public String getCardNum() {
+		return cardNum;
+	}
+	/**
+	 * @param cardNum the cardNum to set
+	 */
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+	/**
+	 * @return the peopleName
+	 */
+	public String getPeopleName() {
+		return peopleName;
+	}
+	/**
+	 * @param peopleName the peopleName to set
+	 */
+	public void setPeopleName(String peopleName) {
+		this.peopleName = peopleName;
+	}
+	/**
+	 * @return the dept
+	 */
+	public String getDept() {
+		return dept;
+	}
+	/**
+	 * @param dept the dept to set
+	 */
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	/**
+	 * @return the goodsMarkId
+	 */
+	public String getGoodsMarkId() {
+		return goodsMarkId;
+	}
+	/**
+	 * @param goodsMarkId the goodsMarkId to set
+	 */
+	public void setGoodsMarkId(String goodsMarkId) {
+		this.goodsMarkId = goodsMarkId;
+	}
+	/**
+	 * @return the goodsFullName
+	 */
+	public String getGoodsFullName() {
+		return goodsFullName;
+	}
+	/**
+	 * @param goodsFullName the goodsFullName to set
+	 */
+	public void setGoodsFullName(String goodsFullName) {
+		this.goodsFullName = goodsFullName;
+	}
+	/**
+	 * @return the unit
+	 */
+	public String getUnit() {
+		return unit;
+	}
+	/**
+	 * @param unit the unit to set
+	 */
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	/**
+	 * @return the num
+	 */
+	public Float getNum() {
+		return num;
+	}
+	/**
+	 * @param num the num to set
+	 */
+	public void setNum(Float num) {
+		this.num = num;
+	}
+	
+	/**
+	 * @return the format
+	 */
+	public String getFormat() {
+		return format;
+	}
+	/**
+	 * @param format the format to set
+	 */
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	/**
+	 * @return the storehouse
+	 */
+	public String getStorehouse() {
+		return storehouse;
+	}
+	/**
+	 * @param storehouse the storehouse to set
+	 */
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+	/**
+	 * @return the goodHouse
+	 */
+	public String getGoodHouse() {
+		return goodHouse;
+	}
+	/**
+	 * @param goodHouse the goodHouse to set
+	 */
+	public void setGoodHouse(String goodHouse) {
+		this.goodHouse = goodHouse;
+	}
+	/**
+	 * @return the wareHouse
+	 */
+	public String getWareHouse() {
+		return wareHouse;
+	}
+	/**
+	 * @param wareHouse the wareHouse to set
+	 */
+	public void setWareHouse(String wareHouse) {
+		this.wareHouse = wareHouse;
+	}
+	/**
+	 * @return the parClass
+	 */
+	public String getParClass() {
+		return parClass;
+	}
+	/**
+	 * @param parClass the parClass to set
+	 */
+	public void setParClass(String parClass) {
+		this.parClass = parClass;
+	}
+	/**
+	 * @return the jiaGongNum
+	 */
+	public Float getJiaGongNum() {
+		return jiaGongNum;
+	}
+	/**
+	 * @param jiaGongNum the jiaGongNum to set
+	 */
+	public void setJiaGongNum(Float jiaGongNum) {
+		this.jiaGongNum = jiaGongNum;
+	}
+	/**
+	 * @return the processPieceNum
+	 */
+	public String getProcessPieceNum() {
+		return processPieceNum;
+	}
+	/**
+	 * @param processPieceNum the processPieceNum to set
+	 */
+	public void setProcessPieceNum(String processPieceNum) {
+		this.processPieceNum = processPieceNum;
+	}
+	/**
+	 * @return the adminId
+	 */
+	public Integer getAdminId() {
+		return adminId;
+	}
+	/**
+	 * @param adminId the adminId to set
+	 */
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+	/**
+	 * @return the admin
+	 */
+	public String getAdmin() {
+		return admin;
+	}
+	/**
+	 * @param admin the admin to set
+	 */
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+	/**
+	 * @return the price
+	 */
+	public Float getPrice() {
+		return price;
+	}
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	/**
+	 * @return the mix
+	 */
+	public String getMix() {
+		return mix;
+	}
+	/**
+	 * @param mix the mix to set
+	 */
+	public void setMix(String mix) {
+		this.mix = mix;
+	}
+	/**
+	 * @return the danjuhao
+	 */
+	public String getDanjuhao() {
+		return danjuhao;
+	}
+	/**
+	 * @param danjuhao the danjuhao to set
+	 */
+	public void setDanjuhao(String danjuhao) {
+		this.danjuhao = danjuhao;
+	}
+	/**
+	 * @return the remark
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * @param remark the remark to set
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	/**
+	 * @return the goodsId
+	 */
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+	/**
+	 * @param goodsId the goodsId to set
+	 */
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
+	/**
+	 * @return the lendId
+	 */
+	public Integer getLendId() {
+		return lendId;
+	}
+	/**
+	 * @param lendId the lendId to set
+	 */
+	public void setLendId(Integer lendId) {
+		this.lendId = lendId;
+	}
+	public void setRdate(String rdate) {
+		this.rdate = rdate;
+	}
+	public String getRdate() {
+		return rdate;
+	}
+	public void setLdate(String ldate) {
+		this.ldate = ldate;
+	}
+	public String getLdate() {
+		return ldate;
+	}
+	public void setGoodsLotId(String goodsLotId) {
+		this.goodsLotId = goodsLotId;
+	}
+	public String getGoodsLotId() {
+		return goodsLotId;
+	}
+	public void setRtime(String rtime) {
+		this.rtime = rtime;
+	}
+	public String getRtime() {
+		return rtime;
+	}
+	
+	
+	
+	
+	
+	
+}

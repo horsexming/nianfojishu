@@ -1,0 +1,95 @@
+package com.task.entity.TbBarcode;
+
+public class TbBarcodeLockNotice {
+	/**
+	 *表名:(ta_TbBarcodeLockNotice)	 条码锁定通知单
+	 */
+	private Integer id;
+	private	String barcode ;// 条码
+	private	String matCode ;// 料号
+	private	String matName ;// 品名
+	private	String locked ;//锁定状态(Y/N)
+	private	String lockReason;// 锁定原因
+	private	String unlockReason ;// 解锁原因
+	private	String lockUser ;//锁定人
+	private	String lockDate ;// 锁定日期
+	private	String lockNo ;// 隔离单号
+	private String status;//状态
+	private String fileName;//文件名
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getBarcode() {
+		return barcode;
+	}
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+	public String getMatCode() {
+		return matCode;
+	}
+	public void setMatCode(String matCode) {
+		this.matCode = matCode;
+	}
+	public String getMatName() {
+		return matName;
+	}
+	public void setMatName(String matName) {
+		this.matName = matName;
+	}
+	public String getLocked() {
+		return locked;
+	}
+	public void setLocked(String locked) {
+		this.locked = locked;
+	}
+	public String getLockReason() {
+		return lockReason;
+	}
+	public void setLockReason(String lockReason) {
+		this.lockReason = lockReason;
+	}
+	public String getUnlockReason() {
+		return unlockReason;
+	}
+	public void setUnlockReason(String unlockReason) {
+		this.unlockReason = unlockReason;
+	}
+	public String getLockUser() {
+		return lockUser;
+	}
+	public void setLockUser(String lockUser) {
+		this.lockUser = lockUser;
+	}
+	public String getLockDate() {
+		return lockDate;
+	}
+	public void setLockDate(String lockDate) {
+		this.lockDate = lockDate;
+	}
+	public String getLockNo() {
+		return lockNo;
+	}
+	public void setLockNo(String lockNo) {
+		this.lockNo = lockNo;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	
+	
+	
+}

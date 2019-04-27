@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="OptionRun" table="ta_sys_OptionRun">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name"/>
+		<!-- 审批选项对定制流程对(多对一) -->
+		<many-to-one name="circuitRun" class="CircuitRun"
+			column="fk_exeProId" />
+	</class>
+</hibernate-mapping>

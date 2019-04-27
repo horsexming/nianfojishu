@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Tprocess" table="ta_Tprocess">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" length="50"/>
+		<property name="xuhao" length="50"/>
+		
+		<many-to-one name="tooling" column="f_tooling_id" /> 
+		<many-to-one name="equipment" column="f_equipment_id" /> 
+		<many-to-one name="detail" column="f_detail_id" /> 
+
+	</class>
+
+</hibernate-mapping>

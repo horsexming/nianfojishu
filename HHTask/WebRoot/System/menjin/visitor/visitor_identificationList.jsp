@@ -1,0 +1,473 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+		<meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate"> 
+		<meta HTTP-EQUIV="expires" CONTENT="0">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<link rel="stylesheet" type="text/css"
+			href="<%=basePath%>/javascript/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<script src="<%=basePath%>/javascript/jquery/jquery-3.2.1.js"> </script> 
+ 		<script type="text/javascript" src="<%=basePath%>/javascript/webcam/jquery.webcam.js"></script>
+		<script type="text/javascript"
+ 			src="<%=basePath%>/javascript/bootstrap-3.3.7-dist/js/bootstrap.js"> </script> 
+		<style type="text/css">
+			#contentDiv{
+				overflow: visible;
+			}
+			.classIcon{
+				width: 110px;
+				height: 40px;
+				line-height: 40px;
+				background-color: #9D9D9D;
+				border-radius:55%;
+				margin-top: 65px;
+			}
+			.successClassIcon{
+				background-color: #FFAF60;
+			}
+			.classIcon i{
+				font-size: 20px;
+				line-height: 40px;
+				color: white;
+			}
+			.classTitleIcon{
+				height: 40px;
+				line-height: 40px;
+				background-color: #9D9D9D;
+				border-radius:55%;
+			}
+			.container, body, html{
+				width: 98%;
+				height: 100%;
+				margin: auto;
+				padding: auto;
+				overflow: hidden;
+			}
+			#header{
+				width: 100%;
+				height: 22%;
+			}
+			#body{
+				width: 100%;
+				height: 65%;
+			}
+			#footer{
+				width: 100%;
+				height: 10%;
+			}
+			#submitBtn{
+				background-color: #529DD5;
+			}
+			.custom-variables {
+			  --some-color:white;
+			  --some-keyword: italic;
+			  --some-size: 3.25em;
+/* 			  --some-complex-value: 1px 1px 2px whitesmoke, 0 0 1em slategray, 0 0 0.2em slategray; */
+			  color: var(--some-color);
+			  font-size: var(--some-size);
+/* 			  font-style: var(--some-keyword); */
+			  text-shadow: var(--some-complex-value);
+			  cursor: pointer;
+			  padding: 60px 10px;
+			}
+			body{
+				background-color: #97BCE4;
+				padding-right: 0px!important;
+			}
+			.itemClass{
+				/* 选项*/
+ 			    border: 2px solid #ccc; 
+				border-radius:25px;
+				background-color: #529DD5;
+			  	-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				-webkit-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				-moz-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				box-shadow: rgb(20,255,255) 0px 0px 15px;
+				padding: 25px;
+				height:580px;
+				overflow: auto;
+			}
+			.modal-content{
+				/* 选项*/
+ 			    border: 2px solid #ccc; 
+				border-radius:25px;
+				background-color: #529DD5;
+			  	-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				-webkit-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				-moz-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				box-shadow: rgb(20,255,255) 0px 0px 15px;
+			}
+			h1{
+				color: white;
+			}
+			th,td{
+				padding: 4px;
+				text-align: center;
+			}
+			.btn{
+				background-color: #529DD5;
+			  	-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				-webkit-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				-moz-box-shadow: rgb(20,255,255) 0px 0px 15px;
+				box-shadow: rgb(20,255,255) 0px 0px 15px;
+			}
+			#returnGoHis{
+				background-color: #FDDA38;
+			}
+		</style>
+	</head>
+	<body bgcolor="#ffffff">
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">提醒消息</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<h3 style="color: red" id="showMessage"></h3>
+		            </div>
+		            <div class="modal-footer" id="returnBtn">
+		                <button class="btn btn-default" data-dismiss="modal">关闭</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		
+		<div class="container">
+			<div id="header">
+				<div class="row" style="height: 40px;">
+	            </div>
+	            <div class="row clearfix">
+					<img src="<%=basePath%>/${companyInfo.logo}" height="70px;" alt="<%=basePath%>/${companyInfo.logo}">
+					<br>
+					<h1 align="center">
+						请确认访客列表
+					</h1>
+	            </div>
+            </div>
+            <div id="body">
+           		<div class="row">
+            		<div class="col-lg-2"></div>
+            		<div class="col-lg-8">
+	            		<div class="itemClass">
+	            			<div class="row text-right">
+								<form action="<%=basePath%>/visitorAction!gotoAddFollow.action" id="addFollowForm">
+									<s:iterator value="visitorList" id="vl" status="ps">
+										<input type="hidden" value="${vl.id}" name="visitorList[${ps.index }].id" >
+									</s:iterator>
+									<input type="hidden" value="addFollow" name="pageStatus" >
+									<p><button type="button" class="btn btn-default" onclick="gotoAddFollow()">添加随访人</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+								</form>
+							</div>
+			            	<form action="<%=basePath%>/visitorAction!confirmVisitorApply.action" method="post" id="forms">
+								<table >
+									<tr>
+										<th colspan="12">
+											访客人手机号：${visitor.visitorPhone }&nbsp;&nbsp;&nbsp;&nbsp;
+											来访日期：${visitor.dateTime }&nbsp;&nbsp;&nbsp;&nbsp;
+											来访单位：${visitor.visitorComp }&nbsp;&nbsp;&nbsp;&nbsp;
+										</th>
+									</tr>
+									<tr>
+										<th colspan="12">
+											被访人手机号：${visitor.intervieweePhone}&nbsp;&nbsp;&nbsp;&nbsp;
+											来访缘由：${visitor.visitorCause }
+										</th>
+									</tr>
+									<tr>
+										<th class="col-lg-2">编号</th>
+										<th class="col-lg-2">拍照照片</th>
+										<th class="col-lg-2">访客人姓名</th>
+										<th class="col-lg-2">身份证号</th>
+										<th class="col-lg-2">操作</th>
+									</tr>
+									<s:if test="visitorList!=null&&visitorList.size()>0">
+										<s:iterator value="visitorList" id="vl" status="ps">
+											<tr id="tr_${vl.id}">
+												<th>
+													${ps.index+1 }
+													<input type="hidden" name="visitorList[${ps.index}].id" value="${vl.id}">	
+												</th>
+												<td><img src="<%=basePath%>/upload/file/menjin/visitor/${vl.picture}"
+													alt="照片" height="70px" width="70px" style="border-radius:50%;"></td>
+												<td>${vl.visitorName }</td>
+												<td>${vl.identityCard }</td>
+												<td>
+													<input type="hidden" value="${vl.fingerprint }" id="finger_${ps.index}" >
+													<input type="hidden" value="${vl.fingerId}" id="fingerId_${ps.index}">
+													<button type="button" class="btn btn-default" onclick="deleteVisitor(${vl.id})">删除</button>
+												</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+								</table>
+							</form>
+						</div>
+					</div>
+            		<div class="col-lg-2"></div>
+				</div>
+				<div class="row">
+	            	<div class="col-lg-12 text-center">
+						<br>
+						<input type="hidden" value="${visitorList.size()}" id="slSize" >
+						<input type="button" value="提交" class="btn btn-default" onclick="submitForm()" id="submitBtn"
+							style="width: 30%; height: 90px;font-size: 25px;">
+					</div>
+	            </div>
+            </div>
+			 <div id="footer">
+            	<div class="row">
+            		<div class="text-left col-lg-12">
+	            		<button type="button" class="btn btn-default" onclick='javaScript:history.go(-1)' id="returnGoHis">返回上一页</button>
+	            	</div>
+            	</div>
+            	<br>
+				<div class="row">
+					<p class="col-lg-12 text-right">上海零参科技有限公司提供技术支持</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	
+		//禁用F5刷新
+		document.onkeydown = function (){
+		    if (event.keyCode == 116) {
+		        event.keyCode = 0;
+		        event.cancelBubble = true;
+		        return false;
+		    }
+		}
+	
+		//禁止右键弹出菜单
+		document.oncontextmenu = function () {
+		    return false;
+		}
+		//前往添加随访人
+		function gotoAddFollow(){
+			$("#addFollowForm").submit();
+		}
+		
+		function deleteVisitor(id){
+			if(confirm("确定要删除随访人吗?")){
+				
+				$.ajax({
+					type:"post",
+					url:"<%=basePath%>/visitorAction!deleteVisitor.action",
+					dataType:"json",
+					data:{
+						"id":id
+					},success:function(data){
+						if(data!=null&& (data==true || data=="true")){
+							$("#tr_"+id).remove();
+							$("input[value='"+id+"']").remove();
+							$("#showMessage").html("删除成功");
+							$("#showModal").modal('show');
+							$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+							jishi(false);
+						}else{
+							$("#showMessage").html("删除失败，请联系管理员");
+							$("#showModal").modal('show');
+							$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+							jishi(false);
+						}
+					},error:function(XMLHttpRequest, textStatus, errorThrown){
+						$("#showMessage").html("删除失败，请联系管理员"+XMLHttpRequest.status+"  "+XMLHttpRequest.readyState+"  "+textStatus);
+						$("#showModal").modal('show');
+						$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+						jishi(false);
+					}
+				});
+			}
+		}
+		var returnStyle=null;
+		function jishi(flag){
+			myVal = setInterval(dijian,1000);
+			function dijian(){
+				
+				if(flag){
+					//查看监听
+					$.ajax({
+						type:"post",
+						url:"http://localhost:8888/finger/getFingerStatus",
+						dataType:"jsonp",
+						success:function(data){
+							if(data!=null && (data.info=="下发成功" || data.info.indexOf("已存在")>0 || data.info.indexOf("成功")>0) ){
+								//30秒后跳转到主页（或者点击返回到主页）
+								clearInterval(myVal);
+								flag =false;
+								returnStyle = "index";
+								$("#showModal").modal("show");
+								$("#showMessage").html("<span style='color:#00FF00'>申请成功，请耐心等待，我们将以短信的方式提醒您，感谢您的使用。</span>");
+								$("#returnBtn").html("<button class='btn btn-default' onclick='location.href=\"<%=basePath%>/visitorAction!toVisitorIndex.action\"'>返回到主页(<span id='second'>10</span>)</button>");
+
+								$("#submitBtn").val("已提交");
+								$("#submitBtn").attr('disabled', true);
+								$("#returnGoHis").val("返回主页");
+								$("#returnGoHis").click(function(){
+									  location.href="<%=basePath%>/visitorAction!toVisitorIndex.action";
+								});
+								jishi(flag);
+// 							}else if(data!=null && data.info!="" && data.info.indexOf("已存在")>0){
+// 								var visitorId = $("#visitorId").val();
+// 								$.ajax({
+// 									type:"post",
+// 									url:"<%=basePath%>/visitorAction!fillFingerByVisitorId.action",
+// 									data:{
+// 										"id":visitorId
+// 									},
+// 									dataType:"json",
+// 									success:function(fillData){
+// 										if(fillData!=null){
+// 											clearInterval(myVal);
+// 											$("#showModal").modal("show");
+// 											$("#showMessage").html("申请成功，请耐心等待，我们将以短信的方式提醒您，感谢您的使用。");
+// 											$("#returnBtn").html("<button class='btn btn-default' onclick='location.href=\"<%=basePath%>/visitorAction!toVisitorIndex.action\"'>返回到主页(<span id='second'>10</span>)</button>");
+// 										}else{
+// 											clearInterval(myVal);
+// 											$("#showModal").modal("show");
+// 											$("#showMessage").html("指纹库填充异常，指纹库已存在，请联系管理员。");
+// 											$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+// 										}
+// 									},error:function(){
+// 										clearInterval(myVal);
+// 										$("#showMessage").html("填充指纹库异常，请联系管理员："+XMLHttpRequest.status+"  "+XMLHttpRequest.readyState+"  "+textStatus);
+// 										$("#showModal").modal("show");
+// 										$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+// 									}
+// 								});
+							}else if(data!=null && data.info!=""){
+								clearInterval(myVal);
+
+								if(data!=null&& (data.info.indexOf("成功")>0 || data.info.indexOf("正确")>0)){
+									$("#showMessage").html(data.info);
+									jishi(true);
+								}else{
+									$("#showMessage").html(data.info);
+									jishi(false);
+								}
+								$("#showModal").modal("show");
+								$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+								$("#submitBtn").val("提交");
+								$("#submitBtn").attr('disabled', false);
+							}
+						},error:function(){
+							clearInterval(myVal);
+							$("#showMessage").html("系统监听指纹库异常，请联系管理员："+XMLHttpRequest.status+"  "+XMLHttpRequest.readyState+"  "+textStatus);
+							$("#showModal").modal("show");
+							$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+							$("#submitBtn").val("提交");
+							$("#submitBtn").attr('disabled', false);
+							jishi(false);
+						}
+					});
+				}
+				
+				var numberVal = $("#second").text();
+				var number = parseInt(numberVal)-1;
+				if(number<=0){
+					clearInterval(myVal);
+					$('#showModal').modal('hide')
+					if(flag || returnStyle=="index"){
+						previousPage();//location.href="<%=basePath%>/visitorAction!toVisitorIndex.action";
+					}
+				}
+				$("#second").text(number);
+				console.log(number);
+			}
+		}
+		
+		function submitForm(){
+			var form = new FormData(document.getElementById("forms"));
+			$("#submitBtn").attr('disabled', true);
+			$("#submitBtn").val("提交中，请稍后");
+			$.ajax({
+				type:"post",
+				url:"<%=basePath%>/visitorAction!confirmVisitorApply.action",
+				data:form,
+				processData:false,
+				contentType:false,
+				async : false,
+				dataType:"json",
+				success:function(data){
+					if(data!=null&& data.indexOf("成功")>0){
+						//添加指纹到指纹库
+						var slSize = $("#slSize").val();
+						var fingerIdList = [];
+						var fingerprintList = [];
+						for(var i =0;i<slSize;i++){
+							fingerIdList[i] = $("#fingerId_"+i).val();
+							fingerprintList[i]=$("#finger_"+i).val();
+						}
+						$.ajax({
+							type:"post",
+							url:"http://localhost:8888/finger/saveFingerListDataBase",
+							data:{
+								"fingerIdList":fingerIdList,
+								"fingerprintList":fingerprintList
+							},
+							dataType:"jsonp",
+							success:function(xiafaData){
+								$("#submitBtn").val("提交");
+								$("#submitBtn").attr('disabled', false);
+								console.log(xiafaData);
+								$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+								jishi(true);
+							},error:function(XMLHttpRequest, textStatus, errorThrown){
+								$("#submitBtn").val("提交");
+								$("#submitBtn").attr('disabled', false);
+								$("#showMessage").html("系统添加指纹库异常，请联系管理员："+XMLHttpRequest.status+"  "+XMLHttpRequest.readyState+"  "+textStatus);
+								$("#showModal").modal("show");
+								$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+								jishi(false);
+							}
+						});
+					}else{
+						$("#submitBtn").val("提交");
+						$("#submitBtn").attr('disabled', false);
+						$("#showMessage").html(data.message);
+						$("#showModal").modal('show');
+						$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+						jishi(false);
+					}
+				},
+				error:function(e){
+					$("#submitBtn").val("提交");
+					$("#submitBtn").attr('disabled', false);
+					$("#showMessage").html('系统提交异常，请联系管理员');
+					$("#showModal").modal('show');
+					$("#returnBtn").html("<button class='btn btn-default' data-dismiss='modal'>关闭(<span id='second'>10</span>)</button>");
+					jishi(false);
+				}
+			});
+		}
+		
+		function previousPage(){
+			if(returnStyle!=null && returnStyle!="" && returnStyle=="index"){
+				location.href="<%=basePath%>/visitorAction!toVisitorIndex.action";
+			}else{
+				location.href="<%=basePath%>/visitorAction!toVisitorIndex.action";
+			}
+		}
+	</script>
+</html>

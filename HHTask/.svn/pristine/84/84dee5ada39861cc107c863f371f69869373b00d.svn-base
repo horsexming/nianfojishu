@@ -1,0 +1,200 @@
+package com.task.entity;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.menjin.MarkStatusType;
+
+/**
+ * 
+ * @author wxf
+ *库位表:(ta_WarehouseNumber)
+ *用作物流入库 时 和库别，库位 级联使用
+ */
+
+public class WarehouseNumber implements java.io.Serializable {
+
+	// Fields
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String number;//库位号
+	private Integer oneNumber;//单板控制套数(1~6)
+	private Integer numid;//库位灯颜色指令(1~6:代表库位灯0:代表电机)
+	private String ip;//库位设备IP
+	private String fourlightIp;
+	private MarkStatusType markTypt;// 存放材料类型(已入库&待检:蓝色 / 合格品:绿色 / 返工&返修&待修:黄色 / 不合格:红色)
+	private String markTyptName;// 存放材料类型(已入库&待检 / 合格品 / 返工&返修&待修/ 不合格/ 空)
+	private String status;//状态(未满/已满)
+	private String wuType;//物品状态(零件&&null/工装)
+	private String have;//有无物品(有/无)
+	private String kwStatus;//库位开关状态(开/关)
+	private Integer czUserId;//当前操作人
+	private String sczTime;//上一次操作时间
+	private String floorNumbe;//上/中/下
+	private String direction;//方向(从左至右:left/从右至左:right)
+	private String volume;//体积
+	private String barCode;//条码
+	private String nowArticleName;// 当前物品件号或名称
+	private Float totalNumber;// 当前物品总数量
+	private String warehouseArea;//所属仓区
+	private String wareHouseName;//所属仓库名称
+	private String addTime;//添加时间；
+	private String updateTime;//添加时间
+	private String addUser;//添加人
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public Integer getOneNumber() {
+		return oneNumber;
+	}
+	public void setOneNumber(Integer oneNumber) {
+		this.oneNumber = oneNumber;
+	}
+	public String getWuType() {
+		return wuType;
+	}
+	public void setWuType(String wuType) {
+		this.wuType = wuType;
+	}
+	public String getSczTime() {
+		return sczTime;
+	}
+	public void setSczTime(String sczTime) {
+		this.sczTime = sczTime;
+	}
+	public String getKwStatus() {
+		return kwStatus;
+	}
+	public void setKwStatus(String kwStatus) {
+		this.kwStatus = kwStatus;
+	}
+	public Integer getCzUserId() {
+		return czUserId;
+	}
+	public void setCzUserId(Integer czUserId) {
+		this.czUserId = czUserId;
+	}
+	public Float getTotalNumber() {
+		return totalNumber;
+	}
+	public void setTotalNumber(Float totalNumber) {
+		this.totalNumber = totalNumber;
+	}
+	public String getNowArticleName() {
+		return nowArticleName;
+	}
+	public String getMarkTyptName() {
+		return markTyptName;
+	}
+	public void setMarkTyptName(String markTyptName) {
+		this.markTyptName = markTyptName;
+	}
+	public void setNowArticleName(String nowArticleName) {
+		this.nowArticleName = nowArticleName;
+	}
+	public String getHave() {
+		return have;
+	}
+	public void setHave(String have) {
+		this.have = have;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public Integer getNumid() {
+		return numid;
+	}
+	public void setNumid(Integer numid) {
+		this.numid = numid;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	@JSONField(serialize = false)
+	public MarkStatusType getMarkTypt() {
+		return markTypt;
+	}
+	public void setMarkTypt(MarkStatusType markTypt) {
+		this.markTypt = markTypt;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getFloorNumbe() {
+		return floorNumbe;
+	}
+	public void setFloorNumbe(String floorNumbe) {
+		this.floorNumbe = floorNumbe;
+	}
+	public String getVolume() {
+		return volume;
+	}
+	public void setVolume(String volume) {
+		this.volume = volume;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getWarehouseArea() {
+		return warehouseArea;
+	}
+	public void setWarehouseArea(String warehouseArea) {
+		this.warehouseArea = warehouseArea;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUser() {
+		return addUser;
+	}
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+	public String getBarCode() {
+		return barCode;
+	}
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+	public String getWareHouseName() {
+		return wareHouseName;
+	}
+	public void setWareHouseName(String wareHouseName) {
+		this.wareHouseName = wareHouseName;
+	}
+	public String getFourlightIp() {
+		return fourlightIp;
+	}
+	public void setFourlightIp(String fourlightIp) {
+		this.fourlightIp = fourlightIp;
+	}
+	
+	
+}

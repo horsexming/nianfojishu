@@ -1,0 +1,155 @@
+package com.task.entity.menjin;
+
+/**
+ * 库位开关申请表
+ * 
+ * @author Li_Cong 2016-11-17 表名 ta_mj_WarehouseApplication 记录入库，出库，检验申请记录
+ */
+public class WarehouseApplication {
+	private Integer id;
+	private Integer usersId;//申请人ID
+	private String name;// 姓名
+	private String dept;//部门
+	private String code;// 工号
+	private String cardId;// 卡号
+	private String selfCard;// 件号
+	private String pici;// 批次
+	private String className;// 回调对象name
+	private String classNameId;// id
+	private String type;// 申请类型(采购入库/品质检验/生产领料/成品入库/成品出库)
+	private String cuiqutype;// 存取类型(存/取/检验)
+	private String appStatus;// 申请状态(未使用/使用中/已使用)
+	private Float totalNumber;//申请总数量
+	private String addTime;// 添加时间
+	private String shixiaoTime;//失效时间(超过失效时间的一半给提醒)
+	
+	// get set
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAppStatus() {
+		return appStatus;
+	}
+
+	public void setAppStatus(String appStatus) {
+		this.appStatus = appStatus;
+	}
+
+	public String getCuiqutype() {
+		return cuiqutype;
+	}
+
+	public void setCuiqutype(String cuiqutype) {
+		this.cuiqutype = cuiqutype;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getClassNameId() {
+		return classNameId;
+	}
+
+	public void setClassNameId(String classNameId) {
+		this.classNameId = classNameId;
+	}
+
+	public Integer getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(Integer usersId) {
+		this.usersId = usersId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getSelfCard() {
+		return selfCard;
+	}
+
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+
+	public String getPici() {
+		return pici;
+	}
+
+	public void setPici(String pici) {
+		this.pici = pici;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getShixiaoTime() {
+		return shixiaoTime;
+	}
+
+	public Float getTotalNumber() {
+		return totalNumber;
+	}
+
+	public void setTotalNumber(Float totalNumber) {
+		this.totalNumber = totalNumber;
+	}
+
+	public void setShixiaoTime(String shixiaoTime) {
+		this.shixiaoTime = shixiaoTime;
+	}
+
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.peb.SubTeam" table="ta_subTeam">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="subName" />
+		<property name="principals" />
+		<property name="isBanzu" />
+		
+		
+		<property name="chuqinDays2015" />
+		<property name="personCount2015" />
+		<property name="ccCount2015" />
+		<property name="avg2015" />
+		<property name="mbCount2015" />
+		
+		<property name="chuqinDays2016" />
+		<property name="personCount2016" />
+		<property name="ccCount2016" />
+		<property name="avg2016" />
+		<property name="mbCount2016" />
+		
+		<property name="chuqinDays2017" />
+		<property name="personCount2017" />
+		<property name="ccCount2017" />
+		<property name="avg2017" />
+		<property name="mbCount2017" />
+		
+		
+		<property name="remarks" />
+		<property name="fatherId" />
+	</class>
+</hibernate-mapping>

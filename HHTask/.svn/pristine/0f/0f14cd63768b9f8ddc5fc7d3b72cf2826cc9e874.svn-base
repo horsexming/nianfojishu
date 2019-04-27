@@ -1,0 +1,1058 @@
+package com.task.action.peb;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.peb.ProductEBServer;
+import com.task.entity.Screen;
+import com.task.entity.Users;
+import com.task.entity.peb.PebBanzuJiegou;
+import com.task.entity.peb.PebBorrowAndLendLog;
+import com.task.entity.peb.PebProduction;
+import com.task.entity.peb.PebProductionBanjin;
+import com.task.entity.peb.PebUsers;
+import com.task.entity.peb.SubTeam;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+public class ProductEBAction {
+	
+
+	private ProductEBServer productEBServer;
+	private PebProduction pebProduction;
+	private List<PebProduction> productionList;
+	
+	private PebUsers pebUsers;
+	private List<PebUsers> pebUsersList;
+	
+	private SubTeam subTeam;
+	private List<SubTeam> subTeamList;
+	private List<Object> showList;
+	private List<String> dianPingList;
+	
+	private PebBorrowAndLendLog log;
+	private List<PebBorrowAndLendLog> logList;
+	
+	private PebProductionBanjin banjin;
+	private List<PebProductionBanjin> banjinList;
+	
+	private PebBanzuJiegou pebBanzuJiegou;
+	
+	private String cpage = "1";
+	private String errorMessage;
+	private Integer pageSize=30;
+	private String total;
+	private String url;
+	private String pageStatus;
+	private String tag;
+	private File attachment;
+	private String attachmentContentType;
+	private String attachmentFileName;
+	private String banzu;
+	private Integer id;
+	private Integer ids[];
+
+	private Integer goYear;//开始时间
+	private Integer goMonth;
+	private Integer goDay;
+	private Integer toYear;//结束时间
+	private Integer toMonth;
+	private Integer toDay;
+	private Float chuqinPersonCount;
+	private Float zsNumber;
+	private Float avgNumber;
+	private String code;
+	private Screen screen; //大屏幕对象
+	private String remark;//备注
+	
+	public String toAddProduction() {
+		if(id!=null) {
+			pebProduction =productEBServer.getPebProductionById(id);
+		}
+		if(pageStatus!=null) {
+			if(pageStatus.equals("import")) {
+				return "peb_import";
+			}
+			if(pageStatus.equals("toAddUsers")) {
+				pebUsers = productEBServer.getPebUsersById(id);
+				return "peb_updateUsers";
+			}
+			if(pageStatus.equals("settingTarget")) {
+				
+				return "peb_settingTarget";
+			}
+			if(pageStatus.equals("updateSubTeam")) {
+				subTeam = productEBServer.getSubTeamById(id);
+				return "peb_addSubTeam";
+			}
+			if(pageStatus.equals("addbanjin")) {
+				return "peb_addBanjin";
+			}
+			if(pageStatus.equals("updatebanjin")) {
+				banjin = productEBServer.findBanjinById(id, pageStatus);
+				return "peb_addBanjin";
+			}
+			//导入钣金
+			if(pageStatus.equals("importBJ")) {
+				return "peb_import";
+			}
+			//钣金批量更新系数
+			if(pageStatus.equals("to_updateBanjinMultpart")) {
+				return "peb_updateBanjinMultpart";
+			}
+			//人员借入申请
+			if(pageStatus.equals("to_borrowPersonApply")) {
+				Users loginUser = Util.getLoginUser();
+				if(loginUser==null) {
+					errorMessage = "请先登录";
+					return "error";
+				}
+				subTeam = productEBServer.getSubTeamByFuzeren(loginUser.getName());
+				subTeamList = productEBServer.getminSubTeam();
+				//根据负责人获取所在班组
+				return "peb_borrowPersonApply";
+			}
+			//未出勤人数填报
+			if(pageStatus.equals("to_noChuQinApply")) {
+				subTeamList = productEBServer.getminSubTeam();
+				return "peb_noChuQinApply";
+			}
+		}
+		return "peb_addProduction";
+	}
+	
+	public String toImportData() {
+		if(pageStatus!=null) {
+			//pageStatus=importProduction;导入装配产品下线
+			//pageStatus=='importBanjinProduction'导入钣金产品下线
+			//pageStatus=='importpebUsers导入人事档案
+			return "peb_import";
+		}
+		return "";
+	}
+	public void importPdata() {
+		if(attachment!=null && attachmentFileName!=null) {
+			try {
+				errorMessage = productEBServer.importData(attachment,attachmentFileName, pageStatus);
+				MKUtil.writeJSON(errorMessage);
+			} catch (Exception e) {
+				e.printStackTrace();
+				MKUtil.writeJSON("文件导入失败，请截图发给管理员："+e.getMessage());
+			}
+		}
+	}
+	
+	public String addProduction() {
+		try {
+			errorMessage =productEBServer.addOrUpdatePebProduction(pebProduction, pageStatus);
+			setUrl("productEBAction!findProductionByCon.action");
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+			setUrl("productEBAction!toAddProduction.action");
+		}
+		return "error";
+	}
+	
+	public String updatePebUsers() {
+		if(pebUsers.getCategory()!=null && pebUsers.getCategory().equals("bj")) {
+			pageStatus = "bj";
+		}
+		try {
+			if(tag!=null && tag.equals("addLog")) {
+				List<PebBorrowAndLendLog> borrowLogList = pebUsers.getBorrowLogList();
+				if(borrowLogList!=null && borrowLogList.size()>0) {
+					for (PebBorrowAndLendLog borrowLog : borrowLogList) {
+						if(borrowLog!=null && borrowLog.getBorrowBanzu()!=null && borrowLog.getBorrowNum()!=null) {
+							borrowLog.setPebUsersId(pebUsers.getId());
+							PebBorrowAndLendLog log = productEBServer.getLogByCriteria(borrowLog, pageStatus);
+							if(log==null) {
+								productEBServer.addPebBorrowAndLendLog(borrowLog, pageStatus);
+							}
+						}
+						
+					}
+				}
+				
+				
+				List<PebBorrowAndLendLog> lendLogList = pebUsers.getLendLogList();
+				
+				if(lendLogList!=null && lendLogList.size()>0) {
+					for (PebBorrowAndLendLog lendLog : lendLogList) {
+						if(lendLog!=null && lendLog.getLendBanzu()!=null && lendLog.getLendNum()!=null) {
+							lendLog.setPebUsersId(pebUsers.getId());
+							//在记录中存在相同的则不保存
+							PebBorrowAndLendLog log = productEBServer.getLogByCriteria(lendLog, pageStatus);
+							if(log==null) {
+								productEBServer.addPebBorrowAndLendLog(lendLog, pageStatus);
+							}
+						}
+					}
+				}
+			}
+			
+			errorMessage = productEBServer.addOrUpdatePebUsers(pebUsers, pageStatus);
+			setUrl("productEBAction!findPebUsersByCon.action?cpage="+cpage+"&pageStatus="+pageStatus+"&tag="+tag);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+			setUrl("productEBAction!toAddProduction.action?id="+pebUsers.getId()+"&cpage="+cpage+"&pageStatus="+pageStatus+"&tag="+tag);
+		}
+		return "error";
+	}
+	
+	public String settingTarget() {
+		
+		try {
+			errorMessage = productEBServer.settingTarget(pebUsers, goYear, goMonth, goDay, toYear, toMonth, toDay);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+		}
+		return "error";
+	}
+	
+	public String updateProduction() {
+		try {
+			errorMessage =productEBServer.addOrUpdatePebProduction(pebProduction, "update");
+			setUrl("productEBAction!findProductionByCon.action");
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+			setUrl("productEBAction!toAddProduction.action?id="+pebProduction.getId());
+		}
+		return "error";
+	}
+	
+	public String updateSubTeam() {
+		try {
+			errorMessage =productEBServer.updateSubTeam(subTeam, pageStatus);
+			setUrl("productEBAction!findSubTeamByCon.action");
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+			setUrl("productEBAction!findSubTeamByCon.action?id="+subTeam.getId());
+		}
+		return "error";
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String findProductionByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(pebProduction!=null) {
+			session.put("findProductionByCon", pebProduction);
+		}else {
+			pebProduction = (PebProduction) session.get("findProductionByCon");
+			if(tag==null) {
+				if(pebProduction==null) {
+					pebProduction = new PebProduction();
+				}
+				pebProduction.setYear(Integer.parseInt(Util.getDateTime("yyyy")));
+				pebProduction.setMonth(Integer.parseInt(Util.getDateTime("MM")));
+				tag = "1";
+			}
+		}
+		Map<String, Object> map = productEBServer.findProductionByCon(pebProduction, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			productionList = (List<PebProduction>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			setUrl("productEBAction!findProductionByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+			Integer pageCount=(count + pageSize - 1) / pageSize;
+			setTotal(pageCount+"");
+		}
+		
+		return "peb_productionList";
+	}
+	
+	public String findPebUsersByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(pebUsers!=null) {
+			session.put("findPebUsersByCon", pebUsers);
+		}else {
+			pebUsers = (PebUsers) session.get("findPebUsersByCon");
+			if(tag==null) {
+				if(pebUsers==null) {
+					pebUsers = new PebUsers();
+				}
+				pebUsers.setYear(Integer.parseInt(Util.getDateTime("yyyy")));
+				pebUsers.setMonth(Integer.parseInt(Util.getDateTime("MM")));
+				tag = "1";
+			}
+		}
+		Map<String, Object> map = productEBServer.findPebUsersByCon(pebUsers, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			pebUsersList = (List<PebUsers>) map.get("list");
+			chuqinPersonCount = (Float) map.get("chuqinPersonCount");
+			zsNumber = (Float) map.get("zsNumber");
+			avgNumber = (Float) map.get("avgNumber");
+			
+			Integer count = (Integer) map.get("count");
+			Integer pageCount = (count+pageSize-1)/pageSize;
+			setTotal(pageCount+"");
+			setUrl("productEBAction!findPebUsersByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+			
+		}
+		return "peb_usersList";
+	}
+	
+	//ajax加载更多
+	public void findPebUsersByConAjax() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(pebUsers!=null) {
+			session.put("findPebUsersByCon", pebUsers);
+		}else {
+			pebUsers = (PebUsers) session.get("findPebUsersByCon");
+		}
+		Map<String, Object> map = productEBServer.findPebUsersByCon(pebUsers, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			pebUsersList = (List<PebUsers>) map.get("list");
+			MKUtil.writeJSON(pebUsersList);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String showPebJianBao() {
+		if(pageStatus!=null && pageStatus.equals("bjProcess")) {
+			showList = productEBServer.showBanJinJianBao(pageStatus);
+		}else {
+			showList =productEBServer.showPebJianBao(pageStatus);
+		}
+		return "peb_showJianBao";
+	}
+	@SuppressWarnings("unchecked")
+	public String showJianBao() {
+		showList = productEBServer.showJianBao(banzu);
+		
+		return "peb_showJianBao";
+	}
+	//车间列表，进入车间计划/实际产出台数
+	
+	@SuppressWarnings("unchecked")
+	public String findWorkShopByPlan() {
+		showList = productEBServer.findWorkShopList(pageStatus);
+		return "peb_findWorkShopByPlan";
+	}
+	@SuppressWarnings("unchecked")
+	public String showPebCheJian() {
+		List<SubTeam> subTeamList = productEBServer.getSubTeamsByBanzu(banzu);
+		if(subTeamList!=null && subTeamList.size()==1) {
+			banzu = subTeamList.get(0).getSubName();
+		}else if(subTeamList!=null && subTeamList.size()>1) {
+			errorMessage  = "对不起，没有"+banzu+"的生产效率简报，<br>请查看"+banzu+"的子生产效率简报。";
+			return "error";
+		}
+		showList = productEBServer.showCheJian(banzu, pageStatus);
+		dianPingList = productEBServer.getDianPingList(banzu); 
+		
+		if(pageStatus!=null && pageStatus.equals("ajaxPost")) {
+			MKUtil.writeJSON(showList);
+		}
+		return "peb_showCheJian";
+	}
+	
+	public String addSubTeam() {
+		errorMessage = productEBServer.addSubTeam(subTeam);
+		setUrl("productEBAction!findSubTeamByCon.action");
+		return "error";
+	}
+	
+	public String findSubTeamByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(subTeam!=null) {
+			session.put("findSubTeamByCon", subTeam);
+		}else {
+			subTeam = (SubTeam) session.get("findSubTeamByCon");
+		}
+		if(subTeam==null) {
+			subTeam = new SubTeam();
+		}
+		Map<String, Object> map = productEBServer.findSubTeamByCon(subTeam, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			subTeamList = (List<SubTeam>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			Integer pageCount = (count+pageSize-1)/pageSize;
+			setTotal(pageCount+"");
+			setUrl("productEBAction!findSubTeamByCon.action");
+		}
+		return "peb_subTeamList";
+	}
+	
+	public String findSubTeamByCheJianCon() {
+		if(subTeam==null) {
+			subTeam = new SubTeam();
+		}
+		if(pageStatus!=null) {
+//			if(pageStatus.equals("chejian")) {
+//				subTeam.setIsBanzu("车间");
+//			}else if(pageStatus.equals("process")){
+//				subTeam.setIsBanzu("工序");
+//			}
+			subTeam.setFatherId(id);
+		}
+		Map<String, Object> map = productEBServer.findSubTeamByCon(subTeam, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			subTeamList = (List<SubTeam>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			Integer pageCount = (count+pageSize-1)/pageSize;
+			setTotal(pageCount+"");
+			setUrl("productEBAction!findSubTeamByCheJianCon.action");
+		}
+		return "peb_subTeamList";
+	}
+	
+	//添加分厂
+	public String toAddSubTeam() {
+		return "peb_addSubTeam";
+	}
+	
+	public String deleteSteam() {
+		errorMessage = productEBServer.deleteSubTeam(subTeam, pageStatus);
+		setUrl("productEBAction!findSubTeamByCon.action");
+		return "error";
+	}
+	
+	//删除下线列表
+	public String deletePebProduction() {
+		errorMessage = productEBServer.deletePebProduction(id, pageStatus);
+		setUrl("productEBAction!findProductionByCon.action");
+		return "error";
+	}
+	//删除钣金下线列表
+	public String deletePebProBanjin() {
+		errorMessage = productEBServer.deletePebProBanjin(id, pageStatus);
+		setUrl("productEBAction!findPebProductionBanjinByCon.action?cpage="+cpage+"&tag="+tag);
+		return "error";
+	}
+	
+	//删除人事档案信息表
+	public String deletePebUsers() {
+		errorMessage = productEBServer.deletePebUsers(id, pageStatus);
+		setUrl("productEBAction!findPebUsersByCon.action?cpage="+cpage+"&pageStatus="+pageStatus+"&tag="+tag);
+		return "error";
+	}
+	public String findPebProductionBanjinByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(banjin!=null) {
+			session.put("findPebProductionBanjinByCon", banjin);
+		}else {
+			banjin = (PebProductionBanjin) session.get("findPebProductionBanjinByCon");
+			if(tag==null) {
+				if(banjin==null) {
+					banjin = new PebProductionBanjin();
+				}
+				banjin.setYear(Integer.parseInt(Util.getDateTime("yyyy")));
+				banjin.setMonth(Integer.parseInt(Util.getDateTime("MM")));
+				tag = "1";
+			}
+		}
+		Map<String, Object> map = productEBServer.findProductionBanjin(banjin, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null) {
+			banjinList = (List<PebProductionBanjin>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			setUrl("productEBAction!findPebProductionBanjinByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+			Integer pageCount=(count + pageSize - 1) / pageSize;
+			setTotal(pageCount+"");
+		}
+		
+		return "peb_banjinList";
+		
+	}
+	
+	public String addBanjin() {
+		errorMessage = productEBServer.addOrUpdatePebProBanjin(banjin, pageStatus);
+		return "error";
+	}
+	
+	public String updateBanjin() {
+		errorMessage = productEBServer.addOrUpdatePebProBanjin(banjin, pageStatus);
+		setUrl("productEBAction!findPebProductionBanjinByCon.action?pageStatus="+pageStatus+"&tag="+tag+"&cpage="+cpage);
+		return "error";
+	}
+	
+	//钣金单位及点评
+	public String getBanjinUnitAndRemark() {
+		
+		return "peb_banjinRemark";
+	}
+	
+	public String updateBanjinMultpart() {
+		errorMessage = productEBServer.updatePebProMultpart(banjin, goYear, goMonth, goDay, toYear, toMonth, toDay);
+		return "error";
+	}
+	
+	public String applyBorrowPerson() {
+		try {
+			errorMessage = productEBServer.applyBorrowPerson(log,logList, pageStatus);
+			if(errorMessage.equals("true")) {
+				errorMessage = "申请成功";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage = e.toString();
+		}
+		return "error";
+	}
+	
+	public String findborrowLogByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(log!=null) {
+			session.put("findborrowLogByCon", log);
+		}else {
+			log = (PebBorrowAndLendLog) session.get("findborrowLogByCon");
+		}
+		
+		Map<String, Object> map = productEBServer.findborrowLogByCon(log,Integer.parseInt(cpage),pageSize,pageStatus);
+		
+		if(map!=null) {
+			logList = (List<PebBorrowAndLendLog>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			setUrl("productEBAction!findborrowLogByCon.action?pageStatus="+pageStatus);
+			Integer pageCount=(count + pageSize - 1) / pageSize;
+			setTotal(pageCount+"");
+		}
+		return "peb_borrowLogList";
+	}
+	
+	public void importOtherData() {
+		if(attachment!=null && attachmentFileName!=null) {
+			try {
+				errorMessage = productEBServer.importOtherData(attachment,attachmentFileName, pageStatus);
+				MKUtil.writeJSON(errorMessage);
+			} catch (Exception e) {
+				e.printStackTrace();
+				MKUtil.writeJSON("文件导入失败，请截图发给管理员："+e.getMessage());
+			}
+		}
+		
+	}
+
+	/**
+	 * 获得班组结构
+	 * @return
+	 */
+	public String getBanZuJieGou() {
+		List<PebBanzuJiegou> findAllPebBanzuJiegou = productEBServer.findAllPebBanzuJiegou();
+		MKUtil.writeJSON(findAllPebBanzuJiegou);
+		return "peb_banzuJieGou";
+	}
+	
+	
+	//删除班组负责人
+	public void deletePrincipals() {
+		String deletePrincipals = productEBServer.deletePrincipals(pebBanzuJiegou,id);//id=users.id
+		MKUtil.writeJSON(deletePrincipals);
+	}
+	
+	public String getBanZuJieGetById() {
+		pebBanzuJiegou=productEBServer.getBanzuJiegouById(id);
+		return "Peb_BanZuJieGouDetail";
+	}
+	
+	//添加班组结构
+	public void addBanzuJiegou() {
+		String addPebBanzuJiegou = productEBServer.addPebBanzuJiegou(pebBanzuJiegou, pageStatus);
+		MKUtil.writeJSON(addPebBanzuJiegou);
+	}
+	//删除班组结构
+	public void deletePebBanzuJiegou() {
+		String deletePebBanzuJiegou = productEBServer.deletePebBanzuJiegou(id, pageStatus);
+		MKUtil.writeJSON(deletePebBanzuJiegou);
+	}
+	public String addBanzuPrincipals() {
+		Users users = productEBServer.getUsersByCode(code);
+		String addPrincipals = productEBServer.addPrincipals(pebBanzuJiegou,users);
+		MKUtil.writeJSON(addPrincipals);
+		return null;
+	}
+	
+	public void updateBanzuJieGou() {
+		String updatePebBanzuJiegou = productEBServer.updatePebBanzuJiegou(pebBanzuJiegou, pageStatus);
+		MKUtil.writeJSON(updatePebBanzuJiegou);
+	}
+	
+	public String deleteBorrowLog() {
+		errorMessage = productEBServer.deleteBorrowLog(id);
+		setUrl("productEBAction!findborrowLogByCon.action");
+		if(pageStatus!=null && pageStatus.equals("delLogAjax")) {
+			MKUtil.writeJSON(errorMessage);
+		}
+		return "error";
+	}
+	
+	//车间大屏幕显示
+	public String showCheJianForScreen() {
+		//screen;
+		banzu = productEBServer.getScreenNameById(id, pageStatus);
+		showList = productEBServer.showCheJian(banzu, pageStatus);
+		dianPingList = productEBServer.getDianPingList(banzu); 
+		return "peb_showCheJian";
+	}
+	
+	public String noChuQinApplyAudit() {
+		errorMessage = productEBServer.noChuQinApplyAudit(pebUsers);
+		return "error";
+	}
+	
+	public String findNoChuQinPersonList() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(pebUsers!=null) {
+			session.put("findNoChuQinPersonList", pebUsers);
+		}else {
+			pebUsers = (PebUsers) session.get("findNoChuQinPersonList");
+		}
+		Map<String, Object> map = productEBServer.findPebUsersByCon(pebUsers, Integer.parseInt(cpage), pageSize, "noChuQinApply");
+		if(map!=null) {
+			pebUsersList = (List<PebUsers>) map.get("list");
+			
+			Integer count = (Integer) map.get("count");
+			Integer pageCount = (count+pageSize-1)/pageSize;
+			setTotal(pageCount+"");
+			setUrl("productEBAction!findNoChuQinPersonList.action?pageStatus="+pageStatus+"&tag="+tag);
+			
+		}
+		return "peb_noChuQinPersonList";
+	}
+	
+	//获得月份
+	public void getAllMonth() {
+		List<String> allMonthList = productEBServer.getAllMonthList();
+		MKUtil.writeJSON(allMonthList);
+	}
+	
+	//获得月效率增长
+	public void getMonthZengZhang() {
+		List<SubTeam> subTeamList = productEBServer.getSubTeamsByBanzu(banzu);
+		if(subTeamList!=null && subTeamList.size()==1) {
+			banzu = subTeamList.get(0).getSubName();
+		}else if(subTeamList!=null && subTeamList.size()>1) {
+//			errorMessage  = "对不起，没有"+banzu+"的生产效率简报，<br>请查看"+banzu+"的子生产效率简报。";
+//			return "error";
+		}
+		List<String> monthZengZhang = productEBServer.getMonthZengZhang(banzu, pageStatus);
+		MKUtil.writeJSON(monthZengZhang);
+	}
+	
+	//导出产品下线
+	public void exportPebProduction() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(pebProduction!=null) {
+			session.put("findProductionByCon", pebProduction);
+		}else {
+			pebProduction = (PebProduction) session.get("findProductionByCon");
+		}
+		Map<String, Object> map = productEBServer.findProductionByCon(pebProduction, 0, 0, pageStatus);
+		if(map!=null) {
+			productionList = (List<PebProduction>) map.get("list");
+			
+			errorMessage = productEBServer.exportPebProduction(productionList);
+			MKUtil.writeJSON(errorMessage);
+//			Integer count = (Integer) map.get("count");
+//			setUrl("productEBAction!findProductionByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+//			Integer pageCount=(count + pageSize - 1) / pageSize;
+//			setTotal(pageCount+"");
+		}
+	}
+	
+	//导出工序下线
+	public void exportPebBanjin() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(banjin!=null) {
+			session.put("findPebProductionBanjinByCon", banjin);
+		}else {
+			banjin = (PebProductionBanjin) session.get("findPebProductionBanjinByCon");
+		}
+		Map<String, Object> map = productEBServer.findProductionBanjin(banjin, 0, 0, pageStatus);
+		if(map!=null) {
+			banjinList = (List<PebProductionBanjin>) map.get("list");
+			errorMessage = productEBServer.exportPebProductionBanjin(banjinList);
+			MKUtil.writeJSON(errorMessage);
+		}
+	}
+	
+	public void exportBorrowLog() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(log!=null) {
+			session.put("findborrowLogByCon", log);
+		}else {
+			log = (PebBorrowAndLendLog) session.get("findborrowLogByCon");
+		}
+		
+		Map<String, Object> map = productEBServer.findborrowLogByCon(log,0,0,pageStatus);
+		
+		if(map!=null) {
+			logList = (List<PebBorrowAndLendLog>) map.get("list");
+			errorMessage = productEBServer.exportBorrowLog(logList);
+			MKUtil.writeJSON(errorMessage);
+		}
+	}
+	
+	public void exportPebUsers() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(pebUsers!=null) {
+			session.put("findPebUsersByCon", pebUsers);
+		}else {
+			pebUsers = (PebUsers) session.get("findPebUsersByCon");
+		}
+		Map<String, Object> map = productEBServer.findPebUsersByCon(pebUsers, 0,0, pageStatus);
+		if(map!=null) {
+			pebUsersList = (List<PebUsers>) map.get("list");
+			errorMessage = productEBServer.exportPebUsers(pebUsersList);
+			MKUtil.writeJSON(errorMessage);
+		}
+	}
+	
+	public String auditMultLogList() {
+		errorMessage = productEBServer.auditMultLogList(ids,tag);
+		setUrl("productEBAction!findborrowLogByCon.action?pageStatus=audit");
+		return "error";
+	}
+	
+	public String deleteNoChuQinShenQin() {
+		PebUsers pebUser = productEBServer.getPebUsersById(id);
+		if(pebUser!=null) {
+			pebUser.setEpId(null);
+			pebUser.setEpStatus(null);
+			pebUser.setApplyNum(null);
+			String message = productEBServer.addOrUpdatePebUsers(pebUser, pageStatus);
+			if(message!=null && message.equals("保存成功")) {
+				errorMessage = "删除成功！";
+			}else {
+				errorMessage = message;
+			}
+		}
+		return "error";
+	}
+	
+	//申请取消人员借入
+	public void unApplyBorrow() {
+		try {
+			errorMessage = productEBServer.unApplyBorrow(id,remark);//申请取消借用
+		} catch (Exception e) {
+			errorMessage = e.toString();
+		}
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	// TODO: set get
+	
+	public ProductEBServer getProductEBServer() {
+		return productEBServer;
+	}
+
+	public void setProductEBServer(ProductEBServer productEBServer) {
+		this.productEBServer = productEBServer;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public PebProduction getPebProduction() {
+		return pebProduction;
+	}
+
+	public void setPebProduction(PebProduction pebProduction) {
+		this.pebProduction = pebProduction;
+	}
+
+	public File getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(File attachment) {
+		this.attachment = attachment;
+	}
+
+	public String getAttachmentContentType() {
+		return attachmentContentType;
+	}
+
+	public void setAttachmentContentType(String attachmentContentType) {
+		this.attachmentContentType = attachmentContentType;
+	}
+
+	public String getAttachmentFileName() {
+		return attachmentFileName;
+	}
+
+	public void setAttachmentFileName(String attachmentFileName) {
+		this.attachmentFileName = attachmentFileName;
+	}
+
+	public List<PebProduction> getProductionList() {
+		return productionList;
+	}
+
+	public void setProductionList(List<PebProduction> productionList) {
+		this.productionList = productionList;
+	}
+
+	public PebUsers getPebUsers() {
+		return pebUsers;
+	}
+
+	public void setPebUsers(PebUsers pebUsers) {
+		this.pebUsers = pebUsers;
+	}
+
+	public List<PebUsers> getPebUsersList() {
+		return pebUsersList;
+	}
+
+	public void setPebUsersList(List<PebUsers> pebUsersList) {
+		this.pebUsersList = pebUsersList;
+	}
+
+	public List<Object> getShowList() {
+		return showList;
+	}
+
+	public void setShowList(List<Object> showList) {
+		this.showList = showList;
+	}
+
+	public String getBanzu() {
+		return banzu;
+	}
+
+	public void setBanzu(String banzu) {
+		this.banzu = banzu;
+	}
+
+	public SubTeam getSubTeam() {
+		return subTeam;
+	}
+
+	public void setSubTeam(SubTeam subTeam) {
+		this.subTeam = subTeam;
+	}
+
+	public List<SubTeam> getSubTeamList() {
+		return subTeamList;
+	}
+
+	public void setSubTeamList(List<SubTeam> subTeamList) {
+		this.subTeamList = subTeamList;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getGoYear() {
+		return goYear;
+	}
+
+	public void setGoYear(Integer goYear) {
+		this.goYear = goYear;
+	}
+
+	public Integer getGoMonth() {
+		return goMonth;
+	}
+
+	public void setGoMonth(Integer goMonth) {
+		this.goMonth = goMonth;
+	}
+
+	public Integer getGoDay() {
+		return goDay;
+	}
+
+	public void setGoDay(Integer goDay) {
+		this.goDay = goDay;
+	}
+
+	public Integer getToYear() {
+		return toYear;
+	}
+
+	public void setToYear(Integer toYear) {
+		this.toYear = toYear;
+	}
+
+	public Integer getToMonth() {
+		return toMonth;
+	}
+
+	public void setToMonth(Integer toMonth) {
+		this.toMonth = toMonth;
+	}
+
+	public Integer getToDay() {
+		return toDay;
+	}
+
+	public void setToDay(Integer toDay) {
+		this.toDay = toDay;
+	}
+
+	public PebBorrowAndLendLog getLog() {
+		return log;
+	}
+
+	public void setLog(PebBorrowAndLendLog log) {
+		this.log = log;
+	}
+
+	public List<PebBorrowAndLendLog> getLogList() {
+		return logList;
+	}
+
+	public void setLogList(List<PebBorrowAndLendLog> logList) {
+		this.logList = logList;
+	}
+
+	public List<String> getDianPingList() {
+		return dianPingList;
+	}
+
+	public PebProductionBanjin getBanjin() {
+		return banjin;
+	}
+
+	public void setBanjin(PebProductionBanjin banjin) {
+		this.banjin = banjin;
+	}
+
+	public List<PebProductionBanjin> getBanjinList() {
+		return banjinList;
+	}
+
+	public void setBanjinList(List<PebProductionBanjin> banjinList) {
+		this.banjinList = banjinList;
+	}
+
+	public void setDianPingList(List<String> dianPingList) {
+		this.dianPingList = dianPingList;
+	}
+
+	public Float getChuqinPersonCount() {
+		return chuqinPersonCount;
+	}
+
+	public void setChuqinPersonCount(Float chuqinPersonCount) {
+		this.chuqinPersonCount = chuqinPersonCount;
+	}
+
+	public Float getZsNumber() {
+		return zsNumber;
+	}
+
+	public void setZsNumber(Float zsNumber) {
+		this.zsNumber = zsNumber;
+	}
+
+	public Float getAvgNumber() {
+		return avgNumber;
+	}
+
+	public void setAvgNumber(Float avgNumber) {
+		this.avgNumber = avgNumber;
+	}
+
+	public PebBanzuJiegou getPebBanzuJiegou() {
+		return pebBanzuJiegou;
+	}
+
+	public void setPebBanzuJiegou(PebBanzuJiegou pebBanzuJiegou) {
+		this.pebBanzuJiegou = pebBanzuJiegou;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
+
+	public Integer[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Integer[] ids) {
+		this.ids = ids;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
+	
+}

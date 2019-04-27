@@ -1,0 +1,59 @@
+package com.task.entity;
+/**
+ * 订单产品对应内部计划明细表（ta_Product_Internal）
+ * @author txb
+ *
+ */
+public class Product_Internal {
+ private Integer id;
+ private String markId;//件号
+ private Integer productId;//订单产品id
+ private Integer ioDetailId;//订单明细的id
+ private Float allcount;//数量
+ private Float hasruku;//已入库数量
+ private String status;//状态（申请中，同意，打回）
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public Integer getProductId() {
+	return productId;
+}
+public void setProductId(Integer productId) {
+	this.productId = productId;
+}
+ 
+public Integer getIoDetailId() {
+	return ioDetailId;
+}
+public void setIoDetailId(Integer ioDetailId) {
+	this.ioDetailId = ioDetailId;
+}
+public Float getAllcount() {
+	return allcount;
+}
+public void setAllcount(Float allcount) {
+	this.allcount = allcount;
+}
+public String getMarkId() {
+	return markId;
+}
+public void setMarkId(String markId) {
+	this.markId = markId;
+}
+public String getStatus() {
+	return status;
+}
+public void setStatus(String status) {
+	this.status = status;
+}
+public Float getHasruku() {
+	return hasruku;
+}
+public void setHasruku(Float hasruku) {
+	this.hasruku = hasruku;
+}
+ 
+}

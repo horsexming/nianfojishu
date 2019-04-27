@@ -1,0 +1,226 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+import com.task.Dao.TotalDao;
+import com.task.ServerImpl.sys.CircuitRunServerImpl;
+import com.task.util.FieldMeta;
+
+/**
+ * 工资月度账单表(表名:ta_fin_wagepay)
+ * 
+ * @author 刘培
+ * 
+ */
+
+public class WagePay implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	@FieldMeta(name = "月份")
+	private String month;// 月份
+	@FieldMeta(name = "类型")
+	private String type;// 类型(职工薪酬、公积金、社保、个税、总额)
+	@FieldMeta(name = "总金额")
+	private Double allmoney;// 总金额
+	@FieldMeta(name = "职工薪酬")
+	private Double zgscmoney;// 职工薪酬
+	@FieldMeta(name = "公积金")
+	private Double gjjmoney;// 公积金
+	@FieldMeta(name = "社保")
+	private Double sbmoney;// 社保
+	@FieldMeta(name = "个人所得税")
+	private Double gsmoney;// 个人所得税
+
+	@FieldMeta(name = "支付状态")
+	private String payStatus;// 支付状态(申请、付款、完成)
+	private Integer epId;// 审批id
+	private String epStatus;// 审批状态
+	private String payee;// 收款单位
+
+	public WagePay() {
+
+	}
+
+	public WagePay(String month, double zgscmoney, double gjjmoney,
+			double sbmoney, double gsmoney, TotalDao totalDao) {
+		zgscmoney = Double.parseDouble(String.format("%.2f", Math
+				.abs(zgscmoney)));
+		gjjmoney = Double
+				.parseDouble(String.format("%.2f", Math.abs(gjjmoney)));
+		sbmoney = Double.parseDouble(String.format("%.2f", Math.abs(sbmoney)));
+		gsmoney = Double.parseDouble(String.format("%.2f", Math.abs(gsmoney)));
+
+		double allmoney = zgscmoney + gjjmoney + sbmoney + gsmoney;
+		WagePay pageWagePay = new WagePay();
+		pageWagePay.setMonth(month);
+		pageWagePay.setType("薪酬总额");
+		pageWagePay.setAllmoney(allmoney);
+		pageWagePay.setZgscmoney(zgscmoney);
+		pageWagePay.setGjjmoney(gjjmoney);
+		pageWagePay.setSbmoney(sbmoney);
+		pageWagePay.setGsmoney(gsmoney);
+		pageWagePay.setPayStatus("申请");
+		pageWagePay.setEpStatus("待审批");
+		totalDao.save(pageWagePay);
+		Integer epId;
+		try {
+			
+			epId = CircuitRunServerImpl.createProcess("月度薪酬总额审批",
+					WagePay.class, pageWagePay.getId(), "epStatus", "id",
+					"WageAction!findAllWageByMouth.action?wage.id="
+							+ pageWagePay.getId() + "&pageStatus=all", month
+							+ "的薪酬总额(职工薪酬+社保+公积金+个人所得税):" + allmoney
+							+ "元,请您审批!", true);
+			if (epId != null && epId > 0) {
+				pageWagePay.setEpId(epId);
+				totalDao.update(pageWagePay);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public WagePay(String month, String type, Double allmoney, TotalDao totalDao) {
+		allmoney = Double
+				.parseDouble(String.format("%.2f", Math.abs(allmoney)));
+		;
+		WagePay pageWagePay = new WagePay();
+		pageWagePay.setMonth(month);
+		pageWagePay.setType(type);
+		pageWagePay.setAllmoney(allmoney);
+		pageWagePay.setPayStatus("申请");
+		pageWagePay.setEpStatus("待审批");
+		totalDao.save(pageWagePay);
+		String types = "";
+		if ("职工薪酬".equals(type)) {
+			types = "zgxc";
+			pageWagePay.setPayee("职工薪酬");
+		} else if ("公积金".equals(type)) {
+			types = "gjj";
+			pageWagePay.setPayee("上海市住房公积金管理中心");
+		} else if ("社保".equals(type)) {
+			types = "sb";
+			pageWagePay.setPayee("上海市社会保险事业管理中心");
+		} else if ("个税".equals(type)) {
+			types = "gs";
+			pageWagePay.setPayee("税务局");
+		}
+		Integer epId;
+		try {
+			epId = CircuitRunServerImpl.createProcess("月度"
+					+ pageWagePay.getType() + "审批", WagePay.class, pageWagePay
+					.getId(), "epStatus", "id",
+					"WageAction!findAllWageByMouth.action?wage.id="
+							+ pageWagePay.getId() + "&pageStatus=" + types,
+					month + "的" + pageWagePay.getType() + ":" + allmoney
+							+ "元,请您审批!", true);
+			if (epId != null && epId > 0) {
+				pageWagePay.setEpId(epId);
+				totalDao.update(pageWagePay);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setAllmoney(Double allmoney) {
+		this.allmoney = allmoney;
+	}
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getEpStatus() {
+		return epStatus;
+	}
+
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Double getAllmoney() {
+		return allmoney;
+	}
+
+	public String getPayee() {
+		return payee;
+	}
+
+	public void setPayee(String payee) {
+		this.payee = payee;
+	}
+
+	public Double getZgscmoney() {
+		return zgscmoney;
+	}
+
+	public void setZgscmoney(Double zgscmoney) {
+		this.zgscmoney = zgscmoney;
+	}
+
+	public Double getGjjmoney() {
+		return gjjmoney;
+	}
+
+	public void setGjjmoney(Double gjjmoney) {
+		this.gjjmoney = gjjmoney;
+	}
+
+	public Double getSbmoney() {
+		return sbmoney;
+	}
+
+	public void setSbmoney(Double sbmoney) {
+		this.sbmoney = sbmoney;
+	}
+
+	public Double getGsmoney() {
+		return gsmoney;
+	}
+
+	public void setGsmoney(Double gsmoney) {
+		this.gsmoney = gsmoney;
+	}
+}

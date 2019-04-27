@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.OsRecordScope" table="ta_m_OsRecordScope">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="jyCount" length="10" />
+		<property name="content" length="150" />
+		<many-to-one name="scope" column="f_scope_Id" lazy="false" />
+		<many-to-one name="osRecord" column="f_osRecordScope_id" />
+	</class>
+</hibernate-mapping>

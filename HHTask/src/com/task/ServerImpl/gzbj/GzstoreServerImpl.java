@@ -1,0 +1,1084 @@
+package com.task.ServerImpl.gzbj;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.FileCopyUtils;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.gzbj.GzstoreServer;
+import com.task.entity.DeptNumber;
+import com.task.entity.Machine;
+import com.task.entity.Store;
+import com.task.entity.Users;
+import com.task.entity.codetranslation.CodeTranslation;
+import com.task.entity.gzbj.Checkrecord;
+import com.task.entity.gzbj.GzMsn;
+import com.task.entity.gzbj.Gzstore;
+import com.task.entity.gzbj.ProcessGzstore;
+import com.task.entity.project.QuotedProcessInfor;
+import com.task.entity.sop.ProcessFuLiaoTemplate;
+import com.task.entity.sop.ProcessGzstoreFuLiao;
+import com.task.entity.sop.ProcessinforFuLiao;
+import com.task.util.Upload;
+import com.task.util.Util;
+
+public class GzstoreServerImpl implements GzstoreServer {
+	private TotalDao totalDao;
+	private List<Integer> deptIds = null;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+	public List<Gzstore> findgzList(){
+		String hql = "from Gzstore where parClass ='模具'";
+		return totalDao.query(hql, null);
+	}
+	/*
+	 * 
+	 * 显示报检周期数据(non-Javadoc)
+	 * 
+	 * @see com.task.Server.gzbj.GzstoreServer#findAll()
+	 */
+	public Object[] saveGzbjstroe(Gzstore gzstore, Integer pageNo,
+			Integer pageSize, Integer edit_id,String status) throws Exception {
+		if (gzstore == null) {
+			gzstore = new Gzstore();
+		}
+
+		/*
+		 * try { String hql =
+		 * "from Store where id not in (select fk_stoid from Gzstore) and storehouse='工装库' and parClass in ('工装','模具','检具','夹具')"
+		 * ; List list = totalDao.query(hql); if (list != null && list.size() >
+		 * 0) { // 循环插入工装数据 for (int i = 0; i < list.size(); i++) { Gzstore
+		 * gzstore2 = new Gzstore(); Store store = (Store) list.get(i);
+		 * BeanUtils.copyProperties(store, gzstore2, new String[] { "" });
+		 * gzstore2.setFk_stoid(store.getId()); this.totalDao.save(gzstore2); }
+		 * } } catch (Exception e) { e.printStackTrace(); }
+		 */
+		// 更新数据
+//		if (edit_id == null || "".equals(edit_id)) {
+//			String sql1 = "update a set a.fk_stoid=b.id,a.total=b.total,a.unit=b.unit,a.storehouse=b.storehouse,a.mix=b.mix,"
+//					+ "a.parClass=b.parClass,a.place=b.place,a.period=b.period,a.startDate=b.startDate,a.curAmount=b.curAmount,"
+//					+ "a.maxBorrowNum=b.maxBorrowNum,a.more=b.more,a.more1=b.more1,a.price=b.price,a.carePeriod=b.carePeriod,"
+//					+ "a.curworkAmount=b.curworkAmount,a.lastCareDate=b.lastCareDate, a.serverCardId=b.serverCardId,a.carModel=b.carModel,a.duizhang=b.duizhang,"
+//					+ "a.minStore=b.minStore,a.appDept=b.appDept,a.totMoney=b.totMoney,a.classify=b.classify "
+//					+ "from Gzstore a,store b where a.number=b.format"; //sqlServer
+			
+//			String sql1 = "update Gzstore a,store b set a.fk_stoid=b.id,a.total=b.total,a.unit=b.unit,a.storehouse=b.storehouse,a.mix=b.mix,"
+//				+ "a.parClass=b.parClass,a.place=b.place,a.period=b.period,a.startDate=b.startDate,a.curAmount=b.curAmount,"
+//				+ "a.maxBorrowNum=b.maxBorrowNum,a.more=b.more,a.more1=b.more1,a.price=b.price,a.carePeriod=b.carePeriod,"
+//				+ "a.curworkAmount=b.curworkAmount,a.lastCareDate=b.lastCareDate, a.serverCardId=b.serverCardId,a.carModel=b.carModel,a.duizhang=b.duizhang,"
+//				+ "a.minStore=b.minStore,a.appDept=b.appDept,a.totMoney=b.totMoney,a.classify=b.classify "
+//				+ " where a.number=b.format"; // mysql
+//			this.totalDao.createQueryUpdate(null, sql1, null);
+//		}
+
+		// 分页查询
+		String sql = "select gzstore.* from gzstore where 1=1";
+		// 原态sql语句
+		// String sql =
+		// "select g.*,t.processName from Gzstore g join processgzstore t on g.fk_progzid=t.id where 1=1";
+
+		if (!"".equals(gzstore.getMatetag()) && gzstore.getMatetag() != null) {
+			sql += " and gzstore.matetag like '%" + gzstore.getMatetag() + "%'";
+		}
+		if (!"".equals(gzstore.getPlace()) && gzstore.getPlace() != null) {
+			sql += " and gzstore.place like '%" + gzstore.getPlace() + "%'";
+		}
+		if (!"".equals(gzstore.getNumber()) && gzstore.getNumber() != null) {
+			sql += " and gzstore.number like '%" + gzstore.getNumber() + "%'";
+		}
+		if (!"".equals(gzstore.getXingbie()) && gzstore.getXingbie() != null) {
+			sql += " and gzstore.xingbie like '%" + gzstore.getXingbie() + "%'";
+		}
+		if("muju".equals(status)){
+			sql+= " and gzstore.parClass = '模具'";
+		}else if("gz".equals(status)){
+			sql+= " and gzstore.parClass = '工装'";
+		}
+		if(gzstore.getId()!=null){
+			sql += " and id = "+gzstore.getId();
+		}
+		sql += " order by gzstore.id desc";
+		List list1 = totalDao.findBySql(sql, pageNo, pageSize);
+		int count = totalDao.findBySql(sql).size();// 总行数
+		Object[] o = { list1, count };
+		return o;
+	}
+
+	/*
+	 * 
+	 * 根据工装编号查询工装对应的工序信息
+	 */
+	@Override
+	public Object[] saveGzbj_process(Integer id, Gzstore gzstore, int pageNo,
+			int pageSize) {
+		// 查询所有工装对应的工序详细信息
+		// String sql =
+		// "select processgzstore.id, processgzstore.processNo,gzstore.matetag,gzstore.number,processgzstore.processName "
+		// +
+		// "from processgzstore  left join gzstore on gzstore.id=processgzstore.fk_gzstore_id "
+		// + "where gzstore.id=" + id;
+		String hql = "from Gzstore where id in(select u.id from Gzstore u join u.gzstores f where f.id="
+				+ id + ")";
+		// String sql =
+		// "from Gzstore  where fk_progzid="+id+" order by id desc";
+		List list1 = totalDao.findAllByPage(hql, pageNo, pageSize);
+		int count = totalDao.getCount(hql);
+		Object[] o = { list1, count };
+		return o;
+	}
+
+	/*
+	 * 
+	 * 根据编号查询工序信息(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#findProcessById(java.lang.Integer)
+	 */
+	@Override
+	public ProcessGzstore findProcessById(Integer processId) {
+		ProcessGzstore processGzstore = (ProcessGzstore) totalDao
+				.getObjectById(ProcessGzstore.class, processId);
+		return processGzstore;
+	}
+
+	/*
+	 * 
+	 * 根据编号查询工装报表信息(non-Javadoc)
+	 * 
+	 * @see com.task.Server.gzbj.GzstoreServer#gzstoreServer(java.lang.Integer)
+	 */
+	public Gzstore gzstoreServer(Integer id) {
+		// TODO Auto-generated method stub
+		Gzstore gzstore = (Gzstore) this.totalDao.getObjectById(Gzstore.class,
+				id);
+		return gzstore;
+	}
+
+	public List gzstoreServer1(Integer process_id) {
+		// String sql =
+		// "from Gzstore where  (fk_progzid is null or fk_progzid ='')";
+		String sql = "from Gzstore where id not in(select u.id from Gzstore u join u.gzstores f where f.id ="
+				+ process_id + ")";
+		return this.totalDao.query(sql);
+	}
+
+	public List gzstoreServer2(String no, Integer process_id) {
+		String sql = null;
+		if (no != null && no.length() > 0) {
+			sql = "from Machine where no like '%"
+					+ no
+					+ "%' and id not in(select u.id from Machine u join u.machines f where f.id ="
+					+ process_id + ") order by workPosition,no";
+		} else {
+			sql = "from Machine where id not in(select u.id from Machine u join u.machines f where f.id ="
+					+ process_id + ") order by workPosition,no";
+		}
+		return this.totalDao.query(sql);
+	}
+
+	/*
+	 * 
+	 * 修改工装报表信息(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#toUpdate(com.task.entity.gzbj.Gzstore)
+	 */
+	public void updateGzstore(Gzstore gzstore) {
+		// TODO Auto-generated method stub
+		Gzstore gzstore2 = (Gzstore) this.totalDao.getObjectById(Gzstore.class,
+				gzstore.getId());
+		gzstore2.setNumber(gzstore.getNumber());
+		gzstore2.setMatetag(gzstore.getMatetag());
+		gzstore2.setStorehouse(gzstore.getStorehouse());
+		gzstore2.setParClass(gzstore.getParClass());
+		gzstore2.setPlace(gzstore.getPlace());
+		gzstore2.setPeriod(gzstore.getPeriod());
+		gzstore2.setPrice(gzstore.getPrice());
+		gzstore2.setXingbie(gzstore.getXingbie());
+		gzstore2.setBjcs(gzstore.getBjcs());
+		gzstore2.setFileName(gzstore.getFileName());
+		gzstore2.setTotal(gzstore.getTotal());
+		gzstore2.setUnit(gzstore.getUnit());
+		gzstore2.setFzr(gzstore.getFzr());
+		this.totalDao.update(gzstore2);
+	}
+
+	/*
+	 * 
+	 * 删除报检周期(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#delGzbj(com.task.entity.gzbj.Gzstore)
+	 */
+	public void delGzbj(Integer id) {
+		// TODO Auto-generated method stub
+		Gzstore gzstore = new Gzstore();
+		gzstore.setId(id);
+		this.totalDao.delete(gzstore);
+	}
+
+	/*
+	 * 
+	 * 添加工装报检(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#saveGzbj(com.task.entity.gzbj.Gzstore)
+	 */
+	public String saveGzbj(Gzstore gzstore) {
+		if(gzstore!=null){
+			if(gzstore.getNumber()!=null){
+				Gzstore gz =	(Gzstore) totalDao.getObjectByCondition(" from Gzstore where  number =? ", gzstore.getNumber());
+				if(gz==null){
+					gz.setSybjcs(gz.getBjcs());
+					return	this.totalDao.save(gzstore)+"";
+				}else{
+					return "编号:"+gzstore.getNumber()+"已存在，不允许重复!~";
+				}
+			}else{
+				return "编号不能为空!~";
+			}
+		}else{
+			return "请刷新后重试!~";
+		}	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Store> findStore(Integer stoid) {
+		// TODO Auto-generated method stub
+		String hql = "from Store where parClass='工装' and id!=" + stoid;
+		List<Store> stores = totalDao.query(hql);
+		return stores;
+	}
+
+	/*
+	 * 
+	 * 根据工序标号查询关联的工装号(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#findProcessByprocess_id(java.lang.
+	 * Integer)
+	 */
+	@Override
+	public ProcessGzstore findProcessByprocess_id(Integer processId) {
+		String hql = "from ProcessGzstore where id=" + processId;
+		ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao.get(hql,
+				null);
+		return processGzstore;
+	}
+
+	@Override
+	public void updateProcess(ProcessGzstore processGzstore) {
+		String hql = "from ProcessGzstore where id=" + processGzstore.getId();
+		ProcessGzstore processGzstoreTemp = (ProcessGzstore) this.totalDao.get(
+				hql, null);
+		// TODO Auto-generated method stub
+		if (processGzstore.getProcessName() != null
+				&& !"".equals(processGzstore.getProcessName())) {
+			processGzstoreTemp.setProcessName(processGzstore.getProcessName());
+		}
+		if (processGzstore.getProcessNO() != null
+				&& !"".equals(processGzstore.getProcessNO())) {
+			processGzstoreTemp.setProcessNO(processGzstore.getProcessNO());
+		}
+		// processGzstore.setProcessName(processGzstoreTemp.getProcessName());
+
+		this.totalDao.update(processGzstoreTemp);
+	}
+
+	/*
+	 * 
+	 * 添加工序(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#saveGzbj_process1(com.task.entity.
+	 * gzbj.ProcessGzstore)
+	 */
+	@Override
+	public void saveGzbj_process1(ProcessGzstore processGzstore) {
+		this.totalDao.save(processGzstore);
+	}
+
+	/*
+	 * 
+	 * 更新工装关联的工序ID(non-Javadoc)
+	 * 
+	 * @see com.task.Server.gzbj.GzstoreServer#delProcessById(java.lang.Integer)
+	 */
+	@Override
+	public void delProcessById(Integer process_id1, Integer id) {
+		// TODO Auto-generated method stub
+		Gzstore gzstore = (Gzstore) this.totalDao.getObjectById(Gzstore.class,
+				process_id1);
+		ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao
+				.getObjectById(ProcessGzstore.class, id);
+		Set<ProcessGzstore> proSet = gzstore.getGzstores();
+		proSet.remove(processGzstore);
+		this.totalDao.update(gzstore);
+		// Gzstore gzstore = (Gzstore)
+		// this.totalDao.getObjectById(Gzstore.class,process_id1);
+		// gzstore.setFk_progzid(null);
+		// this.totalDao.update(gzstore);
+	}
+
+	/*
+	 * 
+	 * 更新工装关联的工序ID(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#saveGzbj_process2(java.lang.Integer,
+	 * java.lang.Integer)
+	 */
+	@Override
+	public void saveGzbj_process2(Integer id, Integer processId) {
+		Gzstore gzstore = (Gzstore) this.totalDao.getObjectById(Gzstore.class,
+				id);
+		// gzstore.setFk_progzid(processId);
+		ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao
+				.getObjectById(ProcessGzstore.class, processId);
+		Set set = gzstore.getGzstores();
+		set.add(processGzstore);
+		gzstore.setGzstores(set);
+		this.totalDao.update(gzstore);
+	}
+
+	/*
+	 * 
+	 * 对应设备(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#save_Machineprocess(java.lang.Integer,
+	 * com.task.entity.Machine, int, int)
+	 */
+	@Override
+	public Object[] save_Machineprocess(Integer id, Machine machine,
+			int pageNo, int pageSize) {
+		// String sql = " from Machine where fk_progzid=" + id;
+		// List list1 = totalDao.findAllByPage(sql, pageNo, pageSize);
+		// int count = totalDao.getCount(sql);
+		// Object[] o = { list1, count };
+		// return o;
+
+		String hql = "from Machine where id in(select u.id from Machine u join u.machines f where f.id="
+				+ id + ") order by workPosition";
+		List list1 = totalDao.findAllByPage(hql, pageNo, pageSize);
+		int count = totalDao.getCount(hql);
+		Object[] o = { list1, count };
+		return o;
+	}
+
+	// 获得设备集合
+	public List getMachineListByGongxuId(Integer id) {
+
+		String hql = "select new map(m.id as id,m.no as no,m.name as name) from Machine m where id in(select u.id from Machine u join u.machines f where f.id="
+				+ id + ")";
+		List list = totalDao.find(hql);
+		return list;
+	}
+
+	/***
+	 * 通过工序名称查询对应设备信息
+	 * 
+	 * @param processName
+	 * @return
+	 */
+	@Override
+	public List getMachinesByProcessName(String processName) {
+		if (processName != null && processName.length() > 0) {
+			String hql = "select new map(m.id as id,m.no as no,m.name as name) from Machine m where id in(select u.id from Machine u join u.machines f where f.processName like '"
+					+ processName + "')";
+			return totalDao.find(hql);
+		}
+		return null;
+	}
+
+	public List getMachineBygongxu(String processName) {
+		if (processName != null && processName.length() > 0) {
+			String hql = "select new map(m.id as id,m.no as no,m.name as name,m.workPosition as workPosition) from Machine m where id in(select u.id from Machine u join u.machines f where f.processName like '"
+					+ processName + "') order by workPosition,no";
+			return totalDao.find(hql);
+		}
+		return null;
+	}
+
+	// 获得工装集合
+	public List getGzstoreListByXingbie(String xingbie) {
+		if (xingbie == null) {
+			return new ArrayList();
+		}
+		String hql = "select new map(g.id as id,g.number as no,g.matetag as name) from Gzstore g where g.xingbie like '%"
+				+ xingbie + "%' order by g.number asc ";
+		List list = this.totalDao.query(hql);
+		return list;
+	}
+
+	/*
+	 * 
+	 * 更新设备信息(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#savemachine_process2(java.lang.Integer
+	 * , java.lang.Integer)
+	 */
+	@Override
+	public void savemachine_process2(int[] checkboxs, Integer processId) {
+		// TODO Auto-generated method stub
+		if (processId != null) {
+			ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao
+					.getObjectById(ProcessGzstore.class, processId);
+			if (checkboxs.length > 0) {
+				for (int id : checkboxs) {
+					Machine machine = (Machine) this.totalDao.getObjectById(
+							Machine.class, id);
+					Set set = machine.getMachines();
+					set.add(processGzstore);
+					machine.setMachines(set);
+					this.totalDao.update(machine);
+				}
+			}
+		}
+		// machine.setFk_progzid(processId);
+	}
+
+	@Override
+	public void delProcessById1(Integer processId1, Integer id) {
+		// TODO Auto-generated method stub
+		Machine machine = (Machine) this.totalDao.getObjectById(Machine.class,
+				processId1);
+		ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao
+				.getObjectById(ProcessGzstore.class, id);
+		Set<ProcessGzstore> proSet = machine.getMachines();
+		proSet.remove(processGzstore);
+		this.totalDao.update(machine);
+		// Machine machine = (Machine)
+		// this.totalDao.getObjectById(Machine.class,
+		// processId1);
+		// machine.setFk_progzid(null);
+		// this.totalDao.update(machine);
+	}
+
+	/*
+	 * 
+	 * 添加工序
+	 */
+	@Override
+	public void saveGzbj_process4(ProcessGzstore processGzstore, Integer id1) {
+		// TODO Auto-generated method stub
+		if (processGzstore.getIsNeedFuliao() != null
+				&& processGzstore.getIsNeedFuliao().equals("yes")) {
+			processGzstore
+					.setProcessGzstoreFuLiaos(new HashSet<ProcessGzstoreFuLiao>(
+							processGzstore.getFuliaoList()));
+		}
+		this.totalDao.save(processGzstore);
+
+	}
+
+	/*
+	 * 
+	 * 删除工序(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#delProcessById2(java.lang.Integer)
+	 */
+	@Override
+	public void delProcessById2(Integer delId) {
+		// TODO Auto-generated method stub
+		ProcessGzstore processGzstore = (ProcessGzstore) this.totalDao
+				.getObjectById(ProcessGzstore.class, delId);
+		
+		Set<Gzstore>processgzstores=processGzstore.getProcessgzstores();
+		Set<Machine>machines = processGzstore.getProcessgzstores1();
+		if(processgzstores!=null&&processgzstores.size()>0){
+			for(Gzstore gz:processgzstores){
+				gz.setProcessGzstores(null);
+				totalDao.update(gz);
+			}
+		}
+		if(machines!=null&&machines.size()>0){
+			for(Machine machine:machines){
+				machine.setMachines(null);
+				totalDao.update(machine);
+			}
+		}
+		processGzstore.setProcessgzstores(null);
+		processGzstore.setProcessgzstores1(null);
+		
+		
+//		if (processGzstore != null) {
+//			String sql = "delete ta_many where process_id=?";
+//			String sql2 = "delete ta_many1 where process_id=?";
+//			totalDao.createQueryUpdate(null, sql, delId);
+//			totalDao.createQueryUpdate(null, sql2, delId);
+//		}
+		this.totalDao.delete(processGzstore);
+
+	}
+
+	/*
+	 * 
+	 * 修改工序(non-Javadoc)
+	 * 
+	 * @see
+	 * com.task.Server.gzbj.GzstoreServer#updateProcess1(com.task.entity.gzbj
+	 * .ProcessGzstore)
+	 */
+	@Override
+	public void updateProcess1(ProcessGzstore processGzstore) {
+		// TODO Auto-generated method stub
+		ProcessGzstore old = (ProcessGzstore) totalDao.getObjectById(
+				ProcessGzstore.class, processGzstore.getId());
+		if (old == null) {
+			return;
+		}
+		if (processGzstore.getIsNeedFuliao() != null
+				&& processGzstore.getIsNeedFuliao().equals("yes")) {// 需要辅料
+			// 原有的辅料
+			Set<ProcessGzstoreFuLiao> oldset = old.getProcessGzstoreFuLiaos();
+			old.setProcessGzstoreFuLiaos(null);
+			if (oldset == null || oldset.size() == 0) {// 原来没有辅料
+				old.setProcessGzstoreFuLiaos(new HashSet<ProcessGzstoreFuLiao>(
+						processGzstore.getFuliaoList()));
+			} else {// 原来有辅料
+				// 存储新需要的辅料中的id
+				List<Integer> newidList = new ArrayList<Integer>();
+				Set<ProcessGzstoreFuLiao> newSet = new HashSet<ProcessGzstoreFuLiao>();
+				if (processGzstore.getFuliaoList() != null
+						&& processGzstore.getFuliaoList().size() > 0) {
+					for (ProcessGzstoreFuLiao fuliao : processGzstore
+							.getFuliaoList()) {// 将页面传过来的辅料的id存放起来
+						if (fuliao != null && fuliao.getId() != null) {
+							newidList.add(fuliao.getId());
+						}
+					}
+					for (ProcessGzstoreFuLiao newFuliao : processGzstore
+							.getFuliaoList()) {
+						if (newFuliao != null && newFuliao.getId() != null) {// 已存在的修改
+							for (ProcessGzstoreFuLiao oldFuliao : oldset) {
+								if (oldFuliao.getId().equals(newFuliao.getId())) {
+									BeanUtils.copyProperties(newFuliao,
+											oldFuliao,
+											new String[] { "processGzstore" });
+									newSet.add(oldFuliao);
+								}
+							}
+						} else if (newFuliao != null
+								&& newFuliao.getId() == null) {// 新添加的
+							newSet.add(newFuliao);
+						}
+					}
+					BeanUtils.copyProperties(processGzstore, old, new String[] {
+							"id", "processgzstores1", "users",
+							"processGzstoreFuLiaos" });
+					old.setProcessGzstoreFuLiaos(newSet);
+					totalDao.update(old);
+					for (ProcessGzstoreFuLiao oldFuliao : oldset) {
+						if (!newidList.contains(oldFuliao.getId())) {// 删除原来有现在没有的辅料信息
+							oldFuliao.setProcessGzstore(null);
+							totalDao.delete(oldFuliao);
+						}
+					}
+				}
+			}
+		} else {// 不需要辅料
+			Set<ProcessGzstoreFuLiao> set = old.getProcessGzstoreFuLiaos();
+			old.setProcessGzstoreFuLiaos(null);
+			if (set != null) {
+				for (ProcessGzstoreFuLiao processFuLiaoTemplate : set) {
+					processFuLiaoTemplate.setProcessGzstore(null);
+					totalDao.delete(processFuLiaoTemplate);
+				}
+			}
+			BeanUtils.copyProperties(processGzstore, old, new String[] { "id",
+					"processgzstores1", "users", "processGzstoreFuLiaos","isSpecial" });
+			old.setProcessGzstoreFuLiaos(null);
+			totalDao.update(old);
+		}
+		this.totalDao.update(old);
+
+	}
+
+	/*
+	 * 
+	 * 查询工装信息(non-Javadoc)
+	 * 
+	 * @see com.task.Server.gzbj.GzstoreServer#findGzbjById(java.lang.Integer)
+	 */
+	@Override
+	public Gzstore findGzbjById(Integer processId) {
+		Gzstore gzstore = (Gzstore) totalDao.getObjectById(Gzstore.class,
+				processId);
+		return gzstore;
+	}
+
+	@Override
+	public void updateGzbj(Gzstore gzstore) {
+		// TODO Auto-generated method stub
+		Gzstore gzstore1 = (Gzstore) this.totalDao.getObjectById(Gzstore.class,
+				gzstore.getId());
+		gzstore1.setXingbie(gzstore.getXingbie());
+		this.totalDao.update(gzstore1);
+	}
+
+	@Override
+	public boolean isNameExist(String processName) {
+		// TODO Auto-generated method stub
+		List list = totalDao.query("from ProcessGzstore where processName = '"
+				+ processName + "'");
+		if (list.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public List<DeptNumber> getDept(String deptNameLike) {
+		String deptNameAppend = "";
+		if(deptNameLike!=null && !"".equals(deptNameLike)){
+			deptNameAppend=" and dept like '%"+deptNameLike+"%'";
+		}
+		@SuppressWarnings("unchecked")
+		List<DeptNumber> list = totalDao.query("from DeptNumber where 1=1 "+deptNameAppend);
+		return list;
+	}
+
+	@Override
+	public List getUsersByDeptId(Integer id,String ids,String userLike) {
+		String likeAppend = "";
+		if(userLike!=null && userLike!=""){
+			likeAppend = " and name like '%"+userLike+"%'";
+		}
+		if (id != null && id != 0) {
+			deptIds = new ArrayList<Integer>();
+			getUnderDeptIdById(id);
+			deptIds.add(id);
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < deptIds.size(); i++) {
+				if (i == (deptIds.size() - 1)) {
+					sb.append(deptIds.get(i) + ")");
+				} else {
+					sb.append(deptIds.get(i) + ",");
+				}
+			}
+			List<String> deptnames = totalDao
+					.query("select dept from DeptNumber where id in("
+							+ sb.toString());
+			StringBuffer sb2 = new StringBuffer();
+			for (int i = 0; i < deptnames.size(); i++) {
+				if (i == (deptnames.size() - 1)) {
+					sb2.append("'" + deptnames.get(i) + "')");
+				} else {
+					sb2.append("'" + deptnames.get(i) + "',");
+				}
+			}
+			List list = totalDao
+					.query("from Users where onWork not in ('离职','离职中','内退','退休','病休') and dept in ("
+							+ sb2.toString() + likeAppend+" order by code ");
+			List<Integer> selectedList = new ArrayList<Integer>();
+			if(ids!=null&&ids.length()>0){
+				String[] uIdStrs = ids.split(";");
+				if(uIdStrs!=null&&uIdStrs.length>0){
+					for(String uIdStr:uIdStrs){
+						Integer uId= Integer.parseInt(uIdStr);
+						if(!selectedList.contains(uId)){
+							selectedList.add(uId);
+						}
+					}
+					for(int i=0;i<list.size();i++){
+						Users user = (Users) list.get(i);
+						if("李成林".equals(user.getName())){
+							System.out.println(user.getName()+" ''''''''''''''''");
+						}
+						if(selectedList.contains(user.getId())){
+							user.setSelected(true);
+						}else{
+							user.setSelected(false);
+						}
+					}
+				}
+			}else{
+				for(int i=0;i<list.size();i++){
+					Users user = (Users) list.get(i);
+						user.setSelected(false);
+				}
+			}
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Map<Integer, Object> getUserProcessMap(Integer id, int cpage,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		Object o = totalDao.getObjectById(Users.class, id);
+		if (o != null) {
+			Users users = (Users) o;
+			Set<ProcessGzstore> pgSet = users.getProcessGzstore();
+			List<ProcessGzstore> hadList = new ArrayList<ProcessGzstore>();// 存放已绑定的技能系数
+			List<ProcessGzstore> unHadList = new ArrayList<ProcessGzstore>();// 存放未绑定的技能系数
+			List<ProcessGzstore> pgAll = new ArrayList<ProcessGzstore>();// 存放所有技能系数
+			for (ProcessGzstore pg : pgSet) {
+				hadList.add(pg);
+			}
+			List<Object> all = totalDao.query("from ProcessGzstore");// 获取所有的技能系数
+			if (all.size() > 0) {
+				for (Object o2 : all) {
+					pgAll.add((ProcessGzstore) o2);
+				}
+			}
+			pgAll.removeAll(hadList);// 所有的技能系数减去已绑定的技能系数就是未绑定的技能系数
+
+			// 对未绑定的技能系数进行分页
+			int start = (cpage - 1) * pageSize;
+			int end = cpage * pageSize - 1;
+			int totalpage = (pgAll.size() + pageSize - 1) / pageSize;
+			for (int i = start; i < pgAll.size() & i <= end; i++) {
+				unHadList.add(pgAll.get(i));
+			}
+			Map<Integer, Object> map = new HashMap<Integer, Object>();
+			map.put(1, hadList);
+			map.put(2, unHadList);
+			map.put(3, users);
+			map.put(4, totalpage);
+			return map;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean linkUserProcess(Integer id, int[] checkboxs) {
+		// TODO Auto-generated method stub
+		Users users = (Users) totalDao.getObjectById(Users.class, id);
+		if (users != null) {
+			boolean b = true;
+			List<Integer> ids = new ArrayList<Integer>();
+			if (checkboxs != null) {
+				for (Integer pgId : checkboxs) {
+					ids.add(pgId);
+					Object o1 = totalDao.getObjectById(ProcessGzstore.class,
+							pgId);
+					if (o1 != null) {
+						ProcessGzstore pro = (ProcessGzstore) o1;
+						Set<Users> userSet = pro.getUsers();
+						userSet.add(users);
+						pro.setUsers(userSet);
+						b = b & totalDao.update(pro);
+					}
+				}
+
+			}
+			Set<ProcessGzstore> pSet = users.getProcessGzstore();
+			if (pSet.size() > 0) {
+				for (ProcessGzstore p : pSet) {
+					if (!ids.contains(p.getId())) {
+						Object o2 = totalDao.getObjectById(
+								ProcessGzstore.class, p.getId());
+						if (o2 != null) {
+							ProcessGzstore pro = (ProcessGzstore) o2;
+							Set<Users> userSet = pro.getUsers();
+							userSet.remove(users);
+							pro.setUsers(userSet);
+							b = b & totalDao.update(pro);
+						}
+					}
+				}
+			}
+			return b;
+		}
+		return false;
+	}
+
+	/**
+	 * 通过部门id递归获取该部门下所有的下级部门id
+	 * 
+	 * @param deptId
+	 */
+	public void getUnderDeptIdById(Integer deptId) {
+		List list = totalDao.query("select id from DeptNumber where fatherId="
+				+ deptId);
+		if (list.size() != 0) {
+			List<Integer> ids = list;
+			deptIds.addAll(ids);
+			for (Integer id : ids) {
+				deptId = id;
+				getUnderDeptIdById(deptId);
+			}
+		}
+
+	}
+
+	@Override
+	public List getGzstoreAllName(String xingbie, String number) {
+		// TODO Auto-generated method stub
+		if (xingbie == null) {
+			return new ArrayList();
+		}
+		String hql = "select new map(g.id as id,g.number as no,g.matetag as name) from Gzstore g where g.xingbie like '%"
+				+ xingbie
+				+ "%' and (number like '%"
+				+ number
+				+ "%' or matetag like '%"
+				+ number
+				+ "%') order by g.number asc ";
+		List list = this.totalDao.query(hql);
+		return list;
+	}
+
+	@Override
+	public boolean updateqpinfroGz(Integer processId, Integer id) {
+		// TODO Auto-generated method stub
+		QuotedProcessInfor qpInfo = (QuotedProcessInfor) totalDao
+				.getObjectById(QuotedProcessInfor.class, processId);
+		Gzstore gz = (Gzstore) totalDao.getObjectById(Gzstore.class, id);
+		if (qpInfo != null) {
+			qpInfo.setGongzhuangId(gz.getId());
+			qpInfo.setOldgongzhuang(gz.getMatetag());
+			qpInfo.setOldgongzhuangNumber(gz.getNumber());
+			return totalDao.update(qpInfo);
+		}
+
+		return false;
+	}
+	public String importFile(File importFile) {
+		String msg = "true";
+		boolean flag = true;
+		String fileName = Util.getDateTime("yyyyMMddhhmmss") + ".xls";
+		// 上传到服务器
+		String fileRealPath = ServletActionContext.getServletContext()
+ 				.getRealPath("/upload/file")
+				+ "/" + fileName;
+		File file = new File(fileRealPath);
+		jxl.Workbook wk = null;
+		int i = 0;
+		try {
+			FileCopyUtils.copy(importFile, file);
+			// 开始读取excle表格
+			InputStream is = new FileInputStream(fileRealPath);// 创建文件流;
+			if (is != null) {
+				wk = Workbook.getWorkbook(is);// 创建workbook
+			}
+
+			Sheet st = wk.getSheet(0);// 获得第一张sheet表;
+			int exclecolums = st.getRows();// 获得excle总行数
+			if (exclecolums > 2) {
+				List<Integer> strList = new ArrayList<Integer>();
+				for (i = 2; i < exclecolums; i++) {
+					Cell[] cells = st.getRow(i);// 获得每i行的所有单元格（返回的是数组）
+					if (cells[2].getContents() != null
+							&& cells[2].getContents() != "") {
+						String a = cells[1].getContents();//库存编码
+						String b = cells[2].getContents();//工装编号
+						String c = cells[3].getContents();//名称
+						String d = cells[4].getContents();//仓库	
+						String e = cells[5].getContents();//分类
+						String f = cells[6].getContents();//位置
+						String g = cells[7].getContents();//报检周期(次)
+						String h = cells[8].getContents();//价格
+						String j = cells[9].getContents();//型别
+						String k = cells[10].getContents();//数量
+						String l = cells[11].getContents();//单位
+						String m = cells[12].getContents();//负责人
+						Gzstore gzstore = new Gzstore();
+						Integer fk_stoid = 0;
+						if(a!=null && a.length()>0){
+							fk_stoid =Integer.valueOf(a);
+						}
+						gzstore.setFk_stoid(fk_stoid);
+						gzstore.setNumber(b);
+						gzstore.setMatetag(c);
+						gzstore.setStorehouse(d);
+						gzstore.setParClass(e);
+						gzstore.setPlace(f);
+						gzstore.setBjcs((g!=null &&g.length()>0)?Integer.parseInt(g):0);
+						gzstore.setSybjcs(gzstore.getBjcs());
+						gzstore.setPrice((h!=null &&h.length()>0)?Float.parseFloat(h):0f);
+						gzstore.setXingbie(j);
+						Float sl = null;
+						try {
+							sl = Float.parseFloat(k);
+
+						} catch (Exception ex) {
+						}
+						gzstore.setTotal(sl);
+						gzstore.setUnit(l);
+						gzstore.setFzr(m);
+						totalDao.save(gzstore);
+					}else{
+						strList.add(i+1);
+					}
+					
+					}
+				is.close();// 关闭流
+				wk.close();// 关闭工作薄
+				if(strList!=null && strList.size()>0){
+					Integer drcount = exclecolums - 2 - strList.size();
+				msg = "已成功导入" + drcount + "个，失败" + strList.size() + "个，失败的行数为：";
+				for (int j = 0; j < strList.size(); j++) {
+					if (j == 0) {
+						msg += strList.get(j);
+					} else {
+						msg += "," + strList.get(j);
+					}
+				}
+				msg += "。";
+				}
+			}else{
+				msg="没有获取到行数";
+			}
+					
+		} catch (Exception e) { 
+			e.printStackTrace();
+			
+		}
+		return msg;
+	}
+
+	@Override
+	public List<Gzstore> findAllDjyGz(Gzstore gz, String status) {
+		if(gz==null){
+			gz = new Gzstore();
+		}
+		String hql = 	totalDao.criteriaQueries(gz, null);
+		if(gz.getId()!=null){
+			hql += " and id = "+gz.getId();
+		}
+		hql+= " and status = '待检验'";
+		List<Gzstore> gzList =	totalDao.query(hql);
+		return gzList;
+	}
+
+	@Override
+	public String gzjiaoyan(Gzstore gz,String status) {
+		Users user =	Util.getLoginUser();
+		if(user == null){
+			return "请先登录！~";
+		}
+		if(gz!=null){
+			Gzstore oldgz =	(Gzstore) totalDao.get(Gzstore.class, gz.getId());
+			oldgz.setSybjcs(oldgz.getBjcs());
+			if("OK".equals(status)){
+				gz.setStatus("正常");
+			}else if("break".equals(status)){
+				gz.setStatus("报废");
+			}
+			oldgz.setLastCareDate(new Date());
+			Set<Checkrecord> checkrecordSet = new HashSet<Checkrecord>();
+			Checkrecord cd = new Checkrecord();
+			cd.setEmpno(user.getCode());
+			cd.setEmpname(user.getName());
+			cd.setCalibrationstate(gz.getStatus());
+			cd.setCalibrationTime(Util.getDateTime());
+			cd.setFileName(gz.getFileName());
+			checkrecordSet.add(cd);
+			oldgz.setCheckrecordSet(checkrecordSet);
+			return	totalDao.update(oldgz)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findAllcdList(Integer id) {
+		if(id!=null){
+			List<Checkrecord> cdList =	totalDao.query(" from Checkrecord where gzstore.id =?", id);
+			int count =	totalDao.getCount("from Checkrecord where gzstore.id =?",id);
+			return new Object[]{cdList,count};
+		}
+		return null;
+	}
+	/**
+	 * 添加MSN
+	 */
+	public String addGzMsn(GzMsn gzMsn){
+		if(gzMsn!=null){
+			if(gzMsn.getGRR()!=null&&!"".equals(gzMsn.getGRR())){
+				int grr = Integer.parseInt(gzMsn.getGRR());
+				if(grr<10){
+					gzMsn.setResult("OK");
+				}else if(10<=grr||grr>=30){
+					gzMsn.setResult("可接受");
+				}else if(grr>30){
+					gzMsn.setResult("需改进");
+				}
+			}else{
+				return "GR&R不能为空！重新输入";
+			}
+			gzMsn.setAddDate(Util.getDateTime("YYYY-MM-dd"));
+			//上传文件
+			Upload u = new Upload();
+			String uploadPath = "/upload/file/Msn";
+			File file1 = new File(ServletActionContext.getServletContext()
+					.getRealPath(uploadPath));
+			if (!file1 .exists()) {
+				file1 .mkdir();     
+			}
+			if(gzMsn.getPicF()!=null&&!"".equals(gzMsn.getPicFFileName())){
+				String end_str = u.UploadFile(gzMsn.getPicF(), gzMsn.getPicFFileName(),null,uploadPath,null);  
+				if(!"上传文件失败!".equals(end_str)&&!"".equals(end_str)){
+					gzMsn.setPic(end_str);
+				}else{
+					return "上传文件失败!";
+				}
+			}
+			if(totalDao.save(gzMsn)){
+				return "添加成功";
+			}else{
+				return "添加失败";
+			}
+			
+		}else{
+			return "请填写对应信息";
+		}
+		
+	}
+	public Map<Integer, Object> findGzMsn(GzMsn gzMsn, int pageNo, int pageSize){
+		if (gzMsn == null) {
+			gzMsn= new GzMsn();
+		}
+		String hql = null;
+		String sql = null;
+	
+		hql = totalDao.criteriaQueries(gzMsn,sql,null);
+		int count = totalDao.getCount(hql);
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		List objs = totalDao.findAllByPage(hql, pageNo, pageSize);
+		map.put(1, objs);
+		map.put(2, count);
+		return map;
+	}
+	
+	public String delGzMsn(GzMsn gzMsn){
+		if(gzMsn!=null){
+			GzMsn gzMsn_old = (GzMsn)totalDao.get(GzMsn.class, gzMsn.getId());
+			if(gzMsn_old!=null){
+				if(totalDao.delete(gzMsn_old)){
+					return "删除成功";
+				}
+			}
+		}
+		return "删除失败";
+	}
+}

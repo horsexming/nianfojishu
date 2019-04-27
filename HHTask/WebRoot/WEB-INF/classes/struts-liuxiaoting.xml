@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-liuxiaoting" extends="struts-stack">
+		<!--
+			****************************************刘晓霆Action操作**********************************************************************
+		-->
+		<!-- 请假 Action管理 -->
+		<action name="AskForLeaveAction" class="AskForLeaveAction">
+			<result name="insertLeave">/System/renshi/qingjia/insertLeave.jsp</result>
+			<result name="mobile_insertLeve">/System/renshi/qingjiamobile/mobile_insertLeve.jsp</result>
+			<result name="saveOk" type="redirect">AskForLeaveAction!selectAllByLeavePage.action?pageStatus=self
+			</result>
+			<result name="selectAllOk">/System/renshi/qingjia/private.jsp</result>
+			<result name="selectOne">/System/renshi/qingjia/updateLeave.jsp</result>
+			<result name="deleteOK" type="redirect">AskForLeaveAction!selectAllByLeavePage.action?pageStatus=self
+			</result>
+			<result name="successPage">/System/renshi/qingjia/private.jsp</result>
+			<result name="qxAskForLeave_add">/System/renshi/qingjia/qxAskForLeave_add.jsp</result>
+			<result name="auditAllOk">/System/renshi/qingjia/approvalManager.jsp
+			</result>
+			<!-- 审批  -->
+			<result name="approvalOk" type="redirect">AskForLeaveAction!selectAllByLeavePage.action?pageStatus=audit
+			</result>
+			<result name="findAllOk">/System/renshi/qingjia/selectLeave.jsp</result>
+			<!-- 门卫扫描 -->
+			<result name="AskForLeaveAction_findExitList">/System/renshi/qingjia/askforLeave_exit.jsp
+			</result>
+			<result name="printAskLeave">/System/renshi/qingjia/askforLeave_print.jsp
+			</result>
+			<result name="backCar_show">/System/renshi/qingjia/backCar_show.jsp
+			</result>
+			<result name="backCar">/System/renshi/qingjia/backCar.jsp
+			</result>
+			<result name="carDetail">/System/renshi/qingjia/carDetail.jsp
+			</result>
+			<result name="qxAskForLeaveshow" type="redirect">AskForLeaveAction!qxAskForLeaveshow.action?id=${qxAskForLeave.leaveId}</result>
+			<result name="qxAskForLeave_show">/System/renshi/qingjia/qxAskForLeave_show.jsp</result>
+			<result name="qxAskForLeave_byId">/System/renshi/qingjia/qxAskForLeave_byId.jsp</result>
+			
+			<result name="error">/error.jsp</result>
+
+		</action>
+		<!-- 考勤Action管理 汇总每个人都每天出勤情况 -->
+		<action name="AttendanceAction" class="AttendanceAction">
+			<result name="AttendanceAction_saveAttendances" type="redirect">AttendanceAction!findAttenList.action
+			</result>
+			<result name="AttendanceAction_saveAttendances1" type="redirect">AttendanceAction!findAttenList1.action
+			</result>
+			<result name="rechargeZhi_show_1">/System/renshi/kaoqing/rechargeZhi_show_1.jsp</result>
+			<result name="attendance_dept">/System/renshi/kaoqing/attendance_dept.jsp
+			</result>
+			<result name="attendance">/System/renshi/kaoqing/attendance.jsp</result>
+			<result name="attendance_update">/System/renshi/kaoqing/attendance_update.jsp</result>
+			<result name="attendance_shenqing">/System/renshi/kaoqing/attendance_shenqing.jsp</result>
+			<result name="AttendanceAction_updateAttenceById" type="redirect">AttendanceAction!findAttenList.action
+			</result>
+
+		</action>
+		<!-- 考勤统计Action管理 汇总每天出勤率 -->
+		<action name="AttendanceCountAction" class="AttendanceCountAction">
+			<!-- 处理考勤数据 -->
+			<result name="AttendanceCountAction_saveAtCount" type="redirect">AttendanceCountAction!findAllAttC.action
+			</result>
+			<!-- 查询出勤率数据 -->
+			<result name="AttendanceCountAction_selectAllAttC">/System/renshi/kaoqing/attendanceCount.jsp
+			</result>
+		</action>
+		<!-- 考勤人员维护Action管理   -->
+		<!-- 不需要的信息 -->
+		<action name="PersonAction" class="PersonAction">
+			<result name="selectOk">/System/renshi/kaoqing/updateMaintenance.jsp
+			</result>
+			<result name="selectOneOk">/System/renshi/kaoqing/updateMaintenance.jsp
+			</result>
+			<result name="updateOk" type="redirect">PersonAction!selectPersonPage.action?pageStatus=${pageStatus}&amp;person.name=
+			</result>
+			<result name="deleteOk" type="redirect">PersonAction!selectPersonPage.action?pageStatus=${pageStatus}
+			</result>
+			<result name="successPage">/System/renshi/kaoqing/Maintenance.jsp</result>
+			<result name="findAllOk">/System/renshi/kaoqing/Maintenance.jsp</result>
+		</action>
+		<!-- 出勤人员信息维护Action管理 -->
+		<!-- 人员维护 -->
+		<action name="AttendancePersonInformationAction" class="AttendancePersonInformationAction">
+			<result name="person_deleteInfor" type="redirect">AttendancePersonInformationAction!selectAllAtPersonInforPage.action?cpage=${cpage}
+			</result>
+			<result name="person_selectAllAtPersonInforPage">/System/renshi/kaoqing/AttendanceAndMaintenance.jsp
+			</result>
+			<result name="person_getKQPersonId">/System/renshi/kaoqing/updateMaintenance.jsp
+			</result>
+			<result name="person_updateKQPerson" type="redirect">AttendancePersonInformationAction!selectAllAtPersonInforPage.action
+			</result>
+
+		</action>
+	</package>
+</struts>

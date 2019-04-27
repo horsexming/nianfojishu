@@ -1,0 +1,59 @@
+package com.task.action.renshi;
+
+import java.util.List;
+
+import com.task.Server.renshi.InDoorScreenServer;
+import com.task.entity.renshi.InDoorScreen;
+
+public class InDoorScreenAction {
+
+	private Integer id;
+	private InDoorScreen inDoorScreen;
+	private List<InDoorScreen> inDoorScreens;
+	
+	private String pageStatus;
+	
+	private InDoorScreenServer inDoorScreenServer;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public InDoorScreen getInDoorScreen() {
+		return inDoorScreen;
+	}
+
+	public void setInDoorScreen(InDoorScreen inDoorScreen) {
+		this.inDoorScreen = inDoorScreen;
+	}
+
+	public List<InDoorScreen> getInDoorScreens() {
+		return inDoorScreens;
+	}
+
+	public void setInDoorScreens(List<InDoorScreen> inDoorScreens) {
+		this.inDoorScreens = inDoorScreens;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public InDoorScreenServer getInDoorScreenServer() {
+		return inDoorScreenServer;
+	}
+
+	public void setInDoorScreenServer(InDoorScreenServer inDoorScreenServer) {
+		this.inDoorScreenServer = inDoorScreenServer;
+	}
+	
+	
+}

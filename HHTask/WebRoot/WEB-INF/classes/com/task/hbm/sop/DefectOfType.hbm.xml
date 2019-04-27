@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="DefectOfType" table="ta_sop_DefectOfType">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="defCode"/>
+		<property name="defName"/>
+		<property name="addtime"/>
+		<property name="addUsersName"/>
+		<set name="bhgpSet"  lazy="true" inverse="false"   cascade="all">
+			<key column="fk_defId"></key>
+			<one-to-many  class="BuHeGePin" />
+		</set>
+	</class>
+</hibernate-mapping>

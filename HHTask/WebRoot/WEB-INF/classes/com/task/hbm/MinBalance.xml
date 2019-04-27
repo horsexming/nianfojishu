@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+<class name="com.task.entity.MinBalance" table="MinBalance">
+      <id name="id">
+			<generator class="identity"></generator>
+		</id>
+        <property name="minType" type="java.lang.String">
+            <column name="min_Type" length="200" />
+        </property>
+        <property name="minPartnumber" type="java.lang.String">
+         <column name="min_Partnumber" length="200"></column>
+        </property>
+         <property name="minBalancenumber" type="java.lang.Float">
+         <column name="min_Balancenumber"  precision="53" scale="0"></column>
+        </property>
+         <property name="minMonth" type="java.lang.String">
+         <column name="min_Month" length="200"></column>
+        </property>
+        <property name="mindatatime" type="java.lang.String">
+        <column name="min_datatime" length="200"></column>
+        </property>
+        
+         <property name="minRemarks" type="java.lang.String">
+         <column name="min_Remarks" length="500"></column>
+        </property>
+        </class>
+</hibernate-mapping>

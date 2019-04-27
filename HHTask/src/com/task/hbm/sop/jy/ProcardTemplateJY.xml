@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop.jy">
+	<class name="ProcardTemplateJY" table="ta_sop_w_ProcardTemplateJY">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId" length="50" />
+		<property name="proName" />
+		<property name="maxCount" />
+		<property name="corrCount" />
+		<property name="unit" />
+		<property name="procardStyle" />
+		<property name="productStyle" />
+		<property name="carStyle" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="luhao" />
+		<property name="actualFixed" />
+		<property name="number" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		<property name="addDateTime" />
+		<property name="remark" />
+		<property name="yuanUnit" />
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="laborcost" />
+		<property name="fenpeiRate" />
+		<property name="dailyoutput" />
+		<property name="onePrice" />
+		<property name="proTemStatus" />
+		<property name="parallelId" />
+		<property name="clClass" />
+		<property name="status" />
+		<property name="jihuoType" />
+
+		<property name="needCapacity" />
+		<property name="singleDuration" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="deliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		<property name="allJiepai" />
+		<property name="danjiaojian" />
+		<property name="lingliaostatus" />
+		<property name="zhuserId" />
+		<property name="gys" />
+		
+		<property name="jianyanjiepai" />
+		
+		<property name="versionNo" />
+		<property name="progressStatus" />
+		<property name="versionStatus" />
+		
+
+		<!-- 【配置本流水卡片自身的对应关系】 -->
+		<set name="procardTJYSet" cascade="all" inverse="true" lazy="true"
+			order-by="id">
+			<key column="fk_ProcardTId"></key>
+			<one-to-many class="ProcardTemplateJY" />
+		</set>
+
+		<many-to-one name="procardTemplateJY" class="ProcardTemplateJY"
+			cascade="save-update" lazy="false" column="fk_ProcardTId" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+		<set name="processTemplateJY" cascade="all" inverse="false" lazy="true"
+			order-by="processNO">
+			<key column="fk_processTId"></key>
+			<one-to-many class="ProcessTemplateJY" />
+		</set>
+
+
+	</class>
+</hibernate-mapping>

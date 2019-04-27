@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectQuotationDirectLaborCost" table="ta_ProjectQuotation_DirectLaborCost">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="process" length="50"/>
+		<property name="equipment" length="50"/>
+		<property name="power" type="double"  />
+		<property name="capacity" type="double"  />
+		<property name="operator" length="20"/>
+		<property name="cycleTime" type="double"  />
+		<property name="powerPrice" type="double"  />
+		<property name="energy" type="double"  />
+		<property name="laborPrice" type="double"  />
+		<property name="laborCost" type="double"  />
+		<many-to-one name="root" column="pid" />
+	</class>
+
+</hibernate-mapping>

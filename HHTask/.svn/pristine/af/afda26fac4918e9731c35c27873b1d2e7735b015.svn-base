@@ -1,0 +1,362 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+import com.task.entity.android.OsRecordScope;
+
+/**
+ * 
+ * @author 王晓飞
+ *	外购件来料日报表:(ta_sop_w_WaigouDailySheet)
+ */
+public class WaigouDailySheet {
+	private Integer id;
+	private String markId;//件号
+	private String proName;//产品名称
+	private String gysName;//供应商名称
+	private String gysjc;//供应商简称
+	private Integer gysId;//供应商Id
+	private String cgOrderNum;// 采购订单编号
+	private String shOrderNum;//送货单号
+	private String tuhao;//图号;
+	private Float llNumber;//来料数量
+	private String examineLot;//检验批次
+	private String banbenNumber;//版本号
+	private String specification;// 规格
+	private String kgliao;//供料属性
+	private String wgType;//物料类别
+	private String cjTime;//初检时间
+	private String cjUser;//初检人
+	private Integer cjUserId;//初见人Id
+	private Float cjNumber;//初检数量
+	private Float cjhgNumber;//初检合格数量
+	private Float cjbhgNumber;//初检不合格数量
+	private String zjTime;//终检时间
+	private String zjUser;//终检人
+	private Integer zjUserId;//终检人Id
+	private Float zjhgNumber;//终检合格数量
+	private Float zjbhgNumber;//终检不合格数量
+	private String caizi;//材质
+	private String bxgczfx;//不锈钢材质分析
+	private String csROHS;//ROHS测试分析
+	private String saltspraytest;//盐雾实验
+	private String  flammabilitytest;//阻燃测试
+	private String hbNumber;//环保号
+	private String bldescribe;//检验不良描述
+	private String zzpd;//最终判定
+	private String status;//状态(待初检、待终检(完成)、已终检)
+	private String liaodate;//来料报检日期(MM-dd)
+	private String year;//年份（yyyy年）;
+	private String month;//月份(yyyy-MM);
+	private String week;//周（yyyy年xx周）;
+	private String reamk;//备注
+	private Integer wgddId;//送货单明细Id
+	private String addTime;
+	private String addUser;
+	private Integer scopeId;
+	private String bxgczfxfile;// /不锈钢材质分析 文件名
+	private String csROHSfile;///ROHS测试分析 文件名
+	private String saltspraytestfile;//盐雾实验 文件名
+	private String flammabilitytestfile;//阻燃测试 文件名
+	private String sampleNumber;//样品编号
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getGysName() {
+		return gysName;
+	}
+	public void setGysName(String gysName) {
+		this.gysName = gysName;
+	}
+	
+	public String getCgOrderNum() {
+		return cgOrderNum;
+	}
+	public void setCgOrderNum(String cgOrderNum) {
+		this.cgOrderNum = cgOrderNum;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	
+	public String getExamineLot() {
+		return examineLot;
+	}
+	public void setExamineLot(String examineLot) {
+		this.examineLot = examineLot;
+	}
+	public String getCaizi() {
+		return caizi;
+	}
+	public void setCaizi(String caizi) {
+		this.caizi = caizi;
+	}
+	public String getBxgczfx() {
+		return bxgczfx;
+	}
+	public void setBxgczfx(String bxgczfx) {
+		this.bxgczfx = bxgczfx;
+	}
+	public String getCsROHS() {
+		return csROHS;
+	}
+	public void setCsROHS(String csROHS) {
+		this.csROHS = csROHS;
+	}
+	public String getSaltspraytest() {
+		return saltspraytest;
+	}
+	public void setSaltspraytest(String saltspraytest) {
+		this.saltspraytest = saltspraytest;
+	}
+	public String getHbNumber() {
+		return hbNumber;
+	}
+	public void setHbNumber(String hbNumber) {
+		this.hbNumber = hbNumber;
+	}
+	public String getBldescribe() {
+		return bldescribe;
+	}
+	public void setBldescribe(String bldescribe) {
+		this.bldescribe = bldescribe;
+	}
+	public String getZzpd() {
+		return zzpd;
+	}
+	public void setZzpd(String zzpd) {
+		this.zzpd = zzpd;
+	}
+	public String getLiaodate() {
+		return liaodate;
+	}
+	public void setLiaodate(String liaodate) {
+		this.liaodate = liaodate;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
+	}
+	public String getReamk() {
+		return reamk;
+	}
+	public void setReamk(String reamk) {
+		this.reamk = reamk;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUser() {
+		return addUser;
+	}
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+	public Integer getGysId() {
+		return gysId;
+	}
+	public void setGysId(Integer gysId) {
+		this.gysId = gysId;
+	}
+	public Integer getWgddId() {
+		return wgddId;
+	}
+	public void setWgddId(Integer wgddId) {
+		this.wgddId = wgddId;
+	}
+	public Float getLlNumber() {
+		return llNumber;
+	}
+	public void setLlNumber(Float llNumber) {
+		this.llNumber = llNumber;
+	}
+	public String getBanbenNumber() {
+		return banbenNumber;
+	}
+	public void setBanbenNumber(String banbenNumber) {
+		this.banbenNumber = banbenNumber;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public String getCjTime() {
+		return cjTime;
+	}
+	public void setCjTime(String cjTime) {
+		this.cjTime = cjTime;
+	}
+	public String getCjUser() {
+		return cjUser;
+	}
+	public void setCjUser(String cjUser) {
+		this.cjUser = cjUser;
+	}
+	
+	public Float getCjNumber() {
+		return cjNumber;
+	}
+	public void setCjNumber(Float cjNumber) {
+		this.cjNumber = cjNumber;
+	}
+	public Float getCjhgNumber() {
+		return cjhgNumber;
+	}
+	public void setCjhgNumber(Float cjhgNumber) {
+		this.cjhgNumber = cjhgNumber;
+	}
+	public Float getCjbhgNumber() {
+		return cjbhgNumber;
+	}
+	public void setCjbhgNumber(Float cjbhgNumber) {
+		this.cjbhgNumber = cjbhgNumber;
+	}
+	public String getZjTime() {
+		return zjTime;
+	}
+	public void setZjTime(String zjTime) {
+		this.zjTime = zjTime;
+	}
+	public String getZjUser() {
+		return zjUser;
+	}
+	public void setZjUser(String zjUser) {
+		this.zjUser = zjUser;
+	}
+	
+	public Float getZjhgNumber() {
+		return zjhgNumber;
+	}
+	public void setZjhgNumber(Float zjhgNumber) {
+		this.zjhgNumber = zjhgNumber;
+	}
+	public Float getZjbhgNumber() {
+		return zjbhgNumber;
+	}
+	public void setZjbhgNumber(Float zjbhgNumber) {
+		this.zjbhgNumber = zjbhgNumber;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Integer getCjUserId() {
+		return cjUserId;
+	}
+	public void setCjUserId(Integer cjUserId) {
+		this.cjUserId = cjUserId;
+	}
+	public String getShOrderNum() {
+		return shOrderNum;
+	}
+	public void setShOrderNum(String shOrderNum) {
+		this.shOrderNum = shOrderNum;
+	}
+	public Integer getZjUserId() {
+		return zjUserId;
+	}
+	public void setZjUserId(Integer zjUserId) {
+		this.zjUserId = zjUserId;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public Integer getScopeId() {
+		return scopeId;
+	}
+	public void setScopeId(Integer scopeId) {
+		this.scopeId = scopeId;
+	}
+	public String getGysjc() {
+		return gysjc;
+	}
+	public void setGysjc(String gysjc) {
+		this.gysjc = gysjc;
+	}
+	
+	public String getBxgczfxfile() {
+		return bxgczfxfile;
+	}
+	public void setBxgczfxfile(String bxgczfxfile) {
+		this.bxgczfxfile = bxgczfxfile;
+	}
+	public String getCsROHSfile() {
+		return csROHSfile;
+	}
+	public void setCsROHSfile(String csROHSfile) {
+		this.csROHSfile = csROHSfile;
+	}
+	public String getSaltspraytestfile() {
+		return saltspraytestfile;
+	}
+	public void setSaltspraytestfile(String saltspraytestfile) {
+		this.saltspraytestfile = saltspraytestfile;
+	}
+	public String getFlammabilitytestfile() {
+		return flammabilitytestfile;
+	}
+	public void setFlammabilitytestfile(String flammabilitytestfile) {
+		this.flammabilitytestfile = flammabilitytestfile;
+	}
+	public String getFlammabilitytest() {
+		return flammabilitytest;
+	}
+	public void setFlammabilitytest(String flammabilitytest) {
+		this.flammabilitytest = flammabilitytest;
+	}
+	public String getSampleNumber() {
+		return sampleNumber;
+	}
+	public void setSampleNumber(String sampleNumber) {
+		this.sampleNumber = sampleNumber;
+	}
+	
+}

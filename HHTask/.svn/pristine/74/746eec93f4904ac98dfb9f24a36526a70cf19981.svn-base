@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Admin" table="ta_admin">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="adminName" not-null="true" length="50"
+			column="ta_adminName" />
+		<property name="adminPassword" not-null="true" length="50"
+			column="ta_adminPassword" />
+		<property name="lastLogin" column="ta_lastLogin" />
+		<property name="nowLogin" column="ta_nowLogin"></property>
+		<property name="type" column="ta_type" />
+		<property name="count" column="ta_count" />
+	</class>
+</hibernate-mapping>

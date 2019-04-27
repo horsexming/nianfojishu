@@ -1,0 +1,122 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/***
+ * 每月不合格统计(表名:ta_sop_FailureSSOnMonth)
+ * 
+ * @author 刘培
+ * 
+ */
+public class FailureSSOnMonth {
+
+	private Integer id;
+	private Float oneMonthSc;// 日检验总数(oneWeekSubmitCount)
+	private Float oneMonthFc;// 日提交不合格数量(oneWeekFailureCount)
+	private Float frequency;// 发生频率
+	private String weekds;// 周(yyyy年xx周)
+	private String addTime;// 添加时间(yyyy-MM-dd HH:mm:ss)
+	private String months;//月份（yyyy年MM月）
+	private String gongwei;//工位
+//	private String bhgtype;//不合格类型
+//	private String bhgcode;//缺陷代码；
+
+	private Set<FailureStatisticsDetail> fsdSet;// 不合格品明细
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	
+	public Float getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(Float frequency) {
+		this.frequency = frequency;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	
+
+
+	public Float getOneMonthSc() {
+		return oneMonthSc;
+	}
+
+	public void setOneMonthSc(Float oneMonthSc) {
+		this.oneMonthSc = oneMonthSc;
+	}
+
+	public Float getOneMonthFc() {
+		return oneMonthFc;
+	}
+
+	public void setOneMonthFc(Float oneMonthFc) {
+		this.oneMonthFc = oneMonthFc;
+	}
+
+	public String getWeekds() {
+		return weekds;
+	}
+
+	public void setWeekds(String weekds) {
+		this.weekds = weekds;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+
+
+//	public String getBhgtype() {
+//		return bhgtype;
+//	}
+//
+//	public void setBhgtype(String bhgtype) {
+//		this.bhgtype = bhgtype;
+//	}
+//
+//	public String getBhgcode() {
+//		return bhgcode;
+//	}
+//
+//	public void setBhgcode(String bhgcode) {
+//		this.bhgcode = bhgcode;
+//	}
+
+	public String getMonths() {
+		return months;
+	}
+
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	@JSONField(serialize = false)
+	public Set<FailureStatisticsDetail> getFsdSet() {
+		return fsdSet;
+	}
+
+	public void setFsdSet(Set<FailureStatisticsDetail> fsdSet) {
+		this.fsdSet = fsdSet;
+	}
+ 
+}

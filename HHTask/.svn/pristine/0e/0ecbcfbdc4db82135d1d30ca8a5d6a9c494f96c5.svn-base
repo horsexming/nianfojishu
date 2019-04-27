@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.budget">
+	<class name="SubBudgetRate" table="ta_fin_subBudgetRate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="bookKDate" />
+		<property name="name" />
+		<property name="type" />
+		<property name="borrowQichuMoney" />
+		<property name="lendQichuMoney" />
+		<property name="borrowMoney" />
+		<property name="lendMoney" />
+		<property name="borrowJieyuMoney" />
+		<property name="lendJieyuMoney" />
+		
+		<property name="fatherName" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		
+		<property name="subjectRate" />
+		<property name="more" />
+		<property name="borrowYearBegingMoney"/>
+		<property name="lendYearBegingMoney"/>
+		<property name="borrowYearSumMoney"/>
+		<property name="lendYearSumMoney"/>
+		<property name="subNumber"/>
+		<property name="checked"/>
+		<property name="userChecked"/>
+
+		<!-- 【配置科目预算比例表自身的对应关系(一对多)】 -->
+		<set name="subBudgetRateSet" cascade="all" inverse="false"
+			order-by="id" lazy="true">
+			<key column="fk_subId"></key>
+			<one-to-many class="SubBudgetRate" />
+		</set>
+
+		<!-- 【配置科目预算比例表自身的对应关系(多对一)】 -->
+		<many-to-one name="subBudgetRate" class="SubBudgetRate"
+			cascade="save-update" lazy="false" column="fk_subId" />
+
+		<!-- 【配置科目预算比例表与部门的对应关系(多对多)】 -->
+		<set name="deptNumberSet" table="ta_fin_subDept" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="ta_subId" />
+			<many-to-many class="com.task.entity.DeptNumber" column="ta_deptId" />
+		</set>
+		<!-- 【配置科目预算比例表与部门的对应关系(多对多)】 -->
+		<set name="userSet" table="ta_fin_subUsers" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="ta_subId" />
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,75 @@
+package com.task.entity.project;
+/**
+ * 个人分红记录表（ta_pro_QuotedPriceFenhong）
+ * @author txb
+ *
+ */
+public class QuotedPriceFenhong implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;//
+	private Integer qpucId;//个人投资Id
+	private String proStatus;//项目阶段
+	private Float money;//分红数量
+	private String addTime;//分红时间
+	private String userName;//申请人名称
+	private String userCode;//申请人工号
+	private String dept;//申请人部门
+	private String markId;//件号
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getQpucId() {
+		return qpucId;
+	}
+	public void setQpucId(Integer qpucId) {
+		this.qpucId = qpucId;
+	}
+	public String getProStatus() {
+		return proStatus;
+	}
+	public void setProStatus(String proStatus) {
+		this.proStatus = proStatus;
+	}
+	public Float getMoney() {
+		return money;
+	}
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	
+	
+
+}

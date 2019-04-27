@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+<class name="com.task.entity.Oareimbursement" table="oa_reimbursement" >
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="oaDeclarationnumber" type="java.lang.String">
+            <column name="oa_Declarationnumber" />
+        </property>
+        <property name="oaPaymentvouchernumber" type="java.lang.String">
+            <column name="oa_Paymentvouchernumber" />
+        </property>
+        <property name="oaPaymentaccordancewith" type="java.lang.String">
+         <column name="oa_Paymentaccordancewith"></column>
+        </property>
+        <property name="oaContractnumber" type="java.lang.String">
+         <column name="oa_Contractnumber"></column>
+        </property>
+        <property name="oaInvoicenumber" type="java.lang.String">
+         <column name="oa_Invoicenumber"></column>
+        </property>
+        <property name="oadangannumber" type="java.lang.String">
+        <column name="oa_dangannumber"></column>
+        </property>
+        
+        <property name="oathetotalamount" type="java.lang.Float">
+         <column name="oa_thetotalamount" precision="53" scale="0"></column>
+        </property>
+        <property name="oaPersonincharge" type="java.lang.String">
+         <column name="oa_Personincharge"></column>
+        </property>
+        <property name="oaPaymentnature" type="java.lang.String">
+         <column name="oa_Paymentnature"></column>
+        </property>
+        <property name="oaPayment" type="java.lang.String">
+         <column name="oa_Payment"></column>
+        </property>
+        <property name="oaTermsPayment" type="java.lang.String">
+         <column name="oa_TermsPayment"></column>
+        </property>
+        <property name="oaPaymentsqk" type="java.lang.String">
+         <column name="oa_Paymentsqk"></column>
+        </property>
+        <property name="oaBeneficiary" type="java.lang.String">
+         <column name="oa_Beneficiary"></column>
+        </property>
+        <property name="oaAssociatedusername" type="java.lang.String">
+        <column name="oa_Associatedusername"></column>
+        </property>
+          <property name="oaReviewnumber" type="java.lang.String">
+        <column name="oa_Reviewnumber"></column>
+        </property>
+          <property name="oaCategory" type="java.lang.String">
+        <column name="oa_Category"></column>
+        </property>
+          <property name="oaFactSheet" type="java.lang.String">
+        <column name="oa_FactSheet"></column>
+        </property>
+          <property name="oastatus" type="java.lang.String">
+        <column name="oa_status"></column>
+        </property>
+          <property name="oadate" type="java.lang.String">
+        <column name="oa_date"></column>
+        </property>
+          <property name="oadatetime" type="java.lang.String">
+        <column name="oa_datetime"></column>
+        </property>
+        <property name="oaRemarks" type="java.lang.String">
+        <column name="oa_Remarks"></column>
+        </property>
+        <property name="oausername" type="java.lang.String">
+         <column name="oa_username"></column>
+        </property>
+        <!-- 与报账明细表一对多关系 -->
+        <set name="business" inverse="false" cascade="all" lazy="false" order-by="id">
+			<key column="oarbs_id"></key>
+			<one-to-many class="com.task.entity.Oabusiness" />
+		</set>
+        </class>
+</hibernate-mapping>

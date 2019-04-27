@@ -1,0 +1,113 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 人员登录日志表 (ta_UsersLoginLog)
+ * @author 王晓飞
+ *
+ */
+public class UsersLoginLog implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer userId;//userId
+	private String userName;//人员姓名
+	private String userCode;//人员工号
+	private String userCardId;//人员卡号
+	private String dept;//部门
+	private String duty;//职务
+	private String post;//职级
+	private String jobtitle;//职称
+	private String dataTime;//日期(yyyy-MM-dd)
+	private String firstLoginTime;//当天第一次登录时间
+	private Integer whenOnlineLong;//在线时长(分钟)
+	private String loginIP;//登录IP;
+	private String sex;//性别
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getUserCardId() {
+		return userCardId;
+	}
+	public void setUserCardId(String userCardId) {
+		this.userCardId = userCardId;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getDuty() {
+		return duty;
+	}
+	public void setDuty(String duty) {
+		this.duty = duty;
+	}
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
+	public String getJobtitle() {
+		return jobtitle;
+	}
+	public void setJobtitle(String jobtitle) {
+		this.jobtitle = jobtitle;
+	}
+	public String getDataTime() {
+		return dataTime;
+	}
+	public void setDataTime(String dataTime) {
+		this.dataTime = dataTime;
+	}
+	public String getFirstLoginTime() {
+		return firstLoginTime;
+	}
+	public void setFirstLoginTime(String firstLoginTime) {
+		this.firstLoginTime = firstLoginTime;
+	}
+	
+	public Integer getWhenOnlineLong() {
+		return whenOnlineLong;
+	}
+	public void setWhenOnlineLong(Integer whenOnlineLong) {
+		this.whenOnlineLong = whenOnlineLong;
+	}
+	public String getLoginIP() {
+		return loginIP;
+	}
+	public void setLoginIP(String loginIP) {
+		this.loginIP = loginIP;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+}

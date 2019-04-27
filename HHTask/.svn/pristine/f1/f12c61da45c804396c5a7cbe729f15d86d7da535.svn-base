@@ -1,0 +1,1224 @@
+package com.task.entity.caiwu.baobiao;
+
+import java.io.Serializable;
+
+public class BalanceSheet implements Serializable{
+	/**
+	 * 资产负债表:(ta_baobiao_BalanceSheet)
+	 */
+	private Integer id;
+	private String months;//月份（yyyy-MM）
+	/**
+	 * 流动资产项
+	 */
+	private Double cash1;//货币资金 期初数
+	private Double cash2;//货币资金 期末数
+	private Double jyxjrzc1;//交易性金融资产 期初数
+	private Double jyxjrzc2;//交易性金融资产 期末数
+	private Double yspj1;// 应收票据 期初数
+	private Double yspj2;// 应收票据 期末数
+	private Double yszk1;//应收账款 期初数
+	private Double yszk2;//应收账款 期末数
+	private Double yfzk1;//预付账款 期初数
+	private Double yfzk2;//预付账款 期末数
+	private Double yslx1;//应收利息 期初数
+	private Double yslx2;//应收利息 期末数
+	private Double ysgl1;//应收股利 期初数
+	private Double ysgl2;//应收股利 期末数
+	private Double qtysk1;//其他应收款 期初数
+	private Double qtysk2;//其他应收款 期末数
+	private Double ch1;//存货 期初数
+	private Double ch2;//存货 期末数
+	//存货分为：原材料、库存商品（产成品）
+	private Double ycl1;//原材料 期初数
+	private Double ycl2;//原材料 期末数
+	private Double kcsp1;//库存商品（产成品） 期初数
+	private Double kcsp2;//库存商品（产成品） 期末数
+	private Double fldzcyears1;//一年内到期的非流动资产 期初数
+	private Double fldzcyears2;//一年内到期的非流动资产 期末数
+	private Double qitaldzc1;//其他流动资产 期初数
+	private Double qitaldzc2;//其他流动资产 期末数
+	private Double liudonghj1;//流动资产合计 期初数
+	private Double liudonghj2;//流动资产合计 期末数
+	/**
+	 * 非流动资产项
+	 */
+	private Double kgcsjrzc1;//可供出售金融资产 期初数
+	private Double kgcsjrzc2;//可供出售金融资产 期末数
+	private Double cyzdqtz1;//持有至到期投资 期初数
+	private Double cyzdqtz2;//持有至到期投资 期末数
+	private Double cqysk1;//长期应收款 期初数
+	private Double cqysk2;//长期应收款 期末数
+	private Double cqgqtz1;//长期股权投资 期初数
+	private Double cqgqtz2;//长期股权投资 期末数
+	private Double tzxfdc1;//投资性房地产 期初数
+	private Double tzxfdc2;//投资性房地产 期末数
+	private Double gizcyj1;//固定资产原价 期初数
+	private Double gizcyj2;//固定资产原价 期末数
+	private Double zcljzj1;//资产累计折旧价 （减） 期初数
+	private Double zcljzj2;//资产累计折旧价 （减） 期末数
+	private Double gdzcjz1;// 固定资产净值 期初数
+	private Double gdzcjz2;// 固定资产净值 期末数
+	private Double gdzcjzzb1;//固定资产减值准备(减) 期初数
+	private Double gdzcjzzb2;//固定资产减值准备(减) 期末数
+	private Double gdzcje1;//固定资产净额 期初数
+	private Double gdzcje2;//固定资产净额 期末数
+	private Double zjgc1;//在建工程 期初数
+	private Double zjgc2;//在建工程 期末数
+	private Double gchz1;//工程物资 期初数
+	private Double gchz2;//工程物资 期末数
+	private Double gdzcql1;//固定资产清理 期初数
+	private Double gdzcql2;//固定资产清理 期末数
+	private Double scxswzc1;//生产性生物资产 期初数
+	private Double scxswzc2;//生产性生物资产 期末数
+	private Double yqzc1;//油气资产 期初数
+	private Double yqzc2;//油气资产 期末数
+	private Double wxzc1;//无形资产 期初数
+	private Double wxzc2;//无形资产 期末数
+	private Double tdsyq1;//土地使用权 期初数
+	private Double tdsyq2;//土地使用权 期末数
+	private Double kfzc1;//开发支出 期初数
+	private Double kfzc2;//开发支出 期末数
+	private Double shangyu1;//商誉 期初数
+	private Double shangyu2;//商誉 期末数
+	private Double cqdtfy1;//长期待摊费用（递延资产）期初数
+	private Double cqdtfy2;//长期待摊费用（递延资产）期末数
+	private Double dysdsc1;//递延所得税资产 期初数
+	private Double dysdsc2;//递延所得税资产 期末数
+	private Double qtfldzc1;//其他非流动资产 期初数
+	private Double qtfldzc2;//其他非流动资产 期末数
+	private Double tzcbwz1;//特准储备物资 期初数
+	private Double tzcbwz2;//特准储备物资 期末数
+	private Double fldzchj1;//非流动资产合计 期初数
+	private Double fldzchj2;//非流动资产合计 期末数
+	/**
+	 * 流动负债
+	 */
+	private Double dqjk1;//短期借款 期初数
+	private Double dqjk2;//短期借款 期末数
+	private Double jyxjrfz1;//交易性金融负债 期初数
+	private Double jyxjrfz2;//交易性金融负债 期末数
+	private Double yfpj1;//应付票据 期初数
+	private Double yfpj2;//应付票据 期末数
+	private Double yingfuZK1;//应付账款 期初数
+	private Double yingfuZK2;//应付账款 期末数
+	private Double yskx1;//预收款项 期初数
+	private Double yskx2;//预收款项 期末数
+	private Double yfzgxc1;//应付职工薪酬 期初数
+	private Double yfzgxc2;//应付职工薪酬 期末数
+	//应付职工薪酬 包括:应付工资、应付福利费
+	private Double yfgz1;//应付工资 期初数
+	private Double yfgz2;//应付工资 期末数
+	private Double yfflf1;//应付福利费 期初数
+	private Double yfflf2;//应付福利费 期末数
+	private Double yjsf1;//应交税费 期初数
+	private Double yjsf2;//应交税费 期末数
+	private Double yjsj1;//应交税金 期初数
+	private Double yjsj2;//应交税金 期末数
+	private Double yflx1;//应付利息 期初数
+	private Double yflx2;//应付利息 期末数
+	private Double yfgl1;//应付股利(应付利润) 期初数
+	private Double yfgl2;//应付股利(应付利润) 期末数
+	private Double qtyfk1;//其他应付款 期初数
+	private Double qtyfk2;//其他应付款 期末数
+	private Double fldfzyears1;//一年内到期的非流动负债 期初数
+	private Double fldfzyears2;//一年内到期的非流动负债 期末数
+	private Double qtldfz1;//其他流动负债  期初数
+	private Double qtldfz2;//其他流动负债 期末数
+	private Double ldfzhj1;//流动负责合计 期初数
+	private Double ldfzhj2;//流动负责合计 期末数
+	/**
+	 * 非流动负债：
+	 */
+	private Double cqjk1;//长期借款 期初数
+	private Double cqjk2;//长期借款 期末数
+	private Double yfzq1;//应付债券 期初数
+	private Double yfzq2;//应付债券 期末数
+	private Double cqyfk1;//长期应付款 期初数
+	private Double cqyfk2;//长期应付款 期末数
+	private Double zxyfk1;//专项应付款 期初数
+	private Double zxyfk2;//专项应付款 期末数
+	private Double yjfz1;//预计负债 期初数
+	private Double yjfz2;//预计负债 期末数
+	private Double dysdsfz1;//递延所得税负债 期初数
+	private Double dysdsfz2;//递延所得税负债 期末数
+	private Double qtfldfz1;//其他非流动负债 期初数
+	private Double qtfldfz2;//其他非流动负债 期末数
+	private Double tzcbj1;//特准储备金 期初数
+	private Double tzcbj2;//特准储备金 期末数
+	private Double fldfzhj1;//非流动负债合计 期初数
+	private Double fldfzhj2;//非流动负债合计 期末数
+	private Double fzhj1;//负债合计 期初数
+	private Double fzhj2;//负债合计 期末数
+	
+	/**
+	 * 所有者权益（或股东权益）
+	 */
+	private Double sszb1;//实收资本(股本) 期初数
+	private Double sszb2;//实收资本(股本) 期末数
+	private Double gjzb1;//国家资本 期初数 
+	private Double gjzb2;//国家资本 期末数
+	private Double jtzb1;//集体资本 期初数 
+	private Double jtzb2;//集体资本 期末数
+	private Double frzb1;//法人资本 期初数
+	private Double frzb2;//法人资本 期末数
+	//法人资本 包括 :国有法人资本、集体法人资本
+	private Double gyfrzb1;// 国有法人资本 期初数
+	private Double gyfrzb2;// 国有法人资本 期末数
+	private Double jtfrzb1;// 集体法人资本 期初数
+	private Double jtfrzb2;// 集体法人资本 期末数
+	private Double grzb1;//个人资本 期初数
+	private Double grzb2;//个人资本 期末数
+	private Double wszb1;//外商资本 期初数
+	private Double wszb2;//外商资本 期末数
+	private Double zbgj1;//资本公积 期初数
+	private Double zbgj2;//资本公积 期末数
+	private Double kcg1;//库存股(减) 期初数
+	private Double kcg2;//库存股(减) 期末数
+	private Double yygj1;//盈余公积 期初数
+	private Double yygj2;//盈余公积 期末数
+	private Double ybfxzb1;//一般风险准备 期初数
+	private Double ybfxzb2;//一般风险准备 期末数
+	private Double wqrdtzss1;//未确认的投资损失 期初数
+	private Double wqrdtzss2;//未确认的投资损失 期末数
+	private Double wfplr1;//未分配利润 期初数
+	private Double wfplr2;//未分配利润 期末数
+	private Double xjgl1;//现金股利 期初数
+	private Double xjgl2;//现金股利 期末数
+	private Double wbbbzsce1;// 外币报表折算差额 期初数
+	private Double wbbbzsce2;// 外币报表折算差额 期末数
+	private Double mgsszqy1;//归属于母公司所有者权益合计 期初数
+	private Double mgsszqy2;//归属于母公司所有者权益合计 期末数
+	private Double ssgdqy1 ;//少数股东权益 期初数
+	private Double ssgdqy2 ;//少数股东权益 期末数
+	private Double syzqyhj1;//所有者权益合计 期初数
+	private Double syzqyhj2;//所有者权益合计 期末数
+	private Double fzandsyzqyhj1;//负债和所有者权益合计 期初数
+	private Double fzandsyzqyhj2;//负债和所有者权益合计 期末数
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Double getCash1() {
+		return cash1;
+	}
+	public void setCash1(Double cash1) {
+		this.cash1 = cash1;
+	}
+	public Double getCash2() {
+		return cash2;
+	}
+	public void setCash2(Double cash2) {
+		this.cash2 = cash2;
+	}
+	public Double getJyxjrzc1() {
+		return jyxjrzc1;
+	}
+	public void setJyxjrzc1(Double jyxjrzc1) {
+		this.jyxjrzc1 = jyxjrzc1;
+	}
+	public Double getJyxjrzc2() {
+		return jyxjrzc2;
+	}
+	public void setJyxjrzc2(Double jyxjrzc2) {
+		this.jyxjrzc2 = jyxjrzc2;
+	}
+	public Double getYspj1() {
+		return yspj1;
+	}
+	public void setYspj1(Double yspj1) {
+		this.yspj1 = yspj1;
+	}
+	public Double getYspj2() {
+		return yspj2;
+	}
+	public void setYspj2(Double yspj2) {
+		this.yspj2 = yspj2;
+	}
+	public Double getYszk1() {
+		return yszk1;
+	}
+	public void setYszk1(Double yszk1) {
+		this.yszk1 = yszk1;
+	}
+	public Double getYszk2() {
+		return yszk2;
+	}
+	public void setYszk2(Double yszk2) {
+		this.yszk2 = yszk2;
+	}
+	public Double getYfzk1() {
+		return yfzk1;
+	}
+	public void setYfzk1(Double yfzk1) {
+		this.yfzk1 = yfzk1;
+	}
+	public Double getYfzk2() {
+		return yfzk2;
+	}
+	public void setYfzk2(Double yfzk2) {
+		this.yfzk2 = yfzk2;
+	}
+	public Double getYslx1() {
+		return yslx1;
+	}
+	public void setYslx1(Double yslx1) {
+		this.yslx1 = yslx1;
+	}
+	public Double getYslx2() {
+		return yslx2;
+	}
+	public void setYslx2(Double yslx2) {
+		this.yslx2 = yslx2;
+	}
+	public Double getYsgl1() {
+		return ysgl1;
+	}
+	public void setYsgl1(Double ysgl1) {
+		this.ysgl1 = ysgl1;
+	}
+	public Double getYsgl2() {
+		return ysgl2;
+	}
+	public void setYsgl2(Double ysgl2) {
+		this.ysgl2 = ysgl2;
+	}
+	public Double getQtysk1() {
+		return qtysk1;
+	}
+	public void setQtysk1(Double qtysk1) {
+		this.qtysk1 = qtysk1;
+	}
+	public Double getQtysk2() {
+		return qtysk2;
+	}
+	public void setQtysk2(Double qtysk2) {
+		this.qtysk2 = qtysk2;
+	}
+	public Double getCh1() {
+		return ch1;
+	}
+	public void setCh1(Double ch1) {
+		this.ch1 = ch1;
+	}
+	public Double getCh2() {
+		return ch2;
+	}
+	public void setCh2(Double ch2) {
+		this.ch2 = ch2;
+	}
+	public Double getYcl1() {
+		return ycl1;
+	}
+	public void setYcl1(Double ycl1) {
+		this.ycl1 = ycl1;
+	}
+	public Double getYcl2() {
+		return ycl2;
+	}
+	public void setYcl2(Double ycl2) {
+		this.ycl2 = ycl2;
+	}
+	public Double getKcsp1() {
+		return kcsp1;
+	}
+	public void setKcsp1(Double kcsp1) {
+		this.kcsp1 = kcsp1;
+	}
+	public Double getKcsp2() {
+		return kcsp2;
+	}
+	public void setKcsp2(Double kcsp2) {
+		this.kcsp2 = kcsp2;
+	}
+	public Double getFldzcyears1() {
+		return fldzcyears1;
+	}
+	public void setFldzcyears1(Double fldzcyears1) {
+		this.fldzcyears1 = fldzcyears1;
+	}
+	public Double getFldzcyears2() {
+		return fldzcyears2;
+	}
+	public void setFldzcyears2(Double fldzcyears2) {
+		this.fldzcyears2 = fldzcyears2;
+	}
+	public Double getQitaldzc1() {
+		return qitaldzc1;
+	}
+	public void setQitaldzc1(Double qitaldzc1) {
+		this.qitaldzc1 = qitaldzc1;
+	}
+	public Double getQitaldzc2() {
+		return qitaldzc2;
+	}
+	public void setQitaldzc2(Double qitaldzc2) {
+		this.qitaldzc2 = qitaldzc2;
+	}
+	public Double getLiudonghj1() {
+		return liudonghj1;
+	}
+	public void setLiudonghj1(Double liudonghj1) {
+		this.liudonghj1 = liudonghj1;
+	}
+	public Double getLiudonghj2() {
+		return liudonghj2;
+	}
+	public void setLiudonghj2(Double liudonghj2) {
+		this.liudonghj2 = liudonghj2;
+	}
+	public Double getKgcsjrzc1() {
+		return kgcsjrzc1;
+	}
+	public void setKgcsjrzc1(Double kgcsjrzc1) {
+		this.kgcsjrzc1 = kgcsjrzc1;
+	}
+	public Double getKgcsjrzc2() {
+		return kgcsjrzc2;
+	}
+	public void setKgcsjrzc2(Double kgcsjrzc2) {
+		this.kgcsjrzc2 = kgcsjrzc2;
+	}
+	public Double getCyzdqtz1() {
+		return cyzdqtz1;
+	}
+	public void setCyzdqtz1(Double cyzdqtz1) {
+		this.cyzdqtz1 = cyzdqtz1;
+	}
+	public Double getCyzdqtz2() {
+		return cyzdqtz2;
+	}
+	public void setCyzdqtz2(Double cyzdqtz2) {
+		this.cyzdqtz2 = cyzdqtz2;
+	}
+	public Double getCqysk1() {
+		return cqysk1;
+	}
+	public void setCqysk1(Double cqysk1) {
+		this.cqysk1 = cqysk1;
+	}
+	public Double getCqysk2() {
+		return cqysk2;
+	}
+	public void setCqysk2(Double cqysk2) {
+		this.cqysk2 = cqysk2;
+	}
+	public Double getCqgqtz1() {
+		return cqgqtz1;
+	}
+	public void setCqgqtz1(Double cqgqtz1) {
+		this.cqgqtz1 = cqgqtz1;
+	}
+	public Double getCqgqtz2() {
+		return cqgqtz2;
+	}
+	public void setCqgqtz2(Double cqgqtz2) {
+		this.cqgqtz2 = cqgqtz2;
+	}
+	public Double getTzxfdc1() {
+		return tzxfdc1;
+	}
+	public void setTzxfdc1(Double tzxfdc1) {
+		this.tzxfdc1 = tzxfdc1;
+	}
+	public Double getTzxfdc2() {
+		return tzxfdc2;
+	}
+	public void setTzxfdc2(Double tzxfdc2) {
+		this.tzxfdc2 = tzxfdc2;
+	}
+	public Double getGizcyj1() {
+		return gizcyj1;
+	}
+	public void setGizcyj1(Double gizcyj1) {
+		this.gizcyj1 = gizcyj1;
+	}
+	public Double getGizcyj2() {
+		return gizcyj2;
+	}
+	public void setGizcyj2(Double gizcyj2) {
+		this.gizcyj2 = gizcyj2;
+	}
+	public Double getZcljzj1() {
+		return zcljzj1;
+	}
+	public void setZcljzj1(Double zcljzj1) {
+		this.zcljzj1 = zcljzj1;
+	}
+	public Double getZcljzj2() {
+		return zcljzj2;
+	}
+	public void setZcljzj2(Double zcljzj2) {
+		this.zcljzj2 = zcljzj2;
+	}
+	public Double getGdzcjz1() {
+		return gdzcjz1;
+	}
+	public void setGdzcjz1(Double gdzcjz1) {
+		this.gdzcjz1 = gdzcjz1;
+	}
+	public Double getGdzcjz2() {
+		return gdzcjz2;
+	}
+	public void setGdzcjz2(Double gdzcjz2) {
+		this.gdzcjz2 = gdzcjz2;
+	}
+	public Double getGdzcjzzb1() {
+		return gdzcjzzb1;
+	}
+	public void setGdzcjzzb1(Double gdzcjzzb1) {
+		this.gdzcjzzb1 = gdzcjzzb1;
+	}
+	public Double getGdzcjzzb2() {
+		return gdzcjzzb2;
+	}
+	public void setGdzcjzzb2(Double gdzcjzzb2) {
+		this.gdzcjzzb2 = gdzcjzzb2;
+	}
+	public Double getGdzcje1() {
+		return gdzcje1;
+	}
+	public void setGdzcje1(Double gdzcje1) {
+		this.gdzcje1 = gdzcje1;
+	}
+	public Double getGdzcje2() {
+		return gdzcje2;
+	}
+	public void setGdzcje2(Double gdzcje2) {
+		this.gdzcje2 = gdzcje2;
+	}
+	public Double getZjgc1() {
+		return zjgc1;
+	}
+	public void setZjgc1(Double zjgc1) {
+		this.zjgc1 = zjgc1;
+	}
+	public Double getZjgc2() {
+		return zjgc2;
+	}
+	public void setZjgc2(Double zjgc2) {
+		this.zjgc2 = zjgc2;
+	}
+	public Double getGchz1() {
+		return gchz1;
+	}
+	public void setGchz1(Double gchz1) {
+		this.gchz1 = gchz1;
+	}
+	public Double getGchz2() {
+		return gchz2;
+	}
+	public void setGchz2(Double gchz2) {
+		this.gchz2 = gchz2;
+	}
+	public Double getGdzcql1() {
+		return gdzcql1;
+	}
+	public void setGdzcql1(Double gdzcql1) {
+		this.gdzcql1 = gdzcql1;
+	}
+	public Double getGdzcql2() {
+		return gdzcql2;
+	}
+	public void setGdzcql2(Double gdzcql2) {
+		this.gdzcql2 = gdzcql2;
+	}
+	public Double getScxswzc1() {
+		return scxswzc1;
+	}
+	public void setScxswzc1(Double scxswzc1) {
+		this.scxswzc1 = scxswzc1;
+	}
+	public Double getScxswzc2() {
+		return scxswzc2;
+	}
+	public void setScxswzc2(Double scxswzc2) {
+		this.scxswzc2 = scxswzc2;
+	}
+	public Double getYqzc1() {
+		return yqzc1;
+	}
+	public void setYqzc1(Double yqzc1) {
+		this.yqzc1 = yqzc1;
+	}
+	public Double getYqzc2() {
+		return yqzc2;
+	}
+	public void setYqzc2(Double yqzc2) {
+		this.yqzc2 = yqzc2;
+	}
+	public Double getWxzc1() {
+		return wxzc1;
+	}
+	public void setWxzc1(Double wxzc1) {
+		this.wxzc1 = wxzc1;
+	}
+	public Double getWxzc2() {
+		return wxzc2;
+	}
+	public void setWxzc2(Double wxzc2) {
+		this.wxzc2 = wxzc2;
+	}
+	public Double getTdsyq1() {
+		return tdsyq1;
+	}
+	public void setTdsyq1(Double tdsyq1) {
+		this.tdsyq1 = tdsyq1;
+	}
+	public Double getTdsyq2() {
+		return tdsyq2;
+	}
+	public void setTdsyq2(Double tdsyq2) {
+		this.tdsyq2 = tdsyq2;
+	}
+	public Double getKfzc1() {
+		return kfzc1;
+	}
+	public void setKfzc1(Double kfzc1) {
+		this.kfzc1 = kfzc1;
+	}
+	public Double getKfzc2() {
+		return kfzc2;
+	}
+	public void setKfzc2(Double kfzc2) {
+		this.kfzc2 = kfzc2;
+	}
+	public Double getShangyu1() {
+		return shangyu1;
+	}
+	public void setShangyu1(Double shangyu1) {
+		this.shangyu1 = shangyu1;
+	}
+	public Double getShangyu2() {
+		return shangyu2;
+	}
+	public void setShangyu2(Double shangyu2) {
+		this.shangyu2 = shangyu2;
+	}
+	public Double getCqdtfy1() {
+		return cqdtfy1;
+	}
+	public void setCqdtfy1(Double cqdtfy1) {
+		this.cqdtfy1 = cqdtfy1;
+	}
+	public Double getCqdtfy2() {
+		return cqdtfy2;
+	}
+	public void setCqdtfy2(Double cqdtfy2) {
+		this.cqdtfy2 = cqdtfy2;
+	}
+	public Double getDysdsc1() {
+		return dysdsc1;
+	}
+	public void setDysdsc1(Double dysdsc1) {
+		this.dysdsc1 = dysdsc1;
+	}
+	public Double getDysdsc2() {
+		return dysdsc2;
+	}
+	public void setDysdsc2(Double dysdsc2) {
+		this.dysdsc2 = dysdsc2;
+	}
+	public Double getQtfldzc1() {
+		return qtfldzc1;
+	}
+	public void setQtfldzc1(Double qtfldzc1) {
+		this.qtfldzc1 = qtfldzc1;
+	}
+	public Double getQtfldzc2() {
+		return qtfldzc2;
+	}
+	public void setQtfldzc2(Double qtfldzc2) {
+		this.qtfldzc2 = qtfldzc2;
+	}
+	public Double getTzcbwz1() {
+		return tzcbwz1;
+	}
+	public void setTzcbwz1(Double tzcbwz1) {
+		this.tzcbwz1 = tzcbwz1;
+	}
+	public Double getTzcbwz2() {
+		return tzcbwz2;
+	}
+	public void setTzcbwz2(Double tzcbwz2) {
+		this.tzcbwz2 = tzcbwz2;
+	}
+	public Double getFldzchj1() {
+		return fldzchj1;
+	}
+	public void setFldzchj1(Double fldzchj1) {
+		this.fldzchj1 = fldzchj1;
+	}
+	public Double getFldzchj2() {
+		return fldzchj2;
+	}
+	public void setFldzchj2(Double fldzchj2) {
+		this.fldzchj2 = fldzchj2;
+	}
+	public Double getDqjk1() {
+		return dqjk1;
+	}
+	public void setDqjk1(Double dqjk1) {
+		this.dqjk1 = dqjk1;
+	}
+	public Double getDqjk2() {
+		return dqjk2;
+	}
+	public void setDqjk2(Double dqjk2) {
+		this.dqjk2 = dqjk2;
+	}
+	public Double getJyxjrfz1() {
+		return jyxjrfz1;
+	}
+	public void setJyxjrfz1(Double jyxjrfz1) {
+		this.jyxjrfz1 = jyxjrfz1;
+	}
+	public Double getJyxjrfz2() {
+		return jyxjrfz2;
+	}
+	public void setJyxjrfz2(Double jyxjrfz2) {
+		this.jyxjrfz2 = jyxjrfz2;
+	}
+	public Double getYfpj1() {
+		return yfpj1;
+	}
+	public void setYfpj1(Double yfpj1) {
+		this.yfpj1 = yfpj1;
+	}
+	public Double getYfpj2() {
+		return yfpj2;
+	}
+	public void setYfpj2(Double yfpj2) {
+		this.yfpj2 = yfpj2;
+	}
+	public Double getYingfuZK1() {
+		return yingfuZK1;
+	}
+	public void setYingfuZK1(Double yingfuZK1) {
+		this.yingfuZK1 = yingfuZK1;
+	}
+	public Double getYingfuZK2() {
+		return yingfuZK2;
+	}
+	public void setYingfuZK2(Double yingfuZK2) {
+		this.yingfuZK2 = yingfuZK2;
+	}
+	public Double getYskx1() {
+		return yskx1;
+	}
+	public void setYskx1(Double yskx1) {
+		this.yskx1 = yskx1;
+	}
+	public Double getYskx2() {
+		return yskx2;
+	}
+	public void setYskx2(Double yskx2) {
+		this.yskx2 = yskx2;
+	}
+	public Double getYfzgxc1() {
+		return yfzgxc1;
+	}
+	public void setYfzgxc1(Double yfzgxc1) {
+		this.yfzgxc1 = yfzgxc1;
+	}
+	public Double getYfzgxc2() {
+		return yfzgxc2;
+	}
+	public void setYfzgxc2(Double yfzgxc2) {
+		this.yfzgxc2 = yfzgxc2;
+	}
+	public Double getYfgz1() {
+		return yfgz1;
+	}
+	public void setYfgz1(Double yfgz1) {
+		this.yfgz1 = yfgz1;
+	}
+	public Double getYfgz2() {
+		return yfgz2;
+	}
+	public void setYfgz2(Double yfgz2) {
+		this.yfgz2 = yfgz2;
+	}
+	public Double getYfflf1() {
+		return yfflf1;
+	}
+	public void setYfflf1(Double yfflf1) {
+		this.yfflf1 = yfflf1;
+	}
+	public Double getYfflf2() {
+		return yfflf2;
+	}
+	public void setYfflf2(Double yfflf2) {
+		this.yfflf2 = yfflf2;
+	}
+	public Double getYjsf1() {
+		return yjsf1;
+	}
+	public void setYjsf1(Double yjsf1) {
+		this.yjsf1 = yjsf1;
+	}
+	public Double getYjsf2() {
+		return yjsf2;
+	}
+	public void setYjsf2(Double yjsf2) {
+		this.yjsf2 = yjsf2;
+	}
+	public Double getYjsj1() {
+		return yjsj1;
+	}
+	public void setYjsj1(Double yjsj1) {
+		this.yjsj1 = yjsj1;
+	}
+	public Double getYjsj2() {
+		return yjsj2;
+	}
+	public void setYjsj2(Double yjsj2) {
+		this.yjsj2 = yjsj2;
+	}
+	public Double getYflx1() {
+		return yflx1;
+	}
+	public void setYflx1(Double yflx1) {
+		this.yflx1 = yflx1;
+	}
+	public Double getYflx2() {
+		return yflx2;
+	}
+	public void setYflx2(Double yflx2) {
+		this.yflx2 = yflx2;
+	}
+	public Double getYfgl1() {
+		return yfgl1;
+	}
+	public void setYfgl1(Double yfgl1) {
+		this.yfgl1 = yfgl1;
+	}
+	public Double getYfgl2() {
+		return yfgl2;
+	}
+	public void setYfgl2(Double yfgl2) {
+		this.yfgl2 = yfgl2;
+	}
+	public Double getQtyfk1() {
+		return qtyfk1;
+	}
+	public void setQtyfk1(Double qtyfk1) {
+		this.qtyfk1 = qtyfk1;
+	}
+	public Double getQtyfk2() {
+		return qtyfk2;
+	}
+	public void setQtyfk2(Double qtyfk2) {
+		this.qtyfk2 = qtyfk2;
+	}
+	public Double getFldfzyears1() {
+		return fldfzyears1;
+	}
+	public void setFldfzyears1(Double fldfzyears1) {
+		this.fldfzyears1 = fldfzyears1;
+	}
+	public Double getFldfzyears2() {
+		return fldfzyears2;
+	}
+	public void setFldfzyears2(Double fldfzyears2) {
+		this.fldfzyears2 = fldfzyears2;
+	}
+	public Double getQtldfz1() {
+		return qtldfz1;
+	}
+	public void setQtldfz1(Double qtldfz1) {
+		this.qtldfz1 = qtldfz1;
+	}
+	public Double getQtldfz2() {
+		return qtldfz2;
+	}
+	public void setQtldfz2(Double qtldfz2) {
+		this.qtldfz2 = qtldfz2;
+	}
+	public Double getLdfzhj1() {
+		return ldfzhj1;
+	}
+	public void setLdfzhj1(Double ldfzhj1) {
+		this.ldfzhj1 = ldfzhj1;
+	}
+	public Double getLdfzhj2() {
+		return ldfzhj2;
+	}
+	public void setLdfzhj2(Double ldfzhj2) {
+		this.ldfzhj2 = ldfzhj2;
+	}
+	public Double getCqjk1() {
+		return cqjk1;
+	}
+	public void setCqjk1(Double cqjk1) {
+		this.cqjk1 = cqjk1;
+	}
+	public Double getCqjk2() {
+		return cqjk2;
+	}
+	public void setCqjk2(Double cqjk2) {
+		this.cqjk2 = cqjk2;
+	}
+	public Double getYfzq1() {
+		return yfzq1;
+	}
+	public void setYfzq1(Double yfzq1) {
+		this.yfzq1 = yfzq1;
+	}
+	public Double getYfzq2() {
+		return yfzq2;
+	}
+	public void setYfzq2(Double yfzq2) {
+		this.yfzq2 = yfzq2;
+	}
+	public Double getCqyfk1() {
+		return cqyfk1;
+	}
+	public void setCqyfk1(Double cqyfk1) {
+		this.cqyfk1 = cqyfk1;
+	}
+	public Double getCqyfk2() {
+		return cqyfk2;
+	}
+	public void setCqyfk2(Double cqyfk2) {
+		this.cqyfk2 = cqyfk2;
+	}
+	public Double getZxyfk1() {
+		return zxyfk1;
+	}
+	public void setZxyfk1(Double zxyfk1) {
+		this.zxyfk1 = zxyfk1;
+	}
+	public Double getZxyfk2() {
+		return zxyfk2;
+	}
+	public void setZxyfk2(Double zxyfk2) {
+		this.zxyfk2 = zxyfk2;
+	}
+	public Double getYjfz1() {
+		return yjfz1;
+	}
+	public void setYjfz1(Double yjfz1) {
+		this.yjfz1 = yjfz1;
+	}
+	public Double getYjfz2() {
+		return yjfz2;
+	}
+	public void setYjfz2(Double yjfz2) {
+		this.yjfz2 = yjfz2;
+	}
+	public Double getDysdsfz1() {
+		return dysdsfz1;
+	}
+	public void setDysdsfz1(Double dysdsfz1) {
+		this.dysdsfz1 = dysdsfz1;
+	}
+	public Double getDysdsfz2() {
+		return dysdsfz2;
+	}
+	public void setDysdsfz2(Double dysdsfz2) {
+		this.dysdsfz2 = dysdsfz2;
+	}
+	public Double getQtfldfz1() {
+		return qtfldfz1;
+	}
+	public void setQtfldfz1(Double qtfldfz1) {
+		this.qtfldfz1 = qtfldfz1;
+	}
+	public Double getQtfldfz2() {
+		return qtfldfz2;
+	}
+	public void setQtfldfz2(Double qtfldfz2) {
+		this.qtfldfz2 = qtfldfz2;
+	}
+	public Double getTzcbj1() {
+		return tzcbj1;
+	}
+	public void setTzcbj1(Double tzcbj1) {
+		this.tzcbj1 = tzcbj1;
+	}
+	public Double getTzcbj2() {
+		return tzcbj2;
+	}
+	public void setTzcbj2(Double tzcbj2) {
+		this.tzcbj2 = tzcbj2;
+	}
+	public Double getFldfzhj1() {
+		return fldfzhj1;
+	}
+	public void setFldfzhj1(Double fldfzhj1) {
+		this.fldfzhj1 = fldfzhj1;
+	}
+	public Double getFldfzhj2() {
+		return fldfzhj2;
+	}
+	public void setFldfzhj2(Double fldfzhj2) {
+		this.fldfzhj2 = fldfzhj2;
+	}
+	public Double getFzhj1() {
+		return fzhj1;
+	}
+	public void setFzhj1(Double fzhj1) {
+		this.fzhj1 = fzhj1;
+	}
+	public Double getFzhj2() {
+		return fzhj2;
+	}
+	public void setFzhj2(Double fzhj2) {
+		this.fzhj2 = fzhj2;
+	}
+	public Double getSszb1() {
+		return sszb1;
+	}
+	public void setSszb1(Double sszb1) {
+		this.sszb1 = sszb1;
+	}
+	public Double getSszb2() {
+		return sszb2;
+	}
+	public void setSszb2(Double sszb2) {
+		this.sszb2 = sszb2;
+	}
+	public Double getGjzb1() {
+		return gjzb1;
+	}
+	public void setGjzb1(Double gjzb1) {
+		this.gjzb1 = gjzb1;
+	}
+	public Double getGjzb2() {
+		return gjzb2;
+	}
+	public void setGjzb2(Double gjzb2) {
+		this.gjzb2 = gjzb2;
+	}
+	public Double getJtzb1() {
+		return jtzb1;
+	}
+	public void setJtzb1(Double jtzb1) {
+		this.jtzb1 = jtzb1;
+	}
+	public Double getJtzb2() {
+		return jtzb2;
+	}
+	public void setJtzb2(Double jtzb2) {
+		this.jtzb2 = jtzb2;
+	}
+	public Double getFrzb1() {
+		return frzb1;
+	}
+	public void setFrzb1(Double frzb1) {
+		this.frzb1 = frzb1;
+	}
+	public Double getFrzb2() {
+		return frzb2;
+	}
+	public void setFrzb2(Double frzb2) {
+		this.frzb2 = frzb2;
+	}
+	public Double getGrzb1() {
+		return grzb1;
+	}
+	public void setGrzb1(Double grzb1) {
+		this.grzb1 = grzb1;
+	}
+	public Double getGrzb2() {
+		return grzb2;
+	}
+	public void setGrzb2(Double grzb2) {
+		this.grzb2 = grzb2;
+	}
+	public Double getWszb1() {
+		return wszb1;
+	}
+	public void setWszb1(Double wszb1) {
+		this.wszb1 = wszb1;
+	}
+	public Double getWszb2() {
+		return wszb2;
+	}
+	public void setWszb2(Double wszb2) {
+		this.wszb2 = wszb2;
+	}
+	public Double getZbgj1() {
+		return zbgj1;
+	}
+	public void setZbgj1(Double zbgj1) {
+		this.zbgj1 = zbgj1;
+	}
+	public Double getZbgj2() {
+		return zbgj2;
+	}
+	public void setZbgj2(Double zbgj2) {
+		this.zbgj2 = zbgj2;
+	}
+	public Double getKcg1() {
+		return kcg1;
+	}
+	public void setKcg1(Double kcg1) {
+		this.kcg1 = kcg1;
+	}
+	public Double getKcg2() {
+		return kcg2;
+	}
+	public void setKcg2(Double kcg2) {
+		this.kcg2 = kcg2;
+	}
+	public Double getYygj1() {
+		return yygj1;
+	}
+	public void setYygj1(Double yygj1) {
+		this.yygj1 = yygj1;
+	}
+	public Double getYygj2() {
+		return yygj2;
+	}
+	public void setYygj2(Double yygj2) {
+		this.yygj2 = yygj2;
+	}
+	public Double getYbfxzb1() {
+		return ybfxzb1;
+	}
+	public void setYbfxzb1(Double ybfxzb1) {
+		this.ybfxzb1 = ybfxzb1;
+	}
+	public Double getYbfxzb2() {
+		return ybfxzb2;
+	}
+	public void setYbfxzb2(Double ybfxzb2) {
+		this.ybfxzb2 = ybfxzb2;
+	}
+	public Double getWqrdtzss1() {
+		return wqrdtzss1;
+	}
+	public void setWqrdtzss1(Double wqrdtzss1) {
+		this.wqrdtzss1 = wqrdtzss1;
+	}
+	public Double getWqrdtzss2() {
+		return wqrdtzss2;
+	}
+	public void setWqrdtzss2(Double wqrdtzss2) {
+		this.wqrdtzss2 = wqrdtzss2;
+	}
+	public Double getWfplr1() {
+		return wfplr1;
+	}
+	public void setWfplr1(Double wfplr1) {
+		this.wfplr1 = wfplr1;
+	}
+	public Double getWfplr2() {
+		return wfplr2;
+	}
+	public void setWfplr2(Double wfplr2) {
+		this.wfplr2 = wfplr2;
+	}
+	public Double getXjgl1() {
+		return xjgl1;
+	}
+	public void setXjgl1(Double xjgl1) {
+		this.xjgl1 = xjgl1;
+	}
+	public Double getXjgl2() {
+		return xjgl2;
+	}
+	public void setXjgl2(Double xjgl2) {
+		this.xjgl2 = xjgl2;
+	}
+	public Double getWbbbzsce1() {
+		return wbbbzsce1;
+	}
+	public void setWbbbzsce1(Double wbbbzsce1) {
+		this.wbbbzsce1 = wbbbzsce1;
+	}
+	public Double getWbbbzsce2() {
+		return wbbbzsce2;
+	}
+	public void setWbbbzsce2(Double wbbbzsce2) {
+		this.wbbbzsce2 = wbbbzsce2;
+	}
+	public Double getMgsszqy1() {
+		return mgsszqy1;
+	}
+	public void setMgsszqy1(Double mgsszqy1) {
+		this.mgsszqy1 = mgsszqy1;
+	}
+	public Double getMgsszqy2() {
+		return mgsszqy2;
+	}
+	public void setMgsszqy2(Double mgsszqy2) {
+		this.mgsszqy2 = mgsszqy2;
+	}
+	public Double getSsgdqy1() {
+		return ssgdqy1;
+	}
+	public void setSsgdqy1(Double ssgdqy1) {
+		this.ssgdqy1 = ssgdqy1;
+	}
+	public Double getSsgdqy2() {
+		return ssgdqy2;
+	}
+	public void setSsgdqy2(Double ssgdqy2) {
+		this.ssgdqy2 = ssgdqy2;
+	}
+	public Double getSyzqyhj1() {
+		return syzqyhj1;
+	}
+	public void setSyzqyhj1(Double syzqyhj1) {
+		this.syzqyhj1 = syzqyhj1;
+	}
+	public Double getSyzqyhj2() {
+		return syzqyhj2;
+	}
+	public void setSyzqyhj2(Double syzqyhj2) {
+		this.syzqyhj2 = syzqyhj2;
+	}
+	public Double getFzandsyzqyhj1() {
+		return fzandsyzqyhj1;
+	}
+	public void setFzandsyzqyhj1(Double fzandsyzqyhj1) {
+		this.fzandsyzqyhj1 = fzandsyzqyhj1;
+	}
+	public Double getFzandsyzqyhj2() {
+		return fzandsyzqyhj2;
+	}
+	public void setFzandsyzqyhj2(Double fzandsyzqyhj2) {
+		this.fzandsyzqyhj2 = fzandsyzqyhj2;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	public Double getGyfrzb1() {
+		return gyfrzb1;
+	}
+	public void setGyfrzb1(Double gyfrzb1) {
+		this.gyfrzb1 = gyfrzb1;
+	}
+	public Double getGyfrzb2() {
+		return gyfrzb2;
+	}
+	public void setGyfrzb2(Double gyfrzb2) {
+		this.gyfrzb2 = gyfrzb2;
+	}
+	public Double getJtfrzb1() {
+		return jtfrzb1;
+	}
+	public void setJtfrzb1(Double jtfrzb1) {
+		this.jtfrzb1 = jtfrzb1;
+	}
+	public Double getJtfrzb2() {
+		return jtfrzb2;
+	}
+	public void setJtfrzb2(Double jtfrzb2) {
+		this.jtfrzb2 = jtfrzb2;
+	}
+	
+	
+	
+	
+}
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="TechnicalchangeLogDetail" table="ta_sop_w_TechnicalchangeLogDetail"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId"/>
+		<property name="tuhao"/>
+		<property name="changeLog"/>
+		<many-to-one name="technicalchangeLog" column="tclId" class="TechnicalchangeLog"
+			cascade="save-update" />
+	 </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.dmltry">
+	<class name="DmlAppFileUrl" table="ta_DmlAppFileUrl">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="coide"/>
+		<property name="appfileurlfj" />		<!-- 附件 -->
+		<!-- 时间 -->
+		<property name="addTimeDmlAppFileUrl" />
+		<property name="upDateTimeDmlAppFileUrl" />
+
+		<many-to-one name="dmltryAppFiles" class="DmltryAppFiles"
+		 column="ta_dmltryAppFilesid"></many-to-one> 
+	</class>
+
+</hibernate-mapping>

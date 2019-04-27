@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gzbj.ProcessGzstore" table="ta_processgzstore">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="isPrice" />
+		<property name="shebeistatus" />
+		<property name="gongzhuangstatus" />
+		<property name="liangjustatus" />
+		<property name="guifanstatus" />
+		<property name="kaoqingstatus" />
+		<property name="processStatus" />
+		<property name="zjStatus" />
+		<property name="isJisuan" />
+		<property name="productStyle" />
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="isNeedFuliao" />
+		<!--		<property name="xingbie" />-->
+		<property name="more" />
+		<property name="status" />
+		<property name="isSpecial" />
+		<property name="epId" />
+		<property name="needSave" />
+
+
+		<!-- 多对多 -->
+		<!-- name：本XML文件中对应Bean定义对方的一个SET集合属性 -->
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="processgzstores" table="ta_many" cascade="save-update"
+			inverse="true">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="process_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.gzbj.Gzstore"
+				column="gzbj_id"></many-to-many>
+		</set>
+
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="processgzstores1" table="ta_many1" cascade="save-update"
+			inverse="true">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="process_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.Machine" column="machine_id">
+			</many-to-many>
+		</set>
+		<!--工序 对用户-->
+		<set name="users" table="ta_usersProcess" inverse="false" cascade="save-update"
+			lazy="true">
+			<key column="ta_processId" />
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+		<!-- 【工序对应辅料】 -->
+		<set name="processGzstoreFuLiaos" cascade="all" inverse="false" lazy="true"
+			order-by="id">
+			<key column="fk_processId"></key>
+			<one-to-many class="com.task.entity.sop.ProcessGzstoreFuLiao" />
+		</set>
+		<!-- 【工序对检查项】 -->
+		<set name="os" cascade="all" inverse="false" lazy="true"
+			order-by="id">
+			<key column="fk_osId"></key>
+			<one-to-many class="com.task.entity.android.OsScope" />
+		</set>
+	</class>
+</hibernate-mapping>

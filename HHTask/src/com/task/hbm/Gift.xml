@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Gift" table="ta_Gift">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="num"/>
+		<property name="name"/>
+		<property name="isLuckdraw"/>
+		<property name="xy_Integral"/>
+		<property name="zjgl"/>
+		<property name="gift_price"/>
+		<property name="addusers"/>
+		<property name="addTime"/>
+		<property name="picture"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,335 @@
+package com.task.ServerImpl;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+
+import jxl.Cell;
+import jxl.DateCell;
+import jxl.Sheet;
+import jxl.Workbook;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
+
+import com.task.Dao.TotalDao;
+import com.task.DaoImpl.TotalDaoImpl;
+import com.task.Server.AddUserServer;
+import com.task.Server.GanttServer;
+import com.task.Server.UserServer;
+import com.task.entity.DeptNumber;
+import com.task.entity.Gantt;
+import com.task.entity.Password;
+import com.task.entity.Users;
+import com.task.entity.sop.Procard;
+import com.task.util.DateUtil;
+import com.task.util.MD5;
+import com.task.util.Util;
+
+@SuppressWarnings("unchecked")
+public class GanttServerImpl implements GanttServer{
+	private TotalDao totalDao;
+	
+
+	
+	//添加甘特一项
+	public boolean addOneGantt(Gantt gantt) {
+		Date sDate=Util.StringToDate(gantt.getStartDate(), "yyyy-MM-dd");
+		gantt.setStartTime(sDate.getTime());
+		Date eDate=Util.StringToDate(gantt.getEndDate(), "yyyy-MM-dd");
+		gantt.setEndTime(eDate.getTime());
+		
+		
+		String peopleName="";
+		String peopelIds="";
+		
+		//获取负责人集合
+		List<Users> users=new ArrayList<Users>();	
+		
+		
+		
+		if(gantt.getPeopleStr()!=null && gantt.getPeopleStr().length()>0){
+			String[] usersStr=gantt.getPeopleStr().split(",");
+			if(usersStr!=null && usersStr.length>0){
+				for(int i=0;i<usersStr.length;i++){
+					if(!("0".equals(usersStr[i])) ){
+						String[] str=usersStr[i].split("_");
+						Users u=(Users) totalDao.get(Users.class, Integer.parseInt(str[0].trim()));
+						users.add(u);
+						if(i!=(usersStr.length-1)){
+							peopleName+=u.getName()+",";
+							peopelIds+=u.getId()+",";
+						}else{
+							peopleName+=u.getName();
+							peopelIds+=u.getId();
+						}
+						
+					}else{
+						
+					}
+					
+				}
+			}
+		}
+		String str0=gantt.getPeopleStr();
+		if(gantt.getPeopleStr().contains("0,")){
+			str0=str0.substring(2);
+			gantt.setPeopleStr(str0);
+		}
+		
+		
+		gantt.setPeopleList(users);
+		gantt.setPeopleName(peopleName);
+		gantt.setPeopleIds(peopelIds);
+		return totalDao.save(gantt);
+	}
+	
+	//查询所有甘特项where belongLayer=1
+	public List<Gantt> queryAllGantts() {
+		List<Gantt> gantts=totalDao.find("from Gantt where belongLayer=1");
+		
+		for(Gantt g:gantts){
+			//直接孩子节点数量
+			List<Gantt> child=totalDao.find("from Gantt where fatherId="+g.getId());
+			//Long childLength=totalDao.count("from Gantt where fatherId=?", new Object[]{g.getId()});//org.hibernate.NonUniqueResultException
+			if(child!=null && child.size()>0){
+				g.setChildLength(Long.parseLong(child.size()+""));
+			}else{
+				g.setChildLength(0L);
+			}
+			Integer maxCengNUm=queryMaxCengNUm();
+			g.setMaxCengNum(maxCengNUm);
+			
+			//递归查找子节点以及子节点的字节点Integer
+			List<Integer> allChildInt=new ArrayList<Integer>();
+			allChildInt=gainAllChild(g.getId(),allChildInt);
+			g.setAllChildInt(allChildInt);
+			
+			
+			
+			g.setAllParentInt(gainAllChild(g.getId(),null));//递归查找父节点以及父节点的父节点Integer
+			
+			
+			
+		}
+		
+		return gantts;
+	}
+	//查询所有甘特项
+	public List<Gantt> queryAllGantts1() {
+		List<Gantt> gantts=totalDao.find("from Gantt");
+		return gantts;
+	}
+	//删除甘特一项
+	public boolean deleteOneGantt(Gantt gantt) {
+		return totalDao.delete(gantt);
+	}
+	//修改甘特一项
+	public boolean updateOneGantt(Gantt gantt) {
+		Date sDate=Util.StringToDate(gantt.getStartDate(), "yyyy-MM-dd");
+		gantt.setStartTime(sDate.getTime());
+		Date eDate=Util.StringToDate(gantt.getEndDate(), "yyyy-MM-dd");
+		gantt.setEndTime(eDate.getTime());
+		
+		
+		String peopleName="";
+		String peopelIds="";
+		
+		//获取负责人集合
+		List<Users> users=new ArrayList<Users>();		
+		if(gantt.getPeopleStr()!=null && gantt.getPeopleStr().length()>0){
+			String[] usersStr=gantt.getPeopleStr().split(",");
+			if(usersStr!=null && usersStr.length>0){
+				for(int i=0;i<usersStr.length;i++){
+					if(!("0".equals(usersStr[i])) ){
+						String[] str=usersStr[i].split("_");
+						Users u=(Users) totalDao.get(Users.class, Integer.parseInt(str[0].trim()));
+						users.add(u);
+						if(i!=(usersStr.length-1)){
+							peopleName+=u.getName()+",";
+							peopelIds+=u.getId()+",";
+						}else{
+							peopleName+=u.getName();
+							peopelIds+=u.getId();
+						}
+						
+					}
+					
+				}
+			}
+		}
+		String str0=gantt.getPeopleStr();
+		if(gantt.getPeopleStr().contains("0,")){
+			str0=str0.substring(2);
+			gantt.setPeopleStr(str0);
+		}
+		
+		gantt.setPeopleList(users);
+		gantt.setPeopleName(peopleName);
+		gantt.setPeopleIds(peopelIds);
+		return totalDao.update(gantt);
+	}
+	
+	
+	public List findAllDepts() {
+		String hql="SELECT DISTINCT dept  from users";
+		List depts=totalDao.find(hql);
+		System.out.println();
+		return depts;
+	}
+	/**
+	 * @return the totalDao
+	 */
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+
+	/**
+	 * @param totalDao the totalDao to set
+	 */
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+	
+	//查找直接子节点
+	@Override
+	public List<Gantt> gainChild(Integer parentId) {
+		
+		List<Gantt> gantts=new ArrayList<Gantt>();
+		List<Gantt> child=new ArrayList<Gantt>();
+		Gantt parent=(Gantt) totalDao.get(Gantt.class, parentId);
+		parent.setIsShowFlag(false);
+		totalDao.update2(parent);
+		
+		
+		
+		
+		//递归查找子节点以及子节点的字节点Integer
+		List<Integer> allChildInt=gainAllChild(parentId,null);
+		parent.setAllChildInt(allChildInt);
+		parent.setAllParentInt(gainAllParent(parentId,null));//递归查找父节点以及父节点的父节点Integer
+		
+		
+		child=totalDao.find("from Gantt where fatherId= '"+parentId +"'");
+		//添加子节点
+		for(Gantt g:child){
+			gantts.add(g);
+			Integer maxCengNUm=queryMaxCengNUm();
+			g.setMaxCengNum(maxCengNUm);
+//			Long childLength=totalDao.count("from Gantt where fatherId="+g.getId());
+//			g.setChildLength(childLength);
+			
+			List<Gantt> childs=totalDao.find("from Gantt where fatherId="+g.getId());
+			//Long childLength=totalDao.count("from Gantt where fatherId=?", new Object[]{g.getId()});//org.hibernate.NonUniqueResultException
+			if(childs!=null && childs.size()>0){
+				g.setChildLength(Long.parseLong(childs.size()+""));
+			}else{
+				g.setChildLength(0L);
+			}
+			
+			
+			//递归查找子节点以及子节点的字节点Integer
+			List<Integer> allChildInt1=new ArrayList<Integer>();
+			allChildInt1=gainAllChild(g.getId(),allChildInt1);
+			g.setAllChildInt(allChildInt1);
+			
+			g.setAllParentInt(gainAllParent(g.getId(),null));//递归查找父节点以及父节点的父节点Integer
+			
+			
+		}
+		return  gantts;
+	}
+	
+	//递归查找子节点以及子节点的字节点....
+	public List<Integer> gainAllChild(Integer parentId,List<Integer> allChild) {
+		if(allChild==null){
+			allChild=new ArrayList<Integer>();
+		}else{
+			List<Integer> child=totalDao.find("select id  from Gantt where fatherId="+parentId);
+			//递归求子节点
+			for(Integer g:child){
+				allChild.add(g);
+				gainAllChild(g,allChild);
+			}
+		}
+		return allChild;
+	}
+	//
+	
+	
+
+	//查找树形结构当前最大层数
+	public Integer queryMaxCengNUm() {
+		try{
+			List<Integer> maxCengNum=totalDao.find("select MAX(belongLayer) from Gantt");
+			return maxCengNum.get(0);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+		
+	}
+
+	//递归查找父节点以及父节点的父节点....
+	public List<Integer> gainAllParent(Integer childId, List<Integer> allParent){
+		if(allParent==null){
+			allParent=new ArrayList<Integer>();
+		}
+		List<Integer> parent=totalDao.find("select fatherId  from Gantt where id="+childId);
+		if(parent!=null && parent.size()>0 && parent.get(0)!=0)
+		{
+			allParent.add(parent.get(0));
+			allParent=gainAllParent(parent.get(0),allParent);
+		}
+		
+		
+		
+		return allParent;
+	}
+
+	@Override
+	public Float gainDanTai(Gantt gantt, Float result) {
+		if(result==null){
+			result=1F;
+		}
+		Gantt parent=(Gantt) totalDao.get(Gantt.class, gantt.getFatherId());
+		if(parent!=null){
+			result*=parent.getCorrCount();
+			result=gainDanTai(parent,result);
+			
+		}
+		return result;
+		
+	}
+
+	@Override
+	public Gantt findById(int i) {
+		
+		return (Gantt) totalDao.get(Gantt.class, i);
+	}
+
+	
+
+	
+	
+
+
+	
+
+
+
+	
+	
+	
+
+	
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProcardEss" table="ProcardEss">
+		<id name="id" column="procard_id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procarddate" column="procard_date" length="8" />
+		<property name="barcode" column="procard_barcode" length="200" />
+		<property name="name" column="procard_name" length="200" />
+		<property name="markId" column="procard_markId" length="200" />
+		<property name="model" column="procard_model" length="200" />
+		<property name="planner" column="procard_planner" length="200" />
+		<property name="selfCard" column="procard_selfCard" length="200" />
+		<property name="paihao" column="procard_paihao" length="200" />
+		<property name="paihaoMore" column="procard_paihaoMore"
+			length="200" />
+		<property name="format" column="procard_format" length="200" />
+		<property name="formatMore" column="procard_formatMore"
+			length="200" />
+		<property name="luId" column="procard_luId" length="200" />
+		<property name="luIdMore" column="procard_luIdMore" length="200" />
+		<property name="code" column="procard_code" length="200" />
+		<property name="codeMore" column="procard_codeMore" length="200" />
+		<property name="num" column="procard_num" length="4" />
+		<property name="numMore" column="procard_numMore" length="200" />
+		<property name="test" column="procard_test" length="200" />
+		<property name="testMore" column="procard_testMore" length="200" />
+		<property name="proNo" column="procard_proNo" length="4" />
+		<property name="proName" column="procard_proName" length="200" />
+		<property name="proNum" column="procard_proNum" length="4" />
+		<property name="proMan" column="procard_proMan" length="200" />
+		<property name="proDate" column="procard_proDate" length="200" />
+		<property name="qualified" column="procard_qualified" length="4" />
+		<property name="rework" column="procard_rework" length="4" />
+		<property name="scrap" column="procard_scrap" length="4" />
+		<property name="testMan" column="procard_testMan" length="200" />
+		<property name="totalMore" column="procard_totalMore" length="200" />
+		<property name="power" column="procard_power" length="200" />
+		<property name="part1" column="procard_part1" length="200" />
+		<property name="part2" column="procard_part2" length="200" />
+		<property name="part3" column="procard_part3" length="200" />
+		<property name="part4" column="procard_part4" length="200" />
+		<property name="part5" column="procard_part5" length="200" />
+		<property name="part6" column="procard_part6" length="200" />
+		<property name="part7" column="procard_part7" length="200" />
+		<property name="part8" column="procard_part8" length="200" />
+		<property name="part9" column="procard_part9" length="200" />
+		<property name="part10" column="procard_part10" length="200" />
+		<property name="partAmount1" column="procard_partAmount1"
+			length="4" />
+		<property name="partAmount2" column="procard_partAmount2"
+			length="4" />
+		<property name="partAmount3" column="procard_partAmount3"
+			length="4" />
+		<property name="partAmount4" column="procard_partAmount4"
+			length="4" />
+		<property name="partAmount5" column="procard_partAmount5"
+			length="4" />
+		<property name="partAmount6" column="procard_partAmount6"
+			length="4" />
+		<property name="partAmount7" column="procard_partAmount7"
+			length="4" />
+		<property name="partAmount8" column="procard_partAmount8"
+			length="4" />
+		<property name="partAmount9" column="procard_partAmount9"
+			length="4" />
+		<property name="partAmount10" column="procard_partAmount10"
+			length="4" />
+		<property name="faliaoren1" column="procard_faliaoren1"
+			length="200" />
+		<property name="faliaoren2" column="procard_faliaoren2"
+			length="200" />
+		<property name="faliaoren3" column="procard_faliaoren3"
+			length="200" />
+		<property name="faliaoren4" column="procard_faliaoren4"
+			length="200" />
+		<property name="faliaoren5" column="procard_faliaoren5"
+			length="200" />
+		<property name="faliaoren6" column="procard_faliaoren6"
+			length="200" />
+		<property name="faliaoren7" column="procard_faliaoren7"
+			length="200" />
+		<property name="faliaoren8" column="procard_faliaoren8"
+			length="200" />
+		<property name="faliaoren9" column="procard_faliaoren9"
+			length="200" />
+		<property name="faliaoren10" column="procard_faliaoren10"
+			length="200" />
+		<property name="faliaoLot1" column="procard_faliaoLot1"
+			length="200" />
+		<property name="faliaoLot2" column="procard_faliaoLot2"
+			length="200" />
+		<property name="faliaoLot3" column="procard_faliaoLot3"
+			length="200" />
+		<property name="faliaoLot4" column="procard_faliaoLot4"
+			length="200" />
+		<property name="faliaoLot5" column="procard_faliaoLot5"
+			length="200" />
+		<property name="faliaoLot6" column="procard_faliaoLot6"
+			length="200" />
+		<property name="faliaoLot7" column="procard_faliaoLot7"
+			length="200" />
+		<property name="faliaoLot8" column="procard_faliaoLot8"
+			length="200" />
+		<property name="faliaoLot9" column="procard_faliaoLot9"
+			length="200" />
+		<property name="faliaoLot10" column="procard_faliaoLot10"
+			length="200" />
+		<property name="partMore1" column="procard_partMore1" length="200" />
+		<property name="partMore2" column="procard_partMore2" length="200" />
+		<property name="partMore3" column="procard_partMore3" length="200" />
+		<property name="partMore4" column="procard_partMore4" length="200" />
+		<property name="partMore5" column="procard_partMore5" length="200" />
+		<property name="partMore6" column="procard_partMore6" length="200" />
+		<property name="partMore7" column="procard_partMore7" length="200" />
+		<property name="partMore8" column="procard_partMore8" length="200" />
+		<property name="partMore9" column="procard_partMore9" length="200" />
+		<property name="partMore10" column="procard_partMore10"
+			length="200" />
+		<property name="out1" column="procard_out1" length="200" />
+		<property name="out2" column="procard_out2" length="200" />
+		<property name="out3" column="procard_out3" length="200" />
+		<property name="out4" column="procard_out4" length="200" />
+		<property name="out5" column="procard_out5" length="200" />
+		<property name="out6" column="procard_out6" length="200" />
+		<property name="out7" column="procard_out7" length="200" />
+		<property name="out8" column="procard_out8" length="200" />
+		<property name="out9" column="procard_out9" length="200" />
+		<property name="out10" column="procard_out10" length="200" />
+		<property name="transAmount" column="procard_transAmount"
+			length="4" />
+		<property name="realAmount" column="procard_realAmount"
+			length="4" />
+		<property name="style" column="procard_style" length="200" />
+		<property name="isIn" column="procard_isIn" length="200" />
+		<property name="isOut" column="procard_isOut" length="200" />
+		<property name="times" column="procard_times" length="200" />
+		<property name="madeTime" column="procard_madeTime" length="200" />
+		<property name="totalIn" column="procard_totalIn" length="4" />
+		<property name="audit" column="procard_audit" length="200" />
+		<property name="piliang" column="procard_piliang" length="200" />
+
+	</class>
+</hibernate-mapping>

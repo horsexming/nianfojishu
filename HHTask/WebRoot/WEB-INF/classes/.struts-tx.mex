@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-tx" location="387,270" size="1050,12390">
+    <action name="customerClaimAction_*" location="345,71" size="150,293">
+      <result name="customerClaim_toList" />
+      <result name="customerClaim_show">
+        <resourceEdge source="customerClaim_show" routing="0" target="customerClaim_show.jsp" />
+      </result>
+      <result name="customerClaim_toAnalysisList" />
+      <result name="customerClaim_updateA">
+        <resourceEdge source="customerClaim_updateA" routing="0" target="customerClaim_detail.jsp" />
+      </result>
+      <result name="customerClaim_showAnalysis">
+        <resourceEdge source="customerClaim_showAnalysis" routing="0" target="customerClaim_showAnalysis.jsp" />
+      </result>
+      <result name="customerClaim_updateAnalysis">
+        <resourceEdge source="customerClaim_updateAnalysis" routing="0" target="customerClaim_approval.jsp" />
+      </result>
+      <result name="customerClaim_cdetail">
+        <resourceEdge source="customerClaim_cdetail" routing="0" target="customerClaim_detail.jsp" />
+      </result>
+      <result name="customerClaim_add">
+        <resourceEdge source="customerClaim_add" routing="0" target="customerClaim_add.jsp" />
+      </result>
+      <result name="customerClaim_client_add">
+        <resourceEdge source="customerClaim_client_add" routing="0" target="customerClaim_client_add.jsp" />
+      </result>
+      <result name="customerClaim_update">
+        <resourceEdge source="customerClaim_update" routing="0" target="customerClaim_update.jsp" />
+      </result>
+      <result name="customerClaim_analysis">
+        <resourceEdge source="customerClaim_analysis" routing="0" target="customerClaim_analysis.jsp" />
+      </result>
+      <result name="customerClaim_improve">
+        <resourceEdge source="customerClaim_improve" routing="0" target="customerClaim_improve.jsp" />
+      </result>
+      <result name="customerClaim_approval">
+        <resourceEdge source="customerClaim_approval" routing="0" target="customerClaim_approval.jsp" />
+      </result>
+    </action>
+    <action name="codeTranslationAction_*" location="345,1009" size="150,167">
+      <result name="codeTranslation_List">
+        <resourceEdge source="codeTranslation_List" routing="0" target="codetranslationList.jsp" />
+      </result>
+      <result name="codeTranslation_add">
+        <resourceEdge source="codeTranslation_add" routing="0" target="addCodeTranslation.jsp" />
+      </result>
+      <result name="codeTranslation_toList" />
+      <result name="codeTranslation_sList">
+        <resourceEdge source="codeTranslation_sList" routing="0" target="systemSetupList.jsp" />
+      </result>
+      <result name="codeTranslation_sadd">
+        <resourceEdge source="codeTranslation_sadd" routing="0" target="addSystemSetup.jsp" />
+      </result>
+      <result name="codeTranslation_toSysList" />
+      <result name="PanelSize_fenmodz">
+        <resourceEdge source="PanelSize_fenmodz" routing="0" target="PanelSize_fenmodz.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="systemFileAction_*" location="345,2906" size="150,293">
+      <result name="systemFile_List">
+        <resourceEdge source="systemFile_List" routing="0" target="systemFileList.jsp" />
+      </result>
+      <result name="noSystemFileList">
+        <resourceEdge source="noSystemFileList" routing="0" target="noSystemFileList.jsp" />
+      </result>
+      <result name="systemFile_toList" />
+      <result name="systemFile_add">
+        <resourceEdge source="systemFile_add" routing="0" target="addSystemFile.jsp" />
+      </result>
+      <result name="systemfileShow">
+        <resourceEdge source="systemfileShow" routing="0" target="systemfileShow.jsp" />
+      </result>
+      <result name="sysFile_ListByshenpi">
+        <resourceEdge source="sysFile_ListByshenpi" routing="0" target="sysFile_ListByshenpi.jsp" />
+      </result>
+      <result name="Filetype_List">
+        <resourceEdge source="Filetype_List" routing="0" target="Filetype_List.jsp" />
+      </result>
+      <result name="systemFile_addshenpi">
+        <resourceEdge source="systemFile_addshenpi" routing="0" target="systemFile_addforshenpi.jsp" />
+      </result>
+      <result name="systemFile_forLook">
+        <resourceEdge source="systemFile_forLook" routing="0" target="systemFile_forLook.jsp" />
+      </result>
+      <result name="fileType_update">
+        <resourceEdge source="fileType_update" routing="0" target="fileType_update.jsp" />
+      </result>
+      <result name="systemFile_search">
+        <resourceEdge source="systemFile_search" routing="0" target="systemFile_search.jsp" />
+      </result>
+      <result name="systemFile_detail">
+        <resourceEdge source="systemFile_detail" routing="0" target="systemFile_detail.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="SetupCheckAction_*" location="345,4726" size="150,293">
+      <result name="setupCheck_add">
+        <resourceEdge source="setupCheck_add" routing="0" target="addSetupCheck.jsp" />
+      </result>
+      <result name="setupCheck_List">
+        <resourceEdge source="setupCheck_List" routing="0" target="setupCheckList.jsp" />
+      </result>
+      <result name="setupCheck_toList" />
+      <result name="setupCheck_addW">
+        <resourceEdge source="setupCheck_addW" routing="0" target="addSetupCheckFile.jsp" />
+      </result>
+      <result name="setupCheck_toShow">
+        <resourceEdge source="setupCheck_toShow" routing="0" target="setupCheckShow.jsp" />
+      </result>
+      <result name="setupCheck_selfList">
+        <resourceEdge source="setupCheck_selfList" routing="0" target="selfList.jsp" />
+      </result>
+      <result name="setupCheck_noSelfList">
+        <resourceEdge source="setupCheck_noSelfList" routing="0" target="noSelfList.jsp" />
+      </result>
+      <result name="setupCheck_toFile">
+        <resourceEdge source="setupCheck_toFile" routing="0" target="uploadSetup.jsp" />
+      </result>
+      <result name="setupCheck_tosList" />
+      <result name="setupCheck_zhuizong">
+        <resourceEdge source="setupCheck_zhuizong" routing="0" target="setupCheck_zhuizong.jsp" />
+      </result>
+      <result name="trackRecord_add">
+        <resourceEdge source="trackRecord_add" routing="0" target="trackRecord_add.jsp" />
+      </result>
+      <result name="trackRecord_List">
+        <resourceEdge source="trackRecord_List" routing="0" target="trackRecord_List.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="checkTypeAction_*" location="345,5206" size="150,104">
+      <result name="checkType_toList" />
+      <result name="checkType_List">
+        <resourceEdge source="checkType_List" routing="0" target="checkTypeList.jsp" />
+      </result>
+      <result name="checkType_add">
+        <resourceEdge source="checkType_add" routing="0" target="addCheckType.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="CheckNoteAction_*" location="345,5514" size="150,188">
+      <result name="checkNote_toList" />
+      <result name="checkNoteList">
+        <resourceEdge source="checkNoteList" routing="0" target="checkNoteList.jsp" />
+      </result>
+      <result name="checkNoteOne">
+        <resourceEdge source="checkNoteOne" routing="0" target="checkNoteOne.jsp" />
+      </result>
+      <result name="checkNoteListBysys">
+        <resourceEdge source="checkNoteListBysys" routing="0" target="checkNoteListBysys.jsp" />
+      </result>
+      <result name="checkNotequeren">
+        <resourceEdge source="checkNotequeren" routing="0" target="checkNotequeren.jsp" />
+      </result>
+      <result name="bindDept">
+        <resourceEdge source="bindDept" routing="0" target="bindDept.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+      <result name="shuaxinCheckNote">
+        <resourceEdge source="shuaxinCheckNote" routing="0" target="shuaxinCheckNote.jsp" />
+      </result>
+    </action>
+    <action name="QuestionAction_*" location="345,7099" size="150,167">
+      <result name="question_toList" />
+      <result name="questionList">
+        <resourceEdge source="questionList" routing="0" target="questionList.jsp" />
+      </result>
+      <result name="answerList">
+        <resourceEdge source="answerList" routing="0" target="answerList.jsp" />
+      </result>
+      <result name="addAnswer">
+        <resourceEdge source="addAnswer" routing="0" target="addAnswer.jsp" />
+      </result>
+      <result name="questionDetail">
+        <resourceEdge source="questionDetail" routing="0" target="questionDetail.jsp" />
+      </result>
+      <result name="answerDetail">
+        <resourceEdge source="answerDetail" routing="0" target="answerDetail.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="CompetenceTypeAction_*" location="345,7481" size="150,104">
+      <result name="competenceType_List">
+        <resourceEdge source="competenceType_List" routing="0" target="competenceType_List.jsp" />
+      </result>
+      <result name="competenceType_add">
+        <resourceEdge source="competenceType_add" routing="0" target="competenceType_add.jsp" />
+      </result>
+      <result name="competenceType_toList" />
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="ZhuserOfferAction_*" location="345,7939" size="150,377">
+      <result name="findByZhUser" />
+      <result name="findByZhStatus" />
+      <result name="findSampleByCaigou" />
+      <result name="findQueRenListByZhUser" />
+      <result name="findOfferById_Detail">
+        <resourceEdge source="findOfferById_Detail" routing="0" target="findOfferById_Detail.jsp" />
+      </result>
+      <result name="findDaiDaYangByZhuers_List">
+        <resourceEdge source="findDaiDaYangByZhuers_List" routing="0" target="findDaiDaYangByZhuers_List.jsp" />
+      </result>
+      <result name="daYang_Detail">
+        <resourceEdge source="daYang_Detail" routing="0" target="daYang_Detail.jsp" />
+      </result>
+      <result name="findByZhUser_List">
+        <resourceEdge source="findByZhUser_List" routing="0" target="findByZhUser_List.jsp" />
+      </result>
+      <result name="findQueRenByYw_List">
+        <resourceEdge source="findQueRenByYw_List" routing="0" target="findQueRenByYw_List.jsp" />
+      </result>
+      <result name="findAllSampleByZhuser">
+        <resourceEdge source="findAllSampleByZhuser" routing="0" target="findAllSampleByZhuser.jsp" />
+      </result>
+      <result name="findAllSample_List">
+        <resourceEdge source="findAllSample_List" routing="0" target="findAllSample_List.jsp" />
+      </result>
+      <result name="findSample_Detail">
+        <resourceEdge source="findSample_Detail" routing="0" target="findSample_Detail.jsp" />
+      </result>
+      <result name="yuanCailiao_all">
+        <resourceEdge source="yuanCailiao_all" routing="0" target="yuanCailiao_all.jsp" />
+      </result>
+      <result name="dayang_process">
+        <resourceEdge source="dayang_process" routing="0" target="dayang_process.jsp" />
+      </result>
+      <result name="yangpin_detail">
+        <resourceEdge source="yangpin_detail" routing="0" target="yangpin_detail.jsp" />
+      </result>
+      <result name="zhuserOffer_detail">
+        <resourceEdge source="zhuserOffer_detail" routing="0" target="zhuserOffer_detail.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="NoPriceprocessAction_*" location="345,9840" size="150,356">
+      <result name="noPriceprocess_all">
+        <resourceEdge source="noPriceprocess_all" routing="0" target="noPriceprocess_all.jsp" />
+      </result>
+      <result name="noPriceprocess_queren">
+        <resourceEdge source="noPriceprocess_queren" routing="0" target="noPriceprocess_queren.jsp" />
+      </result>
+      <result name="zhuser_all">
+        <resourceEdge source="zhuser_all" routing="0" target="zhuser_all.jsp" />
+      </result>
+      <result name="zhuserOfferAll_forZhuser">
+        <resourceEdge source="zhuserOfferAll_forZhuser" routing="0" target="zhuserOfferAll_forZhuser.jsp" />
+      </result>
+      <result name="baojiao_add">
+        <resourceEdge source="baojiao_add" routing="0" target="baojiao_add.jsp" />
+      </result>
+      <result name="price_queren">
+        <resourceEdge source="price_queren" routing="0" target="price_queren.jsp" />
+      </result>
+      <result name="yangpin_queren">
+        <resourceEdge source="yangpin_queren" routing="0" target="yangpin_queren.jsp" />
+      </result>
+      <result name="noPriceprocess_yangpin">
+        <resourceEdge source="noPriceprocess_yangpin" routing="0" target="noPriceprocess_yangpin.jsp" />
+      </result>
+      <result name="noPriceprocess_luru">
+        <resourceEdge source="noPriceprocess_luru" routing="0" target="noPriceprocess_luru.jsp" />
+      </result>
+      <result name="process_line">
+        <resourceEdge source="process_line" routing="0" target="process_line.jsp" />
+      </result>
+      <result name="noPriceprocess_status">
+        <resourceEdge source="noPriceprocess_status" routing="0" target="noPriceprocess_status.jsp" />
+      </result>
+      <result name="price_allZhUsers">
+        <resourceEdge source="price_allZhUsers" routing="0" target="price_allZhUsers.jsp" />
+      </result>
+      <result name="sumProcess_all">
+        <resourceEdge source="sumProcess_all" routing="0" target="sumProcess_all.jsp" />
+      </result>
+      <result name="sumProcess_line">
+        <resourceEdge source="sumProcess_line" routing="0" target="sumProcess_line.jsp" />
+      </result>
+      <result name="allZhuser_forMarkId">
+        <resourceEdge source="allZhuser_forMarkId" routing="0" target="allZhuser_forMarkId.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="customerClaim_show.jsp" path="/System/customerClaim/customerClaim_show.jsp" location="1493,430" size="150,55" />
+  <webResource name="customerClaim_detail.jsp" path="/System/customerClaim/customerClaim_detail.jsp" location="1247,10" size="150,55" />
+  <webResource name="customerClaim_showAnalysis.jsp" path="/System/customerClaim/customerClaim_showAnalysis.jsp" location="245,115" size="150,55" />
+  <webResource name="customerClaim_approval.jsp" path="/System/customerClaim/customerClaim_approval.jsp" location="852,115" size="150,55" />
+  <webResource name="customerClaim_add.jsp" path="/System/customerClaim/customerClaim_add.jsp" location="27,430" size="150,55" />
+  <webResource name="customerClaim_client_add.jsp" path="/System/customerClaim/customerClaim_client_add.jsp" location="9,640" size="150,55" />
+  <webResource name="customerClaim_update.jsp" path="/System/customerClaim/customerClaim_update.jsp" location="18,815" size="150,55" />
+  <webResource name="customerClaim_analysis.jsp" path="/System/customerClaim/customerClaim_analysis.jsp" location="16,990" size="150,55" />
+  <webResource name="customerClaim_improve.jsp" path="/System/customerClaim/customerClaim_improve.jsp" location="14,1165" size="150,55" />
+  <webResource name="codetranslationList.jsp" path="/System/codetranslation/codetranslationList.jsp" location="1497,1305" size="150,55" />
+  <webResource name="addCodeTranslation.jsp" path="/System/codetranslation/addCodeTranslation.jsp" location="1493,1130" size="150,55" />
+  <webResource name="systemSetupList.jsp" path="/System/systemsetup/systemSetupList.jsp" location="1480,955" size="150,55" />
+  <webResource name="addSystemSetup.jsp" path="/System/systemsetup/addSystemSetup.jsp" location="1477,780" size="150,55" />
+  <webResource name="error.jsp" path="/error.jsp" location="232,10230" size="150,55" />
+  <webResource name="systemFileList.jsp" path="/System/systemfile/systemFileList.jsp" location="1494,3265" size="150,55" />
+  <webResource name="noSystemFileList.jsp" path="/System/systemfile/noSystemFileList.jsp" location="1486,3055" size="150,55" />
+  <webResource name="addSystemFile.jsp" path="/System/systemfile/addSystemFile.jsp" location="1492,2880" size="150,55" />
+  <webResource name="systemfileShow.jsp" path="/System/systemfile/systemfileShow.jsp" location="1489,2705" size="150,55" />
+  <webResource name="sysFile_ListByshenpi.jsp" path="/System/systemfile/sysFile_ListByshenpi.jsp" location="1477,2530" size="150,55" />
+  <webResource name="Filetype_List.jsp" path="/System/systemfile/Filetype_List.jsp" location="1499,2355" size="150,55" />
+  <webResource name="systemFile_addforshenpi.jsp" path="/System/systemfile/systemFile_addforshenpi.jsp" location="1497,2180" size="150,55" />
+  <webResource name="systemFile_forLook.jsp" path="/System/systemfile/systemFile_forLook.jsp" location="1478,2005" size="150,55" />
+  <webResource name="fileType_update.jsp" path="/System/systemfile/fileType_update.jsp" location="1488,1830" size="150,55" />
+  <webResource name="systemFile_search.jsp" path="/System/systemfile/systemFile_search.jsp" location="1482,1655" size="150,55" />
+  <webResource name="systemFile_detail.jsp" path="/System/systemfile/systemFile_detail.jsp" location="1485,1480" size="150,55" />
+  <webResource name="addSetupCheck.jsp" path="/System/setupCheck/addSetupCheck.jsp" location="1483,5085" size="150,55" />
+  <webResource name="setupCheckList.jsp" path="/System/setupCheck/setupCheckList.jsp" location="1485,4875" size="150,55" />
+  <webResource name="addSetupCheckFile.jsp" path="/System/setupCheck/addSetupCheckFile.jsp" location="1473,4700" size="150,55" />
+  <webResource name="setupCheckShow.jsp" path="/System/setupCheck/setupCheckShow.jsp" location="1479,4525" size="150,55" />
+  <webResource name="selfList.jsp" path="/System/setupCheck/selfList.jsp" location="1474,4350" size="150,55" />
+  <webResource name="noSelfList.jsp" path="/System/setupCheck/noSelfList.jsp" location="1501,4175" size="150,55" />
+  <webResource name="uploadSetup.jsp" path="/System/setupCheck/uploadSetup.jsp" location="1491,4000" size="150,55" />
+  <webResource name="setupCheck_zhuizong.jsp" path="/System/setupCheck/setupCheck_zhuizong.jsp" location="1501,3825" size="150,55" />
+  <webResource name="trackRecord_add.jsp" path="/System/setupCheck/trackRecord_add.jsp" location="1479,3650" size="150,55" />
+  <webResource name="trackRecord_List.jsp" path="/System/setupCheck/trackRecord_List.jsp" location="1481,3475" size="150,55" />
+  <webResource name="checkTypeList.jsp" path="/System/checktype/checkTypeList.jsp" location="1493,5470" size="150,55" />
+  <webResource name="addCheckType.jsp" path="/System/checktype/addCheckType.jsp" location="1490,5295" size="150,55" />
+  <webResource name="checkNoteList.jsp" path="/System/checktype/checkNoteList.jsp" location="1492,6520" size="150,55" />
+  <webResource name="checkNoteOne.jsp" path="/System/checktype/checkNoteOne.jsp" location="1490,6345" size="150,55" />
+  <webResource name="checkNoteListBysys.jsp" path="/System/checktype/checkNoteListBysys.jsp" location="1476,6170" size="150,55" />
+  <webResource name="checkNotequeren.jsp" path="/System/checktype/checkNotequeren.jsp" location="1481,5995" size="150,55" />
+  <webResource name="bindDept.jsp" path="/System/checktype/bindDept.jsp" location="1506,5820" size="150,55" />
+  <webResource name="shuaxinCheckNote.jsp" path="/System/checktype/shuaxinCheckNote.jsp" location="1479,5645" size="150,55" />
+  <webResource name="questionList.jsp" path="/System/question/questionList.jsp" location="1502,7395" size="150,55" />
+  <webResource name="answerList.jsp" path="/System/question/answerList.jsp" location="1472,7220" size="150,55" />
+  <webResource name="addAnswer.jsp" path="/System/question/addAnswer.jsp" location="1504,7045" size="150,55" />
+  <webResource name="questionDetail.jsp" path="/System/question/questionDetail.jsp" location="1495,6870" size="150,55" />
+  <webResource name="answerDetail.jsp" path="/System/question/answerDetail.jsp" location="1500,6695" size="150,55" />
+  <webResource name="competenceType_List.jsp" path="/System/competencetype/competenceType_List.jsp" location="1487,7745" size="150,55" />
+  <webResource name="competenceType_add.jsp" path="/System/competencetype/competenceType_add.jsp" location="1485,7570" size="150,55" />
+  <webResource name="findOfferById_Detail.jsp" path="/System/zhuseroffer/findOfferById_Detail.jsp" location="1506,9985" size="150,55" />
+  <webResource name="findDaiDaYangByZhuers_List.jsp" path="/System/zhuseroffer/findDaiDaYangByZhuers_List.jsp" location="1482,9810" size="150,55" />
+  <webResource name="daYang_Detail.jsp" path="/System/zhuseroffer/daYang_Detail.jsp" location="1488,9635" size="150,55" />
+  <webResource name="findByZhUser_List.jsp" path="/System/zhuseroffer/findByZhUser_List.jsp" location="1478,9460" size="150,55" />
+  <webResource name="findQueRenByYw_List.jsp" path="/System/zhuseroffer/findQueRenByYw_List.jsp" location="1503,9285" size="150,55" />
+  <webResource name="findAllSampleByZhuser.jsp" path="/System/zhuseroffer/findAllSampleByZhuser.jsp" location="1498,9110" size="150,55" />
+  <webResource name="findAllSample_List.jsp" path="/System/zhuseroffer/findAllSample_List.jsp" location="1477,8935" size="150,55" />
+  <webResource name="findSample_Detail.jsp" path="/System/zhuseroffer/findSample_Detail.jsp" location="1477,8760" size="150,55" />
+  <webResource name="yuanCailiao_all.jsp" path="/System/zhuseroffer/yuanCailiao_all.jsp" location="1487,8585" size="150,55" />
+  <webResource name="dayang_process.jsp" path="/System/noPriceprocess/dayang_process.jsp" location="1505,8340" size="150,55" />
+  <webResource name="yangpin_detail.jsp" path="/System/noPriceprocess/yangpin_detail.jsp" location="1476,8095" size="150,55" />
+  <webResource name="zhuserOffer_detail.jsp" path="/System/zhuseroffer/zhuserOffer_detail.jsp" location="1476,7920" size="150,55" />
+  <webResource name="noPriceprocess_all.jsp" path="/System/noPriceprocess/noPriceprocess_all.jsp" location="29,10475" size="150,55" />
+  <webResource name="noPriceprocess_queren.jsp" path="/System/noPriceprocess/noPriceprocess_queren.jsp" location="15,10650" size="150,55" />
+  <webResource name="zhuser_all.jsp" path="/System/noPriceprocess/zhuser_all.jsp" location="89,10825" size="150,55" />
+  <webResource name="zhuserOfferAll_forZhuser.jsp" path="/System/noPriceprocess/zhuserOfferAll_forZhuser.jsp" location="11,11000" size="150,55" />
+  <webResource name="baojiao_add.jsp" path="/System/noPriceprocess/baojiao_add.jsp" location="81,11175" size="150,55" />
+  <webResource name="price_queren.jsp" path="/System/noPriceprocess/price_queren.jsp" location="80,11350" size="150,55" />
+  <webResource name="yangpin_queren.jsp" path="/System/noPriceprocess/yangpin_queren.jsp" location="36,11525" size="150,55" />
+  <webResource name="noPriceprocess_yangpin.jsp" path="/System/noPriceprocess/noPriceprocess_yangpin.jsp" location="12,11700" size="150,55" />
+  <webResource name="noPriceprocess_luru.jsp" path="/System/noPriceprocess/noPriceprocess_luru.jsp" location="24,11875" size="150,55" />
+  <webResource name="process_line.jsp" path="/System/noPriceprocess/process_line.jsp" location="82,12050" size="150,55" />
+  <webResource name="noPriceprocess_status.jsp" path="/System/noPriceprocess/noPriceprocess_status.jsp" location="18,12225" size="150,55" />
+  <webResource name="price_allZhUsers.jsp" path="/System/noPriceprocess/price_allZhUsers.jsp" location="35,12400" size="150,55" />
+  <webResource name="sumProcess_all.jsp" path="/System/noPriceprocess/sumProcess_all.jsp" location="74,12575" size="150,55" />
+  <webResource name="sumProcess_line.jsp" path="/System/noPriceprocess/sumProcess_line.jsp" location="665,12715" size="150,55" />
+  <webResource name="allZhuser_forMarkId.jsp" path="/System/noPriceprocess/allZhuser_forMarkId.jsp" location="1494,10230" size="150,55" />
+  <webResource name="PanelSize_fenmodz.jsp" path="/System/yclandwgj/PanelSize_fenmodz.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

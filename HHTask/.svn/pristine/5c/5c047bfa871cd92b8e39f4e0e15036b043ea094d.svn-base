@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="DepositCabinet" table="ta_mj_DepositCabinet">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="depArticleName" />
+		<property name="depArticleFormat" />
+		<property name="artOACoding" />
+		<property name="artUnit" />
+		<property name="artQuantity" />
+		<property name="applyDept" />
+		<property name="actualDepositQuantity" />
+		<property name="alreadyReceivedQuantity" />
+		<property name="depositStatus" />
+		<property name="printStatus" />
+		<property name="printUserId" />
+		<property name="printName" />
+		<property name="printCardId" />
+		<property name="printDate" />
+		<property name="addTime" />
+		<property name="depositTime" />
+		<!-- 存物品表和取物品表  一对多 inverse="false"=> 是否放弃关系维护?true则是放弃，false则是不放弃(维护关系) 改为手动维护posId-->
+	</class>
+</hibernate-mapping>

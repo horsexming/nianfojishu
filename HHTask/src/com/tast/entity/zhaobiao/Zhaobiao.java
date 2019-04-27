@@ -1,0 +1,185 @@
+package com.tast.entity.zhaobiao;
+
+import java.io.Serializable;
+
+/*
+ *   张玉山   
+ *  招标信息表   zh_zhaobiao
+ */
+
+public class Zhaobiao implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String title;// 题目
+	private String moban;// 采用模版
+	private String fuze;// 负责人
+	private String phone;// 联系电话
+	private String status;// 状态（E：待添加采购料/W：待审批/Y：已审批/D：已发布，招标中/）
+	private String shenpiStatus;//审批状态
+	private String loc;// 简介
+	private String kongxian;
+	private String t1;
+	private String faburen;
+	private String fabushijian;
+	private String shenhe;
+	private Integer epId;// 中标审批id
+	private Integer htId;// 合同审批ID
+	private String t2;
+
+	private String numbers;// 开标单号
+
+	public Zhaobiao() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Zhaobiao(Integer id, String title, String moban, String fuze,
+			String phone, String status, String loc, String kongxian, String t1) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.title = title;
+		this.moban = moban;
+		this.fuze = fuze;
+		this.phone = phone;
+		this.status = status;
+		this.loc = loc;
+		this.kongxian = kongxian;
+		this.t1 = t1;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getMoban() {
+		return moban;
+	}
+
+	public void setMoban(String moban) {
+		this.moban = moban;
+	}
+
+	public String getFuze() {
+		return fuze;
+	}
+
+	public void setFuze(String fuze) {
+		this.fuze = fuze;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getLoc() {
+		return loc;
+	}
+
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+
+	public String getKongxian() {
+		return kongxian;
+	}
+
+	public void setKongxian(String kongxian) {
+		this.kongxian = kongxian;
+	}
+
+	public String getT1() {
+		return t1;
+	}
+
+	public void setT1(String t1) {
+		this.t1 = t1;
+	}
+
+	public String getFaburen() {
+		return faburen;
+	}
+
+	public void setFaburen(String faburen) {
+		this.faburen = faburen;
+	}
+
+	public String getFabushijian() {
+		return fabushijian;
+	}
+
+	public void setFabushijian(String fabushijian) {
+		this.fabushijian = fabushijian;
+	}
+
+	public String getShenhe() {
+		return shenhe;
+	}
+
+	public void setShenhe(String shenhe) {
+		this.shenhe = shenhe;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public Integer getHtId() {
+		return htId;
+	}
+
+	public void setHtId(Integer htId) {
+		this.htId = htId;
+	}
+
+	public String getT2() {
+		return t2;
+	}
+
+	public void setT2(String t2) {
+		this.t2 = t2;
+	}
+
+	public String getNumbers() {
+		return numbers;
+	}
+
+	public void setNumbers(String numbers) {
+		this.numbers = numbers;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getShenpiStatus() {
+		return shenpiStatus;
+	}
+
+	public void setShenpiStatus(String shenpiStatus) {
+		this.shenpiStatus = shenpiStatus;
+	}
+
+}

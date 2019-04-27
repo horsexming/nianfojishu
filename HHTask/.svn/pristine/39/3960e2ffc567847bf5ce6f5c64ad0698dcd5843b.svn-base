@@ -1,0 +1,184 @@
+package com.task.entity;
+
+import java.util.List;
+
+/**
+ * 甘特图类 :(ta_Gantt)
+ * @author 马逗逗
+ *
+ */
+public class Gantt {
+	private Integer id;
+	private String projectName;//项目名称
+	private String peopleStr;//
+	private String peopleIds;//项目负责人Ids,以“，”隔开
+	private String peopleName;//项目负责人姓名，以“，”隔开
+	private List<Users> peopleList;//项目负责人对象集合
+	private Long startTime;//开始时间
+	private Long endTime;//结束时间
+	private String className;
+	private Integer classId;
+	
+	private String startDate;
+	private String endDate;
+	private String detail;//详情
+
+	
+	
+	//树形显示
+	private Integer fatherId;//父节点
+	private Integer rootId;//根节点
+	private Integer belongLayer;//当前层 
+	
+	
+	private Long childLength;//孩子节点数量
+	private List<Integer> allChildInt;//递归查找子节点以及子节点的字节点Integer
+	private List<Integer> allParentInt;//递归查找父节点以及父节点的父节点Integer
+	private Integer maxCengNum;//最大层数
+	private Boolean isShowFlag;//是否显示子节点标志
+	 
+	
+	
+	private Float corrCount;
+	
+	public Integer getFatherId() {
+		return fatherId;
+	}
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+	public Integer getRootId() {
+		return rootId;
+	}
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+	public Integer getBelongLayer() {
+		return belongLayer;
+	}
+	public void setBelongLayer(Integer belongLayer) {
+		this.belongLayer = belongLayer;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getPeopleStr() {
+		return peopleStr;
+	}
+	public void setPeopleStr(String peopleStr) {
+		this.peopleStr = peopleStr;
+	}
+	public String getPeopleIds() {
+		return peopleIds;
+	}
+	public void setPeopleIds(String peopleIds) {
+		this.peopleIds = peopleIds;
+	}
+	public String getPeopleName() {
+		return peopleName;
+	}
+	public void setPeopleName(String peopleName) {
+		this.peopleName = peopleName;
+	}
+	public List<Users> getPeopleList() {
+		return peopleList;
+	}
+	public void setPeopleList(List<Users> peopleList) {
+		this.peopleList = peopleList;
+	}
+	public Long getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Long startTime) {
+		this.startTime = startTime;
+	}
+	public Long getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public Integer getClassId() {
+		return classId;
+	}
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	public void setChildLength(Long childLength) {
+		this.childLength = childLength;
+	}
+	public Long getChildLength() {
+		return childLength;
+	}
+	public void setAllChildInt(List<Integer> allChildInt) {
+		this.allChildInt = allChildInt;
+	}
+	public List<Integer> getAllChildInt() {
+		return allChildInt;
+	}
+	public void setMaxCengNum(Integer maxCengNum) {
+		this.maxCengNum = maxCengNum;
+	}
+	public Integer getMaxCengNum() {
+		return maxCengNum;
+	}
+	public void setAllParentInt(List<Integer> allParentInt) {
+		this.allParentInt = allParentInt;
+	}
+	public List<Integer> getAllParentInt() {
+		return allParentInt;
+	}
+	public void setIsShowFlag(Boolean isShowFlag) {
+		this.isShowFlag = isShowFlag;
+	}
+	public Boolean getIsShowFlag() {
+		return isShowFlag;
+	}
+	public void setCorrCount(Float corrCount) {
+		this.corrCount = corrCount;
+	}
+	public Float getCorrCount() {
+		return corrCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

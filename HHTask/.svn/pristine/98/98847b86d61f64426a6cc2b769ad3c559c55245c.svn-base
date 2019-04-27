@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="ToolCabine" table="ta_mj_ToolCabine">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cabNumber" />
+		<property name="cabAceIp" />
+		<property name="cabStatus" />
+		<property name="cabOpenOrder" />
+		<property name="articleName" />
+		<property name="articleFormat" />
+		<property name="nowNumber" />
+		<property name="nowArticleName" />
+		<property name="nowArticleFormat" />
+		<property name="caType" />
+		<property name="passWord" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="resAccessId" />
+		<!--用户柜 对用户 多对多-->
+		<set name="users" table="ta_usersCab" inverse="false" cascade="save-update"
+			lazy="true">
+			<key column="ta_CabId" />
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.lpanclear">
+	<class name="Score" table="ta_score">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="scoreDate"/>	
+		<property name="titleName"/>
+		<property name="fraction"/>
+		<property name="frequency"/>
+		<property name="difference"/>	
+		<property name="clearTheDay"/>  	
+		
+		<many-to-one name="employee" class="Employee"
+		 column="fk_employeeId"></many-to-one> 
+	</class>
+
+</hibernate-mapping>

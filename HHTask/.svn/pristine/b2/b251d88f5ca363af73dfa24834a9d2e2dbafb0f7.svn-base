@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.hbm.menjin">
+	<class name="com.task.entity.menjin.WaterRecharge" table="ta_WaterRecharge">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="sheng"/>
+		<property name="shengDun"/>
+		<property name="price"/>
+		<property name="allPrice"/>
+		<property name="userDept"/>
+		<property name="userCode"/>
+		<property name="userCardId"/>
+		<property name="userName"/>
+		<property name="userId"/>
+		<property name="addTime"/>
+		<property name="addUserName"/>
+		<property name="addUserId"/>
+	</class>
+</hibernate-mapping>

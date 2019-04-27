@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.pscs.Customer" table="ta_customer">
+		<id name="customer_id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="customer_phone" />
+		<property name="customer_name" />
+		<property name="cart_ype" />
+		<property name="company_name" />
+		<property name="customer_passWord" />
+		<property name="customer_state" />
+		<property name="period" />
+		<property name="startdate" />
+		<property name="enddate" />
+		<property name="securityCode" />
+		<property name="securityTel" />
+		<property name="securityshu" />
+		<property name="randomNum" />
+		<property name="failTime" />
+		<property name="status" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<!-- 客户表对提交信息表 -->
+		<set name="customerInformations" inverse="true" cascade="all" lazy="true">
+			<key column="ta_cusInfor"></key>
+			<one-to-many class="com.task.entity.android.pscs.CustomerInformation"/>
+		</set>
+	</class>
+</hibernate-mapping>

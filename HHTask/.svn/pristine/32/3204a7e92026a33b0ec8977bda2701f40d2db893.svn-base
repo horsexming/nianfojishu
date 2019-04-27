@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-mxl" location="0,0" size="0,0">
+    <action name="processGzstoreAction_*" location="0,0" size="0,0">
+      <result name="findGX">
+        <resourceEdge source="findGX" routing="0" target="progx.jsp" />
+      </result>
+      <result name="OsScope_bdlist">
+        <resourceEdge source="OsScope_bdlist" routing="0" target="OsScope_bdlist.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="GzstoreAction_*" location="0,0" size="0,0">
+      <result name="findBygzbj">
+        <resourceEdge source="findBygzbj" routing="0" target="gzbj.jsp" />
+      </result>
+      <result name="doupdate">
+        <resourceEdge source="doupdate" routing="0" target="editgzbj.jsp" />
+      </result>
+      <result name="toupdate" />
+      <result name="addGzbj" />
+      <result name="delGzbj" />
+      <result name="findByProcess" />
+      <result name="findByProcess1" />
+      <result name="findGzbjById" />
+      <result name="toUpdateProcess" />
+      <result name="toupdateProcess1" />
+      <result name="userprocess" />
+      <result name="toaddProcess" />
+      <result name="toaddProcess1" />
+      <result name="doaddProcess" />
+      <result name="doaddProcess1" />
+      <result name="delProcess2" />
+      <result name="delProcess" />
+      <result name="delProcess1" />
+    </action>
+    <action name="MeasuringAction_*" location="0,0" size="0,0">
+      <result name="findMeasuring" />
+      <result name="findMeasuring1" />
+      <result name="findMeasuringById" />
+      <result name="updateMeasuring" />
+      <result name="updateandsaveMeasuring" />
+      <result name="findMeasuringdetail" />
+      <result name="measuring_add" />
+      <result name="updateMeasuringandstore" />
+      <result name="findAccountsDate" />
+      <result name="AccountsDate_add" />
+      <result name="checkrecordList_show" />
+    </action>
+    <action name="QualityAction_*" location="0,0" size="0,0">
+      <result name="findQuailty" />
+      <result name="toaddQuality" />
+      <result name="addQuality" />
+      <result name="delQuality" />
+      <result name="delQuality1" />
+      <result name="salQuality" />
+      <result name="updateQuality" />
+    </action>
+    <action name="UnitManagerAction_*" location="0,0" size="0,0">
+      <result name="findUnitManager" />
+      <result name="findCaizhiManager" />
+      <result name="addUnitManager" />
+      <result name="delUnitManager" />
+      <result name="findUnitManagerById" />
+      <result name="updateUnitManager" />
+    </action>
+    <action name="CustomerAction_*" location="0,0" size="0,0">
+      <result name="findCustomerAll" />
+      <result name="addCustomer" />
+      <result name="findCustomerById" />
+      <result name="updateCustomer" />
+      <result name="delCustomerById" />
+    </action>
+    <action name="paymentVoucherAction_*" location="0,0" size="0,0">
+      <result name="findPaymentVoucher" />
+      <result name="addPaymentVoucher" />
+      <result name="findPaymentVoucherById" />
+      <result name="updatePaymentVoucher" />
+      <result name="findExamList" />
+      <result name="findExamList1" />
+      <result name="salPaymentDetail1" />
+      <result name="delPaymentVoucher" />
+      <result name="updatePaymentVouche1" />
+      <result name="updatePaymentVouche2" />
+      <result name="saveBorrowings" />
+      <result name="findPaymentVoucher1" />
+      <result name="findPaymentVoucher2" />
+      <result name="salPaymentDetail" />
+      <result name="updatePaymentDetail" />
+      <result name="updateBorrowings" />
+      <result name="updateBorrowings1" />
+      <result name="updatePayment" />
+      <result name="updatePayment1" />
+    </action>
+    <action name="paymentDetailAction_*" location="0,0" size="0,0">
+      <result name="findPaymentDetail" />
+      <result name="addPaymentDetail" />
+      <result name="addPaymentDetail1" />
+      <result name="delPaymentDetail" />
+      <result name="findPaymentDetailById" />
+      <result name="updatePaymentVoucher" />
+      <result name="salPaymentDetail" />
+    </action>
+    <action name="bargainAction_*" location="0,0" size="0,0">
+      <result name="addBargain" />
+      <result name="findBargain" />
+      <result name="findExamList" />
+      <result name="findContractExamList" />
+      <result name="updateExamBargain" />
+      <result name="updateContractExamList" />
+      <result name="salBargain2" />
+      <result name="salBargain1" />
+      <result name="delBargain" />
+      <result name="updateBargain" />
+      <result name="jumpaddBargain" />
+      <result name="jumpaddBargain1" />
+      <result name="addBarContract" />
+      <result name="findBarContract" />
+      <result name="salBarContract" />
+      <result name="printBarContract" />
+      <result name="updateBarContract" />
+      <result name="delBarContract" />
+      <result name="error" />
+    </action>
+    <action name="signatureAction_*" location="0,0" size="0,0">
+      <result name="findSignature" />
+      <result name="addSignature" />
+      <result name="delSignature" />
+      <result name="findSignatureByid" />
+      <result name="updateSignature" />
+      <result name="findHistorySignature" />
+    </action>
+    <action name="kvpAssessAction_*" location="0,0" size="0,0">
+      <result name="addKVPAssess" />
+      <result name="findkvpassess" />
+      <result name="updateExamKVP" />
+      <result name="findKVPAssess1" />
+      <result name="updateKVPAssess" />
+      <result name="doupdateKVPAssess" />
+      <result name="delKVPAssess" />
+      <result name="addExecuteKVP" />
+      <result name="findExecuteKVPById" />
+      <result name="findExecuteKVPById1" />
+      <result name="findExamExecuteKVP" />
+      <result name="updateExamExecuteKVP" />
+      <result name="findEightBReport" />
+      <result name="addEightBReport" />
+      <result name="findExamEightBReport" />
+      <result name="updateExamEightBReport" />
+      <result name="findEightBReportById" />
+      <result name="findPrintEightBReport" />
+      <result name="updateEightBReport" />
+      <result name="delEightBReport" />
+    </action>
+    <action name="singleCarAction_*" location="0,0" size="0,0">
+      <result name="addSingleCar" />
+      <result name="findExamSingleCarA" />
+      <result name="findExamSingleCarB" />
+      <result name="findSingleCar" />
+      <result name="updateExamListA" />
+      <result name="updateExamListB" />
+      <result name="updateExamListC" />
+      <result name="findExamListC" />
+      <result name="findSingleCarById" />
+      <result name="findSingleCarById1" />
+      <result name="findSingleCarDaYin" />
+      <result name="updateSingleCar" />
+      <result name="delSingleCarById" />
+      <result name="updateSingleCarStatus" />
+      <result name="updateSingleCarAllStatus" />
+      <result name="getCountkilometers" />
+    </action>
+    <action name="PushAction_*" location="0,0" size="0,0">
+      <result name="findPush" />
+      <result name="addProcessandmeid" />
+      <result name="findPushById" />
+      <result name="updateProcessandmeid" />
+      <result name="delPush" />
+      <result name="findTaSopGongwei" />
+      <result name="findPushById1" />
+      <result name="findPushById2" />
+      <result name="delGongweiById" />
+    </action>
+    <action name="pmiManagementAction_*" location="0,0" size="0,0">
+      <result name="findPmi" />
+      <result name="addPmi" />
+      <result name="salPmiByid" />
+      <result name="updatePmi" />
+      <result name="delPmi" />
+      <result name="findMachineByid" />
+      <result name="findProcessInforBypmi_id" />
+      <result name="addMachine" />
+      <result name="delMachine" />
+      <result name="pmi_rootId" />
+    </action>
+    <action name="performsingleAction_*" location="0,0" size="0,0">
+      <result name="jumpaddBargain" />
+      <result name="findPerformsingle" />
+      <result name="salPerformsingle" />
+      <result name="addPerformsingle" />
+      <result name="delPerformsingle" />
+      <result name="findContractExamList" />
+      <result name="updateContractExamList" />
+    </action>
+  </package>
+  <webResource name="gzbj.jsp" path="/System/gzbj/gzbj.jsp" location="0,0" size="0,0" />
+  <webResource name="editgzbj.jsp" path="/System/gzbj/editgzbj.jsp" location="0,0" size="0,0" />
+  <webResource name="progx.jsp" path="/System/gzbj/progx.jsp" location="0,0" size="0,0" />
+  <webResource name="OsScope_bdlist.jsp" path="/System/gzbj/OsScope_bdlist.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="/error.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

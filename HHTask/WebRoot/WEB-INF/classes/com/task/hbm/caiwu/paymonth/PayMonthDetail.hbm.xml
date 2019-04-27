@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.paymonth">
+	<class name="PayMonthDetail" table="ta_payMonthDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="illustrate"/>		
+		<property name="jine" />
+		<property name="addTime" />
+		<property name="addUser"/>
+		<property name="payMonthId" />
+		
+	</class>
+</hibernate-mapping>

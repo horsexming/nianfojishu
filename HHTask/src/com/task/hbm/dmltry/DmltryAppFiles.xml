@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.dmltry">
+	<class name="DmltryAppFiles" table="ta_DmltryAppFiles">
+	
+		<id name="id">
+			 <generator class="identity"></generator>
+		</id>
+		<property name="appFilename" />
+		<property name="appFilesmshu" />
+		<!-- 时间 -->
+		<property name="addTime" />
+		<property name="upDateTime" />
+<!-- 			1 -->
+		<set name="dmlAppFileUrl" inverse="false" cascade="delete" lazy="true">
+			<key column="ta_dmltryAppFilesid"></key>
+			<one-to-many class="DmlAppFileUrl"/>
+		</set>
+		
+		
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,67 @@
+package com.task.entity;
+/**
+ * 订单冲销对应内部计划关系表（ta_InternalZsAboutBh）
+ * @author Administrator
+ *
+ */
+public class InternalZsAboutBh {
+	private Integer id;
+	private Integer pzsAboutbhId;//订单冲销对应表Id
+	private Integer idetailId;//内部计划Id
+	private String markId;//件号
+	private String ywMakrId;//业务件号
+	private Float count;//数量
+	private Float applyzkCount;//申请转库数量
+	private Float zkCount;//转库数量
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getPzsAboutbhId() {
+		return pzsAboutbhId;
+	}
+	public void setPzsAboutbhId(Integer pzsAboutbhId) {
+		this.pzsAboutbhId = pzsAboutbhId;
+	}
+	public Integer getIdetailId() {
+		return idetailId;
+	}
+	public void setIdetailId(Integer idetailId) {
+		this.idetailId = idetailId;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getYwMakrId() {
+		return ywMakrId;
+	}
+	public void setYwMakrId(String ywMakrId) {
+		this.ywMakrId = ywMakrId;
+	}
+	public Float getCount() {
+		return count;
+	}
+	public void setCount(Float count) {
+		this.count = count;
+	}
+	public Float getApplyzkCount() {
+		return applyzkCount;
+	}
+	public void setApplyzkCount(Float applyzkCount) {
+		this.applyzkCount = applyzkCount;
+	}
+	public Float getZkCount() {
+		return zkCount;
+	}
+	public void setZkCount(Float zkCount) {
+		this.zkCount = zkCount;
+	}
+	
+	
+
+}

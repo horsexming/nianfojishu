@@ -1,0 +1,76 @@
+package com.task.entity;
+
+/**
+ * @author 贾辉辉 考勤排班表
+ * @FileNam Person.java
+ * @Date 2012-10-9 考勤排班表 ta_hr_kqDate
+ */
+public class KQDate implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	public static void main(String[] args) {
+		System.out.println((8 * 7 * 6 * 5 * 4 * 3 * 2 * 1.0)
+				/ (108 * 107 * 106 * 105 * 104 * 103 * 102 * 101.0));
+		System.out.println((108 * 107 * 106 * 105 * 104 * 103 * 102 * 101.0)
+				/ (8 * 7 * 6 * 5 * 4 * 3 * 2 * 1.0));
+		System.out.println((4 * 3 * 2 * 1.0) / (108 * 107 * 106 * 105.0));
+		System.out
+				.println((8 * 7 * 6 * 5 * 4 * 3 * 2 * 1.0)
+						/ (108 * 107 * 106 * 105 * 104 * 103 * 102 * 101.0) > (4 * 3 * 2 * 1.0)
+						/ (108 * 107 * 106 * 105.0));
+	}
+
+	private int id;
+	private String kqDate; // 日期
+	private int synchroTag;// 同步完成标识
+	private String synchroTime;// 同步完成时间
+	private int zhixingCS;// 执行次数
+	private Integer banci_Id;// 班次ID
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Integer getBanci_Id() {
+		return banci_Id;
+	}
+
+	public void setBanci_Id(Integer banciId) {
+		banci_Id = banciId;
+	}
+
+	public String getKqDate() {
+		return kqDate;
+	}
+
+	public void setKqDate(String kqDate) {
+		this.kqDate = kqDate;
+	}
+
+	public int getSynchroTag() {
+		return synchroTag;
+	}
+
+	public void setSynchroTag(int synchroTag) {
+		this.synchroTag = synchroTag;
+	}
+
+	public String getSynchroTime() {
+		return synchroTime;
+	}
+
+	public void setSynchroTime(String synchroTime) {
+		this.synchroTime = synchroTime;
+	}
+
+	public int getZhixingCS() {
+		return zhixingCS;
+	}
+
+	public void setZhixingCS(int zhixingCS) {
+		this.zhixingCS = zhixingCS;
+	}
+}

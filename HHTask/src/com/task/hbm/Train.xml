@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Train" table="ta_hr_train">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="name" column="ta_train_name" />
+		<property name="code" column="ta_train_code" />
+		<property name="cardId" column="ta_train_cardId" />
+		<property name="trainPurPose" column="ta_train_trainPurPose" />
+		<property name="trainContent" column="ta_train_trainContent" />
+		<property name="trainDate" column="ta_train_trainDate" />
+		<property name="trainManner" column="ta_train_trainManner" />
+		<property name="sorce" column="ta_train_sorce" />
+		<property name="certificateName" column="ta_train_certificateName" />
+		<property name="issuingAuthority" column="ta_train_issuingAuthority" />
+		<property name="certificateFileName" column="ta_train_certificateFileName" />
+		<property name="certificateNumber" column="ta_train_certificateNumber" />
+		<property name="certificateValidity" column="ta_train_certificateValidity" />
+		<property name="certificateReview" column="ta_train_certificateReview" />
+	</class>
+</hibernate-mapping>

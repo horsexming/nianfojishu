@@ -1,0 +1,164 @@
+package com.task.entity.jxkh;
+
+import java.io.Serializable;
+
+/**
+ * 部门长月度可分配绩效
+ * @author wxf ta_DeptLeaderPenPei
+ *
+ */
+public class DeptLeaderPenPei implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String dept;//部门
+	private String name;//姓名 部门长姓名
+	private Double leaderjx;//部门长绩效  = 绩效系数*部门人均绩效 ; deptAvgjx*jiXiaoXiShu
+	private Double deptAvgjx;//部门人均绩效 = 部门分配(可分配情况总绩效)/部门实际人数.
+							// = FenPeiQingKuang(fenpeizjx)/FenPeiQingKuang(b)
+	private Double jiXiaoXiShu;//绩效系数
+	private Integer deptPeopelNum;//部门人数(定岗人数) FenPeiQingKuang(c) 获取
+	//部门长目标
+	private Integer deptMubiaoScore ;//(部门长目标) ZbSjZk (sumscocer) 获取
+	private Integer deptMubiaoXiShu;//
+	//部门长周列会 
+	private Integer deptZlhAddScore;//加分 BmzZlh(addscore)  获取
+	private Integer deptZlhReduceScore;//减分 BmzZlh(reducescore) 获取
+	private Integer deptZlhScore;//得分 BmzZlh(score) 获取
+	private Integer deptZlhXiShu;//系数
+	//年度改造自选 
+	private Integer ndgzScore;//年度改造得分
+	private Integer ndgzXiShu;//系数
+	//总得分
+	private Integer xiShuSum;//系数和
+	private Integer paiMing;//排名
+	
+	private String months;//月份(yyyy-MM)
+	private String addTime;//添加时间
+	private String addUsersName;//添加人
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Double getLeaderjx() {
+		return leaderjx;
+	}
+	public void setLeaderjx(Double leaderjx) {
+		this.leaderjx = leaderjx;
+	}
+	public Double getDeptAvgjx() {
+		return deptAvgjx;
+	}
+	public void setDeptAvgjx(Double deptAvgjx) {
+		this.deptAvgjx = deptAvgjx;
+	}
+	public Integer getDeptPeopelNum() {
+		return deptPeopelNum;
+	}
+	public void setDeptPeopelNum(Integer deptPeopelNum) {
+		this.deptPeopelNum = deptPeopelNum;
+	}
+	public Integer getDeptMubiaoScore() {
+		return deptMubiaoScore;
+	}
+	public void setDeptMubiaoScore(Integer deptMubiaoScore) {
+		this.deptMubiaoScore = deptMubiaoScore;
+	}
+	public Integer getDeptMubiaoXiShu() {
+		return deptMubiaoXiShu;
+	}
+	public void setDeptMubiaoXiShu(Integer deptMubiaoXiShu) {
+		this.deptMubiaoXiShu = deptMubiaoXiShu;
+	}
+	public Integer getDeptZlhAddScore() {
+		return deptZlhAddScore;
+	}
+	public void setDeptZlhAddScore(Integer deptZlhAddScore) {
+		this.deptZlhAddScore = deptZlhAddScore;
+	}
+	public Integer getDeptZlhReduceScore() {
+		return deptZlhReduceScore;
+	}
+	public void setDeptZlhReduceScore(Integer deptZlhReduceScore) {
+		this.deptZlhReduceScore = deptZlhReduceScore;
+	}
+	public Integer getDeptZlhScore() {
+		return deptZlhScore;
+	}
+	public void setDeptZlhScore(Integer deptZlhScore) {
+		this.deptZlhScore = deptZlhScore;
+	}
+	public Integer getDeptZlhXiShu() {
+		return deptZlhXiShu;
+	}
+	public void setDeptZlhXiShu(Integer deptZlhXiShu) {
+		this.deptZlhXiShu = deptZlhXiShu;
+	}
+	public Integer getNdgzScore() {
+		return ndgzScore;
+	}
+	public void setNdgzScore(Integer ndgzScore) {
+		this.ndgzScore = ndgzScore;
+	}
+	public Integer getNdgzXiShu() {
+		return ndgzXiShu;
+	}
+	public void setNdgzXiShu(Integer ndgzXiShu) {
+		this.ndgzXiShu = ndgzXiShu;
+	}
+	public Integer getXiShuSum() {
+		return xiShuSum;
+	}
+	public void setXiShuSum(Integer xiShuSum) {
+		this.xiShuSum = xiShuSum;
+	}
+	public Integer getPaiMing() {
+		return paiMing;
+	}
+	public void setPaiMing(Integer paiMing) {
+		this.paiMing = paiMing;
+	}
+	
+	public Double getJiXiaoXiShu() {
+		return jiXiaoXiShu;
+	}
+	public void setJiXiaoXiShu(Double jiXiaoXiShu) {
+		this.jiXiaoXiShu = jiXiaoXiShu;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	
+	
+	
+}

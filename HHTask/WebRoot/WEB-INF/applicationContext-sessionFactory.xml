@@ -1,0 +1,1275 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/tx 	
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	
+		<property name="hibernateProperties">
+			<props>
+<!-- 		<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+			</props>
+		</property>
+		<!-- ============映射文件 ================== -->
+		<!--		<property name="mappingLocations">-->
+		<!--			 <value>classpath:/src/com/task/hbm/*.xml</value>  -->
+		<!--		</property>-->
+		
+		<property name="mappingResources">
+			<list>
+				<value>com/task/hbm/Users.xml</value>
+				<value>com/task/hbm/Password.xml</value>
+				<value>com/task/hbm/DeptNumber.xml</value>
+				<value>com/task/hbm/Admin.xml</value>
+				<value>com/task/hbm/Price.xml</value>
+				<value>com/task/hbm/RealPass.xml</value>
+				<value>com/task/hbm/Template.xml</value>
+				<value>com/task/hbm/TemplateDetail.xml</value>
+				<value>com/task/hbm/Asset.xml</value>
+				<value>com/task/hbm/AssScore.xml</value>
+				<value>com/task/hbm/ScoreDetails.xml</value>
+				<value>com/task/hbm/Wage.xml</value>
+				<value>com/task/hbm/WagePay.xml</value>
+				<value>com/task/hbm/WageStandard.xml</value>
+				<value>com/task/hbm/InsuranceGold.xml</value>
+				<value>com/task/hbm/GoodsStore.hbm.xml</value>
+				<value>com/task/hbm/ProcardBl.xml</value>
+				<value>com/task/hbm/Tijiangprice.xml</value>
+				<value>com/task/hbm/Tijiang.xml</value>
+				<value>com/task/hbm/Mentionrecord.xml</value>
+				<value>com/task/hbm/MinBalance.xml</value>
+				<value>com/task/hbm/ClientManagement.xml</value>
+				<value>com/task/hbm/OrderManagement.xml</value>
+				<value>com/task/hbm/Teammembers.xml</value>
+				<value>com/task/hbm/Bonus.xml</value>
+				<value>com/task/hbm/Bonusmoney.xml</value>
+				<value>com/task/hbm/WorkLogClass.xml</value>
+				<value>com/task/hbm/WorkLog.xml</value>
+				<value>com/task/hbm/Orderprocesstabler.xml</value>
+				<value>com/task/hbm/Provision.xml</value>
+				<value>com/task/hbm/Contract.xml</value>
+				<value>com/task/hbm/ModuleFunction.xml</value>
+				<value>com/task/hbm/ProjectLogin.xml</value>
+				<value>com/task/hbm/ProjectRecord.xml</value>
+				<value>com/task/hbm/JoinTrain.xml</value>
+				<value>com/task/hbm/JoinTrainDetails.xml</value>
+				<value>com/task/hbm/Train.xml</value>
+				<value>com/task/hbm/Sell.hbm.xml</value>
+				<value>com/task/hbm/SellDelete.hbm.xml</value>
+				<value>com/task/hbm/TaHkHkInvoice.hbm.xml</value>
+				<value>com/task/hbm/TaHkHuikuan.hbm.xml</value>
+				<value>com/task/hbm/TaHkSellSta.hbm.xml</value>
+				<value>com/task/hbm/taHkShoppingCard.xml</value>
+				<value>com/task/hbm/TaHkBackMoney.hbm.xml</value>
+				<value>com/task/hbm/TaHkPartBackMoney.hbm.xml</value>
+				<value>com/task/hbm/unpasskp/ProductUnPassKp.xml</value>
+				<value>com/task/hbm/unpasskp/ProductUnqualified.xml</value>
+				<value>com/task/hbm/ContractBonus.xml</value>
+				<value>com/task/hbm/ShortMessage.hbm.xml</value>
+				<value>com/task/hbm/SmsUser.hbm.xml</value>
+				<value>com/task/hbm/SmsGroup.hbm.xml</value>
+				<!-- 仓区 -->
+				<value>/com/task/hbm/GoodHouse.hbm.xml</value>
+				<!-- 工装 -->
+				<value>com/task/hbm/gzbj/Gzstore.hbm.xml</value>
+				<!-- 工装使用记录 -->
+				<value>com/task/hbm/gzbj/GzstoreUseLog.hbm.xml</value>
+				<!-- 工序 -->
+				<value>com/task/hbm/gzbj/ProcessGzstore.hbm.xml</value>
+				<!-- 保修类别 -->
+				<value>com/task/hbm/repair/RepairType.hbm.xml</value>
+				<!-- 量具管理 -->
+				<value>com/task/hbm/gzbj/Measuring.hbm.xml</value>
+				<!-- 校检记录表 -->
+				<value>com/task/hbm/gzbj/Checkrecord.hbm.xml</value>
+				<!-- 单位管理 -->
+				<value>com/task/hbm/UnitManager.hbm.xml</value>
+				<!-- 品质部门审核管理 -->
+				<value>com/task/hbm/quality/Quality.hbm.xml</value>
+				<!-- 付款凭证 -->
+				<value>com/task/hbm/payment/PaymentVoucher.xml</value>
+				<!-- 付款明细 -->
+				<value>com/task/hbm/payment/PaymentDetail.xml</value>
+
+				<!-- 询比议价 -->
+				<value>com/task/hbm/bargain/Bargain.hbm.xml</value>
+				<!-- 议价物品 -->
+				<value>com/task/hbm/bargain/BargainGoods.hbm.xml</value>
+				<!-- 议价明细 -->
+				<value>com/task/hbm/bargain/BargainingDetails.hbm.xml</value>
+				<!-- 公司信息 -->
+				<value>com/task/hbm/bargain/Company.hbm.xml</value>
+				<!-- 序列表 -->
+				<value>com/task/hbm/approval/Sequences.xml</value>
+				<!-- 电子签名 -->
+				<value>com/task/hbm/approval/Signature.xml</value>
+				<!-- 议价合同管理 -->
+				<value>com/task/hbm/bargain/BarContract.xml</value>
+				<!-- 议价合同明细 -->
+				<value>com/task/hbm/bargain/BarContractDetails.xml</value>
+
+				<!-- kvp产品评估 -->
+				<value>com/task/hbm/kvp/KVPAssess.xml</value>
+				<!-- 产品持续改进 -->
+				<!-- <value>com/task/hbm/kvp/ImproveKVP.xml</value> -->
+				<!-- 项目执行 -->
+				<value>com/task/hbm/kvp/ExecuteKVP.xml</value>
+				<!-- 8B报告 -->
+				<value>com/task/hbm/kvp/EightBReport.xml</value>
+				<!-- 用车单 -->
+				<value>com/task/hbm/SingleCar/SingleCar.xml</value>
+				<value>com/task/hbm/SingleCar/SingleCarAll.xml</value>
+				<!-- pmi管理 -->
+				<value>com/task/hbm/pmi/PmiManagement.xml</value>
+				<!-- 采购执行单 -->
+				<value>com/task/hbm/perform/Performsingle.xml</value>
+				<!-- 采购执行单明细 -->
+				<value>com/task/hbm/perform/PerformsingleDetail.xml</value>
+
+
+				<!-- 招标 -->
+				<value>com/task/hbm/ZhFlow.hbm.xml</value>
+				<value>com/task/hbm/ZhMetric.hbm.xml</value>
+				<value>com/task/hbm/ZhFile.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/ZhUser.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Zhmoban.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Zhaobiao.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/ZhaobiaoXi.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Zhtoubiao.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Flowdetail.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Huikuang.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/HuikuangXiangxi.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Hui_Xi.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Zhgongxu.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/QueXian.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Nianlilv.hbm.xml</value>
+
+				<value>/com/task/hbm/zhaobiao/InternalOrderzhaobiao.xml</value>
+				<value>/com/task/hbm/zhaobiao/InternalOrderDetailzhaobiao.xml
+				</value>
+				<value>/com/task/hbm/zhaobiao/jihuadan.xml</value>
+				<value>/com/task/hbm/zhaobiao/Dingdanzhuanhua.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/GysMarkIdjiepai.xml</value>
+				<value>/com/task/hbm/zhaobiao/Waigoujianpinci.xml</value>
+				<!-- -->
+				<value>/com/task/hbm/zhaobiao/MarkIdZijian.xml</value>
+				<value>/com/task/hbm/zhaobiao/ProcessMarkIdZijian.xml</value>
+				<!-- 一线员工操作 -->
+				<value>/com/task/hbm/zhaobiao/Zh_shebei.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Zh_CaozuoDengji.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Zh_CaozuoEmp.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/Zh_caozuo.hbm.xml</value>
+				<value>/com/task/hbm/zhaobiao/WaigoujianpinciZi.xml</value>
+
+				<value>com/task/hbm/zhaobiao/NianXiu.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/NianXiuMingxi.hbm.xml</value>
+				<value>com/task/hbm/zhaobiao/Rukudan.xml</value>
+				<!-- 考勤 -->
+				<value>/com/task/hbm/zhaobiao/KaoQin.hbm.xml</value>
+
+				<value>com/task/hbm/bp/Templet.hbm.xml</value>
+				<value>com/task/hbm/bp/TempletMonitor.hbm.xml</value>
+				<value>com/task/hbm/bp/Detail.hbm.xml</value>
+				<value>com/task/hbm/bp/Product.hbm.xml</value>
+				<value>com/task/hbm/Project.hbm.xml</value>
+				<value>com/task/hbm/ProjectUser.hbm.xml</value>
+				<value>com/task/hbm/ProjectAuth.hbm.xml</value>
+				<value>com/task/hbm/ProjectProposal.hbm.xml</value>
+				<value>com/task/hbm/ProjectProposalFlow.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationList.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotation.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationRawMaterial.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationSubContract.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationDirectLaborCost.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationEquipmentDepreciation.hbm.xml
+				</value>
+				<value>com/task/hbm/ProjectQuotationToolingCost.hbm.xml</value>
+				<value>com/task/hbm/ProjectQuotationLogistics.hbm.xml</value>
+				<value>com/task/hbm/ProjectStart.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartOutline.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartTechnical.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartBudget.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartCountersigned.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartResponsible.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartSchedule.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartUser.hbm.xml</value>
+				<value>com/task/hbm/ProjectStartClaim.hbm.xml</value>
+				<value>com/task/hbm/ProjectTrack.hbm.xml</value>
+				<value>com/task/hbm/ProjectTrackRecord.hbm.xml</value>
+				<value>com/task/hbm/Tdetail.hbm.xml</value>
+				<value>com/task/hbm/Tconsumption.hbm.xml</value>
+				<value>com/task/hbm/Ttooling.hbm.xml</value>
+				<value>com/task/hbm/Tequipment.hbm.xml</value>
+				<value>com/task/hbm/WareHouseAuth.xml</value>
+				<value>com/task/hbm/WareHouse.xml</value>
+
+				<value>com/task/hbm/Tclaimform.hbm.xml</value>
+				<value>com/task/hbm/TclaimsRecord.hbm.xml</value>
+				<value>com/task/hbm/Manufacturing.xml</value>
+				<value>com/task/hbm/ManufacturingProp.xml</value>
+
+				<value>com/task/hbm/android/Template.xml</value>
+				<value>com/task/hbm/android/TemplateType.xml</value>
+				<value>com/task/hbm/android/TemplateRecord.xml</value>
+
+				<value>com/task/hbm/android/InsTemplate.xml</value>
+				<value>com/task/hbm/android/InsScope.xml</value>
+				<value>com/task/hbm/android/InsRecord.xml</value>
+				<value>com/task/hbm/android/InsRecordScope.xml</value>
+				<value>com/task/hbm/android/OsTemplate.xml</value>
+				<value>com/task/hbm/android/OsScope.xml</value>
+				<value>com/task/hbm/android/OsRecord.xml</value>
+				<value>com/task/hbm/android/OsRecordScope.xml</value>
+
+				<value>com/task/hbm/Screen.xml</value>
+				<value>com/task/hbm/ScreenFiles.xml</value>
+				<value>com/task/hbm/ScreenContent.xml</value>
+				<value>com/task/hbm/Board.xml</value>
+				<!-- 员工卡号 -->
+				<value>com/task/hbm/Card.xml</value>
+				<value>com/task/hbm/Consume.xml</value>
+				<!-- 部门 -->
+				<value>com/task/hbm/Department.xml</value>
+
+				<!-- 考勤人员信息维护 -->
+				<value>com/task/hbm/Person.xml</value>
+
+				<value>com/task/hbm/Registier.xml</value>
+				<value>com/task/hbm/SupplyFund.xml</value>
+				<value>com/task/hbm/TakeFund.xml</value>
+				<!-- 刷卡表 -->
+				<value>com/task/hbm/BrushCard.xml</value>
+				<!-- 个人每天汇总信息表 -->
+				<value>com/task/hbm/Attendance.xml</value>
+				<value>com/task/hbm/AttendanceFu.xml</value>
+				<!-- 考勤人员维护 刘晓霆 -->
+				<value>com/task/hbm/AttendancePerson.xml</value>
+				<!-- 考勤出勤人员信息维护 刘晓霆 -->
+				<value>com/task/hbm/AttendancePersonInformation.xml</value>
+				<!-- 考勤统计 每天出勤率汇总信息表 -->
+				<value>com/task/hbm/AttendanceCount.xml</value>
+				<!-- 考勤日期排班 -->
+				<value>com/task/hbm/KQDate.xml</value>
+
+				<value>com/task/hbm/Business.xml</value>
+				<value>com/task/hbm/Invoice.xml</value>
+				<value>com/task/hbm/BusinessSubsidiary.xml</value>
+				<value>com/task/hbm/PrintProof.xml</value>
+				<value>com/task/hbm/ExamineFlow.xml</value>
+				<value>com/task/hbm/zgkh/AssessPersonnel.xml</value>
+				<value>com/task/hbm/zgkh/ScoreStatistics.xml</value>
+				<value>com/task/hbm/OrderManager.xml</value>
+				<value>com/task/hbm/ProductManager.xml</value>
+				<value>com/task/hbm/Product_Internal.xml</value>
+				<value>com/task/hbm/PieceNum.xml</value>
+				<value>com/task/hbm/SpareParts.xml</value>
+				<value>com/task/hbm/ProductProcess.xml</value>
+				<value>com/task/hbm/ProductPrice.xml</value>
+
+				<value>com/task/hbm/ContractBonusReceive.xml</value>
+				<value>com/task/hbm/AlertMessages.xml</value>
+				<value>com/task/hbm/Requisition.xml</value>
+				<value>com/task/hbm/OrderAndProcard.xml</value>
+				<value>com/task/hbm/InternalOrder.xml</value>
+				<value>com/task/hbm/InternalOrderDetail.xml</value>
+				<value>com/task/hbm/UsersGroup.xml</value>
+				<value>com/task/hbm/IPEntity.xml</value>
+				<value>com/task/hbm/Repair.xml</value>
+				<value>com/task/hbm/Responsibilities.xml</value>
+				<value>com/task/hbm/Parts.xml</value>
+				<value>com/task/hbm/Machine.xml</value>
+				<value>com/task/hbm/Maintenance.xml</value>
+				<value>com/task/hbm/MachineSparePart.xml</value>
+				<value>com/task/hbm/Econdition.xml</value>
+				<value>com/task/hbm/EquipmentChanges.xml</value>
+				<!-- 生产管理 -->
+				<value>com/task/hbm/sop/MonthOneBonus.hbm.xml</value>
+				<value>com/task/hbm/sop/OneProcardBonus.hbm.xml</value>
+				<value>com/task/hbm/sop/Procard.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcessSaveLog.xml</value>
+				<value>com/task/hbm/sop/ProcardProductRelation.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcardForProcess.xml</value>
+				<value>com/task/hbm/sop/ProcardMaterial.xml</value>
+				<value>com/task/hbm/sop/ProcardMaterialHead.xml</value>
+				<value>com/task/hbm/sop/ProcardOneRate.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcardPro.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcessInfor.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcessInforWWApply.xml</value>
+				<value>com/task/hbm/sop/ProcessInforWWApplyDetail.xml</value>
+				<value>com/task/hbm/sop/ProcessInfordeleteApply.xml</value>
+				<value>com/task/hbm/sop/ProcessInfordeleteApplyDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardParts.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcessPeople.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplate.xml</value>
+				<value>com/task/hbm/sop/TechnicalchangeLog.xml</value>
+				<value>com/task/hbm/sop/TechnicalchangeLogDetail.xml</value>
+				<value>com/task/hbm/sop/ProcessChangeNotice.xml</value>
+				<value>com/task/hbm/sop/ProcessChangeNoticeFile.xml</value>
+				<value>com/task/hbm/sop/DesignfeedbackNotice.xml</value>
+				<value>com/task/hbm/sop/DesignfeedbackNoticeFile.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatePrivilege.xml</value>
+				<value>com/task/hbm/sop/Banbenxuhao.xml</value>
+				<value>com/task/hbm/sop/ProcardTemForProcess.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateBanBenApply.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateBanBen.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateChangeLog.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateChangeLogDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateBanBenJudges.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateBanBenJudgesFile.xml</value>
+				<value>com/task/hbm/sop/ProcardAboutBanBenApply.xml</value>
+				<value>com/task/hbm/sop/ProcessAboutBanBenApply.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatesb.xml</value>
+				<value>com/task/hbm/sop/ProcessTemplatesb.xml</value>
+				<value>com/task/hbm/sop/ProcessTemplateFilesb.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatesbChangeLog.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatesbChangeLogDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatesbDifference.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplatesbDifferenceDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateAboutsb.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateAboutsbDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateAboutsbcltype.xml</value>
+				<value>com/task/hbm/sop/ProcardBanBenJudge.xml</value>
+				<value>com/task/hbm/sop/ProcardTBanbenRelation.xml</value>
+				<value>com/task/hbm/sop/ProcardReProduct.xml</value>
+				<value>com/task/hbm/sop/ProcardReProductFile.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWaster.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWasterxc.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWg.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWgDetail.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWgLog.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWw.xml</value>
+				<value>com/task/hbm/sop/ProcardSbWwDetail.xml</value>
+				<value>com/task/hbm/sop/ProcessTemplate.xml</value>
+				<value>com/task/hbm/sop/ProcessTemplateFilel.xml</value>
+				<value>com/task/hbm/sop/FilerootIdLog.xml</value>
+				<value>com/task/hbm/sop/RunningWaterCard.xml</value>
+				<value>com/task/hbm/sop/OutSourcingWorkList.hbm.xml</value>
+				<value>com/task/hbm/sop/jy/ProcardTemplateJY.xml</value>
+				<value>com/task/hbm/sop/jy/ProcessTemplateJY.xml</value>
+				<value>com/task/hbm/sop/gys/ProcardGys.xml</value>
+				<value>com/task/hbm/sop/gys/ProcessGysInfor.xml</value>
+				<value>com/task/hbm/sop/gys/ProcessGysZj.xml</value>
+				<value>com/task/hbm/sop/PurchasedPartsInput.xml</value>
+				<value>com/task/hbm/sop/ProcessFuLiaoTemplate.xml</value>
+				<value>com/task/hbm/sop/ProcessinforFuLiao.xml</value>
+				<value>com/task/hbm/sop/ProcessGzstoreFuLiao.xml</value>
+				<value>com/task/hbm/AnnualLeave.xml</value>
+				<value>com/task/hbm/Calendar.xml</value>
+				<value>com/task/hbm/Store.hbm.xml</value>
+				<value>com/task/hbm/Also.hbm.xml</value>
+				<value>com/task/hbm/Borrow.hbm.xml</value>
+				<value>com/task/hbm/Maintain.hbm.xml</value>
+				<value>com/task/hbm/OutLib.hbm.xml</value>
+				<value>com/task/hbm/Renew.hbm.xml</value>
+				<value>com/task/hbm/Scrap.hbm.xml</value>
+				<value>com/task/hbm/Storage.hbm.xml</value>
+				<!-- 库存借用记录表 -->
+				<value>com/task/hbm/Lend.hbm.xml</value>
+				<!-- 库存归还记录表 -->
+				<value>com/task/hbm/Repay.hbm.xml</value>
+				<!-- 库存领用记录表 -->
+				<value>com/task/hbm/Nect.hbm.xml</value>
+				<!-- 库存申请报废记录表 -->
+				<value>com/task/hbm/ApplyScrap.hbm.xml</value>
+				<!-- OA管理 -->
+				<value>com/task/hbm/OaAppDetail.hbm.xml</value>
+				<value>com/task/hbm/OaApplyForm.hbm.xml</value>
+				<value>com/task/hbm/Oabusiness.hbm.xml</value>
+				<value>com/task/hbm/Oareimbursement.hbm.xml</value>
+				<value>com/task/hbm/OaPrepareApply.hbm.xml</value>
+				<value>com/task/hbm/OaMessageAlerm.hbm.xml</value>
+				<value>com/task/hbm/StorageHistory.hbm.xml</value>
+				<value>com/task/hbm/Consuming.hbm.xml</value>
+				<value>com/task/hbm/Goods.hbm.xml</value>
+				<value>com/task/hbm/YuLiaoApply.hbm.xml</value>
+				<!-- 质量管理 -->
+				<value>com/task/hbm/sop/qd/LogoStickers.hbm.xml</value>
+				<value>com/task/hbm/sop/qd/CheckAlert.hbm.xml</value>
+				<value>com/task/hbm/ProcardEss.xml</value>
+				<!-- 财务报销单 -->
+				<value>com/task/hbm/fin/BaoXiaoDan.xml</value>
+				<value>com/task/hbm/fin/BaoXiaoDetail.xml</value>
+				<value>com/task/hbm/fin/BaoXiaoCourse.xml</value>
+				<value>com/task/hbm/DutyClaim.xml</value>
+				<value>com/task/hbm/SumGoods.hbm.xml</value>
+				<value>com/task/hbm/system/Logging.hbm.xml</value>
+				<!-- 出入管理 -->
+				<value>com/task/hbm/iao/IAOApply.xml</value>
+				<value>com/task/hbm/iao/CarryGoods.xml</value>
+				<!-- 外委申请单 -->
+				<value>com/task/hbm/sop/OutSourcingApp.hbm.xml</value>
+
+				<!-- 流程管理 -->
+				<value>com/task/hbm/Templatenode.xml</value>
+				<value>com/task/hbm/Templateb.xml</value>
+				<value>com/task/hbm/Process.xml</value>
+				<value>com/task/hbm/Processnode.xml</value>
+
+				<!-- 预算决算管理 -->
+				<value>com/task/hbm/fin/budget/DeptMonthBudget.xml</value>
+				<value>com/task/hbm/fin/budget/DeptSubjects.xml</value>
+				<value>com/task/hbm/fin/budget/SaleBudget.xml</value>
+				<value>com/task/hbm/fin/budget/SaleBudgetDetail.xml</value>
+				<value>com/task/hbm/fin/budget/SubBudgetRate.xml</value>
+				<value>com/task/hbm/fin/budget/SubBudgetRateUser.xml</value>
+				<value>com/task/hbm/fin/budget/SubBudgetRateMonth.xml</value>
+				<value>com/task/hbm/fin/budget/SubMonthMoney.xml</value>
+
+				<!-- 周提交不合格数量统计 -->
+				<value>com/task/hbm/sop/FailureStatistics.xml</value>
+				<value>com/task/hbm/sop/FailureSSOnWeek.xml</value>
+				<value>com/task/hbm/sop/FailureSSMarkId.xml</value>
+				<!-- 加班管理 -->
+				<value>com/task/hbm/Overtime.xml</value>
+				<!-- 奖扣管理 -->
+				<value>com/task/hbm/RewardPunish.xml</value>
+				<!-- 项目管理 -->
+				<value>com/task/hbm/pro/Pro.hbm.xml</value>
+				<value>com/task/hbm/pro/ProProduct.hbm.xml</value>
+				<value>com/task/hbm/pro/ProTooling.hbm.xml</value>
+				<value>com/task/hbm/pro/ProUser.hbm.xml</value>
+				<!-- 屏幕管理 -->
+				<value>com/task/hbm/bbs/Scrn.hbm.xml</value>
+				<!-- 屏幕评论 -->
+				<value>com/task/hbm/bbs/BoardReview.hbm.xml</value>
+				<!-- 附件管理 -->
+				<value>com/task/hbm/bbs/Affix.hbm.xml</value>
+				<!-- 工艺规程 -->
+				<value>com/task/hbm/gongyi/GongyiGuicheng.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/ProcessData.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/OperationStandard.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/ProcessGuochengCanshu.hbm.xml
+				</value>
+
+				<value>com/task/hbm/gongyi/gongxu/DetectionItem.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/ProcessTable.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/ProcessPart.hbm.xml</value>
+
+				<value>com/task/hbm/gongyi/gongxu/OperationOrder.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/OperationOrderItem.hbm.xml
+					</value>
+				<!-- 毛料 -->
+				<value>com/task/hbm/gongyi/gongxu/MaoliaoParam.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/MaoliaoJishuTiaojian.hbm.xml
+				</value>
+				<!-- 焊接图表 -->
+				<value>com/task/hbm/gongyi/gongxu/HanjieZuoyeGuifan.hbm.xml</value>
+				<value>com/task/hbm/gongyi/gongxu/HanjieGuochengCanshu.hbm.xml
+				</value>
+				<value>com/task/hbm/gongyi/gongxu/HanjieJianceXiangmu.hbm.xml
+				</value>
+				<!-- 工艺规程打分 -->
+				<value>com/task/hbm/gongyi/score/GongyiGuichengScore.hbm.xml
+					</value>
+				<value>com/task/hbm/gongyi/score/GongyiGuichengScoreLeibie.hbm.xml
+				</value>
+				<value>com/task/hbm/gongyi/score/GongyiGuichengScoreItem.hbm.xml
+				</value>
+				<!-- 工艺规程附件 -->
+				<value>com/task/hbm/gongyi/GongyiGuichengAffix.hbm.xml</value>
+				<!-- 工艺规程 -->
+				<!-- 防护用品 -->
+				<value>com/task/hbm/sop/fhyp/FanghuYongpin.hbm.xml</value>
+				<value>com/task/hbm/sop/fhyp/FanghuYongpinLingqu.hbm.xml</value>
+				<value>com/task/hbm/sop/fhyp/FanghuYongpinQuanxian.hbm.xml</value>
+
+				<!-- 审批流程管理 -->
+				<value>com/task/hbm/system/CircuitCustomize.xml</value>
+				<value>com/task/hbm/system/AuditNode.xml</value>
+				<value>com/task/hbm/system/CircuitRun.xml</value>
+				<value>com/task/hbm/system/CompanyInfo.xml</value>
+				<value>com/task/hbm/system/ExecutionNode.xml</value>
+				<value>com/task/hbm/system/UserDept.xml</value>
+				<value>com/task/hbm/system/LicenseMsg.xml</value>
+				<!-- 客饭票 -->
+				<value>com/task/hbm/Mealticket.xml</value>
+				<!-- rtx部门 -->
+				<value>com/task/hbm/rtx/RtxDept.hbm.xml</value>
+				<!-- rtx用户 -->
+				<value>com/task/hbm/rtx/RtxUser.hbm.xml</value>
+				<!-- rtx消息 -->
+				<value>com/task/hbm/rtx/RtxMsg.hbm.xml</value>
+				<!-- 请假管理 -->
+				<value>com/task/hbm/AskForLeave.xml</value>
+				<!-- 通知管理 -->
+				<value>com/task/hbm/iao/LeaveInform.xml</value>
+				<value>com/task/hbm/sop/ProcessZj.xml</value>
+				<!--防护用品发放 -->
+				<value>com/task/hbm/FanghuOutLib.xml</value>
+				<!-- 区块管理 -->
+				<value>com/task/hbm/sop/Block.xml</value>
+				<value>/com/task/hbm/sop/BlockReceive.xml</value>
+				<!-- 高温费 -->
+				<value>/com/task/hbm/sop/HotFree.xml</value>
+				<!-- 项目管理 -->
+				<value>com/task/hbm/project/ProjectMaterialOrder.xml</value>
+				<value>com/task/hbm/project/ProjectMaterial.xml</value>
+				<value>com/task/hbm/project/ProjectManage.xml</value>
+				<value>com/task/hbm/project/QuotedProcessInfor.xml</value>
+				<value>com/task/hbm/project/QuotedPrice.xml</value>
+				<value>com/task/hbm/project/QuotedPricejy.xml</value>
+				<value>com/task/hbm/project/QuotedPricejyDetail.xml</value>
+				<value>com/task/hbm/project/QuotedPricejyUsers.xml</value>
+				<value>com/task/hbm/project/QuotedPricejyDetailFile.xml</value>
+				<value>com/task/hbm/project/BaomiOperateLog.xml</value>
+				<value>com/task/hbm/project/QuotedPriceFile.xml</value>
+				<value>com/task/hbm/project/QuotedPriceCost.xml</value>
+				<value>com/task/hbm/project/QuotedPriceUserCost.xml</value>
+				<value>com/task/hbm/project/QuotedPriceLog.xml</value>
+				<value>com/task/hbm/project/QuotedPriceFenhong.xml</value>
+				<value>com/task/hbm/project/ProjectPool.xml</value>
+				<value>com/task/hbm/project/ProjectManageyf.xml</value>
+				<value>com/task/hbm/project/ProjectManageyfUser.xml</value>
+				<value>com/task/hbm/project/YfUser.xml</value>
+				<value>com/task/hbm/project/ProjectManageyfAgree.xml</value>
+				<value>com/task/hbm/project/ProjectManageyfEr.xml</value>
+				<value>com/task/hbm/project/ProjectManageYfpd.xml</value>
+				<value>com/task/hbm/project/ProjectTime.xml</value>
+				<value>com/task/hbm/project/Investor.xml</value>
+				<value>com/task/hbm/project/InvestorMonthJx.xml</value>
+				<value>com/task/hbm/project/InvestorEvaluation.xml</value>
+				<value>com/task/hbm/project/RechargeRecord.xml</value>
+				<value>com/task/hbm/project/InvestorOfQuotedPrice.xml</value>
+				<!-- 项目试制评审 -->
+				<value>com/task/hbm/shizhi/SkillScore.xml</value>
+				<value>com/task/hbm/shizhi/ProcessSopTemp.xml</value>
+				<value>com/task/hbm/shizhi/SkillType.xml</value>
+				<value>com/task/hbm/shizhi/CraftComplexity.xml</value>
+				<value>com/task/hbm/shizhi/ProProcessDifficulty.xml</value>
+				<value>com/task/hbm/shizhi/Cusimportance.xml</value>
+				<value>com/task/hbm/shizhi/BonusLoad.xml</value>
+				<value>com/task/hbm/shizhi/CraftLoad.xml</value>
+				<value>com/task/hbm/shizhi/ProductivityLoad.xml</value>
+				<value>com/task/hbm/shizhi/GroupShiZhi.xml</value>
+				<value>com/task/hbm/shizhi/ProjectOrder.xml</value>
+				<value>com/task/hbm/shizhi/ProjectOrderPart.xml</value>
+				<value>com/task/hbm/shizhi/TryMake.xml</value>
+				<value>com/task/hbm/shizhi/ProTryMakeScore.xml</value>
+				<value>com/task/hbm/shizhi/BonusShiZhi.xml</value>
+				<value>com/task/hbm/shizhi/TryMakeApproval.xml</value>
+				<value>com/task/hbm/zhaobiao/Baofei.xml</value>
+				<value>com/task/hbm/zhaobiao/ProcardTemplate_Waigouyanshou.xml
+				</value>
+				<!-- 印章申请 -->
+				<value>com/task/hbm/seal/SealLog.xml
+				</value>
+				<!-- 公告 -->
+				<value>com/task/hbm/Notice.xml</value>
+				<value>com/task/hbm/Qexamine.xml</value>
+				<value>com/task/hbm/Stylebook.xml</value>
+				<!--安卓模块 -->
+				<value>com/task/hbm/android/pscs/Customer.xml</value>
+				<!-- 安卓模块 -->
+				<value>com/task/hbm/sop/BlockUsers.xml</value>
+				<!-- 质量检验表 -->
+				<value>com/task/hbm/Qualityto.xml</value>
+				<value>com/task/hbm/Qualityta.xml</value>
+				<value>com/task/hbm/Qualitycheckto.xml</value>
+				<value>com/task/hbm/Qualitycheckta.xml</value>
+
+				<value>com/task/hbm/sop/ProcessInforPeople.hbm.xml</value>
+				<value>com/task/hbm/sop/WaigouWaiweiPlan.hbm.xml</value>
+				<!--协议管理 -->
+				<value>com/task/hbm/zhaobiao/ClauseFather.xml</value>
+				<value>com/task/hbm/zhaobiao/ClauseSon.xml</value>
+				<value>com/task/hbm/Yusuantianbaobiao.xml</value>
+				<value>com/task/hbm/Yusuantianbaototal.xml</value>
+				<value>com/task/hbm/android/processpush/Push.xml</value>
+				<value>com/task/hbm/TaSopGongwei.hbm.xml</value>
+				<!--LED管理 -->
+				<value>com/task/hbm/led/LED.xml</value>
+				<value>com/task/hbm/led/LEDLog.xml</value>
+				<!-- 原材料和外购件模板 -->
+				<value>com/task/hbm/sop/ycl/YuanclAndWaigj.xml</value>
+				<!-- 外购件禁用申请 -->
+				<value>com/task/hbm/sop/ycl/YuanclAndWaigjAppli.xml</value>
+				<!-- 气密记录 -->
+				<value>com/task/hbm/barandqr/AirtightLog.xml</value>
+				<!-- 气密产品 -->
+				<value>com/task/hbm/barandqr/AirProduct.xml</value>
+				<!-- 气密机器 -->
+				<value>com/task/hbm/barandqr/AirMachine.xml</value>
+				<!-- 月度考核汇总 -->
+				<value>com/task/hbm/caigou/MonthlySummary.xml</value>
+				<!-- 人事面试登记 -->
+				<value>com/task/hbm/renshi/InterviewLog.xml</value>
+				<!-- 客户投诉 -->
+				<value>com/task/hbm/opinion/CustomerOpinion.hbm.xml</value>
+				<!-- 单身宿舍申请表 -->
+				<value>com/task/hbm/renshi/DormitoryLog.xml</value>
+				<!-- 离职申请表 -->
+				<value>com/task/hbm/renshi/DimissionLog.xml</value>
+				<!-- 离职交接单 -->
+				<value>com/task/hbm/renshi/Dimission_Handover.xml</value>
+				<!-- 工序领取记录 -->
+				<value>com/task/hbm/sop/ProcessInforReceiveLog.xml</value>
+				<!-- 人事面试测试单 -->
+				<value>com/task/hbm/renshi/InterviewQuizzes.xml</value>
+				<!-- 家庭信息表 -->
+				<value>com/task/hbm/renshi/Inter_Family.xml</value>
+				<!-- 离职争议表 -->
+				<value>com/task/hbm/renshi/Dimission_ZhengYi.xml</value>
+				<!-- 离职终止劳动关系协议表 -->
+				<value>com/task/hbm/renshi/Dimission_XieYi.xml</value>
+				<!-- PFMEAS管理表 -->
+				<value>com/task/hbm/fmeas/Pfmeas.hbm.xml</value>
+				<!-- 班次管理表 -->
+				<value>/com/task/hbm/banci/BanCi.hbm.xml</value>
+				<!-- 班次休息时段表 -->
+				<value>/com/task/hbm/banci/BanCiTime.xml</value>
+				<!-- 离职通知单表 -->
+				<value>com/task/hbm/renshi/DimissionNotice.xml</value>
+				<!-- 销售价格表 -->
+				<value>com/task/hbm/sop/SellPrice.hbm.xml</value>
+				<!-- 门禁记录表 -->
+				<value>com/task/hbm/menjin/Access.xml</value>
+				<!-- 气密入库表 -->
+				<value>com/task/hbm/qimi/Gas.hbm.xml</value>
+				<!-- 来访登记表 -->
+				<value>com/task/hbm/menjin/Visit.hbm.xml</value>
+				<!-- 月度批产奖金分配 -->
+				<value>com/task/hbm/fin/UserMonthMoney.xml</value>
+				<value>com/task/hbm/fin/UserMoneyDetail.xml</value>
+				<!-- 门禁设备表 -->
+				<value>com/task/hbm/menjin/AccessEquipment.xml</value>
+				<!-- 车辆信息表 -->
+				<value>com/task/hbm/menjin/InEmployeeCarInfor.xml</value>
+				<!-- 门禁摄像头表 -->
+				<value>com/task/hbm/menjin/AccessWebcam.xml</value>
+				<!-- 门禁进出记录表 -->
+				<value>com/task/hbm/menjin/AccessRecords.xml</value>
+				<!-- 门禁车辆状态表 -->
+				<value>com/task/hbm/menjin/CarInOutType.xml</value>
+				<!-- 门卫卡表 -->
+				<value>com/task/hbm/menjin/GuardCard.xml</value>
+				<!-- 紧急开门表 -->
+				<value>com/task/hbm/menjin/UrgentAccess.xml</value>
+				<!-- 绑定权限中间表 -->
+				<value>com/task/hbm/menjin/DoorBangDing.xml</value>
+				<!-- 进出信息表 -->
+				<value>com/task/hbm/menjin/DoorUseRecording.xml</value>
+				<!-- 常访表 -->
+				<value>com/task/hbm/menjin/OftenVisit.xml</value>
+				<!-- 打卡信息表 -->
+				<value>com/task/hbm/Download.xml</value>
+				<!-- 车位信息表 -->
+				<value>com/task/hbm/parking/ParkSpace.xml</value>
+				<!-- 门禁日志记录表 -->
+				<value>com/task/hbm/menjin/AccessLogInfor.xml</value>
+				<!-- 车位使用记录表 -->
+				<value>com/task/hbm/parking/ParkSpaceUseInfor.xml</value>
+				<!-- 财务模块 -->
+				<value>com/task/hbm/caiwu/BankAccounts.xml</value>
+				<value>com/task/hbm/caiwu/CwPingZheng.xml</value>
+				<value>com/task/hbm/caiwu/CwZhangWu.xml</value>
+				<value>com/task/hbm/caiwu/CwZWAndSbr.xml</value>
+				<value>com/task/hbm/caiwu/CwVouchers.xml</value>
+				<value>com/task/hbm/caiwu/CwVouchersDetail.xml</value>
+				<value>com/task/hbm/caiwu/CwUseDetail.xml</value>
+				<value>com/task/hbm/caiwu/AssetsType.xml</value>
+				<!-- 手机号码对应sim卡表 -->
+				<value>com/task/hbm/parking/SimCarkTel.xml</value>
+				<!-- 打卡表 -->
+				<value>com/task/hbm/AttendanceTow.xml</value>
+				<!-- 刷卡汇总表 -->
+				<value>com/task/hbm/AttendanceTowCollect.xml</value>
+				<!-- 存档表 -->
+				<value>com/task/hbm/dangan/Dangan.xml</value>
+				<!-- 不合格品类型管理表 -->
+				<value>com/task/hbm/sop/BuHeGePin.hbm.xml</value>
+
+				<!-- 机密类型表 -->
+				<value>com/task/hbm/JiMiLeiXing.xml</value>
+
+				<!-- 悬挂一体机管理表 -->
+				<value>com/task/hbm/android/processpush/OneMachine.xml</value>
+				<!-- 存档取档表 -->
+				<value>com/task/hbm/dangan/ArchiveUnarchiverAplt.xml</value>
+				<!-- 电灯表 -->
+				<value>com/task/hbm/onemark/OneLight.xml</value>
+				<!-- 车位信息表 <value>com/task/hbm/parking/ParkOrderFrom.xml</value> -->
+				<!-- 积分表 -->
+				<value>com/task/hbm/Integral.xml</value>
+				<!-- 积分来源表 -->
+				<value>com/task/hbm/Integralsource.xml</value>
+				<!-- 消费表 -->
+				<value>com/task/hbm/XiaoFei.xml</value>
+				<!-- 门禁设备对应时间表 -->
+				<value>com/task/hbm/menjin/AccessTime.xml</value>
+
+				<!-- 设备点检内容表 -->
+				<value>com/task/hbm/DJNR.xml</value>
+				<!-- 设备日点检表 -->
+				<value>com/task/hbm/MachineDayDj.xml</value>
+				<!-- 设备日点检运行时长表 -->
+				<value>com/task/hbm/MachineDayYZSJ.xml</value>
+				<!-- 设备点检月汇总表 -->
+				<value>com/task/hbm/MachineMonthDj.xml</value>
+
+				<!-- 待添加考勤记录表 -->
+				<value>com/task/hbm/menjin/AttendanceDai.xml</value>
+
+				<!-- 报废库存表 -->
+				<value>com/task/hbm/BaoFeiGoods.xml</value>
+				<!-- 微信 -->
+				<!-- <value>com/task/hbm/weixin/Article.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/WechatCard.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/WechatFiles.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/Qr.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/QrCode.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/ScanLog.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/SendMass.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/SendMsg.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/WeChatMsg.hbm.xml</value> -->
+				<!-- <value>com/task/hbm/weixin/WeChatUser.hbm.xml</value> -->
+				<!-- 物品柜表 -->
+				<value>com/task/hbm/menjin/ToolCabine.xml</value>
+				<!-- 存物品表 -->
+				<value>com/task/hbm/menjin/DepositCabinet.xml</value>
+				<!-- 取物品表 -->
+				<value>com/task/hbm/menjin/ReceiveCabinet.xml</value>
+				<!-- 签到表 Android端 -->
+				<value>com/task/hbm/UserSignIn.xml</value>
+				<!-- 企业会员基本资料表 -->
+				<value>com/task/hbm/CompanyVIP.xml</value>
+				<!-- 企业负责人表 -->
+				<value>com/task/hbm/CompanyBoss.xml</value>
+				<!-- 人员职业轨迹表 -->
+				<value>com/task/hbm/Careertrack.xml</value>
+				<!-- 饮品类型表 -->
+				<value>com/task/hbm/menjin/DrinksType.xml</value>
+				<!-- 人员调动表 -->
+				<value>com/task/hbm/Transfer.xml</value>
+				<!-- 人员晋升表 -->
+				<value>com/task/hbm/Promotion.xml</value>
+				<!-- 员工转正申请表 -->
+				<value>com/task/hbm/Becoming.xml</value>
+				<!-- 调查问卷模板表 -->
+				<value>com/task/hbm/QuestionTemplate.xml</value>
+				<!-- 调查问卷明细表 -->
+				<value>com/task/hbm/Questionnaire.xml</value>
+				<!-- 调查问卷使用表 -->
+				<value>com/task/hbm/QuestionnaireUse.xml</value>
+				<!-- 调查问卷使用人表 -->
+				<value>com/task/hbm/QuestionnairePerson.xml</value>
+				<!-- 智能诊断系统 -->
+				<value>com/task/hbm/IntelligentDiagnosis.xml</value>
+				<!-- 在线智能测试公司名称表 -->
+				<value>com/task/hbm/CampanyName.xml</value>
+				<!-- 流程内容表 -->
+				<value>com/task/hbm/ProcessName.xml</value>
+				<!-- 特殊日期表 -->
+				<value>com/task/hbm/menjin/SpecialDate.xml</value>
+				<!-- 客户索赔表 -->
+				<value>com/task/hbm/claim/CustomerClaim.hbm.xml</value>
+				<!-- 客户满意度调查表 -->
+				<value>com/task/hbm/KeHuManYiDiaoCha.xml</value>
+				<!-- 课时表 -->
+				<value>com/task/hbm/Lesson.xml</value>
+				<!-- 课时登记表 -->
+				<value>com/task/hbm/StudentAttend.xml</value>
+				<!-- 二维码库表 -->
+				<value>com/task/hbm/QRCodeKu.xml</value>
+				<!-- 礼品领取表 -->
+				<value>com/task/hbm/IntegralGift.xml</value>
+				<!-- 礼品表 -->
+				<value>com/task/hbm/Gift.xml</value>
+				<!-- 编码翻译 -->
+				<value>com/task/hbm/codetranslation/CodeTranslation.hbm.xml</value>
+				<!-- 管件测量记录表 -->
+				<!--<value>com/task/hbm/sop/ProcardSpecification.xml</value> -->
+				<!-- 印章类型 -->
+				<value>com/task/hbm/seal/SealLogType.xml</value>
+				<!-- 印章借用申请 -->
+				<value>com/task/hbm/seal/BorrowSeal.xml</value>
+				<!-- 供应商产品配额修改申请表 -->
+				<value>com/task/hbm/zhaobiao/Gyscgbl.xml</value>
+				<!-- 体系文件 -->
+				<value>com/task/hbm/systemfile/SystemFile.hbm.xml</value>
+				<!--体系审核 -->
+				<value>/com/task/hbm/setupcheck/SetUpCheck.hbm.xml</value>
+				<!--体系审核追踪记录 -->
+				<value>/com/task/hbm/setupcheck/TrackRecord.hbm.xml</value>
+				<!-- 抽奖时间设置表 -->
+				<value>com/task/hbm/IgiftSet.xml</value>
+				<!-- 充值记录表 -->
+				<value>com/task/hbm/menjin/RechargeZhi.xml</value>
+				<!-- 充值账户表 -->
+				<value>com/task/hbm/menjin/RechargeAll.xml</value>
+				<!-- 夺宝系统表 -->
+				<value>com/task/hbm/IndianaGift.xml</value>
+				<!-- 检验类型表 -->
+				<value>com/task/hbm/checktype/CheckType.hbm.xml</value>
+				<value>com/task/hbm/checktype/CheckNote.hbm.xml</value>
+				<!-- 采购计划和生产批次数量中间表 -->
+				<value>com/task/hbm/sop/ProcardWGCenter.hbm.xml</value>
+				<!-- 采购订单 -->
+				<value>com/task/hbm/sop/WaigouOrder.hbm.xml</value>
+				<!-- 采购订单明细 -->
+				<value>com/task/hbm/sop/WaigouPlan.hbm.xml</value>
+				<value>com/task/hbm/sop/WaigouPlanLock.hbm.xml</value>
+				<!-- 采购订单处理申请 -->
+				<value>com/task/hbm/sop/WaigouPlanclApply.hbm.xml</value>
+				<value>com/task/hbm/sop/WaigouWaiweisbCompare.hbm.xml</value>
+				<!-- 送货单 -->
+				<value>com/task/hbm/sop/WaigouDelivery.hbm.xml</value>
+				<!-- 送货单明细 -->
+				<value>/com/task/hbm/sop/WaigouDeliveryDetail.hbm.xml</value>
+				<!-- 成品送货单 -->
+				<value>com/task/hbm/sop/WaigouDeliveryGoods.hbm.xml</value>
+				<!-- 陈品送货单明细 -->
+				<value>/com/task/hbm/sop/WaigouDeliveryGoodsDetail.hbm.xml</value>
+				<!-- 仓区表 -->
+				<value>com/task/hbm/WarehouseArea.xml</value>
+				<!-- 库位表 -->
+				<value>com/task/hbm/WareHouseNumber.xml</value>
+				<!-- 问题 -->
+				<value>com/task/hbm/question/Answer.hbm.xml</value>
+				<value>com/task/hbm/question/Question.hbm.xml</value>
+
+				<!-- 类别表 -->
+				<value>com/task/hbm/Category.xml</value>
+				<!-- 指纹记录表 -->
+				<value>com/task/hbm/menjin/FingerprintMg.xml</value>
+
+				<!--				<value>com/task/hbm/banci/SchedulingTable.xml</value>-->
+
+				<!-- 库位开关申请表 -->
+				<value>com/task/hbm/menjin/WarehouseApplication.xml</value>
+				<!-- 库位凭证表 -->
+				<value>com/task/hbm/menjin/WarehouseCertificate.xml</value>
+				<!-- 材料状态类型表 -->
+				<value>com/task/hbm/menjin/MarkStatusType.xml</value>
+				<!-- 库位库存绑定关系表 -->
+				<value>com/task/hbm/menjin/WareBangGoogs.xml</value>
+				<!-- 排班记录表 -->
+				<value>com/task/hbm/banci/SchedulingTable.xml</value>
+				<!-- 检验不良明细表 -->
+				<value>com/task/hbm/sop/FailureStatisticsDetail.hbm.xml</value>
+				<!-- 订单冲销对应内部计划关系表 -->
+				<value>com/task/hbm/InternalZsAboutBh.xml</value>
+				<!-- 正式和备货订单关联表 -->
+				<value>com/task/hbm/ProductZsAboutBh.xml</value>
+
+				<!-- 货币类别表 -->
+				<value>com/task/hbm/caiwu/MoneyType.xml</value>
+				<!-- 凭证字表 -->
+				<value>com/task/hbm/caiwu/DocumentWord.xml</value>
+				<!--权限组别表 -->
+				<value>com/task/hbm/CompetenceType.xml</value>
+				<value>com/task/hbm/sop/cb/ProcardCBDT.xml</value>
+				<!-- product成本动态表 -->
+				<value>com/task/hbm/sop/cb/ProductCBDT.xml</value>
+				<!-- order成本动态表 -->
+				<value>com/task/hbm/sop/cb/OrderCBDT.xml</value>
+				<!--供应商报价表-->
+				<value>com/task/hbm/zhuseroffer/ZhuserOffer.xml</value>
+				<!--样品表-->
+				<value>com/task/hbm/zhuseroffer/Sample.xml</value>
+				<value>com/task/hbm/sop/ProcessInforWWProcard.xml</value>
+				<!-- 消假记录表 -->
+				<value>com/task/hbm/QxAskForLeave.xml</value>
+				<!-- 合同附件申请 -->
+				<value>com/task/hbm/AppLiPrice.xml</value>
+
+				<!-- 动声提交信息表 -->
+				<value>com/task/hbm/android/pscs/CustomerInformation.xml</value>
+				<!-- 转速角度表-->
+				<value>com/task/hbm/android/pscs/AngularSpeed.xml</value>
+				<!-- 卷帘门申请表-->
+				<value>com/task/hbm/menjin/JLMApplication.xml</value>
+				<!-- 卷帘门操作表-->
+				<value>com/task/hbm/menjin/Operation.xml</value>
+				<!-- 发票信息验证表-->
+				<value>com/task/hbm/payment/InvoiceCheck.xml</value>
+				<!-- 发票信息明细表-->
+				<value>com/task/hbm/payment/Invoice_detail.xml</value>
+				<!-- 验证记录表-->
+				<value>com/task/hbm/payment/InvoiceCheckRecording.xml</value>
+				<!-- 资金申请单表-->
+				<value>com/task/hbm/payment/FundApply.xml</value>
+				<!-- 资金申请单明细表-->
+				<value>com/task/hbm/payment/FundApplyDetailed.xml</value>
+				<!--外购件来料日报表-->
+				<value>com/task/hbm/sop/WaigouDailySheet.hbm.xml</value>
+				<!--不良品处理单表-->
+				<value>com/task/hbm/sop/DefectiveProduct.hbm.xml</value>
+				<!--退货单表-->
+				<value>com/task/hbm/sop/ReturnSingle.hbm.xml</value>
+				<!--退货单明细表-->
+				<value>com/task/hbm/sop/ReturnsDetails.hbm.xml</value>
+				<!--生产退料申请单表-->
+				<value>com/task/hbm/sop/SCTuiliaoSqDan.hbm.xml</value>
+				<!--图号表-->
+				<value>com/task/hbm/ChartNOSC.xml</value>
+				<!--图号申请表-->
+				<value>com/task/hbm/ChartNOSQ.xml</value>
+				<!--图号规则类型表-->
+				<value>com/task/hbm/ChartNOGzType.xml</value>
+				<!--生产卡号表-->
+				<value>com/task/hbm/UsersCard.xml</value>
+				<!-- 票据打印单表 -->
+				<value>com/task/hbm/PrintedOutOrder.hbm.xml</value>
+				<!-- 票据打印明细表 -->
+				<value>com/task/hbm/PrintedOut.hbm.xml</value>
+				<!-- 板材尺寸密度表 -->
+				<value>com/task/hbm/sop/ycl/PanelSize.xml</value>
+
+				<!-- 财务机密文件 -->
+				<value>com/task/hbm/fin/jmwj/FileLocation.xml</value>
+				<value>com/task/hbm/fin/jmwj/FileManager.xml</value>
+				<!-- 非主营业务应收应付 -->
+				<value>com/task/hbm/caiwu/noncore/NonCorePayable.xml</value>
+				<value>com/task/hbm/caiwu/noncore/NonCoreReceivables.xml</value>
+				<value>com/task/hbm/caiwu/noncore/NonCoreReceivablesDetail.xml
+				</value>
+				<value>com/task/hbm/caiwu/noncore/FinancialReceipts.xml</value>
+				<value>com/task/hbm/Goods_bzw.hbm.xml</value>
+				<value>com/task/hbm/Goods_bzsq.hbm.xml</value>
+				<!-- 委托付款申请 -->
+				<value>com/task/hbm/fin/Escrow.xml</value>
+				<value>com/task/hbm/fin/EscrowMonth.xml</value>
+				<!-- 水费电费价格表 -->
+				<value>com/task/hbm/caiwu/noncore/EnergyConsumption.xml</value>
+				<!-- 手动维护的工序外购件对应关系表 -->
+				<value>com/task/hbm/sop/ProcessAndWgProcardTem.xml</value>
+				<!--不合格品提交记录表 -->
+				<value>com/task/hbm/sop/BreakSubmit.xml</value>
+				<!--审批流程意见选项表 -->
+				<value>com/task/hbm/system/Option.xml</value>
+				<!--审批流程意见选项表 -->
+				<value>com/task/hbm/system/OptionRun.xml</value>
+				<!-- 应付类型表 -->
+				<value>com/task/hbm/caiwu/noncore/PayableType.xml</value>
+				<!-- 门禁地桩表 -->
+				<value>com/task/hbm/menjin/AccessSwitch.xml</value>
+				<!-- Rfid表
+				<value>com/task/hbm/rfid/Rfid.xml</value> -->
+				<!--个人修改记录查看表-->
+				<value>com/task/hbm/system/UsersUpdateLogging.xml</value>
+				<!-- 门禁类型表 -->
+				<value>com/task/hbm/menjin/DoorType.xml</value>
+				<!--档案归还表-->
+				<value>com/task/hbm/dangan/DanganBank.xml</value>
+				<!--保养标准表-->
+				<value>com/task/hbm/bybz/BaoYangBiaoZhun.hbm.xml</value>
+				<value>com/task/hbm/bybz/BaoYangRecord.hbm.xml</value>
+				<!--检、量具表-->
+				<value>com/task/hbm/bybz/CheckoutAndGages.hbm.xml</value>
+				<!--检、量具校验记录表-->
+				<value>com/task/hbm/bybz/LjuCheckRecord.hbm.xml</value>
+				<!--  检、量具校验记录明细表-->
+				<value>com/task/hbm/bybz/LjuCheckRecordMx.hbm.xml</value>
+				<!--  每月不合格统计-->
+				<value>com/task/hbm/sop/FailureSSOnMonth.xml</value>
+				<!--  每日不合格统计-->
+				<value>com/task/hbm/sop/FailureSSOnDay.xml</value>
+				<!--  证件信息表-->
+				<value>com/task/hbm/Credentials.xml</value>
+				<!--  Rtx连接配置-->
+				<value>com/task/hbm/rtx/RtxConnect.hbm.xml</value>
+				<!--  主营应付-->
+				<value>com/task/hbm/caiwu/core/CorePayable.xml</value>
+				<value>com/task/hbm/caiwu/core/SupplierCorePayable.xml</value>
+				<!-- 工序单价修改记录信息 -->
+				<value>com/task/hbm/sop/ProcessPriceUpdateLog.xml</value>
+				<!--  扣款单-->
+				<value>com/task/hbm/zhaobiao/ChargebackNotice.xml</value>
+				<!-- 月度应收应付汇总表 -->
+				<value>com/task/hbm/caiwu/core/MonthPayableBill.xml</value>
+				<!-- 手动下单表 -->
+				<value>com/task/hbm/sop/ManualOrderPlan.hbm.xml</value>
+				<!--物料需求明细表 -->
+				<value>com/task/hbm/sop/ManualOrderPlanDetail.hbm.xml</value>
+				<!-- 预付款申请单  -->
+				<value>com/task/hbm/zhaobiao/PrepaymentsApplication.xml</value>
+				<!-- 外购件LT -->
+				<value>com/task/hbm/sop/ycl/WaiGouJianLT.xml</value>
+				<!-- 凭证表  -->
+				<value>com/task/hbm/caiwu/pz/CwCertificate.xml</value>
+				<!-- 预测订单产品表  -->
+				<value>com/task/hbm/sop/YcProduct.hbm.xml</value>
+				<!-- 预测周分配量 -->
+				<value>com/task/hbm/sop/YcWeekFePei.hbm.xml</value>
+				<!-- 预测外购件预分配表 -->
+				<value>com/task/hbm/sop/YcWaiGouProcrd.hbm.xml</value>
+
+				<!-- 车补申请表 -->
+				<value>com/task/hbm/caiwu/CarAllowOneApp.xml</value>
+				<value>com/task/hbm/caiwu/CarAllowSumApp.xml</value>
+				<value>com/task/hbm/caiwu/CaiwuRecharge.xml</value>
+				<!-- 项目文件表 -->
+				<value>com/task/hbm/project/ProjectWenJian.xml</value>
+				<!-- 模具开模 -->
+				<value>com/task/hbm/sop/muju/MouldApplyOrder.xml</value>
+				<value>com/task/hbm/sop/muju/MouldPingGu.xml</value>
+				<value>com/task/hbm/sop/muju/MouldDetail.xml</value>
+				<!-- SPC控制 -->
+				<value>com/task/hbm/sop/spc/SpcControl.hbm.xml</value>
+				<value>com/task/hbm/sop/spc/SpcControlGroup.hbm.xml</value>
+				<value>com/task/hbm/sop/spc/SpcControlClDetail.hbm.xml</value>
+				<value>com/task/hbm/sop/spc/SpcGroups.hbm.xml</value>
+				<!-- 自来水使用记录表 -->
+				<value>com/task/hbm/menjin/WaterUseRecording.xml</value>
+				<!-- 自来水充值总表 -->
+				<value>com/task/hbm/menjin/WaterRechargeZhu.xml</value>
+				<!-- 自来水充值记录表 -->
+				<value>com/task/hbm/menjin/WaterRecharge.xml</value>
+				<!-- 供应商记录送货记录总表 -->
+				<value>com/task/hbm/qualifiedrate/QualifiedRate.hbm.xml</value>
+				<!-- 供应商记录天度送货记录总表 -->
+				<value>com/task/hbm/hegebaobiao/DayHege.hbm.xml</value>
+				<!-- 供应商记录周度送货记录总表 -->
+				<value>com/task/hbm/hegebaobiao/ZhouHege.hbm.xml</value>
+				<!-- 供应商记录年度送货记录总表 -->
+				<value>com/task/hbm/hegebaobiao/YearHege.hbm.xml</value>
+				<!-- 供应商记录月度送货记录总表 -->
+				<value>com/task/hbm/hegebaobiao/MouthHege.hbm.xml</value>
+				<!-- 供应商记录季度送货记录总表 -->
+				<value>com/task/hbm/hegebaobiao/QuarterHege.hbm.xml</value>
+				<!-- 角色绑定 -->
+				<value>com/task/hbm/UserRole.xml</value>
+
+				<!-- 收款账户 -->
+				<value>com/task/hbm/payee/Payee.xml</value>
+				<!-- 生产辅料追溯管理表 -->
+				<value>com/task/hbm/sop/FuLiaoZhuiSu.xml</value>
+				<!-- 付款账单-->
+				<value>com/task/hbm/caiwu/receivePayment/Receipt.xml</value>
+				<!-- 付款明细 -->
+				<value>com/task/hbm/caiwu/receivePayment/ReceiptLog.xml</value>
+				<!-- 条码通知单表 -->
+				<value>com/task/hbm/TbBarcode/TbBarcodeLockNotice.xml</value>
+				<!-- 供应商月度对账单 -->
+				<value>com/task/hbm/caiwu/core/CorePayableMonth.xml</value>
+				<!-- 资产负债表 -->
+				<value>com/task/hbm/caiwu/baobiao/BalanceSheet.xml</value>
+				<!-- 现金流动表 -->
+				<value>com/task/hbm/caiwu/baobiao/CashFlow.xml</value>
+				<!-- 利润表 -->
+				<value>com/task/hbm/caiwu/baobiao/ProfitSheet.xml</value>
+				<!-- 财务算账日期表 -->
+				<value>com/task/hbm/caiwu/baobiao/AccountsDate.xml</value>
+				<value>com/task/hbm/zhuseroffer/NoPriceprocess.xml</value>
+				<!-- 应上交应弥补款项表 -->
+				<value>com/task/hbm/caiwu/baobiao/Ysjymbkxb.xml</value>
+				<!-- 基本情况表 -->
+				<value>com/task/hbm/caiwu/baobiao/laozi/BasicSituation.xml</value>
+				<!-- 各类人员情况表 -->
+				<value>com/task/hbm/caiwu/baobiao/laozi/PersonnelType.xml</value>
+				<value>com/task/hbm/caiwu/baobiao/laozi/PersonneQk.xml</value>
+				<!-- 经营效益及人工成本月报 -->
+				<value>com/task/hbm/caiwu/baobiao/laozi/Mrooeal.xml</value>
+				<!--  国防科工局月报表-->
+				<value>com/task/hbm/caiwu/baobiao/laozi/Mrondsaeb.xml</value>
+				<!-- 管理费用明细表 -->
+				<value>com/task/hbm/caiwu/baobiao/Management.xml</value>
+				<!-- 销售费用及财务费用明细表 -->
+				<value>com/task/hbm/caiwu/baobiao/XsfyjCwfyMx.xml</value>
+				<!-- 生产成本及制造费用明细表 -->
+				<value>com/task/hbm/caiwu/baobiao/laozi/ProducAndMan.xml</value>
+				<!--快报  基本情况表 -->
+				<value>/com/task/hbm/caiwu/baobiao/JiBenQingKuang.xml</value>
+				<!-- 废品处理详细表 -->
+				<value>com/task/hbm/ess/WasteDisponsal.hbm.xml</value>
+				<!-- 废品处理表 -->
+				<value>com/task/hbm/ess/WasteDisponsalTotal.hbm.xml</value>
+				<!-- 用户对接信息  -->
+				<value>com/task/hbm/UserFacialInfor.xml</value>
+				<!-- 用户面部特征  -->
+				<value>com/task/hbm/UserFacialFeatures.xml</value>
+				<!-- 申购物品模板表 -->
+				<value>com/task/hbm/OaAppDetailTempate.hbm.xml</value>
+				<!-- 库存汇总表 -->
+				<value>/com/task/hbm/GoodsSummary.hbm.xml</value>
+				<!-- 收藏夹表 -->
+				<value>/com/task/hbm/Favorite.hbm.xml</value>
+				<!-- PEBS调研问题表 -->
+				<value>/com/task/hbm/diaoyan/ResearchReport.xml</value>
+				<!-- 巡更时段 -->
+				<value>/com/task/hbm/menjin/XungengTime.hbm.xml</value>
+				<!-- 巡更记录 -->
+				<value>/com/task/hbm/menjin/XungengRecord.hbm.xml</value>
+				<!-- PEBS人员登录日志表-->
+				<value>/com/task/hbm/UsersLoginLog.xml</value>
+				<!--甘特图表-->
+				<value>/com/task/hbm/Gantt.hbm.xml</value>
+				<!-- 预付款明细表 -->
+				<value>/com/task/hbm/zhaobiao/PrepaymentsApplicationDetails.xml</value>
+				<!--异常处理表-->
+				<value>/com/task/hbm/ExceptionHandle.hbm.xml</value>
+				<!-- 体系文件类别 -->
+				<value>/com/task/hbm/systemfile/FileleixingOrdengji.xml</value>
+				<!--成品库入外购件库记录表-->
+				<value>/com/task/hbm/CpGoodsChangeWG.hbm.xml</value>
+				<!-- 来访公司列表 -->
+				<value>com/task/hbm/menjin/VisitCo.hbm.xml</value>
+				<!-- 对接信息列表 -->
+				<value>com/task/hbm/UsersHSKao.xml</value>
+				<value>com/task/hbm/fin/jmwj/FileType.xml</value>
+				<!--物料需求单表-->
+				<value>com/task/hbm/sop/ManualOrderPlanTotal.xml</value>
+				<!--物料动态位置  -->
+				<value>com/task/hbm/wlWeizhiDt/WlWeizhiDt.hbm.xml</value>
+				<!-- 件号报价单 -->
+				<value>com/task/hbm/zhuseroffer/SumProcess.xml</value>
+				<!-- 系统需求总表 -->
+				<value>com/task/hbm/system/SystemDemand.xml</value>
+				<!-- 系统需求明细表 -->
+				<value>com/task/hbm/system/SystemDemandDetail.xml</value>
+				<value>com/task/hbm/Taskmanager.hbm.xml</value>
+				<value>com/task/hbm/sop/ProcardTemplateReplace.hbm.xml</value>
+				<!-- 工序确认数量记录表 -->
+				<value>com/task/hbm/sop/ProcessWlqr.hbm.xml</value>
+				<!-- 超损补料申请明细表 -->
+				<value>com/task/hbm/sop/ProcardCsBl.hbm.xml</value>
+				<!-- 超损补料申请单表 -->
+				<value>com/task/hbm/sop/ProcardCsBlOrder.hbm.xml</value>
+				<!-- 品质履历异常 -->
+				<value>com/task/hbm/QualityAbnormalresume.hbm.xml</value>
+				<!-- 打印机管理 -->
+				<value>com/task/hbm/printer/Printer.hbm.xml</value>
+				<value>com/task/hbm/GoodsSellRelational.hbm.xml</value>
+				<!-- 随机签到记录 -->
+				<value>/com/task/hbm/menjin/RandomPunch.xml</value>
+				<!-- 外协退料申请  -->
+				<value>/com/task/hbm/ProcardWxTuiLiao.xml</value>
+				<!-- 可靠性测试单 -->
+				<value>com/task/hbm/zhiliang/ReliabilityTestSheet.xml</value>
+				<!-- 可靠性测试项目 -->
+				<value>com/task/hbm/zhiliang/ReliabilityTestRecord.xml</value>
+				<!-- 可靠性测试记录 -->
+				<value>com/task/hbm/zhiliang/ReliabilityTestPro.xml</value>
+                <!-- 缺陷大类 -->
+                <value>com/task/hbm/sop/DefectOfType.hbm.xml</value>
+                <!-- 生产效率简报 -->
+                <value>com/task/hbm/peb/PebUsers.xml</value>
+                <value>com/task/hbm/peb/PebProduction.xml</value>
+                <value>com/task/hbm/peb/subTeam.xml</value>
+                <value>com/task/hbm/peb/PebBorrowAndLendLog.xml</value>
+                <value>com/task/hbm/peb/PebBanzuJiegou.xml</value>
+                <!-- 供应商开发认证 -->
+                <value>com/task/hbm/supplier/supplierCertification.hbm.xml</value>
+                <value>com/task/hbm/supplier/supplierCertificationReview.hbm.xml</value>
+                <value>com/task/hbm/supplier/supplierCertificationReviewContent.hbm.xml</value>
+                <value>com/task/hbm/peb/PebProductionBanjin.xml</value>
+                <!-- 供应商考核 -->
+                <value>com/task/hbm/supplier/supplierEvaluate.hbm.xml</value>
+				<value>com/task/hbm/supplier/supplierEvaluateLevel.hbm.xml</value>
+                <!-- 对账单 -->
+                <value>com/task/hbm/caiwu/AccountCheck.xml</value>
+				<!-- 日程信息轮询 -->
+				<value>com/task/hbm/MessagePolling.xml</value>
+				<!-- 工序库与量、检具中间表 -->
+				<value>com/task/hbm/gzbj/ProcessAndMeasuring.hbm.xml</value>
+				<!-- 评审人员组别表 -->
+				<value>com/task/hbm/Evaluators.xml</value>
+				<!-- 成品退货申请表 -->
+				<value>com/task/hbm/ChengPinTuiHuo.hbm.xml</value>
+				<!-- 职级表 -->
+				<value>com/task/hbm/renshi/Rank.xml</value>
+				<!-- 通用类别表 -->
+				<value>com/task/hbm/UniversalCategory.xml</value>
+				<!-- 通用类型表 -->
+				<value>com/task/hbm/UniversalType.xml</value>
+                <!-- 委托付款委托方 -->
+				<value>com/task/hbm/fin/EscrowPayCom.xml</value>
+				<!-- 快递柜存取表 -->
+				<value>com/task/hbm/menjin/ResAccess.xml</value>
+				<!-- 档案柜类型表 -->
+				<value>com/task/hbm/menjin/AccessWebcamType.xml</value>
+				<!-- app信息表 -->
+				<value>com/task/hbm/dmltry/DmltryAppFiles.xml</value>
+				<!-- app版本地址表 -->
+				<value>com/task/hbm/dmltry/DmlAppFileUrl.xml</value>
+				<!-- 串口接收表 -->
+				<value>com/task/hbm/menjin/SerialPtReceive.xml</value>
+				<!-- 串口发送表 -->
+				<value>com/task/hbm/menjin/SerialPtSend.xml</value>
+				<!-- 加班明细表 -->
+				<value>com/task/hbm/OvertimeDetail.xml</value>
+				<!--月结 -->
+				<value>com/task/hbm/caiwu/paymonth/PayMonth.hbm.xml</value>
+				<value>com/task/hbm/caiwu/paymonth/PayMonthDetail.hbm.xml</value>
+				<value>com/task/hbm/dmltry/Sheibei.xml</value>
+				
+				<value>com/task/hbm/dmltry/Zhongjian.xml</value>
+				<!--部门长绩效考核系统 -->
+				<value>com/task/hbm/jxkh/DeptUsersDuty.xml</value>
+				<value>com/task/hbm/jxkh/RankingCounts.xml</value>
+				<value>com/task/hbm/jxkh/SalesAmountCoefficient.xml</value>
+				<value>com/task/hbm/jxkh/TargetAchievedMark.xml</value>
+				<value>com/task/hbm/jxkh/WaiWeiJieGouMuBiao.xml</value>
+				<value>com/task/hbm/jxkh/WeiWaiJieGou.xml</value>
+				<value>com/task/hbm/jxkh/WorkShopXiaoLvZz.xml</value>
+				<value>com/task/hbm/jxkh/ZhiZaoPingJia.xml</value>
+				<value>com/task/hbm/jxkh/BmzZlh.xml</value>
+				<value>com/task/hbm/jxkh/ZbSjZk.xml</value>
+				<value>com/task/hbm/jxkh/WorkShopTiQuMx.xml</value>
+				<value>com/task/hbm/jxkh/FenPeiQingKuang.xml</value>
+				<value>com/task/hbm/jxkh/WorkShopTiQu.xml</value>
+				<value>com/task/hbm/jxkh/DeptFenPeiXiShu.xml</value>
+				<value>com/task/hbm/jxkh/DeptLeaderPenPei.xml</value>
+				<value>com/task/hbm/jxkh/YearImprove.xml</value>
+				<value>com/task/hbm/jxkh/InCome.xml</value>
+				<!-- 值日信息表 -->
+				<value>com/task/hbm/lpanclear/Cleanrecord.xml</value>
+				<value>com/task/hbm/lpanclear/ClearInfo.xml</value>
+				<value>com/task/hbm/lpanclear/Employee.xml</value>
+				<value>com/task/hbm/lpanclear/HomeTitle.xml</value>
+				<value>com/task/hbm/lpanclear/Score.xml</value>
+				<value>com/task/hbm/lpanclear/State.xml</value>
+				<value>com/task/hbm/lpanclear/ClearPhone.xml</value>
+                <!-- 快递柜类型费用产生表  -->
+                <value>com/task/hbm/expresscabinet/Charging.xml</value>
+                <value>com/task/hbm/expresscabinet/WeiXinOrder.xml</value>
+                <value>com/task/hbm/expresscabinet/Courier.xml</value>
+                <value>com/task/hbm/expresscabinet/CourierCompany.xml</value>
+				<!-- 访客记录表 -->
+				<value>com/task/hbm/menjin/visitor/Visitor.xml</value>
+				<!-- 内部屏幕人员表 -->
+				<value>com/task/hbm/renshi/InDoorScreen.xml</value>
+				<value>com/task/hbm/renshi/InDoorScreenUsers.xml</value>
+				<!-- 短链接服务 -->
+				<value>com/task/hbm/system/ShortLink.xml</value>
+				<!-- 申请会议 -->
+				<value>com/task/hbm/renshi/Meeting.xml</value>
+				<value>com/task/hbm/renshi/MeetingPerson.xml</value>
+				<value>com/task/hbm/gzbj/GzMsn.hbm.xml</value> 
+				<!-- 人脸识别 -->
+				<value>com/task/hbm/face/FaceUsers.xml</value> <!-- 用户列表 -->
+				<value>com/task/hbm/face/FaceCamera.xml</value> <!-- 摄像头列表 -->
+				<!-- 供应商来料缺陷统计 -->                 
+				<value>com/task/hbm/sop/GysLaiLiaoQuanXianTj.hbm.xml</value> 
+				<!-- 供应商件号送货关闭情况表 -->
+				<value>com/task/hbm/sop/GysMarkIdCkolse.hbm.xml</value> 
+				<value>com/task/hbm/face/FaceWorkTime.xml</value>
+				<value>com/task/hbm/face/FaceAlarm.xml</value>
+				<!-- 空调控制 -->
+				<value>com/task/hbm/dmltry/Conditioing.xml</value>
+				<value>com/task/hbm/dmltry/Imgdesk.xml</value>
+				<!-- 用量调整 -->
+				<value>com/task/hbm/sop/ycl/FenMoTzRecord.xml</value>
+				<value>com/task/hbm/sop/ycl/DosageTzDan.xml</value>
+			</list>
+			
+		</property>
+	</bean>
+</beans>

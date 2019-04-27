@@ -1,0 +1,74 @@
+package com.task.entity.weixin;
+import java.io.Serializable;
+import com.task.entity.Users;
+
+/**
+ * SendMsg entity. @author MyEclipse Persistence Tools
+ */
+
+public class SendMsg implements Serializable {
+
+	// Fields
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer userId;
+	private String userName;
+	private String userCode;
+	private String userDept;;
+	private WeChatUser weChatUser;
+	private String content;
+	private Integer status;
+
+	// Constructors
+
+	/** default constructor */
+	public SendMsg() {
+	}
+
+	/** full constructor */
+	public SendMsg(Users user, WeChatUser weChatUser, String content,
+			Integer status) {
+		userId = user.getId();
+		userName=user.getName();
+		userCode=user.getCode();
+		userDept=user.getDept();
+		this.weChatUser = weChatUser;
+		this.content = content;
+		this.status = status;
+	}
+
+	// Property accessors
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public WeChatUser getWeChatUser() {
+		return this.weChatUser;
+	}
+
+	public void setWeChatUser(WeChatUser weChatUser) {
+		this.weChatUser = weChatUser;
+	}
+
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+}

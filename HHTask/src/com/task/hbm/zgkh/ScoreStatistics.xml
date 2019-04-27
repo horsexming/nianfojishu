@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.zgkh">
+	<class name="ScoreStatistics" table="ta_hr_zgkh_ScoreStatistics">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="code" />
+		<property name="cardId" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="dept" />
+		<property name="totalScore" />
+		<property name="mouth" />
+		<property name="scoreStatus" />
+		<property name="sdWage" />
+		<property name="wsWage" />
+
+		<set name="assScore" inverse="true" lazy="true" cascade="all">
+			<key column="ta_ssId"></key>
+			<one-to-many class="com.task.entity.AssScore" />
+		</set>
+	</class>
+</hibernate-mapping>

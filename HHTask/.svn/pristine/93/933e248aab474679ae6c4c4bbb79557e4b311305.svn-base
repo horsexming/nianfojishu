@@ -1,0 +1,439 @@
+package com.task.entity.sop;
+
+import java.util.List;
+import java.util.Set;
+
+import com.task.util.FieldMeta;
+/**
+ * 模板版本升级申请（表：ta_ProcardTemplateBanBenApply）
+ * @author txb
+ * 
+ */
+public class ProcardTemplateBanBenApply {
+	private Integer id;//
+	@FieldMeta(name = "设变单号", order = 0)
+	private String sbNumber;//设变单号
+	private String outbsNumber;//外部设变单号
+	private Integer applicantId;//申请人
+	@FieldMeta(name = "申请人部门", order = 6)
+	private String applicantdept;//申请人部门
+	@FieldMeta(name = "申请人", order = 5)
+	private String applicantName;//申请人名称
+	private String applyTime;//申请时间
+	private String remark;//备注
+	private Integer epId;//申请id
+	private String processStatus;//进程状态(设变发起,分发项目组,项目主管初评,项目工程师评审,指派各部门,各部门评审,结论,资料更新,关联并通知生产,上传佐证,关闭,取消)
+	//设变发起,分发项目组,项目主管初评,选择设变零件，变更设计,工程师评审,指派各部门,成本审核，各部门评审，资料更新,关联并通知生产,生产后续,关闭,取消
+	private String oldProcessStatus;//取消后记录原来的状态
+	@FieldMeta(name = "件号", order = 1)
+	private String markId;//总成件号
+	private String ywMarkId;//业务件号
+	@FieldMeta(name = "名称", order = 2)
+	private String proName;//总成名称
+	@FieldMeta(name = "版本号", order = 3)
+	private String banbenNumber;//总成版本号
+	private String banci;//版次
+	private String needDeptJudege;//是否需要各部门评审
+	private String fileName;//附件名称
+	private String oldFileName;//附件
+	private String tbProcard;//同步生产（是，否，完成(默认否)）
+	private String productStyle;//类型（批产,试制）
+	private Integer rootId;//发起设变的总成Id
+	private String zpTime;//指派时间
+	private String qznext;//是否强制下一步（yes,no）
+	private String zdpsTime;//最大评审时长(页面显示)
+	private String sbType;//设变类型
+	private String sbSource;//设变来源(内部设变，外部设变)
+	private Integer colseUserId;//关闭人
+	private String colseUserName;//关闭人名称
+	private String colseTime;//关闭时间
+	private Float dzcount;//内部计划待转换生产BOM数量
+	private Float wjhcount;//生产BOM未运算MRP数量
+	private Float wpccount;//生产BOM运算MRP未排产数量
+	private Float pccount;//生产BOM已排产数量
+	private String aboutPlace;//涉及车间
+	private String dqclUser;//当前处理人（页面显示）
+	private String qxRemark;//取消时填写的备注
+	/****
+	 * 华为EC对接
+	 */
+	private Long workItemId;//任务Id(反馈必填项)
+	private String ecType;//ECN类型(反馈必填项)
+	private String execute;//执行情况(已执行/不执行/不涉及)
+	
+	private String lastop;//最后操作
+	private Integer lastUserId;//最后操作人ID
+	private String lastUserName;//最后操作人名称
+	private String lastTime;//最后操作时间
+	
+	private String needzz;//是否需要佐证(是,否)
+	private String zzremark;//佐证备注
+	
+	private String isold;//是否为原设变流程走完的设变(是表示为原设变流程走的设变)
+	private String sbreason;//设变原因（工艺错误，客户/研发要求，工艺改良，其他）
+	
+	private String changeremark;//是否可以修改备注信息(页面显示)
+	private Set<ProcardTemplateBanBen> procardTemplateBanBen;//申请明细
+	private List<ProcardTemplateBanBen> bbList;//
+	private Set<ProcardTemplateBanBenJudges> ptbbjset;//评审人员
+	private List<ProcardTemplateBanBenJudges> bbJudegeList;//
+	private List<ProcardTemplateBanBenJudgesFile> ptbbjFileList;//佐证文件
+	
+	private List<ProcardTemplateBanBenApply> ptbbaList;//页面传值
+	private List<ProcardTemplatesbDifference> ptsbdifferenceList;//设变修改数据
+	private List<ProcardTemplateAboutsb> ptasbList;//设变相关零件
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getApplicantId() {
+		return applicantId;
+	}
+	public void setApplicantId(Integer applicantId) {
+		this.applicantId = applicantId;
+	}
+	public String getApplicantName() {
+		return applicantName;
+	}
+	public void setApplicantName(String applicantName) {
+		this.applicantName = applicantName;
+	}
+	public String getApplyTime() {
+		return applyTime;
+	}
+	public void setApplyTime(String applyTime) {
+		this.applyTime = applyTime;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public Set<ProcardTemplateBanBen> getProcardTemplateBanBen() {
+		return procardTemplateBanBen;
+	}
+	public void setProcardTemplateBanBen(
+			Set<ProcardTemplateBanBen> procardTemplateBanBen) {
+		this.procardTemplateBanBen = procardTemplateBanBen;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getBanbenNumber() {
+		return banbenNumber;
+	}
+	public void setBanbenNumber(String banbenNumber) {
+		this.banbenNumber = banbenNumber;
+	}
+	public String getApplicantdept() {
+		return applicantdept;
+	}
+	public void setApplicantdept(String applicantdept) {
+		this.applicantdept = applicantdept;
+	}
+	public String getProcessStatus() {
+		return processStatus;
+	}
+	public void setProcessStatus(String processStatus) {
+		this.processStatus = processStatus;
+	}
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+	public String getBanci() {
+		return banci;
+	}
+	public void setBanci(String banci) {
+		this.banci = banci;
+	}
+	public List<ProcardTemplateBanBen> getBbList() {
+		return bbList;
+	}
+	public void setBbList(List<ProcardTemplateBanBen> bbList) {
+		this.bbList = bbList;
+	}
+	public Set<ProcardTemplateBanBenJudges> getPtbbjset() {
+		return ptbbjset;
+	}
+	public void setPtbbjset(Set<ProcardTemplateBanBenJudges> ptbbjset) {
+		this.ptbbjset = ptbbjset;
+	}
+	public List<ProcardTemplateBanBenJudges> getBbJudegeList() {
+		return bbJudegeList;
+	}
+	public void setBbJudegeList(List<ProcardTemplateBanBenJudges> bbJudegeList) {
+		this.bbJudegeList = bbJudegeList;
+	}
+	public String getNeedDeptJudege() {
+		return needDeptJudege;
+	}
+	public void setNeedDeptJudege(String needDeptJudege) {
+		this.needDeptJudege = needDeptJudege;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getOldFileName() {
+		return oldFileName;
+	}
+	public void setOldFileName(String oldFileName) {
+		this.oldFileName = oldFileName;
+	}
+	public String getTbProcard() {
+		return tbProcard;
+	}
+	public void setTbProcard(String tbProcard) {
+		this.tbProcard = tbProcard;
+	}
+	public String getSbNumber() {
+		return sbNumber;
+	}
+	public void setSbNumber(String sbNumber) {
+		this.sbNumber = sbNumber;
+	}
+	public String getOutbsNumber() {
+		return outbsNumber;
+	}
+	public void setOutbsNumber(String outbsNumber) {
+		this.outbsNumber = outbsNumber;
+	}
+	
+	public String getProductStyle() {
+		return productStyle;
+	}
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+	public Integer getRootId() {
+		return rootId;
+	}
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+	public String getOldProcessStatus() {
+		return oldProcessStatus;
+	}
+	public void setOldProcessStatus(String oldProcessStatus) {
+		this.oldProcessStatus = oldProcessStatus;
+	}
+	public String getZpTime() {
+		return zpTime;
+	}
+	public void setZpTime(String zpTime) {
+		this.zpTime = zpTime;
+	}
+	public String getQznext() {
+		return qznext;
+	}
+	public void setQznext(String qznext) {
+		this.qznext = qznext;
+	}
+	public String getZdpsTime() {
+		return zdpsTime;
+	}
+	public void setZdpsTime(String zdpsTime) {
+		this.zdpsTime = zdpsTime;
+	}
+	public String getSbType() {
+		return sbType;
+	}
+	public void setSbType(String sbType) {
+		this.sbType = sbType;
+	}
+	public String getChangeremark() {
+		return changeremark;
+	}
+	public void setChangeremark(String changeremark) {
+		this.changeremark = changeremark;
+	}
+	public String getSbSource() {
+		return sbSource;
+	}
+	public void setSbSource(String sbSource) {
+		this.sbSource = sbSource;
+	}
+	public Integer getColseUserId() {
+		return colseUserId;
+	}
+	public void setColseUserId(Integer colseUserId) {
+		this.colseUserId = colseUserId;
+	}
+	public String getColseUserName() {
+		return colseUserName;
+	}
+	public void setColseUserName(String colseUserName) {
+		this.colseUserName = colseUserName;
+	}
+	public String getColseTime() {
+		return colseTime;
+	}
+	public void setColseTime(String colseTime) {
+		this.colseTime = colseTime;
+	}
+	public Float getDzcount() {
+		return dzcount;
+	}
+	public void setDzcount(Float dzcount) {
+		this.dzcount = dzcount;
+	}
+	public Float getWjhcount() {
+		return wjhcount;
+	}
+	public void setWjhcount(Float wjhcount) {
+		this.wjhcount = wjhcount;
+	}
+	public Float getWpccount() {
+		return wpccount;
+	}
+	public void setWpccount(Float wpccount) {
+		this.wpccount = wpccount;
+	}
+	public Float getPccount() {
+		return pccount;
+	}
+	public void setPccount(Float pccount) {
+		this.pccount = pccount;
+	}
+	public Long getWorkItemId() {
+		return workItemId;
+	}
+	public void setWorkItemId(Long workItemId) {
+		this.workItemId = workItemId;
+	}
+	public String getEcType() {
+		return ecType;
+	}
+	public void setEcType(String ecType) {
+		this.ecType = ecType;
+	}
+	public List<ProcardTemplateBanBenJudgesFile> getPtbbjFileList() {
+		return ptbbjFileList;
+	}
+	public void setPtbbjFileList(List<ProcardTemplateBanBenJudgesFile> ptbbjFileList) {
+		this.ptbbjFileList = ptbbjFileList;
+	}
+	public String getLastop() {
+		return lastop;
+	}
+	public void setLastop(String lastop) {
+		this.lastop = lastop;
+	}
+	
+	public Integer getLastUserId() {
+		return lastUserId;
+	}
+	public void setLastUserId(Integer lastUserId) {
+		this.lastUserId = lastUserId;
+	}
+	public String getLastUserName() {
+		return lastUserName;
+	}
+	public void setLastUserName(String lastUserName) {
+		this.lastUserName = lastUserName;
+	}
+	public String getLastTime() {
+		return lastTime;
+	}
+	public void setLastTime(String lastTime) {
+		this.lastTime = lastTime;
+	}
+	public String getExecute() {
+		return execute;
+	}
+	public void setExecute(String execute) {
+		this.execute = execute;
+	}
+	public String getAboutPlace() {
+		return aboutPlace;
+	}
+	public void setAboutPlace(String aboutPlace) {
+		this.aboutPlace = aboutPlace;
+	}
+	public String getNeedzz() {
+		return needzz;
+	}
+	public void setNeedzz(String needzz) {
+		this.needzz = needzz;
+	}
+	public String getZzremark() {
+		return zzremark;
+	}
+	public void setZzremark(String zzremark) {
+		this.zzremark = zzremark;
+	}
+	public List<ProcardTemplateBanBenApply> getPtbbaList() {
+		return ptbbaList;
+	}
+	public void setPtbbaList(List<ProcardTemplateBanBenApply> ptbbaList) {
+		this.ptbbaList = ptbbaList;
+	}
+	public List<ProcardTemplatesbDifference> getPtsbdifferenceList() {
+		return ptsbdifferenceList;
+	}
+	public void setPtsbdifferenceList(
+			List<ProcardTemplatesbDifference> ptsbdifferenceList) {
+		this.ptsbdifferenceList = ptsbdifferenceList;
+	}
+	public List<ProcardTemplateAboutsb> getPtasbList() {
+		return ptasbList;
+	}
+	public void setPtasbList(List<ProcardTemplateAboutsb> ptasbList) {
+		this.ptasbList = ptasbList;
+	}
+	public String getIsold() {
+		return isold;
+	}
+	public void setIsold(String isold) {
+		this.isold = isold;
+	}
+	public String getSbreason() {
+		return sbreason;
+	}
+	public void setSbreason(String sbreason) {
+		this.sbreason = sbreason;
+	}
+	public String getDqclUser() {
+		return dqclUser;
+	}
+	public void setDqclUser(String dqclUser) {
+		this.dqclUser = dqclUser;
+	}
+	public String getQxRemark() {
+		return qxRemark;
+	}
+	public void setQxRemark(String qxRemark) {
+		this.qxRemark = qxRemark;
+	}
+	
+	
+	
+	
+	
+	
+}

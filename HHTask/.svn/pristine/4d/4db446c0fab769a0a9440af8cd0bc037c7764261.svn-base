@@ -1,0 +1,411 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+import com.task.entity.android.OsRecordScope;
+import com.task.util.FieldMeta;
+
+/**
+ * 
+ * @author (王晓飞)
+ *	不良品处理单:(ta_sop_w_DefectiveProduct)
+ */
+public class DefectiveProduct implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;
+	@FieldMeta(name="采购订单号")
+	private String cgOrderNum;//采购订单号
+	@FieldMeta(name="送货单号")
+	private String shOrderNum;//送货单号;
+	@FieldMeta(name="件号")
+	private String markId;//件号
+	private Integer procardId;//流水卡Id
+	private String selfcard;//生产批次
+	@FieldMeta(name="业务件号")
+	private String ywmarkId;//业务件号
+	@FieldMeta(name="供料属性")
+	private String kgliao;// //供料属性（自购、指定、客供）
+	@FieldMeta(name="版本")
+	private String banben;// 版本
+	@FieldMeta(name="版次")
+	private Integer banci;// 版次
+	@FieldMeta(name="图号")
+	private String tuhao;//图号
+	@FieldMeta(name="零件名称")
+	private String proName;// 零件名称
+	@FieldMeta(name="规格")
+	private String specification;// 规格
+	@FieldMeta(name="单位")
+	private String unit;// 单位
+	@FieldMeta(name="物料类别")
+	private String wgType;//物料类别
+	private Float hsPrice;// 含税单价
+	private Float price;// 不含税单价
+	private Double taxprice; // 税率
+	private Integer priceId;// 价格id
+	private Integer gysId;// 供应商id
+	private Integer gysUsersId;//g供应商userId
+	@FieldMeta(name="供应商名称")
+	private String gysName;// 供应商名称
+	@FieldMeta(name="检验批次")
+	private String examineLot;//检验批次
+	private Integer jyuserId;//检验员id
+	private String jyuserCode;//检验元工号
+	@FieldMeta(name="检验员名称")
+	private String jyuserName;//检验员名称
+	@FieldMeta(name="检验时间")
+	private String checkTime;//检验时间
+	@FieldMeta(name="来料数量")
+	private Float llNumber;//来料数量
+	@FieldMeta(name="检验数量")
+	private Float jyNumber;//检验数量
+	@FieldMeta(name="检验合格数量")
+	private Float jyhgNumber;//检验合格数量
+	@FieldMeta(name="检验不合格数量")
+	private Float jybhgNumber;//检验不合格数量
+	@FieldMeta(name="确认合格数量")
+	private Float zjhgNumber;//确认合格数量
+	@FieldMeta(name="确认不合格数量")
+	private Float zjbhgNumber;//确认不合格数量
+	private Float dbNumber;//调拨数量(外购在库不良使用);
+	@FieldMeta(name="确认人")
+	private String zjUsers;//确认人
+	@FieldMeta(name="确认时间")
+	private String zjTime;//确认时间
+	private Integer wgddId;//送货单I明细d
+	@FieldMeta(name="类型")
+	private String type;//类型(外购(外委)来料不良、外购(外委)在库不良,外购在制不良);
+	@FieldMeta(name="物料类型")
+	private String wlType;//物料类型(外购、外委)
+	private String status;//状态(待确认、待领、已领、已处理)
+	private String addTime;//添加时间
+	private String addUser;//添加人
+	private Float zhuanhuanNum;//转换数量
+	private String zhuanhuanUit;//转换单位
+	private String fujian;//
+	private String ishege;//批次是否合格
+	@FieldMeta(name="备注")
+	private String ramk;//备注
+	private String againcheck;// 空 null、待复检 、复检、分检  
+	private Float fenjianNum;
+	private Integer epId;
+	private String epStatus;
+	@FieldMeta(name="处理结果")
+	private String result;//处理结果
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCgOrderNum() {
+		return cgOrderNum;
+	}
+	public void setCgOrderNum(String cgOrderNum) {
+		this.cgOrderNum = cgOrderNum;
+	}
+	public String getShOrderNum() {
+		return shOrderNum;
+	}
+	public void setShOrderNum(String shOrderNum) {
+		this.shOrderNum = shOrderNum;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getYwmarkId() {
+		return ywmarkId;
+	}
+	public void setYwmarkId(String ywmarkId) {
+		this.ywmarkId = ywmarkId;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public String getBanben() {
+		return banben;
+	}
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+	public Integer getBanci() {
+		return banci;
+	}
+	public void setBanci(Integer banci) {
+		this.banci = banci;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public Float getHsPrice() {
+		return hsPrice;
+	}
+	public void setHsPrice(Float hsPrice) {
+		this.hsPrice = hsPrice;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	public Double getTaxprice() {
+		return taxprice;
+	}
+	public void setTaxprice(Double taxprice) {
+		this.taxprice = taxprice;
+	}
+	public Integer getPriceId() {
+		return priceId;
+	}
+	public void setPriceId(Integer priceId) {
+		this.priceId = priceId;
+	}
+	public Integer getGysId() {
+		return gysId;
+	}
+	public void setGysId(Integer gysId) {
+		this.gysId = gysId;
+	}
+	public String getGysName() {
+		return gysName;
+	}
+	public void setGysName(String gysName) {
+		this.gysName = gysName;
+	}
+	public String getExamineLot() {
+		return examineLot;
+	}
+	public void setExamineLot(String examineLot) {
+		this.examineLot = examineLot;
+	}
+	public Integer getJyuserId() {
+		return jyuserId;
+	}
+	public void setJyuserId(Integer JyuserId) {
+		this.jyuserId = jyuserId;
+	}
+	
+	public String getCheckTime() {
+		return checkTime;
+	}
+	public void setCheckTime(String checkTime) {
+		this.checkTime = checkTime;
+	}
+	public Float getJyNumber() {
+		return jyNumber;
+	}
+	public void setJyNumber(Float jyNumber) {
+		this.jyNumber = jyNumber;
+	}
+	public Float getJyhgNumber() {
+		return jyhgNumber;
+	}
+	public void setJyhgNumber(Float jyhgNumber) {
+		this.jyhgNumber = jyhgNumber;
+	}
+	public Float getJybhgNumber() {
+		return jybhgNumber;
+	}
+	public void setJybhgNumber(Float jybhgNumber) {
+		this.jybhgNumber = jybhgNumber;
+	}
+	public Integer getWgddId() {
+		return wgddId;
+	}
+	public void setWgddId(Integer wgddId) {
+		this.wgddId = wgddId;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getJyuserCode() {
+		return jyuserCode;
+	}
+	public void setJyuserCode(String jyuserCode) {
+		this.jyuserCode = jyuserCode;
+	}
+	public String getJyuserName() {
+		return jyuserName;
+	}
+	public void setJyuserName(String jyuserName) {
+		this.jyuserName = jyuserName;
+	}
+	public Float getZjhgNumber() {
+		return zjhgNumber;
+	}
+	public void setZjhgNumber(Float zjhgNumber) {
+		this.zjhgNumber = zjhgNumber;
+	}
+	public Float getZjbhgNumber() {
+		return zjbhgNumber;
+	}
+	public void setZjbhgNumber(Float zjbhgNumber) {
+		this.zjbhgNumber = zjbhgNumber;
+	}
+	public String getZjUsers() {
+		return zjUsers;
+	}
+	public void setZjUsers(String zjUsers) {
+		this.zjUsers = zjUsers;
+	}
+	public String getZjTime() {
+		return zjTime;
+	}
+	public void setZjTime(String zjTime) {
+		this.zjTime = zjTime;
+	}
+	public Float getLlNumber() {
+		return llNumber;
+	}
+	public void setLlNumber(Float llNumber) {
+		this.llNumber = llNumber;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUser() {
+		return addUser;
+	}
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public Integer getGysUsersId() {
+		return gysUsersId;
+	}
+	public void setGysUsersId(Integer gysUsersId) {
+		this.gysUsersId = gysUsersId;
+	}
+	public Float getDbNumber() {
+		return dbNumber;
+	}
+	public void setDbNumber(Float dbNumber) {
+		this.dbNumber = dbNumber;
+	}
+	public Float getZhuanhuanNum() {
+		return zhuanhuanNum;
+	}
+	public void setZhuanhuanNum(Float zhuanhuanNum) {
+		this.zhuanhuanNum = zhuanhuanNum;
+	}
+	public String getZhuanhuanUit() {
+		return zhuanhuanUit;
+	}
+	public void setZhuanhuanUit(String zhuanhuanUit) {
+		this.zhuanhuanUit = zhuanhuanUit;
+	}
+	public String getFujian() {
+		return fujian;
+	}
+	public void setFujian(String fujian) {
+		this.fujian = fujian;
+	}
+	public Integer getProcardId() {
+		return procardId;
+	}
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+	public String getSelfcard() {
+		return selfcard;
+	}
+	public void setSelfcard(String selfcard) {
+		this.selfcard = selfcard;
+	}
+	public String getRamk() {
+		return ramk;
+	}
+	public void setRamk(String ramk) {
+		this.ramk = ramk;
+	}
+	public String getIshege() {
+		return ishege;
+	}
+	public void setIshege(String ishege) {
+		this.ishege = ishege;
+	}
+	public String getAgaincheck() {
+		return againcheck;
+	}
+	public void setAgaincheck(String againcheck) {
+		this.againcheck = againcheck;
+	}
+	public Float getFenjianNum() {
+		return fenjianNum;
+	}
+	public void setFenjianNum(Float fenjianNum) {
+		this.fenjianNum = fenjianNum;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEpStatus() {
+		return epStatus;
+	}
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+	public String getWlType() {
+		return wlType;
+	}
+	public void setWlType(String wlType) {
+		this.wlType = wlType;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	
+	  
+}

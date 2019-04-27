@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="BaomiOperateLog" table="ta_pro_BaomiOperateLog">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="operateType" />
+	<property name="operateObject" />
+	<property name="operateRemark" />
+	<property name="operateTime" />
+	<property name="operateUserId" />
+	<property name="operateUsername" />
+	<property name="operateCode" />
+	<property name="operateDept" />
+	</class>
+</hibernate-mapping>

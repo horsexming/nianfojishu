@@ -1,0 +1,861 @@
+package com.task.action;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Dao.TotalDao;
+import com.task.Server.WageServer;
+import com.task.ServerImpl.AlertMessagesServerImpl;
+import com.task.entity.Users;
+import com.task.entity.Wage;
+import com.task.entity.dmltry.DmlAppFileUrl;
+import com.task.entity.sop.BuHeGePin;
+import com.task.util.MKUtil;
+import com.task.util.RtxUtil;
+import com.task.util.Util;
+
+@SuppressWarnings("serial")
+public class WageAction extends ActionSupport {
+
+	private WageServer wageServer;// 工资模板Server层
+
+	private Wage wage;
+	private Users user;
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private List<Wage> wageList;// 成绩标准集合
+	private String articleOrSingle;// 工资条或者工资单
+	private int id;
+	private String fileName;// 导出工资名称
+	private String pageStatus;// 页面判断状态
+	private String bufagongzi;// 补发工资
+	private String other;// 其他
+	private File chageWage;// 变动工资文件
+	private String chageWageContentType;// 文件类型
+	private String chageWageFileName;// 文件名称
+	private int wageId[];// 工资Id
+	private String code[];
+	private String cardId[];
+	private Float money[];
+	private Float money1[];
+	private List hzWageList;// 汇总工资集合
+	private String code1, mouth;
+	private String shihuamouth;
+
+	public String getShihuamouth() {
+		return shihuamouth;
+	}
+
+	public void setShihuamouth(String shihuamouth) {
+		this.shihuamouth = shihuamouth;
+	}
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	
+
+	/******
+	 * 关于公司工资生成方式:
+	 * 
+	 * @author 员工级绩效考核(打分后自动生成工资[绩效审核])
+	 * @author 承包奖金分配(分配奖金后自动生成工资[承包审核])
+	 * @author 长期病假分配
+	 * @author 主管互评生成试算工资(一键添加绩效,生成工资)
+	 * @author 现场提奖(奖金一键转换为工资)
+	 * @author 一键添加试用人员工资
+	 */
+
+	// 根据id查找工资
+	public String findWageById() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			if (pageStatus != null && "findAudit".equals(pageStatus)
+					|| "chage".equals(pageStatus)) {
+				return "findChageWageSuccess";
+			}
+			return "findAllWageSuccess";
+		}
+		errorMessage = "该工资信息不存在,请检查后重试!";
+		return ERROR;
+	}
+
+	// 查询所有工资(分页)
+	@SuppressWarnings("unchecked")
+	public String findAllWage() {
+		// wageServer.createCvAndReg("2018-07月");
+
+		if ("audit".equals(pageStatus)) {
+			pageSize = 0;
+			cpage = "0";
+		}
+		if (wage != null) {
+			ActionContext.getContext().getSession().put("wage", wage);
+		} else {
+			wage = (Wage) ActionContext.getContext().getSession().get("wage");
+		}
+		Object[] object = wageServer.findAllWage(Integer.parseInt(cpage),
+				pageSize, pageStatus, wage);
+		if (object != null) {
+			wageList = (List<Wage>) object[0];
+			if (wageList != null && wageList.size() > 0) {
+				int count = (Integer) object[1];
+				if ("audit".equals(pageStatus)) {
+					pageSize = count;
+					cpage = "0";
+				}
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("WageAction!findAllWage.action?pageStatus="
+						+ pageStatus + "");
+				// errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+			if ("chage".equals(pageStatus) || "findAudit".equals(pageStatus)) {
+				return "findChageWageSuccess";// wage_addChageWage.jsp
+			} else if ("audit".equals(pageStatus)) {
+				return "findAcditWageSuccess";// wage_auditWage.jsp
+			} else {
+				return "findAllWageSuccess";// wage_findWage.jsp
+			}
+		}
+		return ERROR;
+	}
+
+	// 查询所有工资(无分页)
+	public String findAllWageByMouth() {
+		Object[] obj = wageServer.findAllWageByMouth(wage);
+		if (obj != null) {
+			wageList = (List<Wage>) obj[0];
+			if (wageList == null || wageList.size() < 0) {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			} else {
+				successMessage = wage.getMouth() + "";
+			}
+			if ("all".equals(pageStatus)) {
+				code = (String[]) obj[1];
+				return "wage_auditMonthWage";
+			}
+		}
+		return "printWage";
+	}
+
+	// 条件查询工资(分页)
+	@SuppressWarnings("unchecked")
+	public String findWageByCondition() {
+		if (wage != null) {
+			ActionContext.getContext().getSession().put("wage", wage);
+		} else {
+			wage = (Wage) ActionContext.getContext().getSession().get("wage");
+		}
+		if ("audit".equals(pageStatus)) {
+			pageSize = 0;
+			cpage = "0";
+		}
+		Object[] object = wageServer.findWageByCondition(wage, Integer
+				.parseInt(cpage), pageSize, pageStatus);
+		if (object != null) {
+			wageList = (List<Wage>) object[0];
+			if (wageList != null && wageList.size() > 0) {
+				int count = (Integer) object[1];
+				if ("audit".equals(pageStatus)) {
+					pageSize = count;
+					cpage = "0";
+				}
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("WageAction!findWageByCondition.action?pageStatus="
+						+ pageStatus);
+				errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+			if ("chage".equals(pageStatus) || "findAudit".equals(pageStatus)) {
+				return "findChageWageSuccess";
+			} else if ("audit".equals(pageStatus)) {
+				return "findAcditWageSuccess";
+			} else if ("print".equals(pageStatus)) {
+				return "wage_findWage_print";
+			} else {
+				return "findAllWageSuccess";
+			}
+		}
+		return ERROR;
+
+	}
+
+	// 导出工资条 / 工资单
+	public String exportWageArticle() {
+		if ("outsourcing".equals(pageStatus)) {// 导出外包工资
+			fileName = wageServer.exportOutsourcing(wage.getMouth());
+		} else {// 导出工资条/单信息(添加变动、自查、同意)
+			fileName = wageServer.exportWageArticle(wage, articleOrSingle,
+					pageStatus);
+		}
+		if (fileName != null && fileName.indexOf("xls") > 0) {
+			return "exportWageArticleSuccess";
+		}
+		errorMessage = fileName;
+		return ERROR;
+	}
+
+	// 添加试用人员工资
+	public String addTryPeople() {
+		String message = wageServer.addTryPeople();
+		if ("success".equals(message)) {
+			errorMessage = "处理成功!";
+		} else {
+			errorMessage = message;
+		}
+		return ERROR;
+	}
+
+	// 通过工资模板信息更新工资
+	public String updateWageByWageStandard() {
+		boolean bool = wageServer.updateWageByWageStandard();
+		if (bool) {
+			errorMessage = "更新成功!";
+		} else {
+			errorMessage = "更新失败!";
+		}
+
+		return ERROR;
+	}
+
+	// 添加变动工资
+	public String addChageWage() {
+		Wage oldWage = wageServer.findWageById(id);
+		if (oldWage != null) {
+			boolean bool = wageServer.addChageWage(wage, oldWage);
+			if (bool) {
+				successMessage = "为员工 " + oldWage.getUserName()
+						+ " 添加变动工资信息成功!";
+				return "addChageWageSuccess";
+			} else {
+				errorMessage = "为员工 " + oldWage.getUserName()
+						+ " 添加变动工资信息出错,请检查后重试!";
+			}
+		} else {
+			errorMessage = "不存在该工资信息,请检查后重试!";
+		}
+		return ERROR;
+	}
+
+	// 上传变动工资
+	public String uploadChageWage() {
+		if (chageWage != null) {
+			errorMessage = wageServer.uploadChageWage(chageWage, wage
+					.getMouth());
+			if (errorMessage.length() <= 0) {
+				errorMessage = "为员工上传变动工资成功!";
+			}
+			findAllWage();
+			return "findChageWageSuccess";
+		} else {
+			errorMessage = "请先选择文件!";
+			return ERROR;
+		}
+	}
+
+	// 上传社保工资
+	public String uploadSbWage() {
+		errorMessage = wageServer.uploadSbWage(chageWage);
+		if (errorMessage.length() <= 0) {
+			errorMessage = "为员工调整社保数据成功!";
+		}
+		return "uploadSbWageSuccess";
+	}
+
+	// 提交状态为"自查"的工资信息为审核
+	public String submitWageAudit() {
+		int count = wageServer.submitWageAudit();
+		errorMessage = "本次共提交审核" + count + "条工资信息!";
+		if (count > 0) {
+			// AlertMessagesServerImpl.addAlertMessages("工资审核（总经理审批）", count
+			// + "条变动工资信息处理完成,请您审核! ", "1");
+			// RtxUtil.sendNotify("001", Util.getLastMonth("yyyy-MM月")
+			// + "工资信息,请您审核!  \n\t\t\t 发送人:"
+			// + "system \n\t PEBS系统(点击进入审批):"
+			// + AlertMessagesServerImpl.pebsUrl
+			// + "/WageAction!findAllWage.action?pageStatus=audit",
+			// "工资审核", "0", "0");
+		}
+		return "findChageWageSuccess";
+	}
+
+	// 修改工资状态
+	public String updateWageStatus() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			boolean bool = wageServer.updateWage(wage, pageStatus);
+			if (bool) {
+				pageStatus = "audit";
+				successMessage = "审核员工 " + wage.getUserName() + " 的工资完成";
+				return "addChageWageSuccess";
+			}
+		} else {
+			errorMessage = "不存在该工资,请检查后重试!";
+		}
+
+		return ERROR;
+	}
+
+	// 工资批量审核(同意/打回)
+	public String batchAudit() {
+		successMessage = wageServer.batchAudit(wageId, pageStatus);
+		pageStatus = "audit";
+		findAllWage();
+		return "findAcditWageSuccess";
+	}
+
+	// 查看工资明细
+	public String showWageDetails() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			String message = wageServer.showWageDetails(wage);
+			try {
+				HttpServletResponse response = ServletActionContext
+						.getResponse();
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().write(message);
+				response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			errorMessage = "不存在该工资,请检查后重试!";
+		}
+		return null;
+	}
+
+	// 查询工资信息 为离职使用
+	@SuppressWarnings("unchecked")
+	public String findWageForDeparture() {
+		Object[] object = wageServer.findUserAllWage(wage.getCode(), wage
+				.getCardId(), Integer.parseInt(cpage), pageSize);
+		if (object != null) {
+			wageList = (List<Wage>) object[0];
+			if (wageList != null && wageList.size() > 0) {
+				wage.setShifagongzi(wageServer.findUserSumWage(wage.getCode(),
+						wage.getCardId()).getShifagongzi());
+				wage.setUserName(wageList.get(0).getUserName());
+
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("WageAction!findWageForDeparture.action?wage.code="
+						+ wage.getCode() + "&wage.cardId=" + wage.getCardId());
+				errorMessage = null;
+			} else {
+				errorMessage = "该员工没有工资信息!";
+			}
+			return "userWage";
+		} else {
+			errorMessage = "该员工没有工资信息!";
+		}
+		return ERROR;
+	}
+
+	// 工资平衡(现场奖金分配计算工资)
+	public String wageBalance() {
+		errorMessage = wageServer.wageBalance(0);
+		return "wageBalance";
+	}
+
+	// 添加承包、主管工资、内退工资、
+	public String addCbWage() {
+		successMessage = wageServer.addWage(code, cardId, money, money1,
+				pageStatus);
+		// 跳转到考核明细管理
+		if (pageStatus != null && "manage".equals(pageStatus)) {
+			return "allSS";
+		}
+		return "addCbWage";
+	}
+
+	// 部门奖金分配
+	public String addBumenBonus() {
+		errorMessage = wageServer.addBumenBonus(code, money, pageStatus);
+		if (errorMessage != null) {
+			url = "ContractBonusAction!findTolAndTeam.action";
+		}
+		return ERROR;
+	}
+
+	// 通过登录人员职位查询所属成员的工资信息
+	@SuppressWarnings("unchecked")
+	public String findWageByDuty() {
+		Users user = (Users) ActionContext.getContext().getSession().get(
+				TotalDao.users);
+		Object object[] = wageServer.findWageByMouthAndDept(user.getCode(),
+				Integer.parseInt(cpage), pageSize);
+		if (object != null) {
+			wageList = (List<Wage>) object[0];
+			if (wageList != null && wageList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("WageAction!findWageByDuty.action?pageStatus="
+						+ pageStatus);
+			} else {
+				errorMessage = "没有查到工资信息!";
+			}
+			return "findWageByDuty";
+		} else {
+			errorMessage = "该员工没有工资信息!";
+		}
+		return ERROR;
+	}
+
+	// 删除承包奖金工资
+	public String delWage() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			boolean bool = wageServer.delWage(wage);// 删除工资
+			if (bool) {
+				// 如果当前登陆人存在部留信息,则更新部留
+				bool = wageServer.updateBuliu(wage);
+				successMessage = "删除 " + wage.getUserName() + "的"
+						+ wage.getMouth() + "工资成功!";
+				return "addCbWage";
+			}
+			errorMessage = "删除失败!请重试!";
+		}
+		return ERROR;
+	}
+
+	// 检查工资
+	public String checkWage() throws Exception {
+		String message = wageServer.checkWage();
+		System.out.println(message);
+		return "";
+	}
+
+	// 工资汇总
+	public String huizongWage() {
+		if (wage != null && wage.getMouth() != null)
+			hzWageList = wageServer.huizongWage(wage.getMouth());
+		if (hzWageList == null || hzWageList.size() <= 0) {
+			errorMessage = "不存在您要查询的数据,请查询后重试!";
+		}
+		return "huizongWage";
+	}
+
+	// 添加离职人员工资
+	public String addLeaveWage() {
+		Wage oldWage = wageServer.findWageByCodeAndCardId(wage.getCode(), null,
+				wage.getMouth());
+		if (oldWage == null) {
+			boolean bool = wageServer.addLeaveWage(wage);
+			if (bool) {
+				successMessage = "添加" + wage.getUserName() + "的"
+						+ wage.getMouth() + "工资成功!";
+				return "addLeaveWage";
+			} else {
+				errorMessage = "处理失败!请检查后重试!";
+			}
+		} else {
+			// 如果状态不是"离职工资",则删除后重新添加
+			if (oldWage.getWageClass() == null
+					|| !oldWage.getWageClass().equals("离职工资")) {
+				boolean bool = wageServer.delWage(oldWage);// 删除已经存在工资
+				if (bool) {
+					bool = wageServer.addLeaveWage(wage);
+					if (bool) {
+						successMessage = "添加" + wage.getUserName() + "的"
+								+ wage.getMouth() + "工资成功!";
+						return "addLeaveWage";
+					} else {
+						errorMessage = "处理失败!请检查后重试!";
+					}
+				}
+			} else {
+				errorMessage = oldWage.getUserName() + "的" + wage.getMouth()
+						+ "的工资已经存在,请勿重复添加!谢谢!";
+			}
+		}
+		return ERROR;
+	}
+
+	// 删除离职工资
+	public String delLeaveWage() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			boolean bool = wageServer.delWage(wage);
+			if (bool) {
+				successMessage = "离职工资已删除!";
+				return "addLeaveWage";
+			}
+		}
+		errorMessage = "删除离职工资失败!";
+		return ERROR;
+	}
+
+	// 更新离职工资
+	public String updateWage() {
+		Wage oldWage = wageServer.findWageById(id);
+		if (oldWage != null) {
+			Users loginUser = (Users) ActionContext.getContext().getSession()
+					.get(TotalDao.users);
+			Float yingfagongzi = wage.getGangweigongzi()
+					+ wage.getBaomijintie() + wage.getDianhuabutie()
+					+ wage.getJixiaokaohegongzi() + wage.getLeaveBuchang();// 应发工资计算
+			wage.setShuidianfei(0F);// 水电费
+			wage.setAddDateTime(Util.getDateTime(null));// 添加时间
+			wage.setWageStatus("添加变动");
+			wage.setAddDateTime(Util.getDateTime("yyyy-MM-dd HH:mm:ss"));// 添加时间
+			wage.setAddUserName(loginUser.getName());// 添加人员名称
+			wage.setAddUserId(loginUser.getId());// 添加人id
+			wage.setWageStatue("正常");// 人员状态
+			wage.setYingfagongzi(yingfagongzi);// 应发工资
+			wage.setYingjiaoshuijin(0F);// 应交税金
+			wage.setShifagongzi(0F);// 实发工资
+			boolean bool = wageServer.updateWage(wage);
+			if (bool) {
+				successMessage = "离职工资已删除!";
+				return "addLeaveWage";
+			}
+		}
+		errorMessage = "更改工资失败!";
+		return ERROR;
+	}
+
+	/***
+	 * 查看个人工资列表
+	 */
+	public void findPersonWage() {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		Users loginUser = Util.getLoginUser();
+		try {
+			if (loginUser != null) {
+				response
+						.sendRedirect("WageAction!findWageByCondition.action?wage.code="
+								+ loginUser.getCode() + "&pageStatus=print");
+			} else {
+				errorMessage = "请您先登录后,再查看工资信息!";
+				response.sendRedirect("login.jsp");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***
+	 * 工资单打印
+	 * 
+	 * @return
+	 */
+	public String printWage() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			Users user = Util.getLoginUser();
+			if (wage != null && user != null) {
+				if (wage.getCode().equals(user.getCode())) {
+				} else {
+					wage = null;
+					return ERROR;
+				}
+			}
+			return "wage_print";
+		}
+		return ERROR;
+	}
+
+	/***
+	 * Android工资单详情接口
+	 * 
+	 * @return
+	 */
+	public void androidprintWage() {
+		List list = wageServer.androidprintWage(code1, mouth);
+		if (list != null && list.size() > 0) {
+			MKUtil.writeJSON(true, "查询成功", list);
+		} else {
+			MKUtil.writeJSON(false, "没有提交的数据!", list);
+		}
+	}
+	
+	public void gonzi(){
+		Map<Integer, Object> map = wageServer.fourmouthgobzi(Util.getLoginUser().getCode(),Util.getLoginUser().getId(), 1, 4);
+		wageList = (List<Wage>) map.get(1);
+		if(wageList !=null && wageList.size()>0 ){
+			MKUtil.writeJSON(wageList);			
+		}
+	}
+
+	/*
+	 * 个人财务详细
+	 */
+	public void gonzixiangxi(){
+		Wage wage  =wageServer.wage(shihuamouth);
+		MKUtil.writeJSON(wage);			
+	}
+	
+	
+	/***
+	 * 更新打印状态
+	 */
+	public void updatePrint() {
+		wage = wageServer.findWageById(id);
+		if (wage != null) {
+			wage.setPrintDate(Util.getDateTime());
+			Boolean bool = wageServer.updateWage(wage);
+			MKUtil.writeJSON(bool);
+		}
+	}
+
+	/**
+	 * 
+	 *查询某个人的截止某一月份为止的奖金.
+	 */
+	public void getWageByUsers() {
+		try {
+			List<Wage> wageList = wageServer.getWageByUsers(id, mouth);
+			MKUtil.writeJSON(wageList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
+	 * 跳转个人奖金考核折线图
+	 */
+	public String ShowSubWage() {
+		user = wageServer.getUsers(id);
+		return "sub_wage";
+	}
+
+	/***
+	 * 12个月的工资数据分析
+	 */
+	public void findWageMonth() {
+		MKUtil.writeJSON(wageServer.findWageMonth(id, pageStatus));
+	}
+
+	public WageServer getWageServer() {
+		return wageServer;
+	}
+
+	public void setWageServer(WageServer wageServer) {
+		this.wageServer = wageServer;
+	}
+
+	public Wage getWage() {
+		return wage;
+	}
+
+	public void setWage(Wage wage) {
+		this.wage = wage;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public List<Wage> getWageList() {
+		return wageList;
+	}
+
+	public void setWageList(List<Wage> wageList) {
+		this.wageList = wageList;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getArticleOrSingle() {
+		return articleOrSingle;
+	}
+
+	public void setArticleOrSingle(String articleOrSingle) {
+		this.articleOrSingle = articleOrSingle;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getBufagongzi() {
+		return bufagongzi;
+	}
+
+	public void setBufagongzi(String bufagongzi) {
+		this.bufagongzi = bufagongzi;
+	}
+
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
+	public File getChageWage() {
+		return chageWage;
+	}
+
+	public void setChageWage(File chageWage) {
+		this.chageWage = chageWage;
+	}
+
+	public String getChageWageContentType() {
+		return chageWageContentType;
+	}
+
+	public void setChageWageContentType(String chageWageContentType) {
+		this.chageWageContentType = chageWageContentType;
+	}
+
+	public String getChageWageFileName() {
+		return chageWageFileName;
+	}
+
+	public void setChageWageFileName(String chageWageFileName) {
+		this.chageWageFileName = chageWageFileName;
+	}
+
+	public int[] getWageId() {
+		return wageId;
+	}
+
+	public void setWageId(int[] wageId) {
+		this.wageId = wageId;
+	}
+
+	public String[] getCode() {
+		return code;
+	}
+
+	public void setCode(String[] code) {
+		this.code = code;
+	}
+
+	public String[] getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String[] cardId) {
+		this.cardId = cardId;
+	}
+
+	public Float[] getMoney() {
+		return money;
+	}
+
+	public void setMoney(Float[] money) {
+		this.money = money;
+	}
+
+	public List getHzWageList() {
+		return hzWageList;
+	}
+
+	public void setHzWageList(List hzWageList) {
+		this.hzWageList = hzWageList;
+	}
+
+	public Float[] getMoney1() {
+		return money1;
+	}
+
+	public void setMoney1(Float[] money1) {
+		this.money1 = money1;
+	}
+
+	public String getCode1() {
+		return code1;
+	}
+
+	public void setCode1(String code1) {
+		this.code1 = code1;
+	}
+
+	public String getMouth() {
+		return mouth;
+	}
+
+	public void setMouth(String mouth) {
+		this.mouth = mouth;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi">
+	<class name="InterviewLog" table="ta_hr_rz_interviewLog">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="job" />
+		<property name="interviewDept" />
+		<property name="gereneducation" />
+		<property name="name" />
+		<property name="cardID" />
+		<property name="sex" />
+		<property name="birthday" />
+		<property name="marriage" />
+		<property name="height" />
+		<property name="census" />
+		<property name="censusStatus" />
+		<property name="workAge" />
+		<property name="finishSchool" />
+		<property name="finishTime" />
+		<property name="specialty" />
+		<property name="specialtyResult" />
+		<property name="contactAddress" />
+		<property name="zipCode" />
+		<property name="email" />
+		<property name="tel" />
+		<property name="beforeWorkAdd" />
+		<property name="beforWork" />
+		<property name="nowAddress" />
+		
+		<property name="experience" />
+		<property name="strongPoint" />
+		<property name="wantPay" />
+		<property name="otherWant" />
+		<property name="specialtyScore" />
+		<property name="experienceScore" />
+		
+		<property name="job_direction" />
+		<property name="nature_hobby" />
+		<property name="intelligence" />
+		<property name="job_attitude" />
+		<property name="analytical_skills" />
+		<property name="voice_ability" />
+		<property name="communication_skills" />
+		<property name="education" />
+		<property name="examiner_remark" />
+		<property name="enroll_result" />
+		<property name="ni_post" />
+		<property name="ni_salary" />
+		<property name="factory_opinion" />
+		<property name="comment" />
+		
+		<property name="interviewAddTime" />
+		<property name="interviewUpDatetime" />
+		
+		<property name="inter_status" />
+		
+		<property name="interStatus" />
+		<property name="epId" />
+		<!-- 入职人员对测试单 -->
+		<set name="interviewQuizzes" inverse="true" cascade="all" lazy="true">
+			<key column="ta_iqid"></key>
+			<one-to-many class="InterviewQuizzes"/>
+		</set>
+		<!-- 入职人员对家庭信息 -->
+		<set name="families" inverse="true" cascade="all" lazy="true">
+			<key column="ta_faid"></key>
+			<one-to-many class="Inter_Family"/>
+		</set>
+	</class>
+</hibernate-mapping>

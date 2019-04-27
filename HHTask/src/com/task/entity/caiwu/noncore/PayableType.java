@@ -1,0 +1,37 @@
+package com.task.entity.caiwu.noncore;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.task.entity.Users;
+
+/**
+ * 非主营业务应付类型表
+ * @author licong 
+ * 表名 ta_PayableType
+ *
+ */
+public class PayableType implements Serializable{
+	private Integer id;
+	private String type;//类型
+	private Set<Users> usersList;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Set<Users> getUsersList() {
+		return usersList;
+	}
+	public void setUsersList(Set<Users> usersList) {
+		this.usersList = usersList;
+	}
+	
+}

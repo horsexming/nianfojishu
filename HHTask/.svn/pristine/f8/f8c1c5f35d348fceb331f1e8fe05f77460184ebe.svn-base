@@ -1,0 +1,541 @@
+package com.task.entity.gongyi.score;
+
+public class GongyiGuichengScore {
+	private Integer id;
+	private String model;
+	//型别栏
+	private Integer xingbieScoreGygc;
+	private String xingbieScoreGygcRemark;
+	//件号栏
+	private Integer jianNumbScoreGygc;
+	private String jianNumbScoreGygcRemark;
+	//件名栏
+	private Integer jianNameScoreGygc;
+	private String jianNameScoreGygcRemark;
+	//页码栏
+	private Integer pageTotalScoreGygc;
+	private String pageTotalScoreGygcRemark;
+	//工艺规程编号栏
+	private Integer numbScoreGygc;
+	private String numbScoreGygcRemark;
+	//版次栏
+	private Integer banciScoreGygc;
+	private String banciScoreGygcRemark;
+	
+	//型别栏
+	private Integer xingbieScoreGycxtb;
+	private String xingbieScoreGycxtbRemark;
+	//件号栏
+	private Integer jianNumbScoreGycxtb;
+	private String jianNumbScoreGycxtbRemark;
+	//件名栏
+	private Integer jianNameScoreGycxtb;
+	private String jianNameScoreGycxtbRemark;
+	//页码栏
+	private Integer pageTotalScoreGycxtb;
+	private String pageTotalScoreGycxtbRemark;
+	
+	//检查内容
+	private Integer contentScoreGxtblmfqmx;
+	private String contentScoreGxtblmfqmxRemark;
+	
+	//设备栏
+	private Integer shebeiScoreGxsmlq;
+	private String shebeiScoreGxsmlqRemark;
+	//工序名称
+	private Integer gongxuNameScoreGxsmlq;
+	private String gongxuNameScoreGxsmlqRemark;
+	//工序号
+	private Integer gongxuNumbScoreGxsmlq;
+	private String gongxuNumbScoreGxsmlqRemark;
+	//工装
+	private Integer toolsScoreGxsmlq;
+	private String toolsScoreGxsmlqRemark;
+	//页码
+	private Integer pageNumbScoreGxsmlq;
+	private String pageNumbScoreGxsmlqRemark;
+	//尺寸标注没有遗漏
+	private Integer chicunBiaozhuYilouScoreGxsmlq;
+	private String chicunBiaozhuYilouScoreGxsmlqRemark;
+	//尺寸标注不会产生观察误导
+	private Integer chicunBiaozhuWudaoScoreGxsmlq;
+	private String chicunBiaozhuWudaoScoreGxsmlqRemark;
+	//尺寸标注符合公司标准
+	private Integer chicunBiaozhuBiaozhunScoreGxsmlq;
+	private String chicunBiaozhuBiaozhunScoreGxsmlqRemark;
+	//图形符合国标制图标准
+	private Integer tuxingBiaozhunScoreGxsmlq;
+	private String tuxingBiaozhunScoreGxsmlqRemark;
+	//轴测图或图片显示示意
+	private Integer zhucetuShiyiScoreGxsmlq;
+	private String zhucetuShiyiScoreGxsmlqRemark;
+	//图片或轴测图表示准确
+	private Integer zhucetuBiaozhunScoreGxsmlq;
+	private String zhucetuBiaozhunScoreGxsmlqRemark;
+	//项目栏
+	private Integer xiangmuScoreGxsmlq;
+	private String xiangmuScoreGxsmlqRemark;
+	//作业规范栏
+	private Integer zuoyeGuifanScoreGxsmlq;
+	private String zuoyeGuifanScoreGxsmlqRemark;
+	//技术参数栏
+	private Integer jishuCanshuScoreGxsmlq;
+	private String jishuCanshuScoreGxsmlqRemark;
+	//索引号
+	private Integer suoyinScoreGxsmlq;
+	private String suoyinScoreGxsmlqRemark;
+	//更改单号
+	private Integer danNumbScoreGxsmlq;
+	private String danNumbScoreGxsmlqRemark;
+	//签名
+	private Integer qianmingScoreGxsmlq;
+	private String qianmingScoreGxsmlqRemark;
+	
+	//序号栏
+	private Integer xuhaoScoreJyxmlq;
+	private String xuhaoScoreJyxmlqRemark;
+	//检验项目栏
+	private Integer xiangmuScoreJyxmlq;
+	private String xiangmuScoreJyxmlqRemark;
+	//测量器具
+	private Integer qijuScoreJyxmlq;
+	private String qijuScoreJyxmlqRemark;
+	//测定频率
+	private Integer cedingPinlvScoreJyxmlq;
+	private String cedingPinlvScoreJyxmlqRemark;
+	//辅助栏
+	private Integer fuzhuScoreJyxmlq;
+	private String fuzhuScoreJyxmlqRemark;
+	
+	private Integer score;
+	private Integer gongyiGuichengId;
+	private Integer processDataId;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public Integer getXingbieScoreGygc() {
+		return xingbieScoreGygc;
+	}
+	public void setXingbieScoreGygc(Integer xingbieScoreGygc) {
+		this.xingbieScoreGygc = xingbieScoreGygc;
+	}
+	public String getXingbieScoreGygcRemark() {
+		return xingbieScoreGygcRemark;
+	}
+	public void setXingbieScoreGygcRemark(String xingbieScoreGygcRemark) {
+		this.xingbieScoreGygcRemark = xingbieScoreGygcRemark;
+	}
+	public Integer getJianNumbScoreGygc() {
+		return jianNumbScoreGygc;
+	}
+	public void setJianNumbScoreGygc(Integer jianNumbScoreGygc) {
+		this.jianNumbScoreGygc = jianNumbScoreGygc;
+	}
+	public String getJianNumbScoreGygcRemark() {
+		return jianNumbScoreGygcRemark;
+	}
+	public void setJianNumbScoreGygcRemark(String jianNumbScoreGygcRemark) {
+		this.jianNumbScoreGygcRemark = jianNumbScoreGygcRemark;
+	}
+	public Integer getJianNameScoreGygc() {
+		return jianNameScoreGygc;
+	}
+	public void setJianNameScoreGygc(Integer jianNameScoreGygc) {
+		this.jianNameScoreGygc = jianNameScoreGygc;
+	}
+	public String getJianNameScoreGygcRemark() {
+		return jianNameScoreGygcRemark;
+	}
+	public void setJianNameScoreGygcRemark(String jianNameScoreGygcRemark) {
+		this.jianNameScoreGygcRemark = jianNameScoreGygcRemark;
+	}
+	public Integer getPageTotalScoreGygc() {
+		return pageTotalScoreGygc;
+	}
+	public void setPageTotalScoreGygc(Integer pageTotalScoreGygc) {
+		this.pageTotalScoreGygc = pageTotalScoreGygc;
+	}
+	public String getPageTotalScoreGygcRemark() {
+		return pageTotalScoreGygcRemark;
+	}
+	public void setPageTotalScoreGygcRemark(String pageTotalScoreGygcRemark) {
+		this.pageTotalScoreGygcRemark = pageTotalScoreGygcRemark;
+	}
+	public Integer getNumbScoreGygc() {
+		return numbScoreGygc;
+	}
+	public void setNumbScoreGygc(Integer numbScoreGygc) {
+		this.numbScoreGygc = numbScoreGygc;
+	}
+	public String getNumbScoreGygcRemark() {
+		return numbScoreGygcRemark;
+	}
+	public void setNumbScoreGygcRemark(String numbScoreGygcRemark) {
+		this.numbScoreGygcRemark = numbScoreGygcRemark;
+	}
+	public Integer getBanciScoreGygc() {
+		return banciScoreGygc;
+	}
+	public void setBanciScoreGygc(Integer banciScoreGygc) {
+		this.banciScoreGygc = banciScoreGygc;
+	}
+	public String getBanciScoreGygcRemark() {
+		return banciScoreGygcRemark;
+	}
+	public void setBanciScoreGygcRemark(String banciScoreGygcRemark) {
+		this.banciScoreGygcRemark = banciScoreGygcRemark;
+	}
+	public Integer getXingbieScoreGycxtb() {
+		return xingbieScoreGycxtb;
+	}
+	public void setXingbieScoreGycxtb(Integer xingbieScoreGycxtb) {
+		this.xingbieScoreGycxtb = xingbieScoreGycxtb;
+	}
+	public String getXingbieScoreGycxtbRemark() {
+		return xingbieScoreGycxtbRemark;
+	}
+	public void setXingbieScoreGycxtbRemark(String xingbieScoreGycxtbRemark) {
+		this.xingbieScoreGycxtbRemark = xingbieScoreGycxtbRemark;
+	}
+	public Integer getJianNumbScoreGycxtb() {
+		return jianNumbScoreGycxtb;
+	}
+	public void setJianNumbScoreGycxtb(Integer jianNumbScoreGycxtb) {
+		this.jianNumbScoreGycxtb = jianNumbScoreGycxtb;
+	}
+	public String getJianNumbScoreGycxtbRemark() {
+		return jianNumbScoreGycxtbRemark;
+	}
+	public void setJianNumbScoreGycxtbRemark(String jianNumbScoreGycxtbRemark) {
+		this.jianNumbScoreGycxtbRemark = jianNumbScoreGycxtbRemark;
+	}
+	public Integer getJianNameScoreGycxtb() {
+		return jianNameScoreGycxtb;
+	}
+	public void setJianNameScoreGycxtb(Integer jianNameScoreGycxtb) {
+		this.jianNameScoreGycxtb = jianNameScoreGycxtb;
+	}
+	public String getJianNameScoreGycxtbRemark() {
+		return jianNameScoreGycxtbRemark;
+	}
+	public void setJianNameScoreGycxtbRemark(String jianNameScoreGycxtbRemark) {
+		this.jianNameScoreGycxtbRemark = jianNameScoreGycxtbRemark;
+	}
+	public Integer getPageTotalScoreGycxtb() {
+		return pageTotalScoreGycxtb;
+	}
+	public void setPageTotalScoreGycxtb(Integer pageTotalScoreGycxtb) {
+		this.pageTotalScoreGycxtb = pageTotalScoreGycxtb;
+	}
+	public String getPageTotalScoreGycxtbRemark() {
+		return pageTotalScoreGycxtbRemark;
+	}
+	public void setPageTotalScoreGycxtbRemark(String pageTotalScoreGycxtbRemark) {
+		this.pageTotalScoreGycxtbRemark = pageTotalScoreGycxtbRemark;
+	}
+	public Integer getContentScoreGxtblmfqmx() {
+		return contentScoreGxtblmfqmx;
+	}
+	public void setContentScoreGxtblmfqmx(Integer contentScoreGxtblmfqmx) {
+		this.contentScoreGxtblmfqmx = contentScoreGxtblmfqmx;
+	}
+	public String getContentScoreGxtblmfqmxRemark() {
+		return contentScoreGxtblmfqmxRemark;
+	}
+	public void setContentScoreGxtblmfqmxRemark(String contentScoreGxtblmfqmxRemark) {
+		this.contentScoreGxtblmfqmxRemark = contentScoreGxtblmfqmxRemark;
+	}
+	public Integer getShebeiScoreGxsmlq() {
+		return shebeiScoreGxsmlq;
+	}
+	public void setShebeiScoreGxsmlq(Integer shebeiScoreGxsmlq) {
+		this.shebeiScoreGxsmlq = shebeiScoreGxsmlq;
+	}
+	public String getShebeiScoreGxsmlqRemark() {
+		return shebeiScoreGxsmlqRemark;
+	}
+	public void setShebeiScoreGxsmlqRemark(String shebeiScoreGxsmlqRemark) {
+		this.shebeiScoreGxsmlqRemark = shebeiScoreGxsmlqRemark;
+	}
+	public Integer getGongxuNameScoreGxsmlq() {
+		return gongxuNameScoreGxsmlq;
+	}
+	public void setGongxuNameScoreGxsmlq(Integer gongxuNameScoreGxsmlq) {
+		this.gongxuNameScoreGxsmlq = gongxuNameScoreGxsmlq;
+	}
+	public String getGongxuNameScoreGxsmlqRemark() {
+		return gongxuNameScoreGxsmlqRemark;
+	}
+	public void setGongxuNameScoreGxsmlqRemark(String gongxuNameScoreGxsmlqRemark) {
+		this.gongxuNameScoreGxsmlqRemark = gongxuNameScoreGxsmlqRemark;
+	}
+	public Integer getGongxuNumbScoreGxsmlq() {
+		return gongxuNumbScoreGxsmlq;
+	}
+	public void setGongxuNumbScoreGxsmlq(Integer gongxuNumbScoreGxsmlq) {
+		this.gongxuNumbScoreGxsmlq = gongxuNumbScoreGxsmlq;
+	}
+	public String getGongxuNumbScoreGxsmlqRemark() {
+		return gongxuNumbScoreGxsmlqRemark;
+	}
+	public void setGongxuNumbScoreGxsmlqRemark(String gongxuNumbScoreGxsmlqRemark) {
+		this.gongxuNumbScoreGxsmlqRemark = gongxuNumbScoreGxsmlqRemark;
+	}
+	public Integer getToolsScoreGxsmlq() {
+		return toolsScoreGxsmlq;
+	}
+	public void setToolsScoreGxsmlq(Integer toolsScoreGxsmlq) {
+		this.toolsScoreGxsmlq = toolsScoreGxsmlq;
+	}
+	public String getToolsScoreGxsmlqRemark() {
+		return toolsScoreGxsmlqRemark;
+	}
+	public void setToolsScoreGxsmlqRemark(String toolsScoreGxsmlqRemark) {
+		this.toolsScoreGxsmlqRemark = toolsScoreGxsmlqRemark;
+	}
+	public Integer getPageNumbScoreGxsmlq() {
+		return pageNumbScoreGxsmlq;
+	}
+	public void setPageNumbScoreGxsmlq(Integer pageNumbScoreGxsmlq) {
+		this.pageNumbScoreGxsmlq = pageNumbScoreGxsmlq;
+	}
+	public String getPageNumbScoreGxsmlqRemark() {
+		return pageNumbScoreGxsmlqRemark;
+	}
+	public void setPageNumbScoreGxsmlqRemark(String pageNumbScoreGxsmlqRemark) {
+		this.pageNumbScoreGxsmlqRemark = pageNumbScoreGxsmlqRemark;
+	}
+	public Integer getChicunBiaozhuYilouScoreGxsmlq() {
+		return chicunBiaozhuYilouScoreGxsmlq;
+	}
+	public void setChicunBiaozhuYilouScoreGxsmlq(Integer chicunBiaozhuYilouScoreGxsmlq) {
+		this.chicunBiaozhuYilouScoreGxsmlq = chicunBiaozhuYilouScoreGxsmlq;
+	}
+	public String getChicunBiaozhuYilouScoreGxsmlqRemark() {
+		return chicunBiaozhuYilouScoreGxsmlqRemark;
+	}
+	public void setChicunBiaozhuYilouScoreGxsmlqRemark(String chicunBiaozhuYilouScoreGxsmlqRemark) {
+		this.chicunBiaozhuYilouScoreGxsmlqRemark = chicunBiaozhuYilouScoreGxsmlqRemark;
+	}
+	public Integer getChicunBiaozhuWudaoScoreGxsmlq() {
+		return chicunBiaozhuWudaoScoreGxsmlq;
+	}
+	public void setChicunBiaozhuWudaoScoreGxsmlq(Integer chicunBiaozhuWudaoScoreGxsmlq) {
+		this.chicunBiaozhuWudaoScoreGxsmlq = chicunBiaozhuWudaoScoreGxsmlq;
+	}
+	public String getChicunBiaozhuWudaoScoreGxsmlqRemark() {
+		return chicunBiaozhuWudaoScoreGxsmlqRemark;
+	}
+	public void setChicunBiaozhuWudaoScoreGxsmlqRemark(String chicunBiaozhuWudaoScoreGxsmlqRemark) {
+		this.chicunBiaozhuWudaoScoreGxsmlqRemark = chicunBiaozhuWudaoScoreGxsmlqRemark;
+	}
+	public Integer getChicunBiaozhuBiaozhunScoreGxsmlq() {
+		return chicunBiaozhuBiaozhunScoreGxsmlq;
+	}
+	public void setChicunBiaozhuBiaozhunScoreGxsmlq(Integer chicunBiaozhuBiaozhunScoreGxsmlq) {
+		this.chicunBiaozhuBiaozhunScoreGxsmlq = chicunBiaozhuBiaozhunScoreGxsmlq;
+	}
+	public String getChicunBiaozhuBiaozhunScoreGxsmlqRemark() {
+		return chicunBiaozhuBiaozhunScoreGxsmlqRemark;
+	}
+	public void setChicunBiaozhuBiaozhunScoreGxsmlqRemark(String chicunBiaozhuBiaozhunScoreGxsmlqRemark) {
+		this.chicunBiaozhuBiaozhunScoreGxsmlqRemark = chicunBiaozhuBiaozhunScoreGxsmlqRemark;
+	}
+	public Integer getTuxingBiaozhunScoreGxsmlq() {
+		return tuxingBiaozhunScoreGxsmlq;
+	}
+	public void setTuxingBiaozhunScoreGxsmlq(Integer tuxingBiaozhunScoreGxsmlq) {
+		this.tuxingBiaozhunScoreGxsmlq = tuxingBiaozhunScoreGxsmlq;
+	}
+	public String getTuxingBiaozhunScoreGxsmlqRemark() {
+		return tuxingBiaozhunScoreGxsmlqRemark;
+	}
+	public void setTuxingBiaozhunScoreGxsmlqRemark(String tuxingBiaozhunScoreGxsmlqRemark) {
+		this.tuxingBiaozhunScoreGxsmlqRemark = tuxingBiaozhunScoreGxsmlqRemark;
+	}
+	public Integer getZhucetuShiyiScoreGxsmlq() {
+		return zhucetuShiyiScoreGxsmlq;
+	}
+	public void setZhucetuShiyiScoreGxsmlq(Integer zhucetuShiyiScoreGxsmlq) {
+		this.zhucetuShiyiScoreGxsmlq = zhucetuShiyiScoreGxsmlq;
+	}
+	public String getZhucetuShiyiScoreGxsmlqRemark() {
+		return zhucetuShiyiScoreGxsmlqRemark;
+	}
+	public void setZhucetuShiyiScoreGxsmlqRemark(String zhucetuShiyiScoreGxsmlqRemark) {
+		this.zhucetuShiyiScoreGxsmlqRemark = zhucetuShiyiScoreGxsmlqRemark;
+	}
+	public Integer getZhucetuBiaozhunScoreGxsmlq() {
+		return zhucetuBiaozhunScoreGxsmlq;
+	}
+	public void setZhucetuBiaozhunScoreGxsmlq(Integer zhucetuBiaozhunScoreGxsmlq) {
+		this.zhucetuBiaozhunScoreGxsmlq = zhucetuBiaozhunScoreGxsmlq;
+	}
+	public String getZhucetuBiaozhunScoreGxsmlqRemark() {
+		return zhucetuBiaozhunScoreGxsmlqRemark;
+	}
+	public void setZhucetuBiaozhunScoreGxsmlqRemark(String zhucetuBiaozhunScoreGxsmlqRemark) {
+		this.zhucetuBiaozhunScoreGxsmlqRemark = zhucetuBiaozhunScoreGxsmlqRemark;
+	}
+	public Integer getXiangmuScoreGxsmlq() {
+		return xiangmuScoreGxsmlq;
+	}
+	public void setXiangmuScoreGxsmlq(Integer xiangmuScoreGxsmlq) {
+		this.xiangmuScoreGxsmlq = xiangmuScoreGxsmlq;
+	}
+	public String getXiangmuScoreGxsmlqRemark() {
+		return xiangmuScoreGxsmlqRemark;
+	}
+	public void setXiangmuScoreGxsmlqRemark(String xiangmuScoreGxsmlqRemark) {
+		this.xiangmuScoreGxsmlqRemark = xiangmuScoreGxsmlqRemark;
+	}
+	public Integer getZuoyeGuifanScoreGxsmlq() {
+		return zuoyeGuifanScoreGxsmlq;
+	}
+	public void setZuoyeGuifanScoreGxsmlq(Integer zuoyeGuifanScoreGxsmlq) {
+		this.zuoyeGuifanScoreGxsmlq = zuoyeGuifanScoreGxsmlq;
+	}
+	public String getZuoyeGuifanScoreGxsmlqRemark() {
+		return zuoyeGuifanScoreGxsmlqRemark;
+	}
+	public void setZuoyeGuifanScoreGxsmlqRemark(String zuoyeGuifanScoreGxsmlqRemark) {
+		this.zuoyeGuifanScoreGxsmlqRemark = zuoyeGuifanScoreGxsmlqRemark;
+	}
+	public Integer getJishuCanshuScoreGxsmlq() {
+		return jishuCanshuScoreGxsmlq;
+	}
+	public void setJishuCanshuScoreGxsmlq(Integer jishuCanshuScoreGxsmlq) {
+		this.jishuCanshuScoreGxsmlq = jishuCanshuScoreGxsmlq;
+	}
+	public String getJishuCanshuScoreGxsmlqRemark() {
+		return jishuCanshuScoreGxsmlqRemark;
+	}
+	public void setJishuCanshuScoreGxsmlqRemark(String jishuCanshuScoreGxsmlqRemark) {
+		this.jishuCanshuScoreGxsmlqRemark = jishuCanshuScoreGxsmlqRemark;
+	}
+	public Integer getSuoyinScoreGxsmlq() {
+		return suoyinScoreGxsmlq;
+	}
+	public void setSuoyinScoreGxsmlq(Integer suoyinScoreGxsmlq) {
+		this.suoyinScoreGxsmlq = suoyinScoreGxsmlq;
+	}
+	public String getSuoyinScoreGxsmlqRemark() {
+		return suoyinScoreGxsmlqRemark;
+	}
+	public void setSuoyinScoreGxsmlqRemark(String suoyinScoreGxsmlqRemark) {
+		this.suoyinScoreGxsmlqRemark = suoyinScoreGxsmlqRemark;
+	}
+	public Integer getDanNumbScoreGxsmlq() {
+		return danNumbScoreGxsmlq;
+	}
+	public void setDanNumbScoreGxsmlq(Integer danNumbScoreGxsmlq) {
+		this.danNumbScoreGxsmlq = danNumbScoreGxsmlq;
+	}
+	public String getDanNumbScoreGxsmlqRemark() {
+		return danNumbScoreGxsmlqRemark;
+	}
+	public void setDanNumbScoreGxsmlqRemark(String danNumbScoreGxsmlqRemark) {
+		this.danNumbScoreGxsmlqRemark = danNumbScoreGxsmlqRemark;
+	}
+	public Integer getQianmingScoreGxsmlq() {
+		return qianmingScoreGxsmlq;
+	}
+	public void setQianmingScoreGxsmlq(Integer qianmingScoreGxsmlq) {
+		this.qianmingScoreGxsmlq = qianmingScoreGxsmlq;
+	}
+	public String getQianmingScoreGxsmlqRemark() {
+		return qianmingScoreGxsmlqRemark;
+	}
+	public void setQianmingScoreGxsmlqRemark(String qianmingScoreGxsmlqRemark) {
+		this.qianmingScoreGxsmlqRemark = qianmingScoreGxsmlqRemark;
+	}
+	public Integer getXuhaoScoreJyxmlq() {
+		return xuhaoScoreJyxmlq;
+	}
+	public void setXuhaoScoreJyxmlq(Integer xuhaoScoreJyxmlq) {
+		this.xuhaoScoreJyxmlq = xuhaoScoreJyxmlq;
+	}
+	public String getXuhaoScoreJyxmlqRemark() {
+		return xuhaoScoreJyxmlqRemark;
+	}
+	public void setXuhaoScoreJyxmlqRemark(String xuhaoScoreJyxmlqRemark) {
+		this.xuhaoScoreJyxmlqRemark = xuhaoScoreJyxmlqRemark;
+	}
+	public Integer getXiangmuScoreJyxmlq() {
+		return xiangmuScoreJyxmlq;
+	}
+	public void setXiangmuScoreJyxmlq(Integer xiangmuScoreJyxmlq) {
+		this.xiangmuScoreJyxmlq = xiangmuScoreJyxmlq;
+	}
+	public String getXiangmuScoreJyxmlqRemark() {
+		return xiangmuScoreJyxmlqRemark;
+	}
+	public void setXiangmuScoreJyxmlqRemark(String xiangmuScoreJyxmlqRemark) {
+		this.xiangmuScoreJyxmlqRemark = xiangmuScoreJyxmlqRemark;
+	}
+	public Integer getQijuScoreJyxmlq() {
+		return qijuScoreJyxmlq;
+	}
+	public void setQijuScoreJyxmlq(Integer qijuScoreJyxmlq) {
+		this.qijuScoreJyxmlq = qijuScoreJyxmlq;
+	}
+	public String getQijuScoreJyxmlqRemark() {
+		return qijuScoreJyxmlqRemark;
+	}
+	public void setQijuScoreJyxmlqRemark(String qijuScoreJyxmlqRemark) {
+		this.qijuScoreJyxmlqRemark = qijuScoreJyxmlqRemark;
+	}
+	public Integer getCedingPinlvScoreJyxmlq() {
+		return cedingPinlvScoreJyxmlq;
+	}
+	public void setCedingPinlvScoreJyxmlq(Integer cedingPinlvScoreJyxmlq) {
+		this.cedingPinlvScoreJyxmlq = cedingPinlvScoreJyxmlq;
+	}
+	public String getCedingPinlvScoreJyxmlqRemark() {
+		return cedingPinlvScoreJyxmlqRemark;
+	}
+	public void setCedingPinlvScoreJyxmlqRemark(String cedingPinlvScoreJyxmlqRemark) {
+		this.cedingPinlvScoreJyxmlqRemark = cedingPinlvScoreJyxmlqRemark;
+	}
+	public Integer getFuzhuScoreJyxmlq() {
+		return fuzhuScoreJyxmlq;
+	}
+	public void setFuzhuScoreJyxmlq(Integer fuzhuScoreJyxmlq) {
+		this.fuzhuScoreJyxmlq = fuzhuScoreJyxmlq;
+	}
+	public String getFuzhuScoreJyxmlqRemark() {
+		return fuzhuScoreJyxmlqRemark;
+	}
+	public void setFuzhuScoreJyxmlqRemark(String fuzhuScoreJyxmlqRemark) {
+		this.fuzhuScoreJyxmlqRemark = fuzhuScoreJyxmlqRemark;
+	}
+	public Integer getScore() {
+		return score;
+	}
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	public Integer getGongyiGuichengId() {
+		return gongyiGuichengId;
+	}
+	public void setGongyiGuichengId(Integer gongyiGuichengId) {
+		this.gongyiGuichengId = gongyiGuichengId;
+	}
+	public Integer getProcessDataId() {
+		return processDataId;
+	}
+	public void setProcessDataId(Integer processDataId) {
+		this.processDataId = processDataId;
+	}
+	
+	
+}

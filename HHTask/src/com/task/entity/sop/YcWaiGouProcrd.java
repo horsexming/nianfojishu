@@ -1,0 +1,194 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/**
+ * 预测外购件预分配表（ta_yc_YcWaiGouProcrd）
+ * @author 王晓飞 
+ *
+ */
+public class YcWaiGouProcrd implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private String markId;// 件号
+	private String proName;// 零件名称
+	private String specification;// 规格
+	private String banben;//版本
+	private String unit;//单位
+	private String kgliao;// //供料属性（外购件使用：是,否，null代表否）
+	private String tuhao;//图号
+	private String wgType;//物料类别
+	private Float xqNum;//需求数量（）
+	private Float sjxqNum;//实际需求量(即将采购数量)
+	private Float fpNum;//分配量;(库存量、在途量分配给的数量)
+	private Integer zcNum;//对应总成数
+	private String addTime;//添加时间
+	private String addUsersName;//添加人
+	private String addUsersCode;//添加人工号
+	private Integer ycProductId;//预测订单产品Id
+	private Integer ltdengji;
+	private Integer ltuse;
+	private Integer procardTId;//
+	private Integer mopdId;// 物料明细Id
+	private String epstatus;//审批状态
+	private String fpweek;//分配周:周需求量
+	private String more;//备注
+	private Set<YcWeekFePei> setycWeekfepei;//  预测周分配量 (多对多)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getBanben() {
+		return banben;
+	}
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public Float getXqNum() {
+		return xqNum;
+	}
+	public void setXqNum(Float xqNum) {
+		this.xqNum = xqNum;
+	}
+	public Integer getZcNum() {
+		return zcNum;
+	}
+	public void setZcNum(Integer zcNum) {
+		this.zcNum = zcNum;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public String getAddUsersCode() {
+		return addUsersCode;
+	}
+	public void setAddUsersCode(String addUsersCode) {
+		this.addUsersCode = addUsersCode;
+	}
+	@JSONField(serialize = false)
+	public Set<YcWeekFePei> getSetycWeekfepei() {
+		return setycWeekfepei;
+	}
+	public void setSetycWeekfepei(Set<YcWeekFePei> setycWeekfepei) {
+		this.setycWeekfepei = setycWeekfepei;
+	}
+	public Integer getYcProductId() {
+		return ycProductId;
+	}
+	public void setYcProductId(Integer ycProductId) {
+		this.ycProductId = ycProductId;
+	}
+	public Integer getProcardTId() {
+		return procardTId;
+	}
+	public void setProcardTId(Integer procardTId) {
+		this.procardTId = procardTId;
+	}
+	public Integer getLtdengji() {
+		return ltdengji;
+	}
+	public void setLtdengji(Integer ltdengji) {
+		this.ltdengji = ltdengji;
+	}
+	public Integer getLtuse() {
+		return ltuse;
+	}
+	public void setLtuse(Integer ltuse) {
+		this.ltuse = ltuse;
+	}
+	public Integer getMopdId() {
+		return mopdId;
+	}
+	public void setMopdId(Integer mopdId) {
+		this.mopdId = mopdId;
+	}
+	public String getEpstatus() {
+		return epstatus;
+	}
+	public void setEpstatus(String epstatus) {
+		this.epstatus = epstatus;
+	}
+	public Float getSjxqNum() {
+		return sjxqNum;
+	}
+	public void setSjxqNum(Float sjxqNum) {
+		this.sjxqNum = sjxqNum;
+	}
+	public Float getFpNum() {
+		return fpNum;
+	}
+	public void setFpNum(Float fpNum) {
+		this.fpNum = fpNum;
+	}
+	public String getFpweek() {
+		return fpweek;
+	}
+	public void setFpweek(String fpweek) {
+		this.fpweek = fpweek;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	
+	
+	
+}

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************钟永林Server层管理****************************************************
+	-->
+
+	<!-- 固定资产server 层 -->
+	<bean id="AssetServerImpl" class="com.task.ServerImpl.AssetServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+
+	<!-- 提奖计价表server层 -->
+	<bean id="TijiangServerImpl" class="com.task.ServerImpl.TijiangServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<!-- 单件计价格表SERVER层 -->
+	<bean id="TijingpriceServerImpl" class="com.task.ServerImpl.TijingpriceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<!-- 提奖计价表记录SERVER层 -->
+	<bean id="MentionrecordServerImpl" class="com.task.ServerImpl.MentionrecordServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+
+
+	<!-- 客户关系管理Server -->
+	<bean id="ClientManagementServerImpl" class="com.task.ServerImpl.ClientManagementServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 订单管理SERVER -->
+	<bean id="OrderManagementServerImpl" class="com.task.ServerImpl.OrderManagementServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<!-- 班组成员SERVER -->
+	<bean id="TeammembersServerImpl" class="com.task.ServerImpl.TeammembersServerImpl">
+		<property name="tatalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	<!-- 奖金分配详细SERVER -->
+	<bean id="BonusServerImpl" class="com.task.ServerImpl.BonusServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+		<property name="wageServer" ref="wageServerImpl" />
+	</bean>
+
+	<!-- 奖金总额SERVER -->
+	<bean id="BonusmoneyServerImpl" class="com.task.ServerImpl.BonusmoneyServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	
+	<!-- 订单流程SERVER -->
+	<bean id="OrderprocesstablerServerImpl" class="com.task.ServerImpl.OrderprocesstablerServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!--
+		***********************************钟永林Action层管理****************************************************
+	-->
+
+	<!-- 固定资产action -->
+	<bean id="AssetAction" class="com.task.action.AssetAction">
+		<property name="aessetdao" ref="AssetServerImpl" />
+	</bean>
+
+	<!--提奖计价表ACTION -->
+	<bean id="TijingAction" class="com.task.action.TijingAction">
+		<property name="tijingServer" ref="TijiangServerImpl" />
+	</bean>
+
+	<!--单件计价格表ACTION  -->
+	<bean id="TijingpriceAction" class="com.task.action.TijingpriceAction"
+		scope="prototype">
+		<property name="tijingpriceServer" ref="TijingpriceServerImpl" />
+	</bean>
+	<!--提奖明细表ACTION  -->
+	<bean id="MentionrecordAction" class="com.task.action.MentionrecordAction"
+		scope="prototype">
+		<property name="mentionrecordServer" ref="MentionrecordServerImpl" />
+	</bean>
+
+
+
+	<!-- 客户关系管理ACTION -->
+	<bean id="ClientManagementAction" class="com.task.action.ClientManagementAction"
+		scope="prototype">
+		<property name="clientManagementServer" ref="ClientManagementServerImpl"></property>
+	</bean>
+	<!-- 订单管理ACTION -->
+	<bean id="OrderManagementAction" class="com.task.action.OrderManagementAction"
+		scope="prototype">
+		<property name="orderManagementServer" ref="OrderManagementServerImpl"></property>
+	</bean>
+	<!-- 班组成员ACTION -->
+	<bean id="TeammembersAction" class="com.task.action.TeammembersAction"
+		scope="prototype">
+		<property name="teammembersServer" ref="TeammembersServerImpl" />
+	</bean>
+
+	<!-- 奖金分配详细ACtion -->
+	<bean id="BonusAction" class="com.task.action.BonusAction" scope="prototype">
+		<property name="bonusServer" ref="BonusServerImpl" />
+		<property name="contractBonusServer" ref="ContractBonusServerImpl" />
+		<property name="assessPersonnelServer" ref="AssessPersonnelServerImpl" />
+	</bean>
+
+	<!-- 奖金总额ACTION -->
+	<bean id="BonusmoneyAction" class="com.task.action.BonusmoneyAction"
+		scope="prototype">
+		<property name="bonusmoneyServer" ref="BonusmoneyServerImpl" />
+		<property name="wageServer" ref="wageServerImpl" />
+	</bean>
+
+	<!-- 入库表ACTION -->
+	<bean id="GoodsStoreAction" class="com.task.action.ess.GoodsStoreAction"
+		scope="prototype">
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+		<property name="wareHouseAuthService" ref="wareHouseAuthService" />
+	</bean>
+
+	<!-- 订单流程表ACTION -->
+	<bean id="OrderprocesstablerAction" class="com.task.action.OrderprocesstablerAction">
+		<property name="orderprocesstablerServer" ref="OrderprocesstablerServerImpl"></property>
+	</bean>
+
+</beans>

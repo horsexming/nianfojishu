@@ -1,0 +1,131 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * @author 曾建森 
+ * @FileNam collect.java
+ * @Date 2012-10-12
+ */
+public class Collect implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+	private int id;
+	
+	private String name;
+	
+	private String deptName;
+	
+	private String cardNo;
+	
+	private int  supplyFun;
+	
+	private int cosumeFund;
+	
+	private int balance;
+	
+	private int refund;
+	
+	private String time;
+	
+	public Collect() {
+		super();
+	}
+	
+	public Collect(int id,String name, String deptName, String cardNo, int supplyFun,
+			int cosumeFund, int balance, int refund,String time) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.deptName = deptName;
+		this.cardNo = cardNo;
+		this.supplyFun = supplyFun;
+		this.cosumeFund = cosumeFund;
+		this.balance = balance;
+		this.refund = refund;
+		this.time = time;
+	}
+
+	public Collect(int id,String name, String deptName, String cardNo, int balance, int refund) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.deptName = deptName;
+		this.cardNo = cardNo;
+		this.balance = balance;
+		this.refund = refund;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getCardNo() {
+		return cardNo;
+	}
+
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
+	}
+
+	public int getSupplyFun() {
+		return supplyFun;
+	}
+
+	public void setSupplyFun(int supplyFun) {
+		this.supplyFun = supplyFun;
+	}
+
+	public int getCosumeFund() {
+		return cosumeFund;
+	}
+
+	public void setCosumeFund(int cosumeFund) {
+		this.cosumeFund = cosumeFund;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public int getRefund() {
+		return refund;
+	}
+
+	public void setRefund(int refund) {
+		this.refund = refund;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+}

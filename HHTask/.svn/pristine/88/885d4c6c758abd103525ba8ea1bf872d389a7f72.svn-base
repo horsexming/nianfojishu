@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessInforWWApplyDetail" table="ta_sop_w_ProcessInforWWApplyDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="procardId" />
+		<property name="markId" />
+		<property name="proName" />
+		<property name="selfCard" />
+		<property name="processNOs" />
+		<property name="processNames" />
+		<property name="applyCount" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="userCode" />
+		<property name="addTime" />
+		<property name="wwType" />
+		<property name="wwMarkId" length="1000"/>
+		<property name="gysId" />
+		<property name="gysName" />
+		<property name="banbenNumber" />
+		<property name="banci" />
+		<property name="unit" />
+		<property name="priceId" />
+		<property name="relatDown" />
+		<property name="price" />
+		<property name="hsprice" />
+		<property name="dataStatus" />
+		<property name="newprocessNOs" />
+		<property name="newprocessNames" />
+		<property name="processStatus" />
+		<property name="epstatus" />
+		<property name="epId" />
+		<property name="hadChange" />
+		<property name="ywMarkId" />
+		<property name="deleteStatus" />
+		<property name="deleteEpId" />
+		<property name="oldprocessStatus" />
+		<many-to-one name="processInforWWApply" column="applyId" lazy="false"
+			class="ProcessInforWWApply" cascade="save-update" />
+	</class>
+</hibernate-mapping>

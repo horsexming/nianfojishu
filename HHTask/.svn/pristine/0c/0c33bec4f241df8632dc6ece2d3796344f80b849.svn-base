@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-wcy" extends="struts-stack">
+		<!--
+			****************************************王传运Action操作**********************************************************************
+		-->
+		<!--报废品Action管理 -->
+		<action name="wasteDisposeAction" class="wasteDisposeAction">
+			<result name="findGoodsOK">/System/SOP/goods_waste.jsp</result>
+			<result name="showbfgList">/System/SOP/baofeigoods_listfind.jsp</result>
+			<result name="delbfg" type="redirect">/goodsAction!showbfgList.action</result>
+			<result name="findGoodsMarkId">/System/SOP/find_scraps.jsp</result>
+			<result name="fcApplyDetail">/System/SOP/fcApplyDetail.jsp</result>
+			<result name="saveSell">/System/SOP/sell_print.jsp</result>
+			<result name="huizongOK">/System/SOP/goods_listHuizong.jsp</result>
+			<result name="baofeishenqin">/System/SOP/goods_bfsq.jsp</result>
+			<result name="goodsZJ">/System/SOP/goods_zjlist.jsp</result>
+			<result name="sceanForBTSToPO">/System/SOP/sceanForBTSToPO.jsp</result>
+			<result name="goods_cxchangeStore">/System/SOP/goods_cxchangeStore.jsp</result>
+			<result name="goods_toapplycxzkList">/System/SOP/goods_toapplycxzkList.jsp</result>
+			<result name="goods_toapplycxzkList2">/System/SOP/goods_toapplycxzkList2.jsp</result>
+			<result name="goods_bhgth">System/SOP/goods_bhgth.jsp</result>
+			<result name="goods_bz_list">System/SOP/goods_bz_list.jsp</result>
+			<result name="goods_bz_listdetail">System/SOP/goods_bz_listdetail.jsp</result>
+			<result name="goods_bzsq_list">System/SOP/goods_bzsq_list.jsp</result>
+			<result name="goods_bzsq_people">System/SOP/goods_bzsq_people.jsp</result>
+			<result name="goodsbzsqtoQx" type="redirect">/ProcardAction!findProcardForQx.action?procard.markId={goodsBzsq.markId}&amp;procard.selfCard={goodsBzsq.selfCard}
+			</result>
+			<result name="goods_shsq_list">System/SOP/goods_shsq_list.jsp</result>
+			<result name="goods_shsq_list_sq">System/SOP/goods_shsq_list_sq.jsp</result>
+			<result name="goods_shsq_WgDeliveryList">System/SOP/goods_shsq_WgDeliveryList.jsp</result>
+			<result name="goods_shsq_WgDeliveryDetail">System/SOP/goods_shsq_WgDeliveryDetail.jsp</result>
+			<result name="goods_shsq_WgDeliveryPrint">System/SOP/goods_shsq_WgDeliveryPrint.jsp</result>
+			<result name="goods_sqxq">System/SOP/goods_sqxq.jsp</result>
+			<result name="wasteManage">System/SOP/goods_waste_list.jsp</result>
+			<result name="waste_err">wasteDisposeAction!findConditionGoods.action?role=${role}</result>
+			<result name="confirmPrice">System/SOP/waste_confirmPrice.jsp</result>
+			<result name="wasteManage_apply">wasteDisposeAction!findWhereWaste.action</result>
+			<result name="showWasteCOK">System/SOP/waste_checkList.jsp</result>
+			<result name="waste_affirmList">System/SOP/waste_affirmList.jsp</result>
+			<result name="selectDetailOK">System/SOP/waste_select_detail.jsp</result>
+			<result name="selectWDDetail">System/SOP/waste_show_details.jsp</result>
+			<result name="deletewdt">wasteDisposeAction!findWhereWaste.action</result>
+			<result name="reapplywd">System/SOP/waste_reapply.jsp</result>
+			<result name="reapplywd_err">System/SOP/waste_reapply.jsp</result>
+			<result name="signture">System/SOP/waste_signature.jsp</result>
+			<result name="showDetailTanChu">System/SOP/waste_tanchuGoodsDetail.jsp</result>
+			<result name="addWaseDisponse">System/SOP/waste_tanchuGoodsDetail.jsp</result>
+			<result name="showWasteApply">System/SOP/waste_apply.jsp</result>
+		</action>
+		
+		<!-- 自来水充值水量总表action -->
+		<!--<action name="WaterRechargeZhuAction_*" class="waterRechargeZhuAction" method="{1}">
+			<result></result>
+		</action>-->
+		
+		<action name="OAAppDetailTemplateAction" class="oAAppDetailTemplateAction">
+			<result name="oaAppDetailTemplate_save">/System/caigou/oa/oaAppDetailTemplate_save.jsp</result>
+			<result name="findTempList_ok">System/caigou/oa/oaAppDetailTemplate_list.jsp</result>
+			<result name="template_go_update">System/caigou/oa/oaAppDetailTemplate_update.jsp</result>
+			<result name="delTemp_ok">OAAppDetailTemplateAction!findTempList.action</result>
+			<result name="go_temp_save"></result>
+			<result name="template_updateOK">System/caigou/oa/oaAppDetailTemplate_update.jsp</result>
+			<result name="showExamine">System/caigou/oa/oaAppDetailTemplate_show.jsp</result>
+		</action>
+		<!-- 系统邮件系统 -->
+		<action name="JavaMailAction" class="javaMailAction">
+			
+		</action>
+		
+		<!-- 可靠性测试 -->
+		<action name="ReliabilityTestAction" class="reliabilityTestAction">
+			<result name="reliabilityTestSheet_add">/System/zhiliang/reliabilityTestSheet_add.jsp</result>
+			<result name="reliabilityTestPro_list">/System/zhiliang/reliabilityTestPro_list.jsp</result>
+			<result name="reliabilityTestPro_add">/System/zhiliang/reliabilityTestPro_add.jsp</result>
+			<result name="reliabilityTestPro_update">/System/zhiliang/reliabilityTestPro_update.jsp</result>
+			<result name="reliabilityTestSheet_list">/System/zhiliang/reliabilityTestSheet_list.jsp</result>
+			<result name="reliabilityTestSheet_detail">/System/zhiliang/reliabilityTestSheet_detail.jsp</result>
+			<result name="reliabilityTestSheet_update">/System/zhiliang/reliabilityTestSheet_update.jsp</result>
+			<result name="rts_submitTestPro">/System/zhiliang/rts_submitTestPro.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="productEBAction" class="ProductEBAction">
+			<result name="peb_addProduction">/System/peb/peb_addProduction.jsp</result>
+			<result name="peb_productionList">/System/peb/peb_productionList.jsp</result>
+			<result name="peb_usersList">/System/peb/peb_usersList.jsp</result>
+			<result name="peb_showJianBao">/System/peb/peb_showJianBao.jsp</result>
+			<result name="peb_showCheJian">/System/peb/peb_showCheJian.jsp</result>
+			<result name="peb_subTeamList">/System/peb/peb_SubTeamList.jsp</result>
+			<result name="peb_addSubTeam">/System/peb/peb_addSubTeam.jsp</result>
+			<result name="peb_import">/System/peb/peb_import.jsp</result>
+			<result name="peb_updateUsers">/System/peb/peb_updateUsers.jsp</result>
+			<result name="peb_settingTarget">/System/peb/peb_settingTarget.jsp</result>
+			<result name="peb_findWorkShopByPlan">/System/peb/peb_findWorkShopByPlan.jsp</result>
+			<result name="peb_banjinList">/System/peb/peb_banjinList.jsp</result>
+			<result name="peb_addBanjin">/System/peb/peb_addBanjin.jsp</result>
+			<result name="peb_banjinRemark">/System/peb/peb_banjinRemark.jsp</result>
+			<result name="peb_updateBanjinMultpart">/System/peb/peb_updateBanjinMultpart.jsp</result>
+			<result name="peb_borrowPersonApply">/System/peb/peb_borrowPersonApply.jsp</result>
+			<result name="peb_borrowLogList">/System/peb/peb_borrowLogList.jsp</result>
+			<result name="peb_banzuJieGou">/System/peb/peb_banzuJieGou.jsp</result>
+			<result name="Peb_BanZuJieGouDetail">/System/peb/Peb_BanZuJieGouDetail.jsp</result>
+			<result name="peb_noChuQinApply">/System/peb/peb_noChuQinApply.jsp</result>
+			<result name="peb_noChuQinPersonList">/System/peb/peb_noChuQinPersonList.jsp</result>
+		</action>
+		
+		<action name="universalAction" class="UniversalAction">
+			<result name="universal_showTypeList">/System/universal/universal_showTypeList.jsp</result>
+			<result name="universal_showCategoryList">/System/universal/universal_showCategoryList.jsp</result>
+			<result name="universal_addCategoryList">/System/universal/universal_addCategoryList.jsp</result>
+			<result name="universal_showTypeList">/System/universal/universal_showTypeList.jsp</result>
+			<result name="universal_addType">/System/universal/universal_addType.jsp</result>
+		</action>
+	</package>
+	
+</struts>

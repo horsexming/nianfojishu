@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.caiwu.baobiao.laozi">
+	<class name="BasicSituation" table="ta_baobiao_laozi_BasicSituation" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="companyNmae"/>
+		<property name="zg"/>
+		<property name="lwpq"/>
+		<property name="pyltx"/>
+		<property name="pywjgat"/>
+		<property name="jz"/>
+		<property name="lgblldgx"/>
+		<property name="nbtyey"/>
+		<property name="txry"/>
+		<property name="zgygzzze"/>
+		<property name="lwpqryldbc"/>
+		<property name="ltxryldbc"/>
+		<property name="wjgatldbc"/>
+		<property name="jzldbc"/>
+		<property name="lgblldgxshf"/>
+		<property name="nbtyzgshf"/>
+		<property name="lxf"/>
+		<property name="tcwxm"/>
+		<property name="txf"/>
+		<property name="tcwxm_1"/>
+		<property name="qtcyldbc"/>
+		<property name="cyryldbc"/>
+		<property name="qtcyry"/>
+		<property name="cyry"/>
+		<property name="lxry"/>
+	</class>
+</hibernate-mapping>

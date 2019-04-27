@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.pz">
+	<class name="CwCertificate" table="ta_fin_caiwu_CwCertificate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="number" />
+		<property name="introduction" />
+		<property name="pzDate" />
+		<property name="danganguiNum" />
+		<property name="danganguiId" />
+		<property name="addTime" />
+		<property name="addUser" />
+		<property name="addUserId" />
+		<property name="fujianNum" />
+		<property name="status" />
+		<property name="pzType" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,343 @@
+package com.task.ServerImpl;
+
+import java.util.List;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.DeptNumberServer;
+import com.task.entity.DeptNumber;
+import com.task.entity.Users;
+import com.task.util.Util;
+
+/**
+ * 部门编码 Server层实现类
+ * 
+ * @author 刘培
+ * 
+ */
+public class DeptNumberServerImpl implements DeptNumberServer {
+
+	private TotalDao totalDao;
+	private String name;
+	private List<DeptNumberServerImpl> children;
+	private String id;
+	private StringBuffer strbu = new StringBuffer();
+	// 查询所有部门信息
+	@SuppressWarnings("unchecked")
+	public List findAllDept() {
+		String hql = "from DeptNumber order by xuhao";
+		return totalDao.query(hql);
+
+	}
+	@SuppressWarnings("unchecked")
+	public List findAllDeptNogongyingshang() {
+		String hql = "from DeptNumber where dept in ('采购部','工程技术部','PMC部','品质部') order by xuhao";
+		return totalDao.query(hql);
+
+	}
+	// 查询所有部门
+	@SuppressWarnings("unchecked")
+	public List findAllDeptForJson() {
+		String hql = "from DeptNumber where deptNumber is not null and deptNumber <> ''";
+		return totalDao.query(hql);
+
+	}
+
+	// 查询所有部门为页面Select使用
+	@SuppressWarnings("unchecked")
+	public String finAllDeptNumberForSetlect(Integer belongLayer) {
+		String hql = "from DeptNumber where deptNumber is not null and deptNumber <> ''";
+		if(belongLayer!=null){
+			hql +=" and belongLayer<="+belongLayer+" order by id desc";
+		}
+		List list = totalDao.query(hql);
+		if (list != null) {
+			String message = "";
+			for (int i = 0; i < list.size(); i++) {
+				DeptNumber deptNumber = (DeptNumber) list.get(i);
+				message += deptNumber.getDept() + "|";
+			}
+			return message;
+		}
+		return null;
+	}
+
+	// 添加部门
+	public String addDeptNumber(DeptNumber deptNumber,
+			DeptNumber fatherDeptNumber) {
+		if (deptNumber != null) {
+			if (fatherDeptNumber == null) {
+				// 父类为空,说明是第一层
+				deptNumber.setBelongLayer(1);// 当前层
+				deptNumber.setFatherId(0);// 父类Id
+			} else {
+				deptNumber
+						.setBelongLayer(fatherDeptNumber.getBelongLayer() + 1);
+				deptNumber.setFatherId(fatherDeptNumber.getId());
+			}
+			if (totalDao.save(deptNumber)) {
+				return "true";
+			} else {
+				return "添加部门 " + deptNumber.getDept() + " 出错!请检查后重试!";
+			}
+		}
+		return "数据异常,请检查后重试!";
+	}
+
+	// 删除部门
+	public boolean delDept(DeptNumber deptNumber) {
+		if (deptNumber != null) {
+			return totalDao.delete(deptNumber);
+		}
+		return false;
+	}
+
+	// 修改部门
+	@SuppressWarnings("unchecked")
+	public String updateDept(DeptNumber deptNumber, DeptNumber oldDeptNumber) {
+		if (oldDeptNumber != null) {
+			if (oldDeptNumber.getDeptNumber() == null
+					|| oldDeptNumber.getDeptNumber().length() <= 0) {// 以前没有部门编号
+				if (deptNumber.getDeptNumber() == null
+						|| deptNumber.getDeptNumber().length() > 0) {// 如果现在要加部门编号(先查询其下层是否有部门)
+					List list = findLowerDeptNumber(oldDeptNumber.getId());
+					if (list != null && list.size() > 0) {
+						return "该部门下有分部门,无法修改其部门编号!如需修改请先删除其下分部门信息!";
+					}
+				}
+			}
+			String hql = "update Users set dept=? where dept=?";
+			int num = totalDao.createQueryUpdate(hql, null, deptNumber
+					.getDept(), oldDeptNumber.getDept());// 修改用户部门信息
+			String hql2 = "update Password set deptNumber=? where deptNumber=?";
+			num = totalDao.createQueryUpdate(hql2, null, deptNumber
+					.getDeptNumber(), oldDeptNumber.getDeptNumber());// 修改用户部门编号信息
+			oldDeptNumber.setDept(deptNumber.getDept());
+			oldDeptNumber.setDeptNumber(deptNumber.getDeptNumber());
+			if (totalDao.update(oldDeptNumber)) {
+				return "true";
+			}
+		} else {
+			return "不存在该部门信息,请检查后重试!";
+		}
+		return "false";
+	}
+
+	// 根据ID查询部门信息
+	public DeptNumber findDeptNumberById(Integer id) {
+		if (id != null && id > 0) {
+			return (DeptNumber) totalDao.getObjectById(DeptNumber.class, id);
+		}
+		return null;
+	}
+
+	// 查询下层所有部门
+	@SuppressWarnings("unchecked")
+	public List<DeptNumber> findLowerDeptNumber(Integer fatherId) {
+		if (fatherId != null && fatherId > 0) {
+			String hql = "from DeptNumber where fatherId =?";
+			return totalDao.query(hql, fatherId);
+		}
+		return null;
+	}
+
+	// 查询部门下所有用户
+	@SuppressWarnings("unchecked")
+	public List<Users> findAllUsersByDept(Integer deptId) {
+		if (deptId != null && deptId > 0) {
+			String hql = "from Users where deptId=?";
+			return totalDao.query(hql, deptId);
+		}
+		return null;
+	}
+
+	@Override
+	public List<DeptNumber> getDept() {
+		String hql = "select id,dept from DeptNumber";
+		return totalDao.find(hql);
+	}
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<DeptNumberServerImpl> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<DeptNumberServerImpl> children) {
+		this.children = children;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean addfirst() {
+		String hql = " select count(*) from DeptNumber ";
+		Long count = (Long) totalDao.getObjectByCondition(hql);
+		if(count == 0){
+			DeptNumber dept = new DeptNumber();
+			String deptname = Util.getLoginCompanyInfo().getName();
+			if(deptname == null || deptname.length()<0){
+				deptname = "组织架构";
+			}
+			dept.setDept(deptname);
+			dept.setFatherId(0);
+			dept.setBelongLayer(1);
+		}
+		return true;
+	}
+
+	@Override
+	public String paixu(DeptNumber fatherdept) {
+		Integer fatherid = 0;
+		if(fatherdept != null){
+			fatherid = fatherdept.getId();
+		}
+		List<DeptNumber> deptList = totalDao.query(" from DeptNumber where fatherId = ? order by id ", fatherid);
+		if(deptList!=null){
+			if(fatherid == 0 && deptList.size() == 1){
+				DeptNumber dept = deptList.get(0);
+				paixu(dept);
+			}else if(deptList.size()>1){
+				for(int i=0; i<deptList.size();i++){
+					DeptNumber dept = deptList.get(i);
+					dept.setXuhao(i+1);
+					totalDao.update(dept);
+					paixu(dept);
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean istuozhuai(Integer id, Integer id1, String moveType) {
+		if(id!=null){
+			DeptNumber dept =	(DeptNumber) totalDao.get(DeptNumber.class, id);
+			if(dept.getFatherId() == null || dept.getFatherId() == 0){
+				//说明为根节点不能够拖动
+				return false;
+			}else if(id1!=null && moveType!=null && moveType.length()>0){
+				if("inner".equals(moveType)){
+					List<DeptNumber> deptList =  totalDao.query(" from DeptNumber where fatherId =? ", id1);
+					if(deptList == null || deptList.size() == 0){
+						//说明为最小子节点不允许拖动到该节点内;
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String tuozhuaiAfterUpdate(Integer id, Integer id1, Integer xuihao1,
+			Integer xuhao2, String moveType) {
+		if(id!=null){
+			DeptNumber dept =	(DeptNumber) totalDao.get(DeptNumber.class, id);
+			Integer  fId = dept.getFatherId();
+			DeptNumber  dept1 = (DeptNumber) totalDao.get(DeptNumber.class, id1);
+			if("prev".equals(moveType)){//拖拽到某个节点上方
+				dept.setXuhao(xuhao2);//使用拖拽到节点的序号;
+				dept.setFatherId(dept1.getFatherId());//从新设置fatherId;
+				//拖拽节点之前同层的所有比其序号大的自动往前顺延一位（既序号减一）。
+				List<DeptNumber> fdeptList1 = totalDao.query(" from DeptNumber where fatherId = ? and xuhao>? order by xuhao ", fId,xuihao1);
+				if(fdeptList1!=null && fdeptList1.size()>0){
+					for (DeptNumber deptNumber : fdeptList1) {
+						deptNumber.setXuhao(deptNumber.getXuhao()-1);
+							totalDao.update(deptNumber);					
+						
+					}
+				}
+				//拖拽节点之后同层的所有比其序号大的自动往后顺延一位(既序号加一)。
+				List<DeptNumber> fdeptList2 = totalDao.query(" from DeptNumber where fatherId = ? and  xuhao >= ? and id <> ? order by xuhao  ", dept1.getFatherId(),xuhao2,dept.getId());
+				if(fdeptList2!=null && fdeptList2.size()>0){
+					for (DeptNumber deptNumber : fdeptList2) {
+						deptNumber.setXuhao(deptNumber.getXuhao()+1);
+						totalDao.update(deptNumber);
+					}
+				}
+				return	totalDao.update(dept)+"";
+			}else if("next".equals(moveType)){//拖拽到某个节点的下方
+				dept.setXuhao(xuhao2+1);//使用拖拽到节点的序号;
+				dept.setFatherId(dept1.getFatherId());//从新设置fatherId;
+				//拖拽节点之前同层的所有比其序号大的自动往前顺延一位（既序号减一）。
+				List<DeptNumber> fdeptList1 = totalDao.query(" from DeptNumber where fatherId = ? and xuhao>? order by xuhao ", fId,xuihao1);
+				if(fdeptList1!=null && fdeptList1.size()>0){
+					for (DeptNumber deptNumber : fdeptList1) {
+						deptNumber.setXuhao(deptNumber.getXuhao()-1);
+						totalDao.update(deptNumber);
+					}
+				}
+				//拖拽节点之后同层的所有比其序号大的自动往后顺延一位(既序号加一)。
+				List<DeptNumber> fdeptList2 = totalDao.query(" from DeptNumber where fatherId = ? and  xuhao >= ? and id <> ? order by xuhao  ", dept1.getFatherId(),dept.getXuhao(),dept.getId());
+				if(fdeptList2!=null && fdeptList2.size()>0){
+					for (DeptNumber deptNumber : fdeptList2) {
+						deptNumber.setXuhao(deptNumber.getXuhao()+1);
+						totalDao.update(deptNumber);
+					}
+				}
+				return	totalDao.update(dept)+"";
+			}else if("inner".equals(moveType)){//拖到某个节点内
+				dept.setFatherId(id1);//设置fatherId为拖到的哪个节点;
+				//序号为这个节点内之前最大序号加一
+				Integer xuhao =	(Integer) totalDao.getObjectByCondition(" select max(xuhao) from DeptNumber where fatherId = ?  ", id1);
+				dept.setXuhao(xuhao+1);
+				//拖拽节点之前同层的所有比其序号大的自动往前顺延一位（既序号减一）。
+				List<DeptNumber> fdeptList1 = totalDao.query(" from DeptNumber where fatherId = ? and xuhao>? order by xuhao ", fId,xuihao1);
+				if(fdeptList1!=null && fdeptList1.size()>0){
+					for (DeptNumber deptNumber : fdeptList1) {
+						deptNumber.setXuhao(deptNumber.getXuhao()-1);
+						totalDao.update(deptNumber);
+					}
+				}
+				return	totalDao.update(dept)+"";
+			}
+		}
+ 		return "error";
+	}
+	
+	private String getWgtype(DeptNumber dept) {
+		String str = "";
+		List<DeptNumber> list = totalDao.query(
+				" from  DeptNumber where fatherId = ?", dept.getId());
+		if (list != null && list.size() > 0) {
+			for (DeptNumber dept2 : list) {
+				str+=getWgtype(dept2);
+			}
+		} else {
+			str+=",'" + dept.getDept() + "'";
+		}
+		return str;
+	}
+
+	@Override
+	public List<Users> findUsersBydept(String deptName) {
+		DeptNumber dept =(DeptNumber) totalDao.getObjectByCondition(" from DeptNumber where dept =?", deptName);
+		if(dept!=null){
+			String str =getWgtype(dept)+",'"+deptName+"'";
+			String hql_users = " from Users where dept in ("+str.substring(1)+")";
+			return totalDao.query(hql_users);
+		}
+		return null;
+	}
+
+}

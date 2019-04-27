@@ -1,0 +1,91 @@
+package com.task.entity.jxkh;
+/**
+ * 制造评价表:(ta_ZhiZaoPingJia)
+ *全部手动输入
+ *1、制造系数 z---- 1.2人数1，1.1人数2，1.0人数2，0.9人数2，0.8人数1。
+ *2、每月系数于次月10号前提供
+ * @author wxf
+ */
+public class ZhiZaoPingJia {
+
+	private Integer id;//
+	private Integer dudId;
+	private String dept;//部门
+	private String name;//姓名
+	private String zhiwei;//职位
+	private String months;//月份(yyyy-MM月)
+	private String years;//年分 (yyyy年)
+	private Integer month0;//月份
+	private Float xiShu;//评价系数
+	private String addTime;//添加时间
+	private String addUsersName;//添加人
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getZhiwei() {
+		return zhiwei;
+	}
+	public void setZhiwei(String zhiwei) {
+		this.zhiwei = zhiwei;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	public String getYears() {
+		return years;
+	}
+	public void setYears(String years) {
+		this.years = years;
+	}
+	public Integer getMonth0() {
+		return month0;
+	}
+	public void setMonth0(Integer month0) {
+		this.month0 = month0;
+	}
+	public Float getXiShu() {
+		return xiShu;
+	}
+	public void setXiShu(Float xiShu) {
+		this.xiShu = xiShu;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public Integer getDudId() {
+		return dudId;
+	}
+	public void setDudId(Integer dudId) {
+		this.dudId = dudId;
+	}
+	
+	
+}

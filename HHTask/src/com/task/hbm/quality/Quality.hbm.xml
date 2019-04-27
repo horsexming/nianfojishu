@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.quality.Quality" table="ta_quality">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="quality_name" />
+		<property name="quality_type" />
+		<property name="quality_title" />
+		<property name="quality_context" />
+		<property name="quality_file" />
+		<property name="quality_pop" />
+		<property name="quality_time" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+package com.task.entity;
+/**
+ * 仓区表（goodHouse）
+ * @author hh
+ *
+ */
+public class GoodHouse {
+    private Integer Id;
+    private String goodHouseName;//区名
+    private String goodHouseNum;//编号
+    private String goodsStoreWarehouse;//库别
+    
+    
+    private Double goodAllArea;//仓区总面积
+    private Double goodIsUsedArea;//仓区已用面积
+    private Double goodLeaveArea;//仓区剩余面积
+    
+    
+    
+	public Double getGoodAllArea() {
+		return goodAllArea;
+	}
+	public void setGoodAllArea(Double goodAllArea) {
+		this.goodAllArea = goodAllArea;
+	}
+	public Double getGoodIsUsedArea() {
+		return goodIsUsedArea;
+	}
+	public void setGoodIsUsedArea(Double goodIsUsedArea) {
+		this.goodIsUsedArea = goodIsUsedArea;
+	}
+	public Double getGoodLeaveArea() {
+		return goodLeaveArea;
+	}
+	public void setGoodLeaveArea(Double goodLeaveArea) {
+		this.goodLeaveArea = goodLeaveArea;
+	}
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
+	public String getGoodHouseName() {
+		return goodHouseName;
+	}
+	public void setGoodHouseName(String goodHouseName) {
+		this.goodHouseName = goodHouseName;
+	}
+	public String getGoodHouseNum() {
+		return goodHouseNum;
+	}
+	public void setGoodHouseNum(String goodHouseNum) {
+		this.goodHouseNum = goodHouseNum;
+	}
+	public String getGoodsStoreWarehouse() {
+		return goodsStoreWarehouse;
+	}
+	public void setGoodsStoreWarehouse(String goodsStoreWarehouse) {
+		this.goodsStoreWarehouse = goodsStoreWarehouse;
+	}
+    
+}

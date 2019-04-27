@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Asset" table="ta_asset">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="taassetsnumber">
+			<column name="ta_assetsnumber" length="200"></column>
+		</property>
+
+		<property name="taassetsname">
+			<column name="ta_assetsname" length="200"></column>
+		</property>
+
+		<property name="taassetsclass">
+			<column name="ta_assetsclass" length="200"></column>
+		</property>
+
+		<property name="taassetsuse">
+			<column name="ta_assetsuse" length="200"></column>
+		</property>
+
+		<property name="tademolitionmethods">
+			<column name="ta_demolitionmethods" length="200"></column>
+		</property>
+		<property name="taassetscost">
+			<column name="ta_assetscost" length="200"></column>
+		</property>
+		<property name="taaccumulateddepreciation">
+			<column name="ta_accumulateddepreciation" length="200"></column>
+		</property>
+		<property name="taassetsNetworth">
+			<column name="ta_assetsNetworth" length="200"></column>
+		</property>
+		<property name="taassetsQuantity">
+			<column name="ta_assetsQuantity" length="200"></column>
+		</property>
+		<property name="tayearsof">
+			<column name="ta_yearsof" length="200"></column>
+		</property>
+		<property name="tamonthlydepreciation">
+			<column name="ta_monthlydepreciation" length="200"></column>
+		</property>
+		<property name="tayuezhejiudepreciation">
+			<column name="ta_yuezhejiudepreciation" length="200"></column>
+		</property>
+		<property name="taannualrate">
+			<column name="ta_annualrate" length="200"></column>
+		</property>
+		<property name="tanianzhejiudepreciation">
+			<column name="ta_nianzhejiudepreciation" length="200"></column>
+		</property>
+		<property name="taspecificationsmodel">
+			<column name="ta_specificationsmodel" length="200"></column>
+		</property>
+		<property name="tastartdatetime">
+			<column name="ta_startdatetime" length="200"></column>
+		</property>
+		<property name="tanumber">
+			<column name="ta_number" length="200"></column>
+		</property>
+		<property name="tastatus">
+			<column name="ta_status" length="200"></column>
+		</property>
+		<property name="tausingobject">
+			<column name="ta_usingobject" length="200"></column>
+		</property>
+		<property name="tadatetime">
+			<column name="ta_datetime" length="200"></column>
+		</property>
+		<property name="tascrappedwilling">
+		<column name="ta_scrappedwilling" length="500"></column>
+		</property>
+		
+		<property name="taequipmentModel">
+		<column name="ta_equipmentModel" length="200"></column>
+		</property>
+		
+		<property name="tamanufacturer">
+		<column name="ta_manufacturer" length="200"></column>
+		</property>
+		
+		<property name="tafactorynumber">
+		<column name="ta_factorynumber" length="200"></column>
+		</property>
+		<property name="tafactorydate">
+		<column name="ta_factorydate" length="200"></column>
+		</property>
+		
+		<property name="tainstallationsite">
+		<column name="ta_installationsite" length="200"></column>
+		</property>
+		
+		<property name="tainstallationdate">
+		<column name="ta_installationdate" length="200"></column>
+		</property>
+		
+		<property name="taremarks">
+			<column name="ta_remarks" length="500"></column>
+		</property>
+	</class>
+</hibernate-mapping>
+		

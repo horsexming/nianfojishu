@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-fy" location="0,0" size="0,0">
+    <action name="AccessSwitchAction_*" location="0,0" size="0,0">
+      <result name="accessSwitchAction_show">
+        <resourceEdge source="accessSwitchAction_show" routing="0" target="accessSwitchAction_show.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="FileViewAction_*" location="0,0" size="0,0">
+      <result name="show" />
+      <result name="error" />
+      <result name="downloadatt" />
+    </action>
+    <action name="ScreenContentAction_*" location="0,0" size="0,0">
+      <result name="screenContent_show" />
+      <result name="screenContent_add" />
+      <result name="totalscreen" />
+      <result name="error" />
+      <result name="addScreenContentSuccess" />
+      <result name="updateScreenContentSuccess" />
+    </action>
+    <action name="UserRoleAction_*" location="0,0" size="0,0">
+      <result name="UserRole_listshow" />
+      <result name="UserRole_editModuleFunction" />
+      <result name="UserRole_edituser" />
+      <result name="UserRole_update" />
+      <result name="error" />
+    </action>
+    <action name="FavoriteAction_*" location="0,0" size="0,0">
+      <result name="favoriteManage" />
+      <result name="error" />
+    </action>
+    <action name="VisitCoAction_*" location="0,0" size="0,0">
+      <result name="VisitCo_show" />
+      <result name="error" />
+    </action>
+    <action name="TaskmanagerAction_*" location="0,0" size="0,0">
+      <result name="Taskmanager_attachment" />
+      <result name="success" />
+      <result name="Taskmanager_suggestion" />
+      <result name="Taskmanager_update" />
+      <result name="Taskmanager_add" />
+      <result name="TaskmanagerList" />
+      <result name="error" />
+    </action>
+  </package>
+  <webResource name="accessSwitchAction_show.jsp" path="/System/menjin/accessSwitchAction_show.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="/error.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

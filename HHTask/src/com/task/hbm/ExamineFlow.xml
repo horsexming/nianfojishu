@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.ExamineFlow" table="ST_ExamineFlow" >
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+	<property name="flow" column="f_flow" type="string"></property>
+	<property name="dept" column="f_dept" type="string"></property>
+	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="ScoreDetails" table="ta_hr_scoreDetails">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<property name="tdsId" column="ta_hr_tdsId" not-null="true"></property>
+		<property name="project" column="ta_hr_project" not-null="true"/>
+		<property name="customScore" column="ta_hr_customScore" not-null="true"/>
+		<property name="onLayer" column="ta_hr_onLayer" not-null="true"/>
+		<property name="layer" column="ta_hr_layer" not-null="true"/>
+		<property name="lastScore" column="ta_hr_lastScore"/>
+		<property name="isSroce" column="ta_hr_isSroce"/>
+		<many-to-one name="assScore" column="ta_hr_assScoreId" class="AssScore"></many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.Econdition" table="Econdition">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="month" length="50" />
+		<property name="status" length="50" />
+		<property name="quantity" length="50" />
+		<property name="total" length="100" />
+		<property name="rate" length="500" />
+		<property name="timecontact" length="50"/>
+		
+	</class>
+</hibernate-mapping>

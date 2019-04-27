@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-wxf" extends="struts-stack">
+		<!--
+			****************************************王晓飞Action操作**********************************************************************
+		-->
+		<!-- 不合格品类型管理 -->
+		<action name="BuHeGePinAction_*" class="behegepinAction"
+			method="{1}">
+			<result name="BuHeGePin_add">/System/SOP/buhegepin_add.jsp
+			</result>
+			<result name="BuHeGePin_del" type="redirect">BuHeGePinAction_findAllBuHeGePin.action
+			</result>
+			<result name="BuHeGePin_update">/System/SOP/buhegepin_update.jsp</result>
+			<result name="BuHeGePin_findAll">/System/SOP/BuHeGePin_findAll.jsp</result>
+			<result name="BuHeGePin_Byid">/System/SOP/buhegepin_update.jsp</result>
+			<result name="defType_List">/System/SOP/defType_List.jsp</result>
+			<result name="defType_update">/System/SOP/defType_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 机密类型管理 -->
+		<action name="jimileixing_*" class="jimileixingAction" method="{1}">
+			<result name="addJiMi" type="redirect">jimileixing_showJiMiList.action
+			</result>
+			<result name="showJiMiList">/System/xinxi/jimi/jimi_showJiMiList.jsp</result>
+			<result name="showJiMiListByid">/System/xinxi/jimi/jimi_update.jsp</result>
+			<result name="findMfByIdSuccess">/System/xinxi/jimi/jimi_BDJiMi.jsp</result>
+			<result name="updateMfSuccess" type="redirect">jimileixing_findMfById.action?id=${id}
+			</result>
+		</action>
+		<!-- 积分项管理 -->
+		<action name="IntegralAction_*" class="IntegralAction" method="{1}">
+			<result name="tiaozhuan">/System/xinxi/integral_add.jsp</result>
+			<result name="tiaozhuan1">/System/xinxi/integral_apend.jsp</result>
+			<result name="tiaozhuan2">/System/xinxi/integral_test.jsp</result>
+			<result name="showlist">/System/xinxi/integral_showlist.jsp</result>
+			<result name="delSuccess" type="redirect">IntegralAction_showList.action?cpage=${cpage}</result>
+			<result name="ShowListIs">/System/xinxi/integral_showlaiyuan.jsp</result>
+			<result name="ShowListXf">/System/xinxi/integral_showxf.jsp</result>
+			<result name="delXiaoFei" type="redirect">IntegralAction_showListXf.action</result>
+			<result name="delIsSuccess" type="redirect">IntegralAction_showListIs.action</result>
+			<result name="listxferror">/System/xinxi/integral_showxf.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 设备点检内容 -->
+		<action name="DJNRAction_*" class="DJNRAction" method="{1}">
+			<result name="findAlldjnr" >/System/Equipment/DJNR_list.jsp</result>
+			<result name="adddjnr" type="redirect">DJNRAction_findAlldjnr.action</result>
+			<result name="initupdate">/System/Equipment/DJNR_update.jsp</result>
+			<result name="findAlldjnrbd">/System/Equipment/DJNR_bdlist.jsp</result>
+			<result name="getdjnr">/System/SOP/produce/Process_dj.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 设备日运行时长 -->
+		<action name="MachineDayYZSJAction_*" class="MachineDayYZSJAction" method="{1}">
+			<result name="addmdy">/System/SOP/produce/Process_dj.jsp</result>
+		</action>
+		<!-- 设备月点检汇总 -->
+		<action name="MachineMonthDjAction_*" class="MachineMonthDjAction" method="{1}">
+			<result name="findallbyid">/System/SOP/produce/Process_showmonthdj.jsp</result>
+		</action>
+		<!-- 设备日点检 -->
+		<action name="MachineDayDjAction_*" class="MachineDayDjAction" method="{1}">
+		
+		</action>
+		<!-- 企业会员基本资料Action -->
+		<action name="CompanyVIPAction_*" class="CompanyVIPAction" method="{1}">
+			<result name="companvip_show">/System/xinxi/vip/Companyvip_show1.jsp</result>
+			<result name="companvip_showlist">/System/xinxi/vip/companvip_showlist.jsp</result>
+			<result name="ComanyVIPadd1">/System/xinxi/vip/ComanyVIPadd1.jsp</result>
+			<result name="ComanyVIPadd">/System/xinxi/vip/ComanyVIPadd.jsp</result>
+			<result name="companvip_update">/System/xinxi/vip/companvip_update.jsp</result>
+			<result name="adderror" type="redirect">CompanyVIPAction_initadd.action?errorMessage=${errorMessage}</result>
+			<result name="addsuccess" type="redirect">CompanyVIPAction_showComanyVIPbyvipNO.action?errorMessage=${errorMessage}&amp;companvip.vipNo=${companvip.vipNo}</result>
+			<result name="delcompanvip" type="redirect">CompanyVIPAction_showcompanvipList.action?errorMessage=${errorMessage}</result>
+			<result name="updateComanyVIP" type="redirect">CompanyVIPAction_findcompanvipById.action?errorMessage=${errorMessage}&amp;id=${companvip.id}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 职业轨迹Action -->
+		<action name="CareertrackAction_*" class="CareertrackAction" method="{1}">
+			<result name="Careertrack_ByUid">/System/xinxi/Careertrack_ByUid.jsp</result>
+			<result name="Careertrack_showlist">/System/xinxi/Careertrack_showlist.jsp</result>
+			<result name="Promotion_add">/System/xinxi/Promotion_add.jsp</result>
+			<result name="transferadd">/System/xinxi/transferadd.jsp</result>
+			<result name="hr_rewardPunish_add">/System/renshi/hr_rewardPunish_add.jsp</result>
+			<result name="showckById" type="redirect">CareertrackAction_showckById.action?id=${id}&amp;statue=${statue}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 人员变动Action -->
+		<action name="TransferAction_*" class="TransferAction" method="{1}">
+			<result name="transferList" >/System/xinxi/transferList.jsp</result>
+			<result name="transferadd" >/System/xinxi/transferadd.jsp</result>
+			<result name="showtransfer" type="redirectAction">TransferAction_showtransferList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="updatetransfer" >/System/xinxi/transferupdate.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 人员晋升Action -->
+		<action name="PromotionAction_*" class="PromotionAction" method="{1}">
+			<result name="showAllpnlist" type="redirect">PromotionAction_showAllpnlist.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="Promotion_add">/System/xinxi/Promotion_add.jsp</result>
+			<result name="Promotion_List">/System/xinxi/Promotion_List.jsp</result>
+			<result name="Promotion_show">/System/xinxi/Promotion_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 员工转正Action -->
+		<action name="BecomingAction_*" class="BecomingAction" method="{1}">
+			<result name="becoming_list">/System/xinxi/becoming_list.jsp</result>
+			<result name="becoming_show">/System/xinxi/becoming_show.jsp</result>
+			<result name="becoming_kh">/System/xinxi/becoming_kh.jsp</result>
+			<result name="showbecomingList" type="redirect">BecomingAction_showbecomingList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+		</action>
+		<!-- 调查问卷Action -->
+		<action name="QuestionTemplateAction_*" class="QuestionTemplateAction" method="{1}">
+			<result name="qt_showlist">/System/xinxi/question/qt_showlist.jsp</result>
+			<result name="showAllqtList" type="redirect">QuestionTemplateAction_showAllqtList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="qt_add">/System/xinxi/question/qt_add.jsp</result>
+			<result name="qt_show">/System/xinxi/question/qt_show.jsp</result>
+			<result name="qe_showlist">/System/xinxi/question/qe_showlist.jsp</result>
+			<result name="findqeListbyid" type="redirect">QuestionTemplateAction_findqeListbyid.action?id=${id}&amp;status=${status}&amp;errorMessage=${errorMessage}</result>
+		</action>
+		<!-- 调查问卷使用人Action -->
+		<action name="QuestionnairePersonAction_*" class="QuestionnairePersonAction" method="{1}">
+			<result name="qp_showlist">/System/xinxi/question/qp_showlist.jsp</result>
+			<result name="showAllqplist" type="redirect">QuestionnairePersonAction_showAllqplist.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="qp_add">/System/xinxi/question/qp_add.jsp</result>
+			<result name="qu_showlist">/System/xinxi/question/qu_showlist.jsp</result>
+			<result name="qp_show">/System/xinxi/question/qp_show.jsp</result>
+			<result name="findqpByid" type="redirect">QuestionnairePersonAction_findqpByid.action?qp.id=${qp.id}&amp;status=${status}&amp;errorMessage=${errorMessage}</result>
+		</action>
+		<!-- 智能诊断系统Action -->
+		<action name="IntelligentDiagnosisAction_*" class="IntelligentDiagnosisAction" method="{1}">
+			<result name="cn_add">/System/xinxi/cn_add.jsp</result>
+			<result name="cn_showlist">/System/xinxi/cn_showlist.jsp</result>
+			<result name="cn_hzshow">/System/xinxi/cn_hzshow.jsp</result>
+			<result name="cn_show">/System/xinxi/cn_show.jsp</result>
+			<result name="finaAllcnList" type="redirect">IntelligentDiagnosisAction_findHzByid.action?id=${cn.id}&amp;userId=${userId}&amp;No=${No}</result>
+			<result name="findisByid" type="redirect">IntelligentDiagnosisAction_findisByid.action?errorMessage=${errorMessage}&amp;status=${status}&amp;id=${id}</result>
+			<result name="initadd" type="redirect">IntelligentDiagnosisAction_initadd.action</result>
+			<result name="pn_add">/System/xinxi/pn_add.jsp</result>
+			<result name="findAllpnlist" type="redirect">IntelligentDiagnosisAction_findAllpnlist.action?errorMessage=${errorMessage}&amp;cpage=${cpage}&amp;is.ceshiNo=${ceshiNo}&amp;status=${status}</result>
+			<result name="finaAllcnList_0" type="redirect">IntelligentDiagnosisAction_finaAllcnList.action?status=${status}</result>
+			<result name="pn_showlist">/System/xinxi/pn_showlist.jsp</result>
+			<result name="pn_show">/System/xinxi/pn_show.jsp</result>
+			<result name="QRCOdetest">/System/xinxi/QRCode/QRCOdetest.jsp?no=${no}</result>
+			<result name="initadduser"  >/System/xinxi/QRCode/QRCOdetest.jsp?no=${no}</result>
+			<result name="QRCodeList">/System/xinxi/QRCode/QRCodeList.jsp</result>
+			<result name="rr_show">/System/xinxi/diaoyan/rr_show.jsp</result>
+			<result name="rr_add">/System/xinxi/diaoyan/rr_add.jsp</result>
+			<result name="rrList_show">/System/xinxi/diaoyan/rrList_show.jsp</result>
+			<result name="findHzByid" type="redirect">IntelligentDiagnosisAction_findHzByid.action?id=${id}&amp;status=${status}&amp;tag=${tag}&amp;errorMessage=${errorMessage}</result>
+			<result name="findAllQRCodeList" type="redirect">IntelligentDiagnosisAction_findAllQRCodeList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 客户满意调查Action -->
+		<action name="KeHuManYiDiaoChaAction_*" class="KeHuManYiDiaoChaAction" method="{1}">
+			<result name="kehumanyi">/System/xinxi/kehumanyi/kehumanyi.jsp</result>
+			<result name="findAllkhmydcList" type="redirect">KeHuManYiDiaoChaAction_findAllkhmydcList.action?cpage=${cpage}&amp;status=${status}</result>
+		</action>
+		<!-- 产能分析Action -->
+		<action name="PtCNFXAction_*" class="PtCNFXAction" method="{1}">
+			<result name="Pt_cnfx">/System/SOP/channengfenxi/Pt_cnfx.jsp</result>
+		</action>
+		<!-- 礼品领取Action -->
+		<action name="IntegralGiftAction_*" class="IntegralGiftAction" method="{1}">
+			<result name="gift_add">/System/xinxi/integralgift/gift_add.jsp</result>
+			<result name="showgiftList" type="redirect">IntegralGiftAction_showgiftList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="showigList" type="redirect">IntegralGiftAction_showigList.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="gift_List">/System/xinxi/integralgift/gift_List.jsp</result>
+			<result name="Igift_add">/System/xinxi/integralgift/Igift_add.jsp</result>
+			<result name="gift_update">/System/xinxi/integralgift/gift_update.jsp</result>
+			<result name="initaddintegralgift" type="redirect">IntegralGiftAction_initaddintegralgift.action?errorMessage=${errorMessage}&amp;id=${integralgift.giftId}</result>
+			<result name="Igift_List">/System/xinxi/integralgift/Igift_List.jsp</result>
+			<result name="Igift_add1">/System/xinxi/integralgift/Igift_add1.jsp</result>
+			<result name="gift_index">/System/xinxi/integralgift/gift_index.jsp</result>
+			<result name="gift_choujiang">/System/xinxi/integralgift/gift_choujiang.jsp</result>
+			<result name="igift_set">/System/xinxi/integralgift/igift_set.jsp</result>
+			<result name="integral_jy">/System/xinxi/integralgift/integral_jy.jsp</result>
+			<result name="indianaGift_kj">/System/xinxi/integralgift/indianaGift_kj.jsp</result>
+			<result name="igift_set">/System/xinxi/integralgift/igift_set.jsp</result>
+			<result name="igSet_list">/System/xinxi/integralgift/igSet_list.jsp</result>
+			<result name="igSet_showlist">/System/xinxi/integralgift/igSet_showlist.jsp</result>
+			<result name="idgift_list">/System/xinxi/integralgift/idgift_list.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 工序汇总Action -->
+		<action name="ProcessCollectAction_*" class="ProcessCollectAction" method="{1}">
+			<result name="pc_showList">/System/SOP/processCollect/pc_showlist.jsp</result>
+			<result name="pc_showListPingMu">/System/SOP/processCollect/pc_showlistPingMu.jsp</result>
+		</action>
+		<!-- 仓区 库位Action -->
+		<action name="WarehouseAreaAction_*" class="WarehouseAreaAction" method="{1}">
+			<result name="WarehouseNumber_list">/System/wuliu/WarehouseNumber_list.jsp</result>
+			<result name="findwnList" type="redirect">WarehouseAreaAction_findwnList.action?cpage=${cpage}</result>
+			<result name="findwaList" type="redirect">GoodsStoreAction!findgoodHouse.action?cpage=${cpage}</result>
+			<result name="WarehouseNumber_update">/System/wuliu/WarehouseNumber_update.jsp</result>
+			<result name="WarehouseNumber_plkuma">/System/wuliu/WarehouseNumber_plkuma.jsp</result>
+		</action>
+		<!-- 类别管理Action -->
+		<action name="CategoryAction_*" class="CategoryAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="findAllcylist" type="redirect">CategoryAction_findAllcylist.action?cpage=${cpage}</result>
+			<result name="category_add">/System/xinxi/category/category_add.jsp</result>
+			<result name="category_List">/System/xinxi/category/category_List.jsp</result>
+			<result name="category_update" >/System/xinxi/category/category_update.jsp</result>
+			<result name="category_tree">/System/xinxi/category/category_tree.jsp</result>
+		</action>
+		<!-- 货币类别管理Action -->
+		<action name="MoneyTypeAction_*" class="MoneyTypeAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="MoneyType_add">/System/caiwu/MoneyType/MoneyType_add.jsp</result>
+			<result name="MoneyType_List">/System/caiwu/MoneyType/MoneyType_list.jsp</result>
+			<result name="MoneyType_update">/System/caiwu/MoneyType/MoneyType_update.jsp</result>
+			<result name="findAllMoneyTypeByPage" type="redirect">MoneyTypeAction_findAllMoneyTypeByPage.action?cpage=${cpage}</result>
+		</action>
+		<!-- 成本动态Action -->
+		<action name="ProcardCBDTAction_*" class="ProcardCBDTAction" method="{1}">
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 资金使用申请单Action -->
+		<action name="FundApplyAction_*" class="FundApplyAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="fundList_show">/System/payment1/fundList_show.jsp</result>
+			<result name="updatefundApply">/System/payment1/updatefundApply.jsp</result>
+			<result name="fadList">/System/payment1/fadList.jsp</result>
+			<result name="fundApply_zhifu1">/System/payment1/fundApply_zhifu1.jsp</result>
+			<result name="fundApply_yufu">/System/payment1/fundApply_yufu.jsp</result>
+			<result name="fundApply_sc">/System/payment1/fundApply_sc.jsp</result>
+			<result name="invoiceCheck_add">/System/payment1/invoiceCheck_add.jsp</result>
+			<result name="invoiceCheck_addFile">/System/payment1/invoiceCheck_addFile.jsp</result>
+			<result name="invoiceCheck_addQuota">/System/payment1/invoiceCheck_addQuota.jsp</result>
+			<result name="invoiceCheck_text">/System/payment1/invoiceCheck_text.jsp</result>
+			<result name="invoiceCheck_select">/System/payment1/invoiceCheck_select.jsp</result>
+			<result name="invoiceCheck_show">/System/payment1/invoiceCheck_show.jsp</result>
+			<result name="invoiceCheck_xuan">/System/payment1/invoiceCheck_xuan.jsp</result>
+			<result name="fundApply_ww">/System/payment1/fundApply_ww.jsp</result>
+			<result name="addfundApply">/System/payment1/addfundApply.jsp</result>
+			<result name="addfundApply2">/System/payment1/addfundApply2.jsp</result>
+			<result name="addfundApply3">/System/payment1/addfundApply3.jsp</result>
+			<result name="fundApply_fzy">/System/payment1/fundApply_fzy.jsp</result>
+			<result name="fundApply_wworder" type="redirect">WaigouwaiweiPlanAction!findWwPlanList.action?id=${id}&amp;pageStatus=findAll</result>
+			<result name="fapiao" type="redirect">FileViewAction.action?FilePath=${wwNumber}</result>
+		</action>
+		<!-- 生产退料申请单Action -->
+		<action name="SCTuiliaoSqDanAction_*" class="SCTuiliaoSqDanAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="show_sqdList">/System/SOP/produce/show_sqdList.jsp</result>
+			<result name="sqd_show">/System/SOP/produce/sqd_show.jsp</result>
+			<result name="findAllSctuiliaoSqDan" type="redirect">SCTuiliaoSqDanAction_findAllSctuiliaoSqDan.action</result>
+		</action>
+		<!-- 图号申请Action -->
+		<action name="ChartNOSQAction_*" class="ChartNOSQAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="cq_add">/System/ChartNo/cq_add.jsp?status=${status}</result>
+			<result name="cq_show">/System/ChartNo/cq_show.jsp</result>
+			<result name="ccList_show">/System/ChartNo/ccList_show.jsp</result>
+			<result name="cqList_show">/System/ChartNo/cqList_show.jsp</result>
+			<result name="gzType_add">/System/ChartNo/gzType_add.jsp</result>
+			<result name="gzType_show">/System/ChartNo/gzType_show.jsp</result>
+			<result name="ChartNOSC_update">/System/ChartNo/ChartNOSC_update.jsp</result>
+			<result name="findAllccList" type="redirect">ChartNOSQAction_findAllccList.action</result>
+		</action>
+		<!-- 票据打印记录Action -->
+		<action name="PrintedOutAction_*" class="PrintedOutAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="print_sell">/System/PrintedOut/print_sell.jsp</result>
+			<result name="print_sellList">/System/PrintedOut/print_sellList.jsp</result>
+			<result name="printedOut_List">/System/PrintedOut/printedOut_List.jsp</result>
+			<result name="printedOut_print">/System/PrintedOut/printedOut_print.jsp</result>
+			<result name="printedOut_ById">/System/PrintedOut/printedOut_ById.jsp</result>
+		</action>
+		<!-- 板材尺寸面积Action -->
+		<action name="PanelSizeAction_*" class="PanelSizeAction" method="{1}">
+			<result name="error">/error.jsp</result>
+			<result name="findAllpanelSizeList" type="redirect"  >PanelSizeAction_findAllpanelSizeList.action?status=${status}</result>
+			<result name="PanelSize_List">/System/yclandwgj/PanelSize_List.jsp</result>
+			<result name="PanelSize_show">/System/yclandwgj/PanelSize_show.jsp</result>
+			<result name="PanelSize_add">/System/yclandwgj/PanelSize_add.jsp</result>
+		</action>
+		<!-- 量、检具Action -->
+		<action name="CheckoutAndGagesAction_*" class="CheckoutAndGagesAction" method="{1}">
+			<result name="cag_showList">/System/cag/cag_showList.jsp</result>
+			<result name="findAllcagList" type="redirect">CheckoutAndGagesAction_findAllcagList.action</result>
+			<result name="findcagById" type="redirect">CheckoutAndGagesAction_findcagById.action?id=${cag.id}&amp;status=${status}</result>
+			<result name="cag_show">/System/cag/cag_show.jsp</result>
+			<result name="cag_jiaoyan">/System/cag/cag_jiaoyan.jsp</result>
+			<result name="lcr_showList">/System/cag/lcr_showList.jsp</result>
+			<result name="lcrMx_showList">/System/cag/lcrMx_showList.jsp</result>
+		</action>
+		<!--手动下单Action -->
+		<action name="ManualOrderPlanAction_*" class="ManualOrderPlanAction" method="{1}">
+			<result name="findmanualPlanList" type="redirect">ManualOrderPlanAction_findmanualPlanList.action?status=${status}&amp;cpage=${cpage}&amp;flag=${flag}</result>
+			<result name="manualPlan_add">/System/SOP/produce/manualPlan_add.jsp</result>
+			<result name="manualPlan_List">/System/SOP/produce/manualPlan_List.jsp</result>
+			<result name="manualPlan_List0">/System/SOP/produce/manualPlan_List0.jsp</result>
+			<result name="manualPlan_update">/System/SOP/produce/manualPlan_update.jsp</result>
+			<result name="ingredientsPurchasePlan_add">/System/SOP/produce/ingredientsPurchasePlan_add.jsp</result>
+			<result name="manualPlanTotal_List" >/System/SOP/produce/manualPlanTotal_List.jsp</result>
+			<result name="manualPlanTotal_print">/System/SOP/produce/manualPlanTotal_print.jsp</result>
+			<result name="manualPlanTotal_update">/System/SOP/produce/manualPlanMultipart_update.jsp</result>
+			<result name="manualPlanTotal_fl_update">/System/SOP/produce/manualPlanMultipart_fl_update.jsp</result>
+			<result name="manualPlanMultipart_fl_add">/System/SOP/produce/manualPlanMultipart_fl_add.jsp</result>
+			<result name="manualPlan_changeNumber">/System/SOP/produce/manualPlan_changeNumber.jsp</result>
+			<result name="manualPlanTotal_ListPicking">/System/SOP/produce/manualPlanTotal_ListPicking.jsp</result>
+			<result name="manualPlanTotal_picking">/System/SOP/produce/manualPlanTotal_picking.jsp</result>
+			<result name="manualPlan_downloadAttachment">/System/SOP/produce/manualPlan_downloadAttachment.jsp</result>
+			
+		</action>
+		<!-- 开模申请Action -->
+		<action name="MouldApplyOrderAction_*" class="MouldApplyOrderAction" method="{1}">
+			<result name="mao_add">/System/SOP/muju/mao_add.jsp</result>
+			<result name="mao_list">/System/SOP/muju/mao_list.jsp</result>
+			<result name="mao_show">/System/SOP/muju/mao_show.jsp</result>
+			<result name="md_list">/System/SOP/muju/md_list.jsp</result>
+			<result name="findmaoList" type="redirect">MouldApplyOrderAction_findmaoList.action?pageStatus=${pageStatus}&amp;cpage=${cpage}</result>
+		</action>
+		<!-- Spc 控制Action -->
+		<action name="SpcControlAction_*" class="SpcControlAction" method="{1}">
+			<result name="spc_add">/System/SOP/spc/spc_add.jsp</result>
+			<result name="spc_showList">/System/SOP/spc/spc_showList.jsp</result>
+			<result name="spc_show">/System/SOP/spc/spc_show.jsp</result>
+			<result name="spc_machine">/System/SOP/spc/spc_machine.jsp</result>
+			<result name="spc_groups">/System/SOP/spc/spc_groups.jsp</result>
+			<result name="toadd" type="redirect">SpcControlAction_toadd.action</result>
+			<result name="findAllSpcControlList" type="redirect">SpcControlAction_findAllSpcControlList.action</result>
+			<result name="findSpcControlById" type="redirect">SpcControlAction_findSpcControlById.action?id=${id}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 辅料追溯控制Action -->
+		<action name="FuLiaoZhuiSuAction_*" class="FuLiaoZhuiSuAction" method="{1}">
+			<result name="flzs_List">/System/SOP/flzs/flzs_list.jsp</result>
+			<result name="flzs_show">/System/SOP/flzs/flzs_show.jsp</result>
+			<result name="flzs_add">/System/SOP/flzs/flzs_add.jsp</result>
+			<result name="findAllflzs" type="redirect">FuLiaoZhuiSuAction_findAllflzs.action?cpage=${cpage}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 辅料追溯控制Action -->
+		<action name="TbBarcodeLockNoticeAction_*" class="TbBarcodeLockNoticeAction" method="{1}">
+			<result name="tbln_showList">/System/tbln/tbln_showList.jsp</result>
+			<result name="tbln_show">/System/tbln/tbln_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 绩效考核Action -->
+		<action name="JiaoXiaoKaoHeAction_*" class="JiaoXiaoKaoHeAction" method="{1}">
+			<result name="dud_showList">/System/jxkh/dud_showList.jsp</result>
+			<result name="dud_add">/System/jxkh/dud_add.jsp</result>
+			<result name="dud_update">/System/jxkh/dud_update.jsp</result>
+			<result name="findAllDudList" type="redirect">JiaoXiaoKaoHeAction_findAllDudList.action?cpage=${cpage}</result>
+			<result name="rankCounts_add">/System/jxkh/rankCounts_add.jsp</result>
+			<result name="rankCounts_showList">/System/jxkh/rankCounts_showList.jsp</result>
+			<result name="rankCounts_update">/System/jxkh/rankCounts_update.jsp</result>
+			<result name="findAllRankCountsList" type="redirect">JiaoXiaoKaoHeAction_findAllRankCountsList.action?cpage=${cpage}</result>
+			<result name="sac_add">/System/jxkh/sac_add.jsp</result>
+			<result name="sac_showList">/System/jxkh/sac_showList.jsp</result>
+			<result name="sac_update">/System/jxkh/sac_update.jsp</result>
+			<result name="findAllSacList" type="redirect">JiaoXiaoKaoHeAction_findAllSacList.action?cpage=${cpage}</result>
+			<result name="tam_add">/System/jxkh/tam_add.jsp</result>
+			<result name="tam_showList">/System/jxkh/tam_showList.jsp</result>
+			<result name="tam_update">/System/jxkh/tam_update.jsp</result>
+			<result name="findAllTamList" type="redirect">JiaoXiaoKaoHeAction_findAllTamList.action?cpage=${cpage}</result>
+			<result name="wwjgmb_add">/System/jxkh/wwjgmb_add.jsp</result>
+			<result name="wwjgmb_showList">/System/jxkh/wwjgmb_showList.jsp</result>
+			<result name="wwjgmb_update">/System/jxkh/wwjgmb_update.jsp</result>
+			<result name="findAllWwJgMbList" type="redirect">JiaoXiaoKaoHeAction_findAllWwJgMbList.action?cpage=${cpage}</result>
+			<result name="bmzzlh_add">/System/jxkh/bmzzlh_add.jsp</result>
+			<result name="bmzzlh_show">/System/jxkh/bmzzlh_show.jsp</result>
+			<result name="bmzzlh_showList">/System/jxkh/bmzzlh_showList.jsp</result>
+			<result name="bmzzlh_update">/System/jxkh/bmzzlh_update.jsp</result>
+			<result name="findAllBmzZlhList" type="redirect">JiaoXiaoKaoHeAction_findAllBmzZlhList.action?cpage=${cpage}</result>
+			<result name="zbSjZk_add">/System/jxkh/zbSjZk_add.jsp</result>
+			<result name="zbSjZk_update">/System/jxkh/zbSjZk_update.jsp</result>
+			<result name="zbSjZk_showList">/System/jxkh/zbSjZk_showList.jsp</result>
+			<result name="findAllzbSjZk" type="redirect">JiaoXiaoKaoHeAction_findAllzbSjZk.action?cpage=${cpage}</result>
+			<result name="wstqmx_add">/System/jxkh/wstqmx_add.jsp</result>
+			<result name="wstqmx_List">/System/jxkh/wstqmx_List.jsp</result>
+			<result name="wstqmx_update">/System/jxkh/wstqmx_update.jsp</result>
+			<result name="findAllWstqmx" type="redirect">JiaoXiaoKaoHeAction_findAllWstqmx.action?cpage=${cpage}</result>
+			<result name="dfpx_add">/System/jxkh/dfpx_add.jsp</result>
+			<result name="dfpx_List">/System/jxkh/dfpx_List.jsp</result>
+			<result name="dfpx_update">/System/jxkh/dfpx_update.jsp</result>
+			<result name="findAlldfpxs" type="redirect">JiaoXiaoKaoHeAction_findAlldfpxs.action?cpage=${cpage}</result>
+			<result name="fpqk_showList">System/jxkh/fpqk_showList.jsp</result>
+			
+		</action>
+	</package>
+</struts>

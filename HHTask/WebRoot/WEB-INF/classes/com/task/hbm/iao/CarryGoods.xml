@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.iao">
+	<class name="CarryGoods" table="ta_iao_carryGoods">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="goodsName" />
+		<property name="count" />
+		<property name="more" />
+		<!-- 【配置本流水卡片自身的对应关系(多对一)】 -->
+		<many-to-one name="iaoApply" class="IAOApply" cascade="save-update"
+			lazy="false" column="carryGoods_id" />
+	</class>
+</hibernate-mapping>

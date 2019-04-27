@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.QxAskForLeave" table="ta_QxAskForLeave">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property name="leaveId"/>
+		<property name="userName"/>
+		<property name="userCode"/>
+		<property name="endDate"/>
+		<property name="startDate"/>
+		<property name="days"/>
+		<property name="hours"/>
+		<property name="epId"/>
+		<property name="epStatus"/>
+			
+	</class>
+</hibernate-mapping>

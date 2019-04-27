@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.hbm.menjin">
+	<class name="com.task.entity.menjin.WaterUseRecording" table="ta_WaterUseRecording">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="sheng"/>
+		<property name="sendSheng"/>
+		<property name="userDept"/>
+		<property name="userCode"/>
+		<property name="userCardId"/>
+		<property name="userName"/>
+		<property name="userId"/>
+		<property name="addTime"/>
+		<property name="endTime"/>
+		<property name="status"/>
+		<property name="accessEid"/>
+	</class>
+</hibernate-mapping>

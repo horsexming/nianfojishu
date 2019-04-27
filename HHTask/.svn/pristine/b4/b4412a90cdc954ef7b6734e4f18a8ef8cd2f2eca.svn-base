@@ -1,0 +1,592 @@
+package com.task.ServerImpl;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.aspectj.weaver.ast.Var;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.WareHouseAuthService;
+import com.task.entity.CompetenceType;
+import com.task.entity.Consuming;
+import com.task.entity.Goods;
+import com.task.entity.GoodsStore;
+import com.task.entity.OrderManager;
+import com.task.entity.Price;
+import com.task.entity.PrintedOut;
+import com.task.entity.PrintedOutOrder;
+import com.task.entity.Sell;
+import com.task.entity.Users;
+import com.task.entity.WareHouse;
+import com.task.entity.WareHouseAuth;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.WaigouDeliveryDetail;
+import com.task.entity.sop.WaigouPlan;
+import com.task.util.Util;
+import com.tast.entity.zhaobiao.ZhUser;
+
+public class WareHouseAuthServiceImpl implements WareHouseAuthService {
+
+	private TotalDao totalDao;
+	public static final String IN = "in";
+	public static final String OUT = "out";
+	public static final String VIEW = "view";
+	public static final String EDIT = "edit";
+	public static final String DEL = "del";
+	public static final String SHOW = "show";
+	public static final String PRICE = "price";
+	public static final String PHONE = "phone";
+	public static final String UPDATE = "update";
+	public static final String DDUPDATE = "ddupdate";
+	public static final String DDPHONE = "ddphone";
+	public static final String DDPRICE = "ddprice";
+	public static final String DDSHOW = "ddshow";
+
+	@Override
+	public void add(WareHouseAuth auth, String status) {
+		String type = "仓库";
+		boolean b = true;
+		if ("price".equals(status)) {
+			b = false;
+			type = "价格";
+		}
+		String hql = "from WareHouseAuth where usercode = ?";
+		if(b)
+			hql+=" and (type=? or type is null)";
+		else
+			hql+=" and type=? ";
+		long count = totalDao.getCount(hql, auth.getUsercode(), type);
+		if (count > 0) {
+			throw new RuntimeException("此人已添加过权限");
+		}
+		if(b)
+			type = null;
+		auth.setType(type);
+		totalDao.save(auth);
+	}
+
+	@Override
+	public void add(List<WareHouseAuth> auth) {
+		for (int i = 0; i < auth.size(); i++) {
+			totalDao.save(auth);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object[] getList(WareHouseAuth auth,int rows, int size, String status) {
+		String str = " where ( type is null or type = '仓库') ";
+		if ("price".equals(status)) {
+			str = " where type = '价格'  ";
+		}
+		if(auth!=null){
+			if(auth.getUsername()!=null && auth.getUsername().length()>0){
+				str += " and username like '%"+auth.getUsername()+"%'";
+			}
+			if(auth.getUsercode()!=null && auth.getUsercode().length()>0){
+				str += " and usercode like '%"+auth.getUsercode()+"%'";
+			}
+		}
+		String hql = "from WareHouseAuth " + str + " order by id desc";
+		List list = totalDao.findAllByPage(hql, rows, size);
+		int count = totalDao.getCount(hql);
+		Object[] o = { list, count };
+		return o;
+	}
+
+	@Override
+	public WareHouseAuth get(WareHouseAuth auth) {
+		return (WareHouseAuth) totalDao.get(auth.getClass(), auth.getId());
+	}
+
+	@Override
+	public void update(WareHouseAuth auth) {
+		totalDao.update(auth);
+	}
+
+	@Override
+	public void delete(WareHouseAuth auth) {
+		totalDao.delete(auth);
+	}
+
+	@Override
+	public List<String> getIn(String code) {
+		return getAuth(code, IN);
+	}
+
+	@Override
+	public List<String> getOut(String code) {
+		return getAuth(code, OUT);
+	}
+
+	@Override
+	public List<String> getEdit(String code) {
+		return getAuth(code, EDIT);
+	}
+	public List<String> getDel(String code) {
+		return getAuth(code, DEL);
+	}
+
+	@Override
+	public List<String> getView(String code) {
+		return getAuth(code, VIEW);
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<String> getAuth(String code, String auth) {
+		String hql = "from WareHouseAuth where usercode = ? and (type = '仓库' or type is null)";
+		WareHouseAuth a = (WareHouseAuth) totalDao.getObjectByCondition(hql,
+				new Object[] { code });
+		if (a == null) {
+			return new ArrayList();
+		}
+		String s = a.getAuth();
+		List<String> strList = new ArrayList<String>();
+		String[] strArr = s.split(",");
+		for (int i = 0; i < strArr.length; i++) {
+			if (strArr[i].endsWith("_" + auth)) {
+				strList.add(strArr[i].substring(0, strArr[i].indexOf('_')));
+			}
+		}
+		List<WareHouse> list = totalDao.find("from WareHouse");
+		for (WareHouse wareHouse : list) {
+			Collections.replaceAll(strList, wareHouse.getCode(), wareHouse
+					.getName());
+		}
+		return strList;
+	}
+
+	@SuppressWarnings( { "unchecked", "unused" })
+	private List<String> getAuth1(String code, String auth) {
+		String hql = "from WareHouseAuth where usercode = ? and type = '价格' ";
+		WareHouseAuth a = (WareHouseAuth) totalDao.getObjectByCondition(hql,
+				new Object[] { code });
+		if (a == null) {
+			return new ArrayList();
+		}
+		String s = a.getAuth();
+		List<String> strList = new ArrayList<String>();
+		String[] strArr = s.split(",");
+		for (int i = 0; i < strArr.length; i++) {
+			if (strArr[i].endsWith("_" + auth)) {
+				strList.add(strArr[i].substring(0, strArr[i].indexOf('_')));
+			}
+		}
+		return strList;
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public List<GoodsStore> printStorage(int[] selected) {
+		List<GoodsStore> l = new ArrayList<GoodsStore>();
+		for (int id : selected) {
+			GoodsStore sh = (GoodsStore) totalDao.getObjectById(
+					GoodsStore.class, id);
+			if(sh!=null){
+				totalDao.update(sh);
+			}
+			if ("成品库".equals(sh.getGoodsStoreWarehouse())
+					|| "备货库".equals(sh.getGoodsStoreWarehouse())) {
+				Procard procard = null;
+				if(sh.getProcardId()!=null){
+					procard = (Procard)totalDao.getObjectById(Procard.class, sh.getProcardId());
+				}else{
+					String sql = "from Procard where markId=? and selfCard =?";
+					if(sh.getNeiorderId()!=null&&sh.getNeiorderId().length()>0){
+						sql += " and orderNumber ='"+sh.getNeiorderId()+"'";
+					}
+					procard =(Procard) totalDao.getObjectByCondition(
+							sql, sh
+							.getGoodsStoreMarkId(), sh.getGoodsStoreLot());
+				}
+				if (procard != null) {
+					sh.setYwmarkId(procard.getYwMarkId());
+					sh.setNeiorderId(procard.getOrderNumber());
+					if(procard.getId()!=null&&procard.getOrderId()!=null){
+						OrderManager order = (OrderManager) totalDao.get(OrderManager.class, Integer.parseInt(procard.getOrderId()));
+						if(order!=null){
+							sh.setWaiorderId(order.getOutOrderNumber());
+						}
+					}
+				}
+			}
+			l.add(sh);
+		}
+		return l;
+	}
+
+	@Override
+	public List<String> getPhone(String code) {
+
+		return getAuth1(code, PHONE);
+	}
+
+	@Override
+	public List<String> getPrice(String code) {
+		List<String> strList = new ArrayList<String>();
+		strList = getAuth1(code, PRICE);
+		List<CompetenceType> list = totalDao.query("from CompetenceType");
+		for (CompetenceType competenceType : list) {
+			Collections.replaceAll(strList, competenceType.getCode(),
+					competenceType.getName());
+		}
+		return strList;
+	}
+
+	@Override
+	public List<String> getShow(String code) {
+		List<String> strList = new ArrayList<String>();
+		strList = getAuth1(code, SHOW);
+		List<CompetenceType> list = totalDao.query("from CompetenceType");
+		for (CompetenceType competenceType : list) {
+			Collections.replaceAll(strList, competenceType.getCode(),
+					competenceType.getName());
+		}
+
+		return strList;
+	}
+
+	@Override
+	public List<String> getUpdate(String code) {
+		List<String> strList = new ArrayList<String>();
+		strList = getAuth1(code, UPDATE);
+		List<CompetenceType> list = totalDao.query("from CompetenceType");
+		for (CompetenceType competenceType : list) {
+			Collections.replaceAll(strList, competenceType.getCode(),
+					competenceType.getName());
+		}
+
+		return strList;
+	}
+
+	@Override
+	public List<String> getDdPhone(String code) {
+
+		return getAuth1(code, DDPHONE);
+	}
+
+	@Override
+	public List<String> getDdPrice(String code) {
+		return getAuth1(code, DDPRICE);
+	}
+
+	@Override
+	public List<String> getDdShow(String code) {
+		return getAuth1(code, DDSHOW);
+	}
+
+	@Override
+	public List<String> getDdUpdate(String code) {
+		return getAuth1(code, DDUPDATE);
+	}
+
+	@Override
+	public List<CompetenceType>  AllCompetenceType() {
+		String hql = " from CompetenceType ";
+		List<CompetenceType> list = totalDao.query(hql);
+		if(list==null || list.size() == 0){
+			list = new ArrayList<CompetenceType>();
+			String[] names = {"总成价格","外购价格","外委价格","其他价格","磨具价格","外部权限"};
+			String[] codes = {"zc","wg","ww","qt","mj","wbqx"};
+			for (int i = 0; i < 6; i++) {
+				CompetenceType ct = new CompetenceType();
+				ct.setName(names[i]);
+				ct.setCode(codes[i]);
+				totalDao.save(ct);
+				list.add(ct);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void test() {
+		String hql = "SELECT more from Logging where addTime > '2016-11-30 12:00:00' and objectName = 'Procard' order by id desc";
+		List<String> strList = totalDao.query(hql);
+		try {
+			if (strList != null && strList.size() > 0) {
+				for (int i = 0; i < strList.size(); i++) {
+					JSONObject jsonObject = new JSONObject(strList.get(i));
+					String id = jsonObject.getString("id");
+					String minNumber = jsonObject.getString("minNumber");
+					String tjNumber = jsonObject.getString("tjNumber");
+					String status = jsonObject.getString("status");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public List<String> getShow1(String code) {
+		List<String> strList = new ArrayList<String>();
+		strList = getAuth1(code, SHOW);
+		return strList;
+	}
+
+	public List<String> ischecked(String quanxian) {
+		if (quanxian != null && !"".equals(quanxian)) {
+			quanxian = quanxian.toUpperCase();
+			String code = Util.getLoginUser().getCode();
+			List<String> strList = new ArrayList<String>();
+			strList = getAuth1(code, quanxian);
+			return strList;
+		}
+		return null;
+	}
+
+	/***
+	 * 查询所有仓区
+	 * 
+	 * @return
+	 */
+	@Override
+	public List findgoodHouselist() {
+		// TODO Auto-generated method stub
+		List list = totalDao.query("from GoodHouse order by id desc ");
+		return list;
+	}
+
+	@Override
+	public Object[] addPrintedOutOrder(List<GoodsStore> gsList,String pagestatus) {
+		Users user = Util.getLoginUser();
+		if(user == null){
+			return new Object[]{null,null,"请先登录!~"};
+		}
+		if(gsList!=null && gsList.size()>0){
+			GoodsStore gs = gsList.get(0);
+			String plannumber = gs.getPrintNumber();
+			PrintedOutOrder printedOutOrder = new PrintedOutOrder();
+			double totalMoney = 0.0;
+			String str = pagestatus;
+			if("CIN".equals(pagestatus)){
+				printedOutOrder.setType("产品入库单");
+				printedOutOrder.setRukuUsers(gs.getSqUsersName());
+			}else if("WGRK".equals(pagestatus)){
+				printedOutOrder.setType("外购入库单");
+			}else if("WWRK".equals(pagestatus)){
+				printedOutOrder.setType("外委入库单");
+			}else if("FLRK".equals(pagestatus)){
+				printedOutOrder.setType("辅料入库单");
+			}else if("SCTL".equals(pagestatus)){
+				printedOutOrder.setType("生产退料单");
+			}
+			plannumber =updateMaxPrintNumber(plannumber, str, printedOutOrder, pagestatus,"");
+			printedOutOrder.setCgName(gs.getGoodsStorePlanner());
+			printedOutOrder.setRukuGroup(gs.getSqUsersdept());
+			printedOutOrder.setPlanNum(plannumber);
+			printedOutOrder.setAddTime(Util.getDateTime());
+			printedOutOrder.setClassName("GoodsStore");
+			printedOutOrder.setRiqi(gs.getGoodsStoreDate());
+			printedOutOrder.setAddUsers(Util.getLoginUser().getName());
+			
+			if(gs.getGoodsStoreSendId()!=null && gs.getGoodsStoreSendId().length()>0){
+				printedOutOrder.setShPlanNum(gs.getGoodsStoreSendId());
+				List<WaigouDeliveryDetail> wgddList =wgddList = totalDao.query(" from WaigouDeliveryDetail where waigouDelivery.id =(select id " +
+						" from WaigouDelivery where   planNumber =?) and status not in('入库','退回','退货') ", gs.getGoodsStoreSendId());
+				if(wgddList!=null && wgddList.size()>0){
+					String errormsg = "";
+					for (WaigouDeliveryDetail wgdd : wgddList) {
+						errormsg += "送货单:"+gs.getGoodsStoreSendId()+"下，件号:"+wgdd.getMarkId()
+						+"状态为:"+wgdd.getStatus()+"。请等待该送货单下明细全部关闭再打印入库单<br>";
+					}
+					return new Object[]{null,null,errormsg};
+				}
+			}
+			if(gs.getGoodsStoreSupplier()!=null){
+				printedOutOrder.setGysname(gs.getGoodsStoreSupplier());
+				if(gs.getGysId()!=null){
+					ZhUser zhuser =null;
+					try {
+						Integer id = Integer.parseInt(gs.getGysId());
+						zhuser = (ZhUser) totalDao.get(ZhUser.class, id);
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(zhuser!=null){
+						printedOutOrder.setGyscode(zhuser.getUsercode());
+					}
+				}
+			}else{
+				if(gs.getGysId()!=null){
+					ZhUser zhuser =	(ZhUser) totalDao.get(ZhUser.class, Integer.parseInt(gs.getGysId()));
+					if(zhuser!=null){
+						printedOutOrder.setGyscode(zhuser.getUsercode());
+						printedOutOrder.setGysname(zhuser.getCmp());
+					}
+				}
+			}
+			Set<PrintedOut> printedOutSet = new HashSet<PrintedOut>();
+			Set<String> shdanhao = new HashSet<String>();
+			List<PrintedOut> list = new ArrayList<PrintedOut>();
+			for (GoodsStore g : gsList) {
+				if("YES".equals(g.getPrintStatus())){
+					continue;
+				}
+				PrintedOut printedOut = new PrintedOut();
+				if(g.getGoodsStoreSendId()!=null && g.getGoodsStoreSendId().length()>0){
+					shdanhao.add(g.getGoodsStoreSendId());
+				}
+				if(g.getWwddId()!=null){
+					WaigouDeliveryDetail   wgdd= (WaigouDeliveryDetail) totalDao.get(WaigouDeliveryDetail.class, g.getWwddId());
+					if(wgdd!=null){
+						printedOut.setCgoderNumber(wgdd.getCgOrderNum());//采购订单号
+						WaigouPlan waigouplan =	(WaigouPlan) totalDao.get(WaigouPlan.class, wgdd.getWaigouPlanId());
+						printedOut.setCgUserName(waigouplan.getWaigouOrder().getAddUserName());//采购员
+						printedOutOrder.setCgUserName(waigouplan.getWaigouOrder().getAddUserName());
+						printedOutOrder.setAddUsers(wgdd.getQrUsersName());
+						printedOutOrder.setPgName(wgdd.getUserName());//品管
+						printedOut.setProcessName(wgdd.getProcessName());//工序名称
+						printedOut.setCgUserName(wgdd.getCaigouUserName());//采购员
+						wgdd.setPrintNumber(plannumber);
+						totalDao.update(wgdd);
+					}
+				}
+				g.setPrintNumber(plannumber);
+				printedOut.setShPlanNum(g.getGoodsStoreSendId());
+				printedOut.setClassName("GoodsStore");
+				printedOut.setEntiyId(g.getGoodsStoreId());
+				printedOut.setYwmarkId(g.getYwmarkId());
+				printedOut.setMarkId(g.getGoodsStoreMarkId());
+				printedOut.setProNmae(g.getGoodsStoreGoodsName());
+				printedOut.setFormat(g.getGoodsStoreFormat());
+				printedOut.setUnit(g.getGoodsStoreUnit());
+				printedOut.setNum(g.getGoodsStoreCount());
+				printedOut.setNeiOrderNum(g.getNeiorderId());
+				printedOut.setWaiOrderNum(g.getWaiorderId());
+				printedOut.setKubie(g.getGoodsStoreWarehouse());
+				printedOut.setCangqu(g.getGoodHouseName());
+				printedOut.setBanbenNum(g.getBanBenNumber());
+				printedOut.setTuhao(g.getTuhao());
+				printedOut.setSelfCard(g.getGoodsStoreLot());
+				printedOut.setPlanNum(plannumber);
+				if("WGRK".equals(pagestatus)){
+					g.setPrintStatus("YES");
+					totalDao.update(g);
+				}
+				//添加价格
+				if(g.getHsPrice()!=null){
+					printedOut.setHsPrice(g.getHsPrice().floatValue());
+				}
+				printedOut.setTaxprice(g.getTaxprice());
+				try {
+					if(g.getTaxprice()==null||g.getTaxprice()==0||"0.0".equals(g.getTaxprice())||"0".equals(g.getTaxprice())){
+						printedOut.setBhsPrice(g.getHsPrice()+"");//不含税金额
+						printedOut.setShuie("0");//税额
+					}else {
+						float jine = (float) (1+g.getTaxprice()/100f);
+						if(g.getHsPrice()!=null){
+							Float bhs = Util.FomartFloat(g.getHsPrice().floatValue()/jine,4);
+							printedOut.setBhsPrice(bhs+"");//不含税金额
+							printedOut.setShuie(Util.FomartFloat(g.getHsPrice().floatValue()-bhs,4)+"");//税额
+						}
+						
+					}
+					if(g.getHsPrice()!=null && printedOut.getNum()!=null){
+						double totalPrice = g.getHsPrice()* printedOut.getNum();
+						BigDecimal bg = new BigDecimal(totalPrice);
+						double doubleValue = bg.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+						printedOut.setHsTotalPrice(doubleValue);
+						totalMoney +=doubleValue;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				printedOutSet.add(printedOut);
+				list.add(printedOut);
+			}
+			String msg = "true";
+			if(shdanhao!=null && shdanhao.size()>1){
+				msg = "请选择同一个送货单号进行打印。";
+			}
+			if(shdanhao.size()>0){
+				String str2 =	shdanhao.toString().substring(1,shdanhao.toString().length()-1);
+				printedOutOrder.setShPlanNum(str2);
+				int count  = totalDao.getCount(" from WaigouDeliveryDetail where waigouDelivery.id =(select id " +
+						" from WaigouDelivery where   planNumber =?) and status not in('入库','退回','退货') ",str2);
+				if(gsList.size()<count){
+					msg = "请将本送货单的所有入库记录全部选中";
+				}
+			}
+			printedOutOrder.setPrintedOutSet(printedOutSet);
+			BigDecimal bigDecimal = new BigDecimal(totalMoney);
+			double value = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+			printedOutOrder.setTotalMoney(value);
+			if("WGRK".equals(pagestatus)){
+					totalDao.save(printedOutOrder);
+			}
+				return new Object[]{printedOutOrder,list,msg};
+		
+		}
+		return null;
+	}
+	public boolean getAuth1(String code) {
+		String hql = "from WareHouseAuth where usercode = ? and type = '价格' ";
+		WareHouseAuth a = (WareHouseAuth) totalDao.getObjectByCondition(hql,
+				new Object[] { code });
+		if (a == null) {
+			return false;
+		}
+		String s = a.getAuth();
+		//List<String> strList = new ArrayList<String>();
+		String[] strArr = s.split(",");
+		for (int i = 0; i < strArr.length; i++) {
+			if (strArr[i].equals("dd_ddprice")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private String updateMaxPrintNumber(String plannumber,String str,
+			PrintedOutOrder printedOutOrder,String pagestatus,String status){
+		Integer year = Integer.parseInt( Util.getDateTime("yyyy"));
+		String month="";
+		if(year>2018){
+			month=Util.getDateTime("yyyyMM");
+		}
+		if(plannumber==null || "".equals(plannumber) ){
+			 plannumber = "000001";
+				String hql_maxnum = "select max(planNum) from PrintedOutOrder where planNum like '%"+pagestatus+month+"%' and type =? ";
+				String maxnum = (String) totalDao.getObjectByCondition(hql_maxnum,printedOutOrder.getType());
+				if(maxnum == null || maxnum.length() == 0){
+					plannumber = str+plannumber;
+				}else{
+					String number =(1000001+Integer.parseInt(maxnum.substring(pagestatus.length())))+"";
+					plannumber = str+number.substring(1);
+				}
+				
+		}else{
+			int count =	totalDao.getCount(" from PrintedOutOrder where planNum =? ", plannumber);
+			if(count>0){
+				 plannumber = "000001";
+					String hql_maxnum = "select max(planNum) from PrintedOutOrder where planNum like '%"+pagestatus+month+"%' and type =? ";
+					String maxnum = (String) totalDao.getObjectByCondition(hql_maxnum,printedOutOrder.getType());
+					if(maxnum == null || maxnum.length() == 0){
+						plannumber = str+plannumber;
+					}else{
+						String number =(1000001+Integer.parseInt(maxnum.substring(pagestatus.length())))+"";
+						plannumber = str+number.substring(1);
+					}
+			}
+		}
+		return plannumber;
+	}
+}

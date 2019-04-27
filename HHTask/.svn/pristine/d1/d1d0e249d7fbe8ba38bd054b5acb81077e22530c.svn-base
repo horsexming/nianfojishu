@@ -1,0 +1,93 @@
+package com.task.entity.bp;
+
+import java.io.Serializable;
+
+/**
+ * 订单类
+ * @author 马凯
+ * @version 1.0
+ */
+public class Product implements Serializable {
+	private Integer id;//序号
+	private String name;//名称
+	private String partsNumber;//件号
+	private String specification;//规格
+	private float quantity;//数量
+	private String month;//下单时间
+	private float consume;//消耗
+	private float demand; //实际需求
+	private String unit;
+	private String type;//是配件还是组合件
+	private String directions;//说明
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPartsNumber() {
+		return partsNumber;
+	}
+	public void setPartsNumber(String partsNumber) {
+		this.partsNumber = partsNumber;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public float getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(float quantity) {
+		this.quantity = quantity;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public float getConsume() {
+		return consume;
+	}
+	public void setConsume(float consume) {
+		this.consume = consume;
+	}
+	public float getDemand() {
+		return demand;
+	}
+	public void setDemand(float demand) {
+		this.demand = demand;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getDirections() {
+		return directions;
+	}
+	public void setDirections(String directions) {
+		this.directions = directions;
+	}
+	
+
+
+}

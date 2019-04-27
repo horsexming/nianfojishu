@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplateBanBen" table="ta_ProcardTemplateBanBen">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="ptId" />
+		<property name="fptId" />
+	<property name="markId" />
+	<property name="ywMarkId" />
+	<property name="proName" />
+	<property name="unit" /> 
+	<property name="procardStyle" /> 
+	<property name="productStyle" />
+	
+	
+	<property name="banBenNumber" />
+	<property name="newBanBenNumber" />
+	<property name="banci" />
+	<property name="newbanci" />
+	
+	<property name="uptype" />
+	<property name="rootMarkId" />
+	<property name="changeProcess" />
+	<property name="changeTz" />
+	<property name="xuhao" />
+	<property name="addTime" />
+	<property name="kgliao" />
+	<property name="remark" />
+	<property name="zaizhiCount" />
+	<property name="zaituCount" />
+	<property name="kucunCount" />
+	<property name="singleSb" />
+	<property name="newmarkId" />
+	
+	
+	<property name="bianzhiName" /> 
+	<property name="bianzhiId" /> 
+
+	<property name="jiaoduiName" /> 
+	<property name="jiaoduiId" /> 
+
+	<property name="shenheName" /> 
+	<property name="shenheId" /> 
+
+	<property name="pizhunName" /> 
+	<property name="pizhunId" /> 
+	
+		<many-to-one name="procardTemplateBanBenApply" class="ProcardTemplateBanBenApply"
+			cascade="save-update" lazy="false" column="applyId" />
+
+	</class>
+</hibernate-mapping>

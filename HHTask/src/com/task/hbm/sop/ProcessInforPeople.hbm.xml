@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessinforPeople" table="ta_sop_w_ProcessinforPeople">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="userId" index="sy_userId"/>
+		<property name="code" />
+		<property name="name" />
+		<property name="dept" />
+		<property name="addTime" />
+		<property name="status" />
+		<property name="isTuijian" />
+
+		<!-- 【与流水卡片对应关系】 -->
+		<many-to-one name="procard" column="fk_procardId" class="Procard"
+			cascade="none" />
+	</class>
+</hibernate-mapping>

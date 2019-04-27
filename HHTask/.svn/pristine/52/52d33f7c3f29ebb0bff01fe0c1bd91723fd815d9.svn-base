@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+<!--	马逗逗配置文件	-->
+	
+	
+		<!--Server层 -->
+	<bean id="lendNectServerImpl" class="com.task.ServerImpl.ess.LendNectServerImpl">	
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+	</bean>
+	<bean id="ganttServerImpl" class="com.task.ServerImpl.GanttServerImpl">	
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="exceptionServerImpl" class="com.task.ServerImpl.ExceptionHandleServerImpl">	
+		<property name="totaldao" ref="totalDaoImpl" />
+	</bean>
+	
+	
+	<!-- Action层 -->
+	<!--借领还action-->
+	<bean id="LendNectAction" class="com.task.action.ess.LendNectAction" scope="prototype">
+		<property name="lendNectServer" ref="lendNectServerImpl"></property>
+		<property name="goodsServer" ref="goodsServerImpl" />
+	</bean>
+	<!--甘特Action-->
+	<bean id="GanttAction"  class="com.task.action.GanttAction" scope="prototype">
+		<property name="ganttServer" ref="ganttServerImpl"/>
+	</bean>
+	
+	<!--异常处理Action-->
+	<bean id="ExceptionHandleAction"  class="com.task.action.ExceptionHandleAction" scope="prototype">
+		<property name="exceptionServer" ref="exceptionServerImpl"/>
+	</bean>
+	
+	
+</beans>

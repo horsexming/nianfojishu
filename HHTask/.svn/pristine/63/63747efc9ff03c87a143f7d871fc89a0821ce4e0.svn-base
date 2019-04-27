@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Tdetail" table="ta_tdetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="partNumber" length="100"/>
+		<property name="xunhao" length="15"/>
+		<property name="name" length="40"/>
+		<property name="singleNumber" type="double"  />
+		<property name="unit" length="6"/>
+		<property name="type" length="10"/>
+		<property name="material" length="70"/>
+		<property name="standard" length="70"/>
+		<property name="specification" length="70"/>
+		<property name="seq" type="integer"/>
+		<many-to-one name="detail" column="parentId" cascade="all" lazy="proxy" />
+		<many-to-one name="project" column="f_project_id" /> 
+		<set name="details" table="ta_tdetail" cascade="all" lazy="true">
+			<key column="parentId"></key>
+			<one-to-many class="com.task.entity.Tdetail" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.seal.BorrowSeal" table="ta_BorrowSeal" >
+        <id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+        <property name="slname" />
+        <property name="borrowAlso" />
+        <property name="jyName" />
+        <property name="jyDept" />
+        <property name="jyReason" />
+        <property name="jystatus" />
+        <property name="status" />
+        <property name="epId" />
+        <property name="addTime" />
+        <property name="filName" />
+        <property name="danganId" />
+    </class>
+</hibernate-mapping>

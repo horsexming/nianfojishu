@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardSbWg" table="ta_sop_w_ProcardSbWg"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="ptbbApplyId" />
+		<property name="sbNumber" />
+		<property name="markId" />
+		<property name="proName" />
+		<property name="banbenNumber" />
+		<property name="banci" />
+		<property name="kgliao" />
+		<property name="addCount" />
+		<property name="addTime" />
+		<property name="status" />
+		<property name="clCount" />
+		<property name="cltype" />
+		<property name="tuhao" />
+		<property name="specification" />
+		<property name="unit" />
+		<property name="wgType" />
+		
+		<property name="clUser" />
+		<property name="clUserCode" />
+		<property name="clUserId" />
+		<property name="clTime" />
+		
+		<set name="procardSbWgDetails" inverse="false" cascade="all" lazy="true" order-by="selfCard">
+			<key column="sbwgId"></key>
+			<one-to-many class="ProcardSbWgDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

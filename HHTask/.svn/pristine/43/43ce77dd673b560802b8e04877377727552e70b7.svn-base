@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="ProjectTime" table="ta_pro_ProjectTime">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+		<property name="className" />
+		<property name="classNumber" />
+		<property name="dept" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="isSendSms" />
+		<property name="provisionTime" />
+		<property name="realTime" />
+		<property name="exceedTime" />
+		<property name="addDateTime" />
+		<property name="addUserName" />
+		<property name="level" />
+		<property name="proId" />
+		<property name="quoId" />
+		<property name="money" />
+		<property name="moneysz" />
+		<property name="moneysj" />
+		<many-to-one name="projectManage" class="ProjectManage"
+			cascade="save-update" lazy="false" column="fk_proId">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

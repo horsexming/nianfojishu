@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-lpan" extends="struts-stack">
+		<!--
+			****************************************梁盼Action操作********************************************************************
+			**
+		-->
+		<!-- 值日信息管理 -->
+		<action name="ClearInfoAction_*" class="ClearInfoAction"
+			method="{1}">
+			<result name="homePage">/System/lpanclear/homePage.jsp</result>
+			<result name="QRcode">/System/lpanclear/QRcode.jsp</result>
+			<result name="login_xuanzhe">/System/lpanclear/login_xuanzhe.jsp</result>
+			<result name="score">/System/lpanclear/score.jsp</result>
+			<result name="clock">/System/lpanclear/clock.jsp</result>
+			<result name="chart">/System/lpanclear/chart.jsp</result>
+			<result name="clear_picture">/System/lpanclear/clear_picture.jsp</result>
+		</action>
+		
+		<!-- 微信扫码支付 (快递柜)-->
+		<action name="WePayAction_*" class="WePayAction"
+			method="{1}">
+			<result name="wepay">/System/expresscabinet/wepay.jsp</result>
+			<result name="express_charges">/System/expresscabinet/express_charges.jsp</result>
+			<result name="up_charging">/System/expresscabinet/up_charging.jsp</result>
+			<result name="add_charging">/System/expresscabinet/add_charging.jsp</result>	
+			<result name="add_courier">/System/expresscabinet/add_courier.jsp</result>		
+			<result name="courier_tips">/System/expresscabinet/courier_tips.jsp</result>	
+			<result name="courier_ApprovalInfo">/System/expresscabinet/courier_ApprovalInfo.jsp</result>
+					
+		</action>
+	</package>
+</struts>

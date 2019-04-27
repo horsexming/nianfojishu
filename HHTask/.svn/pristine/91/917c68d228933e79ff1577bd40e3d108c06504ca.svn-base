@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.orderQuXiao.ProcardPingShen" table="ta_ProcardPingShen">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardId"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="productStyle"/>
+		<property name="procardStyle"/>
+		<property name="selfCard"/>
+		<property name="orderNumber"/>
+		<property name="count"/>
+		<property name="qxcount"/>
+		<property name="ywMarkId"/>
+		<property name="rootProcardId"/>
+		<property name="rootSelfCard"/>
+		<property name="rootMarkId"/>
+		<property name="procardStatus"/>
+		<property name="tjNumber"/>
+		<property name="hasCount"/>
+		<property name="cgNumber"/>
+		<property name="outCgNumber"/>
+		<property name="cgUsersCode"/>
+		<property name="cgUsersName"/>
+		<property name="cgOrder"/>
+		<property name="cgPlanIds"/>
+		<property name="result"/>
+		<property name="psUsersId"/>
+		<property name="psUsersName"/>
+		<property name="psUsersCode"/>
+		<property name="procardFatherId"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,629 @@
+package com.task.Server.sop;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.sop.ProcardSpecification;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.entity.sop.ProcardTemplatePrivilege;
+import com.task.entity.sop.ProcardTemplateReplace;
+import com.task.entity.sop.ProcessAndWgProcardTem;
+import com.task.entity.sop.ProcessInfor;
+import com.task.entity.sop.ProcessPriceUpdateLog;
+import com.task.entity.sop.ProcessTemplate;
+import com.task.entity.sop.ProcessTemplateFile;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+
+/***
+ * 流水卡片模板Server层
+ * 
+ * @author 刘培
+ * 
+ */
+@SuppressWarnings("unchecked")
+public interface ProcardTemplateServer {
+	/***
+	 * 添加总成流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	String addRootProcardTem(ProcardTemplate procardTemplate);
+
+	/***
+	 * 添加流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	boolean addProcardTemplate(ProcardTemplate procardTemplate);
+
+	/***
+	 * 删除流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	String delProcardTemplate(ProcardTemplate procardTemplate);
+
+	/***
+	 * 修改流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	String updateProcardTemplate(ProcardTemplate procardTemplate,int updatelv);
+
+	/***
+	 * 查询所有总成流水卡片模板(分页)
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	Object[] findAllProcardTemplate(ProcardTemplate procardTemplate,
+			int pageNo, int pageSize,String pageStatus);
+
+	/***
+	 * 根据首层父类id查询流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	List findProcardTemByRootId(int rootId);
+	String findProcardTemByRootId1(int rootId);
+
+	/***
+	 * 根据id查询流水卡片模板
+	 * 
+	 * @param procardTemplate
+	 * @return
+	 */
+	ProcardTemplate findProcardTemById(int id);
+
+	/***
+	 * 添加工序信息
+	 * 
+	 * @param procardTemplate
+	 * @param id
+	 * @return
+	 */
+	String addProcessTemplate(ProcessTemplate processTemplate,Integer id);
+
+	/***
+	 * 通过流水卡片id(外键)查询对应工序信息
+	 * 
+	 * @param fkId
+	 * @return
+	 */
+	List findProcessByFkId(Integer fkId);
+
+	/***
+	 * 查询流水卡片模板(页面显示流水卡片模板详细使用)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findCardTemForShow(int id);
+
+	/**
+	 * 查找要打印的所有模板工序
+	 * 
+	 * @param procardTemplate
+	 * @param cpage
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findPrintProcessList(ProcardTemplate procardTemplate,
+			Integer cpage, Integer pageSize);
+
+	List findSelectedList(Integer[] processId);
+
+	/***
+	 * 通过id查找工序详细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProcessTemplate findProcessT(Integer id);
+
+	/***
+	 * 更新工序模板信息
+	 * 
+	 * @param processT
+	 * @return
+	 */
+	String updateProcessT(ProcessTemplate processT);
+
+	/***
+	 * 删除工序模板信息
+	 * 
+	 * @param processT
+	 * @return
+	 */
+	String delProcessT(ProcessTemplate processT);
+
+	/***
+	 * 显示奖金试算页面
+	 * 
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	String packageData(Integer id, Map map);
+
+	/***
+	 * 查找总成信息
+	 * 
+	 * @param procardTem
+	 * @param mentioningAwardPrice
+	 * @return
+	 */
+	String packageProduct(ProcardTemplate procardTem,
+			Double mentioningAwardPrice);
+
+	/**
+	 * @Title: trial
+	 * @Description: 试算数据
+	 * @param id
+	 *            成品ID
+	 * @return String 前台数据
+	 * @throws
+	 */
+	String trial(Integer id, Float dayOutput);
+
+	/**
+	 * ajax 获取含有少许字符的全字符
+	 */
+	List<ProcardTemplate> getAllNames(String markId,String procardStyle);
+
+	/**
+	 * 根据markId获取模板列表中的第一个对象
+	 * 
+	 * @param markId
+	 * @return
+	 */
+	ProcardTemplate findProcardTemByMarkId(String markId,String statue);
+
+	/**
+	 * 复制pt2及其下的所有模板和工序到pt1下
+	 * 
+	 * @param pt1
+	 * @param pt2
+	 * @return
+	 */
+	Integer saveCopyProcard(ProcardTemplate pt1, ProcardTemplate pt2,String productStyle);
+
+	/**
+	 * 将pt2下的工序复制到pt1下
+	 * 
+	 * @param pt1
+	 * @param pt2
+	 * @return
+	 */
+	boolean saveCopyProcess(ProcardTemplate pt1, ProcardTemplate pt2);
+
+	/**
+	 * 同步与该id的模板的所有的同markId的模板和procard
+	 * 
+	 * @param id
+	 * @return
+	 */
+	boolean updateProcard(Integer id);
+
+	/**
+	 * 删除该模板以及所有该模板的下层模板和工序
+	 * 
+	 * @param pt
+	 * @return
+	 */
+	boolean delteUnderProcardTemplate(ProcardTemplate pt);
+
+	/**
+	 * 更具工序Id得到模版车型，更具车型查出工装
+	 * 
+	 * @param code
+	 * @param pt1
+	 * @param pt2
+	 * @return
+	 */
+	List listGzstoreBycarModel(String code);
+
+	List listliangju(String name);
+
+	/***
+	 * 精益计算(计算总成下面所有件号的产能、送货量等精益计算相关数据)
+	 * 
+	 * @param id
+	 *            rootID
+	 * @return
+	 */
+	String jingyiJisuan(Integer id, ProcardTemplate procardTemplate);
+
+	/**
+	 * 根据模板id将一个模板移动打另一个模板下面
+	 * 
+	 * @param moveId
+	 * @param targetId
+	 * @return
+	 */
+	boolean saveMoveProcardTemplate(Integer moveId, Integer targetId);
+
+	/**
+	 * 修改件号
+	 * 
+	 * @param id
+	 * @param markId
+	 * @return
+	 */
+	String updateMarkId(Integer id, String markId);
+
+	/**
+	 * 查询所有的markId
+	 * 
+	 * @return
+	 */
+	public List<String> getAllMarkId();
+
+	/**
+	 * 将所有非总成的没有父对象的的模板都根据fatherId与父对象模板建立关系
+	 * 
+	 * @return
+	 */
+	public int updateFk();
+
+	/***
+	 *计算每的其他数据(产能比、送货量、生产时间)
+	 * 
+	 * @param id
+	 * @param procardTem
+	 * @return
+	 */
+	String jingyiJisuan2(Integer id, ProcardTemplate procardTem);
+    /**
+     * 修改Bom树的maxCount
+     * @param procardTem
+     * @param maxCount
+     * @return
+     */
+	boolean updateBomMaxCount(ProcardTemplate procardTem,Float maxCount);
+	/**
+	 * 通过rootId将流水卡模板打入到精益流水卡模板中
+	 * @param rootId
+	 * @return
+	 */
+	public String saveCopyProcardToJY(Integer rootId);
+   /**
+    * 试制BOM转批产BOM:pt2->pt1
+    * @param pt1
+    * @param pt2
+    */
+	String changeTolp(ProcardTemplate pt1, ProcardTemplate pt2);
+   /**
+    * 显示工序图纸
+    * @param id
+    * @return
+    */
+   List getProcessTz(Integer id);
+   /**
+    * 添加工艺规范
+    * @param processTemplateFile
+    * @param id
+    */
+   String saveProcessTemplateFile(ProcessTemplateFile processTemplateFile, Integer id);
+   /**
+    * 删除工序图纸
+    * @param id
+    * @return
+    */
+   boolean deleteProcessTz(Integer id,String tag);
+
+   ProcessTemplateFile findProcessTz(Integer id);
+   /**
+    * 通过图纸id获取工序
+    * @param id
+    * @return
+    */
+   ProcessTemplate findProcessTByTz(Integer id);
+   /**
+    * 通过件号id获取工序号 （因读写分离数据同步的问题，所以用update，保证一直使用的都是主数据库）
+    * @param id
+    * @return
+    */
+   Integer updateProcessNo(Integer id);
+   /**查看同一父卡下面有没有同件号的卡片
+    * @param fatherId
+    * @param id
+    * @param markId
+    */
+   boolean checkHasSonMarkId(Integer fatherId, Integer id, String markId);
+
+   /**
+    * 申请特殊工序
+    * @param id
+    * @return
+    */
+   String applySpecial(Integer id);
+   /**
+    * 通过工序id获取其零件
+    * @param id
+    * @return
+    */
+   ProcardTemplate getPtByProcessId(Integer id);
+   /**
+    * 比较修改的属性是否需要同步到BOM的其他同件号零件
+    * @param procardTemplate
+    * @param oldProcardTem
+    * @return
+    */
+
+   int isTb(ProcardTemplate procardTemplate, ProcardTemplate oldProcardTem);
+
+
+	/**
+	 * 获得所有总成类的
+	 */
+	List<ProcardTemplate> getProcardTemplateZC();
+
+/**
+ * 通过零件获取相同件号的卡片
+ * @param markId
+ * @param banBenNumber
+ * @param productStlye
+ * @return
+ */
+List<ProcardTemplate> getSameProcardTemplate(String markId ,String banBenNumber,String productStlye);
+
+   
+   /**
+	 * 
+	 * 获得所有未添加规格的件号
+	 * @param type 已添加,未添加
+	 * @author LiCong 16-08-22
+	 * @return
+	 */
+	public List findAllMarkId_1(String type);
+	
+	/**
+	 * @author LiCong 16-08-22
+	 * @param processTemplate
+	 * @return
+	 */
+	public String updateProcard(ProcardTemplate procardTemplate);
+	
+	/**
+	 * @author LiCong 16-08-22
+	 * @param id id
+	 * @param markId 件号
+	 * @return
+	 */
+	public ProcardTemplate findProcardTemByIdAndMarkId(Integer id,String markId);
+
+	/**
+	 * 查询所有检测记录
+	 * @param procardSpecification
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Map<Integer, Object> findProcardSpecification(ProcardSpecification procardSpecification, int pageNo, int pageSize);
+	
+	List<ProcardTemplate> findProcessNameGroupByMarkId();
+	
+	/**
+	 * 根据件号名称查找
+	 */
+	ProcardTemplate findprocardTemplateByMarkId(String markId, String name,String status);
+	/**
+	 * 核对是否有修改权限
+	 * @param oldProcardTem
+	 * @return
+	 */
+	String checkUpdatelimt(ProcardTemplate oldProcardTem,ProcardTemplate procardTemplate);
+	/**
+	 * 查出所有markId
+	 */
+	List<String> findAllMarkId(String markId);
+	/**
+	 * 对比任意两个件号的下层外购件，并把不相同的外购件列出来(匹配条件:件号，物料类别，版本号，供料属性);
+	 */
+	Map<String, Object>	ProcardTemduibiWgj(String markId1,String mrkId2);
+
+	String deleteAllProcess(Integer id);
+	
+	public List<ProcardTemplate> CheckIn(String jianhaoSet);
+	/*
+	 * 导出Bom零件号
+	 * */
+	public void exportBom(ProcardTemplate procardTemplate);
+	/**
+	 * 根据工序模板Id查询出自制件下层的所有外购件和该工序所关联的所有外购件
+	 */
+	Object[] findwgProcard(Integer id,String status);
+	/**
+	 * 该工序所关联的所有外购件
+	 */
+	List<ProcessAndWgProcardTem> findProcessAndwgProcard(Integer id);
+	/**
+	 * 工序关联外购件；
+	 * @return
+	 */
+	public String processAndwgProcard(Integer id,String [] markIds);
+	
+	/**
+	 *判断某个工序是否可以修改计件单价
+	 */
+	public boolean isNeedJjPrice(Integer id);
+	
+	/**
+	 *判断某个工序是否可以修改计件单价
+	 */
+	public boolean isNeedJjPCPrice(Integer id);
+	
+	/**
+	 * 修改工序计件单价
+	 */
+	public String updatProcesPrice(ProcessTemplate process);
+	
+	/**
+	 * 修改工序计件单价 (批次)
+	 */
+	public String updatProcesPcPrice(ProcessInfor process);
+	
+	/**
+	 * 查看修改工序单价日志记录
+	 */
+	public Object[] findProUpdatePriceLog(ProcessPriceUpdateLog ppul,int pageNo, int pageSize);
+	/**
+	 * 导入工序计件工资
+	 */
+	public String daoruProcessJJMoney(File file);
+	/**
+	 * 根据工序模板Id查询出所有在生产批次的工序单价；
+	 */
+	public List<ProcessInfor> showpcProcess(Integer id);
+	/**
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard(Integer rootId);
+	/**
+	 * 根据总成Id查询出该总成下所有未绑定工序的外购件
+	 */
+	public List<ProcardTemplate> findwbdProcessWgProcard(Integer id);
+	/**
+	 * 	板材绑定在零件的第1道工序（料号1.01开始的为板材料号）
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard1();
+	/**
+	 * 粉末绑定在喷涂工序上（料号1.08开始的为粉末料号）
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard2();
+	/**
+	 * 	所有总成件下的外购件都绑定在总成的组装工序上
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard3();
+	/**
+	 * 	只有唯一一道组装工序的组件所有它下阶外购件都绑定在该组装工序上
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard4();
+	/**
+	 * 	碰焊、氩弧焊或二氧化碳焊（规格以GB13681开头的外购件绑定在这些焊接工序下）
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard5();
+	/**
+	 * //压铆工序绑定的外购件(以下“型号”是指外购件规格前面的几个字母)
+	//S-M CLS JM BSO SOS BSOS FHS NFHS FH BS SO SP ZS GN AS
+	 * 外购件绑定工序
+	 */
+	public void processAndWgProcard6();
+    /**
+     * 原图比对,1，零件上有原图工序上没有，则下发2.零件和工序都没有原图的显示出来
+     * @return
+     */
+	List ytcompare();
+
+	String deleteSamebcfm();
+	
+	
+	
+	/**
+	 *更新单产品占地面积，层数
+	 * @return
+	 */
+
+
+	boolean updateProcardArea(Integer id, Double procardArea,
+			Integer procardCengNum, Double actualArea);
+	/**
+	 * 
+	 * 根据工序Id查询工序模板
+	 */
+	ProcessTemplate findProcessTemByProcessId(Integer id);
+	/**
+	 * 修改零件
+	 * @param procardTemplate
+	 * @return
+	 */
+	String updateProcardTemplate2(ProcardTemplate procardTemplate);
+	/**
+	 * 修改 车型(型号)
+	 * @param procardTemplate
+	 * @return
+	 */
+	boolean updateCarStyle(Integer id, String carStyle);
+	
+	/**
+	 * 根据件号获得
+	 * @param markId
+	 * @return
+	 */
+	ProcardTemplate getProcardByMarkId(String markId);
+	
+	/**
+	 * 根据id获得
+	 * @param id
+	 * @return
+	 */
+	ProcardTemplate getProcardById(Integer id);
+	
+	/**
+	 * 查询全部的流水卡片模板（不止第一层）
+	 * @param template
+	 * @return
+	 */
+	Object[] findAllProcardTemp(ProcardTemplate template,int pageNo, int pageSize, String pageStatus);
+	
+	/**
+	 * 根据件号查询外购件库
+	 * @param markId
+	 * @return
+	 */
+	YuanclAndWaigj getYuanclAndWaigjByMarkId(String markId);
+	/**
+	 * 修复试制图纸缺失
+	 * @return
+	 */
+	String xiufusztu(Integer rootId);
+	public Object[] findAllProcardTemplateReplace(ProcardTemplateReplace procardTemplateReplace,
+			int pageNo, int pageSize);
+	
+	public ProcardTemplateReplace findptlateReplce(Integer id);
+	public Object[] findAllProcardTemplatePrivilege(ProcardTemplatePrivilege procardTemplatePrivilege,
+			int pageNo, int pageSize);
+	public String delPTPrivilege(Integer id);
+	public String updatePTPrivilege(ProcardTemplatePrivilege procardTemplatePrivilege);
+	public String addPTPrivilege(ProcardTemplatePrivilege procardTemplatePrivilege);
+	public ProcardTemplatePrivilege toupdatePTPrivilege(Integer id);
+	/**
+	 * 同步生产工序
+	 * @param id
+	 * @return
+	 */
+	String gxtbsc(Integer id);
+	/**
+	 * 获取到没有跑图的rootId
+	 * @return
+	 */
+	List<Object[]> getUnpaotuRootId();
+
+
+	String xiufusztu2(Integer rootId);
+
+	List<ProcardTemplate> findProcardTemByConditionId(Integer id);
+
+	String xiufuxclingjian1(Integer id);
+	String xiufuxclingjian2(Integer id);
+	/**
+	 * 修复图纸试制复制到试制
+	 * @param i
+	 */
+	String xiufusztusztosz(Integer rootId);
+
+	void testSendMsg();
+	 
+}

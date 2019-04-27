@@ -1,0 +1,181 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+/**
+ * 设变外 购需求数量状态ta_sop_w_ProcardSbWg
+ * @author txb
+ *
+ */
+public class ProcardSbWg  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private Integer ptbbApplyId;//设变主表Id
+	private String sbNumber;//设变单号
+	private String markId;//件号
+	private String proName;//零件名称
+	private String specification;//规格
+	private String unit;//单位
+	private String wgType;//物料类别
+	private String banbenNumber;//版本号
+	private String tuhao;//图号
+	private Integer banci;//版次
+	private String kgliao;//供料属性
+	private Float addCount;//如果为正数增加数量,如果为负数则为减少数量
+	private String addTime;//添加时间
+	private Float clCount;//处理数量
+	private String cltype;//处理方案
+	
+	private String clUser;//处理人
+	private String clUserCode;//处理人工号
+	private Integer clUserId;//处理人Id
+	private String clTime;//第一次处理时间
+	private String ywMarkId;//业务件号(页面显示)
+	
+	private Set<ProcardSbWgDetail> procardSbWgDetails;
+	
+	private String status;//待处理,完成
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getPtbbApplyId() {
+		return ptbbApplyId;
+	}
+	public void setPtbbApplyId(Integer ptbbApplyId) {
+		this.ptbbApplyId = ptbbApplyId;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getBanbenNumber() {
+		return banbenNumber;
+	}
+	public void setBanbenNumber(String banbenNumber) {
+		this.banbenNumber = banbenNumber;
+	}
+	public Integer getBanci() {
+		return banci;
+	}
+	public void setBanci(Integer banci) {
+		this.banci = banci;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public Float getAddCount() {
+		return addCount;
+	}
+	public void setAddCount(Float addCount) {
+		this.addCount = addCount;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Float getClCount() {
+		return clCount;
+	}
+	public void setClCount(Float clCount) {
+		this.clCount = clCount;
+	}
+	public String getCltype() {
+		return cltype;
+	}
+	public void setCltype(String cltype) {
+		this.cltype = cltype;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public String getSbNumber() {
+		return sbNumber;
+	}
+	public void setSbNumber(String sbNumber) {
+		this.sbNumber = sbNumber;
+	}
+	public String getClUser() {
+		return clUser;
+	}
+	public void setClUser(String clUser) {
+		this.clUser = clUser;
+	}
+	public String getClUserCode() {
+		return clUserCode;
+	}
+	public void setClUserCode(String clUserCode) {
+		this.clUserCode = clUserCode;
+	}
+	public Integer getClUserId() {
+		return clUserId;
+	}
+	public void setClUserId(Integer clUserId) {
+		this.clUserId = clUserId;
+	}
+	public String getClTime() {
+		return clTime;
+	}
+	public void setClTime(String clTime) {
+		this.clTime = clTime;
+	}
+	public Set<ProcardSbWgDetail> getProcardSbWgDetails() {
+		return procardSbWgDetails;
+	}
+	public void setProcardSbWgDetails(Set<ProcardSbWgDetail> procardSbWgDetails) {
+		this.procardSbWgDetails = procardSbWgDetails;
+	}
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="TechnicalchangeLog" table="ta_sop_w_TechnicalchangeLog"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="addUserId"/>
+		 <property name="addUserName"/>
+		 <property name="addUserCode"/>
+		 <property name="addTime"/>
+		 <property name="recriveDate"/>
+		 <property name="applyUserId"/>
+		 <property name="applyUserName"/>
+		 <property name="applyUserCode"/>
+		 <property name="aboutPlace"/>
+		 <property name="ywMarkId"/>
+		 <property name="markId"/>
+		 <property name="producttype"/>
+		 <property name="sbNumber"/>
+		 <property name="outbsNumber"/>
+		 <property name="tuhao"/>
+		 <property name="describetion"/>
+		 <property name="aboutcb"/>
+		 <property name="zzpcl"/>
+		 <property name="wcpcl"/>
+		 <property name="wtdcl"/>
+		 <property name="gcb"/>
+		 <property name="scb"/>
+		 <property name="pzb"/>
+		 <property name="pmcwk"/>
+		 <property name="pmcsg"/>
+		 <property name="cgwx"/>
+		 <property name="cgwg"/>
+		 <property name="ck"/>
+		 <property name="remark"/>
+		 
+		 <set name="tclDetailSet"  inverse="false"
+			cascade="all" lazy="true">
+			<key column="tclId" />
+			<many-to-many class="TechnicalchangeLogDetail"   />
+		</set>
+	 </class>
+</hibernate-mapping>

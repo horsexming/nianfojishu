@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi">
+	<class name="Inter_Family" table="ta_hr_rz_inter_family">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="familyName" />
+		<property name="familyRelation" />
+        <property name="familySex" />
+		<property name="familyAge" />
+		<property name="familyAddress" />
+        <property name="familyTel" />
+        <property name="addTime" />
+        
+        
+        <!-- 测试题对登记人 -->
+        <many-to-one name="interviewLog" class="InterviewLog" column="ta_faid"></many-to-one>
+	</class>
+</hibernate-mapping>

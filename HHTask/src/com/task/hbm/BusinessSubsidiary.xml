@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.BusinessSubsidiary" table="ST_BusinessDetail" schema="dbo" catalog="STCard_ENP">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+
+	<!-- 配置出库明细 -->
+	<property name="sellId" column="fk_sell_id" type="int"/>
+	<!-- 配置业务引用 -->
+	<property name="businessId" column="fk_business_id" type="int"/>
+	
+	</class>
+</hibernate-mapping>

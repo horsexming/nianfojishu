@@ -1,0 +1,88 @@
+package com.task.entity.gongyi.gongxu;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class ProcessTable implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	
+	/**第几页*/
+	private Integer diPage;
+	/**共几页*/
+	private Integer gongPage;
+	
+	/**索引号*/
+	private String suoyinNumb;
+	/**更改单号*/
+	private String danNumb;
+	/**签名*/
+	private String qianming;
+	/**日期*/
+	private Date qianmingDate;
+	/**工艺规程ID*/
+	private Integer gongyiGuichengId;
+	/**获取客户端参数*/
+	private String params;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getSuoyinNumb() {
+		return suoyinNumb;
+	}
+	public void setSuoyinNumb(String suoyinNumb) {
+		this.suoyinNumb = suoyinNumb;
+	}
+	public String getDanNumb() {
+		return danNumb;
+	}
+	public void setDanNumb(String danNumb) {
+		this.danNumb = danNumb;
+	}
+	public String getQianming() {
+		return qianming;
+	}
+	public void setQianming(String qianming) {
+		this.qianming = qianming;
+	}
+	public Date getQianmingDate() {
+		return qianmingDate;
+	}
+	public void setQianmingDate(Date qianmingDate) {
+		this.qianmingDate = qianmingDate;
+	}
+	public Integer getGongyiGuichengId() {
+		return gongyiGuichengId;
+	}
+	public void setGongyiGuichengId(Integer gongyiGuichengId) {
+		this.gongyiGuichengId = gongyiGuichengId;
+	}
+	public Integer getDiPage() {
+		return diPage;
+	}
+	public void setDiPage(Integer diPage) {
+		this.diPage = diPage;
+	}
+	public Integer getGongPage() {
+		return gongPage;
+	}
+	public void setGongPage(Integer gongPage) {
+		this.gongPage = gongPage;
+	}
+	public String getParams() {
+		if(params!=null){
+			return params.replace("\\t", "").replace("\\r","").replace("\\n","").replace("\\f","").replace("\\","");
+		}
+		return params;
+	}
+	public void setParams(String params) {
+		this.params = params;
+	}
+	
+}

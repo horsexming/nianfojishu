@@ -1,0 +1,31 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardCsBlOrder" table="ta_ProcardCsBlOrder">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="orderNumber"/>
+		<property name="ywMarkId"/>
+		<property name="rootMarkId"/>
+		<property name="rootSelfCard"/>
+		<property name="orderCount"/>
+		<property name="sqdept"/>
+		<property name="sqUsersName"/>
+		<property name="sqUsersCode"/>
+		<property name="sqdate"/>
+		<property name="addTime"/>
+		<property name="reason"/>
+		<property name="epId"/>
+		<property name="epStatus"/>
+		<property name="rootId"/>
+		<property name="sumPrice"/> 
+		<property name="type"/> 
+		<set name="csblSet" cascade="all" inverse="false" >
+			<key column="fk_csorderId"></key>
+			<one-to-many class="ProcardCsBl" />
+		</set>
+	</class>
+</hibernate-mapping>

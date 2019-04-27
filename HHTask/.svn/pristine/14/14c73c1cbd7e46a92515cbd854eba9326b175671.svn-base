@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.IndianaGift" table="ta_IndianaGift">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name"/>
+		<property name="dept"/>
+		<property name="code"/>
+		<property name="userId"/>
+		<property name="jointime"/>
+		<property name="num"/>
+		<property name="joinnum"/>
+		<many-to-one name="igiftSet" class="com.task.entity.IgiftSet" column="igiftSet_id" cascade="save-update"/>
+  </class>
+</hibernate-mapping>

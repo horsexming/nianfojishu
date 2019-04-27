@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.processpush.Push" table="ta_Push">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="meid" />
+		<property name="station" />
+		<property name="sysdate"/>
+		<property name="ipAddress"/>
+		<property name="flatNum"/>
+		<property name="flatStation"/>
+		
+		<set name="taSopGongweis" table="ta_push_gongwei" lazy="true" inverse="false">
+			<key column="push_id"></key>
+			<many-to-many class="com.task.entity.TaSopGongwei" column="gongwei_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

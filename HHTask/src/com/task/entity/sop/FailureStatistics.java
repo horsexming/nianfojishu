@@ -1,0 +1,293 @@
+package com.task.entity.sop;
+
+import java.util.List;
+import java.util.Set;
+
+/***
+ * 检验记录表(表名:ta_sop_FailureStatistics)
+ * 
+ * @author 刘培
+ * 
+ */
+public class FailureStatistics implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private String dateTime;// 日期（yyyy年xx月xx日）
+	private String markId;// 零件号
+	private String proName;//零件名
+	private String selfcard;//批次
+	private Integer processNo;//工序号
+	private String processName;//工序名
+	private String client;// 客户
+	private String type;//类型(外购、自制、外委、总成)
+	private Integer buhegeId;//质量缺陷代码id
+	private String buhegeType;//质量缺陷类型
+	private String buhegeTypeClass;//质量缺陷类别
+	
+	private Float submitCount;// 数量
+	private Float failureCount;// 不合格品数量
+	private Float nowberakcount;//当前时间点的总不合格数量;
+	private String gongwei;// 检验工位
+
+	private Set<FailureStatisticsDetail> fsdSet;// 不合格品明细
+	private List<FailureStatisticsDetail> fsdList;// 不合格品明细(也面传值)
+
+	private Float targetPPM;// 目标值PPM
+
+	private String weekds;// 周(yyyy年xx周)
+
+	private String addTime;// 添加时间(yyyy-MM-dd HH:mm:ss)
+	private String adddays;//添加日期(yyyy年MM月dd日)
+	private String addmonths;//添加月份(yyyy年MM月)
+
+	
+	private Float weldingDefects;// 焊接缺陷
+	private Float strikeSize;// 走向/尺寸
+	private Float flangeFlatness;// 法兰平面度
+	private Float tfb;// 箭筒内异物(tubeForeignBody)
+	private Float airtight;// 气密
+	private Float exterior;// 外观
+	private Float other;// 其它(注明原因)
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Float getSubmitCount() {
+		return submitCount;
+	}
+
+	public void setSubmitCount(Float submitCount) {
+		this.submitCount = submitCount;
+	}
+
+	public Float getFailureCount() {
+		return failureCount;
+	}
+
+	public void setFailureCount(Float failureCount) {
+		this.failureCount = failureCount;
+	}
+
+	public Float getWeldingDefects() {
+		return weldingDefects;
+	}
+
+	public void setWeldingDefects(Float weldingDefects) {
+		this.weldingDefects = weldingDefects;
+	}
+
+	public Float getStrikeSize() {
+		return strikeSize;
+	}
+
+	public void setStrikeSize(Float strikeSize) {
+		this.strikeSize = strikeSize;
+	}
+
+	public Float getFlangeFlatness() {
+		return flangeFlatness;
+	}
+
+	public void setFlangeFlatness(Float flangeFlatness) {
+		this.flangeFlatness = flangeFlatness;
+	}
+
+	public Float getTfb() {
+		return tfb;
+	}
+
+	public void setTfb(Float tfb) {
+		this.tfb = tfb;
+	}
+
+	public Float getAirtight() {
+		return airtight;
+	}
+
+	public void setAirtight(Float airtight) {
+		this.airtight = airtight;
+	}
+
+	public Float getExterior() {
+		return exterior;
+	}
+
+	public void setExterior(Float exterior) {
+		this.exterior = exterior;
+	}
+
+	public Float getTargetPPM() {
+		return targetPPM;
+	}
+
+	public void setTargetPPM(Float targetPPM) {
+		this.targetPPM = targetPPM;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
+
+	public String getWeekds() {
+		return weekds;
+	}
+
+	public void setWeekds(String weekds) {
+		this.weekds = weekds;
+	}
+
+	public Float getOther() {
+		return other;
+	}
+
+	public void setOther(Float other) {
+		this.other = other;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+
+	public Set<FailureStatisticsDetail> getFsdSet() {
+		return fsdSet;
+	}
+
+	public void setFsdSet(Set<FailureStatisticsDetail> fsdSet) {
+		this.fsdSet = fsdSet;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	public String getSelfcard() {
+		return selfcard;
+	}
+
+	public void setSelfcard(String selfcard) {
+		this.selfcard = selfcard;
+	}
+
+	public Integer getProcessNo() {
+		return processNo;
+	}
+
+	public void setProcessNo(Integer processNo) {
+		this.processNo = processNo;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public Float getNowberakcount() {
+		return nowberakcount;
+	}
+
+	public void setNowberakcount(Float nowberakcount) {
+		this.nowberakcount = nowberakcount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getAdddays() {
+		return adddays;
+	}
+
+	public void setAdddays(String adddays) {
+		this.adddays = adddays;
+	}
+
+	public String getAddmonths() {
+		return addmonths;
+	}
+
+	public void setAddmonths(String addmonths) {
+		this.addmonths = addmonths;
+	}
+
+	public List<FailureStatisticsDetail> getFsdList() {
+		return fsdList;
+	}
+
+	public void setFsdList(List<FailureStatisticsDetail> fsdList) {
+		this.fsdList = fsdList;
+	}
+
+	public Integer getBuhegeId() {
+		return buhegeId;
+	}
+
+	public void setBuhegeId(Integer buhegeId) {
+		this.buhegeId = buhegeId;
+	}
+
+	public String getBuhegeType() {
+		return buhegeType;
+	}
+
+	public void setBuhegeType(String buhegeType) {
+		this.buhegeType = buhegeType;
+	}
+
+	public String getBuhegeTypeClass() {
+		return buhegeTypeClass;
+	}
+
+	public void setBuhegeTypeClass(String buhegeTypeClass) {
+		this.buhegeTypeClass = buhegeTypeClass;
+	}
+ 
+}

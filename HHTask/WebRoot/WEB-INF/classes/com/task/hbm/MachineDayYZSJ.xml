@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.MachineDayYZSJ" table="ta_MachineDayYZSJ">
+		<id name="id" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="machineNo"/>
+		<property name="machineMonth"/>
+		<property name="machineday"/>
+		<property name="machineYZSJ"/>
+		<property name="machineYZSJ2"/>
+		<property name="machineWXSJ"/>
+		<property name="machineTZSJ"/>
+		<property name="dj_status"/>
+		<property name="jiadonglv" column="jiadonglv1" type="string"/>
+		<property name="machine_id" type="integer"/>
+		<!--日点检对点检内容( 一对多)  -->
+		<set name="mdd" inverse="true" lazy="true" cascade="save-update">
+			<key column="mdd_id"></key>
+			<one-to-many class="com.task.entity.MachineDayDj" />
+		</set>
+	</class>
+
+</hibernate-mapping>

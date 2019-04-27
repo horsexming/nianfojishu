@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.supplier">
+    <class name="SupplierEvaluate" table="ta_supplierEvaluate">
+        <id name="id">
+            <generator class="identity"></generator>
+        </id>
+        <property name="timeframe" />
+        <property name="supplierid" />
+        <property name="supplierName" />
+        <property name="supplierCatagory" />
+        <property name="qualityBatch" />
+        <property name="qualityQualifiedBatch" />
+        <property name="qualityPercent" />
+        <property name="qualityScore" />
+        <property name="deliveryDateBatch" />
+        <property name="deliveryDatePercent" />
+        <property name="deliveryDateScore" />
+        <property name="costScore" />
+        <property name="costInfo" />
+        <property name="serviceScore" />
+        <property name="serviceinfo" />
+        <property name="evaluateScore" />
+        <property name="evaluateLevel" />
+        <property name="evaluater" />
+        <property name="evaluateNote" />
+        <property name="skipSupplier"/>
+
+    </class>
+</hibernate-mapping>

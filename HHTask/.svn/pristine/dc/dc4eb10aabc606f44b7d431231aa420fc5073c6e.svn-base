@@ -1,0 +1,133 @@
+package com.task.entity.perform;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.util.FieldMeta;
+
+/***
+ * 表名：采购执行单（ta_Performsingle）
+ * 
+ * @author 毛小龙
+ * 
+ */
+public class Performsingle implements java.io.Serializable {
+	private Integer id;
+	@FieldMeta(name = "采购名称")
+	private String purchase_name;// 采购名称
+	@FieldMeta(name = "类别")
+	private String purchase_category;// 类别(工装、设备、包装物、原材料、外购外委、kvp、紧急采购)--来源
+	@FieldMeta(name = "采购部门")
+	private String purchase_dept;// 采购部门
+	@FieldMeta(name = "采购人")
+	private String purchaser;// 采购人
+	@FieldMeta(name = "采购时间")
+	private String purchase_date;// 采购时间
+	@FieldMeta(name = "采购单号")
+	private String purchase_number;// 采购单号
+	private Integer epId;// 审批流程
+	private String status;// 审批状态
+	private String istax;// 是否含税
+	private Set<PerformsingleDetail> SetperformsingleDetails;// 对应采购执行单明细
+	private String ht_status;//（已生成）;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getPurchase_category() {
+		return purchase_category;
+	}
+
+	public void setPurchase_category(String purchaseCategory) {
+		purchase_category = purchaseCategory;
+	}
+
+	public String getPurchase_dept() {
+		return purchase_dept;
+	}
+
+	public void setPurchase_dept(String purchaseDept) {
+		purchase_dept = purchaseDept;
+	}
+
+	public String getPurchase_name() {
+		return purchase_name;
+	}
+
+	public void setPurchase_name(String purchaseName) {
+		purchase_name = purchaseName;
+	}
+
+	public String getPurchase_date() {
+		return purchase_date;
+	}
+
+	public void setPurchase_date(String purchaseDate) {
+		purchase_date = purchaseDate;
+	}
+
+	public String getPurchase_number() {
+		return purchase_number;
+	}
+
+	public void setPurchase_number(String purchaseNumber) {
+		purchase_number = purchaseNumber;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getPurchaser() {
+		return purchaser;
+	}
+
+	public void setPurchaser(String purchaser) {
+		this.purchaser = purchaser;
+	}
+
+	@JSONField(serialize = false)
+	public Set getSetperformsingleDetails() {
+		return SetperformsingleDetails;
+	}
+
+	public void setSetperformsingleDetails(
+			Set<PerformsingleDetail> setperformsingleDetails) {
+		SetperformsingleDetails = setperformsingleDetails;
+	}
+
+	public String getIstax() {
+		return istax;
+	}
+
+	public void setIstax(String istax) {
+		this.istax = istax;
+	}
+
+	public String getHt_status() {
+		return ht_status;
+	}
+
+	public void setHt_status(String htStatus) {
+		ht_status = htStatus;
+	}
+
+	
+}

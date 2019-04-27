@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.QuestionnairePerson" table="ta_QuestionnairePerson" >
+		  <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+		<property name="qename"/>
+		<property name="usename"/>
+		<property name="dctime"/>
+		<!-- -->
+		<set name="queset" inverse="false" cascade="all" lazy="false">
+			<key column="ta_qpnId"></key>
+			<one-to-many class="com.task.entity.QuestionnaireUse" />
+		</set>
+	</class>
+</hibernate-mapping>

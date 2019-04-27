@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="ProjectOrder" table="ta_sk_ProjectOrder">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proName" />
+		<property name="month" />
+		<property name="groupName" />
+		<property name="orderNO" />
+		<property name="userName" />
+		<property name="userCode" />
+		<property name="userId" />
+		<property name="productEngineer" />
+		<property name="technicalEngineer" />
+		<property name="projectBy" />
+		<property name="projectTo" />
+		<property name="deliveryInfo" />
+		<property name="deal" />
+		<property name="cusName" />
+		<property name="remark" />
+		<property name="status" />
+		<property name="epId" />
+
+		<!-- 对项目订单零件 -->
+		<set name="projectOrderPart"  cascade="all" lazy="true">
+			<key column="porder_id"></key>
+			<one-to-many class="ProjectOrderPart" />
+		</set>
+       <!-- 对项目试制评审-->
+       <many-to-one name="proTryMakeScore" class="ProTryMakeScore"
+			column="ptm_id" />
+		
+
+	</class>
+</hibernate-mapping>

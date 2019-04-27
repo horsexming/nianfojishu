@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/viewer.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-6">
+        <div class="docs-galley">
+          <ul class="docs-pictures clearfix">
+            <li><img data-original="../assets/img/tibet-1.jpg" src="../assets/img/thumbnails/tibet-1.jpg" alt="Cuo Na Lake"></li>
+			<li><img data-original="../assets/img/tibet-1.jpg" src="../assets/img/thumbnails/tibet-1.jpg" alt="Cuo Na Lake"></li>
+			<li><img data-original="../assets/img/tibet-1.jpg" src="../assets/img/thumbnails/tibet-1.jpg" alt="Cuo Na Lake"></li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+  <!-- Scripts -->
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../dist/viewer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

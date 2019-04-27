@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="com.task.entity.menjin.JLMApplication" table="ta_jlm_jlmapplication">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proposer_id" />
+		<property name="proposer_name" />
+		<property name="proposer_dept" />
+		<property name="reason" />
+		<property name="planNumber" />
+		<property name="addTime" />
+		<property name="doorName" />
+		<property name="epId" />
+		<property name="status" />
+		<set name="operation" inverse="true" cascade="all" lazy="true">
+			<key column="ta_jlm_operation"></key>
+			<one-to-many class="com.task.entity.menjin.Operation"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>

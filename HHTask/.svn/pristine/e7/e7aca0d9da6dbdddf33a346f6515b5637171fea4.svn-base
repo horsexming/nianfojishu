@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.checktype.CheckNote" table="ta_CheckNote">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="loginCode" />
+		<property name="firstPersonCode" />
+		<property name="firstPerson" />
+		<property name="depert" />
+		<property name="url" />
+		<property name="status" />
+		<property name="describe" />
+		<property name="yesorno" />
+		<many-to-one name="checkType" class="com.task.entity.checktype.CheckType"
+			column="checkTypeId" lazy="false">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

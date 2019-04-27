@@ -1,0 +1,65 @@
+package com.task.entity;
+
+import java.util.Set;
+
+/**
+ * 通用类别类（ta_UniversalCategory）
+ * @author WCY
+ *
+ */
+public class UniversalCategory {
+
+	private Integer id;
+	private String type;
+	private String categoryName;
+	private String remarks;
+	
+	private Set<UniversalType> typeSet;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public Set<UniversalType> getTypeSet() {
+		return typeSet;
+	}
+
+	public void setTypeSet(Set<UniversalType> typeSet) {
+		this.typeSet = typeSet;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

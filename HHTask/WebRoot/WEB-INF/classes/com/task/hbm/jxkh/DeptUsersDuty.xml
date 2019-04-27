@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="DeptUsersDuty" table="ta_DeptUsersDuty">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="deptName"/>
+		<property name="leader"/>
+		<property name="oneOrTwo" />
+		<property name="rank" />
+		<property name="rankNo"/>
+		<property name="isJiaoXiao" />
+		<property name="isdeptFenPei" />
+		<property name="isZzPj" />
+		<property name="isZzXl" />
+		<property name="addTime"/>
+		<property name="addUserName"/>
+		<property name="isbmzmb"/>
+		<property name="isbmzZlh"/>
+		<property name="isgsx"/>
+		<property name="postCoefficient"/>
+		<property name="isWeiWaiJieGou"/>
+	</class>
+</hibernate-mapping>

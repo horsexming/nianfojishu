@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.caiwu.baobiao.laozi">
+	<class name="Mrooeal" table="ta_baobiao_laozi_Mrooeal" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="companyName"/>
+		<property name="dwxz"/>
+		<property name="sshylb"/>
+		<property name="scdy"/>
+		<property name="ddsnpjgz"/>
+		<property name="dwgm"/>
+		<property name="dwcj"/>
+		<property name="ylbxdw"/>
+		<property name="ylbxgr"/>
+		<property name="gsbxdw"/>
+		<property name="gsbxgr"/>
+		<property name="sybxdw"/>
+		<property name="sybxgr"/>
+		<property name="shengyubxdw"/>
+		<property name="shengyubxgr"/>
+		<property name="yiliaobxdw"/>
+		<property name="yiliaobxgr"/>
+		<property name="rgcbzr"/>
+		<property name="gzzr"/>
+		<property name="shbxfy"/>
+		<property name="yanglaobx"/>
+		<property name="nj"/>
+		<property name="ylbx"/>
+		<property name="bcylbx"/>
+		<property name="sybx"/>
+		<property name="gsbx"/>
+		<property name="shengyubx"/>
+		<property name="sybxfy"/>
+		<property name="flfy"/>
+		<property name="jypxjf"/>
+		<property name="ghjf"/>
+		<property name="ldbhfy"/>
+		<property name="zfgjj"/>
+		<property name="ycxzfdzfbt"/>
+		<property name="jsjcj"/>
+		<property name="fhbxfl"/>
+		<property name="ctfl"/>
+		<property name="ycxzfbc"/>
+		<property name="nbtxryzc"/>
+		<property name="gfzc"/>
+		<property name="qtrgcb"/>
+		<property name="lwpqfy"/>
+		<property name="ndgzzr"/>
+		<property name="bnyfshj"/>
+		<property name="sntqje"/>
+		<property name="yfgzncje"/>
+		<property name="yfgzqmje"/>
+	</class>
+</hibernate-mapping>

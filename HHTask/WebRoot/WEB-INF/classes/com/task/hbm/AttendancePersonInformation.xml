@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.AttendancePersonInformation" >
+		<id name="atPerInforId" column="Person_ID">
+			<generator class="identity" />
+		</id>
+		<property name="classNo" length="6" column="Class_No"/>
+		<property name="workTimeMode" column="Worktime_Mode"/>
+		<property name="overTimeMode" column="Overtime_Mode"/>
+		<property name="restMode" column="Rest_Mode"/>
+		<property name="restDays"  length="40" column="Rest_Days"/>
+		<property name="isHolidayAsWorkTime" length="1" column="IsHolidayAsWorkTime"/>
+		<property name="isOverTimeAsWorkTime" length="1" column="IsOverTimeAsWorkTime"/>
+		<property name="personState" column="Person_State"/>
+		<property name="remark" length="100" column="Remark" />
+		<property name="userNo" length="20" column="User_No"/>
+		<property name="updateDate" column="Update_Date"/>
+		<one-to-one name="person" class="com.task.entity.Person"></one-to-one>
+	</class>
+</hibernate-mapping>

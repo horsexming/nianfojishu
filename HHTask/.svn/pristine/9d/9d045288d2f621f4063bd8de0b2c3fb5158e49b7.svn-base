@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.lpanclear">
+	<class name="HomeTitle" table="ta_hometitle">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="titleName"/>
+		<property name="createDate"/>
+		<property name="randomNum"/>	
+	
+        <set name="cleanrecord" inverse="true" cascade="all" lazy="false">
+			<key column="fk_titleId"></key>
+			<one-to-many class="Cleanrecord"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

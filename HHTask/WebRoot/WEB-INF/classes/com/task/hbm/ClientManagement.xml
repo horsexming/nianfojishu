@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ClientManagement" table="ta_crm_clientManagement">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="clientname" type="java.lang.String">
+			<column name="client_name"></column>
+		</property>
+		<property name="clientsex" type="java.lang.String">
+			<column name="client_sex"></column>
+		</property>
+		<property name="clientdept" type="java.lang.String">
+			<column name="client_dept"></column>
+		</property>
+		<property name="clientposition" type="java.lang.String">
+			<column name="client_position"></column>
+		</property>
+		<property name="clientmobilenumber" type="java.lang.String">
+			<column name="client_mobilenumber"></column>
+		</property>
+		<property name="clientphonenumber" type="java.lang.String">
+			<column name="client_phonenumber"></column>
+		</property>
+		<property name="clientcompanyname" type="java.lang.String">
+			<column name="client_companyname" length="200"></column>
+		</property>
+		<property name="clientcardnumber" type="java.lang.String">
+			<column name="client_cardnumber"></column>
+		</property>
+		<property name="clientdatatime" type="java.lang.String">
+			<column name="client_datatime"></column>
+		</property>
+		<property name="clientremarks" type="java.lang.String">
+			<column name="client_remarks" length="500"></column>
+		</property>
+		<property name="natureOfBusiness" column="f_natureOfBusiness"
+			type="string" />
+		<property name="address" column="f_address" type="string" />
+		<property name="legalPerson" column="f_legalPerson" type="string" />
+		<property name="banks" column="f_banks" type="string" />
+		<property name="businessLicense" column="f_businessLicense"
+			type="string" />
+		<property name="organization" column="f_organization" type="string" />
+		<property name="logo" column="f_logo" type="string" />
+		<property name="companyAbbreviation" column="f_companyAbbreviation"
+			type="string" />
+		<property name="clientdz" />
+
+		<property name="number" />
+		<property name="userId" />
+
+		<set name="orders" table="TA_OrderManager" cascade="all" inverse="true"
+			lazy="true">
+			<key column="fk_clientManagement_id"></key>
+			<one-to-many class="com.task.entity.OrderManager" />
+		</set>
+	</class>
+</hibernate-mapping>

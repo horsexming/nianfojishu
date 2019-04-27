@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouPlanclApply" table="ta_sop_w_WaigouPlanclApply">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="applyNumber" />
+	<property name="waigouPlanId" />
+	<property name="banben" />
+	<property name="procardSbWgId" />
+	<property name="planNumber" />
+	<property name="allCount" />
+	<property name="syCount" />
+	<property name="clCount" />
+	<property name="markId" />
+	<property name="processNos" />
+	<property name="processNames" />
+	<property name="unit" />
+	<property name="gysName" />
+	<property name="cgname" />
+	<property name="cgCode" />
+	<property name="addUserId" />
+	<property name="addUsercode" />
+	<property name="addUsername" />
+	<property name="proName" />
+	<property name="tuhao" />
+	<property name="wgType" />
+	<property name="kgliao" />
+	<property name="specification" />
+	<property name="epStatus" />
+	<property name="epId" />
+	</class>
+</hibernate-mapping>

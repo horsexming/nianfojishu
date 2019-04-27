@@ -1,0 +1,68 @@
+package com.task.entity.vo.shizhivo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.task.entity.shizhi.CraftComplexity;
+import com.task.entity.shizhi.SkillType;
+
+public class CraftComplexityVo implements Serializable{
+	  private Integer id;
+	  private String name;
+	  private Integer scoreCount;//含有的技能系数个数页面显示合并列的时候用
+	  private List<SkillTypeVo> skillTypeVo;// 分类
+	public CraftComplexityVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CraftComplexityVo(CraftComplexity craftComplexity) {
+		if(craftComplexity!=null){
+			this.id=craftComplexity.getId();
+			this.name=craftComplexity.getName();
+			this.scoreCount=0;
+			if(craftComplexity.getSkillType()!=null){
+    			List<SkillTypeVo> skillTypeVos=new ArrayList<SkillTypeVo>();
+    			for(SkillType st:craftComplexity.getSkillType()){
+    				SkillTypeVo stVo=new SkillTypeVo(st);
+    				skillTypeVos.add(stVo);
+    				scoreCount=stVo.getScoreCount()+scoreCount;
+    			}
+    			this.skillTypeVo=skillTypeVos;
+    		}else{
+    			this.skillTypeVo=new ArrayList<SkillTypeVo>();
+    		}
+		}
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getScoreCount() {
+		return scoreCount;
+	}
+	public void setScoreCount(Integer scoreCount) {
+		this.scoreCount = scoreCount;
+	}
+	public List<SkillTypeVo> getSkillTypeVo() {
+		return skillTypeVo;
+	}
+	public void setSkillTypeVo(List<SkillTypeVo> skillTypeVo) {
+		this.skillTypeVo = skillTypeVo;
+	}
+	
+	  
+	  
+	  
+	  
+	  
+	  
+}

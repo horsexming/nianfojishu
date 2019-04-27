@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectQuotationEquipmentDepreciation" table="ta_ProjectQuotation_EquipmentDepreciation">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="process" length="50"/>
+		<property name="equipment" length="50"/>
+		<property name="equipmentValue" type="double"  />
+		<property name="endLifeValue" type="double"  />
+		<property name="lifeTime" type="double"  />
+		<property name="workTime" type="double"  />
+		<property name="workDay" type="double"  />
+		<property name="tTS" type="double"  />
+		<property name="equipmentDepreciation" type="double"  />
+		<many-to-one name="root" column="pid" />
+		<many-to-one name="directLaborCost" column="f_dlc_id" unique="true" />
+	</class>
+
+</hibernate-mapping>

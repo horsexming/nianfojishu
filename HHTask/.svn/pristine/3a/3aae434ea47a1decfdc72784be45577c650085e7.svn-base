@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop.jy">
+	<class name="ProcessTemplateJY" table="ta_sop_w_ProcessTemplateJY">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="processStatus" />
+		<property name="parallelId" />
+		<property name="productStyle" />
+		<property name="isPrice" />
+		<property name="zjStatus" />
+
+		<property name="gongwei" />
+		<property name="shebeiId" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+		<property name="operatorDept" />
+		<property name="operatorCode" />
+		<property name="operatorCardId" />
+		<property name="operatorName" />
+		<property name="operatorUserId" />
+		<property name="optechnologyRate" />
+		<property name="opCouldReplaceRate" />
+		<property name="opfuheRate" />
+		<property name="opcaozuojiepai" />
+		<property name="opshebeijiepai" />
+		<property name="opnoReplaceRate" />
+		<property name="opzonghezhishu" />
+		<property name="opzongheqiangdu" />
+		<property name="gztechnologyRate" />
+		<property name="gzCouldReplaceRate" />
+		<property name="gzfuheRate" />
+		<property name="gzzhunbeijiepai" />
+		<property name="gzzhunbeicishu" />
+		<property name="gznoReplaceRate" />
+		<property name="gzzonghezhishu" />
+		<property name="gzzongheqiangdu" />
+		<property name="processMomey" />
+		<property name="opjiaofu" />
+
+		<property name="allJiepai" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="alldeliveryDuration" />
+		<property name="deliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+
+
+
+		<property name="gzstoreId" />
+		<property name="number" />
+		<property name="matetag" />
+		
+		<property name="measuringId" />
+		<property name="measuringNumber" />
+		<property name="measuringMatetag" />
+		<property name="measuring_no" />
+		
+		<property name="shebeistatus" />
+		<property name="gongzhuangstatus" />
+		<property name="guifanstatus" />
+		<property name="liangjustatus" />
+		<property name="kaoqingstatus" />
+		<property name="zhuserId" />
+		<property name="gys" />
+		
+		<property name="contextJi" />
+		<property name="contextGong" />
+		<property name="contextLiang" />
+		<property name="contextJian" />
+		<property name="contextWen" />
+		<property name="contextRen" />
+		<property name="fileName" />
+		
+		<!-- 【工序对应流水卡片(多对一)】 -->
+		<many-to-one name="procardTemplateJY" lazy="false" class="ProcardTemplateJY"
+			cascade="save-update" column="fk_processTId" />
+
+
+
+
+	</class>
+</hibernate-mapping>

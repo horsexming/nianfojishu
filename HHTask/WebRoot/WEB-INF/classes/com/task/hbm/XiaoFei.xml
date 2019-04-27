@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.XiaoFei" table="ta_xiaofei">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="xiaofeijifen" type="integer"></property>
+		<property name="xiaofeitime"></property>
+		<property name="neirong"></property>
+		<property name="in_code"></property>
+<!--		<many-to-one name="integral" column="integral_id" class="com.task.entity.Integral"></many-to-one>-->
+     </class>
+</hibernate-mapping>

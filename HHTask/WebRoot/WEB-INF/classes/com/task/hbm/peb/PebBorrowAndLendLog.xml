@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.peb.PebBorrowAndLendLog" table="ta_pebBorrowAndLendLog">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="addTime" />
+		<property name="addUserId" />
+		<property name="addUserName" />
+		<property name="pebUsersId" />
+		
+		<property name="lendBanzu" />
+		<property name="lendNum" />
+		<property name="borrowBanzu" />
+		<property name="borrowNum" />
+		<property name="remarks" />
+		
+		<property name="sqTime" />
+		<property name="sqBanzu" />
+		<property name="gzHour" />
+		<property name="epStatus" />
+		<property name="epId" />
+		<property name="cancalEpId" />
+		<property name="cancalEpStatus" />
+	</class>
+</hibernate-mapping>

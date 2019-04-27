@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.receivePayment">
+	<class name="ReceiptLog" table="ta_fin_ReceiptLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="pkNumber" />
+		<property name="allMoney" />
+		<property name="paybank" />
+		<property name="paybankId" />
+
+		<property name="fileName" />
+		<property name="payUserName" />
+		<property name="payUserCode" />
+		<property name="addTime" />
+		<property name="needPayDate" />
+		<property name="auditTime" />
+		<property name="confirmTime" />
+		<property name="realPayDate" />
+		<property name="applyUserCode" />
+		<property name="applyUserName" />
+		<property name="addUserCode" />
+		<property name="addUserName" />
+		<property name="status" />
+		<property name="haswt" />
+		<property name="fkpzNum" />
+
+		<!-- 付款记录对付款账单 -->
+		<many-to-one name="receipt" class="Receipt" column="fk_receiptId"
+			lazy="false" />
+	</class>
+</hibernate-mapping>

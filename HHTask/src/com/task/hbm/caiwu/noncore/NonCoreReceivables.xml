@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.noncore">
+	<class name="NonCoreReceivables" table="ta_fin_caiwu_NonCoreReceivables">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="receiveType"/>
+		<property name="chengzufang" />
+		<property name="chengzudizhi" />
+		<property name="hetongbianhao" />
+		<property name="hetongfujian" />
+		<property name="jiaozuzhouqi" />
+		<property name="kemu" />
+		<property name="zhaiyao" />
+		<property name="jignbanren" />
+		<property name="youxiaoqiStart" />
+		<property name="youxiaoqi" />
+		<property name="jiaozuDate" />
+		<property name="baozhegnjin" />
+		<property name="zujin" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="more" />
+		<property name="isNeeddaitijiaofei" />
+		<property name="addTime" />
+		<property name="addUserName" />
+		<property name="addUserDept" />
+		<property name="addUserId" />
+		<property name="scpId" />
+		<property name="fujianQueren" />
+		<property name="typeStatus" />
+		<set name="nonCoreReceivablesDetail" inverse="false" cascade="all" lazy="true" order-by="id">
+			<key column="nonCoreReceivablesDetail_id"></key>
+			<one-to-many class="com.task.entity.caiwu.noncore.NonCoreReceivablesDetail" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

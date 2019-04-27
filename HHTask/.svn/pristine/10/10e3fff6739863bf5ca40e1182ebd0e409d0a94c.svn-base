@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.dangan">
+	<class name="DangAnBank" table="ta_da_DangAnBank">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cardId" />
+		<property name="daNum" />
+		<property name="daIp" />
+		<property name="useStatus" />
+		<property name="addTime" />
+	</class>
+</hibernate-mapping>

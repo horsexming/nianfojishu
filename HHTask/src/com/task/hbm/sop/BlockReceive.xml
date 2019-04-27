@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="BlockReceive" table="ta_sop_BlockReceive">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="receiveMonth" />
+		<property name="receiveDate" />
+		<property name="startTime" />
+		<property name="endTime" />
+		<property name="qrTime" />
+		<property name="status" />
+		<property name="userName" />
+		<property name="code" />
+		<property name="card" />
+		<property name="blockId" />
+		<many-to-one name="blockUsers" column="blockUsersId"
+			class="BlockUsers"></many-to-one>
+	</class>
+</hibernate-mapping>

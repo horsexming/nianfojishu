@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.barandqr.AirtightLog" table="ta_AirtightLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId"/>
+		<property name="processDate" />
+		<property name="number" />
+		<property name="context" />
+		<property name="otherContext" />
+		<property name="operator" />
+		<property name="type" />
+		<property name="addtime" />
+		<property name="xielou" />
+		<property name="yali" />
+		<property name="barcode" />
+	</class>
+</hibernate-mapping>

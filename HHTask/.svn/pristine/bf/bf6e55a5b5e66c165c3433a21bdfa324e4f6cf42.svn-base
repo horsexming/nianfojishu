@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.AskForLeave" table="TA_AskForLeave">
+		<id name="leaveId" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property name="leaveType" length="10" />
+		<property name="leavePerson" length="10"  />
+		<property name="leavePersonCode" length="10" />
+		<property name="leavePersonDept" length="20" />
+		<property name="leaveStartDate"  length="20" />
+		<property name="leaveEndDate"  length="20" />
+		<property name="leaveDays" />
+		<property name="leaveHours" />
+		<property name="leaveTypeOf"  length="10" />
+		<property name="leaveReason" length="5000" />
+		<property name="submitPerson"  length="10" />
+		<property name="submitPersonCode" length="10" />
+		<property name="submitPersonDept" length="20" />
+		<property name="operationDate" />
+		<property name="updateTime" />
+		<property name="approvalStatus"  length="10"/>
+		<property name="approvalResult" length="10"/>
+		<property name="epId" />
+		<property name="appayTag" />
+		<property name="gongchuPlace" />
+		<property name="exitTime" />
+		<property name="leaveUserCardId" />
+		<property name="returnTime" />	
+		<property name="huanxiustatus" />	
+		<property name="singleCarId" />	
+		<property name="leaveObjectType" />	
+		<property name="leaveObjectNeirong" />	
+		<property name="accessStatus" />
+		<property name="carPaiNum" />
+		<property name="rgcost" />
+		<property name="freeDepts" />
+		<property name="freeDeptIds" />
+		<property name="sqStatus" />
+		<property name="lng" length="3" scale="6"/>
+		<property name="lat" length="3" scale="6"/>
+		
+	</class>
+</hibernate-mapping>

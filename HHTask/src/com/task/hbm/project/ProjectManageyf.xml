@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="ProjectManageyf" table="ta_pro_ProjectManageyf">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proName" />
+		<property name="proNum" />
+		<property name="addUserId" />
+		<property name="addUserName" />
+		<property name="addUserCode" />
+		<property name="addTime" />
+		<property name="poolId" />
+		<property name="startTime" />
+		<property name="reTime" />
+		<property name="shijiTime" />
+		<property name="outTime" />
+		<property name="outExplain" />
+		<property name="outTimeexplainPerson" />
+		<property name="delayTime"/>
+		<property name="zpTime" />
+		<property name="remark" />
+		<property name="status" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		<property name="gradeEpId" />
+		<property name="gradeStatus" />
+		<property name="gradeStore" />
+		<property name="gradeRemark" />
+		<property name="yfProjectFile" />
+		<property name="schedule" />
+		<property name="selfStore" />
+		<property name="sumStore" />
+		<property name="actualStore" />
+		<property name="projectManageId" />
+		<property name="outTimeResult" />
+		<property name="depends" />
+		<property name="model" />
+		<property name="startIsMilestone" />
+		<property name="endIsMilestone" />
+		<property name="aliasFile" />
+	</class>
+
+</hibernate-mapping>

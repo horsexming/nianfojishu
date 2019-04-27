@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.InternalOrderDetailzhaobiao" table="ta_crm_internalOrderDetailzhaobiao">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="name" column="f_name" type="string" />
+		<property name="pieceNumber" column="f_pieceNum" type="string" />
+		<property name="num" column="f_num" type="int" />
+		<property name="remark" column="f_remark" type="string" />
+		<property name="quantityCompletion" column="f_quantityCompletion"
+			type="int" />
+		<property name="turnCount" />
+		
+		
+		<many-to-one name="internalOrderzhaobiao" column="fk_internalOrderzhaobiao_id"
+			class="com.tast.entity.zhaobiao.InternalOrderzhaobiao" lazy="false" />
+	</class>
+</hibernate-mapping>

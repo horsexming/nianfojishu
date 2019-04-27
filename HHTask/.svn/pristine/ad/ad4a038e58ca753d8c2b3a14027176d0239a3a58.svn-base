@@ -1,0 +1,56 @@
+package com.task.Server.dmltry;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.dmltry.DmlAppFileUrl;
+import com.task.entity.renshi.InterviewLog;
+
+
+public interface DmlAppFileUrlServer {
+
+	/**
+	 * 查询AppFiles下所有数据
+	 * @return
+	 */
+	public List<DmlAppFileUrl>	selDmlAppFileUrl();
+	
+	/**
+	 * 新增
+	 * @return
+	 * 
+	 */
+	public String addDmlAppFileUrl(DmlAppFileUrl dmlAppFileUrl);
+	/**
+	 *根据id查询
+	 *@return
+	 */
+	public DmlAppFileUrl selidDmlAppFileUrl(Integer id);
+	/**
+	 * 修改
+	 */
+	public	String	updateDmlAppFileUrl(DmlAppFileUrl dmlAppFileUrl);
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	public String delteDmlAppFileUrl(Integer id);
+	
+	/**
+	 * 外键查找
+	 * @param id
+	 */
+	public List<DmlAppFileUrl> seleectDmlAppFileUrl(Integer id);
+	
+	/**
+	 * 分页查询加条件查询
+	 * @param dmlAppFileUrl		对象
+	 * @param pageNo		起始页
+	 * @param pageSize	每页数量
+	 * @return
+	 */
+	public Map<Integer, Object> fenyandtj(DmlAppFileUrl dmlAppFileUrl, int pageNo, int pageSize);
+	
+	
+}

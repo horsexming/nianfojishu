@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="DoorBangDing" table="ta_mj_DoorBangDing">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fk_user_id" />
+		<property name="fk_acEq_id" />
+		<property name="fk_security_id" />
+		<property name="status" />
+		<property name="timeIsTrue" />
+		<property name="number" length="20"/>
+	</class>
+</hibernate-mapping>

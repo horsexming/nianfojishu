@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.IgiftSet" table="ta_IgiftSet">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="beginTime"/>
+		<property name="endTime"/>
+		<property name="status"/>
+		<property name="giftid"/>
+		<property name="qihao"/>
+		<property name="randomnum"/>
+		<property name="name"/>
+		<property name="giftpicture"/>
+		<property name="type"/>
+		<!-- 抽奖活动设置对夺宝系统--> 
+		<set name="indianaGiftset"  lazy="false" inverse="true">
+			<key column="igiftSet_id"></key>
+			<one-to-many class="com.task.entity.IndianaGift" />
+		</set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,237 @@
+package com.task.Server.ess;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.ApplyScrap;
+import com.task.entity.BaoFeiGoods;
+import com.task.entity.Goods;
+import com.task.entity.GoodsStore;
+import com.task.entity.Goods_bzsq;
+import com.task.entity.Lend;
+import com.task.entity.Nect;
+import com.task.entity.ProductManager;
+import com.task.entity.Repay;
+import com.task.entity.Scrap;
+import com.task.entity.Sell;
+import com.task.entity.Users;
+import com.task.entity.YuLiaoApply;
+import com.task.entity.sop.BuHeGePin;
+import com.task.entity.sop.WaigouDeliveryGoods;
+
+public interface LendNectServer{
+
+	
+	/**
+	 * 查找库存中所有可借，领用
+	 * @param goods
+	 * @param startDate
+	 * @param endDate
+	 * @param cpage
+	 * @param pageSize
+	 * @param tag 借，领用标志
+	 * @param pagestatus
+	 * @return
+	 */
+	public Object[] findAAllLNGoods(Goods goods, String startDate,
+			String endDate, int cpage, int pageSize, String tag,
+			String pagestatus);
+	
+	/**
+	 *根据cardNum查找用户
+	 * @param cardNum
+	 * @return
+	 */
+	public Users findUserByCardNum(String cardNum);
+	/**
+	 * 库存借用表插值并更新库存数据
+	 * @param lend 库存借用
+	 * @param good 库存
+	 * @return
+	 */
+	public boolean insertLend(Lend lend, Goods good);
+
+	/**
+	 * 根据Id查找库存借用表对象
+	 * @param lendId
+	 * @return
+	 */
+	public Lend findLendById(Integer lendId);
+	
+	/**
+	 * 根据卡号查找已借未还记录
+	 * @param cardNum
+	 * @param string
+	 * @param cpage 
+	 * @param pageSize 
+	 * @return
+	 */
+	public Object[] findIsLentByCNum(Lend lend, int pageSize, int cpage);
+	
+	/**
+	 *  插入某条归还记录
+	 * @param repay
+	 * @return
+	 */
+	public String insertOneRepay(Repay repay);
+	/**
+	 * 插入某条领用记录
+	 * @param nect
+	 * @param good
+	 * @return
+	 */
+
+	public boolean insertNect(Nect nect, Goods good);
+
+	/**
+	 * 根据Id查找库存领用表对象
+	 * @param nectId
+	 * @return
+	 */
+	public Nect findNectById(Integer nectId);
+	/**
+	 * 查找出借历史
+	 * @param lend
+	 * @param startDate
+	 * @param endDate
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findLendHistory(Lend lend, String startDate,
+			String endDate, int parseInt, int pageSize);
+	/**
+	 * 查找领用历史
+	 * @param nect
+	 * @param startDate
+	 * @param endDate
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findNectHistory(Nect nect, String startDate,
+			String endDate, int parseInt, int pageSize,String status);
+	
+	
+	/**
+	 * 删除某条领用记录
+	 * @param nect
+	 * @return
+	 */
+	public boolean delOneNect(Nect nect);
+	
+	/**
+	 * 通过ID查找归还记录
+	 * @param repayId
+	 * @return
+	 */
+	public Repay findRepayById(Integer repayId);
+	
+	/**
+	 * 插入申请报废记录
+	 * @param scrap
+	 * @return
+	 */
+	public String insertOneScrap(ApplyScrap scrap);
+	
+	/**
+	 * 根据Id查找库申请报废对象
+	 * @param scrapId
+	 * @return
+	 */
+	public ApplyScrap findScrapById(Integer scrapId);
+	
+	/**
+	 * 删除某条借用历史记录
+	 * @param lend
+	 * @return
+	 */
+	public boolean delOneLend(Lend lend);
+	/**
+	 * 查找归还历史记录
+	 * @param repayHistory
+	 * @param startDate
+	 * @param endDate
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findRepayHistory(Repay repayHistory, String startDate,
+			String endDate, int parseInt, int pageSize);
+	
+	/**
+	 * 删除某条归还历史记录
+	 * @param lend
+	 * @return
+	 */
+	public boolean delOneRepay(Repay repay);
+	
+	/**
+	 * 查找报废历史记录
+	 * @param scrapHistory
+	 * @param startDate
+	 * @param endDate
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findScrapHistory(ApplyScrap scrapHistory, String startDate,
+			String endDate, int parseInt, int pageSize);
+	
+	/**
+	 * 删除某条报废历史记录
+	 */
+	public boolean delOneScrap(ApplyScrap scrap);
+	
+	/**
+	 * 获取库存可以旧换新数量
+	 * @param nect
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public List findGoodsNectOrder(Nect nect, int parseInt, int pageSize,Float canChangeNum);
+	
+	/**
+	 * 根据库存Id查找某条库存记录
+	 */
+	public Goods findGoodsById(Integer id);
+	
+	/**
+	 *插入一条以旧换新记录
+	 * @param nect
+	 * @param goods
+	 * @param num
+	 * @return
+	 */
+	public Object[] insertOneChangeNew(Nect nect, Goods goods,Users user, Float num,Nect newNect);
+	
+	/**
+	 * 导出领用历史记录execl
+	 * @param selectEdNect
+	 */
+	public void exportNectHis(Nect nectHistory,String startDate,String endDate);
+
+	/**
+	 * 导出外借历史记录execl
+	 * @param lendHistory 
+	 * @param endDate 
+	 * @param startDate 
+	 * @param selectEdNect
+	 */
+	
+	public void exportLendHis(Lend lendHistory, String startDate, String endDate );
+	/**
+	 * 导出归还历史记录execl
+	 * @param selectEdNect
+	 */
+	public void exportRepayHis(Repay repayHistory, String startDate, String endDate );
+	/**
+	 * 导出报废历史记录execl
+	 * @param selectEdNect
+	 */
+	public void exportScrapHis(ApplyScrap scrapHistory, String startDate, String endDate);
+	
+	
+	
+}

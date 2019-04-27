@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.noncore">
+	<class name="NonCorePayable" table="ta_fin_caiwu_NonCorePayable">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="subjectItem"/>		
+		<property name="zhaiyao" length="800"/>
+		<property name="hetongbianhao" />
+		<property name="fujian" />
+		<property name="shoukuandanwei" />
+		<property name="zhangqiStartDate" />
+		<property name="zhangqiEndDate" />
+		<property name="fukuaiDate" />
+		<property name="lateDate" />
+		<property name="yingfukuanJIne" />
+		<property name="realfukuanJIne" />
+		<property name="more" />
+		<property name="fuzeren" />
+		<property name="saveTime" />
+		<property name="saveUser" />
+		<property name="saveDept" />
+		<property name="saveUserId" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="scpId" />
+		
+	</class>
+</hibernate-mapping>

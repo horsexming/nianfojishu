@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.perform.PerformsingleDetail" table="ta_PerformsingleDetail">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="zongMoney"></property>
+		<property name="detailAppName" />
+		<property name="detailChildClass" />
+		<property name="detailFormat" />
+		<property name="detailCount" />
+		<property name="detailUnit" />
+		<property name="detailBudgetMoney" />
+		<property name="detailItemId" />
+		
+		<property name="goods_name" />
+		<property name="goods_format" />
+		<property name="goods_amount" />
+		<property name="money" />
+		<property name="goods_unit" />
+		<property name="purchase_delivery" />
+		<property name="quality_requirements" />
+		<property name="remark" />
+	
+<!--		<property name="type" />-->
+<!--		<property name="name" />-->
+<!--		<property name="barcode" />-->
+<!--		<property name="macrepair_unit" />-->
+<!--		<property name="macrepair_money" />-->
+<!--		<property name="macrepair_amount" />-->
+<!--		<property name="macrepair_classGroup" />-->
+<!--		<property name="macrepair_alermMan" />-->
+		
+		<property name="macrepair_name" />
+		<property name="macrepair_format" />
+		<property name="macrepair_amount" />
+		<property name="macrepair_money" />
+		<property name="macrepair_unit" />
+		<property name="macrepair_remark" />
+		
+		<property name="qtName" />
+		<property name="qtUnit" />
+		<property name="qtNum" />
+		<property name="qtMoney" />
+		
+		<!-- 零部件及外委外购 -->
+		<property name="gx_name" />
+		<property name="gx_number" />
+		<property name="gx_price" />
+		<property name="gx_producetype" />
+		<property name="gx_goodstype" />
+		<property name="gx_status" />
+		<property name="gx_projectnum" />
+		<property name="gx_quotedNumber" />
+		
+		<!-- 原材料采购 -->
+		<property name="materials_name" />
+		<property name="materials_format" />
+		<property name="materials_unit" />
+		<property name="materials_price" />
+		
+		<!-- KVP采购 -->
+		<property name="executeNumber" />
+		<property name="improve_username" />
+		<property name="res_username" />
+		<property name="costsavings" />
+		
+	 
+		<!-- 设备 -->
+	<property name="machine_no"></property>
+	<property name="machine_name"></property>
+	<property name="machine_type"></property>
+	<property name="machine_classGroup"></property>
+	<property name="machine_buyamount"></property>
+		
+		<!-- 关联ID -->
+		<property name="quotedPrice_id"/>
+		<property name="bargain_id" />
+		<property name="zhaobiao_id" />
+		<property name="wgww_id" />
+		<property name="kvp_id" />
+		<property name="machine_id"></property>
+		
+		<!-- 与合执行单 多对一  -->
+		<many-to-one name="performsingle" class="com.task.entity.perform.Performsingle"
+			column="perfor_id"></many-to-one>
+		</class>
+		</hibernate-mapping>

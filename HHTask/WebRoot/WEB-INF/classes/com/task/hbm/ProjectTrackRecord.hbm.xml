@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectTrackRecord" table="ta_ProjectTrack_Record">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="startTime" length="30" />
+		<property name="endTime" length="30" />
+		<property name="addTime" length="30" />
+		<property name="thing" length="250"/>
+		<property name="description" length="250"/>
+		<property name="recordType" length="20"/>
+		<property name="username" length="20"/>
+		
+		<property name="budgetMoney" type="double"/>
+		<property name="approveMoney" type="double"/>
+		<property name="realMoney" type="double"/>
+
+		<property name="checked" type="true_false"/>
+		<property name="agree" type="true_false"/>
+		<property name="about" length="250"/>
+		
+		<many-to-one name="root" column="pid" />
+	</class>
+
+</hibernate-mapping>

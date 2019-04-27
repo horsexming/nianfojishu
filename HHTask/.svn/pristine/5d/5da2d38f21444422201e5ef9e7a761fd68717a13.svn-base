@@ -1,0 +1,655 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-txb" extends="struts-stack">
+		<!--
+			****************************************唐晓斌Action操作********************************************************************
+			**
+		-->
+		<!-- 公司信息管理 -->
+		<action name="companyInfoAction_*" class="companyInfoAction"
+			method="{1}">
+			<result name="showcompanyinfo">/System/CompanyInfo/showcompanyinfo.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="updatecompanyinfo">/System/CompanyInfo/updatecompanyinfo.jsp
+			</result>
+			<result name="showcompanyinfoimg">/System/CompanyInfo/showcompanyinfoimg.jsp
+			</result>
+			<result name="uploadlic">/util/uploadlic.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="licmsg">/util/licmsg.jsp</result>
+		</action>
+		<!-- LicenseMsg管理 -->
+		<action name="licenseMsgAction_*" class="licenseMsgAction"
+			method="{1}">
+			<result name="showlicensemsg">/System/LicenseMsg/showlicensemsg.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="updatelicensemsg">/System/LicenseMsg/updatelicensemsg.jsp</result>
+		</action>
+
+		<!--项目试制评审模块-->
+		<!--技能系数管理         -->
+		<action name="skillScoreAction_*" class="skillScoreAction"
+			method="{1}">
+			<result name="skillscore_show">/System/shizhi/skillscore_show.jsp</result>
+			<result name="skillscore_add">/System/shizhi/skillscore_add.jsp</result>
+			<result name="skillscore_update">/System/shizhi/skillscore_update.jsp</result>
+		</action>
+		<!--技能分类管理         -->
+		<action name="skillTypeAction_*" class="skillTypeAction"
+			method="{1}">
+			<result name="skilltype_show">/System/shizhi/skilltype_show.jsp</result>
+			<result name="skilltype_add">/System/shizhi/skilltype_add.jsp</result>
+			<result name="skilltype_update">/System/shizhi/skilltype_update.jsp</result>
+			<result name="skilltype_scoreview">/System/shizhi/skilltype_scoreview.jsp</result>
+		</action>
+		<!--加工难点系数管理         -->
+		<action name="proProcessDifficultyAction_*" class="proProcessDifficultyAction"
+			method="{1}">
+			<result name="ppd_show">/System/shizhi/ppd_show.jsp</result>
+			<result name="ppd_add">/System/shizhi/ppd_add.jsp</result>
+			<result name="ppd_update">/System/shizhi/ppd_update.jsp</result>
+			<result name="ppd_typeview">/System/shizhi/ppd_typeview.jsp</result>
+			<result name="ppd_processview">/System/shizhi/ppd_processview.jsp</result>
+		</action>
+		<!--工艺复杂系数系数管理         -->
+		<action name="craftComplexityAction_*" class="craftComplexityAction"
+			method="{1}">
+			<result name="cc_show">/System/shizhi/cc_show.jsp</result>
+			<result name="cc_add">/System/shizhi/cc_add.jsp</result>
+			<result name="cc_update">/System/shizhi/cc_update.jsp</result>
+			<result name="cc_typeview">/System/shizhi/cc_typeview.jsp</result>
+			<result name="cc_processview">/System/shizhi/cc_processview.jsp</result>
+		</action>
+		<!--试制工序模板管理         -->
+		<action name="processSopTempAction_*" class="processSopTempAction"
+			method="{1}">
+			<result name="processSopTemp_show">/System/shizhi/processSopTemp_show.jsp</result>
+			<result name="processSopTemp_update">/System/shizhi/processSopTemp_update.jsp</result>
+		</action>
+
+		<!--工艺负荷系数管理         -->
+		<action name="craftLoadAction_*" class="craftLoadAction"
+			method="{1}">
+			<result name="cload_show">/System/shizhi/cload_show.jsp</result>
+			<result name="cload_update">/System/shizhi/cload_update.jsp</result>
+		</action>
+
+		<!--客户重要系数管理         -->
+		<action name="cusimportanceAction_*" class="cusimportanceAction"
+			method="{1}">
+			<result name="cimp_show">/System/shizhi/cimp_show.jsp</result>
+			<result name="cimp_update">/System/shizhi/cimp_update.jsp</result>
+		</action>
+		<!--奖金负荷系数管理         -->
+		<action name="bonusLoadAction_*" class="bonusLoadAction"
+			method="{1}">
+			<result name="bonusLoad_show">/System/shizhi/bonusLoad_show.jsp</result>
+			<result name="bonus_ptmsview">/System/shizhi/bonus_ptmsview.jsp</result>
+		</action>
+		<!--产能负荷系数管理         -->
+		<action name="productivityLoadAction_*" class="productivityLoadAction"
+			method="{1}">
+			<result name="pLoad_show">/System/shizhi/pLoad_show.jsp</result>
+			<result name="pLoad_add">/System/shizhi/pLoad_add.jsp</result>
+			<result name="pLoad_update">/System/shizhi/pLoad_update.jsp</result>
+		</action>
+		<!--项目需求单管理         -->
+		<action name="projectOrderAction_*" class="projectOrderAction"
+			method="{1}">
+			<result name="porder_show">/System/shizhi/porder_show.jsp</result>
+			<result name="porder_add">/System/shizhi/porder_add.jsp</result>
+			<result name="porder_update">/System/shizhi/porder_update.jsp</result>
+			<result name="porder_prodetail">/System/shizhi/porder_prodetail.jsp</result>
+			<result name="porder_product">/System/shizhi/porder_product.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--项目需求单零件管理         -->
+		<action name="projectOrderPartAction_*" class="projectOrderPartAction"
+			method="{1}">
+			<result name="popart_show">/System/shizhi/popart_show.jsp</result>
+			<result name="popart_add">/System/shizhi/popart_add.jsp</result>
+			<result name="popart_update">/System/shizhi/popart_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--试制分组管理         -->
+		<action name="groupShiZhiAction_*" class="groupShiZhiAction"
+			method="{1}">
+			<result name="group_show">/System/shizhi/group_show.jsp</result>
+			<result name="group_add">/System/shizhi/group_add.jsp</result>
+			<result name="group_update">/System/shizhi/group_update.jsp</result>
+		</action>
+		<!--项目试制评审管理         -->
+		<action name="proTryMakeScoreAction_*" class="proTryMakeScoreAction"
+			method="{1}">
+			<result name="ptms_show">/System/shizhi/ptms_show.jsp</result>
+			<result name="ptms_updatePro">/System/shizhi/ptms_updatePro.jsp</result>
+			<result name="ptms_add">/System/shizhi/ptms_add.jsp</result>
+			<result name="ptms_allbonus">/System/shizhi/ptms_allbonus.jsp</result>
+			<result name="ptms_approvalOrPrint">/System/shizhi/ptms_approvalOrPrint.jsp</result>
+			<result name="ptms_Product">/System/shizhi/ptms_Product.jsp</result>
+			<result name="ptms_userBonus">/System/shizhi/ptms_userBonus.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--项目试制评审零件管理         -->
+		<action name="tryMakeAction_*" class="tryMakeAction" method="{1}">
+			<result name="trymake_show">/System/shizhi/trymake_show.jsp</result>
+			<result name="trymake_update">/System/shizhi/trymake_update.jsp</result>
+			<result name="trymake_add">/System/shizhi/trymake_add.jsp</result>
+		</action>
+		<!--月奖金额管理         -->
+		<action name="bonusShiZhiAction_*" class="bonusShiZhiAction"
+			method="{1}">
+			<result name="bonus_show">/System/shizhi/bonus_show.jsp</result>
+			<result name="bonus_update">/System/shizhi/bonus_update.jsp</result>
+			<result name="bonus_add">/System/shizhi/bonus_add.jsp</result>
+		</action>
+		<!--rtx消息管理         -->
+		<action name="rtxMsgAction_*" class="rtxMsgAction" method="{1}">
+			<result name="sendrtxmsg">/System/xinxi/duanxin/sendrtxmsg.jsp</result>
+			<result name="rtxMsg_show">/System/xinxi/duanxin/showrtxmsg.jsp</result>
+			<result name="RtxConnect_add">/System/RtxConnect/RtxConnect_add.jsp</result>
+			<result name="RtxConnect_update">/System/RtxConnect/RtxConnect_update.jsp</result>
+			<result name="RtxConnect_showList">/System/RtxConnect/RtxConnect_showList.jsp
+			</result>
+			<result name="showRtxConnect" type="redirect">rtxMsgAction_showRtxConnect.action
+			</result>
+		</action>
+		<!--Apk管理         -->
+		<action name="apkAction_*" class="apkAction" method="{1}">
+		</action>
+		<!--研发项目材料清单管理-->
+		<action name="projectMaterialOrderAction_*" class="projectMaterialOrderAction"
+			method="{1}">
+			<result name="promaterialorder_show">/System/pro/projectmaterial/promaterialorder_show.jsp
+			</result>
+			<result name="promaterialorder_showbm">/System/pro/projectmaterial/promaterialorder_showbm.jsp
+			</result>
+			<result name="promaterialorder_ck_show">/System/pro/projectmaterial/promaterialorder_ck_show.jsp
+			</result>
+			<result name="promaterialorder_add">/System/pro/projectmaterial/promaterialorder_add.jsp
+			</result>
+			<result name="promaterialorder_update">/System/pro/projectmaterial/promaterialorder_update.jsp
+			</result>
+			<result name="promaterialorder_pmdetail">/System/pro/projectmaterial/promaterialorder_pmdetail.jsp
+			</result>
+			<result name="promaterialorder_receive">/System/pro/projectmaterial/promaterialorder_receive.jsp
+			</result>
+		</action>
+		<!--  流水卡片模板Action -->
+		<action name="procardTemplateJYAction_*" class="procardTemplateJYAction"
+			method="{1}">
+			<result name="procardTemplateJY_show">/System/SOP/jingyi/procardTemplateJY_show.jsp
+			</result>
+			<result name="procardTemplateJY_update">/System/SOP/jingyi/procardTemplateJY_update.jsp
+			</result>
+			<result name="procardTemplateJY_result">/System/SOP/jingyi/procardTemplateJY_result.jsp
+			</result>
+			<result name="jy_updateji">/System/SOP/jingyi/jy_updateji.jsp
+			</result>
+			<result name="jy_updategong">/System/SOP/jingyi/jy_updategong.jsp
+			</result>
+			<result name="jy_updateliang">/System/SOP/jingyi/jy_updateliang.jsp
+			</result>
+			<result name="jy_updatejian">/System/SOP/jingyi/jy_updatejian.jsp
+			</result>
+			<result name="jy_updatewen">/System/SOP/jingyi/jy_updatewen.jsp
+			</result>
+			<result name="jy_updateren">/System/SOP/jingyi/jy_updateren.jsp
+			</result>
+			<result name="jy_gygfview">/System/SOP/jingyi/jy_gygfview.jsp
+			</result>
+		</action>
+		<!--供应商领工序         -->
+		<action name="gyslgxAction_*" class="gyslgxAction" method="{1}">
+			<result name="gys_findProcardList">/System/SOP/gys/gys_findProcardList.jsp</result>
+			<result name="gys_viewProcard">/System/SOP/gys/gys_viewProcard.jsp</result>
+			<result name="gysProcess_Receive2">/System/SOP/gys/gysProcess_Receive2.jsp</result>
+			<result name="gysProcess_zj">/System/SOP/gys/gysProcess_zj.jsp</result>
+		</action>
+		<!--印章使用         -->
+		<action name="sealLogAction_*" class="sealLogAction" method="{1}">
+			<result name="updateFujianseallogdetail">/System/seal/updateFujianseallogdetail.jsp
+			</result>
+			<result name="seallogdetail">/System/seal/seallogdetail.jsp</result>
+			<result name="seallog_show">/System/seal/seallog_show.jsp</result>
+			<result name="seallog_add">/System/seal/seallog_add.jsp</result>
+			<result name="seallog_add_1">/System/seal/seallog_add_1.jsp</result>
+			<result name="sealLog_update">/System/seal/sealLog_update.jsp</result>
+			<result name="sealLog_makeSure" type="redirect">sealLogAction_showList.action
+			</result>
+			<!-- 印章管理（增删改查） -->
+			<result name="seallogtype_show">/System/seal/seallogtype_show.jsp</result>
+			<result name="sealLogtype_add">/System/seal/sealLogtype_add.jsp</result>
+
+		</action>
+		<!--LED  -->
+		<action name="lEDAction_*" class="lEDAction" method="{1}">
+			<result name="led_show">/System/LED/led_show.jsp</result>
+			<result name="led_add">/System/LED/led_add.jsp</result>
+			<result name="led_update">/System/LED/led_update.jsp</result>
+			<result name="led_update2">/System/LED/led_update2.jsp</result>
+			<result name="led_ledlogview">/System/LED/led_ledlogview.jsp</result>
+		</action>
+		<!--原材料外购件  -->
+		<action name="yuanclAndWaigjAction_*" class="yuanclAndWaigjAction"
+			method="{1}">
+			<result name="findByYw" type="redirect">yuanclAndWaigjAction_findAllZhOffer.action?yuanclAndWaigj.id=${yuanclAndWaigj.id}
+			</result>
+			<result name="yuanclAndWaigj_show">/System/yclandwgj/yuanclAndWaigj_show.jsp
+			</result>
+			<result name="yuanclAndWaigjByStatus_show">/System/yclandwgj/yuanclAndWaigjByStatus_show.jsp
+			</result>
+			<result name="deadline_add">/System/zhuseroffer/deadline_add.jsp
+			</result>
+			<result name="findByYw_List">/System/zhuseroffer/findByYw_List.jsp
+			</result>
+			<result name="yuanclAndWaigj_update">/System/yclandwgj/yuanclAndWaigj_update.jsp
+			</result>
+			<result name="yuanclAndWaigj_xgWgType">/System/yclandwgj/yuanclAndWaigj_xgWgType.jsp
+			</result>
+			<result name="yuanclAndWaigj_add">/System/yclandwgj/yuanclAndWaigj_add.jsp</result>
+			<result name="waigoujianLt_add">/System/yclandwgj/waigoujianLt_add.jsp</result>
+			<result name="waigoujianLt_show">/System/yclandwgj/waigoujianLt_show.jsp</result>
+			<result name="waigoujianLt_update">/System/yclandwgj/waigoujianLt_update.jsp
+			</result>
+			<result name="findltList" type="redirect">yuanclAndWaigjAction_findltList.action
+			</result>
+			<result name="zhuserByType_all">/System/zhuseroffer/zhuserByType_all.jsp</result>
+			<result name="forwaigoujian_allZoffer">/System/zhuseroffer/forwaigoujian_allZoffer.jsp
+			</result>
+			<result name="showList" type="redirect">yuanclAndWaigjAction_showList.action?tag=${tag}
+			</result>
+			<result name="yuanclAndWaigj_showWgType">/System/yclandwgj/yuanclAndWaigj_showWgType.jsp
+			</result>
+			<result name="yuanclandwaigj_MRPCount">/System/yclandwgj/yuanclandwaigj_MRPCount.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--气密记录  -->
+		<action name="airtightLogAction_*" class="AirtightLogAction"
+			method="{1}">
+			<result name="airtightlog_show">/System/airtightlog/airtightlog_show.jsp</result>
+			<result name="airtightlog_show1">/System/airtightlog/airtightlog_show1.jsp
+			</result>
+			<result name="airProduct_show">/System/airtightlog/airProduct_show.jsp</result>
+			<result name="airProduct_add">/System/airtightlog/airProduct_add.jsp</result>
+			<result name="airProduct_update">/System/airtightlog/airProduct_update.jsp
+			</result>
+			<result name="makebarcode">/System/xinxi/cardManager/makebarcode.jsp
+			</result>
+			<result name="airMachine_add">/System/airtightlog/airMachine_add.jsp</result>
+			<result name="airMachine_show">/System/airtightlog/airMachine_show.jsp</result>
+			<result name="airMachine_update">/System/airtightlog/airMachine_update.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--关键备件  -->
+		<action name="machineSparePartAction_*" class="machineSparePartAction"
+			method="{1}">
+			<result name="machineSparePart_show">/System/Equipment/machineSparePart_show.jsp
+			</result>
+			<result name="machineSparePart_add">/System/Equipment/machineSparePart_add.jsp
+			</result>
+			<result name="machineSparePart_update">/System/Equipment/machineSparePart_update.jsp
+			</result>
+			<result name="machineSparePart_oa">/System/Equipment/machineSparePart_oa.jsp
+			</result>
+		</action>
+		<!--客户意见  -->
+		<action name="customerOpinionAction_*" class="customerOpinionAction"
+			method="{1}">
+			<result name="customerOpinion_show">/System/opinion/customerOpinion_show.jsp</result>
+			<result name="customerOpinion_add">/System/opinion/customerOpinion_add.jsp</result>
+			<result name="customerOpinion_client_add">/System/opinion/customerOpinion_client_add.jsp
+			</result>
+			<result name="customerOpinion_update">/System/opinion/customerOpinion_update.jsp
+			</result>
+			<result name="customerOpinion_analysis">/System/opinion/customerOpinion_analysis.jsp
+			</result>
+			<result name="customerOpinion_improve">/System/opinion/customerOpinion_improve.jsp
+			</result>
+			<result name="customerOpinion_approval">/System/opinion/customerOpinion_approval.jsp
+			</result>
+		</action>
+		<!--外购件入库  -->
+		<action name="purchasedPartsInputAction_*" class="purchasedPartsInputAction"
+			method="{1}">
+			<result name="addSomeOk" type="chain">
+				<param name="actionName">ProcardAction</param>
+				<param name="method">findWgWwPlanList2</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="purchasedPartsInput_show">/System/SOP/produce/purchasedPartsInput_show.jsp
+			</result>
+		</action>
+		<!-- 开票未通过 -->
+		<action name="productUnPassKpAction_*" class="productUnPassKpAction"
+			method="{1}">
+			<result name="unpasskpshow">/System/unpasskp/unpasskpshow.jsp</result>
+			<result name="unpasskpupdate">/System/unpasskp/unpasskpupdate.jsp</result>
+		</action>
+		<!--不合格品  -->
+		<action name="productUnqualifiedAction_*" class="productUnqualifiedAction"
+			method="{1}">
+			<result name="unqualifiedshow">/System/unpasskp/unqualifiedshow.jsp</result>
+			<result name="unqualifiedtoruku">/System/unpasskp/unqualifiedtoruku.jsp</result>
+		</action>
+		<!--工装使用记录  -->
+		<action name="gzstoreUseLogAction_*" class="gzstoreUseLogAction"
+			method="{1}">
+			<result name="gzstoreUseLog_show">/System/gzbj/gzstoreUseLog_show.jsp</result>
+		</action>
+		<!--BoM模板工艺控制  -->
+		<action name="procardTemplateGyAction_*" class="procardTemplateGyAction"
+			method="{1}">
+			<result name="procardTGy_showList">/System/SOP/produce/procardTGy_showList.jsp
+			</result>
+			<result name="procardTbz_showList">/System/SOP/produce/procardTbz_showList.jsp
+			</result>
+			<result name="procardTbz_showSonList">/System/SOP/produce/procardTbz_showSonList.jsp
+			</result>
+			<result name="loginError">/login.jsp</result>
+			<result name="procardTGy_viewCard">/System/SOP/produce/procardTGy_viewCard.jsp
+			</result>
+			<result name="ProcessGy_Receive2">/System/SOP/produce/ProcessGy_Receive2.jsp
+			</result>
+			<result name="ProcardTemplateTzs">/System/SOP/produce/ProcardTemplateTzs.jsp
+			</result>
+			<result name="Template_wgjAndycl">/System/SOP/produce/Template_wgjAndycl.jsp
+			</result>
+			<result name="Template_checkSelf">/System/SOP/produce/Template_checkSelf.jsp
+			</result>
+			<result name="procardTGy_showSingleList">/System/SOP/produce/procardTGy_showSingleList.jsp
+			</result>
+			<result name="procardTGy_showProcessForTz">/System/SOP/produce/procardTGy_showProcessForTz.jsp
+			</result>
+			<result name="procardTGy_ProcessSCquexianTz">/System/SOP/produce/procardTGy_ProcessSCquexianTz.jsp
+			</result>
+			<result name="Process_showGygf">/System/SOP/produce/Process_showGygf.jsp</result>
+			<result name="Template_daoRuBom">/System/SOP/produce/Template_daoRuBom.jsp
+			</result>
+			<result name="Template_daoRuHwBom">/System/SOP/produce/Template_daoRuHwBom.jsp
+			</result>
+			<result name="Template_daoRuHwSZBom">/System/SOP/produce/Template_daoRuHwSZBom.jsp
+			</result>
+			<result name="Template_showBanBenList">/System/SOP/produce/Template_showBanBenList.jsp
+			</result>
+			<result name="Template_SonToUPList">/System/SOP/produce/Template_SonToUPList.jsp
+			</result>
+			<result name="Template_toUpdatebanben">/System/SOP/produce/Template_toUpdatebanben.jsp
+			</result>
+			<result name="Process_showQXtz">/System/SOP/produce/Process_showQXtz.jsp</result>
+			<result name="ptbbApply_show">/System/SOP/produce/ptbbApply_show.jsp</result>
+			<result name="ptbbApply_detail">/System/SOP/produce/ptbbApply_detail.jsp</result>
+			<result name="ptbbRelation_show">/System/SOP/produce/ptbbRelation_show.jsp
+			</result>
+			<result name="procardTem_upLv">/System/SOP/produce/procardTem_upLv.jsp
+			</result>
+			<result name="procardTem_upptlv">/System/SOP/produce/procardTem_upptlv.jsp
+			</result>
+			<result name="ptbbRelationShow">/System/SOP/produce/ptbbRelationShow.jsp
+			</result>
+			<result name="Template_findProcard2">/System/SOP/produce/Template_findProcard2.jsp
+			</result>
+			<result name="Template_zpbz">/System/SOP/produce/Template_zpbz.jsp
+			</result>
+			<result name="Template_zpBOmTree">/System/SOP/produce/Template_zpBOmTree.jsp
+			</result>
+			<result name="Template_moveStatus">/System/SOP/produce/Template_moveStatus.jsp
+			</result>
+			<result name="Template_sbApply">/System/SOP/produce/Template_sbApply.jsp
+			</result>
+			<result name="Template_historyList">/System/SOP/produce/Template_historyList.jsp
+			</result>
+			<result name="Template_showBOMasExl">/System/SOP/produce/Template_showBOMasExl.jsp
+			</result>
+			<result name="Template_showBOMasExlAndProcedure">/System/SOP/produce/Template_showBOMasExlAndProcedure.jsp
+			</result>
+			<result name="Template_findTzfg">/System/SOP/produce/Template_findTzfg.jsp
+			</result>
+			<result name="sbApply_toAddSb">/System/SOP/produce/sbApply_toAddSb.jsp
+			</result>
+			<result name="sbApply_show">/System/SOP/produce/sbApply_show.jsp
+			</result>
+			<result name="sbApply_show2">/System/SOP/produce/sbApply_show2.jsp
+			</result>
+			<result name="sbApply_show_hw">/System/SOP/produce/sbApply_show_hw.jsp
+			</result>
+			<result name="sbApply_showjd">/System/SOP/produce/sbApply_showjd.jsp
+			</result>
+			<result name="sbApply_showjd2">/System/SOP/produce/sbApply_showjd2.jsp
+			</result>
+			<result name="sbApply_showDept">/System/SOP/produce/sbApply_showDept.jsp
+			</result>
+			<result name="Template_findBomforsb">/System/SOP/produce/Template_findBomforsb.jsp
+			</result>
+			<result name="procardsbwg_show">/System/SOP/produce/procardsbwg_show.jsp
+			</result>
+			<result name="procardsbwg_addcg">/System/SOP/produce/procardsbwg_addcg.jsp
+			</result>
+			<result name="procardsbwg_deletecg">/System/SOP/produce/procardsbwg_deletecg.jsp
+			</result>
+			<result name="procardReProduct_show">/System/SOP/produce/procardReProduct_show.jsp
+			</result>
+			<result name="procardReProduct_update">/System/SOP/produce/procardReProduct_update.jsp
+			</result>
+			<result name="procardSbWw_showList">/System/SOP/produce/procardSbWw_show.jsp
+			</result>
+			<result name="procardSbWw_show">/System/SOP/produce/procardSbWw_show.jsp
+			</result>
+			<result name="procardSbWw_toJudeg">/System/SOP/produce/procardSbWw_toJudeg.jsp
+			</result>
+			<result name="procardSbWw_updatesdwp">/System/SOP/produce/procardSbWw_updatesdwp.jsp
+			</result>
+			<result name="procardSbWw_updatebomwp">/System/SOP/produce/procardSbWw_updatebomwp.jsp
+			</result>
+			<result name="procardSbWw_updatesdd">/System/SOP/produce/procardSbWw_updatesdd.jsp
+			</result>
+			<result name="procardSbWw_updatebomwwp">/System/SOP/produce/procardSbWw_updatebomwwp.jsp
+			</result>
+			<result name="procardSbWaster_show">/System/SOP/produce/procardSbWaster_show.jsp
+			</result>
+			<result name="procardSbWaster_judeg">/System/SOP/produce/procardSbWaster_judeg.jsp
+			</result>
+			<result name="procardSbWasterxc_drkshow">/System/SOP/produce/procardSbWasterxc_drkshow.jsp
+			</result>
+			<result name="procardSbWasterxc_tobf">/System/SOP/produce/procardSbWasterxc_tobf.jsp
+			</result>
+			<result name="procardSbWasterxc_toback">/System/SOP/produce/procardSbWasterxc_toback.jsp
+			</result>
+			<result name="ptchangeLog_show">/System/SOP/produce/ptchangeLog_show.jsp
+			</result>
+			<result name="procardTem_daoruson">/System/SOP/produce/procardTem_daoruson.jsp
+			</result>
+			<result name="Template_compare">/System/SOP/produce/Template_compare.jsp
+			</result>
+			<result name="tcl_add">/System/SOP/produce/tcl_add.jsp
+			</result>
+			<result name="tcl_show">/System/SOP/produce/tcl_show.jsp
+			</result>
+			<result name="tcl_update">/System/SOP/produce/tcl_update.jsp
+			</result>
+			<result name="pcn_add">/System/SOP/produce/pcn_add.jsp
+			</result>
+			<result name="pcn_show">/System/SOP/produce/pcn_show.jsp
+			</result>
+			<result name="pcn_show2">/System/SOP/produce/pcn_show2.jsp
+			</result>
+			<result name="pcn_showfile">/System/SOP/produce/pcn_showfile.jsp
+			</result>
+			<result name="pcn_update">/System/SOP/produce/pcn_update.jsp
+			</result>
+			<result name="ecar_add">/System/SOP/produce/ecar_add.jsp
+			</result>
+			<result name="ecar_show">/System/SOP/produce/ecar_show.jsp
+			</result>
+			<result name="ecar_show2">/System/SOP/produce/ecar_show2.jsp
+			</result>
+			<result name="ecar_showfile">/System/SOP/produce/ecar_showfile.jsp
+			</result>
+			<result name="ecar_update">/System/SOP/produce/ecar_update.jsp
+			</result>
+			<result name="download" type="stream">
+				<!-- 指定下载文件的内容类型，text/plain是默认类型 -->
+				<param name="contentType">text/plain</param>
+				<!--
+					inputName默认值是inputStream，如果action中用于读取下载文件内容的属性名是inputStream，那么可以省略这个参数
+				-->
+				<param name="inputName">inputStream</param>
+
+				<!--动态获取文件名，从Action中的取得filename-->
+				<param name="contentDisposition">
+					bomTree;fileName="${gygfFileName}"
+				</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="pawp_List" >/System/SOP/produce/pawp_List.jsp</result>
+		</action>
+		<!--BoM模板设变管理  -->
+		<action name="procardTemplateSbAction_*" class="procardTemplateSbAction"
+			method="{1}">
+			<result name="procardTemplatesb_showBom">/System/SOP/produce/procardTemplatesb_showBom.jsp
+			</result>
+			<result name="ProcardTemplatesbTzs">/System/SOP/produce/ProcardTemplatesbTzs.jsp
+			</result>
+			<result name="ProcardTemsbDetails">/System/SOP/produce/ProcardTemsbDetails.jsp
+			</result>
+			<result name="ProcessTemplatesbTzs">/System/SOP/produce/ProcessTemplatesbTzs.jsp
+			</result>
+			<result name="Templatesb_moveStatus">/System/SOP/produce/Templatesb_moveStatus.jsp
+			</result>
+			<result name="ProcessTemplatesbadd">/System/SOP/produce/ProcessTemplatesbadd.jsp
+			</result>
+			<result name="ProcessTemplatesbDetails">/System/SOP/produce/ProcessTemplatesbDetails.jsp
+			</result>
+			<result name="updateProcessTsb" type="redirect">procardTemplateSbAction_showProcess.action?id=${processTemplate.id}&amp;successMessage=true
+			</result>
+			<result name="sbApply_showDept2">/System/SOP/produce/sbApply_showDept2.jsp
+			</result>
+			<result name="procardTemsb_daoruson">/System/SOP/produce/procardTemsb_daoruson.jsp
+			</result>
+			<result name="sbApply_transferWork">/System/SOP/produce/sbApply_transferWork.jsp
+			</result>
+			<result name="download" type="stream">
+				<!-- 指定下载文件的内容类型，text/plain是默认类型 -->
+				<param name="contentType">text/plain</param>
+				<!--
+					inputName默认值是inputStream，如果action中用于读取下载文件内容的属性名是inputStream，那么可以省略这个参数
+				-->
+				<param name="inputName">inputStream</param>
+
+				<!--动态获取文件名，从Action中的取得filename-->
+				<param name="contentDisposition">
+					bomTree;fileName="${gygfFileName}"
+				</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--微信  -->
+		<action name="weiXinAction_*" class="weiXinAction" method="{1}">
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--微信不登录  -->
+		<action name="weiXinUnloginAction_*" class="weiXinUnloginAction"
+			method="{1}">
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--外购件入库  -->
+		<action name="procardBlAction_*" class="procardBlAction"
+			method="{1}">
+			<result name="procardTlAll">/System/SOP/procardTlAll.jsp
+			</result>
+			<result name="procardWaiGouTuiLiao_show">/System/SOP/procardWaiGouTuiLiao_show.jsp
+			</result>
+			<result name="procardBl_showRoot">/System/SOP/procardBl_showRoot.jsp
+			</result>
+			<result name="procardBl_showRoot2">/System/SOP/procardBl_showRoot2.jsp
+			</result>
+			<result name="procardBl_showDetail">/System/SOP/procardBl_showDetail.jsp
+			</result>
+			<result name="procardBl_showDetail2">/System/SOP/procardBl_showDetail2.jsp
+			</result>
+			<result name="procardBl_showRoot3">/System/SOP/procardBl_showRoot3.jsp
+			</result>
+			<result name="procardTl_showDetail3">/System/SOP/procardTl_showDetail3.jsp
+			</result>
+			<result name="procardBl_showoutDetail">/System/SOP/procardBl_showoutDetail.jsp
+			</result>
+			<result name="procardBl_showoutDetail2">/System/SOP/procardBl_showoutDetail2.jsp
+			</result>
+			<result name="procardBl_showoutDetail_showLackDetail">/System/SOP/procardBl_showoutDetail_showLackDetail.jsp
+			</result>
+			<result name="procardBl_showpaichan">/System/SOP/procardBl_showpaichan.jsp</result>
+			<result name="procardBl_showLingliao">/System/SOP/procardBl_showlingliao.jsp</result>
+			<result name="procard_AllWxTuiLiao">/System/SOP/produce/procard_AllWxTuiLiao.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--微信  -->
+		<action name="projectPoolAction_*" class="projectPoolAction"
+			method="{1}">
+			<result name="projectPool_toAdd">/System/pro/lixiang/projectPool_toAdd.jsp
+			</result>
+			<result name="Projectpool_list">/System/pro/lixiang/Projectpool_list.jsp
+			</result>
+			<result name="projectPool_toEditPool">/System/pro/lixiang/projectPool_toEditPool.jsp
+			</result>
+			<result name="ProjectManageyf_zhipai">/System/pro/lixiang/ProjectManageyf_zhipai.jsp
+			</result>
+			<result name="ProjectManageyf_self">/System/pro/lixiang/ProjectManageyf_self.jsp
+			</result>
+			<result name="projectManageyf_grade">/System/pro/lixiang/projectManageyf_grade.jsp
+			</result>
+			<result name="projectManageyf_affirmGrade">/System/pro/lixiang/projectManageyf_affirmGrade.jsp
+			</result>
+			<result name="ProjectManageyf_addSub">/System/pro/lixiang/ProjectManageyf_addSub.jsp
+			</result>
+			<result name="ProjectManageyf_bindplayers">/System/pro/lixiang/ProjectManageyf_bindplayers.jsp
+			</result>
+			<result name="ProjectManageyf_applychoose">/System/pro/lixiang/ProjectManageyf_applychoose.jsp
+			</result>
+			<result name="projectManageyf_fillSchedule">/System/pro/lixiang/projectManageyf_fillSchedule.jsp
+			</result>
+			<result name="projectManageyf_examineSubProject">/System/pro/lixiang/projectManageyf_examineSubProject.jsp
+			</result>
+			<result name="ProjectManageyf_storeTable">/System/pro/lixiang/ProjectManageyf_storeTable.jsp
+			</result>
+			<result name="ProjectManageYf_gantt">/System/pro/lixiang/ProjectManageYf_gantt.jsp
+			</result>
+			<result name="ProjectManageyf_proStore">/System/pro/lixiang/ProjectManageyf_proStore.jsp
+			</result>
+			<result name="ProjectManageYf_subGantt">/System/pro/lixiang/ProjectManageYf_subGantt.jsp
+			</result>
+			<result name="ProjectManageyf_selfStoreTable">/System/pro/lixiang/ProjectManageyf_selfStoreTable.jsp
+			</result>
+			<result name="ProjectManageyf_subStoreTable">/System/pro/lixiang/ProjectManageyf_subStoreTable.jsp
+			</result>
+			<result name="ProjectManageyf_applyForPostpone">/System/pro/lixiang/ProjectManageyf_applyForPostpone.jsp
+			</result>
+			<result name="projectManageyf_examineForPostone">/System/pro/lixiang/projectManageyf_examineForPostone.jsp
+			</result>
+			<result name="ProjectManageyf_showSelfProject">/System/pro/lixiang/ProjectManageyf_showSelfProject.jsp
+			</result>
+			<result name="ProjectManageYf_newGantt">/System/pro/lixiang/ProjectManageYf_newGantt.jsp
+			</result>
+			<result name="ProjectManageYf_ganttManage">/System/pro/lixiang/ProjectManageYf_ganttManage.jsp
+			</result>
+			<result name="projectmanageyf_detail">/System/pro/lixiang/projectmanageyf_detail.jsp
+			</result>
+			<result name="projectManageyf_participant">/System/pro/lixiang/projectManageyf_participant.jsp
+			</result>
+			<result name="projectManageyf_erList">/System/pro/lixiang/projectManageyf_erList.jsp
+			</result>
+			<result name="ProjectManageYf_proFileList">/System/pro/lixiang/ProjectManageYf_proFileList.jsp
+			</result>
+			<result name="ProjectManageyf_xqBind">/System/pro/lixiang/ProjectManageyf_xqBind.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

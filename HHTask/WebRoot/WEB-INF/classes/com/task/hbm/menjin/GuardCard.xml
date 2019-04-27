@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="GuardCard" table="ta_mj_GuardCard">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" />
+		<property name="cardId" />
+		<property name="name" />
+		<property name="sex" />
+		<property name="nation" />
+		<property name="birthplace" />
+		<property name="dept" />
+		<property name="uid" />
+		<property name="u_Id" />
+		<property name="cardType" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		
+	</class>
+</hibernate-mapping>

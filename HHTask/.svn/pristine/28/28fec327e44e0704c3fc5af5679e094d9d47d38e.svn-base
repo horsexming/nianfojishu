@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessAndWgProcardTem" table="ta_sop_w_ProcessAndWgProcardTem1"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardMarkId" index="pebs_sy_procardMarkId"/>
+		<property name="wgprocardMardkId" index="pebs_sy_wgprocardMardkId"/>
+		<property name="processNo" index="pebs_sy_processNo"/>
+		<property name="processName" index="pebs_sy_processName"/>
+		<property name="addTime"/>
+
+	</class>
+</hibernate-mapping>

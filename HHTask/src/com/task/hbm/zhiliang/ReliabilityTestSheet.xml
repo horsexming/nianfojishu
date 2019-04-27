@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.zhiliang">
+	<class name="ReliabilityTestSheet" table="ta_ReliabilityTestSheet">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="number" />
+		<property name="company" />
+		<property name="addTime" />
+		<property name="addUserName" />
+		<property name="materialCategory" />
+		<property name="materialResource" />
+		<property name="specimenNum" />
+		<property name="jGname" />
+		<property name="tuhao" />
+		<property name="markId" />
+		<property name="addUserId" />
+		<property name="addUserCode" />
+		
+		<property name="jlPerson" />
+		<property name="jlAddTime" />
+		
+		<property name="decideBasis" />
+		<property name="decideResult" />
+		<property name="errRemark" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="wdsId" />
+		<property name="lotId" />
+		<property name="personToLookId" />
+		<property name="personToLook" />
+		<property name="uidsAndLevels" />
+		
+		<set name="recordSet" cascade="all" inverse="false" order-by="id">
+			<key column="fk_recordId"></key>
+			<one-to-many class="ReliabilityTestRecord" />
+		</set>
+	</class>
+</hibernate-mapping>

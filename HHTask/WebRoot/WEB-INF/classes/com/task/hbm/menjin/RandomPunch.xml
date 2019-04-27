@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.menjin.RandomPunch" table="ta_RandomPunch" >
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="usersId"/>
+		<property name="userName"/>
+		<property name="userCode" />
+		<property name="punchTime"/>
+		<property name="punchDate"/>
+		<property name="equipmentId" />
+		<property name="equipmentName"/>
+		<property name="equipmentNum"/>
+		<property name="equipmentWeizhi"/>
+		<property name="status"/>
+		<property name="addTime"/>
+	</class>
+</hibernate-mapping>

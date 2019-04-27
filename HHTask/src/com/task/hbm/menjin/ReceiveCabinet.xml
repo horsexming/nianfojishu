@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="ReceiveCabinet" table="ta_mj_ReceiveCabinet">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="receiveQuantity" />
+		<property name="receiveWuName" />
+		<property name="receiveFormat" />
+		<property name="realReceiveQuantity" />
+		<property name="receiveVerificationCode" />
+		<property name="receiveUserId" />
+		<property name="receiveName" />
+		
+		<property name="receiveDept" />
+		<property name="receiveCardId" />
+		<property name="receiveStatus" />
+		<property name="verificationCodeStatus" />
+		<property name="returnZhi" />
+		<property name="failTime" />
+		<property name="addTime" />
+		<property name="receiveTime" />
+		<property name="posId" />
+		
+	</class>
+</hibernate-mapping>

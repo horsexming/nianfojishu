@@ -1,0 +1,196 @@
+package com.task.entity.caiwu;
+
+
+/*
+    * @author fy
+　　* @date 2018/8/9 13:48
+　　* @Description:对账表 ta_fin_caiwu_AccountCheck
+　　* @param
+　　* @return
+　　* @throws
+　　*/
+public class AccountCheck {
+
+    private Integer id;//
+
+    private String accountNumber;//对账单号ReceiptLog.fkpzNum
+    private String accountCategory;//类型（收款/付款）
+    private String accountUsers;//经办人
+    private String accountUsersName;//经办人
+    private String accountUnit;//收款单位
+    
+	private String paybank;//付款银行
+	private Integer paybankId;//银行id即科目id
+
+//    private String accountSum  ;//金额//(未使用)
+    private Integer receiptid;//
+    private Integer receiptLogid;//
+    private Float allMoney;// 总金额（应付）
+//    private Float accountPaid;// 已付
+//    private Float unPay;// 未付
+    private Float payIng;// 付款中
+//    private Float payOn;// 申请付款金额
+//    private Float payLast;// 剩余待付款
+
+    private String accountDate;//日期
+    private String accountDescription;//业务内容
+    //
+    private String registrationStatus;//登记状态
+    private String paymentStatus;//付款申请状态 (已申请/未申请) //未申请->付款中金额=0 //已申请->付款中金额>0
+    private String state;//申请记录上传凭证状态（未上传/完成)   //付款记录管理 功能 已提交上传付款流水号“完成"
+    private String cwVouchersState;//做账状态  ( 已做账/未做账）
+    private String addTime;//添加时间
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getAccountCategory() {
+        return accountCategory;
+    }
+
+    public void setAccountCategory(String accountCategory) {
+        this.accountCategory = accountCategory;
+    }
+
+    public String getAccountUsers() {
+        return accountUsers;
+    }
+
+    public void setAccountUsers(String accountUsers) {
+        this.accountUsers = accountUsers;
+    }
+
+    public String getAccountUsersName() {
+        return accountUsersName;
+    }
+
+    public void setAccountUsersName(String accountUsersName) {
+        this.accountUsersName = accountUsersName;
+    }
+
+    public String getAccountUnit() {
+        return accountUnit;
+    }
+
+    public void setAccountUnit(String accountUnit) {
+        this.accountUnit = accountUnit;
+    }
+
+    public Integer getReceiptid() {
+        return receiptid;
+    }
+
+    public void setReceiptid(Integer receiptid) {
+        this.receiptid = receiptid;
+    }
+
+    public Integer getReceiptLogid() {
+        return receiptLogid;
+    }
+
+    public void setReceiptLogid(Integer receiptLogid) {
+        this.receiptLogid = receiptLogid;
+    }
+
+    public Float getAllMoney() {
+        return allMoney;
+    }
+
+    public void setAllMoney(Float allMoney) {
+        this.allMoney = allMoney;
+    }
+
+    public String getAccountDate() {
+        return accountDate;
+    }
+
+    public void setAccountDate(String accountDate) {
+        this.accountDate = accountDate;
+    }
+
+    public String getAccountDescription() {
+        return accountDescription;
+    }
+
+    public void setAccountDescription(String accountDescription) {
+        this.accountDescription = accountDescription;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Float getPayIng() {
+        return payIng;
+    }
+
+    public void setPayIng(Float payIng) {
+        this.payIng = payIng;
+    }
+
+    public String getCwVouchersState() {
+        return cwVouchersState;
+    }
+
+    public void setCwVouchersState(String cwVouchersState) {
+        this.cwVouchersState = cwVouchersState;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
+	public String getPaybank() {
+		return paybank;
+	}
+
+	public void setPaybank(String paybank) {
+		this.paybank = paybank;
+	}
+
+	public Integer getPaybankId() {
+		return paybankId;
+	}
+
+	public void setPaybankId(Integer paybankId) {
+		this.paybankId = paybankId;
+	}
+}

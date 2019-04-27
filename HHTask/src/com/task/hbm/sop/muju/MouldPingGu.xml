@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop.muju">
+	<class name="MouldPingGu" table="ta_sop_muju_MouldPingGu">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="userName"/>
+		<property name="type"/>
+		<property name="more"/>
+		<property name="pinggutime"/>
+		<property name="qrstatus"/>
+		<property name="usersId"/>
+		<many-to-one name="mao" class="MouldApplyOrder" column="ta_moaId"></many-to-one>
+	</class>
+</hibernate-mapping>

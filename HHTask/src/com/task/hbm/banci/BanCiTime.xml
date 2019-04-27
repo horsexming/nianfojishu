@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.banci">
+	<class name="BanCiTime" table="ta_BanCiTime">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="startTime" />
+		<property name="endTime" />
+		<property name="xxTimeNumber"/>
+		<property name="startIsDaka"/>
+		<property name="endIsDaka"/>
+		<property name="xiaFu"/>
+		<property name="startBeforeMin"/>
+		<property name="startBeforeTime"/>
+		<property name="startLaterMin"/>
+		<property name="startLaterTime"/>
+		<property name="endBeforeMin"/>
+		<property name="endBeforeTime"/>
+		<property name="endLaterMin"/>
+		<property name="endLaterTime"/>
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="duan" />
+		<property name="dayType" />
+		<property name="edayType" />
+		<!-- 休息时间对班次   多对一 -->
+		<many-to-one name="banCi" class="BanCi" column="ta_banciId"></many-to-one>
+	</class>
+</hibernate-mapping>

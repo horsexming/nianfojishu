@@ -1,0 +1,53 @@
+package com.task.entity.sop;
+/**
+ * 
+ * @author tanxin
+ *
+ */
+public class ProcardTemplateReplace implements java.io.Serializable{
+	private Integer id;
+	private String markId;//件号
+	private String banben1;//版本1
+	private String banben2;//版本2
+	private String usingStatus;//使用状态
+	private String status;//状态
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getBanben1() {
+		return banben1;
+	}
+	public void setBanben1(String banben1) {
+		this.banben1 = banben1;
+	}
+	public String getBanben2() {
+		return banben2;
+	}
+	public void setBanben2(String banben2) {
+		this.banben2 = banben2;
+	}
+	public String getUsingStatus() {
+		return usingStatus;
+	}
+	public void setUsingStatus(String usingStatus) {
+		this.usingStatus = usingStatus;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+
+}

@@ -1,0 +1,137 @@
+package com.task.Server;
+
+import java.util.List;
+
+import com.task.entity.AlertMessages;
+import com.task.entity.system.Logging;
+import com.task.entity.system.UsersUpdateLogging;
+
+/***
+ * 系统提醒消息Server层
+ * 
+ * @author 刘培
+ * 
+ */
+public interface AlertMessagesServer {
+
+	/***
+	 *查询个人提醒消息
+	 * 
+	 * @param countOrList
+	 *            查询个数或集合(count/list)
+	 * @param readStatus
+	 *            查询已读或未读(yes/no)
+	 * @return
+	 */
+	public Object findAMByUserId(String countOrList, String readStatus);
+
+	/****
+	 * 查询登录信息(为了使用写数据，所有用update)
+	 * 
+	 * @param alertMessages
+	 *            提醒消息
+	 * @param pageNo
+	 *            页数
+	 * @param pageSize
+	 *            每页个数
+	 * @return
+	 */
+	public Object[] findAlertMessagesByCondition(AlertMessages alertMessages,
+			int pageNo, int pageSize);
+
+	/***
+	 * 根据id查询提醒消息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public AlertMessages findAlertMessagesById(int id);
+
+	/***
+	 * 修改提醒消息
+	 * 
+	 * @param alertMessages
+	 * @return
+	 */
+	public boolean updateAlertMessages(AlertMessages alertMessages);
+
+	/***
+	 * 删除提醒消息
+	 * 
+	 * @param alertMessages
+	 * @return
+	 */
+	public boolean delAlertMessages(AlertMessages alertMessages);
+
+	/***
+	 * 清空个人消息
+	 * 
+	 * @return 删除个数
+	 */
+	public int delAllAlertMessagesByUid();
+
+	/***
+	 * 系统日志查询
+	 * 
+	 * @param logging
+	 *            日志对象
+	 * @param date
+	 *            日期数组
+	 * @param pageNo
+	 *            页码
+	 * @param pageSize
+	 *            每页个数
+	 * @return
+	 */
+	Object[] findLoggingByCondition(Logging logging, String[] date, int pageNo,
+			int pageSize);
+	
+	/***
+	 * 系统个人修改日志查询
+	 * 
+	 * @param updateLogging
+	 *            个人修改日志对象
+	 * @param date
+	 *            日期数组
+	 * @param pageNo
+	 *            页码
+	 * @param pageSize
+	 *            每页个数
+	 * @return
+	 */
+	Object[] findUserUpdateLogging(UsersUpdateLogging updateLogging, String[] date, int pageNo,
+			int pageSize ,String tag);
+
+	/***
+	 * 根据id查询日志
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Logging findLogging(Integer id);
+	
+	/**
+	 * 得到所有类型
+	 * @return
+	 */
+	String serUpdateLoggingType();
+
+	/***
+	 * 将所有未读信息设为已读
+	 */
+	public boolean updateAlertMessagesByWeidu();
+
+	/****
+	 * 查询登录人的消息提醒(android接口)
+	 * 
+	 * @param alertMessages
+	 *            提醒消息
+	 * @param pageNo
+	 *            页数
+	 * @param pageSize
+	 *            每页个数
+	 * @return
+	 */
+	Object[] findAMForAndroid(AlertMessages alertMessages, int pageNo,
+			int pageSize);
+}

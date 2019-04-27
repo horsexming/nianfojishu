@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplateAboutsb" table="ta_sop_w_ProcardTemplateAboutsb"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="sbApplyId"/>
+		<property name="sbNumber"/>
+		<property name="procardStyle"/>
+		<property name="productStyle"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="banben"/>
+		<property name="banci"/>
+		<property name="wgType"/>
+		<property name="kgliao"/>
+		<property name="specification"/>
+		<property name="unit"/>
+		<property name="tuhao"/>
+		<property name="yongliao"/>
+		<property name="zaizhiCount"/>
+		<property name="zaituCount"/>
+		<property name="zaikuCount"/>
+		<property name="daizhiCount"/>
+		
+		
+	</class>
+</hibernate-mapping>

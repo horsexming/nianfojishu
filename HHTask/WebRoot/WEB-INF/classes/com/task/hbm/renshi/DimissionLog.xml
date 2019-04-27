@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi"><!--lc_ta_dimissionLog-->
+	<class name="DimissionLog" table="ta_hr_lz_dimissionLog">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="codeId" />
+		<property name="cardId" />
+		<property name="shenqing_number" />
+		<property name="name" />
+		<property name="dept" />
+		<property name="job" />
+		<property name="year_term" />
+		<property name="code" />
+		<property name="contract_number" />
+		<property name="dimission_Reason" />
+		<property name="dimission_laterGo" />
+		<property name="ruzhi_time" />
+		<property name="app_time" />
+		<property name="naowuzhengyi" />
+		<property name="zhengyi_content" />
+		<property name="zhengyi_Status" />
+		<property name="confirm" />
+		<property name="addTime" />
+		
+		<property name="epId" />
+		<property name="lzsq_status" />
+		<property name="hand_status" />
+		
+		<property name="updateTime" />
+		
+		<!-- 离职申请单对争议单 -->
+		<one-to-one name="dimissionZhengYi" property-ref="dimissionLogs" cascade="all" 
+			lazy="false" />
+		<property name="add_dimissTime_status" />
+		<property name="add_add_dimiss_Time" />
+		
+		<property name="tijian" />
+		<property name="peixunxieyi" />
+		<property name="baomi" />
+		<property name="buchong" />
+		<property name="hr_addTime" />
+		<property name="hr_status" />
+		<property name="xieyi_addTime" />
+		<property name="xieyi_status" />
+		<property name="tongzhi_addTime" />
+		<property name="tongzhi_status" />
+		<!-- 离职申请单对协议单 -->
+		<!--<one-to-one name="dimissionXieYi" property-ref="dimissionexieyi" cascade="all" 
+			lazy="false" />
+		-->
+		<property name="uid" />
+		<property name="tel" />
+		<property name="address" />
+		<property name="addUsersName" />
+	</class>
+</hibernate-mapping>

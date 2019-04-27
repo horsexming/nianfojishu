@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.Also" table="ta_Also" >
+        <id name="id" type="java.lang.Integer">
+            <column name="pk_id" />
+            <generator class="identity" />
+        </id>
+        
+        <property name="peopleName" column="f_peopleName"/>
+        <property name="name" column="f_name"/>
+        <property name="date" column="f_date" type="date"/>
+        <property name="format" column="f_format"/>
+        <property name="num" column="f_num"/>
+        <property name="storehouse" column="f_storehouse"/>
+        <property name="remark" column="f_remark"/>
+        <property name="cardNum" column="f_cardNum"/>
+        <property name="dept" column="f_dept"/>
+        <property name="number" column="f_number"/>
+        <property name="unit" column="f_unit"/>
+        <property name="mix" column="f_mix"/>
+        <property name="processQuantity" column="f_processQuantity"/>
+        <property name="processPieceNum" column="f_processPieceNum"/>
+        <property name="carType" column="f_carType"/>
+        <property name="cqStatus"/>
+        <property name="ware_id"/>
+        <property name="wareHouse"/>
+        
+        <property name="alsoDate" column="alsoDate" type="date"/>
+        
+        <!-- 库存 -->
+		<many-to-one name="store" class="com.task.entity.Store" cascade="all" column="fk_store_id" lazy="false"/>
+		<!-- 借 -->
+		<many-to-one name="borrow" class="com.task.entity.Borrow" cascade="all" column="fk_borrow_id" lazy="false"/>
+    </class>
+    
+</hibernate-mapping>

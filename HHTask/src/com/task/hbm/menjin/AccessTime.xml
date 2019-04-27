@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="AccessTime" table="ta_mj_AccessTime">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="startTime" />
+		<property name="endTime" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<!-- 时间段对门禁设备 -->
+        <many-to-one name="accessEquipment" class="AccessEquipment" column="ta_acTime"></many-to-one>
+	</class>
+</hibernate-mapping>

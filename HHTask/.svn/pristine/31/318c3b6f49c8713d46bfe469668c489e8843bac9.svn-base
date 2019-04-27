@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="ZhiZaoPingJia" table="ta_ZhiZaoPingJia">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dudId"/>
+		<property name="dept"/>
+		<property name="name"/>
+		<property name="zhiwei"/>
+		<property name="months"/>
+		<property name="years"/>
+		<property name="month0"/>
+		<property name="xiShu"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

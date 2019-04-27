@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-zjs" location="0,0" size="0,0">
+    <action name="register_*" location="0,0" size="0,0">
+      <result name="upload_supplyFund_success">
+        <resourceEdge source="upload_supplyFund_success" routing="0" target="upload_supplyFund_success.jsp" />
+      </result>
+      <result name="index_success">
+        <resourceEdge source="index_success" routing="0" target="index.jsp" />
+      </result>
+      <result name="success_operate" />
+      <result name="register_initupdate">
+        <resourceEdge source="register_initupdate" routing="0" target="register_update.jsp" />
+      </result>
+      <result name="register_collect">
+        <resourceEdge source="register_collect" routing="0" target="collect_index.jsp" />
+      </result>
+      <result name="takeFund_index">
+        <resourceEdge source="takeFund_index" routing="0" target="withdraw_money.jsp" />
+      </result>
+      <result name="batch_success" />
+      <result name="redirect" />
+      <result name="findDailySupply" />
+    </action>
+    <action name="business_*" location="0,0" size="0,0">
+      <result name="business_index" />
+      <result name="audit_index" />
+      <result name="business_redirect" />
+      <result name="business_update" />
+      <result name="business_invoice" />
+      <result name="invoice_initUpdate" />
+      <result name="invoice_redirect" />
+      <result name="business_detail" />
+      <result name="business_addDetail" />
+      <result name="detail_redirect" />
+      <result name="init_print" />
+      <result name="init_printProof" />
+      <result name="print_init" />
+      <result name="examine_proof" />
+      <result name="proof_agree" />
+      <result name="agree_proof" />
+      <result name="goBack_proof" />
+      <result name="detail_proof" />
+      <result name="examine_flow" />
+      <result name="examine_redirect" />
+      <result name="examine_update" />
+    </action>
+    <action name="orderManager_*" location="0,0" size="0,0">
+      <result name="orderManager_initOrder" />
+      <result name="orderManager_kaipiao" />
+      <result name="orderManager_check" />
+      <result name="orderManager_examine" />
+      <result name="orderManager_add" />
+      <result name="orderManager_update" />
+      <result name="orderManager_initAdd" />
+      <result name="orderManager_detail" />
+      <result name="orderManager_internal_detail" />
+      <result name="orderManager_initUpdateDetail" />
+      <result name="orderManager_conver_initUpdateDetail" />
+      <result name="orderManager_agree" />
+      <result name="orderManager_fail" />
+      <result name="orderManager_initOrder_inner" />
+      <result name="orderManager_showDetails" />
+      <result name="orderManager_showOrderHKDetils" />
+      <result name="orderManager_monthView" />
+      <result name="orderManager_id_monthView" />
+      <result name="order_template" />
+      <result name="order_chengben" />
+      <result name="order_chengbenFenxi" />
+    </action>
+    <action name="clientManager_*" location="0,0" size="0,0">
+      <result name="clientManager_index" />
+      <result name="clientManager_add" />
+      <result name="clientManager_update" />
+      <result name="clientManager_infor" />
+      <result name="clientManager_detail" />
+      <result name="error" />
+    </action>
+    <action name="pieceNum_*" location="0,0" size="0,0">
+      <result name="pieceNum_index" />
+      <result name="pieceNum_update" />
+      <result name="pieceNum_redirect" />
+      <result name="pieceNum_selected" />
+    </action>
+    <action name="internalOrder_*" location="0,0" size="0,0">
+      <result name="internalOrder_init" />
+      <result name="internalOrder_generator" />
+      <result name="internalOrder_initData" />
+      <result name="internalOrder_redirect" />
+      <result name="internalOrder_product" />
+      <result name="procard_trunProduct" />
+      <result name="internalOrder_initProduct" />
+      <result name="internalOrder_initPrint" />
+      <result name="orderManager_initOrder" />
+      <result name="internalOrder_logistics_check" />
+      <result name="internalOrder_batchCon" />
+      <result name="proCard_internalOrder" />
+      <result name="error" />
+    </action>
+    <action name="ipManager_*" location="0,0" size="0,0">
+      <result name="init" />
+      <result name="success" />
+      <result name="redirect" />
+    </action>
+    <action name="annualLeave_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectIndex" />
+      <result name="mingxi" />
+      <result name="gerennianxiumingxi" />
+      <result name="gengxin" />
+      <result name="listhuanxiu" />
+      <result name="mingxijiaban" />
+      <result name="listhuanxiumingxi" />
+      <result name="listhuanxiudept" />
+    </action>
+    <action name="store_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="consumings" />
+      <result name="repairs" />
+      <result name="loan" />
+      <result name="consuming" />
+      <result name="initBorrow" />
+      <result name="initConsuming" />
+      <result name="printConsuming" />
+      <result name="statistics" />
+      <result name="getStoreUpdatePage_success" />
+      <result name="updateStore_success" />
+    </action>
+    <action name="storage_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="scanningApplyFor" />
+      <result name="print" />
+      <result name="selectStorage" />
+      <result name="warehousingfill" />
+      <result name="initSelectStorage" />
+      <result name="storageHistory" />
+      <result name="error" />
+    </action>
+    <action name="scrap_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="giveBackMsg" />
+      <result name="redirectFrom" />
+    </action>
+    <action name="renew_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="redirectFrom" />
+    </action>
+    <action name="maintain_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+    </action>
+    <action name="outlib_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="scanCardLingyong" />
+      <result name="getFanghuOutLibAddPage_success" />
+      <result name="getFanghuOutLibUpdatePage_success" />
+      <result name="addFanghuOutLib_success" />
+      <result name="deleteFanghuOutLib_success" />
+      <result name="updateFanghuOutLib_success" />
+      <result name="getFanghuOutLibListByUserId_success" />
+      <result name="getUserListAll_success" />
+    </action>
+    <action name="also_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="giveBackMsg" />
+    </action>
+    <action name="borrow_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="redirectList" />
+      <result name="giveBack" />
+      <result name="store_giveBack" />
+      <result name="scrap_giveBack" />
+      <result name="statistics" />
+      <result name="generateexcel" />
+    </action>
+    <action name="consuming_*" location="0,0" size="0,0">
+      <result name="index" />
+      <result name="success" />
+      <result name="success1" />
+      <result name="redirectList" />
+    </action>
+  </package>
+  <webResource name="upload_supplyFund_success.jsp" path="/System/renshi/register/upload_supplyFund_success.jsp" location="0,0" size="0,0" />
+  <webResource name="index.jsp" path="/System/renshi/register/index.jsp" location="0,0" size="0,0" />
+  <webResource name="register_update.jsp" path="/System/renshi/register/register_update.jsp" location="0,0" size="0,0" />
+  <webResource name="collect_index.jsp" path="/System/renshi/register/collect_index.jsp" location="0,0" size="0,0" />
+  <webResource name="withdraw_money.jsp" path="/System/renshi/register/withdraw_money.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

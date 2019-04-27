@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="CwUseDetail" table="ta_fin_CwUseDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="payee" />
+		<property name="useFor" />
+		<property name="usemoney" />
+		
+		<property name="payNum" />
+		<property name="aboutNum" />
+		<property name="fk_fundApplyId" />
+		<property name="fk_monthlyBillsId" />
+		<property name="fk_goodsStoreId" />
+		<property name="fk_sellId" />
+		<property name="payType" />
+		<many-to-one name="cwVouchersDetail" class="CwVouchersDetail"
+			cascade="save-update" lazy="false" column="vDtailId" />
+	</class>
+</hibernate-mapping>

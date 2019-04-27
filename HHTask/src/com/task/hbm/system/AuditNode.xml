@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="AuditNode" table="ta_sys_AuditNode">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="auditLevel" />
+		<property name="auditUserName" />
+		<property name="auditUserId" />
+		<property name="auditUserDept" />
+
+		<!-- 审批节点对定制流程对(多对一) -->
+		<many-to-one name="circuitCustomize" class="CircuitCustomize"
+			column="fk_circuitId" />
+			<!-- 流程节点对部门 -->
+		<set name="deptSet"  inverse="false" table="ta_dept_AuditNode" cascade="save-update" lazy="true">
+			<key column="ta_adId"></key>
+			<many-to-many class="com.task.entity.DeptNumber" column="ta_deptId"/>
+		</set>
+	</class>
+</hibernate-mapping>

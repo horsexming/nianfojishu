@@ -1,0 +1,435 @@
+package com.task.action.zgkh;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Dao.TotalDao;
+import com.task.Server.TemplateServer;
+import com.task.Server.zgkh.AssessPersonnelServer;
+import com.task.entity.Template;
+import com.task.entity.Users;
+import com.task.entity.UsersGroup;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+import com.task.entity.zgkh.AssessPersonnel;
+import com.task.util.MKUtil;
+
+/**
+ * 主管考核_考核人员Action层
+ * 
+ * @author 刘培
+ * 
+ */
+@SuppressWarnings("serial")
+public class AssessPersonnelAction extends ActionSupport {
+
+	private AssessPersonnelServer assessPersonnelServer;// Server层
+	private TemplateServer templateServer;// 考核模版Server层
+	private AssessPersonnel assessPersonnel;// 考核人员对象
+	private Template template;// 考核模版
+	private List<AssessPersonnel> assessPersonnelList;// 集合
+	private List list;// 集合
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private int id;// id
+	private int count;// 已经绑定考核人员数量
+	private int[] usersId;// 考核人员id
+	private int userGroupId;// 分组Id
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	private String groupName;
+	private String pageStatus;
+
+	// 添加考核人员
+	public String addAssessPersonnel() {
+		if (assessPersonnel != null) {
+			AssessPersonnel oldAssessPersonnel = assessPersonnelServer
+					.findAPByUserId(assessPersonnel.getUserId(), groupName,
+							pageStatus);// 查询待添加用户是否存在
+			if (oldAssessPersonnel == null) {
+				boolean bool = assessPersonnelServer.addAssessPersonnel(
+						assessPersonnel, groupName, pageStatus);
+				if (bool) {
+					successMessage = "添加人员" + assessPersonnel.getUserName()
+							+ "成功!";
+					oldAssessPersonnel = null;
+					assessPersonnel = null;
+					return "findAll";
+				} else
+					errorMessage = "添加人员" + assessPersonnel.getUserName()
+							+ "失败!";
+			} else {
+				errorMessage = "该人员已经存在于组中,无需再次添加!";
+			}
+
+		} else {
+			errorMessage = "参数异常!请检查后重试!";
+		}
+		return ERROR;
+	}
+
+	// 删除成员分组
+	public String delUserGroup() {
+		UsersGroup usersGroup = assessPersonnelServer.findUsersGroupById(id);
+		if (usersGroup != null) {
+			try {
+				assessPersonnelServer.delUsersGroup(usersGroup);
+				successMessage = "删除分组" + usersGroup.getGroupName() + "成功!";
+				return "findAll";
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMessage = "删除失败!请检查后重试!";
+			}
+		} else {
+			errorMessage = "不存您要删除分组!请检查!";
+		}
+		return ERROR;
+	}
+
+	// 查询所有考核人员信息(分页)
+	@SuppressWarnings("unchecked")
+	public String findAllAssessPersonnel() {
+		if (assessPersonnel != null) {
+			ActionContext.getContext().getSession().put("newassessPersonnel",
+					assessPersonnel);
+		} else {// 用来保持分页时带着查询条件
+			assessPersonnel = (AssessPersonnel) ActionContext.getContext()
+					.getSession().get("assessPersonnel");
+		}
+		if (groupName != null) {
+			ActionContext.getContext().getSession().put("groupName",
+					groupName);
+		} else {// 用来保持分页时带着查询条件
+			groupName = (String) ActionContext.getContext()
+					.getSession().get("groupName");
+		}
+		Object[] object = null;
+		if (pageStatus != null && pageStatus.length() > 0) {
+			// 查询审核组成员
+			object = assessPersonnelServer.findshAssessPersonnel(assessPersonnel,Integer
+					.parseInt(cpage), pageSize, pageStatus,groupName);
+			list = assessPersonnelServer.findUsersGroup(pageStatus);
+		} else {
+			object = assessPersonnelServer.findAllAssessPersonnel(Integer
+					.parseInt(cpage), pageSize);
+			list = assessPersonnelServer.findUsersGroupByUid();
+		}
+		if (object != null && object.length > 0) {
+			assessPersonnelList = (List<AssessPersonnel>) object[0];
+			if (assessPersonnelList != null && assessPersonnelList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				if (pageStatus == null) {
+					pageStatus = "";
+				}
+				this.setUrl("AssessPersonnelAction!findAllAssessPersonnel.action?pageStatus="
+								+ pageStatus);
+				errorMessage = null;
+			} else {
+				errorMessage = "没有考核人员,请添加!";
+			}
+		} else
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		return "addAssessPersonnel";//hr_zgkh_personnelManage.jsp
+	}
+
+	// 通过Id查询该人员并删除
+	public String findAPById() {
+		assessPersonnel = assessPersonnelServer.findAPById(id);
+		if (assessPersonnel != null) {
+			boolean bool = assessPersonnelServer
+					.delAssessPersonnel(assessPersonnel);
+			if (bool) {
+				successMessage = "删除人员 " + assessPersonnel.getUserName()
+						+ "成功!";
+				assessPersonnel = null;
+				return "findAll";
+			} else
+				errorMessage = "删除人员 " + assessPersonnel.getUserName()
+						+ "成功!请检查后重试!";
+		} else {
+			errorMessage = "不存在您要查询的的人员信息!请检查后重试!";
+		}
+		return ERROR;
+	}
+
+	// 查询没有绑定过考核模版的所有人员
+	public String findAssessPersonnelForbb() {
+		template = templateServer.findTemplateById(id);
+		if (template != null) {
+			count = template.getAssessPersonnel().size();// 已绑定人员
+			if ((Object) userGroupId != null && userGroupId > 0) {
+				UsersGroup up = assessPersonnelServer
+						.findUsersGroupById(userGroupId);
+				if (up != null) {
+					assessPersonnelList = assessPersonnelServer
+							.findAssessPersonnelForbb(template, up.getId());// 未绑定人员
+				}
+			} else {
+				// 判断成员组是否大于1个
+				if ("主管级".equals(template.getAssObject())) {
+					list = assessPersonnelServer.findUsersGroup("zghp");
+				} else {
+					list = assessPersonnelServer.findUsersGroupByUid();
+				}
+				if (list != null && list.size() == 1) {
+					UsersGroup ug = (UsersGroup) list.get(0);
+					assessPersonnelList = assessPersonnelServer
+							.findAssessPersonnelForbb(template, ug.getId());// 未绑定人员
+				}
+			}
+			if ("主管级".equals(template.getAssObject())) {
+				return "bangdingPeople";
+			} else if ("员工级".equals(template.getAssObject())) {
+				return "findTemplateSuccess";
+			}
+		} else {
+			errorMessage = "不存在您要查看的考核模版!请检查数据有效性!";
+		}
+		return ERROR;
+	}
+
+	// 绑定用户
+	public String bingdingUsers() {
+		template = templateServer.findTemplateById(id);
+		if (template != null) {
+			// 清空关系
+			assessPersonnelServer.delUserTemplate(template.getId());
+			// 重新赋值关系
+			Set<AssessPersonnel> apSet = new HashSet<AssessPersonnel>();
+			Set<Template> templateSet = new HashSet<Template>();
+			templateSet.add(template);
+			if (usersId != null && usersId.length > 0) {
+				for (int i = 0; i < usersId.length; i++) {
+					AssessPersonnel assessPersonnel = assessPersonnelServer
+							.findAPById(usersId[i]);
+					if (assessPersonnel != null) {
+						apSet.add(assessPersonnel);
+						assessPersonnel.setTemplate(templateSet);
+					} else {
+						errorMessage = "不存在该用户id(" + usersId[i];
+						return ERROR;
+					}
+				}
+			}
+			template.setAssessPersonnel(apSet);
+			if (templateServer.updateTemplate(template)) {
+				successMessage = "绑定用户成功!";
+				if ("主管级".equals(template.getAssObject())) {
+					return "bangdingAp";
+				} else if ("员工级".equals(template.getAssObject())) {
+					return "addTemplateSuccess";
+				}
+			}
+
+		} else {
+			errorMessage = "不存在该模板";
+		}
+		return ERROR;
+	}
+
+	// 查询未打分的考核人员
+	public String findApForScore() {
+		Users user = (Users) ActionContext.getContext().getSession().get(
+				TotalDao.users);
+		assessPersonnel = assessPersonnelServer.findAPByUserId(user.getId());
+		if (assessPersonnel != null) {
+			if (assessPersonnel.getTemplate() == null) {
+				errorMessage = "您未绑定考核模版,无法参加本次的互评!谢谢!";
+				return ERROR;
+			}
+			assessPersonnelList = assessPersonnelServer
+					.findAssessPersonnelForScore(null);
+			return "findApForScore";
+		} else {
+			errorMessage = "您不在考核人员中,无法参加本次的互评!谢谢!";
+			return ERROR;
+		}
+	}
+
+	/***
+	 * 查询审核组
+	 */
+	@SuppressWarnings("unchecked")
+	public void findAuditGroup() {
+		List<UsersGroup> list = assessPersonnelServer
+				.findUsersGroup(pageStatus);
+		List newList = new ArrayList();
+		for (UsersGroup usersGroup : list) {
+			usersGroup.setAssessPersonnel(null);
+			newList.add(usersGroup);
+		}
+		MKUtil.writeJSON(newList);
+	}
+
+	/***
+	 * 查询审核组对应成员
+	 */
+	@SuppressWarnings("unchecked")
+	public void findAuditPerson() {
+		List<AssessPersonnel> list = assessPersonnelServer
+				.findshAssessPersonnel(id, pageStatus);
+		List newList = new ArrayList();
+		for (AssessPersonnel assessPersonnel : list) {
+			assessPersonnel.setUsersGroup(null);
+			assessPersonnel.setTemplate(null);
+			newList.add(assessPersonnel);
+		}
+		MKUtil.writeJSON(list);
+	}
+
+	// 构造方法
+	public AssessPersonnelServer getAssessPersonnelServer() {
+		return assessPersonnelServer;
+	}
+
+	public void setAssessPersonnelServer(
+			AssessPersonnelServer assessPersonnelServer) {
+		this.assessPersonnelServer = assessPersonnelServer;
+	}
+
+	public AssessPersonnel getAssessPersonnel() {
+		return assessPersonnel;
+	}
+
+	public void setAssessPersonnel(AssessPersonnel assessPersonnel) {
+		this.assessPersonnel = assessPersonnel;
+	}
+
+	public List<AssessPersonnel> getAssessPersonnelList() {
+		return assessPersonnelList;
+	}
+
+	public void setAssessPersonnelList(List<AssessPersonnel> assessPersonnelList) {
+		this.assessPersonnelList = assessPersonnelList;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public TemplateServer getTemplateServer() {
+		return templateServer;
+	}
+
+	public void setTemplateServer(TemplateServer templateServer) {
+		this.templateServer = templateServer;
+	}
+
+	public Template getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Template template) {
+		this.template = template;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int[] getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(int[] usersId) {
+		this.usersId = usersId;
+	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public int getUserGroupId() {
+		return userGroupId;
+	}
+
+	public void setUserGroupId(int userGroupId) {
+		this.userGroupId = userGroupId;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+}

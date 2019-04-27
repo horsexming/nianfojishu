@@ -1,0 +1,537 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<style type="text/css">
+.dhlabel {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 3px 5px;
+	white-space: nowrap;
+}
+</style>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv"
+			onclick="chageDiv('none')">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 900px;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">您正在进行手动下单修改操作</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								id="closeTcDiv" height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<iframe id="xiugaiIframe" src="" marginwidth="0" marginheight="0"
+						hspace="0" vspace="0" frameborder="0" scrolling="yes"
+						style="width: 98%; height: 500px; margin: 0px; padding: 0px;"></iframe>
+
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<s:if test='tag!="daoru"'>
+					<s:if test="status=='All'">
+						<label style="background-color: gray;" class="dhlabel">
+							所有
+						</label>
+					</s:if>
+					<s:else>
+						<label style="background-color: #5cb85c;"
+							onclick="toShowWW('All');" class="dhlabel">
+							<font color="white">所有</font>
+						</label>
+					</s:else>
+					<s:if test="status=='wsq'">
+						<label style="background-color: gray;" class="dhlabel">
+							未申请
+						</label>
+					</s:if>
+					<s:else>
+						<label style="background-color: #5cb85c;"
+							onclick="toShowWW('wsq');" class="dhlabel">
+							<font color="white">未申请</font>
+						</label>
+					</s:else>
+				</s:if>
+				<form action="ManualOrderPlanAction_findmanualPlanList.action"
+					method="POST">
+					<table class="table">
+						<tr>
+							<th align="right">
+								件号
+							</th>
+							<td>
+								<input type="text" value="${mod1.markId}" name="mod1.markId">
+							</td>
+							<th align="right">
+								名称
+							</th>
+							<td>
+								<input type="text" value="${mod1.proName}" name="mod1.proName">
+							</td>
+							<th align="right">
+								规格
+							</th>
+							<td>
+								<input type="text" value="${mod1.specification}"
+									name="mod1.specification">
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								添加方式
+							</th>
+							<td>
+								<SELECT name="mod1.type">
+									<option value="${mod1.type}">
+										${mod1.type }
+									</option>
+									<option value=""></option>
+									<option value="正式订单">
+										正式订单
+									</option>
+									<option value="试制订单">
+										试制订单
+									</option>
+									<option value="预测订单">
+										预测订单
+									</option>
+									<option value="安全库存">
+										安全库存
+									</option>
+									<option value="手动添加">
+										手动添加
+									</option>
+								</SELECT>
+							</td>
+							<th align="right">
+								订单号(内)
+							</th>
+							<td>
+								<input type="text" value="${mod1.orderNumber}"
+									name="mod1.orderNumber" />
+							</td>
+							<th align="right">
+								业务件号
+							</th>
+							<td>
+								<input type="text" value="${mod1.ywMarkId}" name="mod1.ywMarkId" />
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								类别
+							</th>
+							<td>
+								<select name="mod1.category">
+									<option value="${mod1.category}">
+										${mod1.category}
+									</option>
+									<option></option>
+									<option value="外购件">
+										外购件
+									</option>
+									<option value="研发">
+										研发
+									</option>
+									<option value="辅料">
+										辅料
+									</option>
+								</select>
+							</td>
+							<th align="right">
+								添加人
+							</th>
+							<td>
+								<input type="text" name="mod1.addUsers" value="${mod1.addUsers}" />
+							</td>
+							<th align="right">
+								是否紧急
+							</th>
+							<td>
+								<select name="mod1.isurgent">
+									<option value="${mod1.isurgent}">
+										<s:if test="mod1.isurgent=='YES'">是</s:if>
+										<s:elseif test="mod1.isurgent=='NO'">否</s:elseif>
+									</option>
+									<option></option>
+									<option value="YES">
+										是
+									</option>
+									<option value="NO">
+										否
+									</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								采购状态
+							</th>
+							<td >
+								<select name="mod1.status">
+									<option value="${mod1.status}">
+										${mod1.status}
+									</option>
+									<option></option>
+									<option value="已采购">
+										已采购
+									</option>
+									<option value="未采购">
+										未采购
+									</option>
+									<option value="取消">
+										取消
+									</option>
+								</select>
+							</td>
+							<th align="right">
+								申报日期从
+							</th>
+							<td>
+								<input name="startTime" class="Wdate" id="startTime" style="width: 100px;"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" />
+									到
+								<input name="endTime" class="Wdate" id="endTime" style="width: 100px;"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" />
+							</td>
+							<th align="right">
+								项目编号：
+							</th>
+							<td>
+								<input type="text" name="mod1.proNumber" value="${mod1.proNumber }">
+							</td>
+						</tr>
+						<tr>
+							
+						</tr>
+					</table>
+					<input type="hidden" value="${status}" name="status">
+					<input type="hidden" value="${tag}" name="tag">
+					<input type="hidden" value="${flag}" name="flag">
+					<input type="hidden" value="${my}" name="my">
+					<input type="hidden" value="${mod1.addUsersCode}"
+						name="mod1.addUsersCode">
+					<input type="submit" value="查询" class="input" />
+					<input type="button" value="导出" onclick="exportExcel(this.form);todisabledone(this)" data="downData"
+						class="input" />
+				</form>
+				<form action="ManualOrderPlanAction_plshehe.action" method="POST"
+					onsubmit="return check()">
+					<table class="table">
+						<tr align="center" bgcolor="#c0dcf2" height="50px">
+							<s:if test='tag=="daoru"'>
+								<th>
+									<input type="checkbox" onclick="chageAllCheck(this)">
+								</th>
+							</s:if>
+							<th>
+								序号
+							</th>
+							<th>
+								类别
+							</th>
+							<th>
+								订单号(内)
+							</th>
+							<th>
+								总成件号
+							</th>
+							<th>
+								总成批次
+							</th>
+							<th>
+								件号
+							</th>
+							<th>
+								零件名称
+							</th>
+							<th>
+								状态
+							</th>
+							<th>
+								单位
+							</th>
+							<th>
+								需求数量
+								<br />
+								(
+								<b style="color: red;">${num}</b>)
+							</th>
+							<th>
+								下单数量
+								<br />
+								(
+								<b style="color: red;">${num1}</b>)
+							</th>
+							<th>
+								入库数量
+								<br />
+								(
+								<b style="color: red;">${num2}</b>)
+							</th>
+							<th>
+								规格
+							</th>
+							<th>
+								供料属性
+							</th>
+							<th>
+								版本号
+							</th>
+							<th>
+								是否紧急
+							</th>
+							<th>
+								添加方式
+							</th>
+							<th>
+								添加时间
+							</th>
+							<th>
+								到货日期
+							</th>
+							<th>
+								添加人
+							</th>
+							<th>
+								添加人工号
+							</th>
+							<th>
+								项目编号
+							</th>
+							<th>
+								需求部门
+							</th>
+							<th>
+								审批动态
+							</th>
+							<s:if test='tag!="daoru"'>
+								<th>
+									操作
+								</th>
+							</s:if>
+						</tr>
+						<s:iterator value="mod1List" id="pageList" status="pagestatus">
+							<s:if test="#pagestatus.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'')">
+							</s:else>
+							<s:if test='tag=="daoru"'>
+								<td>
+									<input type="checkbox" name="selected" onclick="chageNum(this)"
+										value="${pageList.id}" />
+								</td>
+							</s:if>
+							<td align="right">
+								<s:property value="#pagestatus.index+1" />
+							</td>
+							<td algin="left">
+								${pageList.category}
+							</td>
+							<td align="left">
+								${pageList.orderNumber}
+							</td>
+							<td align="left">
+								${pageList.rootMarkId}
+								<s:if test="#pageList.ywMarkId!=null">
+									<span style="color: green;">(${pageList.ywMarkId})</span>
+								</s:if>
+							</td>
+							<td align="left">
+								${pageList.rootSelfCard}
+							</td>
+							<td align="left">
+								${pageList.markId}
+							</td>
+							<td align="left">
+								${pageList.proName}
+							</td>
+							<td align="left">
+								${pageList.status}
+							</td>
+							<td>
+								${pageList.unit}
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${pageList.cgnumber}" pattern="0.0000"></fmt:formatNumber>
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${pageList.outcgNumber}"
+									pattern="0.0000"></fmt:formatNumber>
+							</td>
+							<td align="right">
+								<fmt:formatNumber value="${pageList.rukuNum}" pattern="0.0000"></fmt:formatNumber>
+							</td>
+							<td>
+								${pageList.specification}
+							</td>
+							<td>
+								${pageList.kgliao}
+							</td>
+							<td>
+								${pageList.banben}
+							</td>
+							<td>
+								<s:if test='pageList.isurgent=="YES"'>是</s:if>
+								<s:else>
+									否
+								</s:else>
+							</td>
+							<td>
+								${pageList.type}
+							</td>
+							<td>
+								${pageList.addTime}
+							</td>
+							<td>
+								${pageList.needFinalDate}
+							</td>
+							<td>
+								${pageList.addUsers}
+							</td>
+							<td>
+								${pageList.addUsersCode}
+							</td>
+							<td>
+								${pageList.proNumber}
+							</td>
+							<td>
+								${pageList.demanddept}
+							</td>
+							<td>
+								<s:if test="#pageList.epId!=null && #pageList.epId>0">
+									<a
+										href="CircuitRunAction_findAduitPage.action?id=${pageList.epId}">${pageList.epStatus} </a>
+								</s:if>
+								<s:elseif test="#pageList.epId == 0">
+									同意
+								</s:elseif>
+								<s:else>
+									<s:if test='#pageList.epStatus!=null && #pageList.epStatus!=""'>
+										<a href="ManualOrderPlanAction_manualPlanTotalPrint.action?id=${pageList.planTotal.id}&flag=search&my=${my}">${pageList.epStatus}</a>
+									</s:if>
+									<s:else>
+<%--										未申请--%>
+										<input type="button" value="查看" 
+										onclick="location.href='ManualOrderPlanAction_manualPlanTotalPrint.action?id=${pageList.planTotal.id}&flag=search&my=${my}'"/>
+<%--										<input type="button" value="dongtai" --%>
+<%--										onclick="location.href='CircuitRunAction_findAduitPage.action?id=${pageList.planTotal.epId}'"/>--%>
+									</s:else>
+								</s:else>
+							</td>
+							<s:if test='tag!="daoru"'>
+								<td>
+									<a href="javascript:;"
+										onclick="tanchu('${pageList.id}','mingxi')">明细</a> /
+									<s:if test="#pageList.manualPlan.id!=null&&#pageList.manualPlan.id>0">
+										<a
+											href="WaigouwaiweiPlanAction!findAllCgxinxi.action?id=${pageList.manualPlan.id}">汇总</a>
+									</s:if>
+									<s:if
+										test='#pageList.epStatus == null ||#pageList.epStatus == "未审批" ||#pageList.epStatus=="打回"'>
+									/<a href="javascript:;"
+											onclick="tanchu('${pageList.id}','update')">修改</a>
+									</s:if>
+									<s:if
+										test='#pageList.outcgNumber == null || #pageList.outcgNumber==0'>
+											/<a
+											href="ManualOrderPlanAction_delmanualPlan.action?mod1.id=${pageList.id}"
+											onclick="return confirm('确定要删除吗？')">删除</a>
+									</s:if>
+
+								</td>
+							</s:if>
+							</tr>
+						</s:iterator>
+						<tr>
+							<td colspan="31" align="right">
+								第
+								<font color="red">${cpage }</font> /${total }页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+
+							</td>
+						</tr>
+						<s:if test='tag=="daoru"'>
+							<tr>
+								<td colspan="31" align="center">
+									<input type="submit" value="审核" class="input" id="sub"
+										onclick="todisabled(this)">
+								</td>
+							</tr>
+						</s:if>
+					</table>
+				</form>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<SCRIPT type="text/javascript">
+function tanchu(num,status){
+	document.getElementById("xiugaiIframe").src = "ManualOrderPlanAction_findmanualPlanById.action?id="+ num+"&status="+status;
+	chageDiv('block');
+}
+
+function toShowWW(status){
+	window.location.href="ManualOrderPlanAction_findmanualPlanList.action?status="+status+"&flag=${flag}&my=${my}";
+}
+function check(){
+	var bool = true;
+	var selecteds = document.getElementsByName("selected");
+	if(selecteds!=null && selecteds.length>0){
+		for(var i=0;i<selecteds.length;i++){
+			if(selecteds[i].checked == true){
+				bool = false;
+				break;
+			}
+		}
+	}
+	if(bool){
+		alert("请至少选择一个审核");
+		$("#sub").removeAttr("disabled")
+		return false;
+	}
+	
+}
+function exportExcel(obj){//ManualOrderPlanAction_findmopList.action
+		obj.action = "ManualOrderPlanAction_exportExcel0.action";
+	 	obj.submit();
+	  	obj.action = "ManualOrderPlanAction_findmanualPlanList.action";
+	  }
+	
+</SCRIPT>
+	</body>
+</html>

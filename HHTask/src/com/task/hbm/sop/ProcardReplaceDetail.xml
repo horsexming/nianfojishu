@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardReplaceDetail" table="ta_sop_w_ProcardReplaceDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+	<property name="rootMarkId" />
+	<property name="rootSelfCard" />
+	<property name="procardId" />
+	<property name="ywMarkId" />
+	<property name="markId" />
+	<property name="selfCard" />
+	<property name="filnalCount" />
+	<property name="cgNumber" />
+	<property name="proName" />
+	<property name="kgliao" />
+	<property name="tuhao" />
+	<property name="newProcardId" />
+	<property name="newMarkId" />
+	<property name="newSelfCard" />
+	<property name="newFilnaCount" />
+	<property name="newCgnumber" />
+	<property name="newProName" />
+	<property name="newKgliao" />
+	<property name="newtuhao" />
+	<property name="addTime" />
+	<many-to-one name="procardReplace" class="ProcardReplace" cascade="all"
+			lazy="false" column="prId" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bybz.CheckoutAndGages" table="ta_bybz_CheckoutAndGages" >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="useStatus" />
+		<property name="personLiable" />
+		<property name="jyCycle" />
+		<property name="nexJYTime" />
+		 <property name="codeLiable"/>
+		 <property name="userIdLiable"/>
+		 <property name="addUsers"/>
+		 <property name="addUsesId"/>
+		 <property name="addUsersCode"/>
+		 <property name="addTime"/>
+		<!--保养标准( 一对多) -->
+		<set name="bybzSet"  lazy="true" cascade="all">
+			<key column="cagId"></key>
+			<one-to-many class="com.task.entity.bybz.BaoYangBiaoZhun" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,707 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<style type="text/css">
+.ztree li a {
+	color: #fff;
+}
+</style>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv"
+			onclick="chageDiv('none')">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 900px;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">您在在进行手动下单功能</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								id="closeTcDiv" height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<iframe id="xiugaiIframe" src="" marginwidth="0" marginheight="0"
+						hspace="0" vspace="0" frameborder="0" scrolling="yes"
+						style="width: 98%; height: 500px; margin: 0px; padding: 0px;"></iframe>
+
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<form action="WaigouwaiweiPlanAction!findDqrWgPlanList.action"
+					method="post" id="form">
+					<input type="hidden" name="viewStatus" value="${viewStatus}" />
+					<input type="hidden" name="pageStatus" value="${pageStatus}" />
+					<table class="table">
+						<tr>
+							<th colspan="6">
+								采购计划管理
+							</th>
+						</tr>
+						<tr>
+							<th align="right">
+								总成件号:
+							</th>
+							<td>
+								<input name="manualPlan.rootMarkId"
+									value="${manualPlan.rootMarkId}" />
+							</td>
+							<th align="right">
+								业务件号:
+							</th>
+							<td>
+								<input name="manualPlan.ywMarkId" value="${manualPlan.ywMarkId}" />
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								件号:
+							</th>
+							<td>
+								<input name="manualPlan.markId" value="${manualPlan.markId}" />
+							</td>
+							<th align="right">
+								名称:
+							</th>
+							<td>
+								<input name="manualPlan.proName" value="${manualPlan.proName}" />
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								物料类别:
+							</th>
+							<td>
+								<div class="zTreeDemoBackground left">
+									<ul class="list">
+										<li class="title">
+											<input id="wgType" type="text" value="${manualPlan.wgType}"
+												style="width: 120px;" name="manualPlan.wgType" />
+											<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+										</li>
+									</ul>
+								</div>
+								<div id="menuContent" class="menuContent"
+									style="display: none; position: absolute;">
+									<ul id="treeDemo" class="ztree"
+										style="margin-top: 0; width: 160px;"></ul>
+								</div>
+							</td>
+							<th align="right">
+								供料属性:
+							</th>
+							<td>
+								<SELECT name="manualPlan.kgliao">
+									<s:if test="manualPlan.kgliao=='TK'">
+										<option value="TK">
+											自购(TK)
+										</option>
+									</s:if>
+									<s:elseif test="manualPlan.kgliao=='TK AVL'">
+										<option value="TK AVL">
+											指定供应商(TK AVL)
+										</option>
+									</s:elseif>
+									<s:elseif test="manualPlan.kgliao=='TK Price'">
+										<option value="TK">
+											完全指定(TK Price)
+										</option>
+									</s:elseif>
+									<option></option>
+									<option value="TK">
+										自购(TK)
+									</option>
+									<option value="TK AVL">
+										指定供应商(TK AVL)
+									</option>
+									<option value="TK Price">
+										完全指定(TK Price)
+									</option>
+								</SELECT>
+							</td>
+						</tr>
+						<tr>
+							<th align="right">
+								添加日期（起）:
+							</th>
+							<td>
+								<input name="startDate" value="${dcgstartDate}" class="Wdate"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd 00:00:00',skin:'whyGreen'})" />
+							</td>
+							<th align="right">
+								添加日期（止）:
+							</th>
+							<td>
+								<input name="endDate" value="${dcgendDate}" class="Wdate"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd 24:00:00',skin:'whyGreen'})" />
+							</td>
+						</tr>
+
+						<tr>
+							<tr>
+								<th align="right">
+									物料需求申请流水单号:
+								</th>
+								<td>
+									<input name="manualPlan.totalNum"
+										value="${manualPlan.totalNum}" />
+								</td>
+								<th align="right">
+									数量:
+								</th>
+								<td>
+									<input name="count" value="${count}" />
+								</td>
+								<tr>
+
+								</tr>
+								<th colspan="6">
+									<input type="submit" value="查询" class="input" />
+									<input type="reset" value="清空" class="input" />
+									<%--<input type="button" value="导出价格表" class="input"
+									onclick="clicks1();" />--%>
+									<input type="button" value="导出待采购" class="input"
+										onclick="clicks();todisabledone(this)" data="downData" />
+
+									<input type="button" value="新增" class="input">
+								</th>
+							</tr>
+					</table>
+				</form>
+				<form action="WaigouwaiweiPlanAction!addWgOrder.action"
+					method="post">
+					<table class="table sticky-enabled">
+						<tr>
+							<th colspan="23"
+								style="height: 35px; color: #ffffff; background-color: red;">
+								待采购物料需求计划
+							</th>
+						</tr>
+						<tr>
+							<th align="left" colspan="23">
+								注:"无",表示该件号不存在单价,需要等待价格录入
+								<br />
+								注:"配",表示该件号不存在供应商配额数据,需要等待供应商供货比例完善
+								<br />
+								注:"待",表示该件号存在MOQ或者MPQ,需等待确认是否启用MOQ、MPQ;
+							</th>
+						</tr>
+						<tr bgcolor="#c0dcf2" height="50px">
+							<th align="center">
+								序号
+							</th>
+							<th align="center">
+								<input type="checkbox" onclick="chageAllCheck(this,'showNum')"
+									id="checkAll" />
+							</th>
+							<%--							<th align="center">--%>
+							<%--								订单号--%>
+							<%--							</th>--%>
+							<%--							<th align="center">--%>
+							<%--								总成件号--%>
+							<%--							</th>--%>
+							<%--							<th align="center">--%>
+							<%--								业务件号--%>
+							<%--							</th>--%>
+							<%--<th align="center">
+									总成批次
+								</th>
+								--%>
+							<th align="center">
+								物料类别
+							</th>
+							<th align="center">
+								件号
+							</th>
+							<th align="center">
+								图号
+							</th>
+							<th align="center">
+								种类
+							</th>
+							<th align="center">
+								规格
+							</th>
+							<th align="center">
+								版本
+							</th>
+							<th align="center">
+								供料属性
+							</th>
+							<%--<th align="center">
+									批次
+								</th>
+								--%>
+							<th align="center">
+								零件名称
+							</th>
+							<%--<th align="center">
+								库存(TK)
+							</th>
+							<th align="center">
+								库存(TK VAL)
+							</th>
+							<th align="center">
+								库存(TK Price)
+							</th>
+							<th align="center">
+								库存(CS)
+							</th>
+							<th align="center">
+								占用数量
+							</th>
+							<th align="center">
+								在途数量
+							</th>
+							--%>
+							<th align="center">
+								采购数量
+							</th>
+							<th align="center">
+								单位
+							</th>
+							<th align="center">
+								添加时间
+							</th>
+							<s:if test="pageStatus == 'fl'">
+								<th align="center">
+									需求部门
+								</th>
+							</s:if>
+							<th align="center">
+								操作
+							</th>
+						</tr>
+						<s:iterator value="mopList" id="pagemop" status="pageStatus">
+							<s:if test="#pageStatus.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'')">
+							</s:else>
+							<th>
+								<s:property value="#pageStatus.index+1" />
+							</th>
+							<td>
+								<s:if test="#pagemop.price>0">
+									<s:if test="#pagemop.cgbl==100">
+										<s:if
+											test='#pagemop.isuse== "待"&&(#pagemop.gyscodeAndNum!=null && #pagemop.gyscodeAndNum!="") '>
+											<input type="button" value="起订量确认"
+												onclick="showPrice('${pagemop.id}','${pagemop.gyscodeAndNum}')"
+												style="width: 80px" />
+										</s:if>
+										<s:else>
+											<input type="checkbox" value="${pagemop.id}"
+												name="processIds" onclick="chageNum(this,'showNum')" />
+										</s:else>
+									</s:if>
+									<s:elseif test="#pagemop.cgbl>0">配[<font color="red">${pagemop.cgbl}%</font>]</s:elseif>
+									<s:else>
+										<%--										<s:if test='tag == "sdxd"'>--%>
+										<%--											<input type="checkbox" value="${pagemop.id}"--%>
+										<%--												name="processIds" onclick="chageNum(this,'showNum')" />配--%>
+										<%--										</s:if>--%>
+										<%--										<s:else>--%>
+										<%--											配--%>
+										<%--										</s:else>--%>
+										<input type="checkbox" value="${pagemop.id}" name="processIds"
+											onclick="chageNum(this,'showNum')" />配
+									</s:else>
+								</s:if>
+								<s:else>
+									无
+								</s:else>
+							</td>
+							<%--							<td>--%>
+							<%--								${pageWgww.orderNumber}--%>
+							<%--							</td>--%>
+							<%--							<td>--%>
+							<%--								<font color="green">${pageWgww.rootMarkId}</font>--%>
+							<%--							</td>--%>
+							<%--							<td>--%>
+							<%--								<s:if test="#pageWgww.ywMarkId!=null&&#pageWgww.ywMarkId!=''">--%>
+							<%--									<font color="green">${pageWgww.ywMarkId}</font>--%>
+							<%--								</s:if>--%>
+							<%--							</td>--%>
+							<%--<td>
+									<font color="green">${pageWgww.rootSelfCard}</font>
+								</td>
+								--%>
+							<th align="left">
+								${pagemop.wgType}
+							</th>
+							<th align="left" style="color: red">
+								<a href="javascript:;" onclick="tanchu('${pagemop.id}',this)">${pagemop.markId}</a>
+							</th>
+							<th align="left" style="color: red">
+								${pagemop.tuhao}
+							</th>
+							<th align="left">
+								${pagemop.category}
+							</th>
+							<th align="left">
+								${pagemop.specification}
+							</th>
+							<th style="color: blue">
+								${pagemop.banben}
+							</th>
+							<td>
+								${pagemop.kgliao}
+							</td>
+							<%--<th>
+									${pageWgww.selfCard}
+								</th>
+								--%>
+							<s:if test="pageStatus=='wwPlan'">
+								<td>
+									${pageWgww.processNo}
+								</td>
+							</s:if>
+							<th align="left">
+								${pagemop.proName}
+							</th>
+							<%--<td>
+									${pageWgww.kcNumber}
+								</td>
+								<td>
+									${pageWgww.kcNumberAvl}
+								</td>
+								<td>
+									${pageWgww.kcNumberPrice}
+								</td>
+								<td>
+									${pageWgww.kcNumberCs}
+								</td>
+								<td>
+									${pageWgww.zzNumber}
+								</td>
+								<td>
+									${pageWgww.ztNumber}
+								</td>
+								--%>
+							<td align="right">
+									<fmt:formatNumber value="${pagemop.number}" pattern="0.0000"></fmt:formatNumber>
+							</td>
+							<td align="right">
+								${pagemop.unit}
+							</td>
+							<td align="right">
+								${pagemop.addtime}
+							</td>
+							<s:if test="pageStatus == 'fl'">
+								<td align="right">
+									${pagemop.demanddept}
+								</td>
+							</s:if>
+
+							<%--							<td align="left">--%>
+							<%--								<s:if test='#pageWgww.outOrderNum==null || #pageWgww.outOrderNum == ""'>--%>
+							<%--									BOM--%>
+							<%--								</s:if>--%>
+							<%--								<s:else>--%>
+							<%--									${pageWgww.outOrderNum}--%>
+							<%--								</s:else>--%>
+							<%--							</td>--%>
+							<td style="width: 90px;">
+								<%--<input type="button" value="调整"
+										onclick="update(${pageWgww.id},'${cpage}')">
+									<input type="button" value="替换">
+								--%>
+								<input type="button" value="手动下单"
+									onclick="showPrice('${pagemop.id}','')" style="width: 80px" />
+								<%--								<s:if--%>
+								<%--									test='(#pagemop.isuse==null || #pagemop.isuse== "待" ||#pagemop.isuse=="" )--%>
+								<%--											&&(#pagemop.gyscodeAndNum!=null && #pagemop.gyscodeAndNum!="") '>--%>
+								<%--									<input type="button" value="MOQ处理"--%>
+								<%--										onclick="showPrice('${pagemop.id}','${pagemop.gyscodeAndNum}')"--%>
+								<%--										style="width: 80px" />--%>
+								<%--								</s:if>--%>
+							</td>
+							</tr>
+							<s:if test="#pageWgww.wwpSet!=null && #pageWgww.wwpSet.size()>0 ">
+								<tr id="tr_${pageWgww.id}">
+									<th>
+
+									</th>
+									<th>
+										件号
+									</th>
+									<th>
+										名称
+									</th>
+									<th>
+										供料属性
+									</th>
+									<th>
+										批次
+									</th>
+									<th>
+										规格
+									</th>
+									<th>
+										图号
+									</th>
+									<th>
+										数量
+									</th>
+									<th>
+										单位
+									</th>
+								</tr>
+							</s:if>
+							<s:iterator value="#pageWgww.wwpSet" id="waigouPlan"
+								status="pagestatus1">
+								<tr>
+									<td></td>
+									<td>
+										${waigouPlan.markId}
+									</td>
+									<td>
+										${waigouPlan.proName}
+									</td>
+									<td>
+										${waigouPlan.kgliao}
+									</td>
+									<td>
+										${waigouPlan.pcDetail}
+									</td>
+									<td>
+										${waigouPlan.specification}
+									</td>
+									<td>
+										${waigouPlan.tuhao}
+									</td>
+									<td>
+										${waigouPlan.number}
+									</td>
+									<td>
+										${waigouPlan.unit}
+									</td>
+								</tr>
+							</s:iterator>
+						</s:iterator>
+						<tr>
+							<th colspan="10" align="right">
+								合计
+							</th>
+							<th colspan="1" align="right">
+								<fmt:formatNumber value="${sumMoney}" pattern="#.####"></fmt:formatNumber>
+							</th>
+							<th colspan="4" align="left">
+							</th>
+						</tr>
+						<tr>
+							<td align="center">
+								操作
+							</td>
+							<td>
+								<input type="checkbox" onclick="chageAllCheck(this,'showNum')"
+									id="checkAll2" />
+							</td>
+							<th colspan="2" align="left">
+								共选择
+								<SPAN id="showNum"> 0 </SPAN> 条
+							</th>
+							<td colspan="28">
+								<input type="submit" style="width: 100px; height: 50px;"
+									value="按比例采购" onclick="todisabled(this)" />
+								<s:if test='tag == "sdxd"'>
+									<input type="button" value="多选手动下单"
+										onclick="sdxdshowPrice(this.form)"
+										style="width: 100px; height: 50px;" />
+								</s:if>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="28" align="right">
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+$(document).ready(function() {
+	getCaizhi("wgType");
+})
+function update(id, cpage) {
+	window.location.href = "WaigouwaiweiPlanAction!toAdjust.action?procard.id="
+			+ id + "&cpage=" + cpage;
+}
+function clicks() {
+	document.getElementById('form').action = "WaigouwaiweiPlanAction!export.action?noPrice="
+			+ "noPrice";
+	document.getElementById('form').submit();
+	document.getElementById('form').action = "WaigouwaiweiPlanAction!findDqrWgPlanList.action";
+}
+function clicks1() {
+	document.getElementById('form').action = "WaigouwaiweiPlanAction!export.action";
+	document.getElementById('form').submit();
+	document.getElementById('form').action = "WaigouwaiweiPlanAction!findDqrWgPlanList.action";
+}
+var mfzTree;
+var addzTree;
+var delzTree;
+var updatezTree;
+
+var id;
+var pId;
+var name;
+var setting = {
+	view : {
+		dblClickExpand : false
+	},
+	data : {
+		simpleData : {
+			enable : true
+		}
+	},
+	callback : {
+		beforeClick : beforeClick,
+		onClick : onClick
+	}
+};
+//读取树形数据
+$(document).ready(function() {
+	parent.mfzTree();
+});
+var zNodes = [];
+parent.mfzTree = function() {
+	$.ajax( {
+		url : 'CategoryAction_findcyListByrootId.action',
+		type : 'post',
+		data : {
+			status : '物料类别'
+		},
+		dataType : 'json',
+		cache : true,
+		success : function(doc) {
+			$(doc).each(function() {
+				zNodes.push( {
+					id : $(this).attr('id'),
+					pId : $(this).attr('fatherId'),
+					name : $(this).attr('name'),
+					target : "main",
+					click : false
+				});
+
+			});
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.expandAll(true);
+		},
+		error : function() {
+			alert("服务器异常!");
+		}
+	});
+};
+function beforeClick(treeId, treeNode) {
+	var check = (treeNode && !treeNode.isParent);
+
+	return true;
+}
+
+function onClick(e, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
+			.getSelectedNodes(), v = "";
+	nodes.sort(function compare(a, b) {
+		return a.id - b.id;
+	});
+	for ( var i = 0, l = nodes.length; i < l; i++) {
+		v = nodes[i].name;
+	}
+	//if (v.length > 0 ) v = v.substring(0, v.length-1); 
+	cityObj = $("#wgType").val(v);
+
+}
+
+function showMenu() {
+	var cityObj = $("#wgType");
+	var cityOffset = $("#wgType").offset();
+	$("#menuContent").css( {
+		left : cityOffset.left + "px",
+		top : cityOffset.top + cityObj.outerHeight() + "px"
+	}).slideDown("fast");
+
+	$("body").bind("mousedown", onBodyDown);
+}
+function hideMenu() {
+	$("#menuContent").fadeOut("fast");
+	$("body").unbind("mousedown", onBodyDown);
+}
+function onBodyDown(event) {
+	if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(
+			event.target).parents("#menuContent").length > 0)) {
+		hideMenu();
+	}
+}
+function showPrice(num, status) {
+	if (status != '') {
+		document.getElementById("xiugaiIframe").src = "WaigouwaiweiPlanAction!toisuseMQQ.action?id="
+				+ num + "&mxId=" + status;
+	} else {
+		document.getElementById("xiugaiIframe").src = "WaigouwaiweiPlanAction!sdxdshowPrice.action?processIds="
+				+ num + "&pageStatus=yemian";
+	}
+	chageDiv('block');
+}
+function sdxdshowPrice(obj) {
+	obj.action = "WaigouwaiweiPlanAction!sdxdshowPrice.action";
+	$(obj).submit();
+	obj.action = "WaigouwaiweiPlanAction!addWgOrder.action";
+}
+
+function tanchu(num,obj) {
+	if (num != '') {
+		document.getElementById("xiugaiIframe").src = "WaigouwaiweiPlanAction!findAllCgxinxi.action?id="
+				+ num;
+		chageDiv('block');
+		//单独设置弹出层的高度
+		var thisTopHeight = $(obj).offset().top - 200;
+		if (thisTopHeight < 0) {
+			thisTopHeight = 0;
+		}
+		$('#contentDiv').css( {
+			'top' : thisTopHeight + 'px'
+		});
+	} else {
+		alert('该零件未有相关物料需求信息');
+	}
+
+}
+</script>
+	</body>
+</html>

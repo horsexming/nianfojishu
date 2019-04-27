@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectStartBudget" table="ta_ProjectStart_Budget">
+		<id name="id">
+			<generator class="identity" ></generator>
+		</id>
+		<property name="module" length="100" />
+		<property name="toolsNumber" />
+		<property name="toolsPrice" type="double" />
+		<property name="beenUsed" type="double" />
+		<property name="tobeUsed" type="double" />
+		<property name="newEquipment" length="250" />
+		<property name="newEquipmentPrice" type="double" />
+		<many-to-one name="root" column="pid" lazy="false"/>
+	</class>
+
+</hibernate-mapping>

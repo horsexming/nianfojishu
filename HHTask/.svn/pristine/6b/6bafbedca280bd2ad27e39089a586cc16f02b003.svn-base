@@ -1,0 +1,187 @@
+package com.task.entity;
+
+/**
+ * 五险一金类(表名:ta_fin_InsuranceGold)
+ * 
+ * @author 刘培
+ * 
+ */
+public class InsuranceGold {
+
+	private Integer id;
+	private Float oldageInsurance;// 个人缴纳养老保险
+	private Float medicalInsurance;// 个人缴纳医疗保险
+	private Float unemploymentInsurance;// 个人缴纳失业保险
+	private Float injuryInsurance;// 个人缴纳工伤保险
+	private Float maternityInsurance;// 个人缴纳生育保险
+	private Float housingFund;// 个人缴纳住房公积金
+	private Float minimumWage;// 个人缴纳最低基本工资
+	private String localOrField;// 本地或外地
+	private String cityOrCountryside;// 城市或农村
+	private String validityStartDate;// 有效期开始时间
+	private String validityEndDate;// 有效期结束时间
+	/*
+	 * 新添字段，公司承担缴纳金
+	*/
+	private String personClass;//人员类型
+	private Float QYoldageInsurance;// 企业缴纳养老保险
+	private Float QYmedicalInsurance;// 企业缴纳缴纳医疗保险
+	private Float QYunemploymentInsurance;// 企业缴纳缴纳失业保险
+	private Float QYinjuryInsurance;// 企业缴纳缴纳工伤保险
+	private Float QYmaternityInsurance;// 企业缴纳缴纳生育保险
+	private Float QYhousingFund;// 企业缴纳缴纳住房公积金
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Float getOldageInsurance() {
+		return oldageInsurance;
+	}
+
+	public void setOldageInsurance(Float oldageInsurance) {
+		this.oldageInsurance = oldageInsurance;
+	}
+
+	public Float getMedicalInsurance() {
+		return medicalInsurance;
+	}
+
+	public void setMedicalInsurance(Float medicalInsurance) {
+		this.medicalInsurance = medicalInsurance;
+	}
+
+	public Float getUnemploymentInsurance() {
+		return unemploymentInsurance;
+	}
+
+	public void setUnemploymentInsurance(Float unemploymentInsurance) {
+		this.unemploymentInsurance = unemploymentInsurance;
+	}
+
+	public Float getInjuryInsurance() {
+		return injuryInsurance;
+	}
+
+	public void setInjuryInsurance(Float injuryInsurance) {
+		this.injuryInsurance = injuryInsurance;
+	}
+
+	public Float getMaternityInsurance() {
+		return maternityInsurance;
+	}
+
+	public void setMaternityInsurance(Float maternityInsurance) {
+		this.maternityInsurance = maternityInsurance;
+	}
+
+	public Float getHousingFund() {
+		return housingFund;
+	}
+
+	public void setHousingFund(Float housingFund) {
+		this.housingFund = housingFund;
+	}
+
+	public String getValidityStartDate() {
+		return validityStartDate;
+	}
+
+	public void setValidityStartDate(String validityStartDate) {
+		this.validityStartDate = validityStartDate;
+	}
+
+	public String getValidityEndDate() {
+		return validityEndDate;
+	}
+
+	public void setValidityEndDate(String validityEndDate) {
+		this.validityEndDate = validityEndDate;
+	}
+
+	public String getLocalOrField() {
+		return localOrField;
+	}
+
+	public void setLocalOrField(String localOrField) {
+		this.localOrField = localOrField;
+	}
+
+	public String getCityOrCountryside() {
+		return cityOrCountryside;
+	}
+
+	public void setCityOrCountryside(String cityOrCountryside) {
+		this.cityOrCountryside = cityOrCountryside;
+	}
+
+	public Float getMinimumWage() {
+		return minimumWage;
+	}
+
+	public void setMinimumWage(Float minimumWage) {
+		this.minimumWage = minimumWage;
+	}
+
+	public String getPersonClass() {
+		return personClass;
+	}
+
+	public void setPersonClass(String personClass) {
+		this.personClass = personClass;
+	}
+
+	public Float getQYoldageInsurance() {
+		return QYoldageInsurance;
+	}
+
+	public void setQYoldageInsurance(Float qYoldageInsurance) {
+		QYoldageInsurance = qYoldageInsurance;
+	}
+
+	public Float getQYmedicalInsurance() {
+		return QYmedicalInsurance;
+	}
+
+	public void setQYmedicalInsurance(Float qYmedicalInsurance) {
+		QYmedicalInsurance = qYmedicalInsurance;
+	}
+
+	public Float getQYunemploymentInsurance() {
+		return QYunemploymentInsurance;
+	}
+
+	public void setQYunemploymentInsurance(Float qYunemploymentInsurance) {
+		QYunemploymentInsurance = qYunemploymentInsurance;
+	}
+
+	public Float getQYinjuryInsurance() {
+		return QYinjuryInsurance;
+	}
+
+	public void setQYinjuryInsurance(Float qYinjuryInsurance) {
+		QYinjuryInsurance = qYinjuryInsurance;
+	}
+
+	public Float getQYmaternityInsurance() {
+		return QYmaternityInsurance;
+	}
+
+	public void setQYmaternityInsurance(Float qYmaternityInsurance) {
+		QYmaternityInsurance = qYmaternityInsurance;
+	}
+
+	public Float getQYhousingFund() {
+		return QYhousingFund;
+	}
+
+	public void setQYhousingFund(Float qYhousingFund) {
+		QYhousingFund = qYhousingFund;
+	}
+	
+}

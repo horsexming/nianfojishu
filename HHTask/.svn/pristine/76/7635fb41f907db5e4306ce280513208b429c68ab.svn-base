@@ -1,0 +1,82 @@
+package com.task.entity.system;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.DeptNumber;
+
+/***
+ * 审批节点(表名:ta_sys_AuditNode)
+ * 
+ * @author 刘培
+ * 
+ */
+public class AuditNode {
+
+	private Integer id;// 主键
+	private Integer auditLevel;// 审批等级(1/2/3/4)
+	private String auditUserName;// 审批人姓名
+	private String auditUserDept;// 审批人部门
+	private Integer auditUserId;// 审批人id
+	private CircuitCustomize circuitCustomize;// 所属流程(多对一)
+	private Set<DeptNumber> deptSet;//部门表(多对多)
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAuditUserName() {
+		return auditUserName;
+	}
+
+	public void setAuditUserName(String auditUserName) {
+		this.auditUserName = auditUserName;
+	}
+
+	public CircuitCustomize getCircuitCustomize() {
+		return circuitCustomize;
+	}
+
+	public void setCircuitCustomize(CircuitCustomize circuitCustomize) {
+		this.circuitCustomize = circuitCustomize;
+	}
+
+	public String getAuditUserDept() {
+		return auditUserDept;
+	}
+
+	public void setAuditUserDept(String auditUserDept) {
+		this.auditUserDept = auditUserDept;
+	}
+
+	public Integer getAuditLevel() {
+		return auditLevel;
+	}
+
+	public void setAuditLevel(Integer auditLevel) {
+		this.auditLevel = auditLevel;
+	}
+
+	public Integer getAuditUserId() {
+		return auditUserId;
+	}
+
+	public void setAuditUserId(Integer auditUserId) {
+		this.auditUserId = auditUserId;
+	}
+
+	@JSONField(serialize = false)
+	public Set<DeptNumber> getDeptSet() {
+		return deptSet;
+	}
+
+	public void setDeptSet(Set<DeptNumber> deptSet) {
+		this.deptSet = deptSet;
+	}
+	
+
+}

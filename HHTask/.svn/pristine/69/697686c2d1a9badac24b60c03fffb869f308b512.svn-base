@@ -1,0 +1,1352 @@
+package com.task.Server.sop;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.Also;
+import com.task.entity.Borrow;
+import com.task.entity.Goods;
+import com.task.entity.Price;
+import com.task.entity.Sell;
+import com.task.entity.WarehouseNumber;
+import com.task.entity.android.OsRecord;
+import com.task.entity.android.OsRecordScope;
+import com.task.entity.android.OsTemplate;
+import com.task.entity.gzbj.ProcessAndMeasuring;
+import com.task.entity.menjin.KuweiSongHuoDan;
+import com.task.entity.menjin.WareBangGoogs;
+import com.task.entity.qualifiedrate.QualifiedRate;
+import com.task.entity.sop.DefectiveProduct;
+import com.task.entity.sop.GysMarkIdCkolse;
+import com.task.entity.sop.ManualOrderPlan;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.ProcardCsBl;
+import com.task.entity.sop.ProcessAndWgProcardTem;
+import com.task.entity.sop.ReturnSingle;
+import com.task.entity.sop.ReturnsDetails;
+import com.task.entity.sop.WaigouDailySheet;
+import com.task.entity.sop.WaigouDelivery;
+import com.task.entity.sop.WaigouDeliveryDetail;
+import com.task.entity.sop.WaigouOrder;
+import com.task.entity.sop.WaigouPlan;
+import com.task.entity.sop.WaigouPlanclApply;
+import com.task.entity.sop.WgProcardMOQ;
+import com.tast.entity.zhaobiao.Waigoujianpinci;
+import com.tast.entity.zhaobiao.WaigoujianpinciZi;
+import com.tast.entity.zhaobiao.ZhUser;
+
+/**
+ * 外购外委server层
+ * 
+ * @author 刘培
+ * 
+ */
+@SuppressWarnings("unchecked")
+public interface WaigouWaiweiPlanServer {
+	/****
+	 * 待确认物料列表(总成明细)`
+	 * 
+	 * @return
+	 */
+	Object[] findDqrWlList(Procard procard, int pageNo, int pageSize,
+			String pageStatus);
+
+	/****
+	 * 待确认物料明细(总成——外购明细)
+	 * 
+	 * @return
+	 */
+	Object[] findDqrWlDetailList(Integer rootId, Procard procard);
+
+	/****
+	 * 物料清单确认，进入采购流程
+	 * 
+	 * @param rootId
+	 * @return
+	 */
+	String updateForWgPlan(Integer rootId, String needDate);
+
+	/****
+	 * 查询待采购
+	 * 
+	 * @return
+	 */
+	Object[] findDqrWgPlanList(ManualOrderPlan manualPlan, int pageNo,
+			int pageSize, String startDate, String endDate, String pageStatus,
+			String wgTypes, String count, String exportTag);
+
+	/****
+	 * 添加采购订单
+	 * 
+	 * @param procardIds
+	 * @return
+	 */
+	String addWgOrder(Integer[] procardIds,String pageStatus);
+
+	/****
+	 * 外购外委查询列表
+	 * 
+	 * @param wwPlan
+	 * @param pageNo
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findWgWwPlanList(WaigouPlan waigouPlan, int pageNo, int pageSize,
+			String pageStatus, Integer wgOrderId, String tag, String planNumber);
+
+	/****
+	 * 外购订单查询列表
+	 * 
+	 * @param WaigouOrder
+	 * @param pageNo
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findWgOrderList(WaigouOrder wgOrder, int pageNo, int pageSize,
+			String pageStatus, String tag);
+
+	/****
+	 * 采购订单通知供应商
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	String orderToTzGys(Integer[] ids);
+
+	/****
+	 * 采购订单协商交付
+	 * 
+	 * @param waigouPlan
+	 * @return
+	 */
+	String gysXsOrder(WaigouPlan waigouPlan);
+
+	/****
+	 * 采购订单最终确认
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	String orderQueren(Integer[] ids);
+
+	/****
+	 * 根据件号以及版次查询图纸
+	 * 
+	 * @param markId
+	 * @param banci
+	 * @return
+	 */
+	List findCardTemplateTz(String markId, Integer banci);
+
+	/**
+	 * 查找外委订单（工序外委,包工包料）
+	 * 
+	 * @param waigouOrder
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findWwOrderList(WaigouOrder waigouOrder, int parseInt,
+			int pageSize, String pageStatus, String tag);
+
+	/**
+	 * 外委查询列表
+	 * 
+	 * @param waigouPlan
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @param id
+	 * @return
+	 */
+	Object[] findWwPlanList(WaigouPlan waigouPlan, int parseInt, int pageSize,
+			String pageStatus, String startDate, String endDate, Integer id,String sunxu);
+
+	/**
+	 * 修改采购订单信息
+	 * 
+	 * @param waigouOrder
+	 * @param tag
+	 * @return
+	 */
+	String updateOrderMsg(WaigouOrder waigouOrder, String tag);
+
+	/****
+	 * 查询所有的待送货订单
+	 * 
+	 * @return
+	 */
+	Object[] findFllScz(WaigouPlan waigouPlan, int pageNo, int pageSize,
+			String pageStatus);
+
+	/****
+	 * 采购订单申请送货
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	Object[] addOrderToSonghuo(Integer[] ids);
+
+	/****
+	 * 添加送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Map<Integer, Object> addDeliveryNote(WaigouDelivery waigouDelivery,
+			List list);
+
+	/****
+	 * 查询送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNote(WaigouDelivery waigouDelivery, int pageNo,
+			int pageSize, String pageStatus, String firsttime, String endtime);
+
+	/****
+	 * 用户查询送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNoteByUser(WaigouDelivery waigouDelivery, int pageNo,
+			int pageSize, String pageStatus);
+
+	/****
+	 * 查询送货单明细
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNoteDetail(Integer id);
+
+	/******
+	 * 查询采购订单送货明细
+	 * 
+	 * @param waigouDelivery
+	 * 
+	 * @param list
+	 * 
+	 * @return
+	 */
+	Object[] findWaigouPlanDNDetail(Integer wpId);
+
+	/***
+	 * 送货单打印
+	 * 
+	 * @param waigouDelivery
+	 * 
+	 * 
+	 * @return
+	 */
+	String updateDeliveryToPrint(Integer deliveryId);
+
+	/****
+	 * 分页，查询所有的待确认的送货单 根据送货单号查询所有订单
+	 * 
+	 * @return
+	 */
+	Object[] findDqrDelivery(String pageStatus, WaigouDelivery waigouDelivery,
+			int pageNo, int pageSize);
+
+	List findNoPassDelivery();
+
+	/****
+	 * 查询所有的不合格的检验记录
+	 * 
+	 * @return
+	 */
+	List findNoPassDelivery(String isHandle);
+
+	/****
+	 * 查询所有确认后待入柜的送货单
+	 * 
+	 * @return
+	 */
+	List findDqrDeliRuGui();
+
+	/****
+	 * 扫描条码查询送货单明细
+	 * 
+	 * @return
+	 */
+	Object[] findDeliveryDeByBacode(String bacode);
+
+	/****
+	 * 扫描条码查询送货单明细=>确认数量
+	 * 
+	 * @return
+	 */
+	Object[] upfindDeliveryRuGuiBacode(String bacode, String mxId);
+
+	/****
+	 * 扫描二维码查询待入库信息=>确认数量
+	 * 
+	 * @return
+	 */
+	Object[] upRuKuiBacode(String bacode);
+
+	/****
+	 * 扫描二维码借出工装
+	 * 
+	 * @return
+	 */
+	public String upBorrowGzBacode(String bacode);
+
+	/****
+	 * 确认数量 id 库位ID
+	 * 
+	 * @return
+	 */
+	Object[] findRuGuiQuerenCode(Integer id);
+
+	/****
+	 * 查询个人未关门的库位
+	 * 
+	 * @return
+	 */
+	public List findRuGuiWN();
+
+	/****
+	 * 送货单ID查询对应库位
+	 * 
+	 * @return
+	 */
+	public List findRuGuiWN(Integer id);
+
+	/***
+	 * 送货单确认数量
+	 * 
+	 * @param waigouDelivery
+	 * 
+	 * 
+	 * @return
+	 */
+	String updateDeliveryToQr(List list);
+
+	/***
+	 * 确认已存入柜数量
+	 * 
+	 * @param list
+	 *            明细集合
+	 * @param wn
+	 *            库位对象
+	 * @return
+	 */
+	String updateWNToRK(WaigouDeliveryDetail wg, WarehouseNumber wn);
+
+	/***
+	 * 库管确认入柜(库位)数量
+	 * 
+	 * @param list
+	 *            明细集合
+	 * @param wn
+	 *            库位对象
+	 * @return
+	 */
+	String updateWNToRG(List<WaigouDeliveryDetail> list, WarehouseNumber wn);
+
+	/****
+	 * 查询所有待检验的送货单
+	 * 
+	 * @return
+	 */
+	Object[] findDjyDelivery(WaigouDeliveryDetail waigoudd, String pageStatus,
+			int parseInt, int pageSize);
+
+	/**
+	 * 通过Id 获取送货订单明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	WaigouDeliveryDetail getWaiGouddById(Integer id);
+
+	/**
+	 * 通过Id 获取送货订单明细和下工序
+	 * 
+	 * @param id
+	 * @return
+	 */
+	WaigouDeliveryDetail getWaiGouddById2(Integer id);
+
+	/**
+	 * 查询待检外购外委检验模版
+	 * 
+	 * @param markId
+	 * @param banben
+	 * @param type
+	 * @return
+	 */
+	Object[] getOsTemplate(String markId, String banben, String type,
+			String gongxuNum, WaigouDeliveryDetail waigoudd, Integer ostId);
+
+	/**
+	 * 巡检模板绑定巡检标准
+	 */
+	boolean Ostbdxjbz(OsTemplate ost);
+
+	/**
+	 * 生成外购件检验记录
+	 * 
+	 * @param buhegeNumber
+	 * 
+	 * @param waigoudd
+	 * @param osRecordScopeList
+	 * @return
+	 */
+	String updateStick2(OsRecord osRecord, List<OsRecord> osRecordList,
+			String status, Float jyNumber, Float buhegeNumber,
+			List<OsRecord> bhgosRecordList);
+
+	/**
+	 * 获取外委到货带领列表
+	 * 
+	 * @return
+	 */
+	Object[] findWwRukuDailingList(WaigouDeliveryDetail waigoudd, int parseInt,
+			int pageSize, String pageStatus);
+
+	/****
+	 * 仓库添加手工送货单并确认数量
+	 * 
+	 * @return
+	 */
+	String orderToshAndQs(Integer[] ids, Float[] qrnum);
+
+	public Procard findById(Integer procardId);
+
+	public String adjust(Procard procard);
+
+	public boolean exportFile(List procardList);
+
+	public boolean exportFile1(List procardList);
+
+	public boolean exportFileMop(List<ManualOrderPlan> mopList);
+
+	/**
+	 * 通过订单查询采购订单明细
+	 */
+	WaigouDeliveryDetail findWaigouPlanById(Integer id);
+
+	/**
+	 * 通过id查询采购订单明细(待入库)
+	 */
+	WaigouDeliveryDetail findWaigouPlanById_1(Integer id);
+
+	/**
+	 * 查询未满的库位
+	 */
+	List<WarehouseNumber> findAllWNList_1();
+
+	/**
+	 * 根据采购明细得到对应库位
+	 */
+	List<KuweiSongHuoDan> findAllWNList_2(Integer id, String status);
+
+	/**
+	 * 根据订单Id查询订单明细
+	 */
+	Object[] findWaigouPlanListByid(Integer id);
+
+	/**
+	 * 根据订单Id查询同采购员的前一个订单
+	 */
+	WaigouOrder findLastWgOrderById(Integer id);
+
+	/**
+	 * 查询在途采购
+	 * 
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findZaiTuwl(Procard procard, int parseInt, int pageSize,
+			String pageStatus);
+
+	/**
+	 * 导出没有价格的零件
+	 * 
+	 * @return
+	 */
+	boolean exportNoPrice();
+
+	/**
+	 * 查出所有材质类型
+	 * 
+	 * @return
+	 */
+	List getAllWgType();
+
+	/**
+	 * 修改供应商;
+	 */
+	boolean xiugaigys(Integer id, Integer gysId);
+
+	/**
+	 * 查询所有的供应商
+	 * 
+	 */
+	public List<ZhUser> findAllZhUser();
+
+	/**
+	 * 通过Id查询订单;
+	 */
+	WaigouOrder findWaigouOrderById(int id);
+
+	/**
+	 * 根据得到库位
+	 * 
+	 * @author LiCong
+	 * @param id
+	 * @return
+	 */
+	public WarehouseNumber byIdWN(Integer id);
+
+	/**
+	 * 根据得到借出表信息
+	 * 
+	 * @author LiCong
+	 * @param id
+	 * @return
+	 */
+	public Borrow byIdBorrow(Integer id);
+
+	/**
+	 * 根据得到借出表信息
+	 * 
+	 * @author LiCong
+	 * @param id
+	 * @return
+	 */
+	public Also byIdAlso(Integer id, String s);
+
+	/**
+	 * 根据二维码得到库位
+	 * 
+	 * @author LiCong
+	 * @param id
+	 * @return
+	 */
+	public WareBangGoogs byTowCodeWBG(String str);
+
+	/**
+	 * 检验关库位门
+	 * 
+	 * @param wn
+	 * @return
+	 */
+	public String oaCloseW(WarehouseNumber wn);
+
+	/**
+	 * 取工装关库位门
+	 * 
+	 * @param wn
+	 * @return
+	 */
+	public String oaCloseW(WarehouseNumber wn, Borrow borrow);
+
+	/**
+	 * 存工装关库位门
+	 * 
+	 * @param wn
+	 * @return
+	 */
+	public String oaCloseW(WarehouseNumber wn, Also also);
+
+	/**
+	 * 检验开库位门
+	 * 
+	 * @param wn
+	 * @return
+	 */
+	public String oaOpenW(String wn, String status);
+
+	/**
+	 * 发送库位二维码(取工装)
+	 * 
+	 * @param wn
+	 *            库位对象
+	 * @param id
+	 *            借工装ID
+	 * @return
+	 */
+	public String sendTowGz(WarehouseNumber wn, Integer id);
+
+	/**
+	 * 发送库位二维码(检验&&库管确认多柜)
+	 * 
+	 * @param wn
+	 * @return
+	 */
+	public String sendTow(WarehouseNumber wn, Integer id);
+
+	/**
+	 * 发送库位二维码（库管确认）
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String queRenSendTow(Integer id);
+
+	/**
+	 * 扫描二维码（库管确认）
+	 * 
+	 * @param wn
+	 *            库位码
+	 * @return
+	 */
+	public String querenKu(String bacode, Integer id, String mxId);
+
+	/**
+	 * 根据工序信息Id获得应当巡检的数量
+	 */
+	WaigoujianpinciZi findxunjianpici(WaigouDeliveryDetail waigoudd,
+			OsTemplate osTemplate);
+
+	List<Waigoujianpinci> findAllxjbzlist();
+
+	/*
+	 * 审核不合格送货订单
+	 */
+	String approvalNoPass(WaigouDeliveryDetail waigoudd);
+
+	/**
+	 * 变成检验中;
+	 */
+	boolean updatejyz(WaigouDeliveryDetail waigoudd);
+
+	/**
+	 * 查询所有状态为待送货的外购采购订单表
+	 */
+	List<WaigouOrder> findAllDsh();
+
+	/**
+	 * 查询所有状态为检验中的送货单明细
+	 */
+	List<WaigouDeliveryDetail> findAlljyz();
+
+	public Object[] findAlljyz(int pageNo, int pageSize);
+
+	/**
+	 * 查询所有待入库的送货单明细
+	 */
+	public Object[] findAllDrk(WaigouDeliveryDetail wgdd, String pageStatus,
+			int parseInt, int pageSize, String tag);
+
+	/**
+	 * @author LiCong 2016-12-04
+	 * @param b
+	 *            库位：true/送货单明细：false
+	 * @param id
+	 *            库位id/送货单明细id
+	 * @return 返回绑定信息
+	 */
+	public List<WareBangGoogs> findWareBangdign(boolean b, Integer id);
+
+	/**
+	 * @author LiCong 2016-12-04
+	 * @param b
+	 *            库位：true/送货单明细：false
+	 * @param id
+	 *            库位id/送货单明细id
+	 * @param status
+	 *            状态
+	 * @return 返回绑定信息
+	 */
+	public List<WareBangGoogs> findWareBangdign(boolean b, Integer id,
+			String status);
+
+	/**
+	 * @author LiCong 2016-12-09
+	 */
+	public String upAlsoBacode(String bacode, Also also, String tag);
+
+	/**
+	 * @author LiCong 2016-12-04 导出采购订单明细
+	 * @return 返回绑定信息
+	 */
+	public boolean exportWgOrderList(List<WaigouOrder> list);
+
+	/**
+	 * 根据Id 得到采购订单明细
+	 */
+	WaigouPlan getWaigouPlanById(Integer id);
+
+	/**
+	 * 根据件号 查询出所有订单审批状态不等于同意，审批中的订单明细
+	 */
+	List<WaigouPlan> findwgListBymarkId(String markId);
+
+	/**
+	 * 修改订单明细的供应商
+	 */
+	String xiugaimxgys(Integer id, Integer priceId, WaigouOrder wgorder);
+
+	/**
+	 * 根据件号,供货属性，查询出所有有限效期内的外购件价格合同
+	 */
+	List<Price> findPrice(String markId, String kgliao, String banben);
+
+	/**
+	 * 统一确认交期
+	 * 
+	 * @param wwPlanList
+	 * @return
+	 */
+	String querenjiaoqiAll(List wwPlanList);
+
+	/**
+	 * 外委订单申请审批
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String applyWWorder(Integer id);
+
+	public String allUpdateJiaoFuTime(Integer id, String Time);
+
+	Map<Integer, Object> getWwclDetail(String barCode, Integer id);
+
+	/**
+	 * 确认送货单
+	 */
+
+	String querenDelivery(int id, List<WaigouDeliveryDetail> list_wdd);
+
+	/**
+	 * 刷新订单明细价格
+	 */
+	String shuaixinPrice(Integer id);
+
+	/**
+	 * 删除订单;
+	 */
+	boolean delWaigouOrder(WaigouOrder waigouorder);
+
+	/**
+	 * 查询所有送货单明细
+	 */
+	Object[] findAllWaigouDeliveryDetail(
+			WaigouDeliveryDetail waigouDeliveryDetail, int parseInt,
+			int pageSize, String firsttime, String endtime, String pageStatus,
+			String tag);
+
+	/**
+	 * 导出送货单
+	 */
+	public void exportExcelWaigouDelivery(WaigouDelivery waigouDelivery,
+			String pageStatus, String firsttime, String endtime);
+
+	/**
+	 * 导出送货单明细
+	 */
+	public void exportExcelWaigouDeliveryDetail(
+			WaigouDeliveryDetail waigouDeliveryDetail, String firsttime,
+			String endtime, String pageStatus);
+
+	/**
+	 * 导出采购订单明细
+	 * 
+	 * @param waigouPlan
+	 * @param pageStatus
+	 */
+	public void exportExcelWaigouPlan(WaigouPlan waigouPlan, String pageStatus,
+			String tag);
+
+	/**
+	 * 导出采购订单明细带价格
+	 * 
+	 * @param waigouPlan
+	 * @param pageStatus
+	 */
+	public void exportExcelWaigouPlan2(WaigouPlan waigouPlan,
+			String pageStatus, String tag);
+
+	/**
+	 * 反审订单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String backApply(Integer id);
+
+	/**
+	 * 不合格品退货
+	 * 
+	 * @param goodsId
+	 * @param tuihuoNum
+	 * @return
+	 */
+
+	/****
+	 * 物料追踪管理(总成——外购明细)
+	 * 
+	 * @return
+	 */
+	Object[] findAllWlDetailList(Integer rootId, Procard procard);
+
+	public String bhgth(Integer Id, Float buhegeNumber, Float hegeNumber,
+			String fileName);
+
+	/**
+	 * 查询当日的外购来料日报表
+	 */
+	Object[] findWgDSheetList(WaigouDailySheet wgdSheet, int parseInt,
+			int pageSize, String firsttime, String endtime, String pageStatus);
+
+	/**
+	 * 导出外购来料日报表
+	 * 
+	 * @param wgdSheet
+	 * @param firsttime
+	 * @param endtime
+	 * @param pageStatus
+	 */
+	void exportExcelwgdSheet(WaigouDailySheet wgdSheet, String firsttime,
+			String endtime, String pageStatus);
+
+	/**
+	 * 打印领料单
+	 */
+	String printlingliaodan(Integer id);
+
+	/**
+	 * 根据送货单明细Id查询送货单明细
+	 */
+	WaigouDeliveryDetail findWgddById(Integer id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	Object[] findwgdSheetById(Integer id);
+
+	boolean updatewgdSheet(WaigouDailySheet wgdSheet);
+
+	/**
+	 * 查询所有不良处理单
+	 * 
+	 * @param dp
+	 * @param parseInt
+	 * @param pageSize
+	 * @param firsttime
+	 * @param endtime
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findAllDefectiveProduct(DefectiveProduct dp, int parseInt,
+			int pageSize, String firsttime, String endtime, String pageStatus,
+			String tag);
+
+	/**
+	 * 查询所有退货单
+	 * 
+	 * @param rs
+	 * @param parseInt
+	 * @param pageSize
+	 * @param firsttime
+	 * @param endtime
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findReturnSingle(ReturnSingle rs, int parseInt, int pageSize,
+			String firsttime, String endtime, String pageStatus, String tag);
+
+	/**
+	 * 查询所有退货单明细
+	 * 
+	 * @param rds
+	 * @param parseInt
+	 * @param pageSize
+	 * @param firsttime
+	 * @param endtime
+	 * @param pageStatus
+	 * @return
+	 */
+	public Object[] findReturnsDetails(ReturnsDetails rds, int parseInt,
+			int pageSize, String pageStatus, String tag, String startDate,
+			String endDate);
+
+	/**
+	 * 根据退货单Id查询所有退货单明细
+	 */
+	Object[] findReturnsDetailsByrsId(Integer id);
+
+	/**
+	 *g根据Id查询不良品处理单
+	 */
+	DefectiveProduct findDefectiveProductById(Integer id);
+
+	/**
+	 * 打印退货单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String updateRsToPrint(ReturnSingle rs);
+
+	/**
+	 * 根据送货单名细查询库存
+	 * 
+	 * @return
+	 */
+	String lingliaoBywgddId(Integer id, String barcod, Float lingliaoNum);
+
+	/**
+	 * 再次提醒;
+	 */
+	void Sendmsg(Integer id, String pageStatus);
+
+	/**
+	 * 
+	 */
+	Object[] showPrice(Integer[] arrayId);
+
+	/**
+	 * 手动下单
+	 * 
+	 * @param procardId
+	 * @param priceId
+	 * @return
+	 */
+	String sdaddwaigouOrder(Integer[] procardId, Integer priceId,
+			Float[] caigouNum);
+
+	// Object[] sdxdshowPrice(Integer[] procardIds );
+	/**
+	 * 打回 重新申请
+	 */
+	String cxsqwaigouorder(Integer id);
+
+	/**
+	 * 删除
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String delwgdd(Integer id);
+
+	Float getzhuanhuanNum(Integer id, Float qrNum);
+
+	Map<Integer, Object> findAllqualifiedRate(QualifiedRate qualifiedRate,
+			int pageNo, int pageSize);
+
+	public Map<Integer, Object> QueryHege(String type, int pageNo, int pageSize);
+
+	/**
+	 * 查询物料需求表
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public ManualOrderPlan findmopById(Integer id);
+
+	/**
+	 * 查询出供应商关系;
+	 */
+	public Object[] findZhuser(ManualOrderPlan mop, String gysCodeAndNum);
+
+	boolean isUseMOQ(Integer id, String status, String gysCodeAndNum);
+
+	boolean isUseMOQ0(Integer id, String status, String gysCodeAndNum);
+
+	/**
+	 * 是否需要增大检验数量再次检验页面
+	 * 
+	 * @return
+	 */
+	public Object[] toisAgainCheck(Integer id);
+
+	/**
+	 * 是否需要增大检验数量再次检验
+	 */
+	public String isAgainCheck(DefectiveProduct dp);
+
+	/**
+	 * 外购订单明细件号反查
+	 */
+	public Object[] findProcardBywgMarkId(Integer Id);
+
+	/**
+	 * 根据物料需求Id查询相关信息;
+	 */
+	public Object[] findAllCgxinxi(Integer id);
+
+	/**
+	 * 供应商同意减单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String agreesbjd(Integer id);
+
+	/**
+	 * 获取外购外委订单的图纸位置和名称
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<String, String> getwgOrderTz(Integer id);
+
+	/**
+	 * 获取待替换物料
+	 * 
+	 * @param id
+	 * @param markId
+	 * @param kgliao
+	 * @return
+	 */
+	Procard gettoChangeWgj(Integer id, String markId, String kgliao);
+
+	/**
+	 * 物料替换
+	 * 
+	 * @param procard
+	 * @param markId
+	 * @param kgliao
+	 * @return
+	 */
+	String changeWgj(Procard procard, String markId, String kgliao);
+
+	/**
+	 * 外委批量申请
+	 * 
+	 * @param processIds
+	 * @return
+	 */
+	String applyWWorder(Integer[] processIds);
+
+	/**
+	 * 批量打印采购但单
+	 */
+	public List<WaigouOrder> gotoprint(Integer[] processIds);
+
+	/**
+	 * 送货单明细修改数量
+	 */
+	String updatewgddNum(Integer id, Float num);
+
+	String buzheng(Integer id);
+
+	/**
+	 * 刷新订单明细价格
+	 */
+	String shuaixinAllPrice(Integer[] ids);
+
+	/**
+	 * 采购单打印;
+	 * 
+	 * @param processIds
+	 */
+	String wgOrderIsPrint(Integer[] processIds);
+
+	/**
+	 * 发送消息给检测室进行盐雾试验;
+	 */
+	void sendmsg(WaigouDailySheet wgdSheet);
+
+	/**
+	 * 添加模具订单
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	String addmujuOrder(Integer[] ids);
+
+	/**
+	 * 同意取消设变影响的外委单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String agreeSbquxiaoww(Integer id);
+
+	Object[] findTotalProduct(Integer id);
+
+	/**
+	 * 查询所有待入库的辅料
+	 */
+	List<WaigouDeliveryDetail> findAllflDrk();
+
+	/**
+	 * 通过订单明细Id获取可以插入的订单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findchangeOrderListByplanId(Integer id);
+
+	/**
+	 * 辅料入库
+	 */
+
+	public String querenflKu(String bacode, Integer id);
+
+	/**
+	 * 通过订单明细Id获取可关联的价格
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findPriceBywaigouuPlanId(Integer id);
+
+	/**
+	 *根据Id查询辅料采购明细
+	 * 
+	 * @param id
+	 */
+	WaigouDeliveryDetail findWaigouPlanById_2(Integer id);
+
+	/**
+	 * 根据总成Id、件号、供料属性、版本、规格、获取外购件明细
+	 * 
+	 * @param
+	 */
+	public List<Procard> showWgProcardList(Integer rootId, String markId,
+			String kgliao, String banben, String specification);
+
+	/**
+	 * 获取外委代领数据
+	 * 
+	 * @param goods
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pageStatus
+	 * @return
+	 */
+	Object[] findWwRukuDailingList2(WaigouDeliveryDetail waigoudd,
+			int parseInt, int pageSize, String pageStatus);
+
+	/****
+	 * 采购订单批量审批
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	String auditOrder(Integer[] ids, String tag);
+
+	/**
+	 * 物料替换
+	 * 
+	 * @param procard
+	 * @param markId
+	 * @param kgliao
+	 * @return
+	 */
+	String changeWgj2(Procard procard, String markId, String kgliao);
+
+	/**
+	 * 添加外购件MOQ控制信息
+	 */
+	void saveWgProcardMOQ(List<WgProcardMOQ> wgmoqList);
+
+	/**
+	 * 根据 总成Id,件号,供料属性,规格,版本号查询外购件MOQ控制表信息;
+	 * 
+	 */
+	WgProcardMOQ findWgMOQOne(Integer rootId, String markId, String kgliao,
+			String specification, String banBenNumber);
+
+	List<ZhUser> findZhuser(WgProcardMOQ wgmoq, String gysCodeAndNum);
+
+	/**
+	 * 供应商查看图纸
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List findGyswwPlantz(Integer id, String showsonTz);
+
+	/**
+	 * 修改订单备注
+	 * 
+	 * @param waigouPlan
+	 * @return
+	 */
+	public String updateWaigouPlan(WaigouPlan waigouPlan);
+
+	String deleteWaiGouPlan(Integer id, String tag);
+
+	String updateWaiGouPlan(Integer id, String tag);
+
+	/**
+	 * 待检库出库啊
+	 */
+
+	String djkOut();
+
+	/**
+	 * BOM未外委
+	 * 
+	 * @return
+	 */
+	List findbomweiwaiwei();
+
+	/**
+	 * 添加BOM未外委
+	 * 
+	 * @return
+	 */
+	List addbomweiwaiwei();
+
+	/**
+	 * 查询所有价格*数量！=总价的 采购明细
+	 */
+	/**
+	 * 外委订单明细关闭订单
+	 */
+	// String closeWaigouPlan(Integer id);
+	public WaigouPlan findwaiddfordId(Integer id);
+
+	public boolean exportFile2(List procardList);
+
+	public Object[] findWgOrderList_export(WaigouOrder wgOrder, int pageNo,
+			int pageSize, String pageStatus, String tag);
+
+	public String ShenpiForPrice(Integer id);
+
+	/**
+	 * 
+	 * @param bacode
+	 * @return
+	 */
+	List findDeliveryByNumbers(String bacode);
+
+	public List<Sell> ajax_findSellList(Integer id);
+
+	/**
+	 * ajax_addremark
+	 */
+
+	String ajax_addremark(Integer rootId, String markId, String kgliao,
+			String banben, String specification, String remark);
+
+	void XiuFuOrderStatus();
+
+	public Object[] findwaigouplanAndNewPrice(Integer id);
+
+	public Object[] findAllWlDetailList2(Integer rootId, Procard procard);
+
+	/**
+	 * 修改签收数量
+	 */
+	String UpdateQrNumber(Integer id, Float qrNumber);
+
+	/**
+	 * 根据外委 采购明细Id查询所欲对应的所有procard信息
+	 */
+	List<Procard> showtocsbl(Integer id);
+
+	/**
+	 * 关闭外委订单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String closeWaiweiPlan(Integer id);
+
+	/**
+	 * 删除外委订单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String backwwplan(Integer id);
+
+	/**
+	 * 导出退货明细
+	 */
+	void exprotrds(ReturnsDetails rds, String status, String startDate,
+			String endDate, String tag);
+
+	/**
+	 * 根据送货单明细Id获取检验明细
+	 */
+	List<OsRecordScope> findOScopeListBywwddId(Integer id);
+
+	/**
+	 * 为订单添加备注
+	 */
+	String addwaigouOrderRemark(WaigouOrder waigouOrder);
+
+	/**
+	 * 根据订单明细Id查询补料相关的生产批次
+	 */
+	List<ProcardCsBl> findCsblProcardBywgddId(Integer id);
+
+	/**
+	 * 不良品处理申请
+	 */
+	public String DefChuLiSq(DefectiveProduct def, int[] uids, String tuisongId);
+
+	/**
+	 * 根据采购订单明细查询设变减单申请
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<WaigouPlanclApply> findWgClApplyList(Integer id);
+
+	/**
+	 * 根据工序名查询所绑定的量、检具信息
+	 */
+	List<ProcessAndMeasuring> pamListByProcessName(String processNames);
+
+	/**
+	 * 采购单，送货单。对账
+	 */
+	List WaigouPlanduiZhang(String type, String months0, String months1,
+			String years0, String years1, WaigouPlan waigoupln);
+
+	/***
+	 * 零件时间分析
+	 * 
+	 * @param markid
+	 *            件号
+	 * @param startTime
+	 *            开始时间
+	 * @param endTime
+	 *            结束时间
+	 * @return
+	 */
+	Map<String, Object> findmarkIdTime(String markid, String startTime,
+			String endTime);
+
+	/***
+	 * 采购入库总时间分析
+	 * 
+	 * @return
+	 */
+	Map<String, Object> findcaigouAllTime();
+	
+	String	delwaigouDelivery(Integer id);
+	/**
+	 * 查看mop图纸
+	 * @param id
+	 * @return
+	 */
+	List findCardTemplateTz(Integer id);
+	
+	/**
+	 * 查询所有供应商件号送货关闭情况
+	 */
+	Object[] findAllGysMarkIdCkolse(GysMarkIdCkolse gysClose,Integer pageSize,Integer pageNo,String status);
+	
+	/**
+	 * 
+	 */
+	String	updateGysMarkIdCkolse(GysMarkIdCkolse gysClose);
+	
+}

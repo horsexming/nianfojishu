@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.SupplyFund" table="ST_SupplyFund" >
+		<id name="id" column="id_key" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="personId" column="person_id" type="int"></property>
+		<property name="supplyDate" column="supply_Date" type="timestamp"></property>
+		<property name="supplyFund" column="supply_Fund"></property>
+		<property name="cardBalance" column="card_Balance"></property>
+		<property name="dataType" column="data_Type" type="int"></property>
+		<property name="userNo" column="user_NO" type="string"></property>
+	
+	</class>
+</hibernate-mapping>

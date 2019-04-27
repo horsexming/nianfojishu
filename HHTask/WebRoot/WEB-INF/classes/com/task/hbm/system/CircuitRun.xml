@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="CircuitRun" table="ta_sys_CircuitRun">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="more" />
+		<property name="auditType" />
+		<property name="entityName" />
+		<property name="entityId" />
+		<property name="allStatus" />
+		<property name="auditStatus" />
+		<property name="auditLevel" />
+		<property name="addDateTime" />
+		<property name="ccId" />
+		<property name="entityStatusName" />
+		<property name="entityIdName" />
+		<property name="message" length="800"/>
+		<property name="detailUrl" />
+		<property name="hdStatus" />
+		<property name="messageIds" />
+		<property name="isVerification" />
+		<property name="addUserId" />
+		<property name="addUserName" />
+		<property name="addUserDept" />
+		<property name="isopinion" />
+		<property name="isspoption"/>
+		<property name="zzopinion"/>
+		<property name="danxuanorduoxuan"/>
+
+		<!-- 定制流程对审批节点(一对多) -->
+		<set name="exNodeSet" inverse="false" cascade="all" lazy="true"
+			order-by="auditLevel">
+			<key column="fk_exeProId"></key>
+			<one-to-many class="ExecutionNode" />
+		</set>
+		<!-- 定制流程对审批节点(一对多) -->
+		<set name="setoptionrun" inverse="false" cascade="all" lazy="true"
+			>
+			<key column="fk_exeProId"></key>
+			<one-to-many class="OptionRun" />
+		</set>
+	</class>
+</hibernate-mapping>

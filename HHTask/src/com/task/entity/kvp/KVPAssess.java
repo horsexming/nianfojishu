@@ -1,0 +1,162 @@
+package com.task.entity.kvp;
+
+import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.util.FieldMeta;
+
+/***
+ * kvp产品评估表:ta_KVPAssess(主表)
+ * 
+ * @author 毛小龙
+ */
+
+public class KVPAssess implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	@FieldMeta(name = "评估编号")
+	private String kvp_number;// 评估编号
+	@FieldMeta(name = "评估人")
+	private String kvp_username;// 评估人
+	@FieldMeta(name = "零件编号")
+	private String part_number;// 零件编号
+	@FieldMeta(name = "零件名称")
+	private String part_name;// 零件名称
+	private String process_no;// 工序号
+	@FieldMeta(name = "工序名")
+	private String process_name;// 工序名
+	private String quality_assessment;// 质量风险评估
+	@FieldMeta(name = "评估时间")
+	private String kvp_date;// 评估时间
+	private String assessment_findings;// 评估结论(是否可以开展持续改进)
+	// private Set improveKVPs;//对持续改进表
+	// private Set executeKVPs;//对项目执行表
+	private ExecuteKVP executeKVP;// 与执行表一对一
+
+	private Integer epId;// 审批流程
+	private String status;// 审批状态
+	private String improved_beforeproblems;// 改进前的问题
+	private String improved_endproblems;// 改进后的问题
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getKvp_number() {
+		return kvp_number;
+	}
+
+	public void setKvp_number(String kvpNumber) {
+		kvp_number = kvpNumber;
+	}
+
+	public String getQuality_assessment() {
+		return quality_assessment;
+	}
+
+	public void setQuality_assessment(String qualityAssessment) {
+		quality_assessment = qualityAssessment;
+	}
+
+	public String getAssessment_findings() {
+		return assessment_findings;
+	}
+
+	public void setAssessment_findings(String assessmentFindings) {
+		assessment_findings = assessmentFindings;
+	}
+
+	public String getPart_number() {
+		return part_number;
+	}
+
+	public void setPart_number(String partNumber) {
+		part_number = partNumber;
+	}
+
+	public String getPart_name() {
+		return part_name;
+	}
+
+	public void setPart_name(String partName) {
+		part_name = partName;
+	}
+
+	public String getProcess_no() {
+		return process_no;
+	}
+
+	public void setProcess_no(String processNo) {
+		process_no = processNo;
+	}
+
+	public String getProcess_name() {
+		return process_name;
+	}
+
+	public void setProcess_name(String processName) {
+		process_name = processName;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getKvp_date() {
+		return kvp_date;
+	}
+
+	public void setKvp_date(String kvpDate) {
+		kvp_date = kvpDate;
+	}
+
+	public String getKvp_username() {
+		return kvp_username;
+	}
+
+	public void setKvp_username(String kvpUsername) {
+		kvp_username = kvpUsername;
+	}
+
+	public String getImproved_beforeproblems() {
+		return improved_beforeproblems;
+	}
+
+	public void setImproved_beforeproblems(String improvedBeforeproblems) {
+		improved_beforeproblems = improvedBeforeproblems;
+	}
+
+	public String getImproved_endproblems() {
+		return improved_endproblems;
+	}
+
+	public void setImproved_endproblems(String improvedEndproblems) {
+		improved_endproblems = improvedEndproblems;
+	}
+
+	@JSONField(serialize = false)
+	public ExecuteKVP getExecuteKVP() {
+		return executeKVP;
+	}
+
+	public void setExecuteKVP(ExecuteKVP executeKVP) {
+		this.executeKVP = executeKVP;
+	}
+
+}

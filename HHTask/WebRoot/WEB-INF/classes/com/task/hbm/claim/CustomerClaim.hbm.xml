@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.claim.CustomerClaim" table="ta_CustomerClaim">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="ourPerson" />
+		<property name="otherPerson" />
+		<property name="otherPhone" />
+		<property name="otherCompany" />
+		<property name="addTime" />
+		<property name="title" />
+		<property name="context" />
+		<property name="status" />
+		<property name="claimNumber" />
+		<property name="username" /> 
+		<property name="fileName" /> 
+		<property name="analystDept" />
+		<property name="analystName" />
+		<property name="analystCode" />
+		<property name="analysisText" />
+		<property name="analysisFile" />
+		<property name="analysisTime" />
+		<property name="executiveCodes" />
+		<property name="executiveTime" />
+		<property name="executiveText" />
+		<property name="executiveFile" />
+		<property name="approvalperson1" />
+		<property name="approvalperson2" />
+		<property name="approvaltime1" />
+		<property name="approvaltime2" />
+		<property name="orderId" />
+		<property name="procardId" />
+		<property name="processInforId" />
+		<property name="epId"/>
+	</class>
+</hibernate-mapping>

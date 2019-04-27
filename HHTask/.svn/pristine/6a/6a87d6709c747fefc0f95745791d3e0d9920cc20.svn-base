@@ -1,0 +1,54 @@
+package com.tast.entity.zhaobiao;
+
+public class Zh_shebei {
+	private Integer id;  		//id	
+	private String  gongweiId;	//工位编号	
+	private String shebeiId;	//设备编号		
+	private String shebeiname;	//设备名称	
+	private String shebeigongxuName;	//设备工序名称
+	private String status;
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getGongweiId() {
+		return gongweiId;
+	}
+	public void setGongweiId(String gongweiId) {
+		this.gongweiId = gongweiId;
+	}
+	public String getShebeiId() {
+		return shebeiId;
+	}
+	public void setShebeiId(String shebeiId) {
+		this.shebeiId = shebeiId;
+	}
+	public String getShebeiname() {
+		return shebeiname;
+	}
+	public void setShebeiname(String shebeiname) {
+		this.shebeiname = shebeiname;
+	}
+	public String getShebeigongxuName() {
+		return shebeigongxuName;
+	}
+	public void setShebeigongxuName(String shebeigongxuName) {
+		this.shebeigongxuName = shebeigongxuName;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+	
+	
+	
+
+}

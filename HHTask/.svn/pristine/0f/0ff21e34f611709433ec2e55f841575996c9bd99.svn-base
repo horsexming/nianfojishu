@@ -1,0 +1,87 @@
+package com.task.entity.project;
+/**
+ * 纪要指派人员 ta_pro_QuotedPricejyUsers
+ * @author txb
+ *
+ */
+public class QuotedPricejyUsers {
+	private Integer id;//
+	private Integer jydId;//（QuotedPricejy）
+	private Integer userId;//
+	private String userName;//
+	private String userCode;//
+	private String userType;//人员类型(执行,协作)
+	private String userDept;//部门
+	private String zpTime;//指派时间
+	private String yqTime;//预期时间
+	private String wcTime;//实际完成时间
+	private String zxLog;//执行方案
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getJydId() {
+		return jydId;
+	}
+	public void setJydId(Integer jydId) {
+		this.jydId = jydId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public String getZpTime() {
+		return zpTime;
+	}
+	public void setZpTime(String zpTime) {
+		this.zpTime = zpTime;
+	}
+	public String getYqTime() {
+		return yqTime;
+	}
+	public void setYqTime(String yqTime) {
+		this.yqTime = yqTime;
+	}
+	public String getWcTime() {
+		return wcTime;
+	}
+	public void setWcTime(String wcTime) {
+		this.wcTime = wcTime;
+	}
+	public String getUserDept() {
+		return userDept;
+	}
+	public void setUserDept(String userDept) {
+		this.userDept = userDept;
+	}
+	public String getZxLog() {
+		return zxLog;
+	}
+	public void setZxLog(String zxLog) {
+		this.zxLog = zxLog;
+	}
+	
+	
+}

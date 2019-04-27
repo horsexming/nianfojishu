@@ -1,0 +1,70 @@
+package com.task.entity.Pfmeas;
+
+/***
+ * 质量问题汇总 
+ * @表名:ta_qd_pfmeas
+ * @author 聂威
+ *
+ */
+public class Pfmeas {
+	private Integer id;
+	private String pfmeas_name;//部门
+	private String pfmeas_title;//标题
+	private String pfmeas_context;//描述
+	private String pfmeas_file;//附件.
+	private String pfmeas_code;//上传人工号
+	private String pfmeas_pop;//上传人姓名s
+	private String pfmeas_time;//时间
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getPfmeas_name() {
+		return pfmeas_name;
+	}
+	public void setPfmeas_name(String pfmeasName) {
+		pfmeas_name = pfmeasName;
+	}
+	
+	public String getPfmeas_title() {
+		return pfmeas_title;
+	}
+	public void setPfmeas_title(String pfmeasTitle) {
+		pfmeas_title = pfmeasTitle;
+	}
+	public String getPfmeas_context() {
+		return pfmeas_context;
+	}
+	public void setPfmeas_context(String pfmeasContext) {
+		pfmeas_context = pfmeasContext;
+	}
+
+	public String getPfmeas_file() {
+		return pfmeas_file;
+	}
+	public void setPfmeas_file(String pfmeasFile) {
+		pfmeas_file = pfmeasFile;
+	}
+	public String getPfmeas_pop() {
+		return pfmeas_pop;
+	}
+	public void setPfmeas_pop(String pfmeasPop) {
+		pfmeas_pop = pfmeasPop;
+	}
+	public String getPfmeas_time() {
+		return pfmeas_time;
+	}
+	public void setPfmeas_time(String pfmeasTime) {
+		pfmeas_time = pfmeasTime;
+	}
+	public String getPfmeas_code() {
+		return pfmeas_code;
+	}
+	public void setPfmeas_code(String pfmeasCode) {
+		pfmeas_code = pfmeasCode;
+	}
+	
+	
+}

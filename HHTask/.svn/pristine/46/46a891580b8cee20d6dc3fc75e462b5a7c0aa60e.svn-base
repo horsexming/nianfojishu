@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop.muju">
+	<class name="MouldApplyOrder" table="ta_sop_muju_MouldApplyOrder">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="planNumber" />
+		<property name="kehu" />
+		<property name="ywMarkId" />
+		<property name="applytype" />
+		<property name="maketype" />
+		<property name="status" />
+		<property name="addtime" />
+		<property name="addUserName" />
+		<property name="shUserName" />
+		<property name="agreeUserName" />
+		<property name="orderNum" />
+		<property name="projiaoqiTime" />
+		<property name="xqTime" />
+		<property name="epstatus" />
+		<property name="epId" />
+		<property name="adddate" />
+		<property name="ishaveyangban"/>
+		<property name="protuzi"/>
+		<property name="zaikaitu"/>
+		<property name="tu3d"/>
+		<property name="more"/>
+		<property name="num"/>
+		<property name="gysId"/>
+		<property name="priceId"/>
+		<property name="hsprice"/>
+		<property name="bhsprice"/>
+		<property name="mujuyanshou"/>
+		<property name="mojuNo"/>
+		<set name="mpgSet" inverse="true" cascade="all" lazy="false">
+			<key column="ta_moaId"></key>
+			<one-to-many class="MouldPingGu" />
+		</set>
+		
+		<set name="mdSet" inverse="true" cascade="all" lazy="true">
+			<key column="ta_moaId"></key>
+			<one-to-many class="MouldDetail" />
+		</set>
+		
+		<set name="projectWenJianSet" cascade="all" inverse="false" order-by="id"
+			lazy="false">
+			<key column="fk_maoId"></key>
+			<one-to-many class="com.task.entity.project.ProjectWenJian" />
+		</set>
+	</class>
+</hibernate-mapping>

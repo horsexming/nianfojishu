@@ -1,0 +1,89 @@
+package com.task.entity;
+
+/***
+ * 员工签到表 移动端专用
+ * @author Li_Cong
+ * @Date 2016-06-24
+ * ta_kq_UserSignIn
+ */
+
+public class UserSignIn{
+	private Integer id;// 考勤Id主键.
+	private String name;// 员工姓名
+	private String code;// 工号
+	private String dept;// 部门
+	private String cardId;// 卡号
+	private Integer userId;// userID
+	private String status;//正常:0/出差:1 
+	private String address;//发送地址
+	private Double jingdu;//经度
+	private Double weidu;//纬度
+	private String addTime;// 添加时间
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Double getJingdu() {
+		return jingdu;
+	}
+	public void setJingdu(Double jingdu) {
+		this.jingdu = jingdu;
+	}
+	public Double getWeidu() {
+		return weidu;
+	}
+	public void setWeidu(Double weidu) {
+		this.weidu = weidu;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getCardId() {
+		return cardId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+}

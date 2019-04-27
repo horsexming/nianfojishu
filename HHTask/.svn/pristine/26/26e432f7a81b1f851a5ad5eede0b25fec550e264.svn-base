@@ -1,0 +1,266 @@
+package com.task.entity;
+
+import java.sql.Date;
+import java.util.Set;
+
+/**
+ * 合同(表名:ta_hr_Contract)
+ * 
+ * @author 刘培
+ * 
+ */
+public class Contract {
+	private Integer id;
+	private Integer userId;// 用户Id
+	private String code;// 员工工号
+	private String cardId;// 员工卡号
+	private Integer addUserId;// 添加人id
+	private String addUserName;// 添加人姓名
+	private String sqyy;// 申请原因
+	private String recruitmentSquare;// 招聘方
+	private String daibiao;// 法定代表人
+	private String qiandingAddress;// 签订地址
+	private String employedSquare;// 受聘方
+	private String contractNumber;// 合同编号
+	private String probationaryPeriod;// 试用期
+	private String sex;// 性别
+	private String dety;// 职务
+	private String joinDate;;// 入职时间
+	private Date startDate;;// 合同开始时间
+	private Date endDate;// 合同结束时间
+	private String content;// 内容
+	private Set<Provision> provision;// 条款
+	private String contractStatus;// 状态(contract/wage)
+	private String uid;// 身份证号
+	private String residence;// 户籍地址
+	private String presentAddress;// 函件送达地址
+	private String phoneNumber;// 联系电话
+	private String isUse;// (默认、历史)/(待调整、调整中、完成)
+	private String sqType;// 申请类型（新增/调整）
+	private String addDateTime;// 添加时间
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getRecruitmentSquare() {
+		return recruitmentSquare;
+	}
+
+	public void setRecruitmentSquare(String recruitmentSquare) {
+		this.recruitmentSquare = recruitmentSquare;
+	}
+
+	public String getEmployedSquare() {
+		return employedSquare;
+	}
+
+	public void setEmployedSquare(String employedSquare) {
+		this.employedSquare = employedSquare;
+	}
+
+	public String getContractNumber() {
+		return contractNumber;
+	}
+
+	public void setContractNumber(String contractNumber) {
+		this.contractNumber = contractNumber;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getDety() {
+		return dety;
+	}
+
+	public void setDety(String dety) {
+		this.dety = dety;
+	}
+
+	public String getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(String joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Set<Provision> getProvision() {
+		return provision;
+	}
+
+	public void setProvision(Set<Provision> provision) {
+		this.provision = provision;
+	}
+
+	public String getProbationaryPeriod() {
+		return probationaryPeriod;
+	}
+
+	public void setProbationaryPeriod(String probationaryPeriod) {
+		this.probationaryPeriod = probationaryPeriod;
+	}
+
+	public String getDaibiao() {
+		return daibiao;
+	}
+
+	public void setDaibiao(String daibiao) {
+		this.daibiao = daibiao;
+	}
+
+	public String getQiandingAddress() {
+		return qiandingAddress;
+	}
+
+	public void setQiandingAddress(String qiandingAddress) {
+		this.qiandingAddress = qiandingAddress;
+	}
+
+	public String getContractStatus() {
+		return contractStatus;
+	}
+
+	public void setContractStatus(String contractStatus) {
+		this.contractStatus = contractStatus;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getResidence() {
+		return residence;
+	}
+
+	public void setResidence(String residence) {
+		this.residence = residence;
+	}
+
+	public String getPresentAddress() {
+		return presentAddress;
+	}
+
+	public void setPresentAddress(String presentAddress) {
+		this.presentAddress = presentAddress;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getIsUse() {
+		return isUse;
+	}
+
+	public void setIsUse(String isUse) {
+		this.isUse = isUse;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+
+	public String getSqType() {
+		return sqType;
+	}
+
+	public void setSqType(String sqType) {
+		this.sqType = sqType;
+	}
+
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public String getSqyy() {
+		return sqyy;
+	}
+
+	public void setSqyy(String sqyy) {
+		this.sqyy = sqyy;
+	}
+
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.IPEntity" table="ip_Config">
+		<id name="id" column="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+			
+		<property name="name" column="username" type="string"/>
+		<property name="computerName" column="compuName" type="string"/>
+		<property name="ip" column="IpAddr" type="string"/>
+		<property name="gateway" column="gateway" type="string"/>
+		<property name="dept" column="dept" type="string"/>
+		<property name="status" column="state" type="string"/>
+		<property name="remark" column="more" type="string"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,177 @@
+package com.task.entity;
+
+
+
+public class Qualityta {
+	private Integer Id;
+	private Integer ybshu;      //样本编号
+	private String productname; //产品名称
+	private String kehu;		//产品客户
+	private String bianhao;		//产品编号
+	private String beizhu;		//备注
+	private String addtime;		//添加时间
+	private String leibie;     	//产品类别
+	private String jcbh;        //检测编号
+	private String statu;		//审批状态
+	private String project;		//检查项目
+	private String cleibie;     //存储类别
+	private String biaozhun;     //标准值/要求
+	private String fangshi;		//检验方式
+	private Integer shuzi;		//检查缺陷数据
+	private String shuju1; 		//检查样本1结果
+	private String shuju2; 		//检查样本2结果
+	private String shuju3; 		//检查样本3结果
+	private String shuju4; 		//检查样本4结果
+	private String shuju5; 		//检查样本5结果
+	private Integer qualitychecktoid; //质检项目id
+	private Integer xishuz;		//缺陷系数
+	private String xishul;		//缺陷类型
+	private Qualityto qualityto;
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public String getKehu() {
+		return kehu;
+	}
+	public void setKehu(String kehu) {
+		this.kehu = kehu;
+	}
+	public String getBianhao() {
+		return bianhao;
+	}
+	public void setBianhao(String bianhao) {
+		this.bianhao = bianhao;
+	}
+	public String getBeizhu() {
+		return beizhu;
+	}
+	public void setBeizhu(String beizhu) {
+		this.beizhu = beizhu;
+	}
+	public String getAddtime() {
+		return addtime;
+	}
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+	public String getProject() {
+		return project;
+	}
+	public void setProject(String project) {
+		this.project = project;
+	}
+	
+	public void setQualityto(Qualityto qualityto) {
+		this.qualityto = qualityto;
+	}
+	public Qualityto getQualityto() {
+		return qualityto;
+	}
+	public String getLeibie() {
+		return leibie;
+	}
+	public void setLeibie(String leibie) {
+		this.leibie = leibie;
+	}
+	public String getJcbh() {
+		return jcbh;
+	}
+	public void setJcbh(String jcbh) {
+		this.jcbh = jcbh;
+	}
+	public String getStatu() {
+		return statu;
+	}
+	public void setStatu(String statu) {
+		this.statu = statu;
+	}
+	public void setYbshu(Integer ybshu) {
+		this.ybshu = ybshu;
+	}
+	public Integer getYbshu() {
+		return ybshu;
+	}
+	public void setQualitychecktoid(Integer qualitychecktoid) {
+		this.qualitychecktoid = qualitychecktoid;
+	}
+	public Integer getQualitychecktoid() {
+		return qualitychecktoid;
+	}
+	public String getCleibie() {
+		return cleibie;
+	}
+	public void setCleibie(String cleibie) {
+		this.cleibie = cleibie;
+	}
+	public String getBiaozhun() {
+		return biaozhun;
+	}
+	public void setBiaozhun(String biaozhun) {
+		this.biaozhun = biaozhun;
+	}
+	public String getFangshi() {
+		return fangshi;
+	}
+	public void setFangshi(String fangshi) {
+		this.fangshi = fangshi;
+	}
+	public Integer getShuzi() {
+		return shuzi;
+	}
+	public void setShuzi(Integer shuzi) {
+		this.shuzi = shuzi;
+	}
+	public String getShuju1() {
+		return shuju1;
+	}
+	public void setShuju1(String shuju1) {
+		this.shuju1 = shuju1;
+	}
+	public String getShuju2() {
+		return shuju2;
+	}
+	public void setShuju2(String shuju2) {
+		this.shuju2 = shuju2;
+	}
+	public String getShuju3() {
+		return shuju3;
+	}
+	public void setShuju3(String shuju3) {
+		this.shuju3 = shuju3;
+	}
+	public String getShuju4() {
+		return shuju4;
+	}
+	public void setShuju4(String shuju4) {
+		this.shuju4 = shuju4;
+	}
+	public String getShuju5() {
+		return shuju5;
+	}
+	public void setShuju5(String shuju5) {
+		this.shuju5 = shuju5;
+	}
+	public void setXishuz(Integer xishuz) {
+		this.xishuz = xishuz;
+	}
+	public Integer getXishuz() {
+		return xishuz;
+	}
+	public void setXishul(String xishul) {
+		this.xishul = xishul;
+	}
+	public String getXishul() {
+		return xishul;
+	}
+
+	
+}

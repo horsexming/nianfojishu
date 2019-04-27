@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.checktype.CheckType" table="ta_CheckType">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="type"/>
+		<property name="maxScore"/>
+		<set name="checkNote"  cascade="all" inverse="true" lazy="false">
+			<key column="checkTypeId"></key>
+			<one-to-many class="com.task.entity.checktype.CheckNote"/>
+		</set>
+	</class>
+</hibernate-mapping>

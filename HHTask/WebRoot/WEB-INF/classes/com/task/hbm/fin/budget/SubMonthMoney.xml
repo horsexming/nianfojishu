@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.budget">
+	<class name="SubMonthMoney" table="ta_fin_subMonthMoney">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="name" />
+		<property name="subjectRate" />
+		<property name="budgetMonth" />
+		<property name="monthBudgetMoney" />
+		<property name="monthRealMoney" />
+		<property name="waiMonthRealMoney" />
+		<property name="realSubjectRate" />
+		<property name="more" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="fatherName" />
+		<property name="belongLayer" />
+		<property name="sbRateId" />
+
+		<!-- 【配置月度科目预算总金额表自身的对应关系(一对多)】 -->
+		<set name="smMoneySet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="fk_smMoneyId"></key>
+			<one-to-many class="SubMonthMoney" />
+		</set>
+
+		<!-- 【配置月度科目预算总金额表自身的对应关系(多对一)】 -->
+		<many-to-one name="subMonthMoney" class="SubMonthMoney"
+			cascade="save-update" lazy="false" column="fk_smMoneyId" />
+
+		<!-- 【配置月度科目预算总金额表与明细的对应关系(一对多)】 -->
+		<set name="dmBudgetSet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="fk_smdmId"></key>
+			<one-to-many class="DeptMonthBudget" />
+		</set>
+
+
+
+	</class>
+</hibernate-mapping>

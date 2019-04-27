@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.AppLiPrice" table="ta_AppLiPrice">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="shenqingName"/>
+		<property name="shenqingUserId"/>
+		<property name="priceId"/>
+		<property name="priceName"/>
+		<property name="markId"/>
+		<property name="priceUrl" />
+		<property name="appStratu"/>
+		<property name="addTime" />
+		<property name="epId" />
+	</class>
+</hibernate-mapping>

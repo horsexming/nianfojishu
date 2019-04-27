@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="DeptLeaderPenPei" table="ta_DeptLeaderPenPei">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="name"/>
+		<property name="leaderjx"/>
+		<property name="deptAvgjx"/>
+		<property name="jiXiaoXiShu"/>
+		<property name="deptPeopelNum"/>
+		<property name="deptMubiaoScore"/>
+		<property name="deptMubiaoXiShu"/>
+		<property name="deptZlhAddScore"/>
+		<property name="deptZlhReduceScore"/>
+		<property name="deptZlhScore"/>
+		<property name="deptZlhXiShu"/>
+		<property name="ndgzScore"/>
+		<property name="ndgzXiShu"/>
+		<property name="xiShuSum"/>
+		<property name="paiMing"/>
+		<property name="months"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

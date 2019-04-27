@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessSaveLog" table="ta_sop_w_processSaveLog">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="warehouse" />
+		<property name="goodHouseName" />
+		<property name="goodsStorePosition" />
+		<property name="markId" />
+		<property name="selfCard" />
+		<property name="processNo" />
+		<property name="ccCount" />
+		<property name="processId" />
+		<property name="processName" />
+		<property name="addTime" />
+		<property name="addUser" />
+	</class>
+</hibernate-mapping>

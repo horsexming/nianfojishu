@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+<class name="com.task.entity.OrderManagement" table="ta_crm_orderManagement">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="ordernumber" type="java.lang.String">
+			<column name="order_number"></column>
+		</property>
+		<property name="ordertype" type="java.lang.String">
+		<column name="order_type"></column>
+		</property>
+		<property name="ordername" type="java.lang.String">
+		<column name="order_name"></column>
+		</property>
+			<property name="ordermobilenumber" type="java.lang.String">
+		<column name="order_mobilenumber"></column>
+		</property>
+			<property name="ordercompanyname" type="java.lang.String">
+		<column name="order_companyname" length="200"></column>
+		</property>
+			<property name="ordersummary" type="java.lang.String">
+		<column name="order_summary"></column>
+		</property>
+			<property name="orderquantity" type="java.lang.Float">
+		<column name="order_quantity" precision="53" scale="0"></column>
+		</property>
+			<property name="orderunitprice" type="java.lang.Float">
+		<column name="order_unitprice" precision="53" scale="0"></column>
+		</property>
+			<property name="orderactualmoney" type="java.lang.Float">
+		<column name="order_actualmoney" precision="53" scale="0"></column>
+		</property>
+			<property name="orderPrepaidmoney" type="java.lang.Float">
+		<column name="order_Prepaidmoney" precision="53" scale="0"></column>
+		</property>
+			<property name="ordercreatePeople" type="java.lang.String">
+		<column name="order_createPeople"></column>
+		</property>
+			<property name="ordercreatedatatime" type="java.lang.String">
+		<column name="order_createdatatime"></column>
+		</property>
+			<property name="orderpersoncharge" type="java.lang.String">
+		<column name="order_personcharge"></column>
+		</property>
+		<property name="ordertwopersoncharge" type="java.lang.String">
+		<column name="order_twopersoncharge"></column>
+		</property>
+		<property name="orderthreepersoncharge" type="java.lang.String">
+		<column name="order_threepersoncharge"></column>
+		</property>
+		<property name="orderfourpersoncharge" type="java.lang.String">
+		<column name="order_fourpersoncharge"></column>
+		</property>
+		<property name="orderfivepersoncharge" type="java.lang.String">
+		<column name="order_fivepersoncharge"></column>
+		</property>
+		<property name="orderstatus" type="java.lang.String">
+		<column name="order_status"></column>
+		</property>
+		<property name="orderremarks" type="java.lang.String">
+		<column name="order_remarks" length="500"></column>
+		</property>
+		</class>
+</hibernate-mapping>

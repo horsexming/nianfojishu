@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessTemplateFile" table="ta_sop_w_ProcessTemplateFile">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="processNO" index="pebs_index_processNO"/>
+		<property name="markId" index="pebs_index_markId"/>
+		<property name="processName" />
+		<property name="fileName" />
+		<property name="fileName2" />
+		<property name="oldfileName"/>
+		<property name="month" />
+		<property name="type" />
+		<property name="productStyle" />
+		<property name="status" index="pebs_index_status"/>
+		<property name="addTime" />
+		<property name="userName" />
+		<property name="userCode" />
+		<property name="banBenNumber" />
+		 <property name="sbStatus" />
+    <property name="bzStatus" />
+    
+    <property name="bianzhiName" /> 
+	<property name="bianzhiId" /> 
+	<property name="bianzhiDate" /> 
+
+	<property name="jiaoduiName" /> 
+	<property name="jiaoduiId" /> 
+	<property name="jiaoduiDate" /> 
+
+	<property name="shenheName" /> 
+	<property name="shenheId" /> 
+	<property name="shenheDate" />
+
+	<property name="pizhunName" />
+	<property name="pizhunId" /> 
+	<property name="pizhunDate" /> 
+	<property name="banci" /> 
+	<property name="processtsbfileId" /> 
+	<property name="glId" index="pebs_index_glId"/>
+		<property name="params" />
+
+
+
+
+	</class>
+</hibernate-mapping>

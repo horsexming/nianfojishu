@@ -1,0 +1,256 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%; margin-top: 10px;">
+			<div id="xitong"
+				style="width: 100%; font-weight: bold; height: 50px;" align="left">
+				<div
+					style="float: left; width: 50%; padding-left: 30px; padding-top: 5px;"
+					align="left">
+
+				</div>
+				<div style="float: left; width: 45%; padding-top: 5px;"
+					align="right">
+					<a href="" style="color: rgb(79, 77, 77)"><br /> </a>
+				</div>
+			</div>
+
+			<div align="center">
+				<div id="state"></div>
+				<div id="logs"></div>
+				<div id="show0" align="center">
+					串口号：
+					<SELECT id="chuankou" style="width: 80px; height: 21px;">
+						<%--						<option value="COM1">COM1</option>--%>
+						<%--						<option value="COM2">COM2</option>--%>
+						<%--						<option value="COM3">COM3</option>--%>
+					</SELECT>
+					波特率：
+					<SELECT id="botelv" style="width: 80px; height: 21px;">
+						<option value="110">
+							110
+						</option>
+						<option value="300">
+							300
+						</option>
+						<option value="600">
+							600
+						</option>
+						<option value="1200">
+							1200
+						</option>
+						<option value="2400">
+							2400
+						</option>
+						<option value="4800">
+							4800
+						</option>
+						<option value="9600" selected="selected">
+							9600
+						</option>
+						<option value="14400">
+							14400
+						</option>
+						<option value="19200">
+							19200
+						</option>
+						<option value="38400">
+							38400
+						</option>
+						<option value="56000">
+							56000
+						</option>
+						<option value="57600">
+							57600
+						</option>
+						<option value="115200">
+							115200
+						</option>
+					</SELECT>
+					<input id="open1" type="button" value="打开串口" onclick="openSp()" />
+					<input id="close1" type="button" value="关闭串口" onclick="closeSp()" />
+					<%--					style="display: none;" --%>
+				</div>
+				<div id="show" align="center">
+					接收数据：
+					<textarea rows="6" cols="50"></textarea>
+				</div>
+				<div id="show1" align="center">
+					发送数据：
+					<textarea rows="6" cols="50"></textarea>
+				</div>
+				<div id="show1" align="center">
+					<input type="button" value="发送" />
+					<input type="button" value="清空" />
+				</div>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+var bool = false;
+function openSp() {
+	$.ajax( {
+		url : "AccessEquipmentAction_openSp.action",
+		type : 'post',
+		data : {
+			"commName" : $("#chuankou").val(),
+			"baudrate" : $("#botelv").val()
+		},
+		dataType : 'json',
+		success : function(data) {
+			if (data.success) {
+				$("#open1").hide();
+				$("#close1").show();
+				bool = true;
+			} else {
+				$("#close1").hide();
+				$("#open1").show();
+			}
+			alert(data.message);
+		},
+		error : function() {
+			alert("服务器异常!");
+		}
+	});
+}
+function closeSp() {
+	$.ajax( {
+		url : "AccessEquipmentAction_closeSp.action",
+		type : 'post',
+		data : {
+			"commName" : $("#chuankou").val(),
+			"baudrate" : $("#botelv").val()
+		},
+		dataType : 'json',
+		success : function(data) {
+			if (data.success) {
+				$("#close1").hide();
+				$("#open1").show();
+				bool = false;
+			} else {
+				$("#open1").hide();
+				$("#close1").show();
+			}
+			alert(data.message);
+		},
+		error : function() {
+			alert("服务器异常!");
+		}
+	});
+}
+
+$(function() {
+	$.ajax( {
+		url : "AccessEquipmentAction_huoquCHuankou.action",
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			$(data).each(
+					function() {
+						$("<option value='" + this + "'>" + this + "</option>")
+								.appendTo("#chuankou")
+					});
+		},
+		error : function() {
+			alert("服务器异常!");
+		}
+	})
+});
+$(function() {
+	longPolling();
+});
+
+function longPolling() {
+	if (bool) {
+		//打开串口的时候监听对应串口接收的信息
+		$.ajax( {
+			url : 'AccessEquipmentAction_dijian.action',
+			data : {
+				"commName" : $("#chuankou").val()
+			},
+			dataType : "json",
+			timeout : 10000,
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				$("#state").append(
+						"[state: " + textStatus + ", error: " + errorThrown
+								+ " ]<br/>");
+				if (textStatus == "timeout") { // 请求超时
+					longPolling(); // 递归调用
+					// 其他错误，如网络错误等
+				} else {
+					longPolling();
+				}
+			},
+			success : function(data, textStatus) {
+				$("#state").append(
+						"[state: " + textStatus + ", data: { " + data
+								+ "} ]<br/>");
+				if (textStatus == "success") { // 请求成功
+					longPolling();
+				}
+			}
+		});
+	} else {
+		setTimeout("longPolling()", 2000);
+	}
+}<%--           function longPolling11() {--%>
+<%--                	$("#state").append("[state: " + " ]<br/>");--%>
+<%--                	if(bool){--%>
+<%--                		//打开串口的时候监听对应串口接收的信息--%>
+<%--	                    $.ajax({--%>
+<%--	                        url : 'AccessEquipmentAction_dijian.action',--%>
+<%--	                        data: {"commName": $("#chuankou").val()},--%>
+<%--	                        dataType: "json",--%>
+<%--	                        timeout: 10000,--%>
+<%--	                        error: function (XMLHttpRequest, textStatus, errorThrown) {--%>
+<%--	                            $("#state").append("[state: " + textStatus + ", error: " + errorThrown + " ]<br/>");--%>
+<%--	                            if (textStatus == "timeout") { // 请求超时--%>
+<%--	                                longPolling(); // 递归调用--%>
+<%--	                                // 其他错误，如网络错误等--%>
+<%--	                                } else {--%>
+<%--	                                    longPolling();--%>
+<%--	                                }--%>
+<%--	                            },--%>
+<%--	                        success: function (data, textStatus) {--%>
+<%--	                            $("#state").append("[state: " + textStatus + ", data: { " + data + "} ]<br/>");--%>
+<%--	                            if (textStatus == "success") { // 请求成功--%>
+<%--	                                longPolling();--%>
+<%--	                            }--%>
+<%--	                        }--%>
+<%--	                    });--%>
+<%--                	}else{--%>
+<%--                		setTimeout("longPolling11();",1000);--%>
+<%--                	}--%>
+<%--                }--%>
+<%--			3、长连接iframe方式--%>
+<%--			$(function () {--%>
+<%--                window.setInterval(function () {--%>
+<%--                    var url = "AccessEquipmentAction_dijian.action?timed=" + new Date().getTime();--%>
+<%--                    var $iframe = $('<iframe id="frame" name="polling" style="display: none;" src="' + url + '"></iframe>');--%>
+<%--                    $("body").append($iframe);--%>
+<%--                --%>
+<%--                    $iframe.load(function () {--%>
+<%--                        $("#logs").append("[data: " + $($iframe.get(0).contentDocument).find("body").text() + " ]<br/>");--%>
+<%--                        $iframe.remove();--%>
+<%--                    });--%>
+<%--                }, 5000);--%>
+<%--                --%>
+<%--            });--%>
+
+        </script>
+	</body>
+</html>

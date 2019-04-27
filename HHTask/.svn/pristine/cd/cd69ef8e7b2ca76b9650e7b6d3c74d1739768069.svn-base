@@ -1,0 +1,54 @@
+package com.task.entity.zhiliang;
+
+/**
+ * 可靠性测试项目
+ * @author xs-cy
+ *
+ */
+public class ReliabilityTestRecord {
+
+	private Integer id;
+	private String proName; //项目名称
+	private String testRecord;//测试记录
+	private String testFile;//附件
+	private String otherFileName;//附件名称
+ 	private ReliabilityTestSheet testSheet; //可靠性测试单
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public ReliabilityTestSheet getTestSheet() {
+		return testSheet;
+	}
+	public void setTestSheet(ReliabilityTestSheet testSheet) {
+		this.testSheet = testSheet;
+	}
+	public String getTestRecord() {
+		return testRecord;
+	}
+	public void setTestRecord(String testRecord) {
+		this.testRecord = testRecord;
+	}
+	public String getTestFile() {
+		return testFile;
+	}
+	public void setTestFile(String testFile) {
+		this.testFile = testFile;
+	}
+	public String getOtherFileName() {
+		return otherFileName;
+	}
+	public void setOtherFileName(String otherFileName) {
+		this.otherFileName = otherFileName;
+	}
+	
+	
+}

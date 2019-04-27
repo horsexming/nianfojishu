@@ -1,0 +1,233 @@
+package com.task.entity.project;
+
+/***
+ * 项目管理 --时间表
+ * 
+ * @表名 ta_pro_ProjectTime
+ * 
+ * @author 刘培
+ * 
+ */
+public class ProjectTime {
+	private Integer id;
+	private String className;// 类别名称(立项、核算填报、BOM录入、材料、设备、工装、辅料、人工、外购外委、能源消耗、包装运输、工装)
+	private String classNumber;// 类别编号(lx,hstb,bom,cl,sb,gz,fl,rg,wgww,nyxh,bzys,gzf)
+
+	private String dept;// 部门
+	private Integer userId;// 人员id
+	private String userName;// 人员名称
+	private String isSendSms;// 是否发送短信(y/n)
+
+	private String provisionTime;// 规定时间
+	private String realTime;// 实际时间
+	private String exceedTime;// 超出时间
+
+	private String addDateTime;// 添加时间
+	private String addUserName;// 添加人名称
+
+	private Integer level;// 等级(lx,hstb,bom,cl,sb,gz,fl,rg,wgww,nyxh,bzys,gzf)(0,1,2,3,4,5,6,7,8,9,10,11)
+
+	private Float money;// 类别对应的报价金额(hstb为报价汇总)
+	private Float moneysz;
+	private Float moneysj;
+
+	private Integer proId;// 对应项目id(便于查询)
+	private Integer quoId;// 对应核价id(便于查询)
+
+	private ProjectManage projectManage;// 对应项目信息
+
+	public ProjectTime() {
+		super();
+	}
+
+	public ProjectTime(Integer id, String className, String classNumber,
+			String dept, Integer userId, String userName, String isSendSms,
+			String provisionTime, String realTime, String exceedTime,
+			String addDateTime, String addUserName, Integer level,
+			Integer proId, Integer quoId, ProjectManage projectManage) {
+		super();
+		this.id = id;
+		this.className = className;
+		this.classNumber = classNumber;
+		this.dept = dept;
+		this.userId = userId;
+		this.userName = userName;
+		this.isSendSms = isSendSms;
+		this.provisionTime = provisionTime;
+		this.realTime = realTime;
+		this.exceedTime = exceedTime;
+		this.addDateTime = addDateTime;
+		this.addUserName = addUserName;
+		this.level = level;
+		this.proId = proId;
+		this.quoId = quoId;
+		this.projectManage = projectManage;
+	}
+
+	public ProjectTime(String className, String classNumber,
+			String addDateTime, String addUserName, Integer level,
+			Integer proId, Integer quoId, ProjectManage projectManage) {
+		super();
+		this.className = className;
+		this.classNumber = classNumber;
+		this.addDateTime = addDateTime;
+		this.addUserName = addUserName;
+		this.level = level;
+		this.proId = proId;
+		this.quoId = quoId;
+		this.projectManage = projectManage;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getProvisionTime() {
+		return provisionTime;
+	}
+
+	public void setProvisionTime(String provisionTime) {
+		this.provisionTime = provisionTime;
+	}
+
+	public String getRealTime() {
+		return realTime;
+	}
+
+	public void setRealTime(String realTime) {
+		this.realTime = realTime;
+	}
+
+	public String getExceedTime() {
+		return exceedTime;
+	}
+
+	public void setExceedTime(String exceedTime) {
+		this.exceedTime = exceedTime;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public ProjectManage getProjectManage() {
+		return projectManage;
+	}
+
+	public void setProjectManage(ProjectManage projectManage) {
+		this.projectManage = projectManage;
+	}
+
+	public Integer getProId() {
+		return proId;
+	}
+
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getIsSendSms() {
+		return isSendSms;
+	}
+
+	public void setIsSendSms(String isSendSms) {
+		this.isSendSms = isSendSms;
+	}
+
+	public String getClassNumber() {
+		return classNumber;
+	}
+
+	public void setClassNumber(String classNumber) {
+		this.classNumber = classNumber;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getQuoId() {
+		return quoId;
+	}
+
+	public void setQuoId(Integer quoId) {
+		this.quoId = quoId;
+	}
+
+	public Float getMoney() {
+		return money;
+	}
+
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+
+	public Float getMoneysz() {
+		return moneysz;
+	}
+
+	public void setMoneysz(Float moneysz) {
+		this.moneysz = moneysz;
+	}
+
+	public Float getMoneysj() {
+		return moneysj;
+	}
+
+	public void setMoneysj(Float moneysj) {
+		this.moneysj = moneysj;
+	}
+	
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.iao">
+	<class name="LeaveInform" table="ta_iao_LeaveInform">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="dept" />
+		<property name="username" />
+		<property name="code" />
+		<property name="time" />
+		<property name="reason" />
+		<property name="fuck1" />
+		<property name="fuck2" length="1000"/>
+		<property name="fuck3" />
+		<property name="fuck4" />
+		<property name="fuck5" />
+		<property name="starttime" />
+		<property name="fintime" />
+		<property name="endtime" />
+		<property name="tiantime" />
+		<property name="month" />
+		<property name="postsalary" />
+		<property name="secrecysalary" />
+		<property name="performancesalary" />
+		<property name="achievement" />
+		<property name="offset" />
+		<property name="performance" />
+		<property name="heji" />
+		<property name="shebao" />
+		<property name="yiliao" />
+		<property name="shiye" />
+		<property name="gongji" />
+		<property name="shiji" />
+		<property name="shuoming" />
+		<property name="kkk" />
+	</class>
+</hibernate-mapping>

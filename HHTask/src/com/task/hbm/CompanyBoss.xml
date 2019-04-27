@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.CompanyBoss" table="ta_CompanyBoss" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+		<property name="name" />
+		<property name="sex" />
+		<property name="age" />
+		<property name="nation" />
+		<property name="politicalstatus" />
+		<property name="education" />
+		<property name="address" />
+		<property name="post" />
+		<property name="mobilephone" />
+		<property name="phoneNum" />
+		<property name="email" />
+		<property name="resume" />
+        <!-- 与企业基本资料表 -->
+<!--        <many-to-one name="companyVIP"  column="companyVIP_id" />-->
+    
+    </class>
+</hibernate-mapping>

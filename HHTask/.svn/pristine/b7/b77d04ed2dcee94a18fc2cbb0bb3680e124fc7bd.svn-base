@@ -1,0 +1,253 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<strong><h3>
+						设备日检维修卡
+					</h3> </strong>
+				<table class="table" id="tab">
+					<tr>
+						<td colspan="${monthday+2}">
+							设备名称:${machine.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							型号:${machine.type}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							设备编号:${machine.no}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="machineMonth" class="Wdate" type="text"
+								name="price.pricePeriodStart"
+								onClick="WdatePicker({dateFmt:'yyyy-MM',skin:'whyGreen'})"
+								value="${mmd.machineMonth}"  onchange="selectmachine(${machine.id})"/>
+								${month}
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							工位:${machine.workPosition}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+					</tr>
+					<tr align="center">
+						<td>
+						</td>
+						<td style="width: 78px">
+							点检内容
+						</td>
+						<s:iterator value="monthdayList" status="statussdf">
+							<td style="width: 35px">
+								<s:property value="#statussdf.index+1" />
+							</td>
+						</s:iterator>
+					</tr>
+					<tr id="yzsj" align="center">
+						<td></td>
+						<td>
+							设备运转时间
+						</td>
+					</tr>
+					<tr id="tzsj" align="center">
+						<td></td>
+						<td>
+							设备停转时间
+						</td>
+					</tr>
+					<tr id="wxsj" align="center">
+						<td></td>
+						<td>
+							设备维修时间
+						</td>
+					</tr>
+					<tr id="jdl" align="center">
+						<td></td>
+						<td>
+							稼动率
+						</td>
+					</tr>
+					<tr id="operatorDept" align="center">
+						<td></td>
+						<td>
+							操作者部门
+						</td>
+					</tr>
+					<tr id="usernames" align="center">
+						<td></td>
+						<td>
+							操作者
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							月累计时间
+						</td>
+						<td colspan="${monthday}">
+							运转时间:<fmt:formatNumber value="${mmd.machineZYZSJ}" pattern="0.0000"></fmt:formatNumber>小时&nbsp;&nbsp;&nbsp;
+							停转时间:<fmt:formatNumber type="number" value="${mmd.machineZTZSJ}" pattern="0.0000" maxFractionDigits="4"/>小时&nbsp;&nbsp;&nbsp;
+							维修时间:<fmt:formatNumber value="${mmd.machineZWXSJ}" pattern="0.0000"></fmt:formatNumber>小时&nbsp;&nbsp;&nbsp;
+							稼动率:${mmd.zjiadonglv}&nbsp;&nbsp;&nbsp;
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" value="${id}" id="id">
+				<input type="hidden" value="${monthday}" id="monthday" />
+				<input type="hidden" value="${firstday}" id="firstday" />
+				<input type="hidden" value="${lastday}" id="lastday" />
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<SCRIPT type="text/javascript">
+function selectmachine(id){
+	var month=document.getElementById("machineMonth").value;
+	window.location.href="MachineMonthDjAction_findallbyid.action?id="+id+"&month="+month;
+}
+$(function(){
+	var monthday=document.getElementById("monthday").value;
+	 $.ajax({
+			type : "POST",
+			url : "MachineDayYZSJAction_getdjnrofmonth.action",
+			dataType : "json",
+			data : {id:$("#id").val(),month:$("#machineMonth").val()},
+			success : function(data){
+				var index=1;
+				if(data!=null&&data.length>0){
+					for(var i=0;i<data.length;i++){
+						var tab=document.getElementById("tab");
+						 var newTr=tab.insertRow(index++ +1);
+						 newTr.id="mytr_"+i;
+						$("#mytr_"+i).append("<td align=center>"+(i+1)+"</td><td align=center>"+data[i]+"</td><input type=hidden value="+data[i]+" id=hid_"+i+">");
+						for(var m=1;m<=monthday;m++){
+							$("#mytr_"+i).append("<td style=width: 35px align=center id=td_"+i+"_"+m+"></td>")
+						}
+						ajaxServise(i);
+					}
+				}else{
+					for(var m=1;m<=monthday;m++){
+						$("#mytr_"+i).append("<td align=center></td><td align=center></td>");
+					}
+					
+				}
+			}
+	});
+	$.ajax({
+		type : "POST",
+			url : "MachineDayYZSJAction_findmdyofmonth.action",
+			dataType : "json",
+			data : {id:$("#id").val(),month:$("#machineMonth").val()},
+			success : function(data){
+			var monthday=document.getElementById("monthday").value;
+				if(data!=null&&data.length>0){
+					for(var i=1;i<=monthday;i++){
+						$("#yzsj").append("<td style=width: 35px id=yzsj_"+i+"></td>")
+						$("#tzsj").append("<td style=width: 35px id=tzsj_"+i+"></td>")
+						$("#wxsj").append("<td style=width: 35px id=wxsj_"+i+"></td>")
+						$("#jdl").append("<td style=width: 35px id=jdl_"+i+"></td>")
+					}
+					for(var m=1;m<=monthday;m++){
+						for(var j=0;j<data.length;j++){
+							var day=parseInt(data[j][0].substring(8,10));
+							if(m==day){
+								var yzsj =	"";
+								if(data[j][1]!=null && data[j][1]!=""){
+									yzsj = data[j][1].toFixed(4);
+								}
+								var tzsj =	"";
+								if(data[j][2]!=null && data[j][2]!=""){
+									tzsj = data[j][2].toFixed(4);
+								}
+								var wxsj =	"";
+								if(data[j][3]!=null && data[j][3]!=""){
+									wxsj = data[j][3].toFixed(4);
+								}
+					    			var jdl =	"";
+								if(data[j][4]!=null && data[j][4]!=""){
+									jdl = data[j][4];
+								}
+								$("#yzsj_"+m).append(yzsj);
+								$("#tzsj_"+m).append(tzsj);
+								$("#wxsj_"+m).append(wxsj);
+								$("#jdl_"+m).append(jdl);
+							}
+							}
+						}
+					
+			}else{
+					for(var m=1;m<=monthday;m++){
+						$("#yzsj").append("<td style=width: 35px></td>")
+									$("#tzsj").append("<td style=width: 35px></td>")
+									$("#wxsj").append("<td style=width: 35px></td>")
+									$("#jdl").append("<td style=width: 35px></td>")
+					}
+					
+				}
+				}
+	})
+	$.ajax({
+		type : "POST",
+			url : "MachineMonthDjAction_getcaozuoze.action",
+			dataType : "json",
+			data : {id:$("#id").val(),month:$("#machineMonth").val()},
+			success : function(data){
+			var monthday=document.getElementById("monthday").value;
+				if(data!=null&&data.length>0){
+					for(var i=1;i<=monthday;i++){
+						$("#operatorDept").append("<td style=width: 35px id=operatorDept_"+i+"></td>")
+						$("#usernames").append("<td style=width: 35px id=usernames_"+i+"></td>")
+					}
+					for(var m=1;m<=monthday;m++){
+						for(var j=0;j<data.length;j++){
+							var day=parseInt(data[j][0].substring(8,10));
+							if(m==day){
+								$("#operatorDept_"+m).append(data[j][1])
+								$("#usernames_"+m).append(data[j][2])
+							}
+							}
+						}
+				}else{
+					for(var m=1;m<=monthday;m++){
+						$("#operatorDept").append("<td style=width: 35px></td>")
+						$("#usernames").append("<td style=width: 35px></td>")
+					}
+					
+				}
+				}
+	})
+})
+
+function ajaxServise(i){
+	var monthday=document.getElementById("monthday").value;
+	$.ajax({
+							type : "POST",
+							url : "MachineDayDjAction_findmonthstatus.action",
+							dataType : "json",
+							data : {id:$("#id").val(),machine_djnr:$("#hid_"+i).val(),month:$("#machineMonth").val()},
+							success : function(msg){
+								if(msg!=null&&msg.length>0){
+								for(var m=1;m<monthday;m++){
+										for(var j=0;j<msg.length;j++){
+												var	day=parseInt(msg[j][1].substring(8,10));
+											var length=document.getElementById("mytr_"+i).childNodes.length
+											if(m==day){
+												$("#td_"+i+"_"+m).append(msg[j][0])
+											}
+										
+										}
+								}
+								}
+							
+						}	
+		});
+}
+
+</SCRIPT>
+
+	</body>
+</html>

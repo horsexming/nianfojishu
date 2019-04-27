@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-zjs" extends="struts-stack">
+		<!--
+			****************************************曾建森Action操作**********************************************************************
+		-->
+		<!-- 登记信息Action -->
+		<action name="register_*" class="registerAction" method="{1}">
+			<result name="upload_supplyFund_success">/System/renshi/register/upload_supplyFund_success.jsp
+			</result>
+			<result name="index_success">/System/renshi/register/.jsp</result>
+			<result name="success_operate" type="chain">register_index</result>
+			<result name="register_initupdate">/System/renshi/register/register_update.jsp
+			</result>
+			<result name="register_collect">/System/renshi/register/collect_index.jsp
+			</result>
+			<result name="takeFund_index">/System/renshi/register/withdraw_money.jsp
+			</result>
+			<result name="batch_success" type="redirect">register_initWithdrawMon.action
+			</result>
+			<result name="redirect" type="redirect">register_initWithdrawMon.action
+			</result>
+			<result name="findDailySupply">/System/renshi/register/supplyFund_findDailyS.jsp
+			</result>
+
+		</action>
+		<!-- 业务管理Action -->
+		<action name="business_*" class="businessAction" method="{1}">
+			<result name="business_index">/System/caiwu/yewu/businessContent_index.jsp
+			</result>
+			<result name="audit_index">/System/caiwu/yewu/audit_index.jsp</result>
+			<result name="business_redirect" type="redirect">business_initializeBusiness.action
+			</result>
+			<result name="business_update">/System/caiwu/yewu/businessContent_update.jsp
+			</result>
+			<result name="business_invoice">/System/caiwu/yewu/businessContent_invoice.jsp
+			</result>
+			<result name="invoice_initUpdate">/System/caiwu/yewu/invoice_update.jsp</result>
+			<result name="invoice_redirect" type="chain">business_queryInvoiceByBusinessId
+			</result>
+			<result name="business_detail">/System/caiwu/yewu/businessContent_detail.jsp
+			</result>
+			<result name="business_addDetail">/System/caiwu/yewu/Outbound_detail.jsp</result>
+			<result name="detail_redirect" type="chain">business_queryDetailByBusinessId
+			</result>
+			<result name="init_print">/System/caiwu/yewu/init_print.jsp</result>
+			<result name="init_printProof">/System/caiwu/yewu/print_proof.jsp</result>
+			<result name="print_init">/System/caiwu/yewu/business_play.jsp</result>
+			<result name="examine_proof">/System/caiwu/yewu/examine_proof.jsp</result>
+			<result name="proof_agree" type="redirect">business_queryAllProof.action
+			</result>
+			<result name="agree_proof">/System/caiwu/yewu/agree_proof.jsp</result>
+			<result name="goBack_proof">/System/caiwu/yewu/goBack_proof.jsp</result>
+			<result name="detail_proof">/System/caiwu/yewu/detail_proof.jsp</result>
+			<result name="examine_flow">/System/caiwu/yewu/examine_flow.jsp</result>
+			<result name="examine_redirect" type="redirect">business_queryExamineFlow.action
+			</result>
+			<result name="examine_update">/System/caiwu/yewu/flow_update.jsp</result>
+		</action>
+		<!-- 订单管理 -->
+		<action name="orderManager_*" class="orderManagerAction"
+			method="{1}">
+			<result name="orderManager_initOrder">/System/SOP/orderManager_index.jsp</result>
+			<result name="orderManager_kaipiao">/System/SOP/orderManager_kaipiao.jsp</result>
+			<result name="orderManager_check">/System/SOP/orderManager_check.jsp</result>
+			<result name="orderManager_examine">/System/SOP/orderManager_examine.jsp</result>
+			<result name="orderManager_add" type="redirect">orderManager_queryOrderManagerByCondition.action?flag=${flag}&amp;tag=${tag}&amp;status=${status}
+			</result>
+			<result name="orderManager_update">/System/SOP/orderManager_update.jsp</result>
+			<result name="orderManager_noAdd">/System/SOP/orderManager_noAdd.jsp</result>
+			<result name="orderManager_initAdd">/System/SOP/orderManager_add.jsp</result>
+			<result name="orderManager_detail">/System/SOP/productManager_index.jsp</result>
+			<result name="orderManager_internal_detail">/System/SOP/orderManager_examine_product.jsp
+			</result>
+			<result name="orderManager_initUpdateDetail">/System/SOP/productManager_update.jsp</result>
+			<result name="orderManager_conver_initUpdateDetail">/productManager_index.jspSystem/SOP/productManager_conver_update.jsp
+			</result>
+			<result name="orderManager_agree">/System/SOP/orderManager_examineEnd_agree.jsp
+			</result>
+			<result name="orderManager_fail">/System/SOP/orderManager_examineEnd_fail.jsp
+			</result>
+			<result name="orderManager_initOrder_inner">/System/SOP/internalOrder_generator.jsp</result>
+			<result name="orderManager_showDetails">/System/SOP/orderManager_showDetails.jsp</result>
+			<result name="orderManager_showOrderHKDetils">/System/SOP/orderManager_showOrderHKDetils.jsp
+			</result>
+			<result name="orderManager_monthView">/System/SOP/orderManager_monthView.jsp</result>
+			<result name="orderManager_id_monthView">/System/SOP/orderManager_id_monthView.jsp
+			</result>
+			<result name="order_template">/System/project/order_template.jsp</result>
+			<result name="order_chengben">/System/project/order_chengben.jsp</result>
+			<result name="order_chengbenFenxi">/System/project/order_chengbenFenxi.jsp</result>
+			<result name="order_relateBh">/System/SOP/order_relateBh.jsp</result>
+			<result name="ycproduct_showList" >/System/SOP/yuce/ycproduct_showList.jsp</result>
+			<result name="ycweek_add">/System/SOP/yuce/ycweek_add.jsp</result>
+			<result name="ycwgprocard_showList" >/System/SOP/yuce/ycwgprocard_showList.jsp</result>
+			<result name="product_paicheng_add" >/System/SOP/product_paicheng_add.jsp</result>
+			<result name="findAllEvaluators" type="redirect">orderManager_findAllEvaluators.action?cpage=${cpage}</result>
+			<result name="evalList_show" >/System/oderCancel/evalList_show.jsp</result>
+			<result name="evaluators_show">/System/oderCancel/evaluators_show.jsp</result>
+			<result name="procard_ZTList">/System/oderCancel/procard_ZTList.jsp</result>
+			<result name="error" >/error.jsp</result>
+		</action>
+		<!-- 客户管理 -->
+		<action name="clientManager_*" class="clientManagerAction"
+			method="{1}">
+			<result name="clientManager_index">/System/SOP/client_index.jsp</result>
+			<result name="clientManager_add" type="redirect">clientManager_initClientManager.action
+			</result>
+			<result name="clientManager_update">/System/SOP/client_update.jsp</result>
+			<result name="clientManager_infor">/System/SOP/client_information.jsp</result>
+			<result name="clientManager_detail">/System/SOP/orderManager_index.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 产品件号 -->
+		<action name="pieceNum_*" class="pieceNumAction" method="{1}">
+			<result name="pieceNum_index">/System/SOP/pieceNum_index.jsp</result>
+			<result name="pieceNum_update">/System/SOP/pieceNum_update.jsp</result>
+			<result name="pieceNum_redirect" type="redirect">pieceNum_queryAll.action
+			</result>
+			<result name="pieceNum_selected">/System/SOP/pieceNum_selected.jsp</result>
+		</action>
+		<!-- 内部订单 -->
+		<action name="internalOrder_*" class="internalOrderAction"
+			method="{1}">
+			<result name="internalOrder_init">/System/SOP/internalOrder_index.jsp</result>
+			<result name="internalOrder_generator">/System/SOP/internalOrder_generator.jsp</result>
+			<result name="internalOrder_initData">/System/SOP/internalOrder_initData.jsp</result>
+			<result name="internalOrder_redirect" type="redirect">internalOrder_initInternalOrder.action
+			</result>
+			<result name="internalOrder_product">/System/SOP/internalOrder_product.jsp</result>
+			<result name="procard_trunProduct">/System/SOP/produce/procard_trunProduct.jsp
+			</result>
+			<result name="internalOrder_initProduct">/System/SOP/internalOrder_initProduct.jsp
+			</result>
+			<result name="internalOrder_initPrint">/System/SOP/internalOrder_print_product.jsp
+			</result>
+			<result name="orderManager_initOrder">/System/SOP/orderManager_index.jsp</result>
+			<result name="internalOrder_logistics_check">/System/SOP/internalOrder_logistics_check.jsp
+			</result>
+			<result name="internalOrder_batchCon" type="redirect">internalOrder_initGenerateInnerOrder.action?pageStatus=${pageStatus}&amp;tag=${tag}
+			</result>
+			<result name="proCard_internalOrder">/System/SOP/produce/proCard_internalOrder.jsp
+			</result>
+			<result name="product_paicheng_calendar">/System/SOP/product_paicheng_calendar.jsp
+			</result>
+			<result name="product_paicheng_calendar_all">/System/SOP/product_paicheng_calendar_all.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+
+		</action>
+		<!-- IP管理 -->
+		<action name="ipManager_*" class="ipEntityAction" method="{1}">
+			<result name="init">/System/renshi/ipManager_index.jsp</result>
+			<result name="success">/System/renshi/ipManager_{1}.jsp</result>
+			<result name="redirect" type="redirect">ipManager_initIPEntity.action
+			</result>
+		</action>
+		<!-- 年休 -->
+		<action name="annualLeave_*" class="AnnualLeaveAction" method="{1}">
+			<result name="index">/System/renshi/annualLeave_index.jsp</result>
+			<result name="success">/System/renshi/annualLeave_{1}.jsp</result>
+			<result name="redirectIndex" type="redirect">annualLeave_list.action
+			</result>
+			<result name="mingxi">/System/renshi/AskForLeave_list.jsp</result>
+			<result name="gerennianxiumingxi">/System/renshi/AnnualLeaveAskForLeave_list.jsp
+			</result>
+			<result name="gengxin" type="redirect">annualLeave!listhuanxiu.action
+			</result>
+			<result name="listhuanxiu">/System/renshi/annualLeave_list_huanxiu.jsp
+			</result>
+
+			<result name="mingxijiaban">/System/renshi/askForLeave_list_huanxiu.jsp
+			</result>
+			<result name="listhuanxiumingxi">/System/renshi/gerenhuanxiumingxi.jsp
+			</result>
+			<result name="listhuanxiudept">/System/renshi/annualLeave_list_huanxiudept.jsp
+			</result>
+
+
+		</action>
+		<!-- 库存  -->
+		<action name="store_*" class="storeAction" method="{1}">
+			<result name="index">/System/SOP/store_index.jsp</result>
+			<result name="success">/System/SOP/store_{1}.jsp</result>
+			<result name="redirectList" type="redirect">store_initQueryStore.action
+			</result>
+			<result name="consumings" type="redirect">consuming_initQueryConsuming.action
+			</result>
+			<result name="repairs">/System/SOP/maintain_initAdd.jsp</result>
+			<result name="store_LoanIndex">/System/SOP/store_LoanIndex.jsp</result>
+			<result name="consuming">/System/SOP/store_consuming.jsp</result>
+			<result name="store_initBorrow">/System/SOP/store_initBorrow.jsp</result>
+			<result name="initConsuming">/System/SOP/store_initConsuming.jsp</result>
+			<result name="printConsuming">/System/SOP/consuming_printOutLib.jsp</result>
+			<result name="statistics">/System/SOP/store_statistics.jsp</result>
+			<!-- 陈曦 -->
+			<result name="getStoreUpdatePage_success">/System/SOP/store_update.jsp</result>
+			<result name="updateStore_success" type="redirect">store_initQueryStore.action
+			</result>
+		</action>
+		<!-- 入库 -->
+		<action name="storage_*" class="storageAction" method="{1}">
+			<result name="index">/System/SOP/storage_index.jsp</result>
+			<result name="success">/System/SOP/storage_{1}.jsp</result>
+			<result name="storage_selectStorage">/System/SOP/storage_selectStorage.jsp</result>
+			<result name="storage_selectRuGuiStorage">/System/SOP/storage_selectRuGuiStorage.jsp</result>
+			<result name="redirectList" type="redirect">storage_initQueryStorage.action
+			</result>
+			<result name="scanningApplyFor">/System/SOP/storage_scanningApplyFor.jsp</result>
+			<result name="print">/System/SOP/storage_printStorage.jsp</result>
+			<result name="storage_selectStorage">/System/SOP/storage_selectStorage.jsp</result>
+			<result name="storage_warehousingfill">/System/SOP/storage_warehousingfill.jsp</result>
+			<result name="initSelectStorage" type="redirect">storage_initSelectStorage.action
+			</result>
+			<result name="storageHistory">/System/SOP/storage_historyIndex.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 报废 -->
+		<action name="scrap_*" class="scrapAction" method="{1}">
+			<result name="index">/System/SOP/scrap_index.jsp</result>
+			<result name="success">/System/SOP/scrap_{1}.jsp</result>
+			<result name="redirectList" type="redirect">scrap_initQueryScrap.action
+			</result>
+			<result name="giveBackMsg">/System/SOP/scrap_giveBackMsg.jsp</result>
+			<result name="redirectFrom" type="redirect">store_initQueryStore.action
+			</result>
+		</action>
+		<!-- 以旧换新 -->
+		<action name="renew_*" class="renewAction" method="{1}">
+			<result name="index">/System/SOP/renew_index.jsp</result>
+			<result name="success">/System/SOP/renew_{1}.jsp</result>
+			<result name="redirectList">/System/SOP/consuming_printOutLibTM.jsp</result>
+			<result name="redirectFrom" type="redirect">store_initQueryStore.action
+			</result>
+		</action>
+		<!-- 报修 -->
+		<action name="maintain_*" class="maintainAction" method="{1}">
+			<result name="index">/System/SOP/maintain_index.jsp</result>
+			<result name="success">/System/SOP/maintain_{1}.jsp</result>
+			<result name="redirectList" type="redirect">maintain_initQueryMaintain.action
+			</result>
+		</action>
+		<!-- 出库 -->
+		<action name="outlib_*" class="outLibAction" method="{1}">
+			<result name="index">/System/SOP/outlib_index.jsp</result>
+			<result name="success">/System/SOP/outlib_{1}.jsp</result>
+			<result name="redirectList" type="redirect">outlib_initQueryOutLib.action
+			</result>
+			<result name="scanCardLingyong">/System/SOP/fanghu/OutLib_save.jsp
+			</result>
+			<!-- 劳防用品 -->
+			<result name="getFanghuOutLibAddPage_success">/System/SOP/fanghu/fanghuOutLib_save.jsp</result>
+			<result name="getFanghuOutLibUpdatePage_success">/System/SOP/fanghu/fanghuOutLib_update.jsp
+			</result>
+
+			<result name="addFanghuOutLib_success" type="redirect">outlib_getFanghuOutLibListByUserId.action?fanghuOutLib.userId=${fanghuOutLib.userId}
+			</result>
+			<result name="deleteFanghuOutLib_success" type="redirect">outlib_getFanghuOutLibListByUserId.action?fanghuOutLib.userId=${fanghuOutLib.userId}
+			</result>
+			<result name="updateFanghuOutLib_success" type="redirect">outlib_getFanghuOutLibListByUserId.action?fanghuOutLib.userId=${fanghuOutLib.userId}
+			</result>
+
+			<result name="getFanghuOutLibListByUserId_success">/System/SOP/fanghu/fanghuOutLib_list.jsp</result>
+			<!-- 所有用户 -->
+			<result name="getUserListAll_success">/System/SOP/fanghu/lingyonguser_list.jsp</result>
+		</action>
+		<!-- 还 -->
+		<action name="also_*" class="alsoAction" method="{1}">
+			<result name="also_index">/System/SOP/also_index.jsp</result>
+			<result name="also_DaiIndex">/System/SOP/also_DaiIndex.jsp</result>
+			<result name="success">/System/SOP/also_{1}.jsp</result>
+			<result name="redirectList" type="redirect">also_initQueryAlso.action
+			</result>
+			<result name="giveBackMsg">/System/SOP/store_giveBackMsg.jsp</result>
+		</action>
+		<!-- 借 -->
+		<action name="borrow_*" class="borrowAction" method="{1}">
+			<result name="borrow_index">/System/SOP/borrow_index.jsp</result>
+			<result name="borrow_DaiIndex">/System/SOP/borrow_DaiIndex.jsp</result>
+			<result name="success">/System/SOP/borrow_{1}.jsp</result>
+			<result name="redirectList" type="redirect">borrow_initQueryBorrow.action
+			</result>
+			<result name="also_giveBack">/System/SOP/also_giveBack.jsp</result>
+			<result name="store_return">/System/SOP/store_return.jsp</result>
+			<result name="scrap_return">/System/SOP/scrap_return.jsp</result>
+			<result name="statistics">/System/SOP/borrow_statistics.jsp</result>
+			<result name="generateexcel" type="redirect">DownAction.action?fileName=${fileName}&amp;directory=/upload/sheet/sop/
+			</result>
+		</action>
+		<!-- 领 -->
+		<action name="consuming_*" class="consumingAction" method="{1}">
+			<result name="index">/System/SOP/consuming_index.jsp</result>
+			<result name="success">/System/SOP/consuming_{1}.jsp</result>
+			<result name="success1">/System/SOP/consuming_printStorage.jsp</result>
+			<result name="redirectList" type="redirect">consuming_initQueryConsuming.action
+			</result>
+		</action>
+	</package>
+</struts>

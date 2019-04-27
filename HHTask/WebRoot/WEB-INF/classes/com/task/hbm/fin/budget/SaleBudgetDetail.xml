@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.budget">
+	<class name="SaleBudgetDetail" table="ta_fin_saleBudgetDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="customer"/>		
+		<property name="carStyle" />
+		<property name="markID" />
+		<property name="onePrice" />
+		<property name="forecastCount" />
+		<property name="saleReven" />
+		<property name="saleRate" />
+		<property name="more" />
+		<property name="goodsName" />
+		<property name="isIncludBudget" />
+		<many-to-one name="saleBudget" class="com.task.entity.fin.budget.SaleBudget" lazy="false" cascade="save-update" column="saleBudgetDetail_id" />		
+	</class>
+</hibernate-mapping>

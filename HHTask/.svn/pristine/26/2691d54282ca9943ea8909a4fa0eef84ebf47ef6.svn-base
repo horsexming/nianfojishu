@@ -1,0 +1,241 @@
+package com.task.entity.sop;
+/**
+ * 工序汇总类:(不建表，只做对象中间传值使用)
+ * @author :王晓飞;
+ */
+public class ProcessCollect {
+	private String usercodes;// 员工号
+	private String usernames;//员工姓名
+	private String markId;//件号
+	private String selfCard;//批次号
+	private Integer processNO;// 工序号
+	private String processName;// 工序名
+	private Double orderNum;//订单数量
+	private Double finalCount;//需求数量
+	private Double tjNumber;//完成数量
+	private String gongwei;//工位号
+	private String shebeiNo;//设备编号
+	private String processStatus;// 状态(yes/no)
+	private String firstApplyDate;// 领取时间
+	private String sumitApplyDate;// 提交时间 
+	private String ywmarkId;//业务件号
+	private String orderNumber;// 订单编号
+	private String proName;//产品名称
+	private String productStyle;//生产类型
+	private Double procesdianshu;//点数
+	private String mrpjihuoDate;//投产日期
+	private String banBenNumber;//版本号
+	private String needFinalDate;//计划时间
+	public ProcessCollect (){
+		
+	}
+	
+	
+	public ProcessCollect(String usercodes, String usernames, String markId,
+			String selfCard, Integer processNO, String processName,
+			Double tjNumber, String gongwei, String shebeiNo,
+			String processStatus, String firstApplyDate, String sumitApplyDate
+			,String ywmarkId,String orderNumber,String proName,String productStyle,String banBenNumber) {
+		super();
+		this.usercodes = usercodes;
+		this.usernames = usernames;
+		this.markId = markId;
+		this.selfCard = selfCard;
+		this.processNO = processNO;
+		this.processName = processName;
+		this.tjNumber = tjNumber;
+		this.gongwei = gongwei;
+		this.shebeiNo = shebeiNo;
+		this.processStatus = processStatus;
+		this.firstApplyDate = firstApplyDate;
+		this.sumitApplyDate = sumitApplyDate;
+		this.ywmarkId = ywmarkId;
+		this.orderNumber = orderNumber;
+		this.proName = proName;
+		this.productStyle =productStyle;
+		this.banBenNumber = banBenNumber;
+	}
+
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+
+	public String getUsercodes() {
+		return usercodes;
+	}
+	public void setUsercodes(String usercodes) {
+		this.usercodes = usercodes;
+	}
+	public String getUsernames() {
+		return usernames;
+	}
+	public void setUsernames(String usernames) {
+		this.usernames = usernames;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getSelfCard() {
+		return selfCard;
+	}
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+	public Integer getProcessNO() {
+		return processNO;
+	}
+	public void setProcessNO(Integer processNO) {
+		this.processNO = processNO;
+	}
+	public String getProcessName() {
+		return processName;
+	}
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public Double getTjNumber() {
+		return tjNumber;
+	}
+
+
+	public void setTjNumber(Double tjNumber) {
+		this.tjNumber = tjNumber;
+	}
+
+
+	public String getGongwei() {
+		return gongwei;
+	}
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+	public String getShebeiNo() {
+		return shebeiNo;
+	}
+	public void setShebeiNo(String shebeiNo) {
+		this.shebeiNo = shebeiNo;
+	}
+	public String getProcessStatus() {
+		return processStatus;
+	}
+	public void setProcessStatus(String processStatus) {
+		this.processStatus = processStatus;
+	}
+	public String getFirstApplyDate() {
+		return firstApplyDate;
+	}
+	public void setFirstApplyDate(String firstApplyDate) {
+		this.firstApplyDate = firstApplyDate;
+	}
+	public String getSumitApplyDate() {
+		return sumitApplyDate;
+	}
+	public void setSumitApplyDate(String sumitApplyDate) {
+		this.sumitApplyDate = sumitApplyDate;
+	}
+
+
+	public String getYwmarkId() {
+		return ywmarkId;
+	}
+
+
+	public void setYwmarkId(String ywmarkId) {
+		this.ywmarkId = ywmarkId;
+	}
+
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+
+	public String getProName() {
+		return proName;
+	}
+
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+
+	public Double getFinalCount() {
+		return finalCount;
+	}
+
+
+	public void setFinalCount(Double finalCount) {
+		this.finalCount = finalCount;
+	}
+
+
+	public Double getProcesdianshu() {
+		return procesdianshu;
+	}
+
+
+	public void setProcesdianshu(Double procesdianshu) {
+		this.procesdianshu = procesdianshu;
+	}
+
+
+	public String getMrpjihuoDate() {
+		return mrpjihuoDate;
+	}
+
+
+	public void setMrpjihuoDate(String mrpjihuoDate) {
+		this.mrpjihuoDate = mrpjihuoDate;
+	}
+
+
+	public Double getOrderNum() {
+		return orderNum;
+	}
+
+
+	public void setOrderNum(Double orderNum) {
+		this.orderNum = orderNum;
+	}
+
+
+	public String getBanBenNumber() {
+		return banBenNumber;
+	}
+
+
+	public void setBanBenNumber(String banBenNumber) {
+		this.banBenNumber = banBenNumber;
+	}
+
+
+	public String getNeedFinalDate() {
+		return needFinalDate;
+	}
+
+
+	public void setNeedFinalDate(String needFinalDate) {
+		this.needFinalDate = needFinalDate;
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,349 @@
+package com.task.action.supplier;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Server.supplier.SupplierEvaluateService;
+import com.task.entity.supplier.SupplierEvaluate;
+import com.task.entity.supplier.SupplierEvaluateLevel;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class SupplierEvaluateAction extends ActionSupport {
+
+    private SupplierEvaluateService supplierEvaluateServer;
+    private List<SupplierEvaluate> supplierEvaluateList;
+    private SupplierEvaluate supplierEvaluate;
+
+    private String successMessage;// 成功消息
+    private String errorMessage;// 错误消息
+    private int id;// id
+    private String pageStatus;// 页面状态
+
+    // 分页
+    private String cpage = "1";
+    private String total;
+    private String url;
+    private int pageSize = 15;
+
+    private String supplierEvaluateMonth;
+    private String supplierEvaluateQuarter;
+
+    private String category;
+    private List<String> levelScore;//评级分数
+
+    private Float costScore;
+    private Float serviceScore;
+
+    //
+    public String findByLastMonth() {
+        supplierEvaluateMonth = Util.getLastMonth("yyyy-MM");
+        supplierEvaluateList = supplierEvaluateServer.findSupplierEvaluateListByMonth(supplierEvaluateMonth);
+        return "SupplierEvaluate";
+    }
+
+
+    public String find() {
+        if (supplierEvaluateMonth == null || "month".equals(supplierEvaluateMonth) || "".equals(supplierEvaluateMonth)) {
+            supplierEvaluateMonth = Util.getLastMonth("yyyy-MM");
+        }
+        if(category==null){
+            category=new String();
+        }
+        if(supplierEvaluate==null){
+            supplierEvaluate=new SupplierEvaluate();
+        }
+        Object[] object = supplierEvaluateServer.findSupplierEvaluateList(supplierEvaluate,supplierEvaluateMonth, category, Integer.parseInt(cpage), pageSize);
+        if (object != null && object.length > 0) {
+            supplierEvaluateList = (List<SupplierEvaluate>) object[0];
+            if (object != null && object.length > 0) {
+                DecimalFormat fnum = new DecimalFormat("##0.00"); // 保留两位小数
+                supplierEvaluateList = (List) object[0];
+                for (SupplierEvaluate supplierEvaluate:supplierEvaluateList) {
+                    //格式化品质得分和交期得分
+                    supplierEvaluate.setQualityScore(Float.parseFloat(fnum.format(supplierEvaluate.getQualityScore())));
+                    supplierEvaluate.setDeliveryDateScore(Float.parseFloat(fnum.format(supplierEvaluate.getDeliveryDateScore())));
+                }
+                if (supplierEvaluateList != null && supplierEvaluateList.size() > 0) {
+                    int count = (Integer) object[1];
+                    int pageCount = (count + pageSize - 1) / pageSize;
+                    this.setTotal(pageCount + "");
+                    this.setUrl("SupplierEvaluateAction_find.action?supplierEvaluateMonth=" + supplierEvaluateMonth + "&category=" + category);
+                    errorMessage = null;
+                } else {
+                    errorMessage = "没有找到你要查询的内容,请检查后重试!";
+                }
+            }
+        }
+        levelScore=supplierEvaluateServer.findlevelScore();
+        return "SupplierEvaluate";
+    }
+
+
+
+    public String skipSupplier(){
+        supplierEvaluateServer.skipSupplier(supplierEvaluate);
+        return "success";
+    }
+
+    public String updatelevelsocre(){
+        if(levelScore!=null){
+            if(supplierEvaluateServer.updatelevelscore(levelScore)){
+                errorMessage="成功";
+            }else {
+                errorMessage="错误";
+            }
+        }
+        return ERROR;
+    }
+
+
+    public String generatePage(){
+        if(levelScore==null){
+            levelScore= new ArrayList<String>();
+        }
+        List<SupplierEvaluateLevel> supplierEvaluateLevels=supplierEvaluateServer.findlevelsocre();
+        if(supplierEvaluateLevels!=null){
+            for(int i=0;i<supplierEvaluateLevels.size();i++){
+                levelScore.add(supplierEvaluateLevels.get(i).getLevelScore().toString());
+            }
+        }
+        return "SupplierEvaluateGenerate";
+    }
+
+
+    //生成Quarter审核表
+    public String generateQuarterReport(){
+        if(!supplierEvaluateServer.repeatVerify(supplierEvaluateQuarter)){
+            supplierEvaluateList=supplierEvaluateServer.findQuarterRecord(supplierEvaluateQuarter);
+            errorMessage = supplierEvaluateServer.addSupplierEvaluateList(supplierEvaluateList);
+        }else
+        {
+            errorMessage="当季已生成数据";
+        }
+        return ERROR;
+    }
+
+    //手动生成月度审核表
+    public String generateMonthReport() {
+        //查询上月度送货纪录
+        boolean convertSuccess = true;
+        Calendar cal_1=Calendar.getInstance();
+        cal_1.set(Calendar.DAY_OF_MONTH,0);
+        Date dtmonth=cal_1.getTime();
+        Date dtin=new Date();
+        if ("".equals(supplierEvaluateMonth) || supplierEvaluateMonth == null) {
+            errorMessage = "月度为空";
+            convertSuccess=false;
+        }
+        // 指定日期格式为四位年/两位月份/两位日期，注意yyyy/MM/dd区分大小写；
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+        try {
+            // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2007/02/29会被接受，并转换成2007/03/01
+            format.setLenient(false);
+            dtin=format.parse(supplierEvaluateMonth);
+        } catch (Exception e) {
+            // e.printStackTrace();
+            // 如果throw java.text.ParseException或者NullPointerException，就说明格式不对
+            convertSuccess = false;
+        }
+
+        if(convertSuccess){
+            if (dtmonth.getTime()<dtin.getTime()){
+                errorMessage="不可生成当月数据";
+                return "error";
+            }
+            if(!supplierEvaluateServer.findHaveMonthReport(supplierEvaluateMonth)){
+                supplierEvaluateList = supplierEvaluateServer.findMonthRecord(supplierEvaluateMonth);
+                errorMessage = supplierEvaluateServer.addSupplierEvaluateList(supplierEvaluateList);
+            }else {
+                errorMessage="当月已生成纪录";
+            }
+        }
+        else {
+            errorMessage="月度格式错误";
+        }
+        if(errorMessage!=null&&errorMessage.length()>0){
+            return "error";
+        }
+        return "SupplierEvaluate";
+    }
+
+
+    //月度JSON
+    public String getMonth() {
+        List list = supplierEvaluateServer.getMonth();
+        try {
+            MKUtil.writeJSON(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //类别JSON
+    public String getsupplierCatagory() {
+        List list = supplierEvaluateServer.getsupplierCatagory();
+        try {
+            MKUtil.writeJSON(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //打 成本分服务分 级别
+    public String updateScore() {
+        errorMessage = supplierEvaluateServer.updateSupplierEvaluatesScore(supplierEvaluateList);
+        return "success";
+    }
+
+    public String updateScore2() {
+        supplierEvaluateList=new ArrayList<SupplierEvaluate>();
+        supplierEvaluateList.add(supplierEvaluate);
+        errorMessage = supplierEvaluateServer.updateSupplierEvaluatesScore(supplierEvaluateList);
+        return  MKUtil.writeJSON(errorMessage);
+    }
+
+
+    public SupplierEvaluateService getSupplierEvaluateServer() {
+        return supplierEvaluateServer;
+    }
+
+    public void setSupplierEvaluateServer(SupplierEvaluateService supplierEvaluateServer) {
+        this.supplierEvaluateServer = supplierEvaluateServer;
+    }
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPageStatus() {
+        return pageStatus;
+    }
+
+    public void setPageStatus(String pageStatus) {
+        this.pageStatus = pageStatus;
+    }
+
+    public String getCpage() {
+        return cpage;
+    }
+
+    public void setCpage(String cpage) {
+        this.cpage = cpage;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public List<SupplierEvaluate> getSupplierEvaluateList() {
+        return supplierEvaluateList;
+    }
+
+    public void setSupplierEvaluateList(List<SupplierEvaluate> supplierEvaluateList) {
+        this.supplierEvaluateList = supplierEvaluateList;
+    }
+
+    public SupplierEvaluate getSupplierEvaluate() {
+        return supplierEvaluate;
+    }
+
+    public void setSupplierEvaluate(SupplierEvaluate supplierEvaluate) {
+        this.supplierEvaluate = supplierEvaluate;
+    }
+
+    public String getSupplierEvaluateMonth() {
+        return supplierEvaluateMonth;
+    }
+
+    public void setSupplierEvaluateMonth(String supplierEvaluateMonth) {
+        this.supplierEvaluateMonth = supplierEvaluateMonth;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<String> getLevelScore() {
+        return levelScore;
+    }
+
+    public void setLevelScore(List<String> levelScore) {
+        this.levelScore = levelScore;
+    }
+
+    public Float getCostScore() {
+        return costScore;
+    }
+
+    public void setCostScore(Float costScore) {
+        this.costScore = costScore;
+    }
+
+    public Float getServiceScore() {
+        return serviceScore;
+    }
+
+    public void setServiceScore(Float serviceScore) {
+        this.serviceScore = serviceScore;
+    }
+
+    public String getSupplierEvaluateQuarter() {
+        return supplierEvaluateQuarter;
+    }
+
+    public void setSupplierEvaluateQuarter(String supplierEvaluateQuarter) {
+        this.supplierEvaluateQuarter = supplierEvaluateQuarter;
+    }
+}

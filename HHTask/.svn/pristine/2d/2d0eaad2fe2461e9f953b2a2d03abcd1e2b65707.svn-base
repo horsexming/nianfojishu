@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ManualOrderPlanTotal" table="ta_sop_w_ManualOrderPlanTotal">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="userId"/>
+		<property name="userCode"/>
+		<property name="userName"/>
+		<property name="userDept"/>
+		<property name="addTime"/>
+		<property name="updateTime"/>
+		<property name="totalNum"/>
+		<property name="remark" length="1000"/>
+		<property name="epId"/>
+		<property name="epStatus"/>
+		<property name="category"/>
+		<property name="estimatePrice"/>
+		<property name="pickingStatus"/>
+		<property name="application"/>
+		<property name="proCode"/>
+		<property name="proName"/>
+		<property name="months"/>
+		<property name="totalMoney"/>
+		<property name="fltype"/>
+		
+		<set name="details" cascade="all" inverse="false" order-by="id">
+			<key column="moptId"></key>
+			<one-to-many class="ManualOrderPlanDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

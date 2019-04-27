@@ -1,0 +1,177 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+/**
+ * 版本升级时评审ta_ProcardTemplateBanBenJudges
+ * @author txb
+ *
+ */
+public class ProcardTemplateBanBenJudges {
+	private Integer id;
+	private String dept;//部门
+//	private String gldept;//管理部门
+//	private Integer gldeptId;//管理部门Id
+	private Integer userId;//评审人员id
+	private String userName;//评审名称
+	private String userCode;//用户
+	private String remark;//评论
+	private Integer sblv;//影响级别
+	private String addTime;//添加时间
+	private String plTime;//评论时间
+//	private String judgelv;//评审人员级别（主管，执行员）
+	private String judgeType;//评审类别（初评,工程师,成本,内审,编制通知,编制完通知,佐证）项目主管初步评审选出设变相关,内审人员评审设变对生产和物流的影响
+	private String selectUserId;//选中人员
+	private String selectUsers;//选中人员部门-名称(工号)
+	private String selectUserId2;//选中人员(页面传值)
+	private String selectUsers2;//选中人员部门-名称(工号)(页面传值)
+	private String selectUserId3;//选中人员(页面传值)
+	private String selectUsers3;//选中人员部门-名称(工号)(页面传值)
+	private ProcardTemplateBanBenApply ptbbApply;//版本升级主表applyId
+	private Integer judgedId;//指派员Id
+//	private ProcardTemplateBanBenJudges ptbbj;//上级评审人员
+//	private Set<ProcardTemplateBanBenJudges> ptbbjset;//下级评审人员
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getPlTime() {
+		return plTime;
+	}
+	public void setPlTime(String plTime) {
+		this.plTime = plTime;
+	}
+	public ProcardTemplateBanBenApply getPtbbApply() {
+		return ptbbApply;
+	}
+	public void setPtbbApply(ProcardTemplateBanBenApply ptbbApply) {
+		this.ptbbApply = ptbbApply;
+	}
+	public Integer getSblv() {
+		return sblv;
+	}
+	public void setSblv(Integer sblv) {
+		this.sblv = sblv;
+	}
+//	public String getJudgelv() {
+//		return judgelv;
+//	}
+//	public void setJudgelv(String judgelv) {
+//		this.judgelv = judgelv;
+//	}
+//	public ProcardTemplateBanBenJudges getPtbbj() {
+//		return ptbbj;
+//	}
+//	public void setPtbbj(ProcardTemplateBanBenJudges ptbbj) {
+//		this.ptbbj = ptbbj;
+//	}
+//	public Set<ProcardTemplateBanBenJudges> getPtbbjset() {
+//		return ptbbjset;
+//	}
+//	public void setPtbbjset(Set<ProcardTemplateBanBenJudges> ptbbjset) {
+//		this.ptbbjset = ptbbjset;
+//	}
+	public String getJudgeType() {
+		return judgeType;
+	}
+	public void setJudgeType(String judgeType) {
+		this.judgeType = judgeType;
+	}
+//	public String getGldept() {
+//		return gldept;
+//	}
+//	public void setGldept(String gldept) {
+//		this.gldept = gldept;
+//	}
+//	public Integer getGldeptId() {
+//		return gldeptId;
+//	}
+//	public void setGldeptId(Integer gldeptId) {
+//		this.gldeptId = gldeptId;
+//	}
+	public String getSelectUserId() {
+		return selectUserId;
+	}
+	public void setSelectUserId(String selectUserId) {
+		this.selectUserId = selectUserId;
+	}
+	public String getSelectUsers() {
+		return selectUsers;
+	}
+	public void setSelectUsers(String selectUsers) {
+		this.selectUsers = selectUsers;
+	}
+	public Integer getJudgedId() {
+		return judgedId;
+	}
+	public void setJudgedId(Integer judgedId) {
+		this.judgedId = judgedId;
+	}
+	public String getSelectUserId2() {
+		return selectUserId2;
+	}
+	public void setSelectUserId2(String selectUserId2) {
+		this.selectUserId2 = selectUserId2;
+	}
+	public String getSelectUsers2() {
+		return selectUsers2;
+	}
+	public void setSelectUsers2(String selectUsers2) {
+		this.selectUsers2 = selectUsers2;
+	}
+	public String getSelectUserId3() {
+		return selectUserId3;
+	}
+	public void setSelectUserId3(String selectUserId3) {
+		this.selectUserId3 = selectUserId3;
+	}
+	public String getSelectUsers3() {
+		return selectUsers3;
+	}
+	public void setSelectUsers3(String selectUsers3) {
+		this.selectUsers3 = selectUsers3;
+	}
+	
+	
+	
+	
+}

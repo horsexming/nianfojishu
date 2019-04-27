@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/util/404.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/util/500.jsp</location>
+	</error-page>
+
+	<!-- struts2 配置文件 (过滤器) -->
+	<filter>
+		<filter-name>HHTask</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HHTask</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+
+
+	<!-- 登录过滤器 -->
+	<filter>
+		<filter-name>login</filter-name>
+		<filter-class>com.task.util.Filter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>login</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 解决spring事务管理的循环引用 -->
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>com.task.util.MyWebApplicationContext</param-value>
+	</context-param>
+
+	<!--
+		log4j配置文件地址 <context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value> </context-param>
+	-->
+	<!--	<servlet>-->
+	<!--		<servlet-name>proxoolServletConfigurator</servlet-name>-->
+	<!--		<servlet-class>-->
+	<!--
+		org.logicalcobwebs.proxool.configuration.ServletConfigurator</servlet-class>
+	-->
+	<!--		<init-param>-->
+	<!--			<param-name>xmlFile</param-name>-->
+	<!--			<param-value>WEB-INF\proxool.xml</param-value>-->
+	<!--		</init-param>-->
+	<!--		<load-on-startup>1</load-on-startup>-->
+	<!--	</servlet>-->
+	<!--查看proxool运行情况，也可以不作配置的-->
+	<servlet>
+		<servlet-name>proxool</servlet-name>
+		<servlet-class>org.logicalcobwebs.proxool.admin.servlet.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>proxool</servlet-name>
+		<url-pattern>/proxool</url-pattern>
+	</servlet-mapping>
+
+
+	<!--
+		spring配置文件(监听器) -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--spring监听 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>WEB-INF\applicationContext.xml</param-value>
+	</context-param>
+	<!--	<servlet>-->
+	<!--		<servlet-name>context</servlet-name>-->
+	<!--
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+	-->
+	<!--		<load-on-startup>2</load-on-startup>-->
+	<!--	</servlet>-->
+	<!--
+		log4j监听 <listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+		</listener>
+	-->
+	<!-- 登录session计数监听器 -->
+	<listener>
+		<listener-class>com.task.util.SessionListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>plate</servlet-name>
+		<servlet-class>com.test.plate</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>plate</servlet-name>
+		<url-pattern>/plateTest</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>com.task.servlet.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/servlet/UploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>WaterDianServlet</servlet-name>
+		<servlet-class>com.task.servlet.WaterDianServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WaterDianServlet</servlet-name>
+		<url-pattern>/servlet/WaterDianServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>a</servlet-name>
+		<servlet-class>com.test.ShortLinkServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>a</servlet-name>
+		<url-pattern>/s/*</url-pattern>
+	</servlet-mapping>
+</web-app>

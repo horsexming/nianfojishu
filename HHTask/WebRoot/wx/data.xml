@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<showcase>
+	<item thumb="items/1b.png" big="items/1a.png" caption="Gold"
+		link="../main.jsp?url=ModuleFunctionAction!findMfByIdForJump.action?id=560" />
+	<item thumb="items/2b.png" big="items/2a.png" caption="Wood"
+		link="../main.jsp?url=ModuleFunctionAction!findMfByIdForJump.action?id=561" />
+	<item thumb="items/3b.png" big="items/3a.png" caption="Water"
+		link="../main.jsp?url=ModuleFunctionAction!findMfByIdForJump.action?id=562" />
+	<item thumb="items/4b.png" big="items/4a.png" caption="Fire"
+		link="../main.jsp?url=ModuleFunctionAction!findMfByIdForJump.action?id=563" />
+	<item thumb="items/5b.png" big="items/5a.png" caption="Soil"
+		link="../main.jsp?url=ModuleFunctionAction!findMfByIdForJump.action?id=564" />
+</showcase>

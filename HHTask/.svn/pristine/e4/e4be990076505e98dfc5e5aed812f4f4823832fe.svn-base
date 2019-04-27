@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.InternalOrderzhaobiao" table="ta_crm_internalOrderzhaobiao">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity" />
+		</id>
+		<property name="num" column="f_num" type="string" />
+		<property name="newDate" column="f_newDate" />
+		<property name="genertorDate" column="f_genertorDate" type="string"></property>
+		<property name="documentaryPeople" column="f_documentaryPeople"
+			type="string" />
+		<property name="status" column="f_status" type="string" />
+		<property name="flow" column="f_flow" type="string" />
+		<property name="whetherPurchase" column="f_whetherPurchase"
+			type="string" />
+		<property name="isVali" column="f_isVali" type="int" />
+		<property name="cardStatus" column="f_cardStatus" />
+		<property name="zhStatus" column="f_zhStatus" />
+		<property name="epId" />
+		<!--
+			<many-to-one name="outerOrder" column="fk_orderManager_id"
+			class="com.task.entity.OrderManager" lazy="false"/>
+		-->
+
+		<set name="outerOrderszhaobiao" table="ta_crm_orderManager_internalOrderzhaobiao"
+			cascade="all" inverse="false" lazy="false">
+			<key column="fk_internalOrderzhaobiao_id" />
+			<many-to-many column="fk_orderManagerzhaobiao_id" class="com.task.entity.OrderManager" />
+		</set>
+		
+		
+		
+		<set name="interOrderDetailszhaobiao" table="ta_crm_internalOrderDetailzhaobiao"
+			cascade="all" lazy="true" inverse="true">
+			<key column="fk_internalOrderzhaobiao_id" />
+			<one-to-many class="com.tast.entity.zhaobiao.InternalOrderDetailzhaobiao" />
+		</set>
+		
+		<many-to-one name="custome" column="fk_client_id"
+			class="com.task.entity.ClientManagement" lazy="false" />
+			
+			
+			
+				<!-- 订单表 -->
+		 <!-- name：本XML文件中对应Bean定义对方的一个SET集合属性 -->
+        <!-- table: 指向数据库中的中间表的表名 -->
+        <set name="orderManagers" table="Order_caigoujihua">
+        	<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+        	<key column="jihuaId"></key>
+        	<!-- class：指向对方bean的完整路径 -->
+        	<!-- column：指向中间表中，对方的外键字段 -->
+        	<many-to-many class="com.task.entity.OrderManager" column="oderId"></many-to-many>
+        </set>
+	</class>
+</hibernate-mapping>

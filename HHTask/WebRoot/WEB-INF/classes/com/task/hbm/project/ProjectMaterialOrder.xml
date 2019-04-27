@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="ProjectMaterialOrder" table="ta_pro_ProjectMaterialOrder">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="orderNo" />
+		<property name="proName" />
+		<property name="userId" />
+		<property name="userName"/>
+		<property name="usercode" />
+		<property name="addTime" />
+		<property name="remark" />
+		<property name="receiveStatus" />
+		<property name="aduitStatus" />
+		<property name="receiver" />
+		<property name="isbaomi" />
+		<property name="ptCount" />
+		<property name="qpId" />
+		<property name="proId" />
+		<property name="epId" />
+
+		<!-- 【配置清单和材料的对应关系(一对多)】 -->
+		<set name="projectMaterial" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="orderId"></key>
+			<one-to-many class="ProjectMaterial" />
+		</set>
+	</class>
+
+</hibernate-mapping>

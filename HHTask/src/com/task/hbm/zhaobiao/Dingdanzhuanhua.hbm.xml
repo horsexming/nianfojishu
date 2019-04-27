@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.Dingdanzhuanhua" table="ta_crm_Dingdanzhuanhua">
+			<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="markId" />
+		
+		<property name="paihao" />
+		<property name="name" />
+		<property name="shuliang" />
+		<property name="danwei" />
+		<property name="guige" />
+		<property name="genertorDate" />
+		<property name="leibie" />
+		
+		<property name="internalOrderzhaobiaoid" />
+		<property name="internalOrderDetailzhaobiaoid" />
+		<property name="procardTemplateid" />
+		
+		<property name="biaohao" />
+		
+		<property name="shiji" />
+		
+		<property name="leixing" />
+		
+		<property name="status" />
+	
+	</class>
+</hibernate-mapping>

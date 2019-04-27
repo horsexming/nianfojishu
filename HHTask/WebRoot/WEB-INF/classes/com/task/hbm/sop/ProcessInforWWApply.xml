@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessInforWWApply" table="ta_sop_w_ProcessInforWWApply">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="userId" />
+	<property name="wwApplyNumber" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="addTime" />
+	<property name="procardId" />
+	<property name="markId" />
+	<property name="proName" />
+	<property name="selfCard" />
+	<property name="status" />
+	<property name="epId" />
+	<property name="ywMarkId" />
+	<property name="processStatus" />
+	<property name="backReMark" />
+	<property name="orderNumber" />
+	<property name="finalCount" />
+	<property name="shenpiTime" />
+	<property name="procardTime" />
+	<property name="remarks" />
+
+		<!-- 【与实际生产对应关系 】-->
+		<set name="processInforWWApplyDetails" inverse="false" cascade="all" lazy="true" order-by="gysId">
+			<key column="applyId">
+			</key>
+			<one-to-many class="com.task.entity.sop.ProcessInforWWApplyDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

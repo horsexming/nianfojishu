@@ -1,0 +1,222 @@
+/**
+ * 
+ */
+package com.task.Server.lpanclear;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.Users;
+import com.task.entity.lpanclear.Cleanrecord;
+import com.task.entity.lpanclear.ClearInfo;
+import com.task.entity.lpanclear.Employee;
+import com.task.entity.lpanclear.HomeTitle;
+import com.task.entity.lpanclear.ClearPhone;
+import com.task.entity.lpanclear.Score;
+/**
+ *清洁信息表接口层
+ */
+public interface ClearInfoServer {
+	
+	
+	
+	//一下为Employee实体类接口=================================================================================
+	//=========================================================================================================
+	/**
+	 * 查询所有已在职员工信息Map
+	 */
+	public Map<Integer,Object> selectOnTheJob(Employee employee,Integer pageIndex,Integer pageSize);	
+	
+	/**
+	 * 查询所有已在职员工信息List
+	 */
+	public List<Employee> selectOnTheJob1(String employeeName,Integer pageIndex,Integer pageSize);
+	
+	/**
+	 * 查询所有在职员工对象不分页
+	 */
+	public List<Employee> selectEmp();
+	/**
+	 * 获取总记录数(配合分页使用)
+	 */
+	public int getCount();		
+	/**
+	 * 登陆用户并返回用户是否存在
+	 */
+	public Employee loginEmployee(Employee employee);
+	/**
+	 * 获取总的评分数,进行封装
+	 */
+	public List<Employee> empFractionList();
+	
+	/**
+	 * 根据id查询返回对象
+	 */
+	public Employee findId(Integer id);
+	//==========查询users在职员工==============================================================================
+	/**
+	 * 根据userId查询users表在职人员，如果employee不存在那就显示在下拉框中,可选取
+	 */
+	public Users selectUsers(Employee employee);
+	//一下为ClearInfo实体类接口=================================================================================
+	//=========================================================================================================
+	
+	
+	
+	/**
+	 * 进行插入清洁员工判断,如果已经添加当天清洁,为了防止再次添加,需要判断数据库中是否已经存在当前员工安排在当天清洁了
+	 */
+	public boolean selectJudge(ClearInfo clearInfo);
+	/**
+	 * 插入当天某清洁员工
+	 */
+	public boolean insertEmpClear(ClearInfo clearInfo);
+	/**
+	 * 取消当天某清洁员工
+	 */
+	public boolean deleteEmpClear(ClearInfo clearInfo);
+	/**
+	 * 按日期查询清洁员工
+	 */
+	public List<ClearInfo> selectClearInfos(String clearDate);
+	
+	/**
+	 * 按当天查询清洁员工
+	 */
+	public List<ClearInfo> selectClearInfos1();
+	/**
+	 * 查询循环内七天的值,根据当周日期查询并显示,条件未当周开始和当周结束
+	 */
+	public List<ClearInfo> selectClearWeeks(String clearDateks,String clearDatejs);
+	
+	
+	
+	//一下为homeTitle接口===================================================================================
+	//=====================================================================================================
+	/**
+	 * 查询房间标题信息
+	 */
+	public List<HomeTitle> selectHomeTitles();	
+	/**
+	 * 根据房间标题查询其ID
+	 */
+	public HomeTitle selectTnameChaId(HomeTitle homeTitle);	
+	/**
+	 * 根据对象查询其对象
+	 */
+	public HomeTitle selectTitleIdChaName(HomeTitle homeTitle);	
+	
+	/**
+	 * 根据房间ID查询其对象
+	 */
+	public HomeTitle selectTChaName(Integer titleId);	
+	/**
+	 * 新增房间标题信息
+	 */
+	public boolean insertHomeTitle(HomeTitle homeTitle);	
+	/** 
+	 * 删除房间标题信息
+	 */
+	public boolean deleteHomeTitle(Integer titleId);
+	/**
+	 * 修改房间标题信息
+	 */
+	public boolean updateHomeTitle(HomeTitle homeTitle);
+	
+	/**
+	 * 对每个标题中的随机数进行修改
+	 */
+	public void updateRandomNum(HomeTitle homeTitle);
+	
+	/**
+	 * 验证标题和随机数是否和数据库一致
+	 */
+	public boolean selectTNameAndRandomNum(HomeTitle homeTitle);
+	
+	//一下为Cleanrecord实体类接口=================================================================================
+	//=========================================================================================================
+	/**
+	 * 用户登陆后判断其所能执行的操作
+	 */
+	public String userOperation();
+	/**
+	 * 按照时间查询记录中的领取人和提交人以及评估人
+	 */
+	public Cleanrecord selectRecord();	
+	/**
+	 * 按照当天时间evaluatorTime查询记录中的领取人和提交人以及评估人
+	 */
+	public Cleanrecord selectRecord1();
+	/**
+	 * 查询数据库记录中未完成的记录的记录时间
+	 */
+	public Cleanrecord selectThaDay(Cleanrecord cleanrecord);		
+	/**
+	 * 进行领取人和领取时间的新增
+	 */
+	public boolean insertReceive();			
+	/**
+	 * 对记录进行提交人和提交时间的修改
+	 */
+	public boolean updateSubmission();			
+	/**
+	 * 对记录进行评估人和评估时间以及评分和此记录状态的修改
+	 */
+	public boolean updateScore(Cleanrecord cleanrecord);		
+	/**
+	 * 在当天未进行提交时提交和评分一起修改来终止记录
+	 */
+	public boolean terminationRecord(Cleanrecord cleanrecord);		
+	/**
+	 * 第二天未进行评分,用修改来终止记录
+	 */
+	public boolean evaluatorRecord(Cleanrecord cleanrecord);		
+	/**
+	 *  查询记录中最后一条记录,并查询最后一条记录的theday时间和状态
+	 */
+	public Cleanrecord selectLastOne();
+	/**
+	 * 根据最后一条记录获取的theday查询有几条记录并是否完成返回集合
+	 */
+	public List<Cleanrecord> selectLastTheDay(String theday);		
+	//以下为Score实体类接口=================================================================================
+	//=========================================================================================================
+	
+	/**
+	 * 新增所属人评分记录
+	 * @return
+	 */
+    public boolean insertScore(Score score);    
+    /**
+     * 查询评分记录
+     */
+    public List<Score> selectAllScore(Integer days);  
+    /**
+     * 按照一个月之内进行查询
+     */
+    public List<Score> selectWeekScore(Score score);
+    
+    /**
+     * 按照日期查询评分记录和分数
+     */
+    public List<Score> selectDateRecord();
+    
+    //以下为打扫上传图片保存表Phonerecord实体类接口====================================================
+    //===============================================================================================
+    
+    /**
+     * 新增图片上传记录
+     */
+    public boolean insertPhrecord(String route,String primaryName);
+    
+    /**
+     * 查询所有图片记录按分页查询
+     */
+    public Map<Integer,Object> selectPhrecordList(ClearPhone clearPhone,Integer pageIndex,Integer pageSize);
+    
+    /**
+     * 查询所属记录
+     */
+    public List<ClearPhone> selectPhrecord(String pictureDay);
+
+}

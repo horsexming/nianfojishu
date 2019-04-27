@@ -1,0 +1,270 @@
+package com.task.ServerImpl;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.OsRecordService;
+import com.task.entity.WarehouseNumber;
+import com.task.entity.android.OsRecord;
+import com.task.entity.android.OsRecordScope;
+import com.task.entity.sop.PurchasedPartsInput;
+import com.task.entity.sop.WaigouDeliveryDetail;
+import com.task.entity.sop.WaigouWaiweiPlan;
+import com.task.util.Util;
+
+public class OsRecordServiceImpl implements OsRecordService {
+
+	private TotalDao totalDao;
+	
+	@Override
+	public void add(List<OsRecord> list) {
+		for (OsRecord insRecord : list) {
+			insRecord.setRecordScope(new HashSet<OsRecordScope>(insRecord
+					.getScopes()));
+			insRecord.setSeeDate(insRecord.getNowDate().split(" ")[0]);
+			if (insRecord.getPpiId() != null) {
+				PurchasedPartsInput ppi = (PurchasedPartsInput) totalDao
+						.getObjectById(PurchasedPartsInput.class, insRecord
+								.getPpiId());
+				if (ppi != null
+						&& (ppi.getStatus() == null || ppi.getStatus().equals(
+								"未检测"))) {
+					if (insRecord.getVerification() != null
+							&& insRecord.getVerification().equals("合格")) {
+						ppi.setStatus("合格");
+					} else {
+						ppi.setStatus("不合格");
+						// 将可入库数量还给外购外委单
+						WaigouWaiweiPlan wwp = (WaigouWaiweiPlan) totalDao
+								.getObjectById(WaigouWaiweiPlan.class, ppi
+										.getOrderId());
+						if (wwp.getKeruku() == null) {
+							wwp.setKeruku(ppi.getInCount());
+						} else {
+							wwp.setKeruku(wwp.getKeruku() + ppi.getInCount());
+						}
+						totalDao.update(wwp);
+					}
+					totalDao.update(ppi);
+				}
+			}
+			totalDao.save(insRecord);
+		}
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public Object[] list(int size, int page, OsRecord record, String status,String firsttime,String endtime) {
+		Object[] o = null;
+		String hql = "from OsRecord r join r.template t where 1=1 ";
+		if ("xj".equals(status)) {
+			hql += " and r.zhonglei = '巡检'";
+		} else if ("sj".equals(status)) {
+			hql += " and r.zhonglei = '首检'";
+		} else if ("wg".equals(status)) {
+			hql += " and (r.zhonglei is null or r.zhonglei ='外购件检验')";
+		} else if ("ww".equals(status)) {
+			hql += " and r.zhonglei = '外委'";
+		}else if("cq".equals(status)){
+			hql += " and r.zhonglei = '超期复检'";
+		}
+		if(size==30){
+			try {
+				firsttime=Util.DateToString(Util.getCalendarDate(new Date(), -1),"yyyy-MM-dd");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			endtime=Util.getDateTime("yyyy-MM-dd")+" 23:59:59";
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		if (null != record) {
+			hql = addWhere(hql, params, record);
+		}
+		if(firsttime!=null && firsttime.length()>0 &&
+				endtime!=null && endtime.length()>0){
+			hql += " and r.nowDate BETWEEN  '"+firsttime+"' AND   '"+endtime+"' ";
+		}
+		
+		String hqlCount = "select count(*) " + hql;
+		hql += " order by r.nowDate desc ";
+		List<Object[]> query = totalDao.find(hql, params, page, size);
+		List<OsRecord> l = new ArrayList<OsRecord>();
+		for (Object[] object : query) {
+			l.add((OsRecord) object[0]);
+			l.get(l.size() - 1).getTemplate().getCmodel();
+		}
+
+		long count = totalDao.count(hqlCount, params);
+		o = new Object[] { l, count };
+		return o;
+	}
+
+	private String addWhere(String hql, Map<String, Object> params,
+			OsRecord record) {
+		if (record.isRuku() == false) {
+			hql += " and r.ruku = false ";
+			return hql;
+		}
+		if(record.getMarkId()!=null &&
+				record.getMarkId().length()>0	){
+			hql += " and (t.partNumber like '%"+record.getMarkId()+"%'  or r.markId  like '%"+record.getMarkId()+"%')";
+		}
+		if(record.getJcpc()!=null && record.getJcpc().length()>0){
+			hql += " and r.jcpc like '%"+record.getJcpc()+"%'";
+		}
+		if(record.getProName()!=null && record.getProName().length()>0){
+			hql += " and r.proName like '%"+record.getProName()+"%'";
+		}
+		if(record.getNeiordeNum()!=null && record.getNeiordeNum().length()>0){
+			hql += " and r.neiordeNum like '%"+record.getNeiordeNum()+"%'";
+		}
+		if(record.getYwmakrId()!=null && record.getYwmakrId().length()>0){
+			hql += " and r.ywmakrId like '%"+record.getYwmakrId()+"%'";
+		}
+		if(record.getTemplate()!=null){
+		if(record.getTemplate().getGongxuNum()!=null && record.getTemplate().getGongxuNum().length()>0){
+			hql += " and t.gongxuNum like '%"+record.getTemplate().getGongxuNum()+"%'";
+		}
+		if(record.getTemplate().getGongxuName()!=null && record.getTemplate().getGongxuName().length()>0){
+			hql += " and t.gongxuName like '%"+record.getTemplate().getGongxuName()+"%'";
+		}
+		if (record.getTemplate().getCmodel() != null
+				&& record.getTemplate().getCmodel().length()>0) {
+			hql += " and t.cmodel like :model ";
+			params.put("model", "%%" + record.getTemplate().getCmodel() + "%%");
+		}
+		}
+		return hql;
+	}
+
+	@Override
+	public List<OsRecord> get(OsRecord record) {
+		String hql = "from OsRecord where template.id = ? and seeDate = ?";
+		List<OsRecord> list = totalDao.find(hql, new Object[] {
+				record.getTemplate().getId(), record.getSeeDate() });
+		return list;
+	}
+
+	@Override
+	public OsRecord get(int id) {
+		OsRecord r = (OsRecord) totalDao.getObjectById(OsRecord.class, id);
+		r.getTemplate().getPartNumber();
+		return r;
+	}
+
+	/****
+	 * 查询送货单明细
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public WaigouDeliveryDetail findWwDDById(int id) {
+		WaigouDeliveryDetail wwdd = (WaigouDeliveryDetail) totalDao
+				.getObjectById(WaigouDeliveryDetail.class, id);
+		return wwdd;
+	}
+
+	/***
+	 * 根据件号、版本、供货属性查询历史入库信息(库位)
+	 * 
+	 * @param markId
+	 * @param banbenNumber
+	 * @param kgliao
+	 * @return
+	 */
+	@Override
+	public List findHitoryKw(String markId, String banbenNumber, String kgliao) {
+		String hql = "from GoodsStore where goodsStoreMarkId=? and banBenNumber=? and kgliao=?";
+		return totalDao.query(hql, markId, banbenNumber, kgliao);
+	}
+
+	/***
+	 * 查询所有仓区
+	 * 
+	 * @return
+	 */
+	@Override
+	public List findgoodHouselist(String kubie) {
+		List list = totalDao.query("from GoodHouse where goodsStoreWarehouse='"
+				+ kubie + "' order by id desc ");
+		return list;
+	}
+
+	/***
+	 * 根据库位码查询对应的仓区、库别
+	 * 
+	 * @return
+	 */
+	@Override
+	public WarehouseNumber findGoodHouseByKuwei(String kuwei) {
+		return (WarehouseNumber) totalDao
+				.getObjectByCondition("from WarehouseNumber where barCode=?",kuwei);
+	}
+
+	/***
+	 * 删除抽检记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public boolean deleteOsRecord(Integer id) {
+		OsRecord r = (OsRecord) totalDao.getObjectById(OsRecord.class, id);
+		if (r != null) {
+			return totalDao.delete(r);
+		}
+		return false;
+	}
+
+	@Override
+	public List<OsRecordScope> getScope(OsRecord record) {
+		if (record != null) {
+			OsRecord r = null;
+			if (record.getId() != null)
+				r = (OsRecord) totalDao.get(record.getClass(), record.getId());
+			else if (record.getWwddId() != null) {
+				r = (OsRecord) totalDao.getObjectByCondition(
+						"from OsRecord where wwddId=?", record.getWwddId());
+			}
+			if (r == null)
+				return null;
+			String hql_ors = "from OsRecordScope where osRecord.id=? order by jyCount";
+			List<OsRecordScope> list = totalDao.query(hql_ors, r.getId());
+			// for (OsRecordScope ors : list) {
+			// ors.getTitle();
+			// ors.getScope().getContent();
+			// }
+			// List<OsRecordScope> l = new ArrayList<OsRecordScope>(r
+			// .getRecordScope());
+			// Collections.sort(l, new Comparator<OsRecordScope>() {
+			//
+			// @Override
+			// public int compare(OsRecordScope o1, OsRecordScope o2) {
+			// return o1.getScope().getContent().compareTo(
+			// o2.getScope().getContent());
+			//
+			// }
+			// });
+			return list;
+		} else {
+			return null;
+		}
+	}
+}

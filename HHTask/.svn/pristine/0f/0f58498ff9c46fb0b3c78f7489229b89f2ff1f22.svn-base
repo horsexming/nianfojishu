@@ -1,0 +1,37 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+public class ProjectAuth implements Serializable {
+	private Integer id;
+	private String type;//权限列表,用,号分隔
+	private Project root;//项目ID
+	private Users user;
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Project getRoot() {
+		return root;
+	}
+	public void setRoot(Project root) {
+		this.root = root;
+	}
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="FenPeiQingKuang" table="ta_FenPeiQingKuang">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/>
+		<property name="fenpeizjx"/>
+		<property name="months"/>
+		<property name="k"/>
+		<property name="c"/>
+		<property name="b"/>
+		<property name="d1"/>
+		<property name="d2"/>
+		<property name="d3"/>
+		<property name="z"/>
+		<property name="salesAmount"/>
+		<set name="wstq" cascade="all" inverse="true">
+			<key column="wstq_id"></key>
+			<one-to-many class="WorkShopTiQu" />
+		</set>
+	</class>
+</hibernate-mapping>

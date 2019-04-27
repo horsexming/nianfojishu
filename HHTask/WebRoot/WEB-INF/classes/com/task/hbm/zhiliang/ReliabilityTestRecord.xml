@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.zhiliang.ReliabilityTestRecord" table="ta_ReliabilityTestRecord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="proName" />
+		<property name="testRecord" />
+		<property name="testFile" />
+		<property name="otherFileName" />
+		<many-to-one name="testSheet" column="fk_recordId"></many-to-one>
+	</class>
+</hibernate-mapping>

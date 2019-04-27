@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.GysMarkIdjiepai" table="ta_GysMarkIdjiepai" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		
+		
+		<property name="jiepairen1" />
+		<property name="shebei1" />
+		
+		<property name="jiepairen2" />
+		<property name="zhunbeicishu" />
+		<property name="allJiepai" />
+		
+		<property name="zhuserId" index="sy_zhuserid"/>
+		<property name="procardTemplateId" />
+		<property name="gys" />
+		<property name="statuss" />
+		<property name="userId" index="sy_userId"/>
+		
+		<!--  ProcardTemplate属性 -->
+		<property name="markId" index="sy_markId"/>
+		<property name="banBenNumber" />
+		<property name="proName" />
+		<property name="maxCount" />
+		<property name="corrCount" />
+		<property name="unit" />
+		<property name="procardStyle" />
+		<property name="productStyle" />
+		<property name="carStyle" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="luhao" />
+		<property name="actualFixed" />
+		<property name="number" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		<property name="addDateTime" />
+		<property name="remark" />
+		<property name="yuanUnit" />
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="laborcost" />
+		<property name="fenpeiRate" />
+		<property name="dailyoutput" />
+		<property name="onePrice" />
+		<property name="proTemStatus" />
+		<property name="parallelId" />
+		<property name="clClass" />
+		<property name="status" />
+		<property name="jihuoType" />
+		
+		<property name="singleDuration" />
+		<property name="capacity" />
+		<property name="deliveryDuration" />
+		
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		<property name="waiweistatus" />
+		<property name="cgbl"/>
+		<property name="isallow" />
+		<property name="kgliao" index="sy_kgliao"/>
+		<property name="wgType" />
+		
+		<property name="avgCount" />
+		<property name="avgProductionTakt" />
+		<property name="avgDeliveryTime" />
+		<property name="jytjxing" />
+		<property name="isColes" />
+		
+		
+		
+		
+		
+		<!-- 【配置本流水卡片自身的对应关系】 -->
+		<set name="procardTSet" cascade="all" inverse="false" lazy="true"
+			order-by="id">
+			<key column="fk_ProcardTId"></key>
+			<one-to-many class="com.tast.entity.zhaobiao.GysMarkIdjiepai" />
+		</set>
+
+		<many-to-one name="gysMarkIdjiepai" class="com.tast.entity.zhaobiao.GysMarkIdjiepai"
+			cascade="save-update" lazy="false" column="fk_ProcardTId" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+		<set name="processMarkIdZijian" cascade="all" inverse="false" lazy="true"
+			order-by="processNO">
+			<key column="fk_pricessTId"></key>
+			<one-to-many class="com.tast.entity.zhaobiao.ProcessMarkIdZijian" />
+		</set>
+			<!--  ProcardTemplate属性 -->
+		
+		
+	</class>
+</hibernate-mapping>

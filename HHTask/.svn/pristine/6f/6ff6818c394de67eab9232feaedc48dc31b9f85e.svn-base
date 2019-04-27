@@ -1,0 +1,272 @@
+package com.task.action.menjin;
+
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.menjin.FingerprintMgServer;
+import com.task.entity.Users;
+import com.task.entity.menjin.AccessEquipment;
+import com.task.entity.menjin.FingerprintMg;
+
+/**
+ * 工具柜Action层 2016-06-08
+ * 
+ * @author Li_Cong
+ * 
+ */
+@SuppressWarnings("unchecked")
+public class FingerprintMgAction {
+	private FingerprintMgServer fingerprintMgServer;// Server层
+	private FingerprintMg fingerprintMg;// 对象
+	private Users uses;
+	private List<FingerprintMg> fingerprintMgList;//
+	private List<AccessEquipment> accessEquipmentList;// 门禁设备列表
+	private List<AccessEquipment> accessEquipmentWei;// 门禁设备列表
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private Integer id;// id
+	private Integer[] aceId;// 设备id
+	private String pageStatus;// 页面状态// 绑定功能
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	
+	public String Test() {
+		return "error";
+	}
+
+	public String toadd() {
+		uses = fingerprintMgServer.byIdUserId(id);
+		accessEquipmentWei = fingerprintMgServer.byUserIdAgrennAcE(id);
+		return "fingerprintMg_add";
+	}
+	
+	// 分页显示
+	// 显示查询内容
+	public String showList() {
+		if (fingerprintMg != null) {
+			ActionContext.getContext().getSession().put("FingerprintMg",
+					fingerprintMg);
+		} else {// 用来保持分页时带着查询条件
+			fingerprintMg = (FingerprintMg) ActionContext.getContext().getSession()
+					.get("FingerprintMg");
+		}
+		Map<Integer, Object> map = fingerprintMgServer.findFingerprintMg(fingerprintMg,
+				Integer.parseInt(cpage), pageSize);
+		fingerprintMgList = (List<FingerprintMg>) map.get(1);// 显示面试单列表
+		if (fingerprintMgList != null && fingerprintMgList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("FingerprintMgAction_showList.action");
+			errorMessage = null;
+		} else {
+			errorMessage = "没有找到你要查询的内容,请检查后重试!";
+		}
+		return "fingerprintMg_show";
+	}
+
+	// 添加方法
+	public String add() {
+		if (fingerprintMg != null) {
+			errorMessage = fingerprintMgServer.addFingerprintMg(fingerprintMg,aceId);
+			if ("添加成功！".equals(errorMessage))
+				url = "FingerprintMgAction_showList.action";
+			return "error";
+		}
+		errorMessage = "数据为空，添加失败！";
+		return "error";
+	}
+
+	// 跳转到修改页面的方法
+	public String toupdate() {
+		if (fingerprintMg.getId() != null && fingerprintMg.getId() > 0
+				&& fingerprintMg != null) {
+			fingerprintMg = fingerprintMgServer.byIdFingerprintMg(fingerprintMg.getId());
+			if (fingerprintMg != null)
+				return "fingerprintMg_update";
+		}
+		errorMessage = "数据为空!请检查";
+		return "error";
+	}
+
+	// 修改方法
+	public String update() {
+		errorMessage = fingerprintMgServer.updateFingerprintMg(fingerprintMg);
+		if ("修改成功！".equals(errorMessage))
+			url = "FingerprintMgAction_showList.action";
+		return "error";
+	}
+
+	// 删除方法
+	public String delete() {
+		if (id != null && id > 0) {
+			errorMessage = fingerprintMgServer.deleteFingerprintMg(id);
+			if ("删除成功！".equals(errorMessage))
+				url = "FingerprintMgAction_showList.action";
+			return "error";
+		}
+		errorMessage = "不存在该对象！删除失败！";
+		return "error";
+	}
+
+	//查询个人当前有效指纹信息
+	public String findOneFing(){
+		fingerprintMgList = fingerprintMgServer.byUserIdFing(id);
+		return "fingerprintMg_Oneshow";
+	}
+	
+	//给单个指纹绑定考勤机
+	public String oneBangDing(){
+		accessEquipmentList = fingerprintMgServer.byUserIdAcE(id);
+		accessEquipmentWei = fingerprintMgServer.byUserIdAllAcE(id);
+		return "fingsbangding";
+	}
+	
+	//绑定方法
+	public String fingsDoorbangding(){
+		fingerprintMg = fingerprintMgServer.byIdFingerprintMg(fingerprintMg.getId());
+		if (fingerprintMg!=null) {
+			errorMessage = fingerprintMgServer.doorbangdingFings(aceId, fingerprintMg);
+			if ("添加成功".equals(errorMessage)) {
+				url = "FingerprintMgAction_oneBangDing.action?id="+fingerprintMg.getId();
+			}
+		}
+		return "error";
+	}
+	
+	//给考勤机批量绑定指纹
+	
+	
+	//给替换掉考勤机的指纹信息
+	
+	
+	
+	// 构造方法
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public FingerprintMgServer getFingerprintMgServer() {
+		return fingerprintMgServer;
+	}
+
+	public void setFingerprintMgServer(FingerprintMgServer fingerprintMgServer) {
+		this.fingerprintMgServer = fingerprintMgServer;
+	}
+
+	public FingerprintMg getFingerprintMg() {
+		return fingerprintMg;
+	}
+
+	public void setFingerprintMg(FingerprintMg fingerprintMg) {
+		this.fingerprintMg = fingerprintMg;
+	}
+
+	public List<FingerprintMg> getFingerprintMgList() {
+		return fingerprintMgList;
+	}
+
+	public void setFingerprintMgList(List<FingerprintMg> fingerprintMgList) {
+		this.fingerprintMgList = fingerprintMgList;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Users getUses() {
+		return uses;
+	}
+
+	public void setUses(Users uses) {
+		this.uses = uses;
+	}
+
+	public Integer[] getAceId() {
+		return aceId;
+	}
+
+	public void setAceId(Integer[] aceId) {
+		this.aceId = aceId;
+	}
+
+	public List<AccessEquipment> getAccessEquipmentList() {
+		return accessEquipmentList;
+	}
+
+	public void setAccessEquipmentList(List<AccessEquipment> accessEquipmentList) {
+		this.accessEquipmentList = accessEquipmentList;
+	}
+
+	public List<AccessEquipment> getAccessEquipmentWei() {
+		return accessEquipmentWei;
+	}
+
+	public void setAccessEquipmentWei(List<AccessEquipment> accessEquipmentWei) {
+		this.accessEquipmentWei = accessEquipmentWei;
+	}
+
+
+
+}

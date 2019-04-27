@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.gongxu.ProcessData" table="ta_sop_GongyiGuicheng_ProcessData">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<!-- 工序数据 -->
+		<property name="gongxuId" type="integer" column="gongxu_id"></property>
+		<property name="gongxuNo" type="integer" column="gongxu_no"/>
+		<property name="gongxuName" type="string" column="gongxu_name"/>
+		
+		
+		<property name="shebeiId" type="integer" column="shebei_id"/>
+		<property name="shebeiNo" type="string" column="shebei_no"/>
+		<property name="shebeiName" type="string" column="shebei_name"/>
+		
+		<property name="gongzhuangId" type="integer" column="gongzhuang_id"/>
+		<property name="gongzhuangNo" type="string" column="gongzhuang_no"/>
+		<property name="gongzhuangName" type="string" column="gongzhuang_name"/>
+		
+		<property name="liangjuId" type="integer" column="liangju_id"/>
+		<property name="liangjuNo" type="string" column="liangju_no"/>
+		<property name="liangjuName" type="string" column="liangju_name"/>
+		<property name="liangjuNoForCompany" type="string" column="liangju_noForCompany"/>
+		
+		<property name="pici" type="string" column="pici"/>
+		<property name="remark" type="string" column="remark"/>
+		
+		<property name="suoyinNumb" type="string" column="suoyin_numb"/>
+		<property name="danNumb" type="string" column="dan_numb"/>
+		<property name="qianming" type="string" column="qianming"/>
+		<property name="qianmingDate" type="timestamp" column="qianming_date"/>
+		<property name="processImg" type="string" column="process_img"/>
+		<property name="processVideo" type="string" column="process_video"/>
+		<property name="hanjieImg" type="string" column="hanjie_img"/>
+		<property name="hanjieVideo" type="string" column="hanjie_video"/>
+		<property name="cailiao" type="string" column="cailiao"/>
+		<property name="jizhun" type="string" column="jizhun"/>
+		<property name="jiaOrMoju" type="string" column="jia_or_moju"/>
+		<property name="gongyiGuichengId" type="integer" column="gongyi_guicheng_id"/>
+		
+		<!-- 分别对应 工序图表栏目分区明细  工序说明栏区A3 A4 -->
+		<property name="onePage" type="integer" column="one_page"/>
+		<property name="twoPage" type="integer" column="two_page"/>
+		<property name="threePage" type="integer" column="three_page"/>
+		<!--检验图表字段  -->
+		<property name="jianyanZhidaoImg" type="string" column="jianyan_zhidao_img"/>
+		<property name="yichangYaoling" type="string" column="yichang_yaoling"/>
+		<!-- 编辑状态 -->
+		<property name="editStatus" type="string" column="edit_status" />
+		<!-- 毛料图表 -->
+		<property name="maoliaoType" type="string" column="maoliao_type" />
+		<property name="paihao" type="string" column="paihao" />
+		<property name="houdu" type="string" column="houdu" />
+		<property name="fenlei" type="string" column="fenlei" />
+		<property name="jishuTiaojian" type="string" column="jishu_tiaojian" />
+		<property name="qieliaoShebei" type="string" column="qieliao_shebei" />
+		<!-- 工序标记 分页 -->
+		<property name="commonMark" type="long" column="common_mark" />
+		<property name="isGys"></property>
+	</class>
+</hibernate-mapping>

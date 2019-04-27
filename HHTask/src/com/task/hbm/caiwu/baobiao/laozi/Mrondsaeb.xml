@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.caiwu.baobiao.laozi">
+	<class name="Mrondsaeb" table="ta_baobiao_laozi_Mrondsaeb" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="ryyms1"/>
+		<property name="ryyms2"/>
+		<property name="zgzg1"/>
+		<property name="zgzg2"/>
+		<property name="glry1"/>
+		<property name="glry2"/>
+		<property name="jsry1"/>
+		<property name="jsry2"/>
+		<property name="gcjsry1"/>
+		<property name="gcjsry2"/>
+		<property name="csjpkyscry1"/>
+		<property name="csjpkyscry2"/>
+		<property name="jnry1"/>
+		<property name="jnry2"/>
+		<property name="zg1"/>
+		<property name="zg2"/>
+		<property name="fg1"/>
+		<property name="fg2"/>
+		<property name="zj1"/>
+		<property name="zj2"/>
+		<property name="cjzc1"/>
+		<property name="cjzc2"/>
+		<property name="qt1"/>
+		<property name="qt2"/>
+		<property name="gjjs1"/>
+		<property name="gjjs2"/>
+		<property name="js1"/>
+		<property name="js2"/>
+		<property name="gjg1"/>
+		<property name="gjg2"/>
+		<property name="zjg1"/>
+		<property name="zjg2"/>
+		<property name="cjg1"/>
+		<property name="cjg2"/>
+		<property name="qtjndj1"/>
+		<property name="qtjndj2"/>
+		<property name="doctor1"/>
+		<property name="doctor2"/>
+		<property name="master1"/>
+		<property name="master2"/>
+		<property name="Undergraduate1"/>
+		<property name="Undergraduate2"/>
+		<property name="juniorCollege1"/>
+		<property name="juniorCollege2"/>
+		<property name="sss1"/>
+		<property name="sss2"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.lpanclear">
+	<class name="Cleanrecord" table="ta_Cleanreored">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="theDay"/>
+		<property name="receive" />	
+		<property name="receiveTime" />	
+		<property name="submitter" />	
+		<property name="submitterTime" />	
+		<property name="evaluator" />	
+		<property name="evaluatorTime" />
+		<property name="fraction" />	
+		<property name="state" />	
+	
+ 
+	</class>
+
+</hibernate-mapping>

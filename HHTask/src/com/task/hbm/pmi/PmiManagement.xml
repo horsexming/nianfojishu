@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.pmi.PmiManagement" table="ta_PmiManagement">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="pmi_name" />
+		<property name="pmi_ip" />
+		<property name="pmi_serverIp" />
+		<property name="min_num" />
+		<property name="pmi_port" />
+		<property name="pmi_date" />
+		<property name="pmi_type" />
+		<property name="status" />
+		<property name="rated_Current" />
+		<property name="alert_Percentage" />
+
+		<set name="machineSet" inverse="false" cascade="save-update" lazy="false">
+			<key column="pmi_id"></key>
+			<one-to-many class="com.task.entity.Machine" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Tconsumption" table="ta_tconsumption">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="type" length="10"/>
+		<property name="gytype" length="10"/>
+		<property name="clength" type="double" />
+		<property name="cwidth" type="double" />
+		<property name="chigh" type="double" />
+		<property name="molecular" type="int" />
+		<property name="partQuota" type="double" />
+		<property name="netWeight" type="double" />
+		<property name="utilization" type="double" />
+		<property name="specifications" length="40"/>
+		<property name="notes" length="100"/>
+		<property name="density" type="double" />
+
+		<many-to-one name="detail" column="f_detail_id" /> 
+		<many-to-one name="consumption" column="pid" />
+		<bag  name="consumptions" order-by="id asc" >
+			<key column="pid"></key>
+			<one-to-many class="com.task.entity.Tconsumption" />
+		</bag>
+
+	</class>
+
+</hibernate-mapping>

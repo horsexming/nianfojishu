@@ -1,0 +1,61 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+		<title>评分分数统计图表</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+		<script type="text/javascript" src="System/lpanclear/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="System/lpanclear/canvas.js"></script>
+        <script type="text/javascript" src="System/lpanclear/jquery-1.8.3.js"></script>
+	</head>
+  
+  <body>
+      <div id="chartContainer"> <input type="hidden" value="<%=request.getAttribute("scoreAllList")%>" id="scoreList"/></div>
+		<script type="text/javascript">
+		
+            alert("111"); 
+            var scoreList = document.getElementById('scoreList').value ;
+            alert(scoreList);
+             var list=new Array();
+            $.ajax({
+					url     : "ClearInfoAction_ajaxchart.action", //访问路径
+					type    : "post",                      //提交方式
+					data    : "",//传递到后台的参数
+					dataType: "json",                      //后台返回结果的类型
+					success : function(data){//成功时执行的代码
+                          alert(data);    					                         								
+		                new CanvasJS.Chart('chartContainer',{
+				        theme:'light7',
+				        animationEnabled: true, 	
+				        title: {
+				            text: ""
+				        },
+				        data: [
+				            {
+				                type: "column",
+				                dataPoints:data
+				            }
+				        ]
+				    }).render();
+				    }
+				    });
+		</script>
+  </body>
+</html>

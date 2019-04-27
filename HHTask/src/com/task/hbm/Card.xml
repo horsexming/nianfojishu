@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Card" table="ST_Card" >
+	
+		<id name="id" column="person_id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		
+		<property name="typeNo" column="type_No" type="string"></property>
+		<property name="password" column="card_password" type="string"></property>
+		<property name="newDate" column="card_newDate"></property>
+		<property name="validDate" column="card_validDate"></property>
+		<property name="foregift" column="card_foregift"></property>
+		<property name="charge" column="card_charge"></property>
+		<property name="balance" column="card_balance"></property>
+		<property name="smallBalance" column="card_smallBalance"></property>
+		<property name="state" column="card_state"></property>
+		<property name="userNo" column="user_no" type="string"></property>
+		<property name="subsidyFund" column="Subsidy_Fund"></property>
+		<property name="updateTime" column="update_Time" type="timestamp"></property>
+		<property name="icBalance" column="ic_Balance"></property>
+		<property name="subsidyFlag" column="subsidy_Flag"></property>
+	
+	</class>
+</hibernate-mapping>

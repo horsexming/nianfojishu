@@ -1,0 +1,552 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 980px;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">工序外委</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<iframe id="showProcess" src="" marginwidth="0" marginheight="0"
+						hspace="0" vspace="0" frameborder="0" scrolling="yes"
+						style="width: 98%; height: 500px; margin: 0px; padding: 0px;">
+					</iframe>
+				</div>
+				<div id="show2" style="display: none;background-color: white;" >
+						<table id="sonCardTable" class="table">
+						</table>
+					</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<div align="center">
+					<input id="rootId" type="hidden" value="${id}">
+					<input type="radio" name="showtable" value="showall"
+						onchange="showchange(this.value)" checked="checked" />
+					显示全部&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="showtable" value="showselected"
+						onchange="showchange(this.value)" />
+					显示已选
+					<input type="button" value="使用历史外委记录"
+						onclick="readHistoryWW(${id})" />
+				</div>
+				<div>
+					<table class="table">
+						<tr>
+							<th width="2%">
+								序号
+							</th>
+							<th width="2%">
+								层数
+							</th>
+							<th width="12%">
+								件号
+							</th>
+							<th width="12%">
+								零件名称
+							</th>
+							<th width="3%">
+								零件类型
+							</th>
+							<th width="3%">
+								总数
+							</th>
+							<th width="10%">
+								委外工序号
+							</th>
+							<th width="15%">
+								委外工序名称
+							</th>
+							<th width="10%">
+								委外数量
+							</th>
+							<th width="10%">
+								外委类型
+							</th>
+							<th width="8%">
+								操作
+							</th>
+						</tr>
+						<s:iterator value="procardList" id="pageProcard"
+							status="pageindex">
+							<s:if test="#pageProcard.wwApplyDetailList.size()>0">
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									id="procardTr<s:property value="#pageindex.index" />"
+									onmouseout="outBgcolor(this,'')" class="showselected">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									id="procardTr<s:property value="#pageindex.index" />"
+									onmouseout="outBgcolor(this,'')" class="showall">
+							</s:else>
+							<td width="2%" align="right">
+								<font size="4"><s:property value="#pageindex.index+1" />
+								</font>
+							</td>
+							<td width="2%" align="center">
+								<font size="4">${pageProcard.belongLayer}</font>
+							</td>
+							<td width="12%" align="center">
+								<font size="4">${pageProcard.markId}</font>
+							</td>
+							<td width="13%" align="left">
+								<font size="4">${pageProcard.proName}</font>
+							</td>
+							<td width="2%" align="left">
+								<font size="4">${pageProcard.procardStyle}</font>
+							</td>
+							<td width="2%" align="left">
+								<font size="4">${pageProcard.filnalCount}${pageProcard.unit}</font>
+							</td>
+							<td width="45%" align="center" colspan="4">
+								<table class="table"
+									id="processTb<s:property value="#pageindex.index" />"
+									width="100%">
+									<s:if test="#pageProcard.wwApplyDetailList.size()>0">
+										<s:iterator value="#pageProcard.wwApplyDetailList"
+											id="pageDetail">
+
+											<s:if test="#pageDetail.applyStatus=='同意'">
+												<tr bgcolor="green">
+											</s:if>
+											<s:elseif test="#pageDetail.applyStatus=='打回'">
+												<tr bgcolor="red">
+											</s:elseif>
+											<s:else>
+												<tr bgcolor="yellow">
+											</s:else>
+											<td width='22%'>
+												${pageDetail.processNOs}
+											</td>
+											<td width='33%' align="left">
+												${pageDetail.processNames} 
+											</td>
+											<td width='22%'>
+												${pageDetail.applyCount}
+											</td>
+											<td width='22%'>
+												${pageDetail.wwType}
+											</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+								</table>
+							</td>
+							<td width="8%" align="center">
+								<s:if test="#pageProcard.wwblCount>0">
+									<font color="gray">已被连带包料</font>
+								</s:if>
+								<s:else>
+									<input type="button" value="详情"
+										id="yxbutton_${pageindex.index}"
+										onclick="yx(${pageProcard.id},${pageindex.index})">
+									<s:if test="#pageProcard.wwApplyDetailList.size()>0">
+										<s:iterator value="#pageProcard.wwApplyDetailList"
+											id="pageDetail0">
+											<s:if test='#pageDetail0.wwType == "包工包料"'>
+												<input type="button" value="已关联外购件"
+													onclick="showwgjmarkId(${pageProcard.id})" />
+											</s:if>
+										</s:iterator>
+									</s:if>
+								</s:else>
+							</td>
+							</tr>
+							<s:if
+								test="#pageProcard.wwblCount==null||#pageProcard.wwblCount==0">
+								<form id="yxForm<s:property value="#pageindex.index" />" method="post">
+									<tr id="processTr<s:property value="#pageindex.index" />"
+										bgcolor="#f1f1f1">
+										<td>
+										<input type="hidden" name="id" value="${pageProcard.id}"/>
+											<input type="checkbox" id="cbAll_<s:property value="#pageindex.index" />"
+															name="processcbAll_<s:property value="#pageindex.index" />" onclick="cbAll(<s:property value="#pageindex.index" />)"/>全选
+										</td>
+										<td colspan="8">
+											<table class="table" width="100%;" border="0" cellpadding="0" cellspacing="0">
+												<s:iterator value="#pageProcard.processList"
+													id="pageProcess" status="processStatus">
+													<s:if test="#processStatus.index%6==0">
+														<tr>
+													</s:if>
+													<td>
+														<input type="checkbox"
+															name="processcb_<s:property value="#pageindex.index" />" onclick="cbsingle(<s:property value="#pageindex.index" />)"
+															value="${pageProcess.processNO}:${pageProcess.processName}"/>
+														${pageProcess.processNO}:${pageProcess.processName} 
+														<br/>
+														<b>工装模具位置:</b>
+														<a href="javascritpt:;" onclick="window.open('GzstoreAction_findAll.action?gzstore.id=${pageProcess.gzstoreId}')">${pageProcess.number}</a>:${pageProcess.place}
+													</td>
+													<s:if
+														test="(#processStatus.index+1)%6==0">
+														</tr>
+													</s:if>
+												</s:iterator>
+											</table>
+											<input type="hidden" name="pwwApplyDetailList[0].processNOs" id="processno_<s:property value="#pageindex.index" />">
+														<input type="hidden" name="pwwApplyDetailList[0].processNames" id="processname_<s:property value="#pageindex.index" />">
+										</td>
+										<td colspan="1">
+										<table id="processtb<s:property value="#pageindex.index" />" style="display: none"  class="table" width="100%;" border="0" cellpadding="0" cellspacing="0">
+											<tr><th>数量</th><td><input id="applyCount" name="pwwApplyDetailList[0].applyCount" value="${pageProcess.applyWwCount}" onkeyup="mustBeNumber('applyCount')"/> </td>
+											</tr>
+											<tr><th>外委方式</th><td><input name="pwwApplyDetailList[0].wwType" value="工序外委" type="radio" onclick="selectwwtype('工序外委')"/>工序外委
+												<input name="pwwApplyDetailList[0].wwType" value="包工包料" type="radio" onclick="selectwwtype('包工包料')" checked="checked"/>包工包料 </td>
+											</tr>
+											<tr id="wwxctr"><th>外委下组件</th><td><input name="pwwApplyDetailList[0].relatDown" value="是" type="radio"/>是<input name="pwwApplyDetailList[0].relatDown" value="否" type="radio" checked="checked"/>否 </td>
+											</tr>
+											<tr ><th>关联件号</th><td><label id="wwMarkId<s:property value="#pageindex.index" />"></label><input type="hidden" id="wwMarkIdInput<s:property value="#pageindex.index" />" name="pwwApplyDetailList[0].wwMarkId"> <input type="button" value="选择" onclick="getxcwgj(${pageProcard.id},<s:property value="#pageindex.index" />)">  </td>
+											</tr>
+										</table>
+										</td>
+										<td align="center"><input type="button" value="预选" id="yuxuanbtn<s:property value="#pageindex.index" />"
+										onclick="submityx(<s:property value="#pageindex.index" />)">
+										<input type="button" value="同件号同处理" id="tclbtn<s:property value="#pageindex.index" />"
+										onclick="tclyx(<s:property value="#pageindex.index" />,${pageProcard.id})">
+										</td>
+									</tr>
+								</form>
+							</s:if>
+						</s:iterator>
+						<tr>
+							<td colspan="10" align="center">
+								<input type="button" value="前往申请审批"
+									style="width: 100px; height: 40px;" onclick="towwsq(${id})" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<SCRIPT type="text/javascript">
+$(function(){
+	var index = '${flag}';
+	if(index!=''){
+		$("#cbAll_"+index).focus();
+	}
+})
+function showchange(value){
+	if(value=="showall"){
+		$(".showall").show();
+		nowShow="showall";
+	}else{
+		$(".showall").hide();
+	}
+}		
+function yx(id,tbindex){
+	$("#operatingDiv").show();
+	$("#show2").hide();
+	chageDiv("block");
+	$("#showProcess").attr("src","ProcardAction!towwyxOption.action?id="+id+"&id2="+ tbindex);
+	
+}
+function showwgjmarkId(id){
+	$("#operatingDiv").show();
+	$("#show2").hide();
+	chageDiv("block");
+	$("#showProcess").attr("src","ProcardAction!showwgjmarkId.action?id="+id);
+	
+}
+
+
+function towwsq(id){
+	window.location.href="ProcardAction!towwsqDetailList.action?id="+id;
+}
+function readHistoryWW(id){
+	window.location.href="ProcardAction!addHistoryWW.action?id="+id;
+}
+function cbAll(index){
+	var checkAll=document.getElementById("cbAll_"+index);
+			var checkboxs=document.getElementsByName("processcb_"+index);
+			var processNos="";
+			var processnames="";
+			if(checkAll.checked==true){
+				$("#processtb"+index).show();
+				for(var i=0;i<checkboxs.length;i++){
+					checkboxs[i].checked=true;
+					var process = checkboxs[i].value;
+					var process2 = process.split(":");
+					if(processNos.length==0){
+						processNos = process2[0];
+						processnames = process2[1];
+					}else{
+						processNos +=";"+ process2[0];
+						processnames +=";"+ process2[1];
+					}
+				}
+			$("#processno_"+index).val(processNos);
+			$("#processname_"+index).val(processnames);
+			}else{
+				$("#processtb"+index).hide();
+				for(var i=0;i<checkboxs.length;i++){
+					checkboxs[i].checked=false;
+				}
+			}
+}
+function cbsingle(index){
+	var checkAll=document.getElementById("cbAll_"+index);
+			var checkboxs=document.getElementsByName("processcb_"+index);
+			var count=0;
+			var processNos="";
+			var processnames="";
+			for(var i=0;i<checkboxs.length;i++){
+				if(checkboxs[i].checked==false){
+					checkAll.checked=false;
+				}else{
+					var process = checkboxs[i].value;
+					var process2 = process.split(":");
+					if(processNos.length==0){
+						processNos = process2[0];
+						processnames = process2[1];
+					}else{
+						processNos +=";"+ process2[0];
+						processnames +=";"+ process2[1];
+					}
+					count++;
+				}
+			}
+			$("#processno_"+index).val(processNos);
+			$("#processname_"+index).val(processnames);
+			if(count>0){
+				$("#processtb"+index).show();
+			}else{
+				$("#processtb"+index).hide();
+			}
+			if(count==checkboxs.length){
+				checkAll.checked=true;
+			}
+}
+function selectwwtype(type){
+	if(type=="工序外委"){
+		$("#wwxctr").show();
+	}else{
+		$("#wwxctr").hide();
+	}
+}
+
+function submityx(index){
+	$("#yuxuanbtn"+index).attr("disabled","disabled");
+	$.ajax( {
+		type : "post",
+		url : "ProcardAction!wwyx.action",
+		dataType : "json",
+		data : $("#yxForm"+index).serialize(),
+		success : function(data) {
+			if (data=="true") {
+				window.parent.parent.location.href="ProcardAction!towwyx.action?id="+$("#rootId").val()+"&flag="+index;
+			} else {
+				alert(data);
+			}
+		}
+	});
+}
+function tclyx(index,id){
+	$("#tclbtn"+index).attr("disabled","disabled");
+	$.ajax( {
+		type : "post",
+		url : "ProcardAction!tclwwyx.action",
+		dataType : "json",
+		data : {
+			id : id
+		},
+		success : function(data) {
+			if (data=="true") {
+				alert("处理成功!");
+				window.parent.parent.location.href="ProcardAction!towwyx.action?id="+$("#rootId").val()+"&flag="+index;
+			} else {
+				alert(data);
+			}
+		}
+	});
+}
+function getxcwgj(procardId,index){
+	$("#show2").show();
+	$("#operatingDiv").hide();
+	$("#sonCardTable").empty();
+	var processNos = $("#processno_"+index).val().replace(";",",");
+	var processnames = $("#processname_"+index).val().replace(";",",");
+	chageDiv("block");
+	$
+			.ajax( {
+				type : "post",
+				url : "ProcardAction!findSonMarkId.action",
+				dataType : "json",
+				data : {
+					processNos : processNos,
+					processNames : processnames,
+					id : procardId
+				},
+				success : function(data) {
+					var i = 0;
+					var htmlbefor = "";
+					var html = "";
+					var htmlend = "";
+					$(data)
+							.each(
+									function() {
+										var checked;
+										if(data[i][4]=="checked"){
+											checked = " checked ='checked'"
+										}else{
+											checked ="";
+										}
+										if (i % 2 == 0) {
+											html += "<tr><td><input type='checkbox' name='checkboxs2' value='"
+													+ i
+													+ "'"+checked
+													+" onchange='chageNum2()'></td>"
+													//+ "' onchange='chageNum2()'></td>"
+													+ "<td align='center'><input type='hidden' id='markId"
+													+ i
+													+ "' value='"
+													+ data[i][0]
+													+ "'>"
+													+ data[i][0]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][1]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][2]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][3] + "</td>";
+										} else {
+											html += "<td><input type='checkbox' name='checkboxs2' value='"
+													+ i
+													+ "'"+checked
+													+ "' onchange='chageNum2()'></td>"
+//													+ "' onchange='chageNum2()'></td>"
+													+ "<td align='center'><input type='hidden' id='markId"
+													+ i
+													+ "' value='"
+													+ data[i][0]
+													+ "'>"
+													+ data[i][0]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][1]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][2]
+													+ "</td>"
+													+ "<td align='center'>"
+													+ data[i][3] + "</td></tr>";
+										}
+										i++;
+										
+									});
+					if (i == 1) {
+						htmlbefor = "<tr><th>全选 <input type='checkbox' id='checkAll2' onchange='chageAllCheck2()'>选择</th>" + "<th>件号</th>"
+								+ "<th>名称</th>" + "<th>规格</th>"
+								+ "<th>库存</th></tr>"
+						html += "</tr>";
+						htmlend = "<tr><td align='center' colspan='5'><input type='button' value='确定' style='width: 60px;height: 20px' onclick='setMarkId(\""
+								+ index + "\");'></td></tr>"
+					} else {
+						htmlbefor = "<tr><th>全选 <input type='checkbox' id='checkAll2' onchange='chageAllCheck2()'>选择</th>" + "<th>件号</th>"
+								+ "<th>名称</th>" + "<th>规格</th>" + "<th>库存</th>"
+								+ "<th>选择</th>" + "<th>件号</th>" + "<th>名称</th>"
+								+ "<th>规格</th>" + "<th>库存</th></tr>"
+						if (i % 2 == 1) {
+							html += "<td></td>" + "<td></td>" + "<td></td>"
+									+ "<td></td>" + "<td></td></tr>";
+						}
+						htmlend = "<tr><td align='center' colspan='10'><input type='button' value='确定' style='width: 60px;height: 20px' onclick='setMarkId(\""
+								+ index + "\");'></td></tr>"
+					}
+					$("#sonCardTable").append(htmlbefor + html + htmlend);
+				}
+			});
+	
+}
+function setMarkId(index) {
+	var checkboxs = document.getElementsByName("checkboxs2");
+	var markIds = "";
+	var index2 = -1;
+	for ( var i = 0; i < checkboxs.length; i++) {
+		if (checkboxs[i].checked == false) {
+			//checkAll.checked = false;
+		} else {
+			//count++;
+			index2 = checkboxs[i].value;
+			var markId = $("#markId" + index2).val();
+			if (markIds == "") {
+				markIds = markId;
+			} else {
+				markIds += ";" + markId;
+			}
+		}
+	}
+	if(markIds==""){
+		alert("请先选择零件!");
+		return false;
+	}
+	$("#wwMarkId" + index).html(markIds + "</br>");
+	$("#wwMarkIdInput" + index).val(markIds);
+	chageDiv('none');
+}
+function chageAllCheck2() {//全选框
+	var checkAll = document.getElementById("checkAll2");
+	var checkboxs = document.getElementsByName("checkboxs2");
+	if (checkAll.checked == true) {
+		for ( var i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = true;
+		}
+	} else {
+		for ( var i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = false;
+		}
+	}
+
+}
+function chageNum2() {
+	var checkAll = document.getElementById("checkAll2");
+	var checkboxs = document.getElementsByName("checkboxs2");
+	var count = 0;
+	for ( var i = 0; i < checkboxs.length; i++) {
+		if (checkboxs[i].checked == false) {
+			checkAll.checked = false;
+		} else {
+			count++;
+		}
+	}
+	if (count == checkboxs.length) {
+		checkAll.checked = true;
+	}
+
+}
+</SCRIPT>
+	</body>
+</html>

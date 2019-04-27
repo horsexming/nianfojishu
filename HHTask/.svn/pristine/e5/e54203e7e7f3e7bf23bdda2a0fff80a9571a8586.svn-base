@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="Visit" table="ta_visit">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="applyName" />
+		<property name="code" />
+        <property name="shouFangDept" />
+        <property name="shouFangName" />
+        <property name="verifycar" />
+        <property name="verifyManner" />
+        <property name="visitsName" />
+        <property name="visitsTel" />
+		<property name="visitsPop" />
+        <property name="visitsLic" />
+        <property name="visitsCom" />
+		<property name="visitsCode" />
+		<property name="visitsAllCode" />
+        <property name="visitstime" />
+        <property name="addTime" />
+        <property name="visitsPer" />
+        <property name="rmarks" />
+        
+        <property name="epId" />
+        <property name="visitStatus" />
+        <property name="visit_laiStatus" />
+	</class>
+</hibernate-mapping>

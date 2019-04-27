@@ -1,0 +1,316 @@
+package com.task.entity.gzbj;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+/*
+ * 
+ * 量具 ta_Measuring
+ */
+public class Measuring {
+	private Integer id;// 主键
+	private String number;// 编号
+	private String matetag;// 名称
+	private Float total;// 总数
+	private String unit;// 单位
+	private String format;// 规格
+	private String storehouse;// 仓库
+	private String mix;// 　合成主码
+	private String parClass;// 　分类(量具、检具、工具、特种设备)
+	private String place;// 位置
+	private Integer period;// 维修周期(校准周期)天
+	private Date startDate;// 上次保养
+	private Float curAmount;// 当前量
+	private Integer maxBorrowNum;// 　最大可借量
+	private String more;// 　备注
+	private String more1;// 备注1
+	private Float price;// 价格
+	private String measuring_no; // 本厂编号
+	
+
+	private Integer carePeriod;// 保养周期
+	private Integer curworkAmount;// 当前工作量
+	private Date lastCareDate;// 最后维修日期
+	private String serverCardId;// 加工件号
+	private String carModel;// 车型
+	private String duizhang;// 对账
+	private Float minStore;// 最低库存，低于此最低库存就要申请采购
+	private String appDept;// 申报部门
+	private Float totMoney;// 合计金额
+	private String personliable;//责任人
+	private String codeliable;//责任人工号
+	private Integer usersIdliable;//责任人Id
+	private String csjd;//测试精度
+
+
+
+
+	
+	private String classify; // (可借用/领用)
+	
+	private Integer fk_stoid;// 与store做标识
+	private String calibrationTime;//校准时间
+	private String lastcalibrationTime;//上次校准时间
+	private String nextcalibrationTime;//下次校准时间
+//	private String calibrationcycle;//校准周期
+	private String calibrationstate;//校准状态
+	private String jztype;//校准类型
+	
+	private Set Checkrecord=new HashSet();
+	
+	private String fileName;//
+	
+	
+	
+ 
+	public String getMeasuring_no() {
+		return measuring_no;
+	}
+	public void setMeasuring_no(String measuringNo) {
+		measuring_no = measuringNo;
+	}
+	public Set getCheckrecord() {
+		return Checkrecord;
+	}
+	public void setCheckrecord(Set checkrecord) {
+		Checkrecord = checkrecord;
+	}
+	public Integer getFk_stoid() {
+		return fk_stoid;
+	}
+	public void setFk_stoid(Integer fkStoid) {
+		fk_stoid = fkStoid;
+	}
+	public String getCalibrationstate() {
+		return calibrationstate;
+	}
+	public void setCalibrationstate(String calibrationstate) {
+		this.calibrationstate = calibrationstate;
+	}
+	public String getCalibrationTime() {
+		return calibrationTime;
+	}
+	public void setCalibrationTime(String calibrationTime) {
+		this.calibrationTime = calibrationTime;
+	}
+	public String getLastcalibrationTime() {
+		return lastcalibrationTime;
+	}
+	public void setLastcalibrationTime(String lastcalibrationTime) {
+		this.lastcalibrationTime = lastcalibrationTime;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getMatetag() {
+		return matetag;
+	}
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+	public Float getTotal() {
+		return total;
+	}
+	public void setTotal(Float total) {
+		this.total = total;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	public String getStorehouse() {
+		return storehouse;
+	}
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+	public String getMix() {
+		return mix;
+	}
+	public void setMix(String mix) {
+		this.mix = mix;
+	}
+	public String getParClass() {
+		return parClass;
+	}
+	public void setParClass(String parClass) {
+		this.parClass = parClass;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
+	public Integer getPeriod() {
+		return period;
+	}
+	public void setPeriod(Integer period) {
+		this.period = period;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Float getCurAmount() {
+		return curAmount;
+	}
+	public void setCurAmount(Float curAmount) {
+		this.curAmount = curAmount;
+	}
+	public Integer getMaxBorrowNum() {
+		return maxBorrowNum;
+	}
+	public void setMaxBorrowNum(Integer maxBorrowNum) {
+		this.maxBorrowNum = maxBorrowNum;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public String getMore1() {
+		return more1;
+	}
+	public void setMore1(String more1) {
+		this.more1 = more1;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	public Integer getCarePeriod() {
+		return carePeriod;
+	}
+	public void setCarePeriod(Integer carePeriod) {
+		this.carePeriod = carePeriod;
+	}
+	public Integer getCurworkAmount() {
+		return curworkAmount;
+	}
+	public void setCurworkAmount(Integer curworkAmount) {
+		this.curworkAmount = curworkAmount;
+	}
+	public Date getLastCareDate() {
+		return lastCareDate;
+	}
+	public void setLastCareDate(Date lastCareDate) {
+		this.lastCareDate = lastCareDate;
+	}
+	public String getServerCardId() {
+		return serverCardId;
+	}
+	public void setServerCardId(String serverCardId) {
+		this.serverCardId = serverCardId;
+	}
+	public String getCarModel() {
+		return carModel;
+	}
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
+	}
+	public String getDuizhang() {
+		return duizhang;
+	}
+	public void setDuizhang(String duizhang) {
+		this.duizhang = duizhang;
+	}
+	public Float getMinStore() {
+		return minStore;
+	}
+	public void setMinStore(Float minStore) {
+		this.minStore = minStore;
+	}
+	public String getAppDept() {
+		return appDept;
+	}
+	public void setAppDept(String appDept) {
+		this.appDept = appDept;
+	}
+	public Float getTotMoney() {
+		return totMoney;
+	}
+	public void setTotMoney(Float totMoney) {
+		this.totMoney = totMoney;
+	}
+	public String getClassify() {
+		return classify;
+	}
+	public void setClassify(String classify) {
+		this.classify = classify;
+	}
+	public String getNextcalibrationTime() {
+		return nextcalibrationTime;
+	}
+	public void setNextcalibrationTime(String nextcalibrationTime) {
+		this.nextcalibrationTime = nextcalibrationTime;
+	}
+	public String getPersonliable() {
+		return personliable;
+	}
+	public void setPersonliable(String personliable) {
+		this.personliable = personliable;
+	}
+	public String getCodeliable() {
+		return codeliable;
+	}
+	public void setCodeliable(String codeliable) {
+		this.codeliable = codeliable;
+	}
+	public Integer getUsersIdliable() {
+		return usersIdliable;
+	}
+	public void setUsersIdliable(Integer usersIdliable) {
+		this.usersIdliable = usersIdliable;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getJztype() {
+		return jztype;
+	}
+	public void setJztype(String jztype) {
+		this.jztype = jztype;
+	}
+	public String getCsjd() {
+		return csjd;
+	}
+	public void setCsjd(String csjd) {
+		this.csjd = csjd;
+	}
+	
+	
+	
+	
+	
+	
+	
+
+}

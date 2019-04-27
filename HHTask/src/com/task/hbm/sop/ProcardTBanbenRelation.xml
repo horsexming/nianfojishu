@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTBanbenRelation" table="ta_ProcardTBanbenRelation">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="fmarkId" />
+  <property name="fbanben" />
+  <property name="fbanci" />
+  <property name="smarkId" />
+  <property name="sbanben" />
+  <property name="sbanci" />
+  <property name="status" />
+  <property name="epId" />
+  <property name="applyStatus" />
+
+	</class>
+</hibernate-mapping>

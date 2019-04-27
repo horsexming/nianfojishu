@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPricejyDetailFile" table="ta_pro_QuotedPricejyDetailFile">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+	<property name="jydId" />
+	<property name="userId" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="userDept" />
+	<property name="addTime" />
+	<property name="type" />
+	<property name="fileName" />
+	<property name="oldFileName" />
+	<property name="baomi" />
+	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.core">
+	<class name="MonthPayableBill" table="ta_fin_caiwu_MonthPayableBill">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="jzMonth"/>
+		<property name="yingfukuanJine"/>
+		<property name="realfukuanJine"/>
+		<property name="weifukuanJine"/>
+		<property name="yingshoukuanJine"/>
+		<property name="realshoukuanJine"/>
+		<property name="weishoukuanJine"/>
+		<property name="status"/>
+		<property name="saveTime"/>
+		<property name="saveUser"/>
+	</class>
+</hibernate-mapping>

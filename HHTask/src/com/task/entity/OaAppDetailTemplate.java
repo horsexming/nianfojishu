@@ -1,0 +1,172 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 辅料采购
+ * 申购物品模板表（ta_oa_appDetailTemplate）
+ * @author wcy
+ *
+ */
+public class OaAppDetailTemplate  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
+	@FieldMeta(name = "物料编码")
+	private String wlcode;//物料编码
+	private String gztype;// 规则类型;
+	private String detailChildClass; //物品类别  类型（办公用品，金属五金，杂品）
+	@FieldMeta(name = "物品名称")
+	private String detailAppName;// 物品名称 ------
+	@FieldMeta(name = "规格")
+	private String detailFormat;// 物品规格---
+	@FieldMeta(name = "单位") 
+	private String detailUnit;// 计量单位---
+	@FieldMeta(name="申请时间")
+	private String detailAppDate;// 申请时间---
+	@FieldMeta(name="图号")
+	private String tuhao;//图号（）
+	private String banben;//版本
+	private String kgliao;//供料属性
+	private Integer epId;	//审批id
+	private String epStatus; //审批状态
+	private String sign;  //记录标志，不保存数据
+	private String lendNeckStatus;//借领属性:借/领
+	@FieldMeta(name="申请人")
+	private String addUsersName;//申请人
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getWlcode() {
+		return wlcode;
+	}
+
+	public void setWlcode(String wlcode) {
+		this.wlcode = wlcode;
+	}
+
+	public String getGztype() {
+		return gztype;
+	}
+
+	public void setGztype(String gztype) {
+		this.gztype = gztype;
+	}
+
+	public String getDetailChildClass() {
+		return detailChildClass;
+	}
+
+	public void setDetailChildClass(String detailChildClass) {
+		this.detailChildClass = detailChildClass;
+	}
+
+	public String getDetailAppName() {
+		return detailAppName;
+	}
+
+	public void setDetailAppName(String detailAppName) {
+		this.detailAppName = detailAppName;
+	}
+
+	public String getDetailFormat() {
+		return detailFormat;
+	}
+
+	public void setDetailFormat(String detailFormat) {
+		this.detailFormat = detailFormat;
+	}
+
+	public String getDetailUnit() {
+		return detailUnit;
+	}
+
+	public void setDetailUnit(String detailUnit) {
+		this.detailUnit = detailUnit;
+	}
+
+	public String getDetailAppDate() {
+		return detailAppDate;
+	}
+
+	public void setDetailAppDate(String detailAppDate) {
+		this.detailAppDate = detailAppDate;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getEpStatus() {
+		return epStatus;
+	}
+
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	public String getBanben() {
+		return banben;
+	}
+
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+	public String getLendNeckStatus() {
+		return lendNeckStatus;
+	}
+
+	public void setLendNeckStatus(String lendNeckStatus) {
+		this.lendNeckStatus = lendNeckStatus;
+	}
+
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+
+	public String getTuhao() {
+		return tuhao;
+	}
+
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	
+	
+}

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!-- *****************************mxl工装报检********************************** -->
+	<!-- 工序server -->
+	<bean id="processGzstoreServerImpl" class="com.task.ServerImpl.gzbj.ProcessGzstoreServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 工序action -->
+	<bean id="processGzstoreAction" class="com.task.action.gzbj.ProcessGzstoreAction"
+		scope="prototype">
+		<property name="processGzstoreServer" ref="processGzstoreServerImpl"></property>
+	</bean>
+	<!-- 工装server -->
+	<bean id="gzstoreServerImpl" class="com.task.ServerImpl.gzbj.GzstoreServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 工装action -->
+	<bean id="gzstoreAction" class="com.task.action.gzbj.GzstoreAction"
+		scope="prototype">
+		<property name="gzstoreServer" ref="gzstoreServerImpl"></property>
+	</bean>
+	<!-- 量具server -->
+	<bean id="measuringServerImpl" class="com.task.ServerImpl.gzbj.MeasuringServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 量具action -->
+	<bean id="measuringAction" class="com.task.action.gzbj.MeasuringAction"
+		scope="prototype">
+		<property name="measuringServer" ref="measuringServerImpl"></property>
+	</bean>
+	
+	<!-- 品质部门审核管理 -->
+	<!-- server -->
+	<bean id="qualityServerImpl" class="com.task.ServerImpl.quality.QualityServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="qualityAction" class="com.task.action.quality.QualityAction" scope="prototype">
+			<property name="qualityServer" ref="qualityServerImpl"></property>
+	</bean>
+	
+	<!-- 单位管理 -->
+		<!-- server -->
+	<bean id="unitManagerServiceImpl" class="com.task.ServerImpl.UnitManagerServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="unitManagerAction" class="com.task.action.UnitManagerAction" scope="prototype">
+			<property name="unitManagerService" ref="unitManagerServiceImpl"></property>
+	</bean>
+	
+	<!-- 安卓模块 -->
+	<!-- server -->
+	<bean id="customerServerImpl" class="com.task.ServerImpl.android.CustomerServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="customerAction" class="com.task.action.android.CustomerAction" scope="prototype">
+			<property name="customerServer" ref="customerServerImpl"></property>
+	</bean>
+	<!-- 工艺规范推送 -->
+	<!-- server -->
+	<bean id="pushServerImpl" class="com.task.ServerImpl.android.processpush.PushServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="pushAction" class="com.task.action.android.processpush.PushAction" scope="prototype">
+			<property name="pushServer" ref="pushServerImpl"></property>
+	</bean>
+	<!-- 付款管理 -->
+	<!-- server -->
+	<bean id="paymentVoucherServerImpl" class="com.task.ServerImpl.payment.PaymentVoucherServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+		<property name="smsService" ref="smsServiceImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="paymentVoucherAction" class="com.task.action.payment.PaymentVoucherAction" scope="prototype">
+			<property name="paymentVoucherServer" ref="paymentVoucherServerImpl"></property>
+	</bean>
+	<!-- 付款明细 -->
+	<bean id="paymentDetailServerImpl" class="com.task.ServerImpl.payment.PaymentDetailServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="paymentDetailAction" class="com.task.action.payment.PaymentDetailAction" scope="prototype">
+			<property name="paymentDetailServer" ref="paymentDetailServerImpl"></property>
+	</bean>
+	
+	<!-- 询比议价 -->
+	<bean id="bargainServerImpl" class="com.task.ServerImpl.BargainServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="bargainAction" class="com.task.action.bargain.BargainAction" scope="prototype">
+			<property name="bargainServer" ref="bargainServerImpl"></property>
+	</bean>
+	
+	<!-- 电子签名 -->
+	<bean id="signatureServerImpl" class="com.task.ServerImpl.payment.SignatureServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="signatureAction" class="com.task.action.payment.SignatureAction" scope="prototype">
+			<property name="signatureServer" ref="signatureServerImpl"></property>
+	</bean>
+	
+	<!-- kvp产品评估 -->
+	<bean id="kvpAssessServerImpl" class="com.task.ServerImpl.kvp.KVPAssessServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="kvpAssessAction" class="com.task.action.kvp.KVPAssessAction" scope="prototype">
+			<property name="kvpAssessServer" ref="kvpAssessServerImpl"></property>
+	</bean>
+	
+	<!--用车单 -->
+	<bean id="singleCarServerImpl" class="com.task.ServerImpl.SingleCar.SingleCarServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="singleCarAction" class="com.task.action.SingleCar.SingleCarAction" scope="prototype">
+			<property name="singleCarServer" ref="singleCarServerImpl"></property>
+	</bean>
+	
+	<!--pmi管理 -->
+	<bean id="pmiManagementServerImpl" class="com.task.ServerImpl.pmi.PmiManagementServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="pmiManagementAction" class="com.task.action.pmi.PmiManagementAction" scope="prototype">
+			<property name="pmiManagementServer" ref="pmiManagementServerImpl"></property>
+	</bean>
+	
+	<!-- 采购执行单管理 -->
+	<bean id="performsingleServerImpl" class="com.task.ServerImpl.perform.PerformsingleServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="performsingleAction" class="com.task.action.perform.PerformsingleAction" scope="prototype">
+			<property name="performsingleServer" ref="performsingleServerImpl"></property>
+	</bean>
+
+	
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardSbWgLog" table="ta_sop_w_ProcardSbWgLog"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="psbwgId" />
+	<property name="forObj" />
+	<property name="count" />
+	<property name="clType" />
+	<property name="addTime" />
+	<property name="userName" />
+	<property name="userId" />
+	<property name="forObjId" />
+	<property name="status" />
+	<property name="clApplyId" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FailureStatistics" table="ta_sop_FailureStatistics">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dateTime" />
+		<property name="markId" />
+		<property name="client" />
+		<property name="submitCount" />
+		<property name="failureCount" />
+		<!-- 检验对检验不合格明细 -->
+		<set name="fsdSet" inverse="false" cascade="all" lazy="false">
+			<key column="fk_fsId"></key>
+			<one-to-many class="FailureStatisticsDetail" />
+		</set>
+		<property name="targetPPM" />
+		<property name="weekds" />
+		<property name="addTime" />
+		<property name="weldingDefects" />
+		<property name="strikeSize" />
+		<property name="flangeFlatness" />
+		<property name="tfb" />
+		<property name="airtight" />
+		<property name="exterior" />
+		<property name="other" />
+		 <property name="proName"/>
+		 <property name="selfcard"/>
+		 <property name="processNo"/>
+		 <property name="processName"/>
+		 <property name="nowberakcount"/>
+		 <property name="type"/>
+		 <property name="gongwei"/>
+		 <property name="buhegeId"/>
+		 <property name="buhegeType"/>
+		 <property name="buhegeTypeClass"/>
+	</class>
+
+</hibernate-mapping>

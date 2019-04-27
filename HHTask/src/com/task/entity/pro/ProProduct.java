@@ -1,0 +1,39 @@
+package com.task.entity.pro;
+
+import java.io.Serializable;
+
+public class ProProduct implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Integer id;
+	String name;//产品名称
+	String code;//产品编码
+	Integer proId;//项目ID
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Integer getProId() {
+		return proId;
+	}
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+	
+}

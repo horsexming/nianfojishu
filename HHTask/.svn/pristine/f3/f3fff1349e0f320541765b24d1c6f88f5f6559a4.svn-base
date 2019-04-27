@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-student" location="0,0" size="0,0">
+    <action name="attendClassAction_*" location="0,0" size="0,0">
+      <result name="lesson_add">
+        <resourceEdge source="lesson_add" routing="0" target="lesson_add.jsp" />
+      </result>
+      <result name="lesson_update">
+        <resourceEdge source="lesson_update" routing="0" target="lesson_update.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+      <result name="initaddLesson" />
+      <result name="selectAttend" />
+    </action>
+  </package>
+  <webResource name="lesson_add.jsp" path="/System/xinxi/lesson_add.jsp" location="0,0" size="0,0" />
+  <webResource name="lesson_update.jsp" path="/System/xinxi/lesson_update.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="/error.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

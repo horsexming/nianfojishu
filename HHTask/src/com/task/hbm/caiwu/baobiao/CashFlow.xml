@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.caiwu.baobiao.CashFlow" table="ta_baobiao_CashFlow" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<!-- 
+		一、经营活动产生的现金流量：
+		 -->
+		 <property name="jymoneyIn1"/>
+		 <property name="jymoneyIn2"/>
+		 <property name="jymoneyIn3"/>
+		 <property name="jymoneyInSum"/>
+		 <property name="jymoneyOut1"/>
+		 <property name="jymoneyOut2"/>
+		 <property name="jymoneyOut3"/>
+		 <property name="jymoneyOut4"/>
+		 <property name="jymoneyOutSum"/>
+		 <property name="jymoneySum"/>
+		 <!-- 
+		二、投资活动产生的现金流量：
+		 -->
+		 <property name="tzmoneyIn1"/>
+		 <property name="tzmoneyIn2"/>
+		 <property name="tzmoneyIn3"/>
+		 <property name="tzmoneyIn4"/>
+		 <property name="tzmoneyIn5"/>
+		 <property name="tzmoneyInSum"/>
+		 <property name="tzmoneyOut1"/>
+		 <property name="tzmoneyOut2"/>
+		 <property name="tzmoneyOut3"/>
+		 <property name="tzmoneyOut4"/>
+		 <property name="tzmoneyOutSum"/>
+		 <property name="tzmoneySum"/>
+		 <!-- 
+		 	筹资活动产生的现金流量：
+		  -->
+		  <property name="czmoneyIn1"/>
+		  <property name="czmoneyIn2"/>
+		  <property name="czmoneyIn3"/>
+		  <property name="czmoneyInSum"/>
+		  <property name="czmoneyOut1"/>
+		  <property name="czmoneyOut2"/>
+		  <property name="czmoneyOut3"/>
+		  <property name="czmoneyOutSum"/>
+		  <property name="czmoneySum"/>
+		  <!-- 
+		  	四、汇率变动对现金的影响
+		   -->
+		  <property name="hlyx"/>
+		  <!-- 
+		  	五、现金及现金等价物净增加额
+		   -->
+		  <property name="moneyadd"/>
+		  <!-- 
+	 * 补充资料
+		   -->
+		  <property name="jtzcjzzb"/>
+		  <property name="gdzczj"/>
+		  <property name="wxzctx"/>
+		  <property name="chuzizc"/>
+		  <property name="gdzcbfss"/>
+		  <property name="cwfy"/>
+		  <property name="tzss"/>
+		  <property name="dyskdx"/>
+		  <property name="chjs"/>
+		  <property name="jyxmjs"/>
+		  <property name="jxyxmzj"/>
+		  <property name="qita"/>
+		  <property name="jyhdMoney"/>
+		  <property name="zwzzb"/>
+		  <property name="gzzqyears"/>
+		  <property name="rzzrgdzc"/>
+		  <property name="moneyqm"/>
+		  <property name="moneyqc"/>
+		  <property name="moneydjwqm"/>
+		  <property name="moneydjwqc"/>
+		  <property name="moneydj"/>
+		  <!-- 月份 -->
+		  <property name="months"/>
+	</class>
+</hibernate-mapping>

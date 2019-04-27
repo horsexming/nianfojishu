@@ -1,0 +1,54 @@
+package com.task.entity.renshi;
+
+import java.util.List;
+/**
+ * 面试测试题 （表名ta_hr_rz_interviewQuizzes）
+ * @author licong
+ *
+ */
+public class InterviewQuizzes {
+	private Integer id;
+	private String question;//面试问题
+	private String answer;//答案
+	private String addTime;
+	
+	private InterviewLog interviewLog;//多对一
+	private List<InterviewQuizzes> iqa;
+	
+	public Integer getId() { 
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public List<InterviewQuizzes> getIqa() {
+		return iqa;
+	}
+	public InterviewLog getInterviewLog() {
+		return interviewLog;
+	}
+	public void setInterviewLog(InterviewLog interviewLog) {
+		this.interviewLog = interviewLog;
+	}
+	public void setIqa(List<InterviewQuizzes> iqa) {
+		this.iqa = iqa;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getAnswer() {
+		return answer;
+	} 
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+}

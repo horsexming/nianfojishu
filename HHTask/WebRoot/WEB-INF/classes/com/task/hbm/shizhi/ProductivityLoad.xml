@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="ProductivityLoad" table="ta_sk_ProductivityLoad">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+        <property name="proLoad" />
+		<property name="singleTime" />
+		<property name="upNumber" />
+		<property name="curCusNeedNum" />
+		<property name="curMonInputNum" />
+		<property name="payDays" />
+		<property name="cusDeadline" />
+		<property name="satisfactionRate" />
+		<property name="totalWorkTime" />
+		<property name="workTimeLimits" />
+		
+		<property name="qpId" />
+		<property name="markId" />
+		<property name="procardName" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		
+		<property name="processId"/>
+        <property name="processNO"/>        
+        <property name="processName"/>
+	</class>
+</hibernate-mapping>

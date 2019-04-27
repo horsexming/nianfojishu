@@ -1,0 +1,770 @@
+package com.task.ServerImpl;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletResponse;
+
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+
+import org.apache.struts2.StrutsStatics;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.Server.ChartNOSQServer;
+import com.task.ServerImpl.sys.CircuitRunServerImpl;
+import com.task.entity.Becoming;
+import com.task.entity.Careertrack;
+import com.task.entity.Category;
+import com.task.entity.ChartNOGzType;
+import com.task.entity.ChartNOSC;
+import com.task.entity.ChartNOSQ;
+import com.task.entity.Users;
+import com.task.entity.sop.WaigouDailySheet;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+import com.task.entity.system.CircuitRun;
+import com.task.util.Util;
+
+public class ChartNOSQServerImpl implements ChartNOSQServer {
+	private TotalDao totalDao;
+	private List<String> strList = new ArrayList<String>();
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public String addChartNOSQ(ChartNOSQ cq) {
+		if (cq != null) {
+			Users user = Util.getLoginUser();
+			cq.setAddTime(Util.getDateTime());
+			cq.setAddUser(user.getName());
+			cq.setAddUserId(user.getId());
+			int count = totalDao.getCount(
+					" from ChartNOGzType where type = ? ", cq.getGztype());
+			if (count == 0) {
+				ChartNOGzType cgt = new ChartNOGzType();
+				cgt.setType(cq.getGztype());
+				totalDao.save(cgt);
+			}
+			if (cq.getCategoryId() != null) {
+				Category category = (Category) totalDao.get(Category.class, cq
+						.getCategoryId());
+				// 获得类别编码的固定开头
+				strList = getStrNo(category);
+				String chartNO = "";
+				if (strList != null && strList.size() > 0) {
+					for (int i = (strList.size() - 1); i >= 0; i--) {
+						chartNO += strList.get(i);
+					}
+				}
+				//申请单编号处理;
+				String sqNo = user.getCode()+Util.getDateTime("yyyyMM");
+				String maxsqNo =	(String) totalDao.getObjectByCondition("select max(sqNo) from ChartNOSQ where sqNo like '%"+sqNo+"%'");
+				if(maxsqNo == null){
+					maxsqNo = sqNo+"0000";
+				}else{
+					maxsqNo = maxsqNo.substring(sqNo.length());
+					maxsqNo = (10000+(Integer.parseInt(maxsqNo)+1))+"";
+					maxsqNo = sqNo+maxsqNo.substring(1);
+				}
+				cq.setSqNo(maxsqNo);
+				strList = new ArrayList<String>();
+				// 获得除固定开头外的编码规则;
+				String gzType = cq.getGztype();
+				String befroegzType = gzType.substring(0,chartNO.length());
+				gzType = gzType.substring(chartNO.length());
+				Integer gzTypeint = 0;
+				ChartNOGzType aftergz = null;
+				try {
+					gzTypeint = Integer.parseInt(gzType);
+					if(gzTypeint>0){
+						String hql_gz = " from ChartNOGzType where type like '"+befroegzType+"%' and type>'"+befroegzType+gzType+"' order by type" ;
+						aftergz = (ChartNOGzType) totalDao.getObjectByCondition(hql_gz);
+					}
+				} catch (Exception e) {
+				}
+				// 查询出当前类别的最大编码
+				String hql_maxNo ="select max(chartNO) from  ChartNOSC where  chartNO like '"+chartNO+"%'";
+				if(aftergz!=null){
+					hql_maxNo+= " and chartNO >= '"+befroegzType+gzType+"' and chartNO <= '"+aftergz.getType()+"'";
+				}
+				String s = "1";
+				Integer size = Util.Formatnumber(gzType).length();
+				for (int i = 0; i < size; i++) {// 数字位数计算
+					s += "0";
+				}
+				// 最大编码号处理
+				String maxNo =	(String) totalDao.getObjectByCondition(hql_maxNo );
+				Integer firstNo =  Integer.parseInt(s);
+				if(maxNo != null ){
+					maxNo = Util.Formatnumber(maxNo);
+					maxNo = maxNo.substring(maxNo.length()-size);
+					firstNo = firstNo+(Integer.parseInt(maxNo)+1);
+				}
+				String str = chartNO+((firstNo+"").substring(1));
+//				String  ptmaxNo =	 (String) totalDao.getObjectByCondition(" select max(markId) from ProcardTemplate where markId like '%"+chartNO+"%' and markId > '"+str+"'");
+//				if(ptmaxNo!=null){
+//					ptmaxNo = Util.Formatnumber(ptmaxNo);
+//					ptmaxNo = ptmaxNo.substring(ptmaxNo.length()-size);
+//					firstNo  = firstNo+(Integer.parseInt(ptmaxNo)+1);
+//				}
+				if (cq.getSqNum() != null && cq.getSqNum() > 0) {
+					// 实际申请数量处理;
+					Integer sjsqNum = cq.getSqNum();
+					// 查询之前同种类型被禁用的编码,并归属到当前申请人下（避免资源浪费）
+					String hql_NOChartNOSC = " from  ChartNOSC where isuse = 'NO' and chartNO like '"+chartNO+"%' and (chartnosq.epstatus in('同意','打回')  or remak like '%跳层问题，系统添加!~%' )order by  chartNO";
+					List<ChartNOSC> ccList = totalDao.query(hql_NOChartNOSC);
+					if (ccList != null && ccList.size() > 0) {
+						sjsqNum = sjsqNum - ccList.size();
+						if(sjsqNum <=0){
+							sjsqNum = 0;
+							cq.setHsNum(cq.getSqNum());
+							for(int i=0;i<cq.getSqNum();i++){
+								ChartNOSC chartNOSC = ccList.get(i);
+								chartNOSC.setSjsqUsers(user.getName());
+								chartNOSC.setSqNo(maxsqNo);
+								chartNOSC.setType(cq.getType());
+								chartNOSC.setCpcode(cq.getCpcode());
+								chartNOSC.setRemak(cq.getRemak());
+							}
+						}else{
+							for (ChartNOSC chartNOSC : ccList) {
+								chartNOSC.setSjsqUsers(user.getName());
+								chartNOSC.setSqNo(maxsqNo);
+								chartNOSC.setCpcode(cq.getCpcode());
+								chartNOSC.setRemak(cq.getRemak());
+								chartNOSC.setType(cq.getType());
+								totalDao.update(chartNOSC);
+							}
+							cq.setHsNum(ccList.size());
+						}
+						cq.setSjsqNum(sjsqNum);
+						
+					}
+					
+					Set<ChartNOSC> ccSet = new HashSet<ChartNOSC>();
+					// 获得跟类编码
+					Category rootcategory = (Category) totalDao.get(
+							Category.class, category.getRootId());
+					String rootNo = rootcategory.getCode();
+					for (int i = 0; i < sjsqNum; i++) {
+						ChartNOSC cc = new ChartNOSC();
+						cc.setType(category.getName());
+						cc.setIsuse("NO");
+							String chartNOstr = ((firstNo + i) + "").substring(1);
+						String chartcode = "";
+						if(aftergz == null){
+							chartNOstr = chartNO+ Util.numberFormat(chartNOstr, gzType);
+						}else{
+							chartNOstr = chartNO+chartNOstr;
+						}
+						chartcode =  Util.Formatnumber(chartNOstr);
+						cc.setChartNO(chartNOstr);
+						if(i==0){
+							cq.setFirstNo(chartNOstr);
+						}else if(i==(sjsqNum-1)){
+							cq.setEndNo(chartNOstr);
+						}
+						cc.setChartcode(chartcode);
+						cc.setSqNo(maxsqNo);
+						cc.setSjsqUsers(user.getName());
+						cc.setCpcode(cq.getCpcode());
+						cc.setRemak(cq.getRemak());
+						ccSet.add(cc);
+					}
+					cq.setChartNOSCSet(ccSet);
+					boolean bool = totalDao.save(cq);
+					if (bool) {
+						String processName = "图号(产品)编码申请";
+						Integer epId = null;
+						try {
+							epId = CircuitRunServerImpl.createProcess(
+									processName, ChartNOSQ.class, cq.getId(),
+									"epstatus", "id", "", user.getDept()
+											+ "部门 " + cq.getAddUser()
+											+ "图号(产品)编码申请，请您审批", true);
+							if (epId != null && epId > 0) {
+								cq.setEpId(epId);
+								CircuitRun circuitRun = (CircuitRun) totalDao
+										.get(CircuitRun.class, epId);
+								if ("同意".equals(circuitRun.getAllStatus())
+										&& "审批完成".equals(circuitRun
+												.getAuditStatus())) {
+									cq.setEpstatus("同意");
+//									Set<ChartNOSC> ccset = cq.getChartNOSCSet();
+//									for (ChartNOSC cc : ccset) {
+//										cc.setIsuse("YES");
+//										totalDao.update(cc);
+//									}
+//									if (cq.getHsNum() != null
+//											&& cq.getHsNum() > 0) {
+//										String hql_hs = " from  ChartNOSC where isuse = 'NO'  and  sjsqUsers= '"+cq.getAddUser()+"' and sqNo ='"+cq.getSqNo()+"'";
+//										List<ChartNOSC> hsCCList = totalDao
+//												.query(hql_hs);
+//										for (ChartNOSC chartNOSC2 : hsCCList) {
+//											chartNOSC2.setIsuse("YES");
+//											totalDao.update(chartNOSC2);
+//										}
+//									}
+//									AlertMessagesServerImpl.addAlertMessages("编码查看",
+//											"您申请的编码已审批完成,申请单编号为:"+cq.getSqNo()+"申请类别:"+cq.getType(), "1",user.getCode());
+								} else {
+									cq.setEpstatus("未审批");
+								}
+								cq.setChartNOSCSet(ccSet);
+								return totalDao.update(cq) + "";
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							throw new RuntimeException(e.toString());
+						}
+					}
+
+				}
+			}
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unused")
+	private List<String> getStrNo(Category category) {
+		if (category != null) {
+			strList.add(category.getCode());
+			if (category.getFatherId() != null) {
+				Category fatehrcategory = (Category) totalDao.get(
+						Category.class, category.getFatherId());
+				getStrNo(fatehrcategory);
+			}
+		}
+		return strList;
+	}
+
+	@Override
+	public boolean delChartNOSC(ChartNOSC cc) {
+		if (cc != null) {
+			return totalDao.delete(cc);
+		}
+		return false;
+	}
+
+	@Override
+	public String delChartNOSQ(ChartNOSQ cq) {
+		if (cq != null) {
+			cq = (ChartNOSQ) totalDao.get(ChartNOSQ.class, cq.getId());
+			if ("未审批".equals(cq.getEpstatus()) || "打回".equals(cq.getEpstatus())) {
+				Set<ChartNOSC> ccSet = cq.getChartNOSCSet();
+				for (ChartNOSC chartNOSC : ccSet) {
+					totalDao.delete(chartNOSC);
+				}
+				return totalDao.delete(cq) + "";
+			} else {
+				return "在审批中，或已经同意不能删除!";
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findAllChartNOSC(ChartNOSC cc, int pageNo, int pagesize,
+			String pageStatus) {
+		if (cc == null) {
+			cc = new ChartNOSC();
+		}
+		if(!"all".equals(pageStatus)){
+			cc.setSjsqUsers(Util.getLoginUser().getName());
+		}
+		if("person".equals(pageStatus)){
+			cc.setSjsqUsers(Util.getLoginUser().getName());
+		}
+	
+		String str = "  isuse = 'YES' ";
+		if (cc.getChartnosq() != null) {
+			if(cc.getChartnosq().getAddUser() != null
+					&& cc.getChartnosq().getAddUser().length() > 0){
+				str = " and chartnosq.addUser like '%"
+					+ cc.getChartnosq().getAddUser() + "%'";
+			}
+			if(cc.getChartnosq().getAddTime()!=null &&
+					cc.getChartnosq().getAddTime().length()>0){
+				str = " and chartnosq.addTime like '%"
+					+ cc.getChartnosq().getAddTime() + "%'";
+			}
+		}
+		String hql = totalDao.criteriaQueries(cc, str, "chartnosq");
+		List<ChartNOSC> cclist = totalDao.findAllByPage(hql
+				+ "order by chartNO desc", pageNo, pagesize, null);
+		int count = totalDao.getCount(hql);
+		Object[] obj = { cclist, count };
+		return obj;
+	}
+
+	@Override
+	public Object[] findAllChartNOSQ(ChartNOSQ cq, int pageNo, int pagesize,
+			String pageStatus) {
+		if (cq == null) {
+			cq = new ChartNOSQ();
+		}
+		if(!"all".equals(pageStatus)){
+				cq.setAddUser(Util.getLoginUser().getName());
+		}
+		String hql = totalDao.criteriaQueries(cq, null);
+		List<ChartNOSQ> cqList = totalDao.findAllByPage(hql+" order by id desc", pageNo, pagesize,
+				null);
+		int count = totalDao.getCount(hql);
+		Object[] obj = { cqList, count };
+		return obj;
+	}
+
+	@Override
+	public Object[] findChartNOSQById(Integer id) {
+		if (id != null) {
+			ChartNOSQ cq = (ChartNOSQ) totalDao.get(ChartNOSQ.class, id);
+			List<ChartNOSC> ccList = totalDao.query(
+					" from ChartNOSC where chartNOSQ.id = ?", id);
+			Object[] obj = { cq, ccList };
+			return obj;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean updateChartNOSC(ChartNOSC cc) {
+		if(cc!=null){
+			ChartNOSC oldcc = (ChartNOSC) totalDao.get(ChartNOSC.class, cc.getId());
+			oldcc.setCpcode(cc.getCpcode());
+			oldcc.setRemak(cc.getRemak());
+			return totalDao.update(oldcc);
+		}
+		return false;
+	}
+
+	@Override
+	public String updateChartNOSQ(ChartNOSQ cq) {
+	
+		return null;
+	}
+
+	@Override
+	public List<ChartNOGzType> findAllChartNOGzType(String pageStatus) {
+		if("fl".equals(pageStatus)){
+			List<ChartNOGzType> list=null;
+			try {
+				list = totalDao.query(" from ChartNOGzType where  LOCATE('辅料',groups)>0 ");//相当于indexof
+				if(list==null || list.size()==0) {
+					throw new RuntimeException();
+				}
+			} catch (Exception e) {
+				List<ChartNOGzType> list2 = totalDao.query(" from ChartNOGzType ");
+				if(list2!=null && list2.size()>0) {
+					list = new ArrayList<ChartNOGzType>();
+					for (ChartNOGzType chartNOGzType : list2) {
+						if(chartNOGzType.getGroups()!=null && chartNOGzType.getGroups().indexOf("辅料")>0) {
+							list.add(chartNOGzType);
+						}
+					}
+				}
+			}
+			return list;
+		}else{
+			return totalDao.query(" from ChartNOGzType ");	
+		}
+	}
+
+	@Override
+	public ChartNOSQ getfirstNo(ChartNOSQ cq) {
+		if (cq != null) {
+			if (cq.getCategoryId() != null) {
+				Category category = (Category) totalDao.get(Category.class, cq
+						.getCategoryId());
+				strList = getStrNo(category);
+				String chartNO = "";
+				if (strList != null && strList.size() > 0) {
+					for (int i = (strList.size() - 1); i >= 0; i--) {
+						chartNO += strList.get(i);
+					}
+				}
+				strList = new ArrayList<String>();
+				String gzType = cq.getGztype();
+				String befroegzType = gzType.substring(0,chartNO.length());
+				gzType = gzType.substring(chartNO.length());
+				Integer gzTypeint = 0;
+				ChartNOGzType aftergz = null;
+				try {
+					gzTypeint = Integer.parseInt(gzType);
+					if(gzTypeint>0){
+						String hql_gz = " from ChartNOGzType where type like '"+befroegzType+"%' and type>'"+befroegzType+gzType+"' order by type" ;
+						aftergz = (ChartNOGzType) totalDao.getObjectByCondition(hql_gz);
+					}
+				} catch (Exception e) {
+					System.out.println("........不能解析为integer类型");
+				}
+				String s = "1";
+				Integer size = Util.Formatnumber(gzType).length();
+				for (int i = 0; i < size; i++) {
+					s += "0";
+				}
+				Integer firstNo = Integer.parseInt(s);
+				Integer endNo = firstNo + (cq.getSqNum() - 1);
+				String firstNostr = (firstNo + "").substring(1);
+				String endNostr = (endNo + "").substring(1);
+				Category rootcategory = (Category) totalDao.get(Category.class,
+						category.getRootId());
+				String rootNo = rootcategory.getCode();
+				if (cq.getSqNum() != null && cq.getSqNum() > 0) {
+					String hql_maxNo = "select max(chartNO) from  ChartNOSC where chartNO like '%"+chartNO+"%'  ";
+					if(aftergz!=null){
+						hql_maxNo+= " and chartNO >= '"+befroegzType+gzType+"' and chartNO <= '"+aftergz.getType()+"'";
+					}
+					String maxNo = (String) totalDao.getObjectByCondition(
+							hql_maxNo);
+					if (maxNo != null && maxNo.length() > 0) {
+						maxNo = Util.Formatnumber(maxNo);
+						maxNo = maxNo.substring(maxNo.length()-size);
+						endNo = firstNo
+								+ (Integer.parseInt(maxNo) + cq.getSqNum());
+						firstNo = firstNo + (Integer.parseInt(maxNo) + 1);
+						firstNostr = (firstNo + "").substring(1);
+						endNostr = (endNo + "").substring(1);
+					}
+					String cpcode = "";
+					if(aftergz == null){
+						firstNostr = chartNO+ Util.numberFormat(firstNostr, gzType);
+						endNostr = chartNO + Util.numberFormat(endNostr, gzType);
+						cpcode = rootNo + Util.Formatnumber(firstNostr);
+					}else{
+						firstNostr = chartNO+firstNostr;
+						endNostr= chartNO+endNostr;
+					}
+					cq.setFirstNo(firstNostr);
+					cq.setEndNo(endNostr);
+					cq.setCpcode(cpcode);
+
+				}
+				return cq;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String pladdChartNOSQ(List<ChartNOSQ> cqList) {
+		if (cqList != null && cqList.size() > 0) {
+			for (ChartNOSQ chartNOSQ : cqList) {
+				if (!"true".equals(addChartNOSQ(chartNOSQ))) {
+					return "添加申请失败";
+				}
+			}
+			return "true";
+		}
+		return null;
+	}
+
+	@Override
+	public boolean disablecc(Integer id) {
+		if (id != null) {
+			ChartNOSC cc = (ChartNOSC) totalDao.get(ChartNOSC.class, id);
+			cc.setIsuse("NO");
+			return totalDao.update(cc);
+		}
+		return false;
+	}
+
+	@Override
+	public String export(ChartNOSC cc, String pageStatus) {
+		Users user =	Util.getLoginUser();
+		if(user == null){
+			return "请先登录!~";
+		}
+		if (cc == null) {
+			cc = new ChartNOSC();
+		}
+		String str = " isuse = 'YES'";
+		if (cc.getChartnosq() != null && cc.getChartnosq().getAddUser() != null
+				&& cc.getChartnosq().getAddUser().length() > 0) {
+			str += " and chartnosq.addUser like '%"
+					+ cc.getChartnosq().getAddUser() + "%";
+		}
+		String hql = totalDao.criteriaQueries(cc, str, "chartnosq", "isuse");
+		List<ChartNOSC> cclist = totalDao.query(hql + " order by chartNO ");
+		try {
+			HttpServletResponse response = (HttpServletResponse) ActionContext
+					.getContext().get(StrutsStatics.HTTP_RESPONSE);
+			OutputStream os = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ new String("图号表".getBytes("GB2312"), "8859_1") + ".xls");
+			response.setContentType("application/msexcel");
+			WritableWorkbook wwb = Workbook.createWorkbook(os);
+			WritableSheet ws = wwb.createSheet("图号表", 0);
+			ws.setColumnView(2, 18);
+			ws.setColumnView(3, 28);
+
+			ws.addCell(new Label(0, 0, "序号"));
+			ws.addCell(new Label(1, 0, "编码"));
+			ws.addCell(new Label(2, 0, "编码（不带点）"));
+			ws.addCell(new Label(3, 0, "编码类别"));
+			ws.addCell(new Label(4, 0, "状态"));
+			ws.addCell(new Label(5, 0, "申请人"));
+			ws.addCell(new Label(6, 0, "申请时间"));
+			ws.addCell(new Label(7, 0, "申请单号"));
+			for (int i = 0; i < cclist.size(); i++) {
+				ChartNOSC chartNOSC = (ChartNOSC) cclist.get(i);
+				ws.addCell(new Label(0, i + 1, i + 1 + ""));
+				ws.addCell(new Label(1, i + 1, chartNOSC.getChartNO()));
+				ws.addCell(new Label(2, i + 1, chartNOSC.getChartcode()));
+				ws.addCell(new Label(3, i + 1, chartNOSC.getType()));
+				ws.addCell(new Label(4, i + 1, ("YES".equals(chartNOSC
+						.getIsuse()) ? "使用" : "禁用")));
+				if(chartNOSC.getChartnosq()!=null){
+					ws.addCell(new Label(5, i + 1, chartNOSC.getChartnosq()
+							.getAddUser()));
+					ws.addCell(new Label(6, i + 1, chartNOSC.getChartnosq()
+							.getAddTime()));
+				}else{
+					ws.addCell(new Label(5, i + 1,chartNOSC.getSjsqUsers() ));
+					ws.addCell(new Label(7, i + 1,"" ));
+				}
+				
+				ws.addCell(new Label(7, i + 1, chartNOSC.getSqNo()));
+			}
+			wwb.write();
+			wwb.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (WriteException e) {
+			e.printStackTrace();
+		}
+		return "";
+
+	}
+
+	@Override
+	public boolean addgzType(ChartNOGzType gzType) {
+		if(gzType!=null){
+			return	totalDao.save(gzType);
+		}
+		return false;
+	}
+
+	@Override
+	public Object[] findAllgzType(ChartNOGzType gzType, int pageNo, int pagesize) {
+		if(gzType == null){
+			gzType = new ChartNOGzType();
+		}
+		String hql = totalDao.criteriaQueries(gzType, null);
+		List<ChartNOGzType>	gzTypeList = totalDao.findAllByPage(hql, pageNo, pagesize );
+		int count = totalDao.getCount(hql);
+		Object [] obj = {gzTypeList,count};
+		return obj;
+	}
+
+	@Override
+	public boolean delgzType(ChartNOGzType gzType) {
+		if(gzType!=null){
+			return	totalDao.delete(gzType);
+		}
+		return false;
+	}
+
+	@Override
+	public Map<String, Object> changStyle(Integer id) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		if(id!=null){
+			Category category =(Category)totalDao.get(Category.class, id);
+			Category rootcategory = (Category)totalDao.get(Category.class, category.getRootId());
+			String hql = " from ChartNOGzType where groups = ?";
+			String groups = rootcategory.getName();
+			List<ChartNOGzType>	gzTypelist = totalDao.query(hql, groups);
+			map.put("gzTypelist", gzTypelist);
+			map.put("groups", groups);
+		}
+		return map;
+	}
+
+	@Override
+	public String disableccList(Integer[] arrayId ) {
+		if(arrayId!=null && arrayId.length>0){
+			boolean bool  = false;
+			StringBuffer msg = new StringBuffer();
+			for (int i = 0; i < arrayId.length; i++) {
+				ChartNOSC cc = (ChartNOSC) totalDao.get(ChartNOSC.class, arrayId[i]);
+				//查询改件号是否在外购件库或者BOM表存在，如果存在，则不能够进行暂停使用
+				//1.查询外购件库是否存在
+				int count =	totalDao.getCount(" from YuanclAndWaigj where markId =? ", cc.getChartNO());
+				if(count>0){
+					msg.append(cc.getChartNO()+"已在外购件库存在,禁用失败!<br/>");
+					continue;
+				}else{
+					//2.查询BOM中是否存在
+					 count =	totalDao.getCount(" from ProcardTemplate where markId =? ", cc.getChartNO());
+					 if(count>0){
+						 msg.append(cc.getChartNO()+"已在BOM中存在,禁用失败!<br/>");
+						 continue;
+					 }
+				}
+				cc.setIsuse("NO");
+				if(totalDao.update(cc)){
+					msg.append(cc.getChartNO()+"禁用成功!<br/>");
+				}
+			}
+			return msg.toString();
+		}
+		return "error";
+	}
+
+	@Override
+	public String cxsq(ChartNOSQ cq) {
+		if(cq!=null){
+			cq = (ChartNOSQ) totalDao.get(ChartNOSQ.class, cq.getId());
+			if("打回".equals(cq.getEpstatus())){
+				if (CircuitRunServerImpl.updateCircuitRun(cq.getEpId())) {
+					cq.setEpstatus("未审批");
+				}
+				return totalDao.update(cq)+"";
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public ChartNOSC findChartNOSQByid(Integer id) {
+		if(id!=null){
+			return (ChartNOSC) totalDao.get(ChartNOSC.class, id);
+		}
+		return null;
+	}
+
+	@Override
+	public void ChartNOSort() {
+		String hql = " FROM ChartNOSC where chartNO in (SELECT chartNO   FROM ChartNOSC  GROUP BY chartNO HAVING count(chartNO)>1)  " +
+				" and id not in (SELECT min(id)  from ChartNOSC  GROUP BY chartNO HAVING count(chartNO)>1 ) ORDER BY chartNO  ";
+		List<ChartNOSC> ccList =	totalDao.query(hql);
+	StringBuffer msg = new StringBuffer();
+		for (ChartNOSC chartNOSC : ccList) {
+			try {
+				if("数据库查询直接添加".equals(chartNOSC.getRemak())){
+					totalDao.delete(chartNOSC);
+					continue;
+				}
+				ChartNOSQ	chartnosq = new ChartNOSQ();
+					chartnosq.setSqNum(1);
+					Category category = (Category) totalDao.getObjectByCondition(" from Category where type= '编码' and name = ? ", chartNOSC.getType());
+					if(category!=null){
+						chartnosq.setCategoryId(category.getId());
+					}
+					ChartNOGzType gzType = null;
+					if(chartNOSC.getChartNO().indexOf("YT")>=0){
+						gzType = (ChartNOGzType) totalDao.getObjectByCondition(" from ChartNOGzType where type like 'YT%'");
+					}else{
+						gzType = (ChartNOGzType) totalDao.getObjectByCondition(" from ChartNOGzType where type like '"+chartNOSC.getChartNO().substring(0,2)+"%'");
+					}
+					if(gzType!=null){
+						chartnosq.setGztype(gzType.getType());
+					}
+					chartnosq =getfirstNo(chartnosq);
+				chartNOSC.setChartNO(chartnosq.getFirstNo());
+				String 	chartcode = Util.Formatnumber(chartnosq.getFirstNo());
+				chartNOSC.setChartcode(chartcode);
+				if(chartNOSC.getRemak()!=null){
+					chartNOSC.setRemak(chartNOSC.getRemak()+";重复后系统重新排序。");
+				}else{
+					chartNOSC.setRemak(";重复后系统重新排序。");
+				}
+				totalDao.update(chartNOSC);
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg.append(""+chartNOSC.getChartNO()+"\t"+e.toString() +"\n");
+			}
+		}
+		if(msg!=null && msg.length()>0){
+			throw new RuntimeException(msg.toString());
+		}
+	}
+
+	@Override
+	public String dealWithJumpLayer(String firstChartNO, String secondChartNO) {
+		Users user =	Util.getLoginUser();
+		if(user == null){
+			return "请先登录!~";
+		}
+		if(firstChartNO!=null && firstChartNO.length()>0
+				&& secondChartNO!=null && secondChartNO.length()>0){
+			StringBuffer msg = new StringBuffer("true");
+			try {
+				String   type = 	(String) totalDao.getObjectByCondition(" select type from ChartNOSC where chartNO =? ", firstChartNO);
+				String firstStr = Util.Formatnumber(firstChartNO);
+				String sencodStr = Util.Formatnumber(secondChartNO);
+				firstStr = firstStr.replaceAll("[A-Za-z]","");
+				sencodStr = sencodStr.replaceAll("[A-Za-z]", "");
+				String str = firstStr.replaceAll("[0-9]","" );
+				Integer firstNumber = Integer.parseInt(firstStr);
+				Integer sencodNumber = Integer.parseInt(sencodStr);
+				boolean bool = true;
+				int num =0;
+				for (int i = firstNumber+1; i <sencodNumber; i++) {
+					bool = false;
+					String chartcode = str+i;
+					String chartNO  = Util.numberFormat(chartcode, firstChartNO);
+					int count =	totalDao.getCount(" from ChartNOSC where chartNO = ? ", chartNO);
+					if(count==0){
+						ChartNOSC cc = new ChartNOSC();
+						cc.setChartcode(chartcode);
+						cc.setChartNO(chartNO);
+						cc.setType(type);
+						cc.setSjsqUsers(user.getName());
+						cc.setRemak("跳层问题，系统添加!~");
+						cc.setIsuse("YES");
+						totalDao.save(cc);
+						num++;
+					}else{
+						msg.append("<span type='color:red;'><b>图号:"+chartNO+"已存在，无需处理!~</b></span><br/>") ;
+					}
+					if(num%400 ==00){
+						totalDao.clear();
+					}
+					
+				}
+				if(bool){
+					return "别闹！~，咱按规则输入行吧!~";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg.append("<span type='color:red;'><b>解决跳层问题出错，请联系管理员!~</b></span><br/>") ;
+			}
+			if(!"true".equals(msg.toString())){
+				throw new RuntimeException(msg.toString());
+			}
+			return msg.toString();
+		}
+		return null;
+	}
+
+	@Override
+	public ChartNOSQ getCqByType(String type) {
+		if(type!=null){
+			ChartNOSQ cq = (ChartNOSQ) totalDao.getObjectByCondition(" from ChartNOSQ where type like '%"+type+"%'");
+			return cq;
+		}
+		return null;
+	}
+	
+	
+
+}

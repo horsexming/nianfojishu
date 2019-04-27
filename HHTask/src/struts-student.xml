@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-student" extends="struts-stack">
+		<!--
+			****************************************唐晓斌Action操作********************************************************************
+			**
+		-->
+		<!-- 公司信息管理 -->
+		<action name="attendClassAction_*" class="attendClassAction"
+			method="{1}">
+			<result name="lesson_add">/System/xinxi/lesson_add.jsp</result>
+			<result name="lesson_update">/System/xinxi/lesson_update.jsp</result>
+			<result name="lesson_attend">/System/xinxi/lesson_attend.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="initaddLesson" type="redirect">attendClassAction_initaddLesson.action?errorMessage=${errorMessage}&amp;cpage=${cpage}</result>
+			<result name="selectAttend">/System/xinxi/selectAttend.jsp</result>
+		</action>
+	</package>
+</struts>

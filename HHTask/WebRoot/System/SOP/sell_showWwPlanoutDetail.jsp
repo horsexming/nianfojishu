@@ -1,0 +1,233 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<h3>外委材料清单<h3/>
+			</div>
+			<div align="center">
+				<br/>
+				外委单号：${order.planNumber}&nbsp;&nbsp;&nbsp;供应商:${order.gysName}
+			</div>
+			<form action="sellAction!showWwclDetail2.action" method="post" onsubmit="valeData();">
+			<input type="hidden" value="${order.id}" name="id">
+			<input type="hidden" value="${barCode}" name="barCode">
+			<table class="table">
+				<tr bgcolor="#e6f3fb">
+					<th align="center">序号
+					</th>
+					<th align="center">件号
+					</th>
+					<th align="center">名称
+					</th>
+					<th align="center">工序号
+					</th>
+					<th align="center">名称
+					</th>
+					<th align="center">图号
+					</th>
+					<th align="center">数量
+					</th>
+					<th align="center">出库数量（正常+补料）
+					</th>
+					<th align="center">单位
+					</th>
+				</tr>
+				<s:iterator value="wwPlanList" id="pagewwplan" status="pageStatus">
+						<s:if test="#pageStatus.index%2==1">
+							<tr align="center" bgcolor="#e6f3fb"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#e6f3fb')">
+						</s:if>
+						<s:else>
+							<tr align="center"  onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'')">
+						</s:else>
+						<td>
+							<s:if test="#pageStatus.index%2==1">
+								<font>
+							</s:if>
+							<s:else>
+								<font color="#c0dcf2">
+							</s:else>
+							<s:property value="#pageStatus.index+1" />
+							</font>
+						</td>
+						<td align="left">
+							<input type="hidden"  value="${pagewwplan.id}" name="wwPlanList[<s:property value="#pageStatus.index" />].id">
+							${pagewwplan.markId}
+						</td>
+						<td align="left">
+							${pagewwplan.proName}
+						</td>
+						<td align="left">
+							${pagewwplan.processNOs}
+						</td>
+						<td align="left">
+							${pagewwplan.processNames}
+						</td>
+						<td align="left">
+							${pagewwplan.tuhao}
+						</td>
+						<td align="left">
+							${pagewwplan.number}
+						</td>
+						<s:if test="#pagewwplan.status=='设变锁定'">
+							<td align="left"><font color="red">设变锁定</font>
+							<input id="llcount<s:property value="#pageStatus.index" />" type="hidden"  value="0" name="wwPlanList[<s:property value="#pageStatus.index" />].number">
+							<input id="ddcount<s:property value="#pageStatus.index" />" type="hidden"  value="0" name="wwPlanList[<s:property value="#pageStatus.index" />].blNum">
+							
+						</td>
+						</s:if>
+						<s:else>
+						<td align="left">
+							<input id="llcount<s:property value="#pageStatus.index" />" type="text"  value="${pagewwplan.number}" name="wwPlanList[<s:property value="#pageStatus.index" />].number">
+							<s:if test="#pagewwplan.blNum==null">
+							<input id="ddcount<s:property value="#pageStatus.index" />" type="text"  value="0" name="wwPlanList[<s:property value="#pageStatus.index" />].blNum">
+							</s:if>
+							<s:else>
+								<input id="ddcount<s:property value="#pageStatus.index" />" type="text"  value="${pagewwplan.blNum}" name="wwPlanList[<s:property value="#pageStatus.index" />].blNum">
+							</s:else>
+							
+						</td>
+						</s:else>
+						
+						<td align="left">
+							${pagewwplan.unit}
+						</td>
+					</tr>
+					</s:iterator>
+					<tr>
+					<td align="center" colspan="14">
+					<input type="submit" id="tbn" value="确定" style="width: 80px;height: 40px;"/>
+					</td>
+					</tr>
+			</table>
+			</form>
+			<s:if test="listSell!=null&&listSell.size()>0">
+			<br/>
+				<table class="table">
+				<tr bgcolor="red">
+				<td align="center" colspan="14">历史出库
+				</td>
+				</tr>
+				<tr>
+				<th align="center">序号
+					</th>
+					<th align="center">件号
+					</th>
+					<th align="center">版本
+					</th>
+					<th align="center">名称
+					</th>
+					<th align="center">工序号
+					</th>
+					<th align="center">供料属性
+					</th>
+					<th align="center">批次
+					</th>
+					<th align="center">规格
+					</th>
+					<th align="center">仓库
+					</th>
+					<th align="center">仓区
+					</th>
+					<th align="center">库位
+					</th>
+					<th align="center">数量
+					</th>
+					<th align="center">单位
+					</th>
+					<th align="center">数量转换
+					</th>
+					<th align="center">转换单位
+					</th>
+				</tr>
+				<s:iterator value="listSell" id="pageSell">
+				<s:if test="#pageStatus.index%2==1">
+							<tr align="center" bgcolor="#e6f3fb"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#e6f3fb')">
+						</s:if>
+						<s:else>
+							<tr align="center"  onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'')">
+						</s:else>
+						<td>
+							<s:if test="#pageStatus.index%2==1">
+								<font>
+							</s:if>
+							<s:else>
+								<font color="#c0dcf2">
+							</s:else>
+							<s:property value="#pageStatus.index+1" />
+							</font>
+						</td>
+					<td align="left">${pageSell.sellMarkId}
+					</td>
+					<td align="left">${pageSell.banBenNumber}
+					</td>
+					<td align="left">${pageSell.sellGoods}
+					</td>
+					<td align="left">${pageSell.processNo}
+					</td>
+					<td align="left">${pageSell.kgliao}
+					</td>
+					<td align="left">${pageSell.sellLot}
+					</td>
+					<td align="left">${pageSell.sellFormat}
+					</td>
+<%--					<td align="center">图号${pageSell.}--%>
+<%--					</td>--%>
+					<td align="left">${pageSell.sellWarehouse}
+					</td>
+					<td align="left">${pageSell.goodHouseName}
+					</td>
+					<td align="left">${pageSell.kuwei}
+					</td>
+					<td align="right">${pageSell.sellCount}
+					</td>
+					<td align="left">${pageSell.sellUnit}
+					</td>
+					<td align="right">${pageSell.sellZhishu}
+					</td>
+					<td align="left">${pageSell.goodsStoreZHUnit}
+					</td>
+				</tr>
+				</s:iterator>
+				</table>
+			</s:if>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+<SCRIPT type="text/javascript">
+function valeData(){
+	$("#tbn").attr("disabled","disabled");
+}
+
+<%--var count = $("#listSize").val();--%>
+<%--var sureCount = 0;--%>
+function confirmGoods(obj, goodsMarkId,btnclass) {
+		$(".gid"+btnclass).removeAttr("disabled");
+		$(".btn"+btnclass).hide();
+		$(".fbtn"+btnclass).show();
+<%--		var len=$(".btn"+btnclass).length;--%>
+<%--		sureCount=sureCount+len;--%>
+<%--		count=count-len;--%>
+}
+</SCRIPT>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.ProcessMarkIdZijian" table="ta_sop_w_ProcessMarkIdZijian" >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="processStatus" />
+		<property name="parallelId" />
+		<property name="productStyle" />
+		<property name="isPrice" />
+		<property name="zjStatus" />
+		<property name="processTemplateId" />
+
+		<property name="gongwei" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+		<property name="operatorDept" />
+		<property name="operatorCode" />
+		<property name="operatorCardId" />
+		<property name="operatorName" />
+		<property name="operatorUserId" />
+		<property name="optechnologyRate" />
+		<property name="opCouldReplaceRate" />
+		<property name="opfuheRate" />
+		<property name="opcaozuojiepai" />
+		<property name="opshebeijiepai" />
+		<property name="opnoReplaceRate" />
+		<property name="opzonghezhishu" />
+		<property name="opzongheqiangdu" />
+		<property name="gztechnologyRate" />
+		<property name="gzCouldReplaceRate" />
+		<property name="gzfuheRate" />
+		<property name="gzzhunbeijiepai" />
+		<property name="gzzhunbeicishu" />
+		<property name="gznoReplaceRate" />
+		<property name="gzzonghezhishu" />
+		<property name="gzzongheqiangdu" />
+		<property name="processMomey" />
+		<property name="opjiaofu" />
+		<property name="singleDuration" />
+		<property name="deliveryDuration" />
+		
+		<property name="allJiepai" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="alldeliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		
+		<property name="zhuserId" />
+		<property name="gys" />
+		
+        
+      <!-- 【工序对应流水卡片(多对一)】 -->
+		<many-to-one name="gysMarkIdjiepai" lazy="false" class="com.tast.entity.zhaobiao.GysMarkIdjiepai"
+			cascade="save-update" column="fk_pricessTId" />
+      
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,189 @@
+package com.task.entity.sop.ycl;
+
+import java.io.Serializable;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 外购件库禁用申请（表 ta_sop_ycl_YuanclAndWaigjAppli）
+ * 
+ * @author lc
+ * 
+ */
+public class YuanclAndWaigjAppli implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private Integer yuanId;//外购件ID
+	@FieldMeta(name="物料类别")
+	private String wgType;//物料类别
+	@FieldMeta(name="件号")
+	private String markId;// 件号
+	@FieldMeta(name="名称")
+	private String name;// 名称
+	@FieldMeta(name="规格")
+	private String specification;//规格
+	@FieldMeta(name="版本号")
+	private String banbenhao;//版本号
+	private String banbenStatus;//版本状态(默认,历史（空则表示默认）,试用)
+	private String unit;// BOM用的单位
+	@FieldMeta(name="供料属性")
+	private String kgliao;//供料属性（TK 不指定，TK AVL 指定供应商，CS 客供，TK Price 完全指定）
+	@FieldMeta(name="图号")
+	private String tuhao;//图号(切换系统时，新旧系统对比用)	
+	private String style;//申请类型(禁用/使用)
+	@FieldMeta(name="备注")
+	private String remark;//备注
+	private Integer epId;//审批Id
+	private String status;//审批状态(未审批，审批中，同意)
+	private String addUserName;//添加人;
+	private String addUserCode;//添加人工号
+	private String addTime;//添加时间
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getYuanId() {
+		return yuanId;
+	}
+
+	public void setYuanId(Integer yuanId) {
+		this.yuanId = yuanId;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public String getWgType() {
+		return wgType;
+	}
+
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+	public String getBanbenhao() {
+		return banbenhao;
+	}
+
+	public void setBanbenhao(String banbenhao) {
+		this.banbenhao = banbenhao;
+	}
+
+	public String getBanbenStatus() {
+		return banbenStatus;
+	}
+
+	public void setBanbenStatus(String banbenStatus) {
+		this.banbenStatus = banbenStatus;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+	public String getTuhao() {
+		return tuhao;
+	}
+
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+}

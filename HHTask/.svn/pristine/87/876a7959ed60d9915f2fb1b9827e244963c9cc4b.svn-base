@@ -1,0 +1,258 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<form action="PrintedOutAction_addprint.action" method="post">
+					<p style="font-size: 20px;">
+						${companyInfo.name}
+					</p>
+					<p style="font-size: 20px;">
+						${companyInfo.englishName}
+					</p>
+					<p style="font-size: 20px;">
+						${printedOutOrder.type}
+						<input type="hidden" value="${printedOutOrder.type}"
+							name="poor.type" />
+					</p>
+					<br />
+					<table class="table">
+						<tr>
+							<th colspan="10" align="left" style="border: hidden;">
+								&nbsp;&nbsp;&nbsp;&nbsp;REV:00
+							</th>
+							<th colspan="3" align="left" style="border: hidden;">
+								&nbsp;&nbsp;&nbsp;&nbsp;QP750500-Z
+							</th>
+						</tr>
+						<tr>
+							<th colspan="10" align="left" style="border: hidden;">
+								<s:if test='printedOutOrder.type == "销售出库单"'>
+									&nbsp;&nbsp;&nbsp;&nbsp;送货地点:
+									<input type="text" value="" name="poor.shaddress" />
+								</s:if>
+								<s:elseif test='printedOutOrder.type == "生产领料单"'>
+									&nbsp;&nbsp;&nbsp;&nbsp;领料用途:
+									<input type="text" value="" name="poor.llyt" />
+								</s:elseif>
+							</th>
+							<th colspan="3" align="left" style="border: hidden;">
+								&nbsp;&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+								${printedOutOrder.planNum}
+								<input type="hidden" value="${printedOutOrder.planNum}"
+									name="poor.planNum" />
+							</th>
+						</tr>
+						<tr>
+							<s:if test='printedOutOrder.type == "销售出库单"'>
+								<th colspan="4" align="left" style="border-left: hidden;">
+									&nbsp;&nbsp;&nbsp;&nbsp;购货单位:
+									<input type="text" value="${printedOutOrder.kehuNmae}"
+										readonly="readonly" name="poor.kehuNmae" />
+								</th>
+								<th colspan="6" align="left"
+									style="border-left: hidden;">
+									&nbsp;&nbsp;&nbsp;&nbsp;送货单号:
+									<input type="text" value="${printedOutOrder.shPlanNum}"
+										name="poor.shPlanNum" />
+								</th>
+							</s:if>
+							<s:elseif test='printedOutOrder.type == "生产领料单"'>
+									<th colspan="10" align="left" style="">
+										&nbsp;&nbsp;&nbsp;&nbsp;领料部门:
+									<input type="text" value="" name="poor.lldept" />
+								</th>
+							</s:elseif>
+							<th colspan="3" align="left" style="border-left: hidden; border-right: hidden;">
+								&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;期:
+								<input type="text" value="${printedOutOrder.riqi}" class="Wdate"
+									name="poor.riqi"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" />
+							</th>
+						</tr>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								件号
+							</th>
+							<th>
+								业务件号
+							</th>
+							<th>
+								生产批次
+							</th>
+							<th>
+								产品名称
+							</th>
+							<th>
+								规格型号
+							</th>
+							<th>
+								图号
+							</th>
+							<th>
+								版本
+							</th>
+							<th>
+								单位
+							</th>
+							<th>
+								数量
+							</th>
+							<th>
+								外部订单号
+							</th>
+							<th>
+								仓区
+							</th>
+							<th>
+								内部订单号
+							</th>
+							<th>
+								备注
+							</th>
+						</tr>
+						<s:iterator value="list1" id="pageList" status="statusSdf">
+							<tr>
+								<th>
+									${statusSdf.index+1}
+								</th>
+								<th>
+									${pageList.markId}
+									<input type="hidden" value="${pageList.markId}"
+										name="poor.printedOutList[${statusSdf.index}].markId" />
+								</th>
+								<th>
+									${pageList.ywmarkId}
+									<input type="hidden" value="${pageList.ywmarkId}"
+										name="poor.printedOutList[${statusSdf.index}].ywmarkId" />
+									<input type="hidden" value="${pageList.entiyId}"
+										name="poor.printedOutList[${statusSdf.index}].entiyId" />
+								<input type="hidden" value="${pageList.entiyIds}"
+										name="poor.printedOutList[${statusSdf.index}].entiyIds" />
+								</th>
+								<th>
+									${pageList.selfCard}
+									<input type="hidden" value="${pageList.selfCard}"
+										name="poor.printedOutList[${statusSdf.index}].selfCard" />
+								</th>
+								<th>
+									${pageList.proNmae}
+									<input type="hidden" value="${pageList.proNmae}"
+										name="poor.printedOutList[${statusSdf.index}].proNmae" />
+								</th>
+								<th>
+									${pageList.format}
+									<input type="hidden" value="${pageList.format}"
+										name="poor.printedOutList[${statusSdf.index}].format" />
+								</th>
+								<th>
+									${pageList.tuhao}
+									<input type="hidden" value="${pageList.tuhao}"
+										name="poor.printedOutList[${statusSdf.index}].tuhao" />
+								</th>
+								<th>
+									${pageList.banbenNum}
+									<input type="hidden" value="${pageList.banbenNum}"
+										name="poor.printedOutList[${statusSdf.index}].banbenNum" />
+								</th>
+								<th>
+									${pageList.unit}
+									<input type="hidden" value="${pageList.unit}"
+										name="poor.printedOutList[${statusSdf.index}].unit" />
+								</th>
+								<th>
+									${pageList.num}
+									<input type="hidden" value="${pageList.num}"
+										name="poor.printedOutList[${statusSdf.index}].num" />
+								</th>
+								<th>
+									${pageList.waiOrderNum}
+									<input type="hidden" value="${pageList.waiOrderNum}"
+										name="poor.printedOutList[${statusSdf.index}].waiOrderNum" />
+								</th>
+								<th>
+									${pageList.cangqu}
+									<input type="hidden" value="${pageList.cangqu}"
+										name="poor.printedOutList[${statusSdf.index}].cangqu" />
+								</th>
+								<th>
+									${pageList.neiOrderNum}<br/>
+									(${pageList.suodingdanhao})
+									<input type="hidden" value="${pageList.neiOrderNum}"
+										name="poor.printedOutList[${statusSdf.index}].neiOrderNum" />
+										<input type="hidden" value="${pageList.suodingdanhao}"
+										name="poor.printedOutList[${statusSdf.index}].suodingdanhao" />
+								</th>
+								<th>
+									<input type="text" value=""
+										name="poor.printedOutList[${statusSdf.index}].rmeak" />
+								</th>
+							</tr>
+						</s:iterator>
+						<tr style="border-left: hidden; border-right: hidden;">
+							<th align="left" colspan="13">
+								<s:if test='printedOutOrder.type == "销售出库单"'>
+									审核:
+								</s:if>
+								<s:elseif test='printedOutOrder.type == "生产领料单"'>
+									领料员:
+								</s:elseif>
+								<input type="text" value="${printedOutOrder.reviewers}"
+									name="poor.reviewers" />
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<s:if test='printedOutOrder.type == "销售出库单"'>
+									业务员:
+								</s:if>
+								<s:elseif test='printedOutOrder.type == "生产领料单"'>
+									主管:
+								</s:elseif>
+								<input type="text" value="" name="poor.ywName" />
+								&nbsp;&nbsp;&nbsp;&nbsp; 仓管:
+								<input type="text" value="" name="poor.cgName" />
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<s:if test='printedOutOrder.type == "销售出库单"'>
+									品管:
+								</s:if>
+								<s:elseif test='printedOutOrder.type == "生产领料单"'>
+									仓库主管:
+								</s:elseif>
+								<input type="text" value="" name="poor.pgName" />
+								&nbsp;&nbsp;&nbsp;&nbsp; 制单:
+								<input type="text" value="${Users.name}" name="poor.addUsers" />
+							</th>
+						</tr>
+						<tr style="border: hidden;">
+							<th colspan="13" align="left">
+								第一白联：仓库&nbsp;&nbsp;文员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								第二红联：财务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								第二黄联：仓管
+							</th>
+						</tr>
+					</table>
+					<input type="hidden" value="${printedOutOrder.className}"
+						name="poor.className" />
+					<input type="submit" value="打印" class="input"
+						onclick="todisabled(this)" />
+			</div>
+			</form>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="CarAllowOneApp" table="ta_fin_carAllowOneApp">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" />
+		<property name="name" />
+		<property name="platenumber" />
+		<property name="oilcost" />
+		<property name="roadcost" />
+		<property name="parkcost" />
+		<property name="repaircost" />
+		<property name="Insurancecost" />
+		<property name="chongzhTime" />
+		<property name="fujian" />
+		<property name="more" />
+		<property name="invoNum" />
+		<property name="invoCode" />
+		<property name="status" />
+		<property name="epId" />
+		<!-- 个人申请对汇总表 多对一 -->
+		<many-to-one name="sumapp" class="CarAllowSumApp" column="ta_sumapp"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

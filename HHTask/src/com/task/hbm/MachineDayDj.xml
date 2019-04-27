@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.MachineDayDj" table="ta_MachineDayDj">
+		<id name="id" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="machineNo"/>
+		<property name="machineDay"/>
+		<property name="machineMonth"/>
+		<property name="machine_id" type="integer"/>
+		<property name="machine_djnr"/>
+		<property name="dj_status"/>
+	</class>
+
+</hibernate-mapping>

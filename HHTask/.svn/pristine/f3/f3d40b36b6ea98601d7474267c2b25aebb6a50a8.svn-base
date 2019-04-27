@@ -1,0 +1,584 @@
+package com.task.entity.sop.ycl;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.entity.zhuseroffer.ZhuserOffer;
+import com.task.util.FieldMeta;
+
+/**
+ * 原材料和外购件库（表 ta_sop_ycl_YuanclAndWaigj）
+ * 
+ * @author txb
+ * 
+ */
+public class YuanclAndWaigj {
+	private Integer id;
+	@FieldMeta(name="之前的物料别")
+	private String wgType;//物料类别
+	@FieldMeta(name="件号")
+	private String markId;// 件号
+	@FieldMeta(name="名称")
+	private String name;// 名称
+	@FieldMeta(name="规格")
+	private String specification;//规格 
+	private String caizhi;//材质（如：SPCC,SGCC,铝。。。。）
+	@FieldMeta(name="版本号")
+	private String banbenhao;//版本号
+	private String banbenStatus;//版本状态(默认,历史（空则表示默认）,试用)
+	private Float bili;//比重（1块材料多少kg）
+	private String unit;// BOM用的单位
+	@FieldMeta(name="供料属性")
+	private String kgliao;//供料属性（TK 不指定，TK AVL 指定供应商，CS 客供，TK Price 完全指定）
+	private String tuhao;//图号(切换系统时，新旧系统对比用)	
+	private String ckUnit;//仓库用的单位	
+	private String remark;//备注
+	private String status;//状态（使用,已确认,禁用,默认使用）后续新增外购件，评审流程使用
+	private String jystatus;//禁用/解禁申请状态(禁用申请中/禁用已同意/使用申请中/使用已同意)
+	private String zcMarkId;//总成号
+	
+	private Float round;//检验周期（品入库时，计算应检验时间。用于库存超期复检提醒）
+	private String pricestatus;//价格状态(有效,失效,新增);
+	private String baojiastatus;//报价状态
+	private Set<ZhuserOffer> zhuserOfferSet;
+	private String addUserName;//添加人;
+	private String addUserCode;//添加人工号
+	private String addTime;//添加时间
+	private String clClass;// 材料类型---待禁用（外购件,原材料,辅料）
+	private String trademark;// 牌号---待禁用
+	private String productStyle;//产品类型(试制，批产)
+	@FieldMeta(name="将要改成的物料类别")
+	private String newwgType;//将要改成的物料类别;
+	private Float areakg;//每公斤使用面积
+	private Float density;//密度
+	private Float minkc;//最小库存量；低于此库存开始自动采购（为null时不考虑）
+	private Float cgcount;//安全库存采购的采购量
+	private Float maxkc;//最大库存量；库存允许的最大库存量（为null时不考虑）
+	private Float cgperiod;//采购周期
+	private Integer ltdengji;
+	private Integer ltuse;
+	private Integer epId;
+	private Integer jyepId;//禁用审批id
+	private String epStatus;
+	private String bjStartDate;//报价开始日期
+	private String bjEndDate;//报价结束日期
+	private String importance;//重要性
+	
+	private Integer avgCount;//计算次数
+	private Integer avgProductionTakt;//生产节拍(s)
+	private Float avgDeliveryTime;//配送时长(d)
+	private Integer sunhaoType;//损耗值类型(0为百分比类型  ；1为固定值类型)
+	private Float sunhao;//损耗值
+	private String iszyl;//是，否	是否为专用料
+	
+	private String cangqu;//仓区(页面传值)
+	private Float kcCount;//库存数量(页面传值)
+	private Float ztCount;//在途数量(页面传值)
+	private Float zyCount;//占用数量(页面传值)
+	private Float dzCount;//呆滞数量(页面传值)
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getJyepId() {
+		return jyepId;
+	}
+
+	public void setJyepId(Integer jyepId) {
+		this.jyepId = jyepId;
+	}
+
+	public String getJystatus() {
+		return jystatus;
+	}
+
+	public void setJystatus(String jystatus) {
+		this.jystatus = jystatus;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public String getTrademark() {
+		return trademark;
+	}
+
+	public void setTrademark(String trademark) {
+		this.trademark = trademark;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		if(specification!=null && specification!="") {
+			specification = specification.replace("'","’");
+		}
+		this.specification = specification;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getClClass() {
+		return clClass;
+	}
+
+	public void setClClass(String clClass) {
+		this.clClass = clClass;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCkUnit() {
+		return ckUnit;
+	}
+
+	public void setCkUnit(String ckUnit) {
+		this.ckUnit = ckUnit;
+	}
+
+	public String getBanbenhao() {
+		return banbenhao;
+	}
+
+	public void setBanbenhao(String banbenhao) {
+		this.banbenhao = banbenhao;
+	}
+
+	public String getZcMarkId() {
+		return zcMarkId;
+	}
+
+	public void setZcMarkId(String zcMarkId) {
+		this.zcMarkId = zcMarkId;
+	}
+
+	public String getCaizhi() {
+		return caizhi;
+	}
+
+	public void setCaizhi(String caizhi) {
+		this.caizhi = caizhi;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+    public void setPageObj(YuanclAndWaigj pageObj){
+    	this.markId=pageObj.getMarkId();// 件号
+    	this.name=pageObj.getName();// 名称
+//    	this.trademark=pageObj.getTrademark();// 牌号
+    	this.specification=pageObj.getSpecification();// 规格
+    	this.unit=pageObj.getUnit();// BOM用的单位
+    	this.ckUnit=pageObj.getCkUnit();//仓库用的单位
+    	this.banbenhao=pageObj.getBanbenhao();//版本号
+    	this.zcMarkId=pageObj.getZcMarkId();//总成号
+    	this.clClass=pageObj.getClClass();// 材料类型（外购件,原材料,辅料）
+    	this.caizhi=pageObj.getCaizhi();//材质（如：五金、塑胶。。。。）
+    	this.remark=pageObj.getRemark();//备注
+    	this.bili=pageObj.getBili();//比重
+    	this.tuhao=pageObj.getTuhao();//图号 
+    	this.kgliao=pageObj.getKgliao();//图号 
+    	this.round=pageObj.getRound();//质检周期;
+    	this.wgType=pageObj.getWgType();//
+    	this.areakg=pageObj.getAreakg();//每公斤喷粉面积
+    	this.density=pageObj.getDensity();//密度
+    	this.importance=pageObj.getImportance();//密度
+    }
+    public void setPageObj2(YuanclAndWaigj pageObj){
+    	this.markId=pageObj.getMarkId();// 件号
+    	this.name=pageObj.getName();// 名称
+//    	this.trademark=pageObj.getTrademark();// 牌号
+    	this.specification=pageObj.getSpecification();// 规格
+    	this.unit=pageObj.getUnit();// BOM用的单位
+    	this.ckUnit=pageObj.getCkUnit();//仓库用的单位
+    	this.banbenhao=pageObj.getBanbenhao();//版本号
+    	this.zcMarkId=pageObj.getZcMarkId();//总成号
+    	this.clClass=pageObj.getClClass();// 材料类型（外购件,原材料,辅料）
+    	this.caizhi=pageObj.getCaizhi();//材质（如：五金、塑胶。。。。）
+    	this.remark=pageObj.getRemark();//备注
+    	this.bili=pageObj.getBili();//比重
+    	this.tuhao=pageObj.getTuhao();//图号 
+    	this.round=pageObj.getRound();//质检周期;
+    	this.wgType=pageObj.getWgType();//
+    	this.areakg=pageObj.getAreakg();//每公斤喷粉面积
+    	this.density=pageObj.getDensity();//密度
+    	this.importance=pageObj.getImportance();//密度
+    }
+
+	public Float getBili() {
+		return bili;
+	}
+
+	public void setBili(Float bili) {
+		this.bili = bili;
+	}
+
+	public String getTuhao() {
+		return tuhao;
+	}
+
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+	public Float getRound() {
+		return round;
+	}
+
+	public void setRound(Float round) {
+		this.round = round;
+	}
+	public void copyFromPt(ProcardTemplate pt){
+		this.markId=pt.getMarkId();// 件号
+    	this.name=pt.getProName();// 名称
+//    	this.trademark=pageObj.getTrademark();// 牌号
+    	this.specification=pt.getSpecification();// 规格
+    	this.unit=pt.getUnit();// BOM用的单位
+//    	this.ckUnit=pageObj.getCkUnit();//仓库用的单位
+    	this.banbenhao=pt.getBanBenNumber();//版本号
+//    	this.zcMarkId=pageObj.getZcMarkId();//总成号
+    	this.clClass=pt.getClClass();// 材料类型（外购件,原材料,辅料）
+    	this.caizhi=pt.getCaizhi();//材质（如：五金、塑胶。。。。）
+//    	this.remark=pageObj.getRemark();//备注
+//    	this.bili=pageObj.getBili();//比重
+    	this.tuhao=pt.getTuhao();//图号 
+//    	this.kgliao=pageObj.getKgliao();//图号 
+//    	this.round=pageObj.getRound();//质检周期;
+	}
+	public void copyFromPtAndBanben(ProcardTemplate pt,String banben){
+		this.markId=pt.getMarkId();// 件号
+		this.name=pt.getProName();// 名称
+//    	this.trademark=pageObj.getTrademark();// 牌号
+		this.specification=pt.getSpecification();// 规格
+		this.unit=pt.getUnit();// BOM用的单位
+//    	this.ckUnit=pageObj.getCkUnit();//仓库用的单位
+		this.banbenhao=banben;//版本号
+//    	this.zcMarkId=pageObj.getZcMarkId();//总成号
+		this.clClass=pt.getClClass();// 材料类型（外购件,原材料,辅料）
+		this.caizhi=pt.getCaizhi();//材质（如：五金、塑胶。。。。）
+//    	this.remark=pageObj.getRemark();//备注
+//    	this.bili=pageObj.getBili();//比重
+		this.tuhao=pt.getTuhao();//图号 
+//    	this.kgliao=pageObj.getKgliao();//图号 
+//    	this.round=pageObj.getRound();//质检周期;
+	}
+
+	public String getWgType() {
+		return wgType;
+	}
+
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+
+	public String getPricestatus() {
+		return pricestatus;
+	}
+
+	public void setPricestatus(String pricestatus) {
+		this.pricestatus = pricestatus;
+	}
+	@JSONField(serialize = false)
+	public Set<ZhuserOffer> getZhuserOfferSet() {
+		return zhuserOfferSet;
+	}
+	public void setZhuserOfferSet(Set<ZhuserOffer> zhuserOfferSet) {
+		this.zhuserOfferSet = zhuserOfferSet;
+	}
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	public String getBanbenStatus() {
+		return banbenStatus;
+	}
+
+	public void setBanbenStatus(String banbenStatus) {
+		this.banbenStatus = banbenStatus;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getEpStatus() {
+		return epStatus;
+	}
+
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+
+	public String getNewwgType() {
+		return newwgType;
+	}
+
+	public void setNewwgType(String newwgType) {
+		this.newwgType = newwgType;
+	}
+
+	public Float getAreakg() {
+		return areakg;
+	}
+
+	public void setAreakg(Float areakg) {
+		this.areakg = areakg;
+	}
+
+	public Float getDensity() {
+		return density;
+	}
+
+	public void setDensity(Float density) {
+		this.density = density;
+	}
+
+	public Float getMinkc() {
+		return minkc;
+	}
+
+	public void setMinkc(Float minkc) {
+		this.minkc = minkc;
+	}
+
+	public Float getCgcount() {
+		return cgcount;
+	}
+
+	public void setCgcount(Float cgcount) {
+		this.cgcount = cgcount;
+	}
+
+	public Float getCgperiod() {
+		return cgperiod;
+	}
+
+	public void setCgperiod(Float cgperiod) {
+		this.cgperiod = cgperiod;
+	}
+
+	public Integer getLtdengji() {
+		return ltdengji;
+	}
+
+	public void setLtdengji(Integer ltdengji) {
+		this.ltdengji = ltdengji;
+	}
+
+	public Integer getLtuse() {
+		return ltuse;
+	}
+
+	public void setLtuse(Integer ltuse) {
+		this.ltuse = ltuse;
+	}
+
+	public Integer getAvgCount() {
+		return avgCount;
+	}
+
+	public void setAvgCount(Integer avgCount) {
+		this.avgCount = avgCount;
+	}
+
+	public Integer getAvgProductionTakt() {
+		return avgProductionTakt;
+	}
+
+	public void setAvgProductionTakt(Integer avgProductionTakt) {
+		this.avgProductionTakt = avgProductionTakt;
+	}
+
+	public Float getAvgDeliveryTime() {
+		return avgDeliveryTime;
+	}
+
+	public void setAvgDeliveryTime(Float avgDeliveryTime) {
+		this.avgDeliveryTime = avgDeliveryTime;
+	}
+
+	public String getBjStartDate() {
+		return bjStartDate;
+	}
+
+	public void setBjStartDate(String bjStartDate) {
+		this.bjStartDate = bjStartDate;
+	}
+
+	public String getBjEndDate() {
+		return bjEndDate;
+	}
+
+	public void setBjEndDate(String bjEndDate) {
+		this.bjEndDate = bjEndDate;
+	}
+
+	public String getImportance() {
+		return importance;
+	}
+
+	public void setImportance(String importance) {
+		this.importance = importance;
+	}
+
+	
+	public Integer getSunhaoType() {
+		return sunhaoType;
+	}
+
+	public void setSunhaoType(Integer sunhaoType) {
+		this.sunhaoType = sunhaoType;
+	}
+
+	public Float getSunhao() {
+		return sunhao;
+	}
+
+	public void setSunhao(Float sunhao) {
+		this.sunhao = sunhao;
+	}
+
+	public String getCangqu() {
+		return cangqu;
+	}
+
+	public void setCangqu(String cangqu) {
+		this.cangqu = cangqu;
+	}
+
+	public Float getKcCount() {
+		return kcCount;
+	}
+
+	public void setKcCount(Float kcCount) {
+		this.kcCount = kcCount;
+	}
+
+	public Float getZtCount() {
+		return ztCount;
+	}
+
+	public void setZtCount(Float ztCount) {
+		this.ztCount = ztCount;
+	}
+
+	public Float getZyCount() {
+		return zyCount;
+	}
+
+	public void setZyCount(Float zyCount) {
+		this.zyCount = zyCount;
+	}
+
+	public Float getDzCount() {
+		return dzCount;
+	}
+
+	public void setDzCount(Float dzCount) {
+		this.dzCount = dzCount;
+	}
+
+	public Float getMaxkc() {
+		return maxkc;
+	}
+
+	public void setMaxkc(Float maxkc) {
+		this.maxkc = maxkc;
+	}
+
+	public String getIszyl() {
+		return iszyl;
+	}
+
+	public void setIszyl(String iszyl) {
+		this.iszyl = iszyl;
+	}
+
+	public String getBaojiastatus() {
+		return baojiastatus;
+	}
+
+	public void setBaojiastatus(String baojiastatus) {
+		this.baojiastatus = baojiastatus;
+	}
+	
+	
+	
+}

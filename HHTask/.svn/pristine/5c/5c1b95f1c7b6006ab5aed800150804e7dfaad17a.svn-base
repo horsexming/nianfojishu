@@ -1,0 +1,102 @@
+package com.task.entity.sop;
+
+/***
+ * 区块用户
+ * 表名（ta_sop_BlockUsers）
+ * @author 刘培
+ * 
+ */
+public class BlockUsers {
+
+	private Integer id;
+	private String userId;// 用户id
+	private String userCode;// 用户工号
+	private String userCard;// 用户卡号
+	private String userDept;// 用户部门
+	private String userName;// 用户名称
+	private String addDatatime;// 添加时间
+	private Integer blockId;//领取区块id
+	private String blockStatus;//领取状态
+	private Block block;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public String getUserDept() {
+		return userDept;
+	}
+
+	public void setUserDept(String userDept) {
+		this.userDept = userDept;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getAddDatatime() {
+		return addDatatime;
+	}
+
+	public void setAddDatatime(String addDatatime) {
+		this.addDatatime = addDatatime;
+	}
+
+	public Block getBlock() {
+		return block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	public String getUserCard() {
+		return userCard;
+	}
+
+	public void setUserCard(String userCard) {
+		this.userCard = userCard;
+	}
+
+	public Integer getBlockId() {
+		return blockId;
+	}
+
+	public void setBlockId(Integer blockId) {
+		this.blockId = blockId;
+	}
+
+	public String getBlockStatus() {
+		return blockStatus;
+	}
+
+	public void setBlockStatus(String blockStatus) {
+		this.blockStatus = blockStatus;
+	}
+
+}

@@ -1,0 +1,243 @@
+package com.task.entity.sop;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 生产退料申请单:(ta_sop_w_SCTuiliaoSqDan)
+ * @author 王晓飞;
+ *
+ */
+public class SCTuiliaoSqDan implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	
+	private Integer id;
+	@FieldMeta(name="件号")
+	private String markId;//件号
+	@FieldMeta(name="零件名称")
+	private String proName;//零件名称
+	@FieldMeta(name="总成件号")
+	private String rootmarkId;//总成件号
+	@FieldMeta(name="总成批次")
+	private String rootLotId;//总成批次
+	@FieldMeta(name="生产批次")
+	private String selfCard;//生产批次
+	@FieldMeta(name="追踪批次")
+	private String examineLot;//检验批次
+	@FieldMeta(name="卡片类型")
+	private String procardStyle;//卡片类型(总成，外购，自制)
+	@FieldMeta(name="产品类型")
+	private String productStyle;// 产品类型(试制，批产)
+	@FieldMeta(name="版本号")
+	private String banBenNumber;// 版本号
+	@FieldMeta(name="图号")
+	private String tuhao;// 图号
+	@FieldMeta(name="物料类别")
+	private String wgType;// 物料类别
+	@FieldMeta(name="规格")
+	private String specification;// 规格
+	private Integer zhuserId;// 供应商的Id
+	private String gys;// 供应商
+	@FieldMeta(name="供料属性")
+	private String kgliao;// 供料属性（TK/TK AVL/TK Price/CS）
+	@FieldMeta(name="领料数量")
+	private Float llNumber;//领料数量 
+	private Integer procardId;
+	@FieldMeta(name="退料原因")
+	private String tlyuanyin;//退料原因
+	@FieldMeta(name="退料数量")
+	private Float tlNumber;//退料数量;
+	private String epStatus;//审批状态
+	private Integer epId;//
+	private String unit;// 单位
+	private Integer priceId;// 价格表Id
+	private Float hsPrice;// 含税价
+	private Float bhsPrice;// 不含税价
+	private Float taxprice;// 税率；
+	private String addTime;//添加时间
+	@FieldMeta(name="申请人")
+	private String adduser;//添加人
+	private String addusercode;//添加人工号
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getSelfCard() {
+		return selfCard;
+	}
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+	public String getExamineLot() {
+		return examineLot;
+	}
+	public void setExamineLot(String examineLot) {
+		this.examineLot = examineLot;
+	}
+	public String getProcardStyle() {
+		return procardStyle;
+	}
+	public void setProcardStyle(String procardStyle) {
+		this.procardStyle = procardStyle;
+	}
+	public String getProductStyle() {
+		return productStyle;
+	}
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+	public String getBanBenNumber() {
+		return banBenNumber;
+	}
+	public void setBanBenNumber(String banBenNumber) {
+		this.banBenNumber = banBenNumber;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public Integer getZhuserId() {
+		return zhuserId;
+	}
+	public void setZhuserId(Integer zhuserId) {
+		this.zhuserId = zhuserId;
+	}
+	public String getGys() {
+		return gys;
+	}
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public Float getLlNumber() {
+		return llNumber;
+	}
+	public void setLlNumber(Float llNumber) {
+		this.llNumber = llNumber;
+	}
+	public Integer getProcardId() {
+		return procardId;
+	}
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+	public String getTlyuanyin() {
+		return tlyuanyin;
+	}
+	public void setTlyuanyin(String tlyuanyin) {
+		this.tlyuanyin = tlyuanyin;
+	}
+	public Float getTlNumber() {
+		return tlNumber;
+	}
+	public void setTlNumber(Float tlNumber) {
+		this.tlNumber = tlNumber;
+	}
+	public String getEpStatus() {
+		return epStatus;
+	}
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAdduser() {
+		return adduser;
+	}
+	public void setAdduser(String adduser) {
+		this.adduser = adduser;
+	}
+	public String getAddusercode() {
+		return addusercode;
+	}
+	public void setAddusercode(String addusercode) {
+		this.addusercode = addusercode;
+	}
+	public Integer getPriceId() {
+		return priceId;
+	}
+	public void setPriceId(Integer priceId) {
+		this.priceId = priceId;
+	}
+	public Float getHsPrice() {
+		return hsPrice;
+	}
+	public void setHsPrice(Float hsPrice) {
+		this.hsPrice = hsPrice;
+	}
+	public Float getBhsPrice() {
+		return bhsPrice;
+	}
+	public void setBhsPrice(Float bhsPrice) {
+		this.bhsPrice = bhsPrice;
+	}
+	public Float getTaxprice() {
+		return taxprice;
+	}
+	public void setTaxprice(Float taxprice) {
+		this.taxprice = taxprice;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getRootmarkId() {
+		return rootmarkId;
+	}
+	public void setRootmarkId(String rootmarkId) {
+		this.rootmarkId = rootmarkId;
+	}
+	public String getRootLotId() {
+		return rootLotId;
+	}
+	public void setRootLotId(String rootLotId) {
+		this.rootLotId = rootLotId;
+	}
+	
+	
+	
+}

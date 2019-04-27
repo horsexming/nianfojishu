@@ -1,0 +1,183 @@
+/**
+ * 
+ */
+package com.huawei.openapi.openaipexample.client.http;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author wWX345526
+ * @createTime 2016年6月30日
+ * @JDK 1.7
+ */
+public class TokenUtil {
+	/* 测试接口 */
+	// private final static String key = "fvnIMtlJLPg7QEjfDPT3zUP4MGYa";
+	// private final static String secury = "0ujInpvopXTx0dW9hBue_GyLxAka";
+	// private final static String TokenURL =
+	// "https://api-beta.huawei.com:443/oauth2/token";
+	/* 正式接口 */
+	private final static String key = "_llWqaIdFCH85Nw4P_otBTjAeqwa";
+	private final static String secury = "T2DOOByeEfIjT0GhfAIKJJGcsvca";
+	private final static String TokenURL = "https://openapi.huawei.com:443/oauth2/token";
+
+	private static volatile long expires;
+	private static volatile Map<String, String> tokenMap;
+	private static TokenUtil tokenUtil;
+	// 标志一个对象锁
+	private final static Object lock = new Object();
+	public final static String SCOPE = "scope";
+	public final static String EXPIRES_IN = "expires_in";
+	public final static String TOKEN_TYPE = "token_type";
+	public final static String ACCESS_TOKEN = "access_token";
+
+	private TokenUtil() {
+	}
+
+	public static TokenUtil instance() {
+		if (tokenUtil == null) {
+			synchronized (lock) {
+				if (tokenUtil == null) {
+					tokenUtil = new TokenUtil();
+				}
+			}
+		}
+		return tokenUtil;
+	}
+
+	/**
+	 * get Token
+	 * 
+	 * @return token
+	 */
+	public synchronized String getToken() {
+		long currentTimeMillis = System.currentTimeMillis();
+		if (expires <= currentTimeMillis) {// 判断时间轴是否大于
+			Map<String, String> mapToken = getAccessToken();
+			String strExpires = mapToken.get(EXPIRES_IN);
+			long lExpires = Long.parseLong(strExpires);
+			boolean min = lExpires <= 5;
+			while (min) {// 小于5秒的token重新获取,服务端被设置为5秒获取新token
+				mapToken = getAccessToken();
+				strExpires = mapToken.get(EXPIRES_IN);
+				lExpires = Long.parseLong(strExpires);
+				min = lExpires > 5;
+			}
+			// 设置时间轴
+			expires = System.currentTimeMillis() + (lExpires - 5) * 1000;
+			// 缓存token
+			tokenMap = mapToken;
+		}
+		return tokenMap.get(ACCESS_TOKEN);
+	}
+
+	// HTTP send Request TOKEN
+	private String sendRequestToken() throws Exception {
+		URL postUrl = new URL(TokenURL);
+		String strJson = "";
+		OutputStream output = null;
+		BufferedReader reader = null;
+		HttpURLConnection connection = (HttpURLConnection) postUrl
+				.openConnection();
+		try {
+			connection.setRequestMethod("GET");
+			connection.setDoOutput(true);
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			connection.setConnectTimeout(20000);
+			// HTTP Authorization
+			connection.setRequestProperty("Authorization", "Basic "
+					+ getBaseEcode64(key, secury).trim());
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			// Request input content
+			output = connection.getOutputStream();
+			output.write("grant_type=client_credentials".getBytes());
+			output.flush();
+			output.close();
+			reader = new BufferedReader(new InputStreamReader(connection
+					.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				strJson = line + strJson;
+			}
+			reader.close();
+			connection.disconnect();
+			return strJson;
+		} catch (Exception e) {
+			System.out.println("get the open api token has error:   "
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if (output != null) {
+				output.close();
+			}
+			if (reader != null) {
+				reader.close();
+			}
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+		return strJson;
+	}
+
+	private Map<String, String> getAccessToken() {
+		Map<String, String> jsonToMap = null;
+		try {
+			String strJson = sendRequestToken();
+			jsonToMap = jsonToMap(strJson);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return jsonToMap;
+	}
+
+	private String getBaseEcode64(String key, String secury) {
+		return new sun.misc.BASE64Encoder().encode(
+				(key + ":" + secury).getBytes()).trim();
+	}
+
+	private Map<String, String> jsonToMap(String strJson) {
+		Map<String, String> mapJson = new HashMap<String, String>();
+		if (strJson == null || "".equals(strJson)) {
+			return mapJson;
+		}
+		strJson = strJson.replaceFirst("^\\{", "");
+		strJson = strJson.replaceFirst("}$", "");
+		String[] arrStr = strJson.split(",");
+		String[] arrStrKV = null;
+		String strK = null, strV = null;
+		for (int i = 0; i < arrStr.length; i++) {
+			arrStrKV = arrStr[i].split(":");
+			strK = arrStrKV[0].replaceAll("\"", "").toLowerCase();
+			strV = arrStrKV[1].replaceAll("\"", "");
+			mapJson.put(strK, strV);
+		}
+		return mapJson;
+	}
+
+	public static HttpURLConnection getConnection(String url)
+			throws IOException {
+		URL postUrl = new URL(url);
+		HttpURLConnection connection = (HttpURLConnection) postUrl
+				.openConnection();
+		connection.setDoOutput(true);
+		connection.setDoInput(true);
+		connection.setUseCaches(false);
+		connection.setInstanceFollowRedirects(true);
+		connection.setRequestProperty("Connection", "Keep-Alive");
+		connection.setRequestProperty("Charset", "UTF-8");
+		connection.addRequestProperty("Authorization", "Bearer "
+				+ TokenUtil.instance().getToken());// 有权限认证的服务必须加上认证
+		return connection;
+	}
+}

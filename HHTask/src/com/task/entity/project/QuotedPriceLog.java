@@ -1,0 +1,81 @@
+package com.task.entity.project;
+
+import java.io.Serializable;
+
+/**
+ * 报价系统跟踪日志
+ * 
+ *@表名 ta_pro_QuotedPriceLog
+ * 
+ * @author txb
+ * 
+ */
+public class QuotedPriceLog implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+ private Integer id;//主键id
+ private Integer rootId;//绑定的报价系统的根id
+
+ private String title;//标题
+ private String msg;//内容文本
+ private Float money;//涉及金额
+ private String time;//日志生成时间
+ private String userName;//日志添加人姓名
+ private String code;//日志添加人工号
+ private String accessory;//附件
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public Integer getRootId() {
+	return rootId;
+}
+public void setRootId(Integer rootId) {
+	this.rootId = rootId;
+}
+public String getTitle() {
+	return title;
+}
+public void setTitle(String title) {
+	this.title = title;
+}
+public String getMsg() {
+	return msg;
+}
+public void setMsg(String msg) {
+	this.msg = msg;
+}
+public Float getMoney() {
+	return money;
+}
+public void setMoney(Float money) {
+	this.money = money;
+}
+public String getTime() {
+	return time;
+}
+public void setTime(String time) {
+	this.time = time;
+}
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
+}
+public String getCode() {
+	return code;
+}
+public void setCode(String code) {
+	this.code = code;
+}
+public String getAccessory() {
+	return accessory;
+}
+public void setAccessory(String accessory) {
+	this.accessory = accessory;
+}
+
+ 
+}

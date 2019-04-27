@@ -1,0 +1,115 @@
+package com.task.entity;
+
+import java.util.List;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+
+
+/**
+ * 
+ * @author wxf
+ *设备日运行时长表 表名：ta_MachineDayYZSJ
+ */
+public class MachineDayYZSJ  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private String machineNo;//设备编号;
+	private String machineday;//设备点检日期; yyyy-MM-dd
+	private String machineMonth;//设备点检月份;
+	private Integer machine_id;//设备Id
+	private Double machineYZSJ;//设备运转时间;
+	private Double machineYZSJ2;//计算工序得到的设备运转时间
+	private Double machineWXSJ;//设备维修时间;
+	private Double machineTZSJ;//设备停转时间;
+	private String jiadonglv;//稼动率;（总运转时间/8h）
+	private Set<MachineDayDj> mdd;//设备日点检（一对一）
+	private List<MachineDayDj> mddList;
+	private String dj_status; //点检状态(已点检，点检中,null)领取工序是点检一次，提交时点检一次。
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMachineNo() {
+		return machineNo;
+	}
+	public void setMachineNo(String machineNo) {
+		this.machineNo = machineNo;
+	}
+	public String getMachineMonth() {
+		return machineMonth;
+	}
+	public void setMachineMonth(String machineMonth) {
+		this.machineMonth = machineMonth;
+	}
+	public Integer getMachine_id() {
+		return machine_id;
+	}
+	public void setMachine_id(Integer machineId) {
+		machine_id = machineId;
+	}
+	public Double getMachineYZSJ() {
+		return machineYZSJ;
+	}
+	public void setMachineYZSJ(Double machineYZSJ) {
+		this.machineYZSJ = machineYZSJ;
+	}
+	public Double getMachineWXSJ() {
+		return machineWXSJ;
+	}
+	public void setMachineWXSJ(Double machineWXSJ) {
+		this.machineWXSJ = machineWXSJ;
+	}
+	public Double getMachineTZSJ() {
+		return machineTZSJ;
+	}
+	public void setMachineTZSJ(Double machineTZSJ) {
+		this.machineTZSJ = machineTZSJ;
+	}
+	public String getMachineday() {
+		return machineday;
+	}
+	public void setMachineday(String machineday) {
+		this.machineday = machineday;
+	}
+	@JSONField(serialize = false)
+	public Set<MachineDayDj> getMdd() {
+		return mdd;
+	}
+	public void setMdd(Set<MachineDayDj> mdd) {
+		this.mdd = mdd;
+	}
+	public List<MachineDayDj> getMddList() {
+		return mddList;
+	}
+	public void setMddList(List<MachineDayDj> mddList) {
+		this.mddList = mddList;
+	}
+	public String getJiadonglv() {
+		return jiadonglv;
+	}
+	public void setJiadonglv(String jiadonglv) {
+		this.jiadonglv = jiadonglv;
+	}
+	public String getDj_status() {
+		return dj_status;
+	}
+	public void setDj_status(String djStatus) {
+		dj_status = djStatus;
+	}
+	public Double getMachineYZSJ2() {
+		return machineYZSJ2;
+	}
+	public void setMachineYZSJ2(Double machineYZSJ2) {
+		this.machineYZSJ2 = machineYZSJ2;
+	}
+	
+	
+	
+	
+}

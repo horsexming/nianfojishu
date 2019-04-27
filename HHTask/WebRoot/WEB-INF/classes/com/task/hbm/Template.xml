@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Template" table="ta_hr_template">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="50" not-null="true" column="ta_hr_name" />
+		<property name="assObject" length="50" column="ta_hr_assObject" />
+		<property name="asstMouth" length="10" column="ta_hr_asstMouth" />
+		<property name="customDate" length="20" column="ta_hr_customDate" />
+		<property name="customProple" length="20" column="ta_hr_customProple" />
+		<property name="customUserId" column="ta_hr_customUserId"></property>
+		<property name="cardId" length="20" column="ta_hr_cardId" />
+		<property name="auditPeople" length="20" column="ta_hr_auditPeople" />
+		<property name="dept" length="20" column="ta_hr_dept" />
+		<property name="status" length="10" column="ta_hr_status" />
+		<property name="remarks" length="500" column="ta_hr_remarks" />
+		<property name="epId" />
+		<property name="type" />
+
+		<!-- 模板对明细 -->
+		<set name="templateDetails" lazy="false" inverse="false" cascade="all"
+			order-by="id">
+			<key column="ta_hr_templateId"></key>
+			<one-to-many class="TemplateDetails" />
+		</set>
+
+		<!--模版对成员  -->
+		<set name="assessPersonnel" table="ta_sys_usersTemplate" lazy="false"
+			inverse="true" cascade="save-update">
+			<key column="templateId"></key>
+			<many-to-many class="com.task.entity.zgkh.AssessPersonnel"
+				column="userId" />
+		</set>
+	</class>
+</hibernate-mapping>

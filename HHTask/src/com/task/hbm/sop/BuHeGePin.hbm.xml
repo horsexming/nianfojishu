@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="BuHeGePin" table="ta_sop_quxianleixing1">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="writePerson" type="java.lang.String"/>
+		<property name="writeDate" type="java.lang.String"/>
+		<property name="type" type="java.lang.String"/>
+		<property name="code" type="java.lang.String"/>
+		<many-to-one name="defType" class="DefectOfType" cascade="save-update"
+		 column="fk_defId"></many-to-one>
+	</class>
+</hibernate-mapping>

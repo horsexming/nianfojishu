@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-liupei" location="0,0" size="0,0">
+    <action name="UsersAction" location="0,0" size="0,0">
+      <result name="loginSuccess" />
+      <result name="sjloginSuccess" />
+      <result name="sheBeiloginSuccess" />
+      <result name="saloginSuccess" />
+      <result name="xsloginSuccess" />
+      <result name="loginOk" />
+      <result name="sczzIndex" />
+      <result name="loginError" />
+      <result name="sczzIndex_1" />
+      <result name="process_shuakall_code" />
+      <result name="codeLingliao" />
+      <result name="jyloginError" />
+      <result name="jyloginError2" />
+      <result name="uploadlic" />
+      <result name="otherLoginError" />
+      <result name="gysLoginError" />
+      <result name="updatePassword" />
+      <result name="uploadResume" />
+      <result name="contract" />
+      <result name="Salary" />
+      <result name="userDettails" />
+      <result name="per_User" />
+      <result name="becoming_add" />
+      <result name="wageAddOrUpdate" />
+      <result name="updateZl" />
+      <result name="toupdateZl" />
+      <result name="findUser" />
+      <result name="departureUser" />
+      <result name="addUserSuccess" />
+      <result name="delUserSuccess" />
+      <result name="findAllUsersSuccess" />
+      <result name="findWorkrecords" />
+      <result name="findAllWorkrecords" />
+      <result name="findSelfWorkrecords" />
+      <result name="hr_findAllWorkrecords" />
+      <result name="wageSignedAndPrint" />
+      <result name="qita_login" />
+      <result name="lesson_addstudent" />
+      <result name="UsersCard_user" />
+      <result name="UsersCard_show" />
+      <result name="UsersCard_card1" />
+      <result name="UsersCard_card" />
+      <result name="error" />
+      <result name="phonelogin" />
+      <result name="userSummary" />
+    </action>
+    <action name="AdminAction" location="0,0" size="0,0">
+      <result name="loginSuccess" />
+      <result name="loginError" />
+      <result name="updateSuccess" />
+      <result name="showsuperadmin" />
+      <result name="input" />
+    </action>
+    <action name="PriceAction" location="0,0" size="0,0">
+      <result name="findAllPriceSuccess" />
+      <result name="findAllWeiPrice" />
+      <result name="findPriceByConditionSuccess" />
+      <result name="findPriceByIdSuccess" />
+      <result name="deletePriceSuccess" />
+      <result name="updatePriceSuccess" />
+      <result name="updateFileNumberSuccess" />
+      <result name="danganNumberSuccess" />
+      <result name="updateFileNameSuccess" />
+      <result name="showjsp" />
+      <result name="initadd" />
+      <result name="product_price" />
+      <result name="xgprice" />
+      <result name="client_Showprice" />
+      <result name="client_Showbdprice" />
+      <result name="jiechukehuId" />
+      <result name="price_noAdd" />
+      <result name="price_noShow" />
+      <result name="procard_laiyuan" />
+      <result name="AppLiPrice_List" />
+      <result name="error" />
+    </action>
+    <action name="TemplateAction" location="0,0" size="0,0">
+      <result name="addTemplateSuccess" />
+      <result name="findTemplateSuccess" />
+      <result name="findScoreSuccess" />
+      <result name="updateTemplateByBack" />
+      <result name="findTemplateBYBackSuccess" />
+      <result name="delTemplateSuccess" />
+      <result name="zgAddTemplateSuccess" />
+      <result name="zgkhScore" />
+      <result name="ygPeople" />
+      <result name="error" />
+      <result name="updateExamTemplate" />
+    </action>
+    <action name="TemplateDetailsAction" location="0,0" size="0,0">
+      <result name="addTemplateDetailsSuccess" />
+      <result name="delTemplateDetailsSuccess" />
+      <result name="findTemDetailsByIdSuccess" />
+      <result name="zgfindTemDetails" />
+      <result name="error" />
+    </action>
+    <action name="AssScoreAction" location="0,0" size="0,0">
+      <result name="addAssScoreSuccess" />
+      <result name="deptAssScoreSuccess" />
+      <result name="zgAssScoreSuccess" />
+      <result name="delZgScore" />
+      <result name="delScoreSuccess" />
+      <result name="addZgkhAssScore" />
+      <result name="error" />
+    </action>
+    <action name="AssessPersonnelAction" location="0,0" size="0,0">
+      <result name="addAssessPersonnel" />
+      <result name="findAll" />
+      <result name="bangdingPeople" />
+      <result name="bangdingAp" />
+      <result name="addTemplateSuccess" />
+      <result name="findTemplateSuccess" />
+      <result name="findApForScore" />
+      <result name="error" />
+    </action>
+    <action name="ScoreStatisticsAction" location="0,0" size="0,0">
+      <result name="findAllSS" />
+      <result name="error" />
+    </action>
+    <action name="DownAction" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="input" />
+    </action>
+    <action name="WageStandardAction" location="0,0" size="0,0">
+      <result name="addWageStandardSuccess" />
+      <result name="wageXieYi" />
+      <result name="findAllWsSuccess" />
+      <result name="delWsSuccess" />
+      <result name="updateWs" />
+      <result name="findAcditWageSuccess" />
+      <result name="wageHistroy" />
+      <result name="printUdpdateWS" />
+      <result name="findWsFroAudit" />
+      <result name="auditWageStand" />
+      <result name="findUidForContract" />
+      <result name="findWSByCode" />
+      <result name="findWSForWage" />
+      <result name="wage_findWageStandard_print" />
+      <result name="wage_chageJstzWs" />
+      <result name="wage_gjjWageStandard" />
+      <result name="error" />
+    </action>
+    <action name="WageAction" location="0,0" size="0,0">
+      <result name="findAllWageSuccess" />
+      <result name="exportWageArticleSuccess" />
+      <result name="findChageWageSuccess" />
+      <result name="addChageWageSuccess" />
+      <result name="findAcditWageSuccess" />
+      <result name="printWage" />
+      <result name="userWage" />
+      <result name="wageBalance" />
+      <result name="addCbWage" />
+      <result name="allSS" />
+      <result name="findWageByDuty" />
+      <result name="huizongWage" />
+      <result name="addBumenBonusSucess" />
+      <result name="uploadSbWageSuccess" />
+      <result name="addLeaveWage" />
+      <result name="wage_findWage_print" />
+      <result name="wage_print" />
+      <result name="error" />
+      <result name="sub_wage" />
+    </action>
+    <action name="InsuranceGoldAction" location="0,0" size="0,0">
+      <result name="updateWSByIGScuuess" />
+      <result name="error" />
+    </action>
+    <action name="DeptNumberAction" location="0,0" size="0,0">
+      <result name="getTreeSuccess" />
+      <result name="getdeptbyId" />
+      <result name="addDeptNumberSuccess" />
+      <result name="error" />
+    </action>
+    <action name="WorkLogClassAction" location="0,0" size="0,0">
+      <result name="personWorkLogClass" />
+      <result name="error" />
+    </action>
+    <action name="WorkLogAction" location="0,0" size="0,0">
+      <result name="findWorkLogByCondition" />
+      <result name="addWorkLogSuccess" />
+      <result name="findWorkLogById" />
+      <result name="findWorkLogById1" />
+      <result name="addWorkLog1" />
+      <result name="showzplist" />
+      <result name="error" />
+    </action>
+    <action name="ProvisionAction" location="0,0" size="0,0">
+      <result name="addProvisionSuccess" />
+      <result name="findAllSuccess" />
+      <result name="interviewQuizzes" />
+      <result name="error" />
+    </action>
+    <action name="ContractAction" location="0,0" size="0,0">
+      <result name="addContractSuccess" />
+      <result name="findContractByUid" />
+      <result name="addWageAgreement" />
+      <result name="findUserWageAgre" />
+      <result name="error" />
+    </action>
+    <action name="ModuleFunctionAction" location="0,0" size="0,0">
+      <result name="findAllMfSuccess" />
+      <result name="addMf1" />
+      <result name="findMfById1" />
+      <result name="findMfByIdSuccess" />
+      <result name="updateMfSuccess" />
+      <result name="updateMfSuccess1" />
+      <result name="delMfSuccess" />
+      <result name="findMfByUserSuccess" />
+      <result name="sonMfList" />
+      <result name="sonMfList2" />
+      <result name="sonMfList3" />
+      <result name="searchMfSuccess" />
+      <result name="tologin" />
+      <result name="dispatchuser" />
+      <result name="error" />
+      <result name="moduleFunction_UserList" />
+      <result name="findMfByUserId" />
+      <result name="copyUsersModuleFunction" />
+    </action>
+    <action name="ProjectRecordAction" location="0,0" size="0,0">
+      <result name="addProRecordSuccess" />
+      <result name="findAllProRecord" />
+      <result name="addProLoginSuccess" />
+      <result name="findUserProLogin" />
+      <result name="delProjectLoginSu" />
+      <result name="error" />
+    </action>
+    <action name="JoinTrainAction" location="0,0" size="0,0">
+      <result name="addJoinTrain" />
+      <result name="joinTrain" />
+      <result name="error" />
+    </action>
+    <action name="TrainAction" location="0,0" size="0,0">
+      <result name="addTrainSuccess" />
+      <result name="error" />
+    </action>
+    <action name="ContractBonusAction" location="0,0" size="0,0">
+      <result name="addContractBonus" />
+      <result name="auditContractBonus" />
+      <result name="findUserBuFunction" />
+      <result name="auditSuccess" />
+      <result name="bonusDistribution" />
+      <result name="receiveContractBonus" />
+      <result name="error" />
+      <result name="updateExamContractBonus" />
+    </action>
+    <action name="AlertMessagesAction" location="0,0" size="0,0">
+      <result name="findAlertMessages" />
+      <result name="mobile_alertMessages" />
+      <result name="logging_List" />
+      <result name="userUpdateLogging_List" />
+      <result name="alertMessagesAction" />
+      <result name="findFunctionUrl" />
+      <result name="error" />
+    </action>
+    <action name="CalendarAction" location="0,0" size="0,0">
+      <result name="addCalendar" />
+      <result name="newIndex" />
+      <result name="error" />
+    </action>
+    <action name="barcode" location="0,0" size="0,0" />
+    <action name="ProcessPeopleAction" location="0,0" size="0,0">
+      <result name="processPeople" />
+      <result name="addProcessPeople" />
+      <result name="error" />
+    </action>
+    <action name="DutyClaimAction" location="0,0" size="0,0">
+      <result name="findAllDuty" />
+      <result name="findAllDutyClaim" />
+      <result name="delDutyClaim" />
+      <result name="addPeople" />
+      <result name="error" />
+    </action>
+    <action name="ProcardTemplateAction" location="0,0" size="0,0">
+      <result name="findProcardTem" />
+      <result name="findAllProcardTem" />
+      <result name="addRootrProcardTem" />
+      <result name="findProcardTem" />
+      <result name="ProcardTemDetails" />
+      <result name="ProcardTemSonCards" />
+      <result name="error" />
+      <result name="findPrintProcessListOK" />
+      <result name="selestedPrintListOK" />
+      <result name="ProcessTemplateDetails" />
+      <result name="ProcessTemplateadd" />
+      <result name="ProcessTemplateAndDefaultjiepaiadd" />
+      <result name="procardTemplatePrivilege_all" />
+      <result name="procardTemplatePrivilege_update" />
+      <result name="ProcessTemplateTzs" />
+      <result name="Process_showQXtz" />
+      <result name="showProcessName" />
+      <result name="specialProcessDetail" />
+      <result name="updateProcessT" />
+      <result name="updateProcardT" />
+      <result name="jy_Template_findProcardList" />
+      <result name="jy_ProcardTemDetails" />
+      <result name="jianhaoShezhi" />
+      <result name="procardSpecification_show" />
+      <result name="ProcardTem_duibi" />
+      <result name="findmarkId" />
+      <result name="ProcardTem_ProcessAndPrcard" />
+      <result name="findwgProcard" />
+      <result name="ProPriceUpdateLog_show" />
+      <result name="PcProcess_show" />
+      <result name="pawpt_showList" />
+      <result name="ytcompare" />
+      <result name="Template_updateProcardListArea" />
+      <result name="Template_updateCarStyle" />
+      <result name="Template_addParts" />
+      <result name="Template_findProcardList_addParts" />
+    </action>
+    <action name="ProcardAction" location="0,0" size="0,0">
+      <result name="findProcard" />
+      <result name="Procard_findProcard" />
+      <result name="Procard_findProcardList" />
+      <result name="Procard_findProcardList1" />
+      <result name="procardpeopleman" />
+      <result name="Procard_sendCard" />
+      <result name="Process_Receive" />
+      <result name="Process_Receive2" />
+      <result name="Process_Outside" />
+      <result name="ProcardDetails" />
+      <result name="Procard_logoStickers" />
+      <result name="addNewzj" />
+      <result name="procard_lgx" />
+      <result name="Procard_viewProcard" />
+      <result name="Procard_viewCbBom" />
+      <result name="Procard_viewProcardkuwei" />
+      <result name="Procard_viewGoods" />
+      <result name="Procard_viewUpdate" />
+      <result name="findProcardView" />
+      <result name="Process_OutsideList" />
+      <result name="Process_zj" />
+      <result name="process_toSetWaiWei" />
+      <result name="process_toSetWaiWeiTree" />
+      <result name="process_toWaiWei" />
+      <result name="findAllWei" />
+      <result name="findGongyiGuifan" />
+      <result name="findGongyiGuifan2" />
+      <result name="Procard_noCardList" />
+      <result name="Procard_noCardFlList" />
+      <result name="Procard_lingFuLiao" />
+      <result name="procard_hjtj" />
+      <result name="error" />
+      <result name="listmarkId" />
+      <result name="chakan" />
+      <result name="Procard_chagePeople" />
+      <result name="Procard_WgwwPlan" />
+      <result name="Procard_WgwwPlanList" />
+      <result name="Procard_WgwwPlanList2" />
+      <result name="ProcardTemplateGysTzs" />
+      <result name="Procard_findGysWgPlanList" />
+      <result name="Procard_viewProcardList" />
+      <result name="procard_rukuList" />
+      <result name="redirtFindWgWwPlan" />
+      <result name="querencaigouFailure" />
+      <result name="querencaigou" />
+      <result name="findWaigouWaiweiPlanByid" />
+      <result name="jdq" />
+      <result name="showMonthLv" />
+      <result name="jisunLpPeoPleMoney" />
+      <result name="procard_materialsNotice" />
+      <result name="procard_materialsCardList" />
+      <result name="procard_materialsshowList" />
+      <result name="procard_forwaiweiCardList" />
+      <result name="procard_forwaiweiSqCardList" />
+      <result name="procard_wwsqDetailList" />
+      <result name="procard_wwsqDetailList2" />
+      <result name="procard_wwsqDetail" />
+      <result name="procard_checkHtList" />
+      <result name="procard_findUnhasPrice" />
+      <result name="procard_checkHt" />
+      <result name="procard_checkHt2" />
+      <result name="procard_wwgxcf" />
+      <result name="procard_forwaiweiCheckList" />
+      <result name="procard_processWWApplyList" />
+      <result name="procard_wwsqDetailop" />
+      <result name="procard_materialdetailList" />
+      <result name="showProcardMaterialHead" />
+      <result name="UserMonthMoney_show" />
+      <result name="UserMonthMoney_jjsq" />
+      <result name="UserMoneyDetail_show" />
+      <result name="UserMoneyAll_show" />
+      <result name="jiancheshaigui" />
+      <result name="showScreen4_order" />
+      <result name="Procard_WgPlanList" />
+      <result name="Procard_WgPlanList1" />
+      <result name="Procard_gxjdck" />
+      <result name="process_showwgj" />
+      <result name="findProcardByCardNum" />
+      <result name="Procard_showQxm" />
+      <result name="fuliaoTiaobaoList" />
+      <result name="breaksubmit_List" />
+      <result name="breaksubmit_show" />
+      <result name="findbreaksubmitById" />
+      <result name="procard_dllList" />
+      <result name="InsRecord_tobreak" />
+      <result name="InsRecord_towgbreak" />
+      <result name="PcProcess_show" />
+      <result name="Procard_updateTime" />
+      <result name="procardbcp_rkshow" />
+      <result name="yulan_nowwyx" />
+      <result name="procard_LackWg" />
+      <result name="procard_tzgx" />
+      <result name="procard_wwtzwgj" />
+      <result name="login" />
+      <result name="wlqueren" />
+      <result name="procard_csbl" />
+      <result name="procard_showrootforww" />
+      <result name="procard_showrootforbcp" />
+      <result name="procard_showwwlist" />
+      <result name="tocsbl" />
+      <result name="procard_showwwlist2export" />
+      <result name="procard_showwwlist2" />
+      <result name="procard_csblOrderList" />
+      <result name="procard_csblList" />
+      <result name="csbl_print" />
+      <result name="findAllCsblOrderList" />
+      <result name="procard_gyscsbl" />
+      <result name="procard_wxtuiliao" />
+      <result name="findAllWxTuiliao" />
+    </action>
+    <action name="SubMonthMoneyAction" location="0,0" size="0,0">
+      <result name="subMonthMoney_List" />
+      <result name="DeptMonthBudget_audit" />
+      <result name="findExamList" />
+      <result name="findExamList1" />
+      <result name="updateExamBudget" />
+      <result name="updateExamBudget1" />
+      <result name="DeptMonthBudget_find" />
+      <result name="DeptMonthBudget_update" />
+      <result name="DeptMonthBudget_print" />
+      <result name="auditSuccess" />
+      <result name="error" />
+    </action>
+    <action name="FailureStAction" location="0,0" size="0,0">
+      <result name="showFailure2" />
+      <result name="showFailure3" />
+      <result name="error" />
+      <result name="listFailureStatistics" />
+      <result name="toUpdatefailureStatistics" />
+      <result name="UpdatefailureStatistics" />
+    </action>
+    <action name="CircuitCustomize_*" location="0,0" size="0,0">
+      <result name="circuitCustomize_List" />
+      <result name="circuitCustomize_node" />
+      <result name="circuitCustomize_update" />
+      <result name="error" />
+    </action>
+    <action name="CircuitRunAction_*" location="0,0" size="0,0">
+      <result name="process_allAudit" />
+      <result name="findCircuitRun" />
+      <result name="updateCircuitRun" />
+      <result name="error" />
+    </action>
+    <action name="BlockAction_*" location="0,0" size="0,0">
+      <result name="block_manage" />
+      <result name="boclk_fenpei" />
+      <result name="boclk_Receive" />
+      <result name="boclk_ReceiveList" />
+      <result name="block_showAll" />
+      <result name="block_add" />
+      <result name="error" />
+    </action>
+    <action name="ProjectManage_*" location="0,0" size="0,0">
+      <result name="ProjectManage_list" />
+      <result name="ProjectManage_hsList" />
+      <result name="ProjectManage_hs" />
+      <result name="ProjectManage_add" />
+      <result name="ProjectManage_detail" />
+      <result name="ProjectManage_update" />
+      <result name="PorDateTime_update" />
+      <result name="PorDateTime_findAll" />
+      <result name="ProjectManage_findPMByCondition" />
+      <result name="findQuotedPrice" />
+      <result name="QuotedPrice_allPrice" />
+      <result name="ProjectManage_list_audit" />
+      <result name="baomiLog_show" />
+      <result name="error" />
+    </action>
+    <action name="QuotedPrice_*" location="0,0" size="0,0">
+      <result name="allProcardSelsct" />
+      <result name="QuotedPrice_list" />
+      <result name="QuotedPrice_detail" />
+      <result name="QuotedPrice_detailstart" />
+      <result name="QuotedPrice_tree" />
+      <result name="QuotedPrice_bom" />
+      <result name="QuotedPrice_afterstart" />
+      <result name="QuotedPrice_bom_dept" />
+      <result name="QuotedPrice_bom_showRg" />
+      <result name="QuotedPrice_dept" />
+      <result name="QuotedPrice_allPrice" />
+      <result name="findQuotedPrice" />
+      <result name="rengongHesuan" />
+      <result name="QuotedPrice_bom_qpInfor" />
+      <result name="QuotedPrice_trackQuotedPrice" />
+      <result name="QuotedPrice_updateQuotedPriceLog" />
+      <result name="QuotedPrice_showosa" />
+      <result name="QuotedPrice_forcost" />
+      <result name="QuotedPrice_treecost" />
+      <result name="QuotedPrice_costdetail" />
+      <result name="QuotedPrice_usercostdetail" />
+      <result name="QuotedPrice_showFh" />
+      <result name="QuotedPrice_showInvestors" />
+      <result name="QuotedPrice_showPartners" />
+      <result name="QuotedPrice_addInvestors" />
+      <result name="QuotedPrice_setProTz" />
+      <result name="QuotedPrice_showRealCost" />
+      <result name="investors_infor" />
+      <result name="investor_home" />
+      <result name="investors_inmoney" />
+      <result name="QuotedPrice_evaluation" />
+      <result name="cbzhexian" />
+      <result name="quotedPriceTzs" />
+      <result name="quotedPriceProcessTzs" />
+      <result name="quotedPrice_addjy" />
+      <result name="quotedPrice_addjynoqpId" />
+      <result name="quotedPrice_jyList" />
+      <result name="quotedPrice_jyListnoqpId" />
+      <result name="quotedPrice_jyselfList" />
+      <result name="quotedPrice_jydispatche" />
+      <result name="quotedPrice_jydFile" />
+      <result name="quotedPrice_jytb" />
+      <result name="quotedPrice_jydqrList" />
+      <result name="quotedPrice_jyedit" />
+      <result name="download" />
+      <result name="error" />
+      <result name="login" />
+    </action>
+    <action name="HuidiaoAction" location="0,0" size="0,0" />
+    <action name="BankAccountsAction" location="0,0" size="0,0">
+      <result name="bank_show" />
+      <result name="cw_pz_show" />
+      <result name="cw_pz_luru" />
+      <result name="cw_cwbb_show" />
+      <result name="error" />
+    </action>
+    <action name="CwVouchersAction" location="0,0" size="0,0">
+      <result name="cwVouchers_show" />
+      <result name="cwVouchers_detailshow" />
+      <result name="CwUseDetail_detailshow" />
+      <result name="cwVouchers_DC_detailshow" />
+      <result name="error" />
+    </action>
+    <action name="WaigouwaiweiPlanAction" location="0,0" size="0,0">
+      <result name="Procard_wlList" />
+      <result name="Procard_WgPlanList" />
+      <result name="Procard_WgPlanList1" />
+      <result name="Procard_WgPlanListAll" />
+      <result name="findNOPriceWgPlanList" />
+      <result name="Procard_WgOrderList" />
+      <result name="Procard_WgOrderPlanList" />
+      <result name="ProcardTemplateGysTzs" />
+      <result name="Procard_WgPlanShList" />
+      <result name="Procard_WgPlanShSqList" />
+      <result name="Procard_WgDeliveryList" />
+      <result name="Procard_WgDeliveryList1" />
+      <result name="Procard_WgDeliveryDetail" />
+      <result name="Procard_WgDeliveryAndDetailList" />
+      <result name="Procard_WgDeliveryDqr" />
+      <result name="Procard_WgDeliveryDqrList" />
+      <result name="Procard_WgQueRenList" />
+      <result name="oaAppDetail_GzQueRenList" />
+      <result name="Procard_WgRuKuList" />
+      <result name="Procard_WgWeiGuanList" />
+      <result name="Procard_WgRuGuiDjyList" />
+      <result name="wgWarehouseNumber_show" />
+      <result name="Procard_WgPlanDeliveryDetail" />
+      <result name="Procard_WgDeliveryPrint" />
+      <result name="Procard_WwOrderList" />
+      <result name="Procard_waigoudd" />
+      <result name="Procard_WgDeliveryDjyList" />
+      <result name="Procard_WgDeliveryNoPassList" />
+      <result name="Procard_checkwgww" />
+      <result name="Procard_showWWLingliao" />
+      <result name="Procard_showWWdailing" />
+      <result name="Procard_showdrk" />
+      <result name="Procard_showjyz" />
+      <result name="Procard_showZaiTuwl" />
+      <result name="Procard_WwOrderPlanList" />
+      <result name="Procard_WgPlanShList_sg" />
+      <result name="adjustNum" />
+      <result name="findDqrWgPlanList" />
+      <result name="tofindNOPriceWgPlanList" />
+      <result name="warehouseApplication_add1" />
+      <result name="waigouOrderprint" />
+      <result name="waiweiOrderprint" />
+      <result name="waigouwaiwei_wgTypelist" />
+      <result name="Procard_xiugaigys" />
+      <result name="toCheckwgww" />
+      <result name="Procard_finwwOrderwl" />
+      <result name="updatePrice_page" />
+      <result name="error" />
+      <result name="goods_bhgth" />
+      <result name="goods_saveSell" />
+      <result name="procard_wgdSheetList" />
+      <result name="Procard_printdl" />
+      <result name="procard_wgdSheet" />
+      <result name="show_dpList" />
+      <result name="show_rsList" />
+      <result name="show_rdsList" />
+      <result name="show_printRds" />
+      <result name="procard_price" />
+      <result name="qualifiedRate_list" />
+      <result name="WgDeliveryList_hege" />
+      <result name="WgDeliveryDetail_hege" />
+      <result name="DayHege" />
+      <result name="weekHege" />
+      <result name="mouthHege" />
+      <result name="quarterHege" />
+      <result name="yearHege" />
+      <result name="mop_isUse" />
+      <result name="Procard_WgOrderApplList" />
+      <result name="Procard_WwOrderList1" />
+      <result name="isAgainC1heck" />
+      <result name="toisAgainCheck" />
+      <result name="tobhgth" />
+      <result name="wgPlan_showProcard" />
+      <result name="Procard_wgjth" />
+      <result name="Procard_wgjth2" />
+      <result name="mop_All" />
+      <result name="findWwOrderList" />
+      <result name="Procard_showfldrk" />
+      <result name="Procard_showWgProcard" />
+      <result name="procard_gyscsbl" />
+      <result name="Procard_WgOrder_addRemark" />
+    </action>
+    <action name="OrderForB2BAction" location="0,0" size="0,0">
+      <result name="findPoLineList_all" />
+      <result name="showOrderForB2BDetail" />
+      <result name="error" />
+    </action>
+    <action name="RwlBarcodeWebServiceAction" location="0,0" size="0,0">
+      <result name="showBarcodeLockList" />
+      <result name="error" />
+    </action>
+    <action name="CorePayableAction" location="0,0" size="0,0">
+      <result name="corePayable_showList" />
+      <result name="corePayableMonth_showList" />
+      <result name="corePayable_showfkspList" />
+      <result name="SupplierCorePayable_showList" />
+      <result name="SupplierCorePayable_showList_sk" />
+      <result name="SupplierCorePayable_showPerson" />
+      <result name="monthPayableBill_showList" />
+      <result name="error" />
+    </action>
+    <action name="ReceiptAction" location="0,0" size="0,0">
+      <result name="Receipt_showList" />
+      <result name="ReceiptLog_showList" />
+      <result name="ReceiptLog_auditList" />
+      <result name="error" />
+    </action>
+    <action name="VideoThumbTakerAction" location="0,0" size="0,0">
+      <result name="error" />
+    </action>
+  </package>
+</Struts2Diagram>
+

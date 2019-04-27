@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="ProjectOrderPart" table="ta_sk_ProjectOrderPart">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+        <property name="proName" />
+        <property name="month" />
+        <property name="tmId" />
+		<property name="qpId" />
+		<property name="markId" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="partName" />
+		<property name="partNum" />
+		<property name="hasturn" />
+		<property name="remark" />
+		<property name="type" />
+		<!-- 对项目需求单 -->
+		<many-to-one name="projectOrder" class="ProjectOrder" column="porder_id" />
+		
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,645 @@
+package com.task.Server.ess;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.BaoFeiGoods;
+import com.task.entity.CpGoodsChangeWG;
+import com.task.entity.Goods;
+import com.task.entity.GoodsStore;
+import com.task.entity.Goods_bzsq;
+import com.task.entity.OaAppDetail;
+import com.task.entity.ProductManager;
+import com.task.entity.Sell;
+import com.task.entity.YuLiaoApply;
+import com.task.entity.sop.BuHeGePin;
+import com.task.entity.sop.WaigouDeliveryGoods;
+import com.task.entity.sop.WaigouDeliveryGoodsDetail;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+
+public interface GoodsServer {
+	/**
+	 * 根据ID查找Goods
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Goods getGoodsById(Integer id);
+
+	/**
+	 * 查找Goods
+	 * 
+	 * @param goods
+	 * @param startDate
+	 * @param endDate
+	 * @param cpage
+	 * @param pageSize
+	 * @param role
+	 *            角色
+	 * @param goodsAge
+	 * @return
+	 */
+	public Object[] findGoods(Goods goods, String startDate, String endDate,
+			Integer cpage, Integer pageSize, String role, String pagestatus,
+			Integer goodsAge);
+
+	/**
+	 * 查找余料库Goods
+	 * 
+	 * @param goods
+	 * @param startDate
+	 * @param endDate
+	 * @param cpage
+	 * @param pageSize
+	 * @param role
+	 *            角色
+	 * @return
+	 */
+	public Object[] findYlGoods(Goods goods, String startDate, String endDate,
+			Integer cpage, Integer pageSize, String role);
+
+	/**
+	 * 添加手动出库
+	 * 
+	 * @param goods
+	 * @param sell
+	 * @param tag
+	 * @return
+	 */
+	public boolean updateGoods(Goods goods, Sell sell, String tag, String isNeed)
+			throws Exception;
+
+	/**
+	 * 下拉list
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	public String findSelectList(String tag);
+
+	/**
+	 * 数据汇总
+	 * 
+	 * @param goods
+	 * @param startDate
+	 * @param endDate
+	 * @param cpage
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] huizong(Goods goods, String startDate, String endDate,
+			Integer cpage, Integer pageSize, String[] tiaojian);
+
+	public void getexportExcel(Goods goods, String startDate, String endDate,
+			String tag, Integer goodsAge,String pageStatus);
+
+	/**
+	 * 导出月度汇总数据
+	 * 
+	 * @return
+	 */
+	String[] getseDate();
+
+	public void deletegs(Goods goods);
+
+	/**
+	 * 查看该件号是否存在单价信息
+	 * 
+	 * @param sellMarkId
+	 * @return
+	 */
+	public String findPriceByPartNumber(String ywMarkId, String sellMarkId,
+			String orderNumber, Float count,String selfcard);
+
+	/**
+	 * 获取可出库的订单号
+	 * 
+	 * @param goods
+	 * @return
+	 */
+	public List<String> getOrderNumbers(Goods goods);
+
+	/**
+	 * 通过件号和订单号查到之前该订单开票未通过但是合格的产品数量
+	 * 
+	 * @param sellMarkId
+	 * @param orderNum
+	 * @return
+	 */
+	public Integer updateAndgetUnpassOkCount(String sellMarkId, String orderNum);
+
+	/**
+	 * 通过月份重新以入库来计算该月的订单完成率
+	 * 
+	 * @param month
+	 * @return
+	 */
+	boolean reSumCompleteRate(String month);
+
+	/**
+	 * 同步流水卡已入库数量
+	 * 
+	 * @return
+	 */
+	public boolean reSetHasRuKuCount();
+
+	/**
+	 * 余料报废或转换为原材料申请
+	 * 
+	 * @param id
+	 * @param yuLiaoApply
+	 * @param type
+	 * @return
+	 */
+	public String ylBaoFeiOrChange(Integer id, YuLiaoApply yuLiaoApply,
+			String type);
+
+	/**
+	 * 余料申请展示
+	 * 
+	 * @param yuLiaoApply
+	 * @param parseInt
+	 * @param pageSize
+	 * @param tag
+	 * @return
+	 */
+	public Map<Integer, Object> findYuLiaoApplysByCondition(
+			YuLiaoApply yuLiaoApply, int pageNo, int pageSize, String tag);
+
+	/**
+	 * 审批余料申请
+	 * 
+	 * @param id
+	 * @param tag
+	 * @return
+	 */
+	public String applyYl(Integer id, String tag);
+
+	/**
+	 * 删除余料申请记录
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String deleteYlApply(Integer id);
+
+	/**
+	 * 库存物料申请封存或者解封
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String goodsApplyFcStatus(Integer id);
+
+	/**
+	 * 库存物料报废申请;
+	 * 
+	 * @param baofeigoods
+	 * @return
+	 */
+	public String addbaofeigoods(BaoFeiGoods baofeigoods, Goods goods);
+
+	/**
+	 * 显示报废库存表(所有)
+	 */
+	public List<BaoFeiGoods> showbfgList(int pageNo, int pageSize);
+
+	/**
+	 * 
+	 * @param baofeigoods
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Map<Integer, Object> findbfgListByCondition(BaoFeiGoods baofeigoods,
+			int pageNo, int pageSize);
+
+	public int getbfgcount();
+
+	public boolean delbfg(BaoFeiGoods bfg);
+
+	/**
+	 * 查出质检即将到期的库存记录（出库完不查。10天即为即将到期）;不分页
+	 */
+	public List<Goods> findgoodsDQ(Goods goods, String type);
+	/**
+	 * 查出质检即将到期的库存记录（出库完不查。10天即为即将到期）;分页
+	 */
+	public Map<Integer, Object> findgoodsDQ(Goods goods, String type,
+			Integer pageSize, Integer pageNo);
+	/**
+	 * 查出质检已经到期的库存记录（出库完不查）;不分页
+	 */
+	public List<Goods> findgoodsDQ1(Goods goods, String type);
+
+	/**
+	 * 查出质检已经到期的库存记录（出库完不查）;分页，在屏幕显示时使用到
+	 */
+	public Map<Integer, Object> findgoodsDQ1(Goods goods, String type,
+			Integer pageSize, Integer pageNo);
+
+	/**
+	 * 查出需要检验的库存记录(出库完不查)
+	 * 
+	 */
+	public Map<Integer, Object> findZJgoodsStore(Map mapgoods, int pageSize,
+			int parseInt, String type);
+
+	/**
+	 *确认检验
+	 */
+	public String QRgoodsZJ(Integer id,String status);
+
+	/**
+	 * 提醒检验
+	 */
+	public void sendmsg(Integer id);
+
+	/****
+	 * 扫码出库(对接BTS，订单和库存自动扣除1件)
+	 * 
+	 * @param ywMarkId
+	 * @param orderNumber
+	 * @return
+	 */
+	String outGoodsByBts(String ywMarkId, String orderNumber, String fproductno);
+
+	public List findgoodHouselist();
+
+	/**
+	 * 冲销转库
+	 * 
+	 * @return
+	 */
+	public Map<Integer, Object> cxchangeStore(ProductManager productManager,
+			int parseInt, int pageSize);
+
+	/**
+	 * 通过冲销订单获取到可以转库的批次
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<Goods> findtoapplycxzk(Integer id);
+
+	/**
+	 * 通过冲销订单和GoodsId获取到可以转库的批次
+	 * 
+	 * @param id
+	 * @param goods
+	 * @return
+	 */
+	public Map<Integer, Object> gettoapplycxzk(Integer id, Goods goods);
+
+	/**
+	 * 申请冲销转库
+	 * 
+	 * @param id
+	 * @param goods
+	 * @return
+	 */
+	public String applycxzk(Integer id, Goods goods);
+
+	/**
+	 * 查询成品出库
+	 * 
+	 * @param goods
+	 * @param parseInt
+	 * @param pageSize
+	 * @param tag
+	 * @return
+	 */
+	public Object[] showGoodsPhoen(Goods goods, int parseInt, int pageSize,
+			String tag);
+
+	String blsqjy(Integer id);
+
+	/**
+	 * 半成品领料列表
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	public List<Goods> findBcpllList(String tag, Goods goods);
+
+	/**
+	 * 查询外协待转外委数据
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	public List<Goods> findBcpllList(Goods goods);
+
+	/**
+	 * 半成品出库
+	 * 
+	 * @param goods
+	 * @return
+	 */
+	public String bcpOut(Goods goods, String pwsswords);
+
+	/****
+	 * 查询所有有库存的成品
+	 * 
+	 * @return
+	 */
+	public Object[] findGoods(Goods goods, Integer cpage, Integer pageSize);
+
+	/****
+	 * 添加包装申请
+	 * 
+	 * @param goods_bzsq
+	 * @return
+	 */
+	boolean saveGoodsBzSq(Goods_bzsq goodsBzsq);
+
+	/****
+	 * 查询所有包装申请
+	 * 
+	 * @return
+	 */
+	Object[] findGoodsbzsq(Goods_bzsq goodsBzsq, Integer cpage, Integer pageSize);
+
+	/****
+	 * 领取包装申请
+	 * 
+	 * @param goods_bzsq
+	 * @return
+	 */
+	String updateGoodsBzSqFroLq(Integer id, List<String> cardIds);
+
+	public Object getUsersByIds(String tag);
+
+	/****
+	 * 通过id查询包装申请
+	 * 
+	 * @return
+	 */
+	Goods_bzsq findGoodsbzsqById(Integer id);
+
+	/****
+	 * 送货申请
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	Object[] orderToSonghuo(Integer[] ids);
+
+	/****
+	 * 添加送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	String addDeliveryNote(WaigouDeliveryGoods waigouDeliveryGoods, List list);
+
+	/****
+	 * 查询送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNote(WaigouDeliveryGoods waigouDeliveryGoods,
+			int pageNo, int pageSize, String pageStatus, String firsttime,
+			String endtime);
+
+	/****
+	 * 查询送货单
+	 * 
+	 * @param waigouDelivery
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNoteDetail(
+			WaigouDeliveryGoodsDetail waigouDeliveryGoodsDetail, int pageNo,
+			int pageSize, String pageStatus, String firsttime, String endtime);
+
+	/****
+	 * 查询送货单明细
+	 * 
+	 * @param Integer
+	 *            id
+	 * @param list
+	 * @return
+	 */
+	Object[] findDeliveryNoteDetail(Integer id);
+
+	/***
+	 * 送货单打印
+	 * 
+	 * @param waigouDelivery
+	 * 
+	 * 
+	 * @return
+	 */
+	String updateDeliveryToPrint(Integer deliveryId);
+
+	/***
+	 * 送货单确认送货
+	 * 
+	 * @param waigouDelivery
+	 * 
+	 * 
+	 * @return
+	 */
+	String updateDeliveryToSh(Integer deliveryId, String pageStatus,
+			WaigouDeliveryGoods pagewaigouDeliveryGoods);
+
+	/**
+	 * 申请锁仓;
+	 */
+	String sqSuocang(Integer id);
+
+	/**
+	 * 申请解锁;
+	 */
+	String sqjiesuo(Integer id);
+
+	/**
+	 * 查看包装申请详情
+	 * 
+	 * @return
+	 */
+	public List findGoodsBzSqmx(Integer id);
+
+	/**
+	 * 删除包装申请详情
+	 * 
+	 * @return
+	 */
+	public Object[] deletexq(Integer id);
+
+	/**
+	 * 删除包装申请
+	 * 
+	 * @return
+	 */
+	public String deleteall(Integer id);
+
+	void pushkc1();
+
+	/**
+	 * 半成品批量出库
+	 * 
+	 * @param goodsAndProcardIds
+	 * @param lqCounts
+	 * @return
+	 */
+	public String bcpplOut(String[] goodsAndProcardIds, Float[] lqCounts,
+			String tag, String pwsswords);
+
+	/**
+	 * 获取所有的类似全称
+	 * 
+	 * @param goods
+	 * @return
+	 */
+	List<Goods> getAllNames(Goods goods);
+
+	/**
+	 * 根据件号检索goods 相同库存、仓区、库位和数量累加
+	 */
+	List<Goods> getGoodsByMarkId(Goods goods);
+
+	/**
+	 * 根据物料需求单出库
+	 * 
+	 * @param goodsList
+	 * @param sellList
+	 * @param sell
+	 * @return
+	 */
+	String[] sellByManualOrder(List<Goods> goodsList, List<Sell> sellList,
+			Sell sell, String tag) throws Exception;
+
+	/**
+	 * 插入一条成品库--》外购件（调仓） 记录
+	 * 
+	 * @param cpChangeWg
+	 * @return
+	 */
+	public String saveCPOneChangeWG(CpGoodsChangeWG cpChangeWg);
+
+	/**
+	 * 查询 成品库入外购件库调仓 记录
+	 * 
+	 * @param object
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findCPOneChangeWG(CpGoodsChangeWG cpChangeWg,
+			String startDate, String endDate, int parseInt, int pageSize);
+
+	/**
+	 * 成品库入外购件库调仓 出入库操作
+	 */
+	public String changeEP(Integer cpChangeWgId);
+
+	/**
+	 * 导出成品库--》外购件（调仓 )记录
+	 * 
+	 * @param cpChangeWg
+	 * @param startDate
+	 * @param endDate
+	 */
+	public void exportCPChangeWG(CpGoodsChangeWG cpChangeWg, String startDate,
+			String endDate);
+
+	/**
+	 * 删除一条成品库--》外购件（调仓 )记录
+	 * 
+	 * @param cpChangeWg
+	 */
+	public boolean deleteOneChange(CpGoodsChangeWG cpChangeWg);
+
+	/**
+	 * 根据件号、名称、件号、品名 规格 单位 库别 查询入库历史记录
+	 */
+	List<GoodsStore> AjaxFindGoodsStore(GoodsStore gs);
+
+	/**
+	 * 根据件号、名称、件号、品名 规格 单位 库别 查询出库历史记录
+	 */
+	List<Sell> AjaxFindSell(Sell sell);
+
+	/**
+	 * 导出库存质检信息
+	 */
+	void exportEXCELZj(Map mapgoods, Goods goods, String tag, String type);
+
+	/**
+	 * 调库功能
+	 * 
+	 * @throws Exception
+	 */
+	String exChangeGoods(Sell sell, GoodsStore goodsStore, Goods goods,
+			String tag) throws Exception;
+
+	/**
+	 * 打印单号重新排序
+	 */
+	String paixuPrintNumber();
+
+	/**
+	 * 根据手工出库编号获得出库记录
+	 * 
+	 * @param handwordNumber
+	 * @return
+	 */
+	List<Sell> findhandWordByNumber(Integer handwordNumber);
+
+	/**
+	 * 根据出库记录更新库信息
+	 * 
+	 * @param sell
+	 * @return
+	 */
+	boolean updateGoodHouseBySell(Sell sell);
+
+	/**
+	 * 成品库出库额外流程
+	 * 
+	 * @param sell
+	 * @return
+	 * @throws Exception
+	 */
+	boolean additionalproductSell(Sell sell);
+
+	/**
+	 * 多条手动出库
+	 * 
+	 * @param goodsList
+	 * @param sellList
+	 * @param isNeed
+	 * @return
+	 * @throws Exception
+	 */
+	boolean sellGoodsMultiterm(List<Goods> goodsList, List<Sell> sellList,
+			String isNeed) throws Exception;
+
+	/**
+	 * 查询每月呆滞库存
+	 * 
+	 * @param tag
+	 * @param startMonth
+	 * @param endMonth
+	 * @return
+	 */
+	Map<String, Object> findMonthByGoods(String tag, String startMonth,
+			String endMonth);
+
+	/**
+	 * 根据Id获取库存报废申请信息
+	 */
+	BaoFeiGoods getbfsqById(Integer id);
+
+	/****
+	 * 库存盘点导出
+	 * 
+	 * @param list
+	 */
+	void exportGoodsPandian(List list, String[] tiaojian);
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bargain.Company" table="ta_company">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="company_name" />
+		<property name="contacts" />
+		<property name="telephone" />
+		<property name="clearing_way" />
+		<property name="clearing_date" />
+		<property name="selected_status" />
+		<!-- 对应议价明细 一对多 -->
+		<set name="bargSet" inverse="false" cascade="all" lazy="true"
+			order-by="numbers">
+			<key column="company_id"></key>
+			<one-to-many class="com.task.entity.bargain.BargainingDetails" />
+		</set>
+	</class>
+</hibernate-mapping>

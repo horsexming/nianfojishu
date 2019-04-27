@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.InvoiceCheck" table="ta_InvoiceCheck">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+			<property name="gfdzdh"/>
+			<property name="gfyhzh"/>
+			<property name="fpdm"/>
+			<property name="zfbz"/>
+			<property name="xfdzdh"/>
+			<property name="xfyhzh"/>
+			<property name="kprq"/>
+			<property name="fplc"/>
+			<property name="gfsbh"/>
+			<property name="xfsbh"/>
+			<property name="title"/>
+			<property name="content"/>
+			<property name="file_path"/>
+			<property name="jqbh"/>
+			<property name="je"/>
+			<property name="se"/>
+			<property name="jshj"/>
+			<property name="memo"/>
+			<property name="cycs"/>
+			<property name="gfmc"/>
+			<property name="xfmc"/>
+			<property name="fpzl"/>
+			<property name="fpzlShow"/>
+			<property name="bz"/>
+			<property name="fphm"/>
+			<property name="jym"/>
+			
+			<property name="addTime"/>
+			<property name="addName"/>
+			<property name="addUserId"/>
+			<property name="addDept"/>
+			<property name="baoxiaoStatus"/>
+			
+			<set name="details" inverse="true" cascade="all" lazy="true">
+				<key column="fk_invoice_id"></key>
+				<one-to-many class="com.task.entity.payment.Invoice_detail" />
+			</set>
+			<set name="checkRecordings" inverse="true" cascade="all" lazy="true">
+				<key column="invoice_ids"></key>
+				<one-to-many class="com.task.entity.payment.InvoiceCheckRecording" />
+			</set>
+		</class>
+		</hibernate-mapping>

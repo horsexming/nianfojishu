@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.InternalOrder" table="ta_crm_internalOrder">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity" />
+		</id>
+		<property name="num" column="f_num" type="string" />
+		<property name="newDate" column="f_newDate" />
+		<property name="genertorDate" column="f_genertorDate" type="string"></property>
+		<property name="documentaryPeople" column="f_documentaryPeople"
+			type="string" />
+		<property name="documentaryPeopleId" column="documentaryPeopleId" />
+		<property name="status" column="f_status" type="string" />
+		<property name="flow" column="f_flow" type="string" />
+		<property name="whetherPurchase" column="f_whetherPurchase"
+			type="string" />
+		<property name="isVali" column="f_isVali" type="int" />
+		<property name="cardStatus" column="f_cardStatus" />
+		<property name="zhStatus" column="f_zhStatus" />
+		<property name="removeDate" />
+		<property name="orderType" />
+		<property name="epId" />
+		<property name="producttype" />
+		<property name="orderIds" />
+		<property name="orderNums" />
+		<property name="isPeiJian" length="10"/>
+
+		<!--
+			<many-to-one name="outerOrder" column="fk_orderManager_id"
+			class="com.task.entity.OrderManager" lazy="false"/>
+		-->
+
+		<set name="outerOrders" table="ta_crm_orderManager_internalOrder"
+			cascade="all" inverse="false" lazy="false">
+			<key column="fk_internalOrder_id" />
+			<many-to-many column="fk_orderManager_id" class="com.task.entity.OrderManager" />
+		</set>
+
+		<set name="interOrderDetails" table="ta_crm_internalOrderDetail"
+			cascade="all" lazy="true" inverse="true">
+			<key column="fk_internalOrder_id" />
+			<one-to-many class="com.task.entity.InternalOrderDetail" />
+		</set>
+		<many-to-one name="custome" column="fk_client_id"
+			class="com.task.entity.ClientManagement" lazy="false" />
+	</class>
+</hibernate-mapping>

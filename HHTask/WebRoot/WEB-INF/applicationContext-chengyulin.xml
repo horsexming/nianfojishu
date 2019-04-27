@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************程玉林service层管理****************************************************
+	-->
+	<!-- 提交层 -->
+	<bean name="RequisitionServiceImpl" class="com.task.ServerImpl.RequisitionServiceImpl">
+
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean name="RepairServiceImpl" class="com.task.ServerImpl.RepairServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+     <bean name="EquipmentServiceImpl" class="com.task.ServerImpl.EquipmentServiceImpl">
+         	<property name="totalDao" ref="totalDaoImpl" />
+     </bean>
+       <bean name="ProdEquipmentServiceImpl" class="com.task.ServerImpl.ProdEquipmentServiceImpl">
+         	<property name="totalDao" ref="totalDaoImpl" />
+     </bean>
+     <bean name="EquipmentChangesServiceImpl" class="com.task.ServerImpl.EquipmentChangesServiceImpl">
+        	<property name="totalDao" ref="totalDaoImpl" />
+     </bean>
+       <bean name="ProcessManagementImpl" class="com.task.ServerImpl.ProcessManagementImpl">
+        	<property name="totalDao" ref="totalDaoImpl" />
+     </bean>
+     <!-- 设备日运行时长Server层 -->
+	<bean id="MachineDayYZSJServerImpl" class="com.task.ServerImpl.MachineDayYZSJServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<!--
+		***********************************程玉林Action层管理****************************************************
+	-->
+	<!-- 提交Action -->
+	<bean name="RequisitionAction" class="com.task.action.RequisitionAction"
+		scope="prototype">
+		<property name="requisitionService" ref="RequisitionServiceImpl">
+		</property>
+	</bean>
+	<bean name="RepairAction" class="com.task.action.RepairAction"
+		scope="prototype">
+		<property name="repairService" ref="RepairServiceImpl"></property>
+	</bean>
+	<bean name="EquipmentAction" class="com.task.action.EquipmentAction" scope="prototype">
+	    <property name="equipmentService" ref="EquipmentServiceImpl"></property>
+	    <property name="mdyServer" ref="MachineDayYZSJServerImpl"></property>
+	</bean>
+	<bean name="ProdEquipmentAction" class="com.task.action.ProdEquipmentAction" scope="prototype">
+	    <property name="prodEquipmentService" ref="ProdEquipmentServiceImpl"></property>
+	</bean>
+	<bean name="EquipmentChangesAction" class="com.task.action.EquipmentChangesAction" scope="prototype">
+	   <property name="equipmentChangesService" ref="EquipmentChangesServiceImpl"></property>
+	</bean>
+	<bean name="ProcessManagementAction" class="com.task.action.ProcessManagementAction" scope="prototype">
+	   <property name="processManagementService" ref="ProcessManagementImpl"></property>
+	</bean>
+</beans>

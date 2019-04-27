@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.CampanyName" table="ta_CampanyName" >
+		  <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+     
+		<property name="guimo"/>
+		<property name="type"/>
+		<property name="lianxiren"/>
+		<property name="phone"/>
+		<property name="totalman"/>
+		<property name="total"/>
+		<property name="ceshiNo"/>
+		<property name="campanyname"/>
+		<property name="userId"/>
+		<property name="groups"/>
+		<property name="zyyw"/>
+		<!-- 问卷模板问卷明细 -->
+		<set name="isset" inverse="false" cascade="all" lazy="false">
+			<key column="ta_cnId"></key>
+			<one-to-many class="com.task.entity.IntelligentDiagnosis" />
+		</set>
+		<!-- 调研报告 -->
+		<set name="rrSet" inverse="false" cascade="all" lazy="false">
+			<key column="ta_cnId"></key>
+			<one-to-many class="com.task.entity.diaoyan.ResearchReport" />
+		</set>
+	</class>
+</hibernate-mapping>

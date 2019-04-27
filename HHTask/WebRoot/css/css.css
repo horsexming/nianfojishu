@@ -1,0 +1,162 @@
+.search_shuru1 {
+	width: 355px;
+	height: 28px;
+	border: 1px solid #D6D6D6;
+	color: #04ee1a;
+	font-family: Arial;
+	font-size: 14px;
+	margin-right: 20px;
+	background-color: transparent;
+}
+
+.search_shuru2 {
+	width: 200px;
+	height: 28px;
+	border: 1px solid #005FAB;
+	padding-top: 6px;
+	color: #025FAC;
+	font-family: Arial;
+	font-size: 14px;
+}
+
+.userCenter {
+	LIST-STYLE: none none outside;
+}
+
+.span1 {
+	color: #999999;
+}
+
+/* ������ʽ  ��������������������*/
+.horizontalLine {
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+	border-top: 1px solid #ffffff;
+}
+
+.table {
+	font-size: 14px;
+	padding: 0px;
+	margin: 0px;
+	border-collapse: collapse;
+	border: solid #999;
+	border-width: 1px 0 0 1px;
+	width: 99%;
+}
+
+.table th,.table td {
+	border: solid #999;
+	border-width: 1 1px 1px 1;
+	padding: 2px;
+}
+
+/*tableȫ��ϸ�߿�  */
+.table2 {
+	font-size: 14px;
+	border: solid 1px #dadada;
+	padding: 0px;
+	margin: 0px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table2 th,.table2 td {
+	border-bottom-color: #DADADA;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+/*td�»���  */
+.tdhorizontalLine {
+	border-bottom-color: #DADADA;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.style1 {
+	background-color: #ff6600;
+	color: #ffffff;
+}
+
+.style2 {
+	background-color: #e4e4e4;
+	color: #000000;
+}
+
+.input {
+	width: 80px;
+	height: 50px;
+}
+
+.transDiv {
+	filter: Alpha(Opacity =               75);
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 4000px;
+	background: #000;
+	opacity: 1;
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	background: #000;
+}
+
+.contentDiv {
+	position: absolute;
+	z-index: 255;
+	width: 85%;
+	display: none;
+}
+
+.contentDiv100 {
+	position: absolute;
+	z-index: 255;
+	width: 100%;
+	display: none;
+}
+
+.closeDiv {
+	background: url(../images/bq_bg2.png);
+	line-height: 50px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #999999;
+}
+
+.closeDiv table #title {
+	height: 45px;
+	line-height: 45px;
+	padding-left: 50px;
+	font-family: Microsoft Yahei;
+	font-size: 15px;
+	font-weight: bolder;
+	color: #333333;
+}
+
+.menuContent {
+	display: none;
+	position: absolute;
+	filter: Alpha(Opacity =50);
+	background: #000;
+	opacity: 0.7;
+	color: #000;
+}
+
+td:hover .qs_ul {
+	display: block;
+}
+
+.qs_ul {
+	display: none;
+	border: 1px solid #999;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: auto;
+	background: #CCC;
+	color: green;
+}

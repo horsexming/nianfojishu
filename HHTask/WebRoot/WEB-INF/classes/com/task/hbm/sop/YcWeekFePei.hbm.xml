@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="YcWeekFePei" table="ta_yc_YcWeekFePei">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		 <property name="fpNum"/>
+		 <property name="whateWeek"/>
+		 <many-to-one name="ycProduct" column="ycproId"></many-to-one>
+		<set name="setycwgProcard" table="ta_week_ycwgprocard" inverse="true"
+			cascade="save-update" lazy="true">
+			<key column="ta_ycweekId" />
+			<many-to-many class="YcWaiGouProcrd" column="ta_ycwgprocardId"  />
+				
+		</set>
+	</class>
+</hibernate-mapping>

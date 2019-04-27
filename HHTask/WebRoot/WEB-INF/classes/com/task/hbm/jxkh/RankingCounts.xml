@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="RankingCounts" table="ta_RankingCounts">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		 <property name="ranking"  not-null="true"/>
+		 <property name="counts" not-null="true"/>
+		 <property name="fenPeiXIshu" />
+		 <property name="groups"/>
+		 <property name="addTime"/>
+		 <property name="addUsers"/>
+	</class>
+</hibernate-mapping>

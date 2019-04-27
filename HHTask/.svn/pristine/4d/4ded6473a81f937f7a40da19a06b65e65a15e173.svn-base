@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.task.Server.expresscabinet;
+
+/**
+ * @author 梁盼
+ *
+ */
+public interface WePayServer {
+	
+	/**
+	 * 调用微信统一支付接口-梁盼-2018年12月29日11:18:24
+	 * @param userId  用户id
+	 * @param productId  商品id
+	 * @return
+	 */
+	public String weixinPay(String userId,String productId,String order_price,String body);
+}

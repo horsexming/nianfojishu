@@ -1,0 +1,99 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 成绩明细表(表名:ta_hr_ScoreDetails)
+ * 
+ * @author 刘培
+ * 
+ */
+@SuppressWarnings("serial")
+public class ScoreDetails implements Serializable {
+	/*
+	 * Id id Ta_hr_scoreId 成绩id Ta_hr_project 考核项目 Ta_hr_customScore 分数
+	 * Ta_hr_onLayer 上层 Ta_hr_layer 当前第几层
+	 */
+	private Integer id;
+	private Integer tdsId;// 模板明细表
+	private String project;// 项目及内容
+	private Float customScore;// 定制分数
+	private Float lastScore;// 最终分数
+	private String onLayer;// 上层
+	private int layer;// 当前层
+	private String isSroce;// 是否为打分项(yes/no)
+	private AssScore assScore;// 模板类
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getTdsId() {
+		return tdsId;
+	}
+
+	public void setTdsId(Integer tdsId) {
+		this.tdsId = tdsId;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public Float getCustomScore() {
+		return customScore;
+	}
+
+	public void setCustomScore(Float customScore) {
+		this.customScore = customScore;
+	}
+
+	public Float getLastScore() {
+		return lastScore;
+	}
+
+	public void setLastScore(Float lastScore) {
+		this.lastScore = lastScore;
+	}
+
+	public String getOnLayer() {
+		return onLayer;
+	}
+
+	public void setOnLayer(String onLayer) {
+		this.onLayer = onLayer;
+	}
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
+
+	public AssScore getAssScore() {
+		return assScore;
+	}
+
+	public void setAssScore(AssScore assScore) {
+		this.assScore = assScore;
+	}
+
+	public String getIsSroce() {
+		return isSroce;
+	}
+
+	public void setIsSroce(String isSroce) {
+		this.isSroce = isSroce;
+	}
+
+}

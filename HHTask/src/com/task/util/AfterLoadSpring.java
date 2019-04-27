@@ -1,0 +1,149 @@
+package com.task.util;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.Server.ModuleFunctionServer;
+import com.task.Server.led.LEDServer;
+import com.task.ServerImpl.AlertMessagesServerImpl;
+import com.task.ServerImpl.face.FaceServerImpl;
+import com.task.entity.led.LED;
+import com.task.entity.rtx.RtxConnect;
+import com.task.entity.system.CompanyInfo;
+
+public class AfterLoadSpring implements ApplicationListener {
+
+	private TotalDao totalDao;
+	private LEDServer ledServer;// LED分类服务层
+	private ModuleFunctionServer moduleFunctionServer;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	public LEDServer getLedServer() {
+		return ledServer;
+	}
+
+	public void setLedServer(LEDServer ledServer) {
+		this.ledServer = ledServer;
+	}
+
+	public ModuleFunctionServer getModuleFunctionServer() {
+		return moduleFunctionServer;
+	}
+
+	public void setModuleFunctionServer(ModuleFunctionServer moduleFunctionServer) {
+		this.moduleFunctionServer = moduleFunctionServer;
+	}
+
+	@Override
+	public void onApplicationEvent(ApplicationEvent arg0) {
+		System.out.println("Spring启动完毕!");
+		getRtxConnect();
+		// 启动条码轮查功能
+		// new RwlBarcodeWebService().start();
+		// 考勤对接
+		// new YTKQToPEBSKQ().start();
+		// RwlBarcodeWebService.GetNoFindSnBarcode();
+		// // 启动Socket服务端程序
+		//new SocketServers(totalDao).start();
+		// // //
+		// // // // 启动车牌Socket服务端程序
+		// new SocketServersCar(totalDao).start();
+		// //
+		// // // 启动考勤Socket服务端程序
+		// new SocketServersKaoQing(totalDao).start();
+		// //
+		// // // 启动存档Socket服务端程序
+		// new SocketServersChunDang(totalDao).start();
+		// // // 启动存档Socket服务端程序
+		// new SocketServersKFJ(totalDao).start();
+		// new SocketServersGJG(totalDao).start();
+		// new SocketServersXMKFJ(totalDao).start();
+		// new SocketServersTeaRoom(totalDao).start();
+		//指纹考勤
+		new SocketServersZWKQ(totalDao).start();
+//		 new SocketServersKDG(totalDao).start();
+		 new SocketServersKDG(totalDao).start();
+		 //电梯升降指纹
+		 new SocketServersFanKEJI(totalDao).start();
+		 
+		// //推送led
+		// sendPushErrorLed();
+		
+		//人脸识别启动
+//		FaceServerImpl faceServerImpl = new FaceServerImpl();
+//		FaceServerImpl.basePath = ((WebApplicationContext)((ApplicationContextEvent)arg0).getApplicationContext())
+//				.getServletContext().getRealPath("/upload/file/dll/face");
+//		faceServerImpl.start();;//RX9HB5C7py
+		//FaceServerImpl faceServerImpl = new FaceServerImpl();
+		//faceServerImpl.setBasePath(((WebApplicationContext)((ApplicationContextEvent)arg0).getApplicationContext())
+		//		.getServletContext().getRealPath("/upload/file/dll/face/picture"));
+		//faceServerImpl.start();;
+		FaceServerImpl faceServerImpl = new FaceServerImpl();
+		faceServerImpl.setBasePath(((WebApplicationContext)((ApplicationContextEvent)arg0).getApplicationContext())
+				.getServletContext().getRealPath("/upload/file/dll/face"));
+		faceServerImpl.start();
+		
+//		FaceServerImpl faceServerImpl1 = new FaceServerImpl();
+//		faceServerImpl1.setFILE_PATH(((WebApplicationContext)((ApplicationContextEvent)arg0).getApplicationContext())
+//				.getServletContext().getRealPath("/upload/file/dll/face/picture/face1.jpg"));
+//		faceServerImpl1.start();;
+
+	}
+
+	/***
+	 * 发送推送失败的led信息
+	 */
+	@SuppressWarnings("unchecked")
+	public void sendPushErrorLed() {
+		String hql = "from LED where sendStatus='待推送'";
+		List<LED> list = totalDao.query(hql);
+		for (LED led : list) {
+			System.out.println(led.getId());
+			ledServer.sendGongWeiMs(led.getId());
+			// new LedSendServer(led.getId()).sendLedMs();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void getRtxConnect() {
+		List<RtxConnect> rtxConnectList = totalDao.query(" from RtxConnect");
+		if (rtxConnectList != null && rtxConnectList.size() > 0) {
+			RtxConnect rtxConnect = rtxConnectList.get(0);
+			RtxUtil.getRtxConnect(rtxConnect);
+			StationResource.getRtxConnect(rtxConnect);
+			AlertMessagesServerImpl.pebsUrl = rtxConnect.pebsURL;
+		}
+		System.out.println("RTX连接配置赋值完毕.......");
+		// List<UserFacialFeatures> ff = totalDao.query("from
+		// UserFacialFeatures");
+		// for (UserFacialFeatures userFacialFeatures : ff) {
+		// FeatureCompareUtil.dataStrToDoubleArray(userFacialFeatures,
+		// userFacialFeatures.getUserFeatures());
+		// }
+		// UserFacialInforServerImpl.fF = ff;
+		// System.out.println("特征赋值完毕.......");
+	}
+
+	public void getcompanyInfo() {
+		// 获得网站配置信息
+		CompanyInfo companyInfo = (CompanyInfo) ActionContext.getContext().getApplication().get("companyInfo");
+		if (companyInfo == null) {
+			companyInfo = moduleFunctionServer.findCompanyInfo();
+			ActionContext.getContext().put("companyInfo", companyInfo);
+		}
+	}
+
+}

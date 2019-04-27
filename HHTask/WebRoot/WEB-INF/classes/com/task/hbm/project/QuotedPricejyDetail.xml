@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPricejyDetail" table="ta_pro_QuotedPricejyDetail">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+	<property name="jyNumber" />
+	<property name="jyContext" />
+	<property name="addTime" />
+	<property name="zpTime" />
+	<property name="yqTime" />
+	<property name="wcTime" />
+	<property name="addUserId" />
+	<property name="addUserCode" />
+	<property name="addUserName" />
+	<property name="zxLog" />
+	<property name="status" />
+	<property name="addUserDept" />
+	<property name="xuhao" />
+	<property name="qrUserId" />
+	<property name="qrUserName" />
+	<property name="qrTime" />
+	<property name="spMsg" />
+	
+	<many-to-one name="qpjy" column="qpjyId"
+			class="QuotedPricejy" cascade="all" />
+	</class>
+</hibernate-mapping>

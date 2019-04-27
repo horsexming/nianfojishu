@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.receivePayment">
+	<class name="Receipt" table="ta_fin_Receipt">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="pkNumber" />
+		<property name="payee" />
+		<property name="zhUserId" />
+		<property name="payeeId" />
+		<property name="userId" />
+		<property name="summary" />
+		<property name="subBudgetName" />
+		<property name="fk_SubBudgetRateId" />
+		<property name="payType" />
+		<property name="aboutNum" />
+		<property name="fk_fundApplyId" />
+		<property name="fk_monthlyBillsId" />
+		<property name="allMoney" />
+		<property name="accountPaid" />
+		<property name="unPay" />
+		<property name="payIng" />
+		<property name="payOn" />
+		<property name="payLast" />
+		<property name="paymentCycle" />
+		<property name="fukuanDate" />
+		<property name="fukuanMonth" />
+		<property name="addTime" />
+		<property name="addUserCode" />
+		<property name="addUserName" />
+		<property name="status" />
+		<property name="epId" />
+		
+		<set name="receiptLogSet" inverse="true" cascade="all" lazy="true">
+			<key column="fk_receiptId"></key>
+			<one-to-many class="ReceiptLog" />
+		</set>
+		
+		
+	</class>
+</hibernate-mapping>

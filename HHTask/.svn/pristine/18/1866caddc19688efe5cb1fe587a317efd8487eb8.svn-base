@@ -1,0 +1,153 @@
+package com.task.entity;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 人员晋升表:(ta_Promotion)
+ * @author 王晓飞
+ *
+ */
+public class Promotion {
+	
+	private Integer id;
+	private Integer userId;//
+	@FieldMeta(name="晋升人姓名")
+	private String name;//晋升人姓名
+	@FieldMeta(name="晋升人工号")
+	private String code;//晋升人工号
+	@FieldMeta(name="晋升人部门")
+	private String dept;//晋升人部门
+	@FieldMeta(name="原来职级")
+	private String beforeRank;//原来职级;
+	@FieldMeta(name="原来职务")
+	private String beforeDuty;//原来职务
+	@FieldMeta(name="晋升职级")
+	private String rank;//晋升职级
+	@FieldMeta(name="晋升职务")
+	private String duty;//晋升职务
+	@FieldMeta(name="申请人姓名")
+	private String sqName;//申请人姓名
+	@FieldMeta(name="申请人部门")
+	private String sqDept;//申请人部门;
+	@FieldMeta(name="申请时间")
+	private String sqTime;//申请时间
+	private String jsTime;//晋升时间
+	@FieldMeta(name="事由")
+	private String cause ;//事由;
+	@FieldMeta(name="备注")
+	private String more;//备注
+	private String fujian;//附件
+	private Integer epId;//
+	private String ep_status;//审批状态
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getBeforeRank() {
+		return beforeRank;
+	}
+	public void setBeforeRank(String beforeRank) {
+		this.beforeRank = beforeRank;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public String getSqName() {
+		return sqName;
+	}
+	public void setSqName(String sqName) {
+		this.sqName = sqName;
+	}
+	public String getSqDept() {
+		return sqDept;
+	}
+	public void setSqDept(String sqDept) {
+		this.sqDept = sqDept;
+	}
+	public String getSqTime() {
+		return sqTime;
+	}
+	public void setSqTime(String sqTime) {
+		this.sqTime = sqTime;
+	}
+	public String getJsTime() {
+		return jsTime;
+	}
+	public void setJsTime(String jsTime) {
+		this.jsTime = jsTime;
+	}
+	public String getCause() {
+		return cause;
+	}
+	public void setCause(String cause) {
+		this.cause = cause;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public String getFujian() {
+		return fujian;
+	}
+	public void setFujian(String fujian) {
+		this.fujian = fujian;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEp_status() {
+		return ep_status;
+	}
+	public void setEp_status(String epStatus) {
+		ep_status = epStatus;
+	}
+	public String getBeforeDuty() {
+		return beforeDuty;
+	}
+	public void setBeforeDuty(String beforeDuty) {
+		this.beforeDuty = beforeDuty;
+	}
+	public String getDuty() {
+		return duty;
+	}
+	public void setDuty(String duty) {
+		this.duty = duty;
+	}
+	
+	
+	
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.kvp.ExecuteKVP" table="ta_ExecuteKVP" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="bxMoney" />
+        <property name="executeNumber" />
+        <property name="improve_deptNum" />
+        <property name="improve_username" />
+        <property name="improve_usercode" />
+        <property name="res_deptNum" />
+        <property name="res_username" />
+        <property name="res_usercode" />
+        <property name="materialcosts" />
+        <property name="laborcosts" />
+        <property name="materialcosts1" />
+        <property name="laborcosts1" />
+        <property name="costsavings" />
+        <property name="epId" />
+        <property name="status" />
+        <property name="executeDate" />
+        <property name="improved_beforeproblems"  type="text"/>
+        <property name="improved_endproblems"  type="text"/>
+	<!-- 与kvp产品评估主表一对一  -->
+		<many-to-one name="kvpAssess" unique="true" column="kvp_id" />
+		<!-- 与8B一对一 -->
+		<one-to-one name="eightBReport" property-ref="executeKVP" cascade="all"
+			lazy="false" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+.icon-floderUser{
+	background:url('icons/folder_user.png') no-repeat;
+}
+
+.icon-user{
+	background:url('icons/user.png') no-repeat;
+}
+
+.icon-emailDelete{
+	background:url('icons/email_delete.png') no-repeat;
+}
+
+.icon-emailGo{
+	background:url('icons/email_go.png') no-repeat;
+}

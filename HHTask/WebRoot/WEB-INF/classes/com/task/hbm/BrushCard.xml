@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.BrushCard" table="KQ_BrushCard">
+		<id name="idKey" type="java.lang.Integer" column="ID_KEY">
+			<generator class="identity" />
+		</id>
+		<property name="personId" column="Person_ID" />
+		<property name="cardNo" length="20" column="Card_No" />
+		<property name="brushDate" length="20" column="Brush_Date" />
+		<property name="clockTime" column="Brush_Data" />
+	</class>
+</hibernate-mapping>
+ 

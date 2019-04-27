@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.gzbj.GzMsn" table="ta_GzMsn" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="number" />
+		<property name="matetag" />
+		<property name="cljd" />
+		<property name="isyouxiao" />
+		<property name="addDate"/>
+		<property name="person" />
+		<property name="dept" />
+		<property name="GRR" />
+		<property name="result" />
+		<property name="Gzstore_id"/>
+		<property name="pic"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,122 @@
+package com.task.entity.barandqr;
+
+import java.io.Serializable;
+
+/**
+ * 气密记录 (表名:ta_AirtightLog)
+ * 
+ * @author txb
+ * 
+ */
+public class AirtightLog implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String markId;// 件号
+	private String processDate;// 加工时间
+	private String number;// 产品序号
+	private String context;// 条形码或者二维码内容
+	private String otherContext;//对方提供的条形码或者二维码内容
+	private String operator;// 操作者
+	private String type;// (条形码或者二维码)
+	private String addtime;// 添加时间
+	private Float xielou;// 泄漏量
+	private Float yali;// 压力值
+	private String barcode;//唯一编码
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public String getProcessDate() {
+		return processDate;
+	}
+
+	public void setProcessDate(String processDate) {
+		this.processDate = processDate;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getAddtime() {
+		return addtime;
+	}
+
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+
+	public Float getXielou() {
+		return xielou;
+	}
+
+	public void setXielou(Float xielou) {
+		this.xielou = xielou;
+	}
+
+	public Float getYali() {
+		return yali;
+	}
+
+	public void setYali(Float yali) {
+		this.yali = yali;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	public String getOtherContext() {
+		return otherContext;
+	}
+
+	public void setOtherContext(String otherContext) {
+		this.otherContext = otherContext;
+	}
+
+}

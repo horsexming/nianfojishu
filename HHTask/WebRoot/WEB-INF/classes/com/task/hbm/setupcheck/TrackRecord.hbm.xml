@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.setupcheck.TrackRecord" table="ta_trackRecord">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="date"></property>
+		<property name="person"></property>
+		<property name="code"></property>
+		<property name="fileName"></property>
+		<property name="description"></property>
+		<property name="setupCheckId"></property>
+	</class>
+</hibernate-mapping>

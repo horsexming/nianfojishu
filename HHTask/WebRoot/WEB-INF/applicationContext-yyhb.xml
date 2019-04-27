@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- Server层 -->
+	<bean id="ApkServerImpl" class="com.task.ServerImpl.android.ApkServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- Action -->
+	<bean id="ApkAction" class="com.task.action.ApkAction" scope="prototype">
+		<property name="apkServer" ref="ApkServerImpl"></property>
+		<property name="dmltryAppFilesServer" ref="DmltryAppFilesServerimpl"></property>
+		<property name="dmlAppFileUrlServer" ref="DmlAppFileUrlServerimpl"></property>
+	</bean>
+	
+	<!-- 证件Server层 -->
+	<bean id="CredentialsServerImpl" class="com.task.ServerImpl.CredentialsServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 证件Action -->
+	<bean id="CredentialsAction" class="com.task.action.CredentialsAction" scope="prototype">
+		<property name="credentialsServer" ref="CredentialsServerImpl"></property>
+	</bean>
+	
+	<!-- Server层 -->
+	<bean id="DmltryAppFilesServerimpl" class="com.task.ServerImpl.dmltry.DmltryAppFilesServerimpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- Action -->
+	<bean id="DmltryAppFilesAction" class="com.task.action.dmltry.DmltryAppFilesAction" scope="prototype">
+		<property name="dmltryAppFilesServer" ref="DmltryAppFilesServerimpl"></property>
+		<property name="dmlAppFileUrlServer" ref="DmlAppFileUrlServerimpl"></property>
+	</bean>
+	
+	
+	<!-- Server层 -->
+		<bean id="DmlAppFileUrlServerimpl" class="com.task.ServerImpl.dmltry.DmlAppFileUrlServerimpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		</bean>
+	
+	
+	<!-- Action -->
+		<bean id="DmlAppFileUrlAction" class="com.task.action.dmltry.DmlAppFileUrlAction" scope="prototype">
+		<property name="dmlAppFileUrlServer" ref="DmlAppFileUrlServerimpl"></property>
+	</bean>
+	
+	
+
+	
+	
+	
+</beans>

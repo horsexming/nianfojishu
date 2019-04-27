@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Provision" table="ta_hr_Provision">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<!-- 入职条款对合同 -->
+		<many-to-one column="ta_provision_contractId" name="contract"
+			lazy="proxy" class="Contract" />
+
+		<!-- 离职条款对合同 -->
+		<many-to-one column="ta_provision_xieyiId" name="dimissionXieYi"
+			lazy="proxy" class="com.task.entity.renshi.Dimission_XieYi" />
+			
+		<property name="content" length="1000" column="ta_provision_content" />
+		<property name="provisionStatus" length="20"
+			column="ta_provision_provisionStatus" />
+		<property name="num"></property>
+	</class>
+</hibernate-mapping>

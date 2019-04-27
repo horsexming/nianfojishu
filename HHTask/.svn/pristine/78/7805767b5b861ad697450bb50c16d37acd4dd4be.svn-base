@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.payee">
+	<class name="Payee" table="ta_payee">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="num" />
+		<property name="code" />
+		<property name="aNumber" />
+		<property name="name" />
+		<property name="cmobile" />
+		<property name="Status" />
+		<property name="bank"/>
+		<property name="epId" />
+		<property name="epStattus" />
+	</class>
+</hibernate-mapping>

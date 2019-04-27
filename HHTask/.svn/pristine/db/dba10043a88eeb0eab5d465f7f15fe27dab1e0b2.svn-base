@@ -1,0 +1,63 @@
+package com.task.entity.jxkh;
+/**
+ * 月销售额与提取系数关系表 :(ta_SalesAmountCoefficient)
+ *1.前包后不包原则
+ * @author wxf
+ *
+ */
+public class SalesAmountCoefficient {
+
+	private Integer id;
+	private Float lowAmount;//最低金额(万) >= （非空）
+	private Float ceilingAmount;//最高金额 (万)< (为 null时，表示无上限。)
+	private Float coefficient;//提取系数（非空）
+	private String danwei;//单位
+	private String addTime;//添加时间
+	private String addUsersName;//添加人
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Float getLowAmount() {
+		return lowAmount;
+	}
+	public void setLowAmount(Float lowAmount) {
+		this.lowAmount = lowAmount;
+	}
+	public Float getCeilingAmount() {
+		return ceilingAmount;
+	}
+	public void setCeilingAmount(Float ceilingAmount) {
+		this.ceilingAmount = ceilingAmount;
+	}
+	public Float getCoefficient() {
+		return coefficient;
+	}
+	public void setCoefficient(Float coefficient) {
+		this.coefficient = coefficient;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public String getDanwei() {
+		return danwei;
+	}
+	public void setDanwei(String danwei) {
+		this.danwei = danwei;
+	}
+	
+	
+	
+}

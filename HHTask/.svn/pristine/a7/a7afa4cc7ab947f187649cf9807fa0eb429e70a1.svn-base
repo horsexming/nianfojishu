@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardSbWaster" table="ta_sop_w_ProcardSbWaster"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="ptbbApplyId" />
+	<property name="sbNumber" />
+	<property name="procardId" />
+	<property name="markId" />
+	<property name="proName" />
+	<property name="banbenNumber" />
+	<property name="banci" />
+	<property name="procardStyle" />
+	<property name="kgliao" />
+	<property name="selfCard" />
+	<property name="orderNumber" />
+	<property name="finalCount" />
+	<property name="bfCount" />
+	<property name="processNo" />
+	<property name="processName" />
+	<property name="rootMarkId" />
+	<property name="rootSelfCard" />
+	<property name="ywmarkId" />
+	<property name="addTime" />
+	<property name="status" />
+	<property name="tuhao" />
+	<property name="specification" />
+	<property name="unit" />
+	<property name="clType" />
+	<property name="wgType" />
+	<property name="clId" />
+	<property name="clName" />
+	<property name="clCode" />
+	<property name="clTime" />
+	<property name="trueClType" />
+	
+	<set name="procardSbWasterxcs" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="wasterId"></key>
+			<one-to-many class="ProcardSbWasterxc" />
+		</set>
+	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.task.entity.Nect" table="Nect">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="goodsMarkId"/>
+		<property name="goodsLotId"/>
+		<property name="goodsFullName"/>
+		<property name="num"/>
+		<property name="unit"/>
+		<property name="format"/>
+		<property name="wgType"/>
+		<property name="storehouse"/>
+		<property name="goodHouse"/>
+		<property name="wareHouse"/>
+		<property name="date"/>
+		<property name="time"/>
+		<property name="remark"/>
+		<property name="cardNum"/>
+		<property name="peopleName"/>
+		<property name="dept"/>
+		<property name="power"/>
+		<property name="goodsId"/>
+		<property name="adminId"/>
+		<property name="admin"/>
+		<property name="processPieceNum"/>
+		
+		<property name="status"/>
+		<property name="canChangeNum"/>
+	</class>
+
+</hibernate-mapping>

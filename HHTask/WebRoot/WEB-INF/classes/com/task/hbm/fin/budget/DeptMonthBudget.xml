@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.budget">
+	<class name="DeptMonthBudget" table="ta_fin_deptMonthBudget">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="budgetMonth" />
+		<property name="budgetDetail" />
+		<property name="accountMoney" />
+		<property name="realMoney" />
+		<property name="status" />
+
+		<property name="username" />
+		<property name="userDept" />
+
+		<property name="subTime" />
+		<property name="auditTime" />
+		<property name="more" />
+		<property name="budgetStyle" />
+		<property name="linshiFile" />
+		<property name="jhStatus" />
+		<property name="borcode" />
+		<property name="rootId" />
+		<property name="auditResult" />
+		<property name="epId" />
+
+
+		<!-- 【配置月度科目预算总金额表与明细自身的对应关系(多对一)】 -->
+		<many-to-one name="subMonthMoney" class="SubMonthMoney"
+			cascade="save-update" lazy="false" column="fk_smdmId" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,1059 @@
+package com.task.util;
+
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import com.task.Dao.TotalDao;
+import com.task.ServerImpl.ShortMessageServiceImpl;
+import com.task.ServerImpl.expresscabinet.WePayServerImpl;
+import com.task.entity.Price;
+import com.task.entity.Users;
+import com.task.entity.dangan.ArchiveUnarchiverAplt;
+import com.task.entity.expresscabinet.Charging;
+import com.task.entity.expresscabinet.Courier;
+import com.task.entity.expresscabinet.WeiXinOrder;
+import com.task.entity.menjin.AccessEquipment;
+import com.task.entity.menjin.AccessWebcam;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.ToolCabine;
+import com.task.entity.seal.SealLog;
+
+import cn.usr.UsrCloudMqttCallbackAdapter;
+
+
+/**
+ * Created by shizhiyuan on 2017/7/21.
+ */
+
+@SuppressWarnings("unchecked")
+public class UsrCloudClientCallback extends UsrCloudMqttCallbackAdapter {
+
+//    private Context mcontext = UsrApplication.getInstance();
+
+	public UsrCloudClient usrCloudClient;
+	public TotalDao totalDao;
+	public static String seleteOne = "from AccessEquipment where equipmentIP = ?";
+	public static String seleteType = " and yxType = 0 ";
+	public static String seleteTow = "from ResAccess where cunCodes = ? and shixiaoTime > ? and cuseType < 2 and type = '存取'"+seleteType+" order by id desc";
+	public static String seleteThe = "from ResAccess where id = ?";
+	public static String seleteFou = "from ResAccess where quCodes = ? and ace_Ip = ? and daGuiposition is not null and shixiaoTime > ? and cuseType = 2 and quseType = 0"+seleteType+" order by id desc";
+	public static String seleteFou_1 = "from ResAccess where ace_Ip = ? and daGuiposition is not null and shixiaoTime > ? and cuseType = 2 and quseType = 0"+seleteType+" order by id desc";
+	public static String seletefiv = "from ResAccess where cunCodes = ? and ace_Ip = ? and daGuiposition is not null and shixiaoTime > ? and cuseType = 0 and type = '寄取'"+seleteType+" order by id desc";
+	public static String seletefiv_1 = "from ResAccess where ace_Ip = ? and daGuiposition is not null and shixiaoTime > ? and cuseType < 2 and type = '寄取'"+seleteType+" order by id desc";
+	public static String seletetool = "from ToolCabine where nowArticleFormat = ? and cabStatus = '未满' and cabAceIp = ? order by cabOpenOrder";
+	public static String seletetool1 = "from ToolCabine where cabOpenOrder = ? and cabAceIp = ? order by cabOpenOrder";
+	public static String seletetool2 = "from ToolCabine where cabStatus = '未满' and cabAceIp = ? order by cabOpenOrder";
+	public static String seletetool3 = "from ToolCabine where id = ?";
+	public static final String YM = "已满";
+	public static final String WM = "未满";
+	
+	
+    public UsrCloudClientCallback() {
+		super();
+	}
+
+	public UsrCloudClientCallback(UsrCloudClient usrCloudClient,
+			TotalDao totalDao) {
+		super();
+		this.usrCloudClient = usrCloudClient;
+		this.totalDao = totalDao;
+	}
+
+	public UsrCloudClient getUsrCloudClient() {
+		return usrCloudClient;
+	}
+
+	public void setUsrCloudClient(UsrCloudClient usrCloudClient) {
+		this.usrCloudClient = usrCloudClient;
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+    public void onConnectAck(int returnCode, String description) {
+        super.onConnectAck(returnCode, description);
+        System.out.println(returnCode + "\n" + description);
+    }
+
+
+	/**
+	 * 接收监听返回状态
+	 */
+    @Override
+    public void onSubscribeAck(int messageId, String clientId, String topics, int returnCode) {
+        super.onSubscribeAck(messageId, clientId, topics, returnCode);
+        System.out.println("messageId:" + messageId + "\nclientId:" + clientId + "\ntopics:" + topics + "\nreturnCode" + returnCode);
+    }
+
+    @Override
+    public void onReceiveParsedEvent(int messageId, String topic, String jsonData) {
+        System.out.println("messageId:" + messageId + "\ntopic:" + topic + "\njsonData" + jsonData);
+    }
+
+    @Override
+    public void onDisSubscribeAck(int messageId, String clientId, String topics, int returnCode) {
+    	System.out.println("messageId:{}" + messageId + "\nclientId:" + clientId + "\ntopics:" + topics + "\nreturnCode" + returnCode);
+    }
+
+    @Override
+    public void onPublishDataAck(int messageId, String topic, boolean isSuccess) {
+    	System.out.println("messageId:" + messageId + "\ntopic\n" + topic + "isSuccess\n" + isSuccess);
+    }
+
+    @Override
+    public void onPublishDataResult(int messageId, String topic) {
+    	System.out.println("messageId:" + messageId + "\ntopic\n" + topic);
+    }
+
+
+    /**
+     * 接收消息
+     */
+	@Override
+    public void onReceiveEvent(int messageId, String topic, byte[] data) {
+    	try {
+    		String shou = Util.byteArrayToHexString(data);
+//    		System.out.println("messageId:" + messageId + "序号：" + topic + "\n接收：" + shou);
+    		String s = topic.substring(topic.indexOf("DevTx/")+6, topic.length());
+//    		System.out.println("s:"+s);
+    		if("00".equals(shou)){
+    			System.out.println(s+":心跳包："+shou);
+    		}else {
+    			business(shou, s);
+			}
+//    		usrCloudClient.publishForDevId(s, new byte[]{(byte) (20+0xAF)});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    /**
+     * 处理业务
+     * @param shou 接收数据
+     * @param s nb唯一编号
+     * @throws MqttException
+     */
+	private void business(String shou, String s) throws MqttException {
+		byte [] send = null;
+		List<AccessEquipment> array = totalDao.query(seleteOne ,s);
+		if(array!=null&&array.size()>0){
+			AccessEquipment ace = array.get(0);
+			if("NB-IoT快递柜".equals(ace.getEquipmentDaoType())){
+				send = kuaidDi(shou, s, send, ace);
+			}else if("NB-IoT档案柜A".equals(ace.getEquipmentDaoType())){
+				send = danganA(shou, s, send, ace);
+			}else if("NB-IoT档案柜".equals(ace.getEquipmentDaoType())){
+				send = dangan(shou, s, send, ace);
+			}else if("NB-IoT指纹机".equals(ace.getEquipmentDaoType())){
+				send = dangan(shou, s, send, ace);
+			}else if("NB-IoT取纹机".equals(ace.getEquipmentDaoType())){
+				send = tryquwen(shou, s, send,ace);
+			}
+		}
+		if(send!=null){
+			usrCloudClient.publishForDevId(s, send);
+		}
+	}
+	
+	//指纹录入采集
+	private byte[] tryquwen(String shou,String s,byte[] send,AccessEquipment ace){
+		
+		
+		return send;
+	} 
+		
+		
+	
+	
+	private byte[] dangan(String shou, String s, byte[] send,
+			AccessEquipment ace) {
+		String nowDateTime = Util.getDateTime();
+//		int ss = ace.getNbStage()==null?0:ace.getNbStage();
+//		switch (ss) {
+//		case 0://初始状态只接收 二维码信息
+			if ("FF".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = ace.getAdminCardId().getBytes();//发送链接地址
+			}else if ("EE".equals(shou)) {//返回
+				if(ace.getAdminStatus()!=null&&!"已设置".equals(ace.getAdminStatus())){
+					if(ace.getAdminCardId()!=null&&!"".equals(ace.getAdminCardId())){
+						send = ace.getAdminCardId().getBytes();//发送链接地址
+						try {	
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ace.setAdminStatus("已设置");
+						totalDao.update2(ace);
+					}
+				}
+				
+			}else {
+				try {
+					shou = UtilHexString.hex2String(shou.substring(8, shou.length()));
+					System.out.println(shou);
+					
+					// 查询ArchiveUnarchiverAplt表中有无申请记录
+					List<ArchiveUnarchiverAplt> aplt = totalDao
+						.query("from ArchiveUnarchiverAplt where inCodes = ? and ace_Ip = ? and shixiaoTime > ? and daGuiposition is not null and daGuiposition <> '' and useType = '未使用' order by id desc",
+								shou, s, nowDateTime);//
+					if (aplt != null && aplt.size() > 0) {
+						ArchiveUnarchiverAplt aplt1 = aplt.get(0);
+						send = sendFu1(Integer.parseInt(aplt1.getDaGuiposition(), 16));//发送柜号
+//						ace.setGuiType(aplt1.getId()+"");//将id赋值
+//						updateStatus(ace,1);
+						aplt1.setUseType("已使用");
+						totalDao.update2(aplt1);
+						/***********
+						 * 存取档之后的操作 将price表中的状态改变， 将ArchiveUnarchiverAplt表中相同柜号的记录设置为已使用
+						 ***********/
+						updateDa(nowDateTime, aplt1);
+						// 流程结束，页面返回主界面
+					} else {
+						// 验证码无效
+						send = sendFu1(1);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+//			break;
+//		case 1://只接收EE确认已开柜()
+//			if ("FF".equals(shou)) {//返回
+//				ace.setGuiType("");
+//				updateStatus(ace,0);
+//				send = ace.getAdminCardId().getBytes();//发送链接地址
+//			}else 
+//			if ("EE".equals(shou)) {
+//				// 已开柜，将状态改为已使用 在aplt中除去
+//				if(ace.getGuiType()!=null){
+//					List<ArchiveUnarchiverAplt> aplt = totalDao
+//					.query("from ArchiveUnarchiverAplt where id = ?",Integer.parseInt(ace.getGuiType()));//
+//					if (aplt != null && aplt.size() > 0) {
+//						ArchiveUnarchiverAplt aplt1 = aplt.get(0);
+//						aplt1.setUseType("已使用");
+//						totalDao.update2(aplt1);
+//						/***********
+//						 * 存取档之后的操作 将price表中的状态改变， 将ArchiveUnarchiverAplt表中相同柜号的记录设置为已使用
+//						 ***********/
+//						//updatePrice(nowDateTime, aplt1, totalDao, builder);
+//						updateDa(nowDateTime, aplt1);
+//					}
+//				}
+//			}else {
+//				ace.setGuiType("");
+//				updateStatus(ace,0);
+//			}
+//			break;
+//		default:
+//			break;
+//		}
+		return send;
+	}
+
+	private void updateDa(String nowDateTime, ArchiveUnarchiverAplt aplt1) {
+		if(aplt1.getDaId()!=null&&aplt1.getDaId()>0){
+			List<Price> pricel = totalDao.query("from Price where id = ?", aplt1.getDaId()); 
+			if(pricel!=null&&pricel.size()>0){
+				Price price = pricel.get(0);
+				price.setIsGuiDang("yes");
+				price.setCunStatus("已存档");
+				price.setDanganCunQuStatus("已存");
+				price.setIsCunTime(nowDateTime);
+				totalDao.update2(price);
+				List<SealLog> seall = totalDao.query("from SealLog where documentId = ?", price.getId()); 
+				if(seall!=null&&seall.size()>0){
+					SealLog seal = seall.get(0);
+					seal.setFujian2Status("已存档");
+					seal.setIsCunTime(nowDateTime);
+					totalDao.update2(seal);
+				}
+			}
+		}
+		List<AccessWebcam> accessWebcam = totalDao.query("from AccessWebcam where id = ?", aplt1.getDaGuiId());
+		if(accessWebcam!=null&&accessWebcam.size()>0){
+			AccessWebcam accessWebcam2 = accessWebcam.get(0);
+			accessWebcam2.setActualNum(accessWebcam2.getActualNum()==null?0:accessWebcam2.getActualNum()+1);
+			totalDao.update2(accessWebcam2);
+		}
+	}
+
+	private byte[] danganA(String shou, String s, byte[] send,
+			AccessEquipment ace) {
+		String nowDateTime = Util.getDateTime();
+		int ss = ace.getNbStage()==null?0:ace.getNbStage();
+		switch (ss) {
+		case 0://初始状态只接收AA/AB/AC 如果接收为AB返回当前空闲柜子实际数量
+			if ("AB".equals(shou)) {//存
+				//返回01或3位十六进制数组
+				ace.setGuiType("0");
+				updateStatus(ace,1);
+			}else if ("AC".equals(shou)) {//取
+				ace.setGuiType("1");
+				updateStatus(ace,1);
+			}
+			break;
+		case 1://只接收DF/00开头卡号
+			String s2 = shou.substring(0, 2);
+			if ("00".equals(s2)) {//卡号
+				//返回01或3位十六进制数组
+				String cardId = Util.cardId(Integer.parseInt(shou, 16)+"");
+				// 1、判断是否为内部（users表）
+				List<Users> userList = totalDao
+						.query(
+								"from Users where cardId = ? and onWork not in ('离职','内退','退休','病休') and dept not in('內退','病休') and internal = '是'",
+								cardId);
+				// 判断有无存取档记录
+				if (userList != null && userList.size() > 0) {
+					// 查询ArchiveUnarchiverAplt表中有无申请记录
+					List<ArchiveUnarchiverAplt> aplt = totalDao
+							.query(
+									"from ArchiveUnarchiverAplt where cqType = ? and cardId = ? and ace_Ip = ? and daGuiposition is not null and daGuiposition <> '' and useType = '未使用' and shixiaoTime > ? order by id desc",
+									"1".equals(ace.getGuiType())?"取档":"存档", cardId, s, nowDateTime);// , nowTime
+					if (aplt != null && aplt.size() > 0) {
+						ace.setGuiType(ace.getGuiType()+":"+cardId);
+						updateStatus(ace,2);
+						send = sendFu1(6);
+					}else {
+						if("1".equals(ace.getGuiType())){
+							send = sendFu2(0);//无取档
+						}else {
+							send = sendFu1(1);//无存档
+						}
+						ace.setGuiType("");
+						updateStatus(ace,0);
+					}
+				}else {//无此卡号用户
+					if("1".equals(ace.getGuiType())){
+						send = sendFu2(0);//无取档
+					}else {
+						send = sendFu1(1);//无存档
+					}
+					ace.setGuiType("");
+					updateStatus(ace,0);
+				}
+			}else if ("DF".equals(s2)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+			}
+			break;
+		case 2://接收柜号
+			if ("DF".equals(shou)) {//取
+				ace.setGuiType("");
+				updateStatus(ace,0);
+			}else{
+				String [] sq = ace.getGuiType().split(":");
+				boolean b = false;
+				boolean cqty = sq[0].equals("1")?false:true;
+				List<ArchiveUnarchiverAplt> aplt = totalDao
+				.query(
+						"from ArchiveUnarchiverAplt where cqType = ? and cardId = ? and ace_Ip = ? and daGuiposition is not null and daGuiposition <> '' and useType = '未使用' and shixiaoTime > ? order by id desc",
+						b?"存档":"取档", sq[1], s, nowDateTime);// , nowTime
+				for (ArchiveUnarchiverAplt aplt2 : aplt) {
+					if (shou.equals(aplt2.getDaGuiposition())
+							&& "未使用".equals(aplt2.getUseType())) {
+						b = true;
+					}
+				}
+				if (b) {
+					for (ArchiveUnarchiverAplt aplt2 : aplt) {
+						if (shou.equals(aplt2.getDaGuiposition())
+								&& "未使用".equals(aplt2.getUseType())) {
+							// 如果有相等的 将状态设置为已使用
+							if (cqty) {
+								send = sendFu1(2);
+							} else {
+								// 处理验证码
+//										yanzheng = aplt2.getInCodes();
+							}
+//									bis3 = new BufferedInputStream(in);// 等待接收返回值
+//									byte[] bankZhi = new byte[1];// EE:正确
+//									// CF:错误
+//									// DF:返回主界面
+//									bis3.read(bankZhi);
+//									String bank_zhi = Util.byteArrayToHexStringK(bankZhi).replaceAll(" ",
+//									"");// 十六进制转换为String类型并去掉空格
+//									System.out.println("返回结果：" + bank_zhi);
+//									if ("EE".equals(bank_zhi)) {
+//										// 已开柜，将状态改为已使用 在aplt中除去
+//										aplt2.setUseType("已使用");
+//										totalDao.update2(aplt2);
+								//addDangAnBank( accessIP, cardId, aplt2);
+								/***********
+								 * 存取档之后的操作 将price表中的状态改变， 将ArchiveUnarchiverAplt表中相同柜号的记录设置为已使用
+								 ***********/
+								//updatePrice(nowDateTime, aplt2);
+//										i++;// i加一
+//										if (i < aplt.size() && !cqty) {// 取档成功，且还有未取的档案时发送06
+//											// 如果还有未使用的申请 继续发送06
+//											getsocketNoClose(socket, 6);// 返回选柜号页面
+//										} else if (i >= aplt.size()) {
+//											getsocketNoClose(socket, 5);// 返回主页面
+//										}
+//										break;
+//									} else if ("CF".equals(bank_zhi)) {// 返回上一页面
+//										break;
+//									} else if ("DF".equals(bank_zhi)) {// 返回主页面
+//										i = aplt.size();
+//										break;
+//									} else {
+//										i = aplt.size();
+//										break;
+//									}
+						}
+					}
+					/** for **/
+				} else {// 您没有该箱子的开门权限
+					send = sendFu1(4);
+				}
+			}
+			break;
+		case 3://初始状态只接收AA/AB/AC 如果接收为AB返回当前空闲柜子实际数量
+			if ("AB".equals(shou)) {//存
+				//返回01或3位十六进制数组
+				updateStatus(ace,1);
+			}else if ("AC".equals(shou)) {//取
+				ace.setGuiType("1");
+				updateStatus(ace,1);
+			}
+			break;
+		case 4://初始状态只接收AA/AB/AC 如果接收为AB返回当前空闲柜子实际数量
+			if ("AB".equals(shou)) {//存
+				//返回01或3位十六进制数组
+				updateStatus(ace,1);
+			}else if ("AC".equals(shou)) {//取
+				ace.setGuiType("1");
+				updateStatus(ace,1);
+			}
+			break;
+		default:
+			break;
+		}
+		return send;
+	}
+
+	private byte[] kuaidDi(String shou, String s, byte[] send,
+			AccessEquipment ace) {
+		String nowDateTime = Util.getDateTime();
+		int ss = ace.getNbStage()==null?0:ace.getNbStage();
+		switch (ss) {
+		case 0://初始状态只接收AA/AB/AC 如果接收为AB返回当前空闲柜子实际数量
+			if("AA".equals(shou)){//取
+				int i = totalDao.getCount(seleteFou_1, s,nowDateTime);
+				if(i==0){
+					send = sendFu1(6);
+				}else {
+					send = sendFu1(7);
+					updateStatus(ace,4);
+				}
+			}else if ("AB".equals(shou)) {//存
+				
+				
+				
+				//返回01或3位十六进制数组
+				send = sendFu3(ace);
+				if(send.length>1){
+					updateStatus(ace,1);
+				}
+			}else if ("AC".equals(shou)) {//寄
+				int i = totalDao.getCount(seletefiv_1, s,nowDateTime);
+				if(i==0){
+					send = sendFu1(6);
+				}else {
+					send = sendFu1(7);
+					updateStatus(ace,6);
+				}
+			}else if("A0".equals(shou)||"A1".equals(shou)||"A2".equals(shou)){//小、中、大
+				if(selectGui(s,shou)){
+					ace.setGuiType(shou);//给柜子类型赋值
+					updateStatus(ace,2);
+					send = sendFu1(10);
+				}else {//不够，返回2
+					updateStatus(ace,0);
+					send = sendFu1(2);
+				}
+			}else{//其它返回
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}
+			break;
+		case 1://选柜状态 只接收A0/A1/A2/DF 
+			if("A0".equals(shou)||"A1".equals(shou)||"A2".equals(shou)){//小、中、大
+				if(selectGui(s,shou)){
+					ace.setGuiType(shou);//给柜子类型赋值
+					updateStatus(ace,2);
+					send = sendFu1(10);
+				}else {//不够，返回2
+					updateStatus(ace,0);
+					send = sendFu1(2);
+				}
+			}else if ("DF".equals(shou)) {//返回
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}else if("AA".equals(shou)){//取
+				int i = totalDao.getCount(seleteFou_1, s,nowDateTime);
+				if(i==0){
+					send = sendFu1(6);
+				}else {
+					send = sendFu1(7);
+					updateStatus(ace,4);
+				}
+			}else if ("AB".equals(shou)) {//存
+				//返回01或3位十六进制数组
+				send = sendFu3(ace);
+				if(send.length>1){
+					updateStatus(ace,1);
+				}
+			}else if ("AC".equals(shou)) {//寄
+				int i = totalDao.getCount(seletefiv_1, s,nowDateTime);
+				if(i==0){
+					send = sendFu1(6);
+				}else {
+					send = sendFu1(7);
+					updateStatus(ace,6);
+				}
+			}
+			break;
+		case 9://输入快递员手机号状态
+			//查询快递员信息在数据库中是否存在
+			Integer count=null;
+			if(shou !=null){
+				count = totalDao.getCount(" from Courier where phoneNumber=?",shou);
+				if(count==1){
+					//快递员手机号存在数据库中(发送指令给前台)                          
+					
+				}else{
+					//快递员手机号不存在(发送验证码)      
+					ShortMessageServiceImpl shortMessageService = new ShortMessageServiceImpl();
+					Integer codeInt = (int)((Math.random()*9+1)*100000);
+					String code = codeInt.toString();
+					String fhjg = shortMessageService.send(shou,code);
+				}
+			}	
+			break;
+		case 2://接收快递单号
+			// 查询ArchiveUnarchiverAplt表中有无申请记录
+			//4E4F2E31 343338303436353934393537
+			if ("DF".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}else {
+				try {
+					shou = UtilHexString.hex2String(shou.substring(8, shou.length()));
+					System.out.println(shou);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//			String kuai = shou.substring(8, shou.length());
+				List<ResAccess> ra = totalDao.query(seleteTow,shou, nowDateTime);//
+				if(ra!=null&&ra.size()>0){
+					ResAccess access = ra.get(0);
+					//根据赋值柜号和开柜指令
+					ToolCabine tc = selectTool(ace);
+					if(tc!=null){
+						int coo = Integer.parseInt(tc.getCabOpenOrder());
+						access.setDaGuiId(tc.getId());
+						access.setDaGuihao(tc.getCabNumber());
+						access.setDaGuiposition(coo);//开柜编号
+						access.setAce_Ip(tc.getCabAceIp());
+						access.setCuseType(1);
+						totalDao.update2(access);
+						ace.setGuiType(access.getId()+"");//给关联的开柜凭证
+						updateStatus(ace,3);
+						tc.setCabStatus(YM);
+						tc.setResAccessId(access.getId());
+						totalDao.update2(tc);
+						send = sendFu1(coo+0xAF);//1+AF=B0 45+AF=DC
+					}else {//无可用型号柜子
+						send = sendFu1(2);
+						ace.setGuiType(null);
+						updateStatus(ace,0);//初始状态
+						send = sendFu2(0);//返回主页面
+					}
+				}else {
+					send = sendFu1(5);//无效单号
+					updateStatus(ace,0);//初始状态
+				}
+			}
+			break;
+		case 3://接收DE/DF/08以判断是否已经存入
+			List<ResAccess> ra1 = totalDao.query(seleteThe, Integer.parseInt(ace.getGuiType()));//
+			if(ra1!=null&&ra1.size()>0){
+				ResAccess access = ra1.get(0);
+				if ("DE".equals(shou)) {//完成
+					ace.setGuiType("");//清空
+					access.setCopenTime(nowDateTime);//存入时间
+					access.setCuseType(2);//已完成
+					//给接收人发送消息
+					new SendThread(access).start();
+				}else if("DF".equals(shou)){//取消
+					//将柜子状态设置为未满
+					fanhui(ace, access);
+				}else if("08".equals(shou)){//换柜
+					//将柜子状态设置为未满
+					updateTool(access,WM);
+					access.setCuseType(0);//返回状态
+					access.setDaGuihao(null);
+					access.setDaGuiposition(null);//开柜编号
+					access.setAce_Ip(null);
+					totalDao.update2(access);
+					updateStatus(ace,5);//换柜状态
+					send = sendFu3(ace);
+					break;
+				}else if("AA".equals(shou)||"AB".equals(shou)||"AC".equals(shou)){
+					fanhui(ace, access);
+				}else{
+					break;
+				}
+				totalDao.update2(access);
+				updateStatus(ace,0);//初始状态
+				send = sendFu2(0);//返回主页面
+			}
+			break;
+		case 4://取物品状态，接收开柜验证码3位16进制(XXX)
+			if ("DF".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}else {
+				String sss = "无";
+				try {
+					sss = Integer.parseInt(shou, 16)+"";
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("输入取物验证码："+sss);
+				List<ResAccess> ra2 = totalDao.query(seleteFou,sss, s, nowDateTime);//
+				if(ra2!=null&&ra2.size()>0){//发送柜号
+					
+					
+					ResAccess access = ra2.get(0);
+					ace.setGuiType("");//给关联的开柜凭证Id
+					access.setQopenTime(nowDateTime);//取出时间
+					access.setQuseType(2);//已完成
+					access.setYxType(1);
+					updateTool(access,WM);
+					totalDao.update2(access);
+					//开始计算费用===============================================
+					//1.先获取存入时间和当前时间
+					//1.先获取存入时间和当前时间
+					List<ResAccess> resAccessChar = totalDao.query("from ResAccess where quCodes=? and ace_Ip=?",sss,s);
+					if(resAccessChar !=null&&resAccessChar.get(0).getQopenTime()==null&&resAccessChar.get(0).getCopenTime() !=null){
+						Integer overTime4 = 0;
+						Long overTime = Util.getWorkTime1(resAccessChar.get(0).getCopenTime(),nowDateTime);
+						if(overTime !=null){
+							String overTime2 = Long.toString(overTime/3600000);      //转换成String类型(小时)							
+							if(overTime2 !=null){
+								//float  overTime3 = Float.parseFloat(overTime2);  
+								overTime4 = Integer.parseInt(overTime2);    //转换成Integer类型
+							}
+						}							
+						//2.按照验证码表查询出的resAccessChar.getDaGuiId()进行柜子大中小查询
+						List<ToolCabine> toolCabine = totalDao.query(" from ToolCabine where id=?", resAccessChar.get(0).getDaGuiId());
+						//3.查询快递柜类型费用收取表(计算是否要收费,是计算费用,否直接开门)
+						List<Charging> charging = new ArrayList<Charging>();
+						//Integer order_price0 = 0;
+						float order_price1 = 0;
+						if(toolCabine !=null&&toolCabine.size()>0&&toolCabine.get(0).getNowArticleFormat().equals("A0")){
+							charging = totalDao.query(" from Charging where type=?",toolCabine.get(0).getNowArticleFormat());
+							if(charging !=null&&charging.size()>0){
+								order_price1 = overTime4-charging.get(0).getOverTime();
+							}
+						}else if(toolCabine !=null&&toolCabine.get(0).getNowArticleFormat().equals("A1")){
+							charging = totalDao.query(" from Charging where type=?",toolCabine.get(0).getNowArticleFormat());
+							if(charging !=null&&charging.size()>0){
+								order_price1 = overTime4-charging.get(0).getOverTime();
+							}
+						}else if(toolCabine !=null&&toolCabine.get(0).getNowArticleFormat().equals("A2")){
+							charging = totalDao.query(" from Charging where type=?",toolCabine.get(0).getNowArticleFormat());
+							if(charging !=null&&charging.size()>0){
+								order_price1 = overTime4-charging.get(0).getOverTime();
+							}
+						}      
+						System.out.println("输出order_price1"+order_price1);
+						if(order_price1 !=0&&order_price1>0&&toolCabine !=null){
+							float inumPrice = charging.get(0).getCost();
+							order_price1 = order_price1*inumPrice*100;
+							Integer order_price2 = (int)order_price1;
+							String order_price = order_price2.toString();
+							//4.调用统一下单
+							String product3Id = toolCabine.get(0).getCabNumber();   //商品编号
+					        String userId = "user001";
+					        String body = toolCabine.get(0).getCaType();
+					        WeiXinOrder weixinOrder = WePayServerImpl.weixinPay_1(userId,product3Id,order_price,body);
+
+							send = weixinOrder.getUrlCode().getBytes();
+							
+							//验证支付状态是支付成功还是未支付(轮循商户后台记录)
+							int i = 0;
+							boolean b = true;
+							//Map cxfhMap = new HashMap();
+							Map<String, String> cxfhMap = new HashMap<String, String>();
+							while (b && i < 30) {
+								b = true;
+								i++;
+								try {
+									Thread.sleep(5000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								if(weixinOrder.getOut_trade_no() !=""||weixinOrder.getOut_trade_no() !=null){
+									cxfhMap = WePayServerImpl.orderQueryV(weixinOrder.getOut_trade_no());
+									for(String key : cxfhMap.keySet()) {
+								        //System.out.println("key= "+ key + " and value= " + cxfhMap.get(key));
+								        if(key.equals("trade_state_desc")&&cxfhMap.get(key).equals("支付成功")){
+								        	send = sendFu1(0);
+								        	b=false;
+								        }
+								    }
+								}	
+								
+								if(i==29&&!b){
+									send = sendFu1(0);
+								}									
+							}							
+						}else{ 
+							//未产生费用自动开门
+							order_price1=0;
+							//send = sendFu1(access.getDaGuiposition()+0xAF);
+						}
+					}else{
+						//返回信号给柜子
+						//send = 
+					}
+																				
+					
+					updateStatus(ace,0);//初始状态
+					
+					//如果是寄快递，快递员取走之后，给接收人发送消息
+					new SendThread(access).start();
+					
+					
+				}else {
+					send = sendFu1(4);//无效取物
+				}
+			}
+			break;
+		case 5://接收选择的柜号
+			if("A0".equals(shou)||"A1".equals(shou)||"A2".equals(shou)){//小、中、大
+				if(selectGui(s,shou)){
+					List<ResAccess> ra3 = totalDao.query(seleteThe,Integer.parseInt(ace.getGuiType()));//
+					if(ra3!=null&&ra3.size()>0){
+						ResAccess access = ra3.get(0);
+						//根据赋值柜号和开柜指令
+						ToolCabine tc = selectTool(shou,ace);
+						if(tc!=null){
+							int coo = Integer.parseInt(tc.getCabOpenOrder());
+							access.setDaGuiId(tc.getId());
+							access.setDaGuihao(tc.getCabNumber());
+							access.setDaGuiposition(coo);//开柜编号
+							access.setAce_Ip(tc.getCabAceIp());
+							access.setCuseType(1);
+							totalDao.update2(access);
+							ace.setGuiType(access.getId()+"");//给关联的开柜凭证
+							updateStatus(ace,3);
+							send = sendFu1(coo+0xAF);//1+AF=B0 45+AF=DC
+							tc.setCabStatus(YM);
+							tc.setResAccessId(access.getId());
+							totalDao.update2(tc);
+						}else {//无可用型号柜子
+							ace.setGuiType("");
+							updateStatus(ace,0);//初始状态
+							send = sendFu1(2);
+						}
+					}else {
+						ace.setGuiType("");
+						updateStatus(ace,0);//初始状态
+						send = sendFu1(2);//
+					}
+				}else {//不够，返回2
+					ace.setGuiType("");
+					updateStatus(ace,0);//初始状态
+					send = sendFu1(2);
+				}
+			}else if ("DF".equals(shou)||"AA".equals(shou)||"AB".equals(shou)||"AC".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}
+			break;
+		case 6://接收寄快递的开柜验证码
+			if ("DF".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}else {
+				String ssss ="无";
+				try {
+					ssss = Integer.parseInt(shou, 16)+"";
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("输入寄物验证码："+ssss);
+				List<ResAccess> ra4 = totalDao.query(seletefiv, ssss, s, nowDateTime);//
+				if(ra4!=null&&ra4.size()>0){//发送柜号
+					ResAccess access = ra4.get(0);
+					access.setCuseType(1);
+					totalDao.update2(access);
+					ace.setGuiType(access.getId()+"");//给关联的开柜凭证Id
+					updateStatus(ace,7);//判断状态
+					send = sendFu1(access.getDaGuiposition()+0xAF);
+				}else {
+					send = sendFu1(4);//无效取物
+					//updateStatus(ace,0);//初始状态
+				}
+			}
+			break;
+		case 7:
+			List<ResAccess> ra5 = totalDao.query(seleteThe, Integer.parseInt(ace.getGuiType()));//
+			if(ra5!=null&&ra5.size()>0){
+				ResAccess access = ra5.get(0);
+				if ("DE".equals(shou)) {//完成
+					ace.setGuiType("");//清空
+					access.setCopenTime(nowDateTime);//取出时间
+					access.setCuseType(2);//已完成
+					updateTool(access,YM);
+
+					//如果是寄快递，在存入柜子之后，给取快递人发送短信
+					new SendThread(access).start();
+				}else if("DF".equals(shou)){//取消
+					ace.setGuiType("");//清空
+					access.setCuseType(0);//返回状态
+				}else if("08".equals(shou)){//换柜
+					//将柜子状态设置为未满
+					access.setCuseType(0);//返回状态
+					totalDao.update2(access);
+					updateStatus(ace,8);//换柜状态
+					send = sendFu3(ace);
+					break;
+				}else if("AA".equals(shou)||"AB".equals(shou)||"AC".equals(shou)){
+					ace.setGuiType("");//清空
+					access.setCuseType(0);//返回状态
+				}else {
+					break;
+				}
+				totalDao.update2(access);
+				updateStatus(ace,0);//初始状态
+				send = sendFu2(0);//返回主页面
+			}
+			break;
+		case 8://寄快递更换柜号
+			if("A0".equals(shou)||"A1".equals(shou)||"A2".equals(shou)){//小、中、大
+				if(selectGui(s,shou)){
+					List<ResAccess> ra3 = totalDao.query(seleteThe,Integer.parseInt(ace.getGuiType()));//
+					if(ra3!=null&&ra3.size()>0){
+						ResAccess access = ra3.get(0);
+//						先将之前占用的快递柜状态设置为未满
+						if(access.getDaGuiId()!=null){
+							updateTool(access.getDaGuiId());
+						}
+						//根据快递柜信息赋值柜号和开柜指令
+						ToolCabine tc = selectTool(shou,ace);
+						if(tc!=null){
+							int coo = Integer.parseInt(tc.getCabOpenOrder());
+							access.setDaGuiId(tc.getId());
+							access.setDaGuihao(tc.getCabNumber());
+							access.setDaGuiposition(coo);//开柜编号
+							access.setAce_Ip(tc.getCabAceIp());
+							access.setCuseType(1);
+							totalDao.update2(access);
+							ace.setGuiType(access.getId()+"");//给关联的开柜凭证
+							updateStatus(ace,7);//返回确认寄入页面
+							send = sendFu1(coo+0xAF);//1+AF=B0 45+AF=DC
+							tc.setCabStatus(YM);
+							tc.setResAccessId(access.getId());//柜子关联拼证ID
+							totalDao.update2(tc);
+						}else {//无可用型号柜子
+							ace.setGuiType("");
+							updateStatus(ace,0);//初始状态
+							send = sendFu1(2);
+						}
+					}else {
+						ace.setGuiType("");
+						updateStatus(ace,0);//初始状态
+						send = sendFu1(2);//
+					}
+				}else {//不够，返回2
+					ace.setGuiType("");
+					updateStatus(ace,0);//初始状态
+					send = sendFu1(2);
+				}
+			}else if ("DF".equals(shou)||"AA".equals(shou)||"AB".equals(shou)||"AC".equals(shou)) {//返回
+				ace.setGuiType("");
+				updateStatus(ace,0);
+				send = sendFu2(0);//返回主页面
+			}
+			break;
+		default:
+			break;
+		}
+		return send;
+	}
+
+	private void fanhui(AccessEquipment ace, ResAccess access) {
+		ace.setGuiType("");//清空
+		updateTool(access,WM);
+		access.setCuseType(0);//返回状态
+		access.setDaGuihao(null);
+		access.setDaGuiposition(null);//开柜编号
+		access.setAce_Ip(null);
+	}
+
+
+    /**
+     * 将柜子设置为已满
+     * @param access 申请
+     * @param status 状态(已满/未满)
+     */
+	private void updateTool(ResAccess access,String status) {
+		// TODO Auto-generated method stub
+		ToolCabine tc = null;
+		List<ToolCabine> cabine = totalDao.query(seletetool1, access.getDaGuiposition()+"",access.getAce_Ip());
+		if(cabine!=null&&cabine.size()>0){
+			tc = cabine.get(0);
+			tc.setCabStatus(status);
+			if(status.equals(WM)){
+				tc.setResAccessId(null);
+			}else {	
+				tc.setResAccessId(access.getId());
+			}
+			totalDao.update2(tc);
+		}
+	}
+
+	/**
+	 * 根据快递柜ID查询柜子
+	 * 将此柜子设置为未满
+	 * @param id 设备信息
+	 * @return
+	 */
+	private ToolCabine updateTool(Integer id) {
+		ToolCabine tc = null;
+		List<ToolCabine> cabine = totalDao.query(seletetool3, id);
+		if(cabine!=null&&cabine.size()>0){
+			tc = cabine.get(0);
+			if(tc!=null){
+				tc.setResAccessId(null);
+				tc.setCabStatus(WM);
+				totalDao.update2(tc);
+			}
+		}
+		return tc;
+	}
+	/**
+	 * 根据柜子规格和唯一编码查询未满的柜子
+	 * @param ace 规格，NB唯一标示
+	 * @return
+	 */
+	private ToolCabine selectTool(AccessEquipment ace) {
+		ToolCabine tc = null;
+		List<ToolCabine> cabine = totalDao.query(seletetool, ace.getGuiType(), ace.getEquipmentIP());
+		if(cabine!=null&&cabine.size()>0){
+			tc = cabine.get(0);
+		}
+		return tc;
+	}
+	/**
+	 * 根据柜子规格和唯一编码查询未满柜子
+	 * @param ace  规格，NB唯一标示
+	 * @return
+	 */
+	private ToolCabine selectTool(String shou,AccessEquipment ace) {
+		ToolCabine tc = null;
+		List<ToolCabine> cabine = totalDao.query(seletetool, shou, ace.getEquipmentIP());
+		if(cabine!=null&&cabine.size()>0){
+			tc = cabine.get(0);
+		}
+		return tc;
+	}
+
+    /**
+     * 判断该设备的此型号的柜子还有没有空闲
+	 * @param s 设备id
+	 * @param shou 柜子型号
+     */
+	private boolean selectGui(String s, String shou) {
+		// TODO Auto-generated method stub
+		int i = totalDao.getCount(seletetool, shou,s);
+		return i>0?true:false;
+	}
+
+	private byte[] sendFu3(AccessEquipment ace) {
+		int i = totalDao.getCount(seletetool2, ace.getEquipmentIP());
+		if(i==0){//柜子全满，发送01
+			return new byte[] {1};
+		}else{
+			List<ToolCabine> cabines = totalDao.query(seletetool2, ace.getEquipmentIP());
+			int i1 = 0;
+			int i2 = 0;
+			int i3 = 0;
+			for (ToolCabine toolCabine : cabines) {
+				if("A0".equals(toolCabine.getNowArticleFormat())){
+					i1++;
+				}else if("A1".equals(toolCabine.getNowArticleFormat())){
+					i2++;
+				}else if("A2".equals(toolCabine.getNowArticleFormat())){
+					i3++;
+				}
+			}
+			byte[] send = new byte[8];
+			send[0] = 0x03;
+			send[1] = (byte) (i1/10);
+			send[2] = (byte) (i1%10);
+			send[3] = (byte) (i2/10);
+			send[4] = (byte) (i2%10);
+			send[5] = (byte) (i3/10);
+			send[6] = (byte) (i3%10);
+			send[7] = 0x0A;
+			return send;
+		}
+	}
+	private byte[] sendFu1(int i) {
+		byte[] send = new byte[1];
+		send[0] = (byte) i;
+		return send;
+	}
+	/**
+	 * 必须返回2个00才可以
+	 * @param i
+	 * @return
+	 */
+	private byte[] sendFu2(int i) {
+		byte[] send = new byte[2];
+		send[0] = (byte) 00;
+		send[1] = (byte) 00;
+		return send;
+	}
+
+    /**
+     * 更新设备最新状态
+     * @param ace
+     * @param i
+     */
+	private void updateStatus(AccessEquipment ace,int i) {
+		ace.setNbStage(i);
+		totalDao.update2(ace);
+	}
+
+}

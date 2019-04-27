@@ -1,0 +1,1030 @@
+package com.task.entity.sop;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.TaSopGongwei;
+import com.task.entity.Users;
+import com.task.util.Util;
+
+/***
+ * 工序模板(表名:ta_sop_w_ProcessTemplate)
+ * 
+ * @author jhh
+ * 
+ */
+public class ProcessTemplate {
+
+	private Integer id;// 主键
+	private Integer processNO;// 工序号
+	private String processName;// 工序名
+	private String processExplain;// 工序要求
+	private String processStatus;// 状态(并行/单独)
+	private Integer parallelId;// 并行工序开始id
+	private String gdJiepai;// 是否固定节拍
+	private String isSpecial;// 是否特殊工序;（特殊,普通,打回 默认普通）
+	private Integer epId;// 流程ID
+	private String addTime;// 添加时间
+	private String addUser;// 添加人
+	/***************** 设备及其他相关 *********/
+	private String productStyle;// 生产类型（自制，外委）
+	private String isPrice;// 是否参与奖金分配(true/false)
+	private String zjStatus;// 是否首检
+
+	private String gongwei; // 工位*(多个工位","分割)
+	private Integer shebeiId;// 设备Id
+	private String shebeiNo; // 设备编号*
+	private String shebeiName; // 设备名称
+
+	private String operatorDept;// 操作人部门***
+	private String operatorCode;// 操作人工号***
+	private String operatorCardId;// 操作人卡号***
+	private String operatorName;// 操作人姓名***
+	private Integer operatorUserId;// 操作人id***
+
+	// 更新节拍总次数
+	private Integer updateAllCount;// 更新总次数
+
+	/*
+	 * 操作指数
+	 */
+	private Float optechnologyRate;// 技能指数
+	private Float opCouldReplaceRate;// 可替换人数
+	private Float opfuheRate;// 负荷指数
+	private Float opcaozuojiepai;// 操作人工节拍 ---平均节拍 （avg(jp)*count+newJp）
+	private Float opshebeijiepai;// 操作设备节拍 ---平均节拍 （avg(jp)*count+newJp）
+	private Float opnoReplaceRate;// 操作不可替换系数
+	private Float opzonghezhishu;// 操作综合指数
+	private Float opzongheqiangdu;// 操作综合强度
+	/*
+	 * 工装调试指数 准备过程
+	 */
+	private Float gztechnologyRate;// 技术指数
+	private Float gzCouldReplaceRate;// 可替换人数
+	private Float gzfuheRate;// 负荷指数
+	private Float gzzhunbeijiepai;// 准备过程人工节拍
+	private Float gzzhunbeicishu;// 准备次数
+	private Float gznoReplaceRate;// 准备过程不可替换系数
+	private Float gzzonghezhishu;// 准备过程综合指数
+	private Float gzzongheqiangdu;// 综合强度
+
+	private String guding;// 固定节拍(是/否)
+
+	// 奖金计算相关
+	private Double processMomey;// 工序单价
+	// 计件工资计算
+	private Double procesdianshu;// 点数
+	private Double processjjMoney;// 工序计件单价
+	private Double jjratio;// 计件单价系数
+	private Double sjprocessMomey;//实际单价
+	private Double ykprocessMomey;//盈亏单价
+
+	private Float opjiaofu;// 交付数量
+	/*** 量具 ***/
+	private Integer measuringId;// 主键
+	private String measuringNumber;// 编号
+	private String measuringMatetag;// 名称
+	private String measuring_no; // 本厂编号
+
+	/*** 工装 ***/
+	private Integer gzstoreId;// 工装Id
+	private String number;// 工装编号
+	private String matetag;// 工装名称
+	/*** 精益生产相关 */
+	private Float allJiepai;// 总节拍
+	private Float deliveryDuration;// 配送时长
+	private Float capacity;// 产能(单班时长)
+	private Float capacitySurplus;// 产能盈余
+	private Float capacityRatio;// 产能比
+	private Float alldeliveryDuration;// 总延误时长
+	private Float deliveryRatio;// 配送比
+	private Integer deliveryPeriod;// 配送周期(X天/次)
+	private Float deliveryAmount;// 送货量
+	private Float proSingleDuration;// 总成单班生产时长
+	private String needSave;// 是否转存(是，否；默认否)
+
+	private Integer zhuserId;// 供应商的Id
+	private String gys;// 供应商
+
+	/*** 设备验证、工装验证、量具验证、规范验证、考勤验证 ***/
+	private String shebeistatus;// 设备验证
+	private String gongzhuangstatus;// 工装验证
+	private String liangjustatus;// 量具验证
+	private String guifanstatus;// 规范验证
+	private String kaoqingstatus;// 考勤验证
+	private String isJisuan;// 是否计算(yes/no)
+	private String isNeedFuliao;// 是否需要辅料(yes/no)
+
+	private String sbStatus;// 设变状态
+	private String bzStatus;// 工艺编制状态(初始,待编制,已编制,已校对,已审核,已批准)
+
+	private String bianzhiName;// 编制人
+	private Integer bianzhiId;// 编制ID
+	private String bianzhiDate;// 编制时间
+
+	private String jiaoduiName;// 校对人
+	private Integer jiaoduiId;// 校对ID
+	private String jiaoduiDate;// 校对时间
+
+	private String shenheName;// 审核人
+	private Integer shenheId;// 审核ID
+	private String shenheDate;// 审核时间
+
+	private String pizhunName;// 批准人
+	private Integer pizhunId;// 批准ID
+	private String pizhunDate;// 批准时间
+	private String dataStatus;// 数据状态（正常，删除）
+	private Integer oldPtId;//删除前零件Id
+	private Integer oldbanci;//删除前零件版次
+	private String deleteTime;//删除时间
+	
+	private Integer processTsbId;//设变预编译工序Id
+	
+
+	/********** 对应关系 ********************/
+	private ProcardTemplate procardTemplate;// 对应流水卡片
+	// private ProcessPRNScore processPRNScore;// 工序PRN评分表
+	private Set<TaSopGongwei> taSopGongwei;// 工位
+	private Set<ProcessFuLiaoTemplate> processFuLiaoTemplate;// 工序辅料
+	private List<ProcessFuLiaoTemplate> fuliaoList;// 工序辅料(页面传值使用)
+	private Set<ProcessTemplateFile> processTemplateFile;// 工序图纸文件
+
+	// Private ProcessPriceUpdateLog set<ProcessPriceUpdateLog> ;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getProcessNO() {
+		return processNO;
+	}
+
+	public void setProcessNO(Integer processNO) {
+		this.processNO = processNO;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getProcessStatus() {
+		return processStatus;
+	}
+
+	public void setProcessStatus(String processStatus) {
+		this.processStatus = processStatus;
+	}
+
+	public Integer getParallelId() {
+		return parallelId;
+	}
+
+	public void setParallelId(Integer parallelId) {
+		this.parallelId = parallelId;
+	}
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	public String getIsPrice() {
+		return isPrice;
+	}
+
+	public void setIsPrice(String isPrice) {
+		this.isPrice = isPrice;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+
+	public String getShebeiNo() {
+		return shebeiNo;
+	}
+
+	public void setShebeiNo(String shebeiNo) {
+		this.shebeiNo = shebeiNo;
+	}
+
+	public String getShebeiName() {
+		return shebeiName;
+	}
+
+	public void setShebeiName(String shebeiName) {
+		this.shebeiName = shebeiName;
+	}
+
+	public String getOperatorDept() {
+		return operatorDept;
+	}
+
+	public void setOperatorDept(String operatorDept) {
+		this.operatorDept = operatorDept;
+	}
+
+	public String getOperatorCode() {
+		return operatorCode;
+	}
+
+	public void setOperatorCode(String operatorCode) {
+		this.operatorCode = operatorCode;
+	}
+
+	public String getOperatorCardId() {
+		return operatorCardId;
+	}
+
+	public void setOperatorCardId(String operatorCardId) {
+		this.operatorCardId = operatorCardId;
+	}
+
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
+	}
+
+	public Integer getOperatorUserId() {
+		return operatorUserId;
+	}
+
+	public void setOperatorUserId(Integer operatorUserId) {
+		this.operatorUserId = operatorUserId;
+	}
+
+	public Float getOptechnologyRate() {
+		return optechnologyRate;
+	}
+
+	public void setOptechnologyRate(Float optechnologyRate) {
+		this.optechnologyRate = optechnologyRate;
+	}
+
+	public Float getOpCouldReplaceRate() {
+		return opCouldReplaceRate;
+	}
+
+	public void setOpCouldReplaceRate(Float opCouldReplaceRate) {
+		this.opCouldReplaceRate = opCouldReplaceRate;
+	}
+
+	public Float getOpfuheRate() {
+		return opfuheRate;
+	}
+
+	public void setOpfuheRate(Float opfuheRate) {
+		this.opfuheRate = opfuheRate;
+	}
+
+	public Float getOpcaozuojiepai() {
+		return opcaozuojiepai;
+	}
+
+	public void setOpcaozuojiepai(Float opcaozuojiepai) {
+		this.opcaozuojiepai = opcaozuojiepai;
+	}
+
+	public Float getOpshebeijiepai() {
+		return opshebeijiepai;
+	}
+
+	public void setOpshebeijiepai(Float opshebeijiepai) {
+		this.opshebeijiepai = opshebeijiepai;
+	}
+
+	public Float getOpnoReplaceRate() {
+		return opnoReplaceRate;
+	}
+
+	public void setOpnoReplaceRate(Float opnoReplaceRate) {
+		this.opnoReplaceRate = opnoReplaceRate;
+	}
+
+	public Float getOpzonghezhishu() {
+		return opzonghezhishu;
+	}
+
+	public void setOpzonghezhishu(Float opzonghezhishu) {
+		this.opzonghezhishu = opzonghezhishu;
+	}
+
+	public Float getOpzongheqiangdu() {
+		return opzongheqiangdu;
+	}
+
+	public void setOpzongheqiangdu(Float opzongheqiangdu) {
+		this.opzongheqiangdu = opzongheqiangdu;
+	}
+
+	public Float getGztechnologyRate() {
+		return gztechnologyRate;
+	}
+
+	public void setGztechnologyRate(Float gztechnologyRate) {
+		this.gztechnologyRate = gztechnologyRate;
+	}
+
+	public Float getGzCouldReplaceRate() {
+		return gzCouldReplaceRate;
+	}
+
+	public void setGzCouldReplaceRate(Float gzCouldReplaceRate) {
+		this.gzCouldReplaceRate = gzCouldReplaceRate;
+	}
+
+	public Float getGzfuheRate() {
+		return gzfuheRate;
+	}
+
+	public void setGzfuheRate(Float gzfuheRate) {
+		this.gzfuheRate = gzfuheRate;
+	}
+
+	public Float getGzzhunbeijiepai() {
+		return gzzhunbeijiepai;
+	}
+
+	public void setGzzhunbeijiepai(Float gzzhunbeijiepai) {
+		this.gzzhunbeijiepai = gzzhunbeijiepai;
+	}
+
+	public Float getGzzhunbeicishu() {
+		return gzzhunbeicishu;
+	}
+
+	public void setGzzhunbeicishu(Float gzzhunbeicishu) {
+		this.gzzhunbeicishu = gzzhunbeicishu;
+	}
+
+	public Float getGznoReplaceRate() {
+		return gznoReplaceRate;
+	}
+
+	public void setGznoReplaceRate(Float gznoReplaceRate) {
+		this.gznoReplaceRate = gznoReplaceRate;
+	}
+
+	public Float getGzzonghezhishu() {
+		return gzzonghezhishu;
+	}
+
+	public void setGzzonghezhishu(Float gzzonghezhishu) {
+		this.gzzonghezhishu = gzzonghezhishu;
+	}
+
+	public Float getGzzongheqiangdu() {
+		return gzzongheqiangdu;
+	}
+
+	public void setGzzongheqiangdu(Float gzzongheqiangdu) {
+		this.gzzongheqiangdu = gzzongheqiangdu;
+	}
+
+	public Double getProcessMomey() {
+		if (processMomey != null) {
+			return Double.parseDouble(String.format("%.4f", processMomey));
+		}
+		return processMomey;
+	}
+
+	public void setProcessMomey(Double processMomey) {
+		this.processMomey = processMomey;
+	}
+
+	@JSONField(serialize = false)
+	public ProcardTemplate getProcardTemplate() {
+		return procardTemplate;
+	}
+
+	public void setProcardTemplate(ProcardTemplate procardTemplate) {
+		this.procardTemplate = procardTemplate;
+	}
+
+	@JSONField(serialize = false)
+	public Set<TaSopGongwei> getTaSopGongwei() {
+		return taSopGongwei;
+	}
+
+	public void setTaSopGongwei(Set<TaSopGongwei> taSopGongwei) {
+		this.taSopGongwei = taSopGongwei;
+	}
+
+	public Float getOpjiaofu() {
+		return opjiaofu;
+	}
+
+	public void setOpjiaofu(Float opjiaofu) {
+		this.opjiaofu = opjiaofu;
+	}
+
+	public String getZjStatus() {
+		return zjStatus;
+	}
+
+	public void setZjStatus(String zjStatus) {
+		this.zjStatus = zjStatus;
+	}
+
+	// @JSONField(serialize = false)
+	// public ProcessPRNScore getProcessPRNScore() {
+	// return processPRNScore;
+	// }
+	//
+	// public void setProcessPRNScore(ProcessPRNScore processPRNScore) {
+	// this.processPRNScore = processPRNScore;
+	// }
+
+	public Integer getGzstoreId() {
+		return gzstoreId;
+	}
+
+	public void setGzstoreId(Integer gzstoreId) {
+		this.gzstoreId = gzstoreId;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getMatetag() {
+		return matetag;
+	}
+
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+
+	public Integer getMeasuringId() {
+		return measuringId;
+	}
+
+	public void setMeasuringId(Integer measuringId) {
+		this.measuringId = measuringId;
+	}
+
+	public String getMeasuringNumber() {
+		return measuringNumber;
+	}
+
+	public void setMeasuringNumber(String measuringNumber) {
+		this.measuringNumber = measuringNumber;
+	}
+
+	public String getMeasuringMatetag() {
+		return measuringMatetag;
+	}
+
+	public void setMeasuringMatetag(String measuringMatetag) {
+		this.measuringMatetag = measuringMatetag;
+	}
+
+	public String getMeasuring_no() {
+		return measuring_no;
+	}
+
+	public void setMeasuring_no(String measuringNo) {
+		measuring_no = measuringNo;
+	}
+
+	public Float getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Float capacity) {
+		this.capacity = capacity;
+	}
+
+	public Float getCapacitySurplus() {
+		return capacitySurplus;
+	}
+
+	public void setCapacitySurplus(Float capacitySurplus) {
+		this.capacitySurplus = capacitySurplus;
+	}
+
+	public Float getCapacityRatio() {
+		return capacityRatio;
+	}
+
+	public void setCapacityRatio(Float capacityRatio) {
+		this.capacityRatio = capacityRatio;
+	}
+
+	public Float getDeliveryDuration() {
+		return deliveryDuration;
+	}
+
+	public void setDeliveryDuration(Float deliveryDuration) {
+		this.deliveryDuration = deliveryDuration;
+	}
+
+	public Float getDeliveryRatio() {
+		return deliveryRatio;
+	}
+
+	public void setDeliveryRatio(Float deliveryRatio) {
+		this.deliveryRatio = deliveryRatio;
+	}
+
+	public Integer getDeliveryPeriod() {
+		return deliveryPeriod;
+	}
+
+	public void setDeliveryPeriod(Integer deliveryPeriod) {
+		this.deliveryPeriod = deliveryPeriod;
+	}
+
+	public Float getDeliveryAmount() {
+		return deliveryAmount;
+	}
+
+	public void setDeliveryAmount(Float deliveryAmount) {
+		this.deliveryAmount = deliveryAmount;
+	}
+
+	public Float getProSingleDuration() {
+		return proSingleDuration;
+	}
+
+	public void setProSingleDuration(Float proSingleDuration) {
+		this.proSingleDuration = proSingleDuration;
+	}
+
+	public String getShebeistatus() {
+		return shebeistatus;
+	}
+
+	public void setShebeistatus(String shebeistatus) {
+		this.shebeistatus = shebeistatus;
+	}
+
+	public String getGongzhuangstatus() {
+		return gongzhuangstatus;
+	}
+
+	public void setGongzhuangstatus(String gongzhuangstatus) {
+		this.gongzhuangstatus = gongzhuangstatus;
+	}
+
+	public String getLiangjustatus() {
+		return liangjustatus;
+	}
+
+	public void setLiangjustatus(String liangjustatus) {
+		this.liangjustatus = liangjustatus;
+	}
+
+	public String getGuifanstatus() {
+		return guifanstatus;
+	}
+
+	public void setGuifanstatus(String guifanstatus) {
+		this.guifanstatus = guifanstatus;
+	}
+
+	public String getKaoqingstatus() {
+		return kaoqingstatus;
+	}
+
+	public void setKaoqingstatus(String kaoqingstatus) {
+		this.kaoqingstatus = kaoqingstatus;
+	}
+
+	public Float getAllJiepai() {
+		return allJiepai;
+	}
+
+	public void setAllJiepai(Float allJiepai) {
+		this.allJiepai = allJiepai;
+	}
+
+	public Float getAlldeliveryDuration() {
+		return alldeliveryDuration;
+	}
+
+	public void setAlldeliveryDuration(Float alldeliveryDuration) {
+		this.alldeliveryDuration = alldeliveryDuration;
+	}
+
+	public Integer getShebeiId() {
+		return shebeiId;
+	}
+
+	public void setShebeiId(Integer shebeiId) {
+		this.shebeiId = shebeiId;
+	}
+
+	public Integer getZhuserId() {
+		return zhuserId;
+	}
+
+	public void setZhuserId(Integer zhuserId) {
+		this.zhuserId = zhuserId;
+	}
+
+	public String getGys() {
+		return gys;
+	}
+
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+
+	public String getGdJiepai() {
+		return gdJiepai;
+	}
+
+	public void setGdJiepai(String gdJiepai) {
+		this.gdJiepai = gdJiepai;
+	}
+
+	public String getGuding() {
+		return guding;
+	}
+
+	public void setGuding(String guding) {
+		this.guding = guding;
+	}
+
+	public String getIsJisuan() {
+		return isJisuan;
+	}
+
+	public void setIsJisuan(String isJisuan) {
+		this.isJisuan = isJisuan;
+	}
+
+	@JSONField(serialize = false)
+	public Set<ProcessFuLiaoTemplate> getProcessFuLiaoTemplate() {
+		return processFuLiaoTemplate;
+	}
+
+	public void setProcessFuLiaoTemplate(
+			Set<ProcessFuLiaoTemplate> processFuLiaoTemplate) {
+		this.processFuLiaoTemplate = processFuLiaoTemplate;
+	}
+
+	public String getIsNeedFuliao() {
+		return isNeedFuliao;
+	}
+
+	public void setIsNeedFuliao(String isNeedFuliao) {
+		this.isNeedFuliao = isNeedFuliao;
+	}
+
+	public List<ProcessFuLiaoTemplate> getFuliaoList() {
+		return fuliaoList;
+	}
+
+	public void setFuliaoList(List<ProcessFuLiaoTemplate> fuliaoList) {
+		this.fuliaoList = fuliaoList;
+	}
+
+	@JSONField(serialize = false)
+	public Set<ProcessTemplateFile> getProcessTemplateFile() {
+		return processTemplateFile;
+	}
+
+	public void setProcessTemplateFile(
+			Set<ProcessTemplateFile> processTemplateFile) {
+		this.processTemplateFile = processTemplateFile;
+	}
+
+	public String getIsSpecial() {
+		return isSpecial;
+	}
+
+	public void setIsSpecial(String isSpecial) {
+		this.isSpecial = isSpecial;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getSbStatus() {
+		return sbStatus;
+	}
+
+	public void setSbStatus(String sbStatus) {
+		this.sbStatus = sbStatus;
+	}
+
+	public String getBzStatus() {
+		return bzStatus;
+	}
+
+	public void setBzStatus(String bzStatus) {
+		this.bzStatus = bzStatus;
+	}
+
+	public String getBianzhiName() {
+		return bianzhiName;
+	}
+
+	public void setBianzhiName(String bianzhiName) {
+		this.bianzhiName = bianzhiName;
+	}
+
+	public Integer getBianzhiId() {
+		return bianzhiId;
+	}
+
+	public void setBianzhiId(Integer bianzhiId) {
+		this.bianzhiId = bianzhiId;
+	}
+
+	public String getBianzhiDate() {
+		return bianzhiDate;
+	}
+
+	public void setBianzhiDate(String bianzhiDate) {
+		this.bianzhiDate = bianzhiDate;
+	}
+
+	public String getJiaoduiName() {
+		return jiaoduiName;
+	}
+
+	public void setJiaoduiName(String jiaoduiName) {
+		this.jiaoduiName = jiaoduiName;
+	}
+
+	public Integer getJiaoduiId() {
+		return jiaoduiId;
+	}
+
+	public void setJiaoduiId(Integer jiaoduiId) {
+		this.jiaoduiId = jiaoduiId;
+	}
+
+	public String getJiaoduiDate() {
+		return jiaoduiDate;
+	}
+
+	public void setJiaoduiDate(String jiaoduiDate) {
+		this.jiaoduiDate = jiaoduiDate;
+	}
+
+	public String getShenheName() {
+		return shenheName;
+	}
+
+	public void setShenheName(String shenheName) {
+		this.shenheName = shenheName;
+	}
+
+	public Integer getShenheId() {
+		return shenheId;
+	}
+
+	public void setShenheId(Integer shenheId) {
+		this.shenheId = shenheId;
+	}
+
+	public String getShenheDate() {
+		return shenheDate;
+	}
+
+	public void setShenheDate(String shenheDate) {
+		this.shenheDate = shenheDate;
+	}
+
+	public String getPizhunName() {
+		return pizhunName;
+	}
+
+	public void setPizhunName(String pizhunName) {
+		this.pizhunName = pizhunName;
+	}
+
+	public Integer getPizhunId() {
+		return pizhunId;
+	}
+
+	public void setPizhunId(Integer pizhunId) {
+		this.pizhunId = pizhunId;
+	}
+
+	public String getPizhunDate() {
+		return pizhunDate;
+	}
+
+	public void setPizhunDate(String pizhunDate) {
+		this.pizhunDate = pizhunDate;
+	}
+
+	public String getProcessExplain() {
+		return processExplain;
+	}
+
+	public void setProcessExplain(String processExplain) {
+		this.processExplain = processExplain;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getAddUser() {
+		return addUser;
+	}
+
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+
+	public String getNeedSave() {
+		return needSave;
+	}
+
+	public void setNeedSave(String needSave) {
+		this.needSave = needSave;
+	}
+
+	public Double getProcesdianshu() {
+		return procesdianshu;
+	}
+
+	public void setProcesdianshu(Double procesdianshu) {
+		this.procesdianshu = procesdianshu;
+	}
+
+	public Double getProcessjjMoney() {
+		return processjjMoney;
+	}
+
+	public void setProcessjjMoney(Double processjjMoney) {
+		this.processjjMoney = processjjMoney;
+	}
+
+	public Double getJjratio() {
+		return jjratio;
+	}
+
+	public void setJjratio(Double jjratio) {
+		this.jjratio = jjratio;
+	}
+
+	public String getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(String dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+
+	public Integer getUpdateAllCount() {
+		return updateAllCount;
+	}
+
+	public void setUpdateAllCount(Integer updateAllCount) {
+		this.updateAllCount = updateAllCount;
+	}
+	public static Set<ProcardTemplateChangeLogDetail> diffrentTwoPt(ProcessTemplate oldprocess,ProcessTemplate newprocess,ProcardTemplateChangeLog changeLog){
+		if(oldprocess==null){
+			return null;
+		}
+		if(newprocess==null){
+			return null;
+		}
+		Users user= Util.getLoginUser();
+		String newtime = Util.getDateTime();
+		Set<ProcardTemplateChangeLogDetail> logDetailSet = new HashSet<ProcardTemplateChangeLogDetail>();
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessNO(), newprocess.getProcessNO(), "工序号", newtime, user, changeLog, 1);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessName(), newprocess.getProcessName(), "工序名", newtime, user, changeLog, 2);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessExplain(), newprocess.getProcessExplain(), "工序要求", newtime, user, changeLog, 3);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessStatus(), newprocess.getProcessStatus(), "并行状态", newtime, user, changeLog, 4);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getIsSpecial(), newprocess.getIsSpecial(), "特殊工序", newtime, user, changeLog, 5);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProductStyle(), newprocess.getProductStyle(), "生产类型", newtime, user, changeLog, 6);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getIsPrice(), newprocess.getIsPrice(), "是否参与奖金分配", newtime, user, changeLog, 7);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getZjStatus(), newprocess.getZjStatus(), "是否首检", newtime, user, changeLog, 8);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getShebeistatus(), newprocess.getShebeistatus(), "设备验证", newtime, user, changeLog, 9);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGongzhuangstatus(), newprocess.getGongzhuangstatus(), "工装验证", newtime, user, changeLog, 10);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getLiangjustatus(), newprocess.getLiangjustatus(), "量具验证", newtime, user, changeLog, 11);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGuifanstatus(), newprocess.getGuifanstatus(), "规范验证", newtime, user, changeLog, 12);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getKaoqingstatus(), newprocess.getKaoqingstatus(), "考勤验证", newtime, user, changeLog, 13);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getIsJisuan(), newprocess.getIsJisuan(), "是否计算", newtime, user, changeLog, 14);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getNeedSave(), newprocess.getNeedSave(), "是否转存", newtime, user, changeLog, 15);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getIsNeedFuliao(), newprocess.getIsNeedFuliao(), "是否需要辅料", newtime, user, changeLog, 16);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpcaozuojiepai(), newprocess.getOpcaozuojiepai(), "操作人工节拍", newtime, user, changeLog,17 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpshebeijiepai(), newprocess.getOpshebeijiepai(), "操作设备节拍", newtime, user, changeLog, 18);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzzhunbeijiepai(), newprocess.getGzzhunbeijiepai(), "准备过程人工节拍", newtime, user, changeLog, 19);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzzhunbeicishu(), newprocess.getGzzhunbeicishu(), "准备次数", newtime, user, changeLog,20 );
+		
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOptechnologyRate(), newprocess.getOptechnologyRate(), "技能指数", newtime, user, changeLog,21 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpCouldReplaceRate(), newprocess.getOpCouldReplaceRate(), "可替换人数", newtime, user, changeLog,22 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpfuheRate(), newprocess.getOpfuheRate(), "负荷指数", newtime, user, changeLog,23 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpnoReplaceRate(), newprocess.getOpnoReplaceRate(), "操作不可替换系数", newtime, user, changeLog, 24);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpzonghezhishu(), newprocess.getOpzonghezhishu(), "操作综合指数", newtime, user, changeLog,25 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getOpzongheqiangdu(), newprocess.getOpzongheqiangdu(), "操作综合强度", newtime, user, changeLog,26 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGztechnologyRate(), newprocess.getGztechnologyRate(), "技术指数", newtime, user, changeLog, 27);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzCouldReplaceRate(), newprocess.getGzCouldReplaceRate(), "可替换人数", newtime, user, changeLog,28 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzfuheRate(), newprocess.getGzfuheRate(), "负荷指数", newtime, user, changeLog, 29);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGznoReplaceRate(), newprocess.getGznoReplaceRate(), "准备过程不可替换系数", newtime, user, changeLog, 30);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzzonghezhishu(), newprocess.getGzzonghezhishu(), "准备过程综合指数", newtime, user, changeLog, 31);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGzzongheqiangdu(), newprocess.getGzzongheqiangdu(), "综合强度", newtime, user, changeLog, 32);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGuding(), newprocess.getGuding(), "固定节拍", newtime, user, changeLog, 33);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessMomey(), newprocess.getProcessMomey(), "工序单价", newtime, user, changeLog, 34);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcesdianshu(), newprocess.getProcesdianshu(), "计件点数", newtime, user, changeLog, 35);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProcessjjMoney(), newprocess.getProcessjjMoney(), "工序计件单价", newtime, user, changeLog, 36);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getJjratio(), newprocess.getJjratio(), "计件单价系数", newtime, user, changeLog, 37);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getMeasuringMatetag(), newprocess.getMeasuringMatetag(), "量具名称", newtime, user, changeLog,38 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getMatetag(), newprocess.getMatetag(), "工装名称", newtime, user, changeLog,39);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getAllJiepai(), newprocess.getAllJiepai(), "总节拍", newtime, user, changeLog,40);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getCapacity(), newprocess.getCapacity(), "单班时长", newtime, user, changeLog,41 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getCapacitySurplus(), newprocess.getCapacitySurplus(), "产能盈余", newtime, user, changeLog,42 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getCapacityRatio(), newprocess.getCapacityRatio(), "产能比", newtime, user, changeLog,43 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getAlldeliveryDuration(), newprocess.getAlldeliveryDuration(), "总延误时长", newtime, user, changeLog,44 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getDeliveryDuration(), newprocess.getDeliveryDuration(), "配送时长", newtime, user, changeLog,45 );
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getDeliveryRatio(), newprocess.getDeliveryRatio(), "配送比", newtime, user, changeLog, 46);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getDeliveryPeriod(), newprocess.getDeliveryPeriod(), "配送周期", newtime, user, changeLog, 47);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getDeliveryAmount(), newprocess.getDeliveryAmount(), "送货量", newtime, user, changeLog, 48);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getProSingleDuration(), newprocess.getProSingleDuration(), "总成单班生产时长", newtime, user, changeLog, 49);
+		ProcardTemplate.diffrentsx(logDetailSet, oldprocess.getGys(), newprocess.getGys(), "供应商", newtime, user, changeLog, 50);
+		return logDetailSet;
+	}
+
+	public Double getSjprocessMomey() {
+		return sjprocessMomey;
+	}
+
+	public void setSjprocessMomey(Double sjprocessMomey) {
+		this.sjprocessMomey = sjprocessMomey;
+	}
+
+	public Double getYkprocessMomey() {
+		return ykprocessMomey;
+	}
+
+	public void setYkprocessMomey(Double ykprocessMomey) {
+		this.ykprocessMomey = ykprocessMomey;
+	}
+
+	public Integer getOldPtId() {
+		return oldPtId;
+	}
+
+	public void setOldPtId(Integer oldPtId) {
+		this.oldPtId = oldPtId;
+	}
+
+	public Integer getOldbanci() {
+		return oldbanci;
+	}
+
+	public void setOldbanci(Integer oldbanci) {
+		this.oldbanci = oldbanci;
+	}
+
+	public String getDeleteTime() {
+		return deleteTime;
+	}
+
+	public void setDeleteTime(String deleteTime) {
+		this.deleteTime = deleteTime;
+	}
+
+	public Integer getProcessTsbId() {
+		return processTsbId;
+	}
+
+	public void setProcessTsbId(Integer processTsbId) {
+		this.processTsbId = processTsbId;
+	}
+	
+
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.OsScope" table="ta_m_OsScope">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="title" length="150"/>
+		<property name="type" length="50"/>
+		<property name="zltz" length="150"/>
+		<property name="jcff" length="150"/>
+		<property name="content" length="150"/>
+		<many-to-one name="osTemplate" column="scopeId"></many-to-one>
+
+	</class>
+
+</hibernate-mapping>

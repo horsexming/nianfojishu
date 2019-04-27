@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.TemplateTypem" table="ta_m_TemplateType">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="type" length="20" />
+		<property name="checkpc" length="20" />
+		<property name="createDate" type="timestamp" />
+
+		<many-to-one name="root" column="parentId" />
+		<set name="children" table="ta_m_TemplateRecord" cascade="all">
+			<key column="parentId"></key>
+			<one-to-many class="com.task.entity.android.TemplateRecordm" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

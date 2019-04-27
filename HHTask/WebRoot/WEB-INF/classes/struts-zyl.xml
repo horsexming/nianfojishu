@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-zyl" extends="struts-stack">
+		<!--
+			****************************************钟永林Action操作**********************************************************************
+		-->
+		<!-- 固定资产功能Action管理 -->
+		<action name="AssetAction" class="AssetAction">
+			<result>/System/xinxi/saveAesset.jsp</result>
+			<result name="findShouList">
+				/System/xinxi/shouAssetList.jsp
+			</result>
+			<result name="findByID">/System/xinxi/assetList.jsp</result>
+			<result name="updateAssetstatus">
+				/System/xinxi/scrappedSingleAsset.jsp
+			</result>
+			<result name="updateAssetscrappedSingle" type="redirect">
+				AssetAction!scrappedSingle.action?id=${aesset.id}
+			</result>
+			<result name="scrappedSingle">
+				/System/xinxi/printScrappedInformation.jsp
+			</result>
+			<result name="updateAssetFindID">
+				/System/xinxi/updateAsset.jsp
+			</result>
+			<result name="updateAsset" type="redirect">
+				AssetAction!findShouList.action
+			</result>
+		</action>
+
+		<!-- 提将价格表ACTION管理 -->
+		<action name="TijingpriceAction" class="TijingpriceAction">
+			<param name="savePath">/upload/tijiang</param>
+			<result name="execute1">/System/renshi/addPrice.jsp</result>
+			<result name="findtijingprice">/System/renshi/showPrice.jsp</result>
+			<result name="deletetijingprice" type="redirect">TijingpriceAction!findtijingprice.action
+			</result>
+			<result name="updatefind">/System/renshi/updatePrice.jsp</result>
+			<result name="update" type="redirect">TijingpriceAction!findtijingprice.action
+			</result>
+			<result name="conditionAllSuccess">/System/renshi/showtijing.jsp</result>
+			<result name="generateEXCEL" type="redirect">TijingpriceAction!conditionAll.action?setDate=${setDate}&amp;endDate=${endDate}&amp;message=${message}
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="conditionAllBefore">/System/renshi/showtijiangjijiaqian.jsp</result>
+			<result name="conditionAllBefore2" type="redirect">TijingpriceAction!conditionAll.action?setDate=${setDate}&amp;endDate=${endDate}
+			</result>
+
+			<result name="findAllPrice">/System/renshi/tijiang_findAllPrice.jsp</result>
+
+
+		</action>
+
+		<!-- 提奖计价表ACTION管理 -->
+		<action name="TijingAction" class="TijingAction">
+			<result name="savetijing" type="redirect">MentionrecordAction!findExamList.action?pageStatus=all
+			</result>
+			<result name="showtijing">/System/renshi/showtijingjijia.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="dateEXCEL" type="redirect">TijingAction!showtijing.action
+			</result>
+			<result name="findGoodStore">/System/renshi/tijiang_findGoodStore.jsp</result>
+
+			<result name="addShizhiok" type="redirect">/TijingAction!queryShizhi.action
+			</result>
+			<result name="queryShizhi">/System/renshi/tijiang_showShiZhi.jsp</result>
+			<result name="examIder" type="redirect">/TijingAction!queryShizhi.action?pageStatus=${pageStatus}
+			</result>
+			<result name="deleteShizhiOK" type="redirect">/TijingAction!queryShizhi.action?pageStatus=null
+			</result>
+			<result name="getOneShizhi">/System/renshi/tijiang_updateShiZhi.jsp</result>
+			<result name="updateShizhijiangjinOK" type="redirect">/TijingAction!queryShizhi.action?pageStatus=
+			</result>
+
+		</action>
+
+		<!-- 提奖记录表ACTION管理 -->
+		<action name="MentionrecordAction" class="MentionrecordAction">
+			<result>/System/renshi/showMentionrecord.jsp</result>
+			<result name="findExamListOK">/System/renshi/showMentionrecord1.jsp</result>
+			<result name="conditiontFindAll">/System/renshi/showMentionrecord.jsp</result>
+			<result name="updateMentionrecord" type="redirect">MentionrecordAction!findExamList.action?pageStatus=all
+			</result>
+			<result name="updateFind">/System/renshi/financialUpdate.jsp</result>
+			<result name="financialupdate" type="redirect">MentionrecordAction.action?pageStatus=${pageStatus}
+			</result>
+			<result name="Type">/System/renshi/tijiang_viewType.jsp</result>
+		</action>
+		<!-- 班组成员ACTION -->
+		<action name="TeammembersAction" class="TeammembersAction">
+			<result name="execute">/System/renshi/jjfp_addTeammembers.jsp</result>
+			<result name="delete" type="redirect">TeammembersAction!findDept.action
+			</result>
+			<result name="findDept">/System/renshi/jjfp_findTeammembers.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 奖金分配明细ACTION -->
+		<action name="BonusAction" class="BonusAction">
+			<result name="execute">/System/renshi/jjfp_bonusbefore.jsp</result>
+			<result name="findAllTeammembers">/System/renshi/hr_cb_AllocationBonus.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="saveBonusPeople" type="redirect">BonusAction!findDateBonus.action?dateyuefen=${newbonus.bonusdata}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="findDateBonus">/System/renshi/jjfp_findBonus.jsp</result>
+			<result name="update" type="redirect">BonusAction!findDateBonus.action?dateyuefen=${todayDate}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="summary">/System/renshi/jjfp_findBonusSummary.jsp</result>
+			<result name="findExamListOK">/System/renshi/bonusbefore_selectExam.jsp
+			</result>
+			<result name="updateExamBonusOK" type="redirect">BonusAction!findExamList.action
+			</result>
+
+			<result name="generateExcel" type="redirect">BonusAction!summary.action?todayDate=${todayDate}&amp;message=${message}
+			</result>
+		</action>
+
+		<!-- 奖金总额ACTION -->
+		<action name="BonusmoneyAction" class="BonusmoneyAction">
+			<result name="execute">/System/renshi/jjfp_findBonusmoney.jsp</result>
+			<result name="finddate">/System/renshi/jjfp_finddateBonus.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="printPreview">/System/renshi/jjfp_Print.jsp</result>
+			<result name="audit" type="redirect">BonusmoneyAction.action?pageStatus=${pageStatus}
+			</result>
+			<result name="auditDisagree" type="redirect">BonusmoneyAction.action?pageStatus=${pageStatus}
+			</result>
+			<result name="auditDisagreeupdate">/System/renshi/jjfp_updateBonusmoney.jsp</result>
+			<result name="updateauditDisagree" type="redirect">BonusmoneyAction.action?pageStatus=${pageStatus}
+			</result>
+			<result name="findTeam">/System/renshi/jjfp_viewTeam.jsp</result>
+			<result name="findzongMoney">/System/renshi/jjfp_zongMoney.jsp</result>
+			<result name="findDepthuanbi">/System/renshi/jjfp_deptHuanbi.jsp</result>
+		</action>
+		<!-- 入库表ACTION -->
+		<action name="GoodsStoreAction" class="GoodsStoreAction">
+			<result name="execute">/System/renshi/jjfp_findGoodsStore.jsp</result>
+			<result name="findMakIDmoney">/System/renshi/jjfp_GoodStoreMoney.jsp</result>
+			<result name="findAllPrice">/System/renshi/jjfp_findAllGoodsStore.jsp
+			</result>
+			<result name="goodsStore_findRuku">/System/SOP/goodsStore_findRuku.jsp</result>
+			<result name="goodsStore_findRukuQueRen">/System/SOP/goodsStore_findRukuQueRen.jsp</result>
+			<result name="getGoodsStoreOK">/System/SOP/goodsStore_ruku.jsp</result>
+			<result name="updateERROR">/System/SOP/goodsStore_ruku.jsp</result>
+			<result name="printGoodsStore">/System/SOP/goodsStore_print.jsp</result>
+			<result name="sdrkInput">/System/xunjian/OsRecord_sdrkInput.jsp</result>
+			<result name="OsRecord_sdrkInputMultiterm">/System/xunjian/OsRecord_sdrkInputMultiterm.jsp</result>
+			<result name="plrkInput">/System/xunjian/OsRecord_plrkInput.jsp</result>
+			<result name="rukuList">/System/SOP/ruku/rukuList.jsp</result>
+			<result name="rukuEdit">/System/SOP/ruku/rukuEdit.jsp</result>
+			<result name="findgoodHouse">/System/xunjian/findgoodHouse.jsp
+			</result>
+			<result name="addgoodHouse">/System/xunjian/addgoodHouse.jsp
+			</result>
+			<result name="salgoodHouseByid">/System/xunjian/salgoodHouseByid.jsp</result>
+			<result name="updategoodHouse">/System/xunjian/salgoodHouseByid.jsp</result>
+			<result name="noAuth">/System/xunjian/OsRecord_noAuth.jsp</result>
+			<result name="success1">/System/SOP/ruku/OsRecord_printStorage.jsp
+			</result>
+			<result name="findAll" type="redirect">GoodsStoreAction!findRukuGoodsStore.action
+			</result>
+			<result name="addSgrk" type="redirect">GoodsStoreAction!rukuList.action
+			</result>
+			<result name="goodsStore_zaizhiapplyinput" >/System/SOP/goodsStore_zaizhiapplyinput.jsp
+			</result>
+			<result name="goodsStore_zaizhiapplyinDetail" >/System/SOP/goodsStore_zaizhiapplyinDetail.jsp
+			</result>
+			<result name="GoodsStore_surezzinputapply" >/System/SOP/GoodsStore_surezzinputapply.jsp
+			</result>
+			<result name="GoodsStore_bcqquickreceiver" >/System/SOP/GoodsStore_bcqquickreceiver.jsp
+			</result>
+			<result name="GoodsStore_wxdrk" >/System/SOP/GoodsStore_wxdrk.jsp
+			</result>
+			<result name="print_goodsStoreList" >/System/PrintedOut/print_goodsStoreList.jsp
+			</result>
+			<result name="print_goodsStore" >/System/PrintedOut/print_goodsStore.jsp
+			</result>
+			<result name="waigouWaiting_all" >/System/SOP/ruku/waigouWaiting_all.jsp
+			</result>
+			<result name="GoodsSum">/System/SOP/ruku/goodsSum.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="findSameProductPriceOK">System/caigou/oa/storage_historyPrice.jsp</result>
+			<result name="goodsStore_changeGoods">/System/SOP/goodsStore_changeGoods.jsp</result>
+			<result name="goodsStore_toChangeGoodsPage">/System/SOP/goodsStore_toChangeGoodsPage.jsp</result>
+			<result name="rukuList_Price">/System/SOP/ruku/rukuList_Price.jsp</result>
+			<result name="findPoorandPo" type="redirect">PrintedOutAction_findPoorandPo.action?id=${poor.id}</result>
+		</action>
+
+		<!-- 客户关系管理ACTION -->
+		<action name="ClientManagementAction" class="ClientManagementAction">
+			<result>/System/CRM/addClientManagement.jsp</result>
+			<result name="findAll">/System/CRM/showClientManagement.jsp</result>
+			<result name="delete" type="redirect">ClientManagementAction!findAll.action
+			</result>
+			<result name="update" type="redirect">ClientManagementAction!findAll.action
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="updatefind">/System/CRM/updateClientManagement.jsp</result>
+			<result name="findByclientManagement">/System/CRM/viewClientManagement.jsp</result>
+		</action>
+		<!-- 订单管理ACTION -->
+		<action name="OrderManagementAction" class="OrderManagementAction">
+			<result>/System/CRM/addOrderManagement.jsp</result>
+			<result name="delete" type="redirect">OrderManagementAction!findAll.action
+			</result>
+			<result name="update" type="redirect">OrderManagementAction!findAll.action
+			</result>
+			<result name="findAll">/System/CRM/showOrderManagement.jsp</result>
+			<result name="saveqian">/System/CRM/addOrderManagement.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 订单流程ACTION -->
+		<action name="OrderprocesstablerAction" class="OrderprocesstablerAction">
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

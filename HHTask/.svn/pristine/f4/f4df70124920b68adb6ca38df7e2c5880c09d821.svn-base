@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Price" table="ta_price">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="partNumber" column="ta_partNumber" index="sy_partNumber"></property>
+		<property name="name" column="ta_name"></property>
+		<property name="type" column="ta_type"></property>
+		<property name="specification" column="ta_specification" length="1000"></property>
+		<property name="productCategory" column="ta_productCategory"></property>
+		<property name="hsPrice" column="ta_hsPrice" length="2" not-null="true"></property>
+		<property name="bhsPrice" column="ta_bhsPrice" not-null="true" length="2"></property>
+		<property name="produceType" column="ta_produceType"></property>
+		<property name="contractNumber" column="ta_contractNumber"></property>
+		<property name="attachmentName" column="ta_attachmentName"></property>
+		<property name="rmarks" column="ta_rmarks"></property>
+		<property name="chargePerson" column="ta_chargePerson"></property>
+		<property name="pricePeriodStart" column="ta_pricePeriodStart" index="sy_pricePeriodStart"></property>
+		<property name="pricePeriodEnd" column="ta_pricePeriodEnd" index="sy_pricePeriodEnd"></property>
+		<property name="writeDate" column="ta_writeDate"></property>
+		<property name="inputPeople" column="ta_inputPeople"></property>
+		<property name="updatePeople" column="ta_updatePeople"></property>
+		<property name="parent" column="ta_parent"></property>
+		<property name="identityColumn" column="ta_identityColumn"></property>
+		<property name="fileNumber" column="ta_fileNumber"></property>
+		<property name="reTime" column="ta_reTime"></property>
+		<property name="isGuiDang" column="ta_isGuiDang"></property>
+		<property name="guiDangTime" column="ta_guiDangTime"></property>
+		<property name="taxprice" column="ta_taxprice"></property>
+		<property name="jimiDJ" column="ta_jimiDJ"></property>
+		<property name="danganId" column="ta_danganId"></property>
+		<property name="danganWeizhi" column="ta_danganWeizhi"></property>
+		<property name="danganCunQuStatus" column="ta_danganCunQuStatus"></property>
+		<property name="kehuId" column="ta_kehuId"></property>
+		<property name="gysId" column="ta_gysId"></property>
+		<property name="firstnum" column="ta_firstnum"></property>
+		<property name="endnum" column="ta_endnum"></property>
+		<property name="cgbl" column="ta_cgbl"></property>
+		<property name="gongxunum" column="ta_gongxunum"></property>
+		<property name="processNames" column="processNames"></property>
+		<property name="kgliao" column="ta_kgliao" index="sy_kgliao"></property>
+		<property name="wwType" column="wwType"></property>
+		<property name="wlType" column="wlType"></property>
+		<property name="danwei" column="danwei"></property>
+		<property name="zdqdl" column="zdqdl"></property>
+		<property name="zdzxl" column="zdzxl"></property>
+		<property name="zdqsl" column="zdqsl"></property>
+		<property name="banbenhao" column="banbenhao" index="sy_banbenhao"></property>
+		<property name="qidingfang"/>
+		<property name="iscriterion"/>
+		<property name="bzdanwei"/>
+		<property name="danweiNum"/>
+		<property name="danweihsPrice"/>
+		<property name="danweibhsPrice"/>
+		<property name="ywmarkId"/>
+		<property name="mjsqplanNum"/>
+		<property name="picNo"/>
+		<property name="modelNo"/>
+		<property name="cunType"/>
+		<property name="isCunType"/>
+		<property name="isCunTime"/>
+		<property name="cunStatus"/>
+		<property name="cunRen"/>
+		
+	</class>
+</hibernate-mapping>

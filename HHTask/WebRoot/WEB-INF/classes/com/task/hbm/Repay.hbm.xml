@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.Repay" table="Repay">
+        <id name="id">
+           <generator class="identity"/>
+        </id>
+       <property name="cardNum"/>
+       <property name="peopleName"/>
+       <property name="dept"/>
+       <property name="goodsMarkId"/>
+       <property name="goodsLotId"/>
+       <property name="goodsFullName"/>
+       <property name="unit" />
+       <property name="num" />
+       <property name="rdate"  />
+        <property name="rtime"  />
+       <property name="ldate"  />
+       <property name="format" />
+       <property name="storehouse" />
+       <property name="goodHouse" />
+       <property name="wareHouse" />
+       <property name="parClass" />
+       <property name="jiaGongNum"/>
+       <property name="processPieceNum"/>
+       <property name="adminId" />
+       <property name="admin"/> 
+       <property name="price" />
+       <property name="mix"/>
+       <property name="danjuhao" />
+       <property name="remark" />
+       <property name="goodsId"/>
+       <property name="lendId" />
+
+   </class>
+</hibernate-mapping>

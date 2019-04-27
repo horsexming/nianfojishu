@@ -1,0 +1,114 @@
+package com.task.entity;
+
+
+import java.util.Date;
+
+/**
+ * @ClassName: fanghuOutLib
+ * @Description: 劳防用品发放表
+ * @author 贾辉辉
+ * @date 2013-4-24 上午09:17:59
+ * fanghuOutLib
+ * 
+ * 
+ */
+public class FanghuOutLib  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id; //主键
+	private Date date;//日期
+	private String userName;//领用人姓名
+	private String dept; //部门
+	private String cardNum; //领用卡号	
+	
+	private String matetag;//物品名称
+	private String format;//规格尺寸
+	private String unit;//单位
+	private int limitCount;//领用限量
+	private Integer nextLingyongcount;//第二次零用数量
+	private int lingyongCircle;//零用周期
+	private String lastLingyongTime;//上次领用时间
+	private int userId;//userID
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getCardNum() {
+		return cardNum;
+	}
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+	public String getMatetag() {
+		return matetag;
+	}
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public int getLimitCount() {
+		return limitCount;
+	}
+	public void setLimitCount(int limitCount) {
+		this.limitCount = limitCount;
+	}
+	public int getLingyongCircle() {
+		return lingyongCircle;
+	}
+	public void setLingyongCircle(int lingyongCircle) {
+		this.lingyongCircle = lingyongCircle;
+	}
+	public String getLastLingyongTime() {
+		return lastLingyongTime;
+	}
+	public void setLastLingyongTime(String lastLingyongTime) {
+		this.lastLingyongTime = lastLingyongTime;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public Integer getNextLingyongcount() {
+		return nextLingyongcount;
+	}
+	public void setNextLingyongcount(Integer nextLingyongcount) {
+		this.nextLingyongcount = nextLingyongcount;
+	}
+	
+	
+	
+}

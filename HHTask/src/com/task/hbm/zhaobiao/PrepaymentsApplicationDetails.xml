@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tast.entity.zhaobiao.PrepaymentsApplicationDetails" table="ta_zh_PrepaymentsApplicationDetails">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="orderId" />
+        <property name="prepaymentsApplicationId" />
+        <property name="poNumber" />
+        <property name="yyName" />
+        <property name="allMoney" />
+        <property name="yfbl" />
+        <property name="yfMoney" />
+        <property name="yfMoneyDX" />
+        
+        <property name="jbName" />
+        <property name="qsName" />
+
+        <property name="expectedTime"/>
+        <property name="addTime"/>
+        <property name="addDate"/>
+		<property name="addName" />
+		<property name="addDept" />
+		
+    </class>
+</hibernate-mapping>

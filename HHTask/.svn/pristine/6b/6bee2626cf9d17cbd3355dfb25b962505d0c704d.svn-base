@@ -1,0 +1,78 @@
+package com.task.entity.menjin;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.WarehouseNumber;
+
+/**
+ * 材料状态类型表 2016-11-11
+ * 
+ * @author Li_Cong 表名 ta_mj_MarkStatusType 材料状态类型表
+ */
+public class MarkStatusType {
+	private Integer id;
+	private String markTypt;// 材料类型(已入库&待检:蓝色 / 合格品:绿色 / 返工&返修&待修:黄色 / 不合格:红色)
+	private String typt;// 类型(库存)
+	private Integer markColor;// 亮灯类型(0:无/1:绿/2:红/3:蓝/4:黄)
+	private String addTime;// 添加时间
+	private String updateTime;// 修改时间 
+	private Set<WarehouseNumber> numbers;//库位表
+	// get set
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getTypt() {
+		return typt;
+	}
+
+	@JSONField(serialize = false)
+	public Set<WarehouseNumber> getNumbers() {
+		return numbers;
+	}
+
+	public void setNumbers(Set<WarehouseNumber> numbers) {
+		this.numbers = numbers;
+	}
+
+	public void setTypt(String typt) {
+		this.typt = typt;
+	}
+
+	public String getMarkTypt() {
+		return markTypt;
+	}
+
+	public void setMarkTypt(String markTypt) {
+		this.markTypt = markTypt;
+	}
+
+	public Integer getMarkColor() {
+		return markColor;
+	}
+
+	public void setMarkColor(Integer markColor) {
+		this.markColor = markColor;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+}

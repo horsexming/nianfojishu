@@ -1,0 +1,520 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng"
+			style="width: 100%; border: solid 1px #0170b8; margin-top: 10px;">
+			<div align="center">
+				<s:if test="pagestatus=='show'">
+					<h2>
+						库存信息
+					</h2>
+					<table class="table" style="width: 95%;">
+						<tr>
+							<th>
+								批次:
+							</th>
+							<td>
+								<SPAN>${goods.goodsLotId }</SPAN>
+							</td>
+							<th>
+								件号:
+							</th>
+							<td>
+								<SPAN>${goods.goodsMarkId }</SPAN>
+								<th>
+									品名:
+								</th>
+								<td>
+									<SPAN>${goods.goodsFullName }</SPAN>
+								</td>
+						</tr>
+						<tr>
+							<th>
+								库存量：
+							</th>
+							<td>
+								
+								
+								<SPAN>${goods.goodsCurQuantity }</SPAN>
+							</td>
+							<th>
+								计量单位：
+							</th>
+							<td>
+								<SPAN>${goods.goodsUnit }</SPAN>
+							</td>
+							<th>
+								库别：
+							</th>
+							<td>
+								<SPAN>${goods.goodsClass }</SPAN>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								换算数量:
+							</th>
+							<td>
+								<SPAN>${goods.goodsZhishu }</SPAN>
+							</td>
+							<th>
+								客户:
+							</th>
+							<td>
+								<SPAN>${goods.goodsCustomer }</SPAN>
+							</td>
+
+							<th>
+								入库类型
+							</th>
+							<td>
+								<SPAN>${goods.goodsStyle}</SPAN>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								供应商:
+							</th>
+							<td>
+								<SPAN>${goods.goodsSupplier }</SPAN>
+							</td>
+							<th>
+								备注:
+							</th>
+							<td>
+								<SPAN>${goods.goodsMore2 }</SPAN>
+							</td>
+							<th>
+								规格：
+							</th>
+							<td>
+								<SPAN>${goods.goodsFormat }</SPAN>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								库位:
+							</th>
+							<td>
+								<SPAN>${goods.goodsPosition}</SPAN>
+							</td>
+							<th>
+								工艺卡号:
+							</th>
+							<td>
+								<SPAN>${goods.goodsArtsCard }</SPAN>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</s:if>
+				<s:else>
+					<h2>
+						库存信息维护
+					</h2>
+					<form action="goodsAction!updateGoods.action?tag=updateGoodsInfor"
+						method="post" >
+						<input type="hidden" name="role" value="${role}">
+						<input type="hidden" name="goods.goodsId" value="${goods.goodsId}">
+						<table class="table" style="width: 95%;">
+							<tr>
+								<th style="color: red;">
+									件号:
+								</th>
+								<td>
+									${goods.goodsMarkId }
+									<input type="hidden" name="goods.goodsMarkId" id="goodsMarkId"
+										value="${goods.goodsMarkId }" readonly="readonly" />
+								</td>
+								<th>
+									品名:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsFullName"
+										value="${goods.goodsFullName }" />
+								</td>
+								<th>
+									规格：
+								</th>
+								<td>
+									<input type="text" name="goods.goodsFormat" id="goodsFormat"
+										value="${goods.goodsFormat }" />
+								</td>
+								<th style="color: red;">
+									版本号:
+								</th>
+								<td>
+									${goods.banBenNumber}
+									<input type="hidden" name="goods.banBenNumber"
+										value="${goods.banBenNumber}" />
+								</td>
+							</tr>
+							<tr>
+								<th style="color: red;">
+									供料属性:
+								</th>
+								<td>
+									<s:if test="goods.kgliao=='TK'">
+												自购(TK)
+										</s:if>
+									<s:elseif test="goods.kgliao=='TK AVL'">
+												指定供应商(TK AVL)
+										</s:elseif>
+									<s:elseif test="goods.kgliao=='CS'">
+												客供(CS)
+										</s:elseif>
+									<s:elseif test="goods.kgliao=='TK Price'">
+												完全指定(TK Price)
+										</s:elseif>
+									<s:else>
+											${goods.kgliao}
+										</s:else>
+									<select name="goods.kgliao" style="display: none;">
+										<option value="${goods.kgliao}">
+											${goods.kgliao}
+										</option>
+										<option value="TK">
+											自购(TK)
+										</option>
+										<option value="TK AVL">
+											指定供应商(TK AVL)
+										</option>
+										<option value="CS">
+											客供(CS)
+										</option>
+										<option value="TK Price">
+											完全指定(TK Price)
+										</option>
+									</select>
+								</td>
+								<th>
+									物料类别:
+								</th>
+								<td>
+									<input type="text" name="goods.wgType" value="${goods.wgType}" />
+								</td>
+								<th style="color: red;">
+									批次:
+								</th>
+								<td>
+									${goods.goodsLotId }
+									<input type="hidden" name="goods.goodsLotId"
+										value="${goods.goodsLotId }" readonly="readonly" />
+								</td>
+								<th>
+									工艺卡号:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsArtsCard"
+										value="${goods.goodsArtsCard }" />
+								</td>
+							</tr>
+							<tr>
+								<th style="color: red;">
+									库存量：
+								</th>
+								<td>
+									<SPAN><fmt:formatNumber value="${goods.goodsCurQuantity }" pattern="#0.00"/>	</SPAN>
+									<input type="hidden" name="goods.goodsCurQuantity"
+										id="goodsCurQuantity" value="${goods.goodsCurQuantity }" />
+									<span id="span"></span>
+								</td>
+								<th>
+									计量单位：
+								</th>
+								<td>
+									<select name="goods.goodsUnit" id="danwei">
+										<option selected="selected" value="${goods.goodsUnit }">
+											${goods.goodsUnit }
+										</option>
+									</select>
+								</td>
+								<th>
+									转换数量:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsZhishu" id="goodsZhishu"
+										value="${goods.goodsZhishu }" />
+									<span id="span1"></span>
+								</td>
+								<th>
+									转换单位:
+								</th>
+								<td>
+									<select name="goods.goodsStoreZHUnit" id="danwei1">
+										<option selected="selected" value="${goods.goodsStoreZHUnit }">
+											${goods.goodsStoreZHUnit }
+										</option>
+									</select>
+								</td>
+
+							</tr>
+							<tr>
+								<th>
+									入库类型
+								</th>
+								<td>
+									<select name="goods.goodsStyle">
+										<option>
+											${goods.goodsStyle}
+										</option>
+										<option>
+											批量入库
+										</option>
+										<option>
+											试制入库
+										</option>
+										<option>
+											返修入库
+										</option>
+										<option>
+											退货入库
+										</option>
+									</select>
+								</td>
+								<th>
+									客户:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsCustomer"
+										value="${goods.goodsCustomer }" />
+								</td>
+								<th>
+									供应商:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsSupplier"
+										value="${goods.goodsSupplier }" />
+								</td>
+
+								<th>
+									积压状态
+								</th>
+								<td>
+									<select name="goods.goodsMore">
+										<option></option>
+										<option value="">
+											否
+										</option>
+										<option value="O">
+											是
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									库别：
+								</th>
+								<td>
+									<select name="goods.goodsClass" id="goodsClass"
+										onchange="changvalue(this)"  disabled="disabled">
+										<option value="${goods.goodsClass }">
+											${goods.goodsClass }
+										</option>
+									</select>
+									<input type="hidden" name="goods.goodsClass" value="${goods.goodsClass}"/>
+									<%--								<input type="text" name="goods.goodsClass" id="goodsClass"--%>
+									<%--									value="${goods.goodsClass }" />--%>
+								</td>
+								<th>
+									仓区:
+								</th>
+								<td>
+									<select name="goods.goodHouseName" id="goodHouseName"
+										onchange="changvalue1(this)">
+										<option value="${goods.goodHouseName}">
+											${goods.goodHouseName }
+										</option>
+									</select>
+								</td>
+								<th>
+									库位:
+								</th>
+								<td>
+									<select name="goods.goodsPosition" id="goodsPosition">
+										<option value="${goods.goodsPosition}">
+											${goods.goodsPosition}
+										</option>
+
+									</select>
+									<%--									<input type="text" name="goods.goodsPosition"--%>
+									<%--										id="goodsPosition" value="${goods.goodsPosition}" />--%>
+								</td>
+								<th>
+									备注:
+								</th>
+								<td>
+									<input type="text" name="goods.goodsMore2"
+										value="${goods.goodsMore2 }" />
+								</td>
+							</tr>
+							<tr>
+								<th>
+								锁定单号：
+								</th>
+								<td colspan="7">
+									<input type="text" name="goods.suodingdanhao"
+										value="${goods.suodingdanhao }" />
+								</td>
+							</tr>
+						<s:if test='pagestatus != "mingxi"'>
+							<tr>
+								<th colspan="8">
+									<input type="submit" value="修改" />
+									&nbsp;
+									<input type="reset" value="取消" />
+								</th>
+							</tr>
+							<tr>
+								<td colspan="8">
+									注:标红处的数据不可修改,如需调整,请通过手动入库或手动出库的方式调整。
+								</td>
+							</tr>
+						</s:if>
+						</table>
+					</form>
+				</s:else>
+			</div>
+			<br>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		</center>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+$(function() {
+	getUnit("danwei");
+	getUnit("danwei1");
+	if ($("#goodsClass").val() == "外购件库") {
+		$("#span")
+				.html(
+						'<input type="button" onclick=getbili(&apos;goodsCurQuantity&apos;) value="计算"/>');
+		$("#span1")
+				.html(
+						'<input type="button" onclick=getbili(&apos;goodsZhishu&apos;) value="计算"/>');
+	}
+	changvalue(document.getElementById("goodsClass"));
+	changvalue1(document.getElementById("goodHouseName"));
+})
+function numyanzhen(obj) {
+	var ty1 = '^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$';
+	var re = new RegExp(ty1);
+	if (obj != null && obj.value.match(re) == null) {
+		obj.value = "";
+		obj.focus();
+		obj.select();
+	}
+}
+
+function getbili(obj) {
+	var value = $("#" + obj).val();
+if(value !=null && value != ""){
+	  	$.ajax( {
+		type : "POST",
+		url : "yuanclAndWaigjAction!getYWbytrademark.action",
+		data : {
+			'yuanclAndWaigj.markId':$("#goodsMarkId").val(),
+		},
+		dataType : "json",
+		success : function(data) {
+			if(data!=null && data>0){
+				alert(data);
+				if(obj == "goodsCurQuantity"){
+					$("#goodsZhishu").val(Math.floor(value/data))
+				}else if(obj == "goodsZhishu"){
+					$("#goodsCurQuantity").val((value*data).toFixed(3))
+				}
+				
+			}else{
+			alert("该外购件没有相关的单张重量")
+		}
+		}
+	})
+
+  }else{
+	  alert("请先输入数量或转换数量")
+  }
+	
+}
+$(function(){
+	$.ajax( {
+		type : "POST",
+		url : "WarehouseAreaAction_getAllwarehouse.action",
+		data : {
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data != null) {
+				$(data).each(function(){
+						$("#goodsClass").append('<option value='+this.name+'>'+this.name+'</option>');
+					});
+			}
+		}
+	})
+})
+function changvalue(obj){
+	if(obj!=null && obj.value != ""){
+		$.ajax( {
+		type : "POST",
+		url : "WarehouseAreaAction_findwaListByNO.action",
+		data : {
+			wareHouseName:obj.value
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data != null) {
+				$(data).each(function(){
+						$("#goodHouseName").append('<option value='+this.goodHouseName+'>'+this.goodHouseName+'</option>');
+					});
+				$("#goodsPosition").val("");
+			}
+		}
+	});
+	}
+}
+function changvalue1(obj){
+	if(obj!=null && obj.value != ""){
+		$.ajax( {
+		type : "POST",
+		url : "WarehouseAreaAction_findwnListByNO.action",
+		data : {
+			wareHouseName:$("#goodsClass").val(),
+			cangqu:obj.value
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data != null) {
+				$("#goodsPosition").empty();
+				$(data).each(function(){
+						$("#goodsPosition").append('<option value='+this.number+'>'+this.number+'</option>');
+					});
+			}
+		}
+	});
+	}
+}
+
+
+
+
+
+</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.peb.PebUsers" table="ta_pebUsers">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="banZu" />
+		<property name="year" />
+		<property name="month" />
+		<property name="day" />
+		<property name="dangAnNum" />
+		<property name="borrowNum" />
+		<property name="lendNum" />
+		<property name="noChuQinNum" />
+		<property name="actualNum" />
+		<property name="zsNumber" />
+		<property name="avgNumber" />
+		<property name="gzHour" />
+		<property name="UPPH" />
+		<property name="remarks" />
+		
+		<property name="mbTarget" />
+		<property name="category" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="applyNum" />
+		<property name="applyRemark" />
+	</class>
+</hibernate-mapping>

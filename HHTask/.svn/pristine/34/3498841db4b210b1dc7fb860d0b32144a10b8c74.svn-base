@@ -1,0 +1,46 @@
+package com.task.entity.fin;
+
+/**
+ * 报销科目（ta_fin_baoXiaoCourse）
+ * @author jhh
+ *
+ */
+public class BaoxiaoCourse {
+	private int id;	
+	private String childCourse;//子类别
+	private String childCourseNumber;//类别编号
+	private String fatherCourse;//父类别
+	private String more;//备注
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getChildCourse() {
+		return childCourse;
+	}
+	public void setChildCourse(String childCourse) {
+		this.childCourse = childCourse;
+	}
+	public String getChildCourseNumber() {
+		return childCourseNumber;
+	}
+	public void setChildCourseNumber(String childCourseNumber) {
+		this.childCourseNumber = childCourseNumber;
+	}
+	public String getFatherCourse() {
+		return fatherCourse;
+	}
+	public void setFatherCourse(String fatherCourse) {
+		this.fatherCourse = fatherCourse;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	
+	
+}

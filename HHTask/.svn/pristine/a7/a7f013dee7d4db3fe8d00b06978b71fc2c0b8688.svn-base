@@ -1,0 +1,293 @@
+package com.task.entity;
+
+/***
+ * 日历(表名:ta_hr_Calendar)
+ * 
+ * @author 刘培
+ * 
+ */
+public class Calendar {
+
+	private Integer id;// Id
+	private Integer thingsId; // 事件Id(用于标识事件是否重复)
+	private String title;// 事情名称必须，事件在日历上显示的title
+	private String thingContent;// 内容
+	private Boolean allDay;// 可选，是否是整日事件
+	private String start;// 必须，事件的开始时间
+	private String endDate;// 可选，结束时间
+	private String url;// 可选，当指定后，事件被点击将打开对应url
+	private String className;// 指定事件的样式
+	private String editable;// 是否可拖拽
+	private String source;// 指向次event的eventsource对象
+	private String color;// 背景和边框颜色
+	private String backgroundColor;// 背景颜色
+	private String borderColor;// 边框颜色
+	private String textColor;// 文本颜色
+
+	private String thingType;// 事件类型(法定假、年休假、换休、公假、病假、婚嫁、丧假、事假、)
+	private String thingStatus;// 事件性质(public / private)
+	private Integer userId;// 所属人id
+	private String userName;// 所属人用户名称
+	private String code;// 所属人工号
+	private String dept;// 所属人部门
+	private Integer addUserId;// 添加人id
+	private String addUserName;// 添加人用户名称
+	private String addUserCode;// 添加人工号
+	private String addUserDept;// 添加人部门
+	private String addDateTime;// 添加时间
+	private Float sumDay;// 总天数
+
+	private String isRepeat;// 是否重复
+	private String repeatCycle;// 重复周期
+	private Integer repeatFrequency;// 重复频率
+
+	private String calendarState;//完成状态
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getThingsId() {
+		return thingsId;
+	}
+
+	public void setThingsId(Integer thingsId) {
+		this.thingsId = thingsId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Boolean getAllDay() {
+		return allDay;
+	}
+
+	public void setAllDay(Boolean allDay) {
+		this.allDay = allDay;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getEditable() {
+		return editable;
+	}
+
+	public void setEditable(String editable) {
+		this.editable = editable;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+
+	public String getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+
+	public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+	}
+
+	public String getThingType() {
+		return thingType;
+	}
+
+	public void setThingType(String thingType) {
+		this.thingType = thingType;
+	}
+
+	public String getThingStatus() {
+		return thingStatus;
+	}
+
+	public void setThingStatus(String thingStatus) {
+		this.thingStatus = thingStatus;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getAddUserDept() {
+		return addUserDept;
+	}
+
+	public void setAddUserDept(String addUserDept) {
+		this.addUserDept = addUserDept;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+
+	public String getThingContent() {
+		return thingContent;
+	}
+
+	public void setThingContent(String thingContent) {
+		this.thingContent = thingContent;
+	}
+
+	public Float getSumDay() {
+		return sumDay;
+	}
+
+	public void setSumDay(Float sumDay) {
+		this.sumDay = sumDay;
+	}
+
+	public String getIsRepeat() {
+		return isRepeat;
+	}
+
+	public void setIsRepeat(String isRepeat) {
+		this.isRepeat = isRepeat;
+	}
+
+	public String getRepeatCycle() {
+		return repeatCycle;
+	}
+
+	public void setRepeatCycle(String repeatCycle) {
+		this.repeatCycle = repeatCycle;
+	}
+
+	public Integer getRepeatFrequency() {
+		return repeatFrequency;
+	}
+
+	public void setRepeatFrequency(Integer repeatFrequency) {
+		this.repeatFrequency = repeatFrequency;
+	}
+
+	public String getCalendarState() {
+		return calendarState;
+	}
+
+	public void setCalendarState(String calendarState) {
+		this.calendarState = calendarState;
+	}
+}

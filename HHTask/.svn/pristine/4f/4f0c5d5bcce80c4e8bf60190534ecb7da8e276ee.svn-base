@@ -1,0 +1,66 @@
+/**
+ * 
+ */
+package com.task.entity.lpanclear;
+
+/**
+ * 图片路径类
+ */
+public class Phonerecord {
+    private Integer id;             //主键ID
+    private String route;           //图片路径
+    private String pictureDay;      //所属打扫时间
+    private String describe;        //描述
+    private String update;          //图片上传时间
+    
+    
+    
+
+	public Phonerecord() {
+		super();
+	}	
+	public Phonerecord(Integer id, String route, String pictureDay,String describe,String update) {
+		super();
+		this.id = id;
+		this.route = route;
+		this.pictureDay = pictureDay;
+		this.describe = describe;
+		this.update = update;
+	}
+
+
+
+
+
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getRoute() {
+		return route;
+	}
+	public void setRoute(String route) {
+		this.route = route;
+	}
+	public String getPictureDay() {
+		return pictureDay;
+	}
+	public void setPictureDay(String pictureDay) {
+		this.pictureDay = pictureDay;
+	}
+	public String getDescribe() {
+		return describe;
+	}
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
+	public String getUpdate() {
+		return update;
+	}
+	public void setUpdate(String update) {
+		this.update = update;
+	}
+}

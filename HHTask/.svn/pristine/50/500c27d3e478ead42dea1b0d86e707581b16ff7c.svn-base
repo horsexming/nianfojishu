@@ -1,0 +1,175 @@
+/**
+ * 
+ */
+package com.task.ServerImpl.b2b;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.huawei.openapi.openaipexample.client.http.OrderForB2B;
+import com.huawei.openapi.openaipexample.client.http.TokenUtil;
+import com.task.Dao.TotalDao;
+import com.task.Server.b2b.HttpRestClientForYcServer;
+import com.task.util.Util;
+
+public class HttpRestClientForYcServerImpl implements HttpRestClientForYcServer {
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+	public static void main(String[] args) {
+		try {
+			getList(1,1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***
+	 * 
+	 */
+	public static Object[] getList(Integer pageIndex, Integer pageSize) throws IOException {
+		String poStatus = "";
+		String itemCode = "21011267";
+		String suppItemCode = "";
+		String orgId = "218";
+		String startTime = "2018-11-09";
+		String endTime = "2018-11-09";
+		String LIST_URL = "https://openapi.huawei.com:443/service/esupplier/findForecastList/1.0.0/"
+				+ pageIndex;
+		// String LIST_URL =
+		// "https://api-beta.huawei.com:443/service/esupplier/findPoLineList/1.0.0/"
+		// + pageIndex;
+
+		HttpURLConnection connection = TokenUtil.getConnection(LIST_URL);
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("Content-Type", "application/json");
+
+		StringBuilder sb = new StringBuilder();
+		sb
+				.append("{\"suppItemCode \":\""
+						+ poStatus
+						+ "\",\"itemCode\":\""
+						+ itemCode
+						+ "\",\"suppItemCode\":\""
+						+ suppItemCode
+						+ "\",\"orgId\":\""
+						+ orgId + "\",\"startTime\":\"" + startTime
+						+ "\",\"endTime\":\"" + endTime
+						+ "\"}");
+
+
+		OutputStream output = connection.getOutputStream();
+		output.write(sb.toString().getBytes("UTF-8"));
+		output.flush();
+		output.close();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				connection.getInputStream(), "UTF-8"));
+		String line = "";
+		Integer count = 0;
+		ArrayList<OrderForB2B> orderList = new ArrayList<OrderForB2B>();
+//		{	"result":"find forecast successful",
+//			"code":"200",
+//			"data":{
+//				"result":[
+//				          {
+//				        	 "partSort":"机柜I类",//器件分类
+//				        	 "data":{"Q1":42,"Q2":5,"Q3":6},
+//				        	 "max":0,
+//				        	 "itemCode":"21011267",//华为物料编码
+//				        	 "publishDate":"2018-10-27",//预测发布日期
+//				        	 "openPOQty":"176",//在途订单数量
+//				        	 "buyerName":"徐欢 00349508, Xu Huan",//采购员名称
+//				        	 "version":"0",//物料版本号
+//				        	 "orgId":"218",//组织编码
+//				        	 "vendorCode":"Z000TR",
+//				        	 "dataMeasure":"net_requirement",//数据类型
+//				        	 "currentInventory":0,//供应商当前库存
+//				        	 "lineNo":1,//行号
+//				        	 "min":0,
+//				        	 "purchaseMode":"DUN",
+//				        	 "lableList":["2018-10-29","2018-11-05","2018-11-12"],//返回的数据日期列表
+//				        	 "responseState":"Y",
+//				        	 "aslId":"9312500",//ASL关系ID
+//				        	 "lackFlag":"Shortage4",
+//				        	 "id":1
+//				        	}
+//				        ],
+//				"pageVO":
+//					{
+//						"startIndex":1,"curPage":1,"mysqlStartIndex":0,"endIndex":20,"resultMode":0,
+//						"totalPages":5,"pageSize":20,"mysqlEndIndex":20,"totalRows":92
+//						}
+//				},
+//			"success":true,
+//			"failed":false
+//		}
+		while ((line = reader.readLine()) != null) {
+			 System.out.println(line);
+			JsonObject jsonObject = new JsonParser().parse(line)
+					.getAsJsonObject();
+			
+			JsonObject jsonObject2 = new JsonParser().parse(jsonObject.get("data").toString()).getAsJsonObject();
+			JsonArray jsonArray = jsonObject2.getAsJsonArray("result");
+			
+			Gson gson = new Gson();
+			for (JsonElement jsonElement : jsonArray) {
+				JsonObject jsonObject3 = new JsonParser().parse(jsonElement.toString()).getAsJsonObject();
+				System.out.print(jsonObject3.get("partSort"));
+				System.out.print(jsonObject3.get("itemCode"));
+				System.out.print(jsonObject3.get("lineNo"));
+				System.out.println(jsonObject3.get("lableList"));
+				System.out.println(jsonObject3.get("data"));
+				System.out.println("============================");
+				
+				
+//				OrderForB2B orderForB2B = gson.fromJson(jsonElement,
+//						new TypeToken<OrderForB2B>() {}.getType());
+//				String publishDate = Util.DateToString(Util.StringToDate(
+//						orderForB2B.getPublishDate(),
+//						"yyyy-MM-dd'T'HH:mm:ss.000+0800"),
+//						"yyyy-MM-dd HH:mm:ss");
+//				String promiseDate = Util.DateToString(Util.StringToDate(
+//						orderForB2B.getPromiseDate(),
+//						"yyyy-MM-dd'T'HH:mm:ss.000+0800"),
+//						"yyyy-MM-dd HH:mm:ss");
+//				orderForB2B.setPublishDate(publishDate);
+//				orderForB2B.setPromiseDate(promiseDate);
+//				orderList.add(orderForB2B);
+			}
+			JsonObject data = jsonObject2.get("pageVO").getAsJsonObject();
+			pageSize = data.get("pageSize").getAsInt();
+			count = data.get("totalRows").getAsInt();
+		}
+
+		Map<String, List<String>> headerFields = connection.getHeaderFields();
+		for (Map.Entry<String, List<String>> element : headerFields.entrySet()) {
+			if ("activityID".equals(element.getKey())) {
+				System.out.println("Please log the value: " + element.getKey()
+						+ "===>>" + element.getValue().get(0));
+			}
+		}
+		reader.close();
+		connection.disconnect();
+		return new Object[] { orderList, count, pageSize };
+	}
+
+}

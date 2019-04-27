@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "- Hibernate/Hibernate Mapping DTD 3.0 EN"
+"http: hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardReplace" table="ta_sop_w_ProcardReplace">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="rootMarkId" />
+	<property name="rootSelfCard" /> 
+	<property name="ywMarkId" /> 
+	<property name="rootId" />
+	<property name="rootFilnalCount" />
+	<property name="markId" />
+	<property name="kgliao" /> 
+	<property name="wgType" />
+	<property name="banbenNumber" /> 
+	<property name="banci" />
+	<property name="allcount" /> 
+	<property name="cgNumber" /> 
+	<property name="unit" /> 
+	<property name="tuhao" /> 
+	
+	<property name="newmarkId" />
+	<property name="newkgliao" /> 
+	<property name="newwgType" />
+	<property name="newbanbenNumber" /> 
+	<property name="newbanci" />
+	<property name="newallcount" /> 
+	<property name="newcgNumber" /> 
+	<property name="newunit" /> 
+	<property name="newtuhao" /> 
+	
+	<property name="addUserId" /> 
+	<property name="addUserName" /> 
+	<property name="addTime" /> 
+	<property name="epId" /> 
+	<property name="applyStatus" />
+	
+
+
+
+
+		<set name="prdSet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="prId"></key>
+			<one-to-many class="ProcardReplaceDetail" />
+		</set>
+
+	</class>
+</hibernate-mapping>

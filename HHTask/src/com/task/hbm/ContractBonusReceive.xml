@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="ContractBonusReceive" table="ta_fin_ContractBonusReceive">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="receivePeople" />
+		<property name="receiveMoney" />
+		<property name="receiveMonth" />
+		<property name="receiveTime" />
+		<property name="receiveDept" length="50" />
+		<property name="cbId" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+     <class name="com.task.entity.AttendancePerson" table="ST_Person" schema="dbo" catalog="STCard_Enp">
+		<id name="atPersonId" type="java.lang.Integer" column="Person_ID">
+			<generator class="identity" />
+		</id>
+		<property name="deptId" column="Dept_ID"/>
+		<property name="cardNo" length="12" column="Card_No"/>
+		<property name="personNo" length="20" column="Person_No"/>
+		<property name="personName" length="20" column="Person_Name"/>
+		<property name="personType"  length="20" column="Person_Type"/>
+		<property name="duty" length="20" column="Duty"/>
+		<property name="sex" length="2" column="Sex"/>
+		<property name="isMarry" column="Is_Marry"/>
+		<property name="onWorkDate" length="10" column="OnWork_Date"/>
+		<property name="isDel" column="Is_Del"/>
+	</class>
+</hibernate-mapping>

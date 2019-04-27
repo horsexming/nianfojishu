@@ -1,0 +1,209 @@
+#box {
+	width: 100%;
+	height: 100%;
+	background-color:#9DC3E6; 
+	/* margin-top: -150px; */
+	
+}
+#demo {
+	width: 60%;
+	margin: 150px auto;
+}
+
+ul, ol, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+ .sharp:before{   
+         content:"";　　//不需要展现文字等内容,所以设置为空字符   
+         width:0px;   
+         border-bottom:20px solid transparent;   
+         border-top:20px solid transparent;   
+         border-right:10px solid #00B050;   
+         position:absolute;   
+         left:-10px;   
+         top:0px;   
+     }   
+     .sharp{   
+         min-width:30px;   
+         height:40px;   
+         background:#00B050;   
+         display: inline-block;   
+         position: absolute;   
+         line-height: 160px;   
+         color:#FFFFFF;   
+         font-size: 5px;   
+     }   
+     .sharp:after{   
+         content:"";　　//不需要展现文字等内容,所以设置为空字符   
+         width:0px;   
+         border-bottom:20px solid transparent;   
+         border-top:20px solid transparent;   
+         border-left-width:10px;   
+         border-left-style: solid;   
+         border-left-color:#00B050;   
+         position:absolute;   
+         right:-10px;   
+         top:0px;   
+     }  
+     
+      
+     
+     .sharp1:before{   
+         content:"";　　//不需要展现文字等内容,所以设置为空字符   
+         width:0px;   
+         border-bottom:20px solid transparent;   
+         border-top:20px solid transparent;   
+         border-right:10px solid #FFC000;   
+         position:absolute;   
+         left:-10px;   
+         top:0px;   
+     }   
+     .sharp1{   
+         min-width:30px;   
+         height:40px;   
+         background:#FFC000;   
+         display: inline-block;   
+         position: absolute;   
+         line-height: 160px;   
+         color:#FFFFFF;   
+         font-size: 3px;   
+         text-align: center;   
+     }  
+
+     
+      
+     .sharp1:after{   
+         content:"";　　//不需要展现文字等内容,所以设置为空字符   
+         width:0px;   
+         border-bottom:20px solid transparent;   
+         border-top:20px solid transparent;   
+         border-left-width:10px;   
+         border-left-style: solid;   
+         border-left-color:#FFC000;   
+         position:absolute;   
+         right:-10px;   
+         top:0px;   
+     }  
+     
+     
+#box1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #00B050;    
+	}
+#box2{
+	width: 40px;
+	height: 30px;
+	background-color: #00B050;
+	}
+#box3{
+	width:0;
+	border-top: 10px solid #00B050;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	} 
+#aox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #FFC000;    
+	}
+#aox2{
+	width: 40px;
+	height: 30px;
+	background-color: #FFC000;
+	}
+#aox3{
+	width:0;
+	border-top: 10px solid #FFC000;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}
+#wox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #D0CECE;    
+	}
+#wox2{
+	width: 40px;
+	height: 30px;
+	background-color: #D0CECE;
+	}
+#wox3{
+	width:0;
+	border-top: 10px solid #D0CECE;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}
+#qox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #C7FFFF;    
+	}
+#qox2{
+	width: 40px;
+	height: 30px;
+	background-color: #C7FFFF;
+	}
+#qox3{
+	width:0;
+	border-top: 10px solid #C7FFFF;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}
+#eox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #DADA2E;    
+	}
+#eox2{
+	width: 40px;
+	height: 30px;
+	background-color: #DADA2E;
+	}
+#eox3{
+	width:0;
+	border-top: 10px solid #DADA2E;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}
+#rox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #C5E0B4;    
+	}
+#rox2{
+	width: 40px;
+	height: 30px;
+	background-color: #C5E0B4;
+	}
+#rox3{
+	width:0;
+	border-top: 10px solid #C5E0B4;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}	
+#fox1{
+	width:0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 10px solid #C9C9C9;    
+	}
+#fox2{
+	width: 40px;
+	height: 30px;
+	background-color: #C9C9C9;
+	}
+#fox3{
+	width:0;
+	border-top: 10px solid #C9C9C9;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	}	

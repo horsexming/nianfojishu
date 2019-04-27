@@ -1,0 +1,114 @@
+package com.task.entity.bargain;
+
+import java.util.List;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.util.FieldMeta;
+
+/***
+ * 议价表（主表）
+ * @author 毛小龙
+ *	ta_Bargain（和议价物品表==》一对多）
+ */
+public class Bargain {
+	
+	private Integer id;
+	@FieldMeta(name="议价编号")
+	private String bargain_number;//议价编号
+	@FieldMeta(name="议价时间")
+	private String bargain_date;//议价时间
+	@FieldMeta(name="申请人所在部门")
+	private String applicants_dept;//申请人所在部门
+	@FieldMeta(name="申请人")
+	private String user_name;//申请人
+	@FieldMeta(name="审批状态")
+	private String status;//审批状态
+	private Set<BargainGoods> bargainGoods;//对应议价物品
+	private Set<BargainingDetails> bargainingDetails;//对应议价明细
+	private Integer epId;//审批流程
+	@FieldMeta(name="议价单号")
+	private String bargain_num;//议价单号
+	@FieldMeta(name="议价缘由")
+	private String bargain_source;//议价缘由
+	private Integer pk_id;//对应报价外购件的id
+	
+	
+	@JSONField(serialize=false)
+	public Set getBargainGoods() {
+		return bargainGoods;
+	}
+	public void setBargainGoods(Set bargainGoods) {
+		this.bargainGoods = bargainGoods;
+	}
+	@JSONField(serialize=false)
+	public Set getBargainingDetails() {
+		return bargainingDetails;
+	}
+	public void setBargainingDetails(Set bargainingDetails) {
+		this.bargainingDetails = bargainingDetails;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+ 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getBargain_number() {
+		return bargain_number;
+	}
+	public void setBargain_number(String bargainNumber) {
+		bargain_number = bargainNumber;
+	}
+	public String getBargain_date() {
+		return bargain_date;
+	}
+	public void setBargain_date(String bargainDate) {
+		bargain_date = bargainDate;
+	}
+	public String getApplicants_dept() {
+		return applicants_dept;
+	}
+	public void setApplicants_dept(String applicantsDept) {
+		applicants_dept = applicantsDept;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String userName) {
+		user_name = userName;
+	}
+	public String getBargain_num() {
+		return bargain_num;
+	}
+	public void setBargain_num(String bargainNum) {
+		bargain_num = bargainNum;
+	}
+	public String getBargain_source() {
+		return bargain_source;
+	}
+	public void setBargain_source(String bargainSource) {
+		bargain_source = bargainSource;
+	}
+	public Integer getPk_id() {
+		return pk_id;
+	}
+	public void setPk_id(Integer pkId) {
+		pk_id = pkId;
+	}
+	
+
+}

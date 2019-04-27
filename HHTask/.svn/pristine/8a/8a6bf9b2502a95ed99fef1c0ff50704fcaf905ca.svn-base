@@ -1,0 +1,63 @@
+package com.task.entity.sop;
+
+import java.util.List;
+/**
+ * 
+ * @author txb 表ta_ProcessAboutBanBenApply
+ *
+ */
+public class ProcessAboutBanBenApply  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;
+	private Integer processNo;//工序号
+	private String processName;//工序名称
+	private Float scCount;//生产数量
+	private String clType;//处理方案
+	private ProcardAboutBanBenApply pabb;//生产关联零件
+	private List<ProcardBanBenJudge> pbbjList;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getProcessNo() {
+		return processNo;
+	}
+	public void setProcessNo(Integer processNo) {
+		this.processNo = processNo;
+	}
+	public String getProcessName() {
+		return processName;
+	}
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+	public Float getScCount() {
+		return scCount;
+	}
+	public void setScCount(Float scCount) {
+		this.scCount = scCount;
+	}
+	public String getClType() {
+		return clType;
+	}
+	public void setClType(String clType) {
+		this.clType = clType;
+	}
+	public ProcardAboutBanBenApply getPabb() {
+		return pabb;
+	}
+	public void setPabb(ProcardAboutBanBenApply pabb) {
+		this.pabb = pabb;
+	}
+	public List<ProcardBanBenJudge> getPbbjList() {
+		return pbbjList;
+	}
+	public void setPbbjList(List<ProcardBanBenJudge> pbbjList) {
+		this.pbbjList = pbbjList;
+	}
+	
+	
+	
+}

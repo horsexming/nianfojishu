@@ -1,0 +1,1226 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-liupei" extends="struts-stack">
+		<!--
+			****************************************刘培Action操作**********************************************************************
+		-->
+		<!--用户Action管理 -->
+		<action name="UsersAction" class="UsersAction">
+			<result name="loginSuccess" type="redirect">ModuleFunctionAction!findMfByUser.action?pageStatus=${pageStatus}
+			</result>
+			<result name="sjloginSuccess" type="redirect">UsersAction!sczzIndex.action
+			</result>
+			<result name="sheBeiloginSuccess" type="redirect">ProdEquipmentAction!checkMachiner.action?id=${id}
+			</result>
+			<result name="saloginSuccess" type="redirect">attendClassAction_initaddLesson.action
+			</result>
+			<result name="xsloginSuccess" type="redirect">attendClassAction_lessonattend.action?code=${user.code}
+			</result>
+			<result name="loginOk">/System/SOP/oneMachine/otherLogin_float.jsp
+			</result>
+			<result name="sczzIndex">/System/SOP/qd/sczzIndex.jsp
+			</result>
+			<result name="loginError">/login.jsp</result>
+			<result name="sczzIndex_1">/System/SOP/qd/sczzIndex_1.jsp</result>
+			<result name="process_shuakall_code">/System/SOP/produce/Process_shuakall_code.jsp?pageStatus=noCardLingliao&amp;tag={tag}
+			</result>
+			<result name="codeLingliao" type="redirect">ProcardAction!findProcardByCardNum.action?pageStatus=${pageStatus}&amp;cardNumber=${cardNumber}&amp;tag=${tag}
+			</result>
+			<result name="jyloginError">/sjLogin.jsp</result>
+			<result name="jyloginError2">/fxLogin.jsp</result>
+			<result name="uploadlic">/util/uploadlic.jsp</result>
+			<result name="otherLoginError">/otherLogin.jsp</result>
+			<result name="gysLoginError">/gysLogin.jsp</result>
+			<result name="updatePassword">/userCenter/updatePassword.jsp</result>
+			<result name="uploadResume">/System/renshi/hr_uploadResume.jsp</result>
+			<result name="contract">/System/renshi/hr_signedContract.jsp</result>
+			<result name="Salary">/System/caiwu/wage_addWageStandard.jsp</result>
+			<result name="userDettails">/System/renshi/hr_userDetails.jsp</result>
+			<result name="per_User">/System/renshi/per_User.jsp</result>
+			<result name="becoming_add">/System/xinxi/becoming_add.jsp</result>
+			<result name="wageAddOrUpdate">/System/renshi/hr_signedWageStandard.jsp</result>
+			<result name="updateZl">/System/renshi/xieyi/updateZl.jsp</result>
+			<result name="toupdateZl">/System/renshi/xieyi/updateZl.jsp</result>
+			<result name="findUser" type="redirect">UsersAction!findUserByIdForDetails.action?id=${user.id}&amp;successMessage=${successMessage}&amp;tag=${tag}
+			</result>
+			<result name="departureUser" type="redirect">WageAction!findWageForDeparture.action?wage.code=${user.code}&amp;wage.cardId=${user.cardId}
+			</result>
+			<result name="addUserSuccess" type="redirect">UsersAction!findUserById.action?id=${user.id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="delUserSuccess" type="redirect">UsersAction!findAllUsers.action?user.name=
+			</result>
+			<result name="findAllUsersSuccess">/System/renshi/hr_usersManage.jsp</result>
+			<result name="findWorkrecords">/System/renshi/hr_findWorkrecords.jsp</result>
+			<result name="findAllWorkrecords">/System/renshi/hr_findAllWorkrecords.jsp</result>
+			<result name="findSelfWorkrecords">/System/renshi/hr_findSelfWorkrecords.jsp
+			</result>
+			<result name="hr_findAllWorkrecords">/System/renshi/hr_findAllWorkrecords1.jsp
+			</result>
+			<result name="wageSignedAndPrint">/System/renshi/hr_signedWageAgreement.jsp
+			</result>
+			<result name="qita_login">/qita_login.jsp</result>
+			<result name="lesson_addstudent">/System/xinxi/lesson_addstudent.jsp</result>
+			<result name="UsersCard_user">/System/UsersCard/UsersCard_user.jsp</result>
+			<result name="UsersCard_show">/System/UsersCard/UsersCard_show.jsp</result>
+			<result name="UsersCard_card1">/System/UsersCard/UsersCard_card1.jsp</result>
+			<result name="UsersCard_card">/System/UsersCard/UsersCard_card.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="phonelogin" type="redirect">goodsAction!findDeliveryNoteDetail.action?id=${id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="userSummary">/System/renshi/hr_userSummary.jsp</result>
+			<result name="findRank">/System/renshi/findRank.jsp</result>
+		</action>
+
+		<!--管理员Action管理 -->
+		<action name="AdminAction" class="AdminAction">
+			<result name="loginSuccess">
+				/admin/index.jsp
+			</result>
+			<result name="loginError" type="redirect">
+				/admin/login.jsp
+			</result>
+			<result name="updateSuccess">/admin/updatePassword.jsp</result>
+			<result name="showsuperadmin">/admin/showsuperadmin.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+
+		<!-- 财务- 价格Action管理 -->
+		<action name="PriceAction" class="PriceAction">
+			<!--			<result name="addPriceSuccess" type="redirect">-->
+			<!--				/PriceAction!initadd.action-->
+			<!--			</result>-->
+
+			<result name="findAllPriceSuccess">
+				/System/caiwu/findAllPrice.jsp
+			</result>
+			<result name="findAllWeiPrice">
+				/System/caiwu/findAllWeiPrice.jsp
+			</result>
+
+			<result name="findPriceByConditionSuccess">
+				/System/caiwu/findAllPrice.jsp
+			</result>
+
+			<result name="findPriceByIdSuccess">
+				/System/caiwu/showPrice.jsp
+			</result>
+
+			<result name="deletePriceSuccess" type="redirect">
+				PriceAction!findPriceByCondition.action?statue=${statue}&amp;cpage=${cpage}
+			</result>
+
+			<result name="updatePriceSuccess" type="redirect">
+				PriceAction!findPriceById.action?id=${id}
+			</result>
+
+			<result name="updateFileNumberSuccess">
+				/System/xinxi/updateFileNumber.jsp
+			</result>
+			<result name="danganNumberSuccess">
+				/System/menjin/danganNumberSuccess.jsp
+			</result>
+
+			<result name="updateFileNameSuccess" type="redirect">
+				${oldHost}
+			</result>
+			<result name="showjsp">
+				/System/caiwu/addPrice.jsp
+			</result>
+			<result name="initadd" type="redirect">
+				PriceAction!initadd.action?errorMessage=${errorMessage}
+			</result>
+			<result name="product_price">
+				/System/SOP/product_price.jsp
+			</result>
+			<result name="xgprice">
+				/System/SOP/product_xgprice.jsp
+			</result>
+			<result name="client_Showprice">
+				/System/SOP/client_Showprice.jsp
+			</result>
+			<result name="client_Showbdprice">
+				/System/SOP/client_Showbdprice.jsp
+			</result>
+			<result name="jiechukehuId" type="redirect">
+				PriceAction!findPriceBykehuId.action?statue=KHPrice&amp;id=${id}
+			</result>
+			<result name="price_noAdd">/System/caiwu/price_noAdd.jsp</result>
+			<result name="price_noShow">/System/caiwu/price_noShow.jsp</result>
+			<result name="procard_laiyuan">/System/project/procard_laiyuan.jsp</result>
+			<result name="AppLiPrice_List">/System/caiwu/AppLiPrice_List.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 模板Action管理 -->
+		<action name="TemplateAction" class="templateAction">
+			<result name="addTemplateSuccess" type="redirect">
+				TemplateAction!findTemplateById.action?id=${template.id}
+			</result>
+			<result name="findTemplateSuccess">
+				/System/renshi/jxkh_staffAss.jsp
+			</result>
+
+			<result name="findScoreSuccess">
+				/System/renshi/jxkh_score.jsp
+			</result>
+
+			<result name="updateTemplateByBack" type="redirect">
+				TemplateAction!findAllTemplate.action?status=audit
+			</result>
+
+			<result name="findTemplateBYBackSuccess">
+				/System/renshi/jxkh_AuditTemplate.jsp
+			</result>
+
+			<result name="delTemplateSuccess" type="redirect">
+				TemplateAction!findAllTemplate.action?status=${status}
+			</result>
+
+
+			<result name="zgAddTemplateSuccess">/System/renshi/hr_zgkh_assTtemplates.jsp?pageStatus=${pageStatus}
+			</result>
+			<result name="zgkhScore">/System/renshi/hr_zgkh_score.jsp</result>
+
+			<result name="ygPeople" type="redirect">
+				AssessPersonnelAction!findAssessPersonnelForbb.action?id=${id}
+			</result>
+
+			<result name="error">/error.jsp</result>
+			<result name="updateExamTemplate" type="redirect">TemplateAction!findAllTemplate1.action?status=audit
+			</result>
+		</action>
+
+		<!-- 模板明细Action管理 -->
+		<action name="TemplateDetailsAction" class="templateDetailsAction">
+			<result name="addTemplateDetailsSuccess" type="redirect">
+				TemplateDetailsAction!findTemDetailsById.action?id=${id}
+			</result>
+
+			<result name="delTemplateDetailsSuccess" type="redirect">
+				TemplateAction!findTemplateById.action?id=${id}
+			</result>
+
+			<result name="findTemDetailsByIdSuccess">
+				/System/renshi/jxkh_staffAss.jsp
+			</result>
+
+			<result name="zgfindTemDetails">/System/renshi/hr_zgkh_assTtemplates.jsp</result>
+
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 考核成绩Action管理 -->
+		<action name="AssScoreAction" class="assScoreAction">
+			<result name="addAssScoreSuccess" type="redirect">
+				TemplateAction!findUsersByDept.action?status=finish
+			</result>
+			<result name="deptAssScoreSuccess">
+				/System/renshi/jxkh_queryScore.jsp
+			</result>
+			<result name="zgAssScoreSuccess">
+				/System/renshi/hr_zgkh_queryScore.jsp
+			</result>
+			<result name="delZgScore" type="redirect">
+				AssScoreAction!findAssScoreByCondition.action?status=${status}
+			</result>
+			<result name="delScoreSuccess" type="redirect">
+				AssScoreAction!findAllAccScore.action?status=${status}
+			</result>
+			<result name="addZgkhAssScore">/System/renshi/hr_zgkh_score.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 主管考核人员Action -->
+		<action name="AssessPersonnelAction" class="assessPersonnelAction">
+			<result name="addAssessPersonnel">/System/renshi/hr_zgkh_personnelManage.jsp
+			</result>
+			<result name="findAll" type="chain">
+				<param name="actionName">AssessPersonnelAction</param>
+				<param name="method">findAllAssessPersonnel</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="bangdingPeople">/System/renshi/hr_zgkh_assTtemplates.jsp</result>
+			<result name="bangdingAp" type="redirect">AssessPersonnelAction!findAssessPersonnelForbb.action?id=${id}
+			</result>
+			<result name="addTemplateSuccess" type="redirect">
+				TemplateAction!findTemplateById.action?id=${template.id}
+			</result>
+			<result name="findTemplateSuccess">
+				/System/renshi/jxkh_staffAss.jsp
+			</result>
+			<result name="findApForScore">/System/renshi/hr_zgkh_score.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 主管考核总分Action -->
+		<action name="ScoreStatisticsAction" class="scoreStatisticsAction">
+			<result name="findAllSS">/System/renshi/hr_zgkh_totalScore.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+
+		<!-- 下载action管理 -->
+		<action name="DownAction" class="downAction">
+			<param name="directory">/upload/file/</param>
+			<result name="input">/error.jsp</result>
+			<result name="success" type="stream">
+				<!-- 指定下载文件的内容类型，text/plain是默认类型 -->
+				<param name="contentType">text/plain</param>
+				<!--
+					inputName默认值是inputStream，如果action中用于读取下载文件内容的属性名是inputStream，那么可以省略这个参数
+				-->
+				<param name="inputName">inputStream</param>
+
+				<!--动态获取文件名，从Action中的取得filename-->
+				<param name="contentDisposition">
+					attachment;fileName="${fileName2}"
+				</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="input">/error.jsp</result>
+		</action>
+
+		<!-- 工资模板Action -->
+		<action name="WageStandardAction" class="wageStandardAction">
+			<result name="addWageStandardSuccess" type="redirect">WageStandardAction!findWageXieYiByCode.action?code=${wageStandard.code}&amp;cardId=${wageStandard.cardId}
+			</result>
+			<result name="wageXieYi">/System/caiwu/wage_addWageStandard.jsp</result>
+			<result name="findAllWsSuccess">/System/caiwu/wage_findWageStandard.jsp</result>
+			<result name="delWsSuccess" type="redirect">WageStandardAction!findAllWs.action
+			</result>
+			<result name="updateWs" type="redirect">WageStandardAction!findWsById.action?id=${id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="findAcditWageSuccess">/System/caiwu/wage_audit.jsp</result>
+			<result name="wageHistroy">/System/caiwu/wage_historyWStandard.jsp</result>
+			<result name="printUdpdateWS">/System/caiwu/wage_printUdpdateWS.jsp</result>
+			<result name="findWsFroAudit">/System/caiwu/wage_AuditWageStand.jsp</result>
+			<result name="auditWageStand" type="redirect">WageStandardAction!findWsFroAudit.action
+			</result>
+			<result name="findUidForContract" type="redirect">ContractAction!findUserWageAgre.action?contract.contractStatus=wage&amp;contract.userId=${id}
+			</result>
+			<result name="findWSByCode">/System/renshi/hr_addLeaveWage.jsp</result>
+			<result name="findWSForWage">/System/renshi/hr_addWage.jsp</result>
+			<result name="wage_findWageStandard_print">/System/caiwu/wage_findWageStandard_print.jsp
+			</result>
+			<result name="wage_chageJstzWs">/System/caiwu/wage_chageJstzWs.jsp</result>
+			<result name="wage_gjjWageStandard">/System/caiwu/wage_gjjWageStandard.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 工资Action -->
+		<action name="WageAction" class="wageAction">
+			<result name="findAllWageSuccess">/System/caiwu/wage_findWage.jsp</result>
+			<result name="exportWageArticleSuccess" type="redirect">DownAction.action?fileName=${fileName}&amp;directory=/upload/sheet/wage/
+			</result>
+			<result name="findChageWageSuccess">/System/caiwu/wage_addChageWage.jsp</result>
+			<result name="addChageWageSuccess" type="redirect">WageAction!findAllWage.action?pageStatus=${pageStatus}
+			</result>
+			<result name="findAcditWageSuccess">/System/caiwu/wage_auditWage.jsp</result>
+			<result name="printWage">/System/caiwu/wage_printWage.jsp</result>
+			<result name="userWage">/System/renshi/hr_userWage.jsp</result>
+			<result name="wageBalance">/System/renshi/hr_wageBalance.jsp</result>
+			<result name="addCbWage" type="chain">
+				<param name="actionName">WageAction</param>
+				<param name="method">findWageByDuty</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="allSS" type="redirect">ScoreStatisticsAction!findAllSS.action?scoreStatistics.code=
+			</result>
+			<result name="findWageByDuty">/System/renshi/hr_cb_AllocationBonus.jsp</result>
+			<result name="huizongWage">/System/caiwu/wage_huizongWage.jsp</result>
+			<result name="addBumenBonusSucess" type="redirect">ContractBonusAction!findTolAndTeam.action
+			</result>
+			<result name="uploadSbWageSuccess">/System/caiwu/wage_updateSBWage.jsp</result>
+			<result name="addLeaveWage" type="redirect">WageStandardAction!findWSByCode.action?code=${wage.code}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="wage_findWage_print">/System/caiwu/wage_findWage_print.jsp</result>
+			<result name="wage_print">/System/caiwu/wage_print.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="sub_wage" >/System/caiwu/baobiao/sub_wage.jsp</result>
+		</action>
+
+		<!-- 保险缴纳比例Action -->
+		<action name="InsuranceGoldAction" class="insuranceGoldAction">
+			<result name="updateWSByIGScuuess">/System/caiwu/wage_bxJnPerManage.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 部门编码Action -->
+		<action name="DeptNumberAction" class="deptNumberAction">
+			<result name="getTreeSuccess">/System/renshi/hr_deptManage.jsp</result>
+			<result name="getdeptbyId">/System/renshi/hr_deptManage.jsp</result>
+			<result name="addDeptNumberSuccess" type="redirect">DeptNumberAction!getById.action?successMessage=${successMessage}&amp;id=${id}
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 日志类别Action -->
+		<action name="WorkLogClassAction" class="workLogClassAction">
+			<result name="personWorkLogClass">/userCenter/log_workLog.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 日志Action -->
+		<action name="WorkLogAction" class="workLogAction">
+			<result name="findWorkLogByCondition">/userCenter/log_workLog.jsp</result>
+			<result name="addWorkLogSuccess" type="redirect">WorkLogAction!findWorkLogByCondition.action?pageStatus=single&amp;workLog.logStatus=
+			</result>
+			<result name="findWorkLogById">/userCenter/log_updateworkLog.jsp</result>
+			<result name="findWorkLogById1">/userCenter/log_quernworkLog.jsp</result>
+			<result name="addWorkLog1" type="redirect">WorkLogAction!showzplist.action
+			</result>
+			<result name="showzplist">/userCenter/log_showzplist.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 合同条款Action -->
+		<action name="ProvisionAction" class="provisionAction">
+			<result name="addProvisionSuccess" type="redirect">ProvisionAction!findAllProvision.action?successMessage=${successMessage}&amp;errorMessage=${errorMessage}
+			</result>
+			<result name="findAllSuccess">/System/renshi/hr_provisionManage.jsp</result>
+			<result name="interviewQuizzes">/System/renshi/interviewQuizzes.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 合同Action -->
+		<action name="ContractAction" class="contractAction">
+			<result name="addContractSuccess" type="redirect">ContractAction!findContractByUid.action?id=${id}
+			</result>
+			<result name="findContractByUid">/System/renshi/hr_signedContract.jsp
+			</result>
+			<result name="addWageAgreement" type="redirect">ContractAction!findUserWageAgre.action?contract.contractStatus=wage&amp;contract.userId=${contract.userId}
+			</result>
+			<result name="findUserWageAgre">/System/renshi/hr_signedWageAgreement.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 模块功能Action -->
+		<action name="ModuleFunctionAction" class="moduleFunctionAction">
+			<result name="findAllMfSuccess">/admin/index.jsp</result>
+			<result name="addMf1">/admin/addhome.jsp</result>
+			<result name="findMfById1">/admin/moduleFunctionManage1.jsp</result>
+			<result name="findMfByIdSuccess">/admin/moduleFunctionManage.jsp</result>
+			<result name="updateMfSuccess" type="redirect">
+				ModuleFunctionAction!findMfById.action?id=${id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="updateMfSuccess1" type="redirect">
+				ModuleFunctionAction!findMfById1.action?id=${id}
+			</result>
+			<result name="delMfSuccess" type="redirect">
+				ModuleFunctionAction!findAllMf.action
+			</result>
+			<result name="findMfByUserSuccess">/newIndex${pageStatus}.jsp</result>
+			<result name="sonMfList">/newSon.jsp</result>
+			<result name="sonMfList2">/newSon2.jsp</result>
+			<result name="sonMfList3">/newSon3.jsp</result>
+			<result name="searchMfSuccess">/searchManage.jsp</result>
+			<result name="tologin">/System/systemAbout/projectLogin.jsp.jsp</result>
+			<result name="dispatchuser">/System/renshi/dispatchuser.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="moduleFunction_UserList">/System/renshi/moduleFunction_UserList.jsp
+			</result>
+			<result name="findMfByUserId" type="redirect">ModuleFunctionAction!findMfByUserId.action?id=${id}
+			</result>
+			<result name="copyUsersModuleFunction">/admin/copyUsersModuleFunction.jsp</result>
+
+			<result name="deletebindingSuccess" type="redirect" >ModuleFunctionAction!findhadBindingUsersByCondition.action?id=${id}</result>
+			<result name="bindingSuccess" type="redirect">ModuleFunctionAction!findUsersByCondition.action?id=${id}</result>
+			
+			
+		</action>
+
+		<!-- 网站间登录 Action -->
+		<action name="ProjectRecordAction" class="projectRecordAction">
+			<result name="addProRecordSuccess" type="redirect">ProjectRecordAction!findAllProRecord.action
+			</result>
+			<result name="findAllProRecord">/System/systemAbout/projectLoginManage.jsp
+			</result>
+			<result name="addProLoginSuccess" type="redirect">ModuleFunctionAction!findMfByIdForJump.action?id=${id}
+			</result>
+			<result name="findUserProLogin">/userCenter/userProLogin.jsp
+			</result>
+			<result name="delProjectLoginSu" type="redirect">
+				ProjectRecordAction!findProLoginByUser.action
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 入职培训Action -->
+		<action name="JoinTrainAction" class="joinTrainAction">
+			<result name="addJoinTrain" type="redirect">JoinTrainAction!findJoinTrainByUid.action?id=${joinTrain.user.id}
+			</result>
+			<result name="joinTrain">/System/renshi/hr_joinTrainManage.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 员工培训Action -->
+		<action name="TrainAction" class="trainAction">
+			<result name="addTrainSuccess">/System/renshi/hr_trainManage.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 承包奖金总额Action -->
+		<action name="ContractBonusAction" class="contractBonusAction">
+			<result name="addContractBonus">/System/renshi/hr_cb_ContractBonus.jsp</result>
+			<result name="auditContractBonus">/System/renshi/hr_cb_auditContractBonus.jsp
+			</result>
+			<result name="findUserBuFunction">
+				/System/renshi/hr_cb_ContractBonus.jsp
+			</result>
+			<result name="auditSuccess" type="chain">
+				<param name="actionName">ContractBonusAction</param>
+				<param name="method">findAllContractBonus</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="bonusDistribution">/System/renshi/hr_bmjj_bonusDistribution.jsp
+			</result>
+			<result name="receiveContractBonus">/System/caiwu/ReceiveContractBonus.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="updateExamContractBonus" type="redirect">ContractBonusAction!findAllContractBonus1.action?pageStauts=audit
+			</result>
+		</action>
+
+
+		<!-- 消息提醒Action -->
+		<action name="AlertMessagesAction" class="alertMessagesAction">
+			<result name="findAlertMessages">/System/systemAbout/alertMessages.jsp</result>
+			<result name="mobile_alertMessages">/System/systemAbout/mobile_alertMessages.jsp
+			</result>
+			<result name="logging_List">/System/systemAbout/logging_List.jsp</result>
+			<result name="userUpdateLogging_List">/System/systemAbout/userUpdateLogging_List.jsp
+			</result>
+			<result name="alertMessagesAction" type="redirect">AlertMessagesAction!findAlertMessages.action
+			</result>
+			<result name="findFunctionUrl" type="redirect">ModuleFunctionAction!findMfByIdForJump.action?id=${alertMessages.functionId}
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  日历Action -->
+		<action name="CalendarAction" class="calendarAction">
+			<result name="addCalendar" type="redirect">/System/renshi/rili/calendar.jsp
+			</result>
+			<result name="newIndex" type="redirect">/newIndex${pageStatus}.jsp
+			</result>
+			
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<action name="barcode" class="com.task.util.BarcodeServlet">
+
+		</action>
+
+		<!--  工序人员Action -->
+		<action name="ProcessPeopleAction" class="processPeopleAction">
+			<result name="processPeople">/System/SOP/ProcessPeople.jsp</result>
+			<result name="addProcessPeople" type="redirect">ProcessPeopleAction!findPPByProcessId?processId=${processId}
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  职位胜任要求Action -->
+		<action name="DutyClaimAction" class="dutyClaimAction">
+			<result name="findAllDuty">/System/renshi/duty_addDutyClaim.jsp</result>
+			<result name="findAllDutyClaim">/System/renshi/duty_findDutyClaim.jsp</result>
+			<result name="delDutyClaim" type="redirect">DutyClaimAction!findAllDutyClaim.action
+			</result>
+			<result name="addPeople" type="redirect">DutyClaimAction!findDutyClaimDetails.action?id=${id}
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  流水卡片模板Action -->
+		<action name="ProcardTemplateAction" class="procardTemplateAction">
+			<result name="findProcardTem">/System/SOP/produce/Template_findProcard.jsp
+			</result>
+			<result name="findAllProcardTem">/System/SOP/produce/Template_findProcardList.jsp
+			</result>
+			<result name="addRootrProcardTem">/System/SOP/produce/Template_findProcard.jsp?id=${procardTemplate.id}
+			</result>
+			<result name="findProcardTem">/System/SOP/produce/Template_findProcard.jsp
+			</result>
+			<result name="ProcardTemDetails">/System/SOP/produce/ProcardTemDetails.jsp
+			</result>
+			<result name="ProcardTemSonCards">/System/SOP/produce/ProcardTemSonCards.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="findPrintProcessListOK">/System/SOP/produce/ProcessTemplate_selectPrint.jsp
+			</result>
+			<result name="selestedPrintListOK">/System/SOP/produce/ProcessTemplate_statusPrint.jsp
+			</result>
+			<result name="ProcessTemplateDetails">/System/SOP/produce/ProcessTemplateDetails.jsp
+			</result>
+			<result name="ProcessTemplateadd">/System/SOP/produce/ProcessTemplateadd.jsp
+			</result>
+			<result name="ProcessTemplateAndDefaultjiepaiadd">/System/SOP/produce/ProcessTemplateAndDefaultjiepaiadd.jsp
+			</result>
+			<result name="procardTemplatePrivilege_all">/System/SOP/produce/procardTemplatePrivilege_all.jsp
+			</result>
+			<result name="procardTemplatePrivilege_update">/System/SOP/produce/procardTemplatePrivilege_update.jsp
+			</result>
+			<result name="ProcessTemplateTzs">/System/SOP/produce/ProcessTemplateTzs.jsp
+			</result>
+			<result name="Process_showQXtz">/System/SOP/produce/Process_showQXtz.jsp
+			</result>
+			<result name="showProcessName">/System/SOP/produce/showProcessName.jsp
+			</result>
+			<result name="specialProcessDetail">/System/SOP/produce/specialProcessDetail.jsp
+			</result>
+			<result name="updateProcessT" type="redirect">ProcardTemplateAction!showProcess.action?id=${processTemplate.id}&amp;successMessage=true
+			</result>
+			<result name="updateProcardT" type="redirect">ProcardTemplateAction!findCardTemForShow.action?id=${id}
+			</result>
+			<result name="jy_Template_findProcardList">/System/SOP/jingyi/jy_Template_findProcardList.jsp
+			</result>
+			<result name="jy_ProcardTemDetails">/System/SOP/jingyi/jy_ProcardTemDetails.jsp
+			</result>
+			<result name="jianhaoShezhi">/System/SOP/saigui/jianhaoShezhi.jsp</result>
+			<result name="procardSpecification_show">/System/SOP/saigui/procardSpecification_show.jsp
+			</result>
+			<result name="ProcardTem_duibi">/System/SOP/produce/ProcardTem_duibi.jsp
+			</result>
+			<result name="findmarkId">/System/SOP/produce/findmarkId.jsp
+			</result>
+			<result name="ProcardTem_ProcessAndPrcard">/System/SOP/produce/ProcardTem_ProcessAndPrcard.jsp
+			</result>
+			<result name="findwgProcard" type="redirect">ProcardTemplateAction!findwgProcard.action?id=${id}&amp;successMessage=${successMessage}
+			</result>
+			<result name="ProPriceUpdateLog_show">/System/SOP/produce/ProPriceUpdateLog_show.jsp
+			</result>
+			<result name="PcProcess_show">/System/SOP/produce/PcProcess_show.jsp
+			</result>
+			<result name="pawpt_showList">/System/SOP/produce/pawpt_showList.jsp
+			</result>
+			<result name="ytcompare">/System/SOP/produce/ytcompare.jsp</result>
+			
+			
+			<result name="Template_updateProcardListArea">/System/SOP/produce/Template_updateProcardListArea.jsp</result>
+			<result name="Template_updateCarStyle">/System/SOP/produce/Template_updateCarStyle.jsp</result>
+			<result name="Template_addParts">/System/SOP/produce/Template_addParts.jsp</result>
+			<result name="Template_findProcardList_addParts">/System/SOP/produce/Template_findProcardList_addParts.jsp</result>
+		</action>
+
+		<!--  流水卡片Action -->
+		<action name="ProcardAction" class="ProcardAction">
+			<result name="findProcard">/System/SOP/procard/Procard_queryAll.jsp</result>
+			<result name="Procard_findProcard">/System/SOP/produce/Procard_findProcard.jsp
+			</result>
+			<result name="Procard_findProcardList">/System/SOP/produce/Procard_findProcardList.jsp
+			</result>
+			<result name="Procard_findProcardList1">/System/SOP/produce/Procard_findProcardList1.jsp
+			</result>
+			<result name="procardpeopleman">/System/SOP/produce/procardpeopleman.jsp
+			</result>
+			<result name="Procard_sendCard">/System/SOP/produce/Procard_sendCard.jsp
+			</result>
+			<result name="Process_Receive">/System/SOP/produce/Process_Receive.jsp
+			</result>
+			<result name="Process_Receive2">/System/SOP/produce/Process_Receive2.jsp
+			</result>
+			<result name="Process_Outside">/System/SOP/produce/Process_Outside.jsp
+			</result>
+			<result name="ProcardDetails">/System/SOP/produce/ProcardDetails.jsp
+			</result>
+			<result name="Procard_logoStickers">/System/SOP/produce/Procard_logoStickers.jsp
+			</result>
+			<result name="addNewzj" type="redirect">LogoStickerAction!findLingliaoSticker.action?cpage=1&amp;tag=g
+			</result>
+			<result name="procard_lgx">/System/SOP/produce/procard_lgx.jsp
+			</result>
+			<result name="Procard_viewProcard">/System/SOP/produce/Procard_viewProcard.jsp
+			</result>
+			<result name="Procard_viewCbBom">/System/SOP/produce/Procard_viewCbBom.jsp
+			</result>
+			<result name="Procard_viewProcardkuwei">/System/SOP/produce/Procard_viewProcardkuwei.jsp
+			</result>
+			<result name="Procard_viewGoods">/System/SOP/produce/Procard_viewGoods.jsp
+			</result>
+			<result name="Procard_viewUpdate">/System/SOP/produce/Procard_viewUpdate.jsp
+			</result>
+			<result name="findProcardView" type="redirect">ProcardAction!findProcardView.action?id=${procard.id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="Process_OutsideList">/System/SOP/produce/Process_OutsideList.jsp
+			</result>
+			<result name="Process_zj">/System/SOP/produce/Process_zj.jsp
+			</result>
+			<result name="process_toSetWaiWei">/System/SOP/produce/process_toSetWaiWei.jsp
+			</result>
+			<result name="process_toSetWaiWeiTree">/System/SOP/produce/process_toSetWaiWeiTree.jsp
+			</result>
+			<result name="process_toWaiWei">/System/SOP/produce/process_toWaiWei.jsp
+			</result>
+			<result name="findAllWei">/System/caiwu/findAllWei.jsp
+			</result>
+			<!--
+				<result name="Process_zj"
+				type="redirect">/DJNRAction_getdjnr.action</result>
+			-->
+			<result name="findGongyiGuifan">/System/SOP/produce/Process_showGygf.jsp</result>
+			<result name="findGongyiGuifan2">/System/SOP/produce/Process_showGygf2.jsp</result>
+			<result name="Procard_noCardList">/System/SOP/produce/Procard_noCardList.jsp
+			</result>
+			<result name="Procard_noCardFlList">/System/SOP/produce/Procard_noCardFlList.jsp
+			</result>
+			<result name="Procard_lingFuLiao">/System/SOP/produce/Procard_lingFuLiao.jsp
+			</result>
+			<result name="procard_hjtj">/System/SOP/produce/procard_hjtj.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+
+			<result name="listmarkId">/System/SOP/produce/procardTemplate_list_bangdingzizhi.jsp
+			</result>
+			<result name="chakan">/System/SOP/produce/procardTemplate_provision_list.jsp
+			</result>
+			<result name="Procard_chagePeople">/System/SOP/produce/Procard_chagePeople.jsp
+			</result>
+			<result name="Procard_WgwwPlan">/System/SOP/produce/Procard_WgwwPlan.jsp
+			</result>
+			<result name="Procard_WgwwPlanList">/System/SOP/produce/Procard_WgwwPlanList.jsp
+			</result>
+			<result name="Procard_WgwwPlanList2">/System/SOP/produce/Procard_WgwwPlanList2.jsp
+			</result>
+			<result name="ProcardTemplateGysTzs">/System/SOP/produce/ProcardTemplateGysTzs.jsp
+			</result>
+			<result name="Procard_findGysWgPlanList">/System/SOP/produce/Procard_findGysWgPlanList.jsp
+			</result>
+			<result name="Procard_viewProcardList">/System/SOP/produce/Procard_viewProcardList.jsp
+			</result>
+			<result name="procard_rukuList">/System/SOP/produce/procard_rukuList.jsp
+			</result>
+			<result name="redirtFindWgWwPlan" type="redirect">ProcardAction!findWgWwPlan.acion?pageStatus=${pageStatus}
+			</result>
+			<result name="querencaigouFailure" type="redirect">ProcardAction!findWgWwPlanList.action?pageStatus=wwPlan
+			</result>
+			<result name="querencaigou">/System/SOP/produce/Process_Outside_waiwei.jsp
+			</result>
+			<result name="findWaigouWaiweiPlanByid">/System/SOP/produce/findWaigouWaiweiPlanByid.jsp
+			</result>
+			<result name="jdq">/jdq.jsp</result>
+			<result name="showMonthLv">/System/bbs/showMonthLv.jsp</result>
+			<result name="jisunLpPeoPleMoney">/System/SOP/produce/jisunLpPeoPleMoney.jsp
+			</result>
+			<result name="procard_materialsNotice">/System/SOP/produce/procard_materialsNotice.jsp
+			</result>
+			<result name="procard_materialsCardList">/System/SOP/produce/procard_materialsCardList.jsp
+			</result>
+			<result name="procard_materialsshowList">/System/SOP/produce/procard_materialsshowList.jsp
+			</result>
+			<result name="procard_forwaiweiCardList">/System/SOP/produce/procard_forwaiweiCardList.jsp
+			</result>
+			<result name="procard_forwaiweiSqCardList">/System/SOP/produce/procard_forwaiweiSqCardList.jsp
+			</result>
+			<result name="procard_wwsqDetailList">/System/SOP/produce/procard_wwsqDetailList.jsp
+			</result>
+			<result name="procard_wwsqDetailList2">/System/SOP/produce/procard_wwsqDetailList2.jsp
+			</result>
+			<result name="procard_wwsqDetail">/System/SOP/produce/procard_wwsqDetail.jsp
+			</result>
+			<result name="procard_checkHtList">/System/SOP/produce/procard_checkHtList.jsp
+			</result>
+			<result name="procard_findUnhasPrice">/System/SOP/produce/procard_findUnhasPrice.jsp
+			</result>
+			<result name="procard_checkHt">/System/SOP/produce/procard_checkHt.jsp
+			</result>
+			<result name="procard_checkHt2">/System/SOP/produce/procard_checkHt2.jsp
+			</result>
+			<result name="procard_wwgxcf">/System/SOP/produce/procard_wwgxcf.jsp
+			</result>
+			<result name="procard_forwaiweiCheckList">/System/SOP/produce/procard_forwaiweiCheckList.jsp
+			</result>
+			<result name="procard_processWWApplyList">/System/SOP/produce/procard_processWWApplyList.jsp
+			</result>
+			<result name="procard_wwsqDetailop">/System/SOP/produce/procard_wwsqDetailop.jsp
+			</result>
+			<result name="procard_wwsqDetailop1">/System/SOP/produce/procard_wwsqDetailop.jsp1
+			</result>
+			<result name="procard_materialdetailList">/System/SOP/produce/procard_materialdetailList.jsp
+			</result>
+			<result name="showProcardMaterialHead">/System/bbs/showProcardMaterialHead.jsp</result>
+			<result name="UserMonthMoney_show">/System/caiwu/UserMonthMoney_show.jsp</result>
+			<result name="UserMonthMoney_jjsq">/System/caiwu/UserMonthMoney_jjsq.jsp</result>
+			<result name="UserMoneyDetail_show">/System/caiwu/UserMoneyDetail_show.jsp</result>
+			<result name="UserMoneyAll_show">/System/caiwu/UserMoneyAll_show.jsp</result>
+			<result name="jiancheshaigui">/System/SOP/saigui/jiancheshaigui.jsp</result>
+			<result name="showScreen4_order">/System/bbs/showScreen4_order.jsp</result>
+			<result name="Procard_WgPlanList">/System/SOP/produce/Procard_WgPlanList.jsp
+			</result>
+			<result name="Procard_WgPlanList1">/System/SOP/produce/Procard_WgPlanList1.jsp
+			</result>
+			<result name="Procard_gxjdck">/System/SOP/produce/Procard_gxjdck.jsp
+			</result>
+			<result name="process_showwgj">/System/SOP/produce/process_showwgj.jsp
+			</result>
+			<result name="findProcardByCardNum" type="redirect">ProcardAction!findProcardByCardNum.action?pageStatus=${pageStatus}&amp;cardNumber=${cardNumber}&amp;tag=${tag}
+			</result>
+			<result name="Procard_showQxm">/System/SOP/produce/Procard_showQxm.jsp
+			</result>
+			<result name="fuliaoTiaobaoList">System/SOP/produce/fuliaoTiaobaoList.jsp
+			</result>
+			<result name="breaksubmit_List">/System/SOP/produce/breaksubmit_List.jsp</result>
+			<result name="breaksubmit_show">/System/SOP/produce/breaksubmit_show.jsp</result>
+			<result name="findbreaksubmitById" type="redirect">ProcardAction!findbreaksubmitById.action?pageStatus=${pageStatus}&amp;id=${breaksubmit.id}
+			</result>
+			<result name="procard_dllList">/System/SOP/produce/procard_dllList.jsp</result>
+			<result name="InsRecord_tobreak">/System/xunjian/InsRecord_tobreak.jsp</result>
+			<result name="InsRecord_towgbreak">/System/xunjian/InsRecord_towgbreak.jsp</result>
+			<result name="PcProcess_show">/System/SOP/produce/PcProcess_show.jsp</result>
+			<result name="Procard_updateTime">/System/SOP/produce/Procard_updateTime.jsp</result>
+			<result name="procardbcp_rkshow">/System/SOP/produce/procardbcp_rkshow.jsp</result>
+			<result name="yulan_nowwyx">/System/SOP/produce/yulan_nowwyx.jsp</result>
+			<result name="procard_LackWg">/System/SOP/produce/procard_LackWg.jsp</result>
+			<result name="procard_tzgx">/System/SOP/produce/procard_tzgx.jsp</result>
+			<result name="procard_wwtzwgj">/System/SOP/produce/procard_wwtzwgj.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="wlqueren">/System/SOP/produce/wlqueren.jsp</result>
+			<result name="procard_csbl">/System/SOP/produce/procard_csbl.jsp</result>
+			<result name="procard_showrootforww">/System/SOP/produce/procard_showrootforww.jsp</result>
+			<result name="procard_showrootforbcp">/System/SOP/produce/procard_showrootforbcp.jsp</result>
+			<result name="procard_showwwlist">/System/SOP/produce/procard_showwwlist.jsp</result>
+			<result name="procard_showbcplist">/System/SOP/produce/procard_showbcplist.jsp</result>
+			<result name="tocsbl" type="redirect">ProcardAction!tocsbl.action</result>
+			<result name="procard_showwwlist2export">/System/SOP/produce/procard_showwwlist2export.jsp</result>
+			<result name="procard_showwwlist2">/System/SOP/produce/procard_showwwlist2.jsp</result>
+			<result name="procard_csblOrderList">/System/SOP/produce/procard_CsblOrderListl.jsp</result>
+			<result name="procard_csblList">/System/SOP/produce/procard_csblList.jsp</result>
+			<result name="csbl_print">/System/SOP/produce/csbl_print.jsp</result>
+			<result name="findAllCsblOrderList" type="redirect">ProcardAction!findAllCsblOrderList.action?cpage=${cpage}</result>
+			<result name="procard_gyscsbl">/System/SOP/produce/procard_gyscsbl.jsp</result>
+			<result name="procard_wxtuiliao">/System/SOP/produce/procard_wxtuiliao.jsp</result>
+			<result name="procard_wtcList">/System/SOP/produce/procard_wtcList.jsp</result>
+			<result name="findAllWxTuiliao" type="redirect">procardBlAction_findAllWxTuiliao.action?tag=all</result>
+			<result name="showWeiApplyDetail" type="redirect">ProcardAction!showWeiApplyDetail.action</result>
+		</action>
+
+		<!--  月度科目预算总额Action -->
+		<action name="SubMonthMoneyAction" class="subMonthMoneyAction">
+			<result name="subMonthMoney_List">/System/caiwu/budget/subMonthMoney_List.jsp
+			</result>
+			<result name="DeptMonthBudget_audit">/System/caiwu/budget/DeptMonthBudget_audit.jsp
+			</result>
+			<result name="findExamList">/System/caiwu/budget/DeptMonthApproval.jsp
+			</result>
+			<result name="findExamList1">/System/caiwu/budget/DeptMonthApproval1.jsp
+			</result>
+			<result name="updateExamBudget" type="redirect">SubMonthMoneyAction!findExamList.action
+			</result>
+			<result name="updateExamBudget1" type="redirect">SubMonthMoneyAction!findExamList1.action
+			</result>
+			<result name="DeptMonthBudget_find">/System/caiwu/budget/DeptMonthBudget_find.jsp
+			</result>
+			<result name="DeptMonthBudget_update">/System/caiwu/budget/DeptMonthBudget_update.jsp
+			</result>
+			<result name="DeptMonthBudget_print">/System/caiwu/budget/DeptMonthBudget_print.jsp
+			</result>
+			<result name="auditSuccess" type="redirect">SubMonthMoneyAction!findAuditDmB.action?deptMonthBudget.status=audit
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  月度科目预算总额Action -->
+		<action name="FailureStAction" class="failureStAction">
+			<result name="showFailure2">/System/bbs/showFailure2.jsp</result>
+			<result name="showFailure3">/System/bbs/showFailure3.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="listFailureStatistics">/System/bbs/FailureStatistics_list.jsp</result>
+			<result name="toUpdatefailureStatistics">/System/bbs/FailureStatistics_update.jsp</result>
+			<result name="UpdatefailureStatistics">/System/bbs/FailureStatistics_update.jsp</result>
+
+		</action>
+
+		<!--  定制流程Action -->
+		<action name="CircuitCustomize_*" class="circuitCustomizeAction"
+			method="{1}">
+			<result name="circuitCustomize_List">/System/systemAbout/circuitCustomize_List.jsp
+			</result>
+			<result name="circuitCustomize_node">/System/systemAbout/circuitCustomize_node.jsp
+			</result>
+			<result name="circuitCustomize_update">/System/systemAbout/circuitCustomize_update.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  执行流程Action -->
+		<action name="CircuitRunAction_*" class="circuitRunAction"
+			method="{1}">
+			<result name="process_allAudit">/System/systemAbout/process_allAudit.jsp</result>
+			<result name="findCircuitRun">/System/systemAbout/findCircuitRun.jsp</result>
+			<result name="updateCircuitRun">/System/systemAbout/updateCircuitRun.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  执行流程Action -->
+		<action name="BlockAction_*" class="blockAction" method="{1}">
+			<result name="block_manage">/System/SOP/block/boclk_manage.jsp</result>
+			<result name="boclk_fenpei">/System/SOP/block/boclk_fenpei.jsp</result>
+			<result name="boclk_Receive">/System/SOP/block/boclk_Receive.jsp</result>
+			<result name="boclk_ReceiveList">/System/SOP/block/boclk_ReceiveList.jsp</result>
+			<result name="block_showAll">/System/SOP/block/block_showAll.jsp</result>
+			<result name="block_add">/System/SOP/block/block_add.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  项目立项流程Action -->
+		<action name="ProjectManage_*" class="projectManageAction"
+			method="{1}">
+			<result name="ProjectManage_list">/System/pro/lixiang/ProjectManage_list.jsp
+			</result>
+			<result name="ProjectManage_hsList">/System/pro/lixiang/ProjectManage_hsList.jsp
+			</result>
+			<result name="ProjectManage_hs">/System/pro/lixiang/ProjectManage_hs.jsp
+			</result>
+			<result name="ProjectManage_add">/System/pro/lixiang/ProjectManage_add.jsp
+			</result>
+			<result name="ProjectManage_detail">/System/pro/lixiang/ProjectManage_detail.jsp
+			</result>
+			<result name="ProjectManage_update">/System/pro/lixiang/ProjectManage_update.jsp
+			</result>
+			<result name="PorDateTime_update">/System/pro/lixiang/PorDateTime_update.jsp
+			</result>
+			<result name="PorDateTime_findAll">/System/pro/lixiang/PorDateTime_findAll.jsp
+			</result>
+			<result name="ProjectManage_findPMByCondition" type="redirect">ProjectManage_findPMByCondition.action
+			</result>
+			<result name="findQuotedPrice" type="redirect">QuotedPrice_findQPByCondition.action?quotedPrice.belongLayer=0&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="QuotedPrice_allPrice">/System/pro/lixiang/QuotedPrice_allPrice.jsp
+			</result>
+			<result name="ProjectManage_list_audit">/System/pro/lixiang/ProjectManage_list_audit.jsp
+			</result>
+			<result name="baomiLog_show">/System/pro/lixiang/baomiLog_show.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  项目核算流程Action -->
+		<action name="QuotedPrice_*" class="quotedPriceAction" method="{1}">
+			<result name="allProcardSelsct">/System/pro/lixiang/allProcardSelsct.jsp
+			</result>
+			<result name="QuotedPrice_list">/System/pro/lixiang/QuotedPrice_list.jsp
+			</result>
+			<result name="QuotedPrice_detail">/System/pro/lixiang/QuotedPrice_detail.jsp
+			</result>
+			<result name="QuotedPrice_detailstart">/System/pro/lixiang/QuotedPrice_detailstart.jsp
+			</result>
+			<result name="QuotedPrice_tree">/System/pro/lixiang/QuotedPrice_tree.jsp
+			</result>
+			<result name="QuotedPrice_bom">/System/pro/lixiang/QuotedPrice_bom.jsp
+			</result>
+			<result name="QuotedPrice_afterstart">/System/pro/lixiang/QuotedPrice_afterstart.jsp
+			</result>
+			<result name="QuotedPrice_bom_dept">/System/pro/lixiang/QuotedPrice_bom_dept.jsp
+			</result>
+			<result name="QuotedPrice_bom_showRg">/System/pro/lixiang/QuotedPrice_bom_showRg.jsp
+			</result>
+			<result name="QuotedPrice_dept">/System/pro/lixiang/QuotedPrice_dept_${pageStatus}.jsp
+			</result>
+			<result name="QuotedPrice_allPrice">/System/pro/lixiang/QuotedPrice_allPrice.jsp
+			</result>
+			<result name="findQuotedPrice" type="redirect">QuotedPrice_findQpDetailForShow.action?id=${quotedPrice.id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="rengongHesuan">/System/pro/lixiang/QuotedPrice_dept_rg.jsp?id=${id}
+			</result>
+			<result name="QuotedPrice_bom_qpInfor">/System/pro/lixiang/QuotedPrice_bom_qpInfor.jsp
+			</result>
+			<result name="QuotedPrice_trackQuotedPrice">/System/pro/lixiang/QuotedPrice_trackQuotedPrice.jsp
+			</result>
+			<result name="QuotedPrice_updateQuotedPriceLog">/System/pro/lixiang/QuotedPrice_updateQuotedPriceLog.jsp
+			</result>
+			<result name="QuotedPrice_showosa">/System/pro/lixiang/QuotedPrice_showosa.jsp
+			</result>
+			<result name="QuotedPrice_forcost">/System/pro/lixiang/QuotedPrice_forcost.jsp
+			</result>
+			<result name="QuotedPrice_treecost">/System/pro/lixiang/QuotedPrice_treecost.jsp
+			</result>
+			<result name="QuotedPrice_costdetail">/System/pro/lixiang/QuotedPrice_costdetail.jsp
+			</result>
+			<result name="QuotedPrice_usercostdetail">/System/pro/lixiang/QuotedPrice_usercostdetail.jsp
+			</result>
+			<result name="QuotedPrice_showFh">/System/pro/lixiang/QuotedPrice_showFh.jsp
+			</result>
+			<result name="QuotedPrice_showInvestors">/System/pro/lixiang/QuotedPrice_showInvestors.jsp
+			</result>
+			<result name="QuotedPrice_showPartners">/System/pro/lixiang/QuotedPrice_showPartners.jsp
+			</result>
+			<result name="QuotedPrice_addInvestors">/System/pro/lixiang/QuotedPrice_addInvestors.jsp
+			</result>
+			<result name="QuotedPrice_setProTz">/System/pro/lixiang/QuotedPrice_setProTz.jsp
+			</result>
+			<result name="QuotedPrice_showRealCost">/System/pro/lixiang/QuotedPrice_showRealCost.jsp
+			</result>
+			<result name="investors_infor">/System/pro/lixiang/investors_infor.jsp
+			</result>
+			<result name="investor_home">/System/pro/lixiang/investor_home.jsp
+			</result>
+			<result name="investors_inmoney">/System/pro/lixiang/investors_inmoney.jsp
+			</result>
+			<result name="QuotedPrice_evaluation">/System/pro/lixiang/QuotedPrice_evaluation.jsp
+			</result>
+			<result name="cbzhexian">/System/pro/lixiang/cbzhexian.jsp
+			</result>
+			<result name="quotedPriceTzs">/System/pro/lixiang/quotedPriceTzs.jsp
+			</result>
+			<result name="quotedPriceProcessTzs">/System/pro/lixiang/quotedPriceProcessTzs.jsp
+			</result>
+			<result name="quotedPrice_addjy">/System/pro/lixiang/quotedPrice_addjy.jsp
+			</result>
+			<result name="quotedPrice_addjynoqpId">/System/pro/lixiang/quotedPrice_addjynoqpId.jsp
+			</result>
+			<result name="quotedPrice_jyList">/System/pro/lixiang/quotedPrice_jyList.jsp
+			</result>
+			<result name="quotedPrice_jyListnoqpId">/System/pro/lixiang/quotedPrice_jyListnoqpId.jsp
+			</result>
+			<result name="quotedPrice_jyselfList">/System/pro/lixiang/quotedPrice_jyselfList.jsp
+			</result>
+			<result name="quotedPrice_jydispatche">/System/pro/lixiang/quotedPrice_jydispatche.jsp
+			</result>
+			<result name="quotedPrice_jydFile">/System/pro/lixiang/quotedPrice_jydFile.jsp
+			</result>
+			<result name="quotedPrice_jytb">/System/pro/lixiang/quotedPrice_jytb.jsp
+			</result>
+			<result name="quotedPrice_jydqrList">/System/pro/lixiang/quotedPrice_jydqrList.jsp
+			</result>
+			<result name="quotedPrice_jyedit">/System/pro/lixiang/quotedPrice_jyedit.jsp
+			</result>
+			<result name="download" type="stream">
+				<!-- 指定下载文件的内容类型，text/plain是默认类型 -->
+				<param name="contentType">text/plain</param>
+				<!--
+					inputName默认值是inputStream，如果action中用于读取下载文件内容的属性名是inputStream，那么可以省略这个参数
+				-->
+				<param name="inputName">inputStream</param>
+
+				<!--动态获取文件名，从Action中的取得filename-->
+				<param name="contentDisposition">
+					bomTree;fileName="${gygfFileName}"
+				</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+		<!-- 微信企业平台接口 -->
+		<action name="HuidiaoAction" class="com.qq.weixin.mp.aes.HuidiaoAction"></action>
+
+		<!-- 财务银行账户 -->
+		<action name="BankAccountsAction" class="bankAccountsAction">
+			<result name="bank_show">/System/caiwu/pingzheng/bank_show.jsp</result>
+			<result name="cw_pz_show">/System/caiwu/pingzheng/cw_pz_show.jsp</result>
+			<result name="cw_pz_luru">/System/caiwu/pingzheng/cw_pz_luru.jsp</result>
+			<result name="cw_cwbb_show">/System/caiwu/pingzheng/cw_cwbb_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 财务银行账户 -->
+		<action name="CwVouchersAction" class="cwVouchersAction">
+			<result name="cwVouchers_show">/System/caiwu/pingzheng/cwVouchers_show.jsp
+			</result>
+			<result name="cwVouchers_detailshow">/System/caiwu/pingzheng/cwVouchers_detailshow.jsp
+			</result>
+			<result name="CwUseDetail_detailshow">/System/caiwu/pingzheng/CwUseDetail_detailshow.jsp
+			</result>
+			<result name="cwVouchers_DC_detailshow">/System/caiwu/pingzheng/cwVouchers_DC_detailshow.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 外购外委计划 -->
+		<action name="WaigouwaiweiPlanAction" class="waigouwaiweiPlanAction"
+			method="{1}">
+			<result name="Procard_wlList">/System/SOP/produce/Procard_wlList.jsp
+			</result>
+			<result name="Procard_WgPlanList">/System/SOP/produce/Procard_WgPlanList.jsp
+			</result>
+			<result name="Procard_WgPlanList1">/System/SOP/produce/Procard_WgPlanList1.jsp
+			</result>
+			<result name="Procard_WgPlanListAll">/System/SOP/produce/Procard_WgPlanListAll.jsp
+			</result>
+			<result name="findNOPriceWgPlanList">/System/SOP/produce/findNOPriceWgPlanList.jsp
+			</result>
+			<result name="Procard_WgOrderList">/System/SOP/produce/Procard_WgOrderList.jsp
+			</result>
+			<result name="Procard_WgOrderPlanList">/System/SOP/produce/Procard_WgOrderPlanList.jsp
+			</result>
+			<result name="ProcardTemplateGysTzs">/System/SOP/produce/ProcardTemplateGysTzs.jsp
+			</result>
+			<result name="Procard_WgPlanShList">/System/SOP/produce/Procard_WgPlanShList.jsp
+			</result>
+			<result name="Procard_WgPlanShSqList">/System/SOP/produce/Procard_WgPlanShSqList.jsp
+			</result>
+			<result name="Procard_WgDeliveryList">/System/SOP/produce/Procard_WgDeliveryList.jsp
+			</result>
+			<result name="Procard_WgDeliveryList1">/System/SOP/produce/Procard_WgDeliveryList1.jsp
+			</result>
+			<result name="Procard_WgDeliveryDetail">/System/SOP/produce/Procard_WgDeliveryDetail.jsp
+			</result>
+			<result name="Procard_WgDeliveryAndDetailList">/System/SOP/produce/Procard_WgDeliveryAndDetailList.jsp
+			</result>
+			<result name="Procard_WgDeliveryDqr">/System/SOP/produce/Procard_WgDeliveryDqr.jsp
+			</result>
+			<result name="Procard_WgDeliveryDqrList">/System/SOP/produce/Procard_WgDeliveryDqrList.jsp
+			</result>
+			<result name="Procard_WgQueRenList">/System/SOP/produce/Procard_WgQueRenList.jsp
+			</result>
+			<result name="oaAppDetail_GzQueRenList">/System/caigou/oa/oaAppDetail_GzQueRenList.jsp
+			</result>
+			<result name="Procard_WgRuKuList">/System/SOP/produce/Procard_WgRuKuList.jsp
+			</result>
+			<result name="Procard_WgWeiGuanList">/System/SOP/produce/Procard_WgWeiGuanList.jsp
+			</result>
+			<result name="Procard_WgRuGuiDjyList">/System/SOP/produce/Procard_WgRuGuiDjyList.jsp
+			</result>
+			<result name="wgWarehouseNumber_show">/System/menjin/wgWarehouseNumber_show.jsp
+			</result>
+			<result name="Procard_WgPlanDeliveryDetail">/System/SOP/produce/Procard_WgPlanDeliveryDetail.jsp
+			</result>
+			<result name="Procard_WgDeliveryPrint">/System/SOP/produce/Procard_WgDeliveryPrint.jsp
+			</result>
+			<result name="Procard_WwOrderList">/System/SOP/produce/Procard_WwOrderList.jsp
+			</result>
+			<result name="Procard_waigoudd">/System/SOP/produce/Procard_waigoudd.jsp
+			</result>
+			<result name="Procard_WgDeliveryDjyList">/System/SOP/produce/Procard_WgDeliveryDjyList.jsp
+			</result>
+			<result name="Procard_WgDeliveryNoPassList">/System/SOP/produce/Procard_WgDeliveryNoPassList.jsp
+			</result>
+			<result name="Procard_checkwgww">/System/SOP/produce/Procard_checkwgww.jsp
+			</result>
+			<result name="Procard_showWWLingliao">/System/SOP/produce/Procard_showWWLingliao.jsp
+			</result>
+			<result name="Procard_showWWdailing">/System/SOP/produce/Procard_showWWdailing.jsp
+			</result>
+			<result name="Procard_showdrk">/System/SOP/produce/Procard_showdrk.jsp
+			</result>
+			<result name="Procard_showjyz">/System/SOP/produce/Procard_showjyz.jsp
+			</result>
+			<result name="Procard_showZaiTuwl">/System/SOP/produce/Procard_showZaiTuwl.jsp
+			</result>
+			<result name="Procard_WwOrderPlanList">/System/SOP/produce/Procard_WwOrderPlanList.jsp
+			</result>
+			<result name="Procard_WgPlanShList_sg">/System/SOP/produce/Procard_WgPlanShList_sg.jsp
+			</result>
+			<result name="adjustNum">/System/SOP/produce/adjustNum.jsp</result>
+			<result name="findDqrWgPlanList" type="redirect">WaigouwaiweiPlanAction!findDqrWgPlanList.action
+			</result>
+			<result name="tofindNOPriceWgPlanList" type="redirect">WaigouwaiweiPlanAction!findNOPriceWgPlanList.action
+			</result>
+			<result name="warehouseApplication_add1">System/menjin/warehouseApplication_add1.jsp
+			</result>
+			<result name="waigouOrderprint">/System/SOP/produce/waigouOrderprint.jsp</result>
+			<result name="waiweiOrderprint">/System/SOP/produce/waiweiOrderprint.jsp</result>
+			<result name="waigouwaiwei_wgTypelist">/System/SOP/produce/waigouwaiwei_wgTypelist.jsp
+			</result>
+			<result name="Procard_xiugaigys">/System/SOP/produce/Procard_xiugaigys.jsp
+			</result>
+			<result name="toCheckwgww" type="redirect">WaigouwaiweiPlanAction!toCheckwgww.action?id=${id}&amp;osTemplate.id=${osTemplate.id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="Procard_finwwOrderwl">/System/SOP/produce/Procard_finwwOrderwl.jsp
+			</result>
+			<result name="updatePrice_page">/System/SOP/produce/updatePrice_page.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="goods_bhgth">System/SOP/goods_bhgth.jsp</result>
+			<result name="goods_saveSell">System/SOP/goods_saveSell.jsp</result>
+			<result name="procard_wgdSheetList">/System/SOP/produce/procard_wgdSheetList.jsp
+			</result>
+			<result name="Procard_printdl">/System/SOP/produce/Procard_printdl.jsp</result>
+			<result name="procard_wgdSheet">/System/SOP/produce/procard_wgdSheet.jsp</result>
+			<result name="show_dpList">/System/SOP/produce/show_dpList.jsp</result>
+			<result name="show_rsList">/System/SOP/produce/show_rsList.jsp</result>
+			<result name="show_rdsList">/System/SOP/produce/show_rdsList.jsp</result>
+			<result name="show_printRds">/System/SOP/produce/show_printRds.jsp</result>
+			<result name="procard_price">/System/SOP/produce/procard_price.jsp</result>
+			<result name="qualifiedRate_list">/System/SOP/pingjia/qualifiedRate_list.jsp</result>
+		    <result name="WgDeliveryList_hege">/System/SOP/produce/WgDeliveryList_hege.jsp</result>
+		    <result name="WgDeliveryDetail_hege">/System/SOP/produce/WgDeliveryDetail_hege.jsp</result>
+		    <result name="DayHege">/System/SOP/pingjia/DayHege.jsp</result>
+		    <result name="weekHege">/System/SOP/pingjia/weekHege.jsp</result>
+		    <result name="mouthHege">/System/SOP/pingjia/mouthHege.jsp</result>
+		    <result name="quarterHege">/System/SOP/pingjia/quarterHege.jsp</result>
+		    <result name="yearHege">/System/SOP/pingjia/yearHege.jsp</result>
+			<result name="mop_isUse">/System/SOP/produce/mop_isUse.jsp</result>
+			<result name="Procard_WgOrderApplList">/System/SOP/produce/Procard_WgOrderApplList.jsp
+			</result>
+			<result name="Procard_WwOrderList1">/System/SOP/produce/Procard_WwOrderList.jsp</result>
+			<result name="isAgainC1heck">/System/SOP/produce/isAgainC1heck.jsp</result>
+			<result name="toisAgainCheck" type="redirect">
+				WaigouwaiweiPlanAction!toisAgainCheck.action?id=${id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="tobhgth" type="redirect">WaigouwaiweiPlanAction!tobhgth.action?id=${id}&amp;pageStatus=${pageStatus}
+			</result>
+			<result name="wgPlan_showProcard">/System/SOP/produce/wgPlan_showProcard.jsp
+			</result>
+			<result name="Procard_wgjth">/System/SOP/produce/Procard_wgjth.jsp
+			</result>
+			<result name="Procard_wgjth2">/System/SOP/produce/Procard_wgjth2.jsp
+			</result>
+			<result name="mop_All">/System/SOP/produce/mop_All.jsp</result>
+			<result name="findWwOrderList" type="redirect">WaigouwaiweiPlanAction!findWwOrderList.action?pageStatus=dsq&amp;tag=muju
+			</result>
+			<result name="Procard_showfldrk" >/System/SOP/produce/Procard_showfldrk.jsp
+			</result>
+			<result name="Procard_showWgProcard" >/System/SOP/produce/Procard_showWgProcard.jsp
+			</result>
+			<result name="procard_gyscsbl" >/System/SOP/produce/procard_gyscsbl.jsp
+			</result>
+			<result name="Procard_WgOrder_addRemark" >/System/SOP/produce/Procard_WgOrder_addRemark.jsp
+			</result>
+			<result name="WgClApply_List" >/System/SOP/produce/WgClApply_List.jsp</result>
+			<result name="procard_dzWgPlan" >/System/SOP/produce/procard_dzWgPlan.jsp</result>
+		</action>
+
+		<!--B2B对接 -->
+		<action name="OrderForB2BAction" class="orderForB2BAction">
+			<result name="findPoLineList_all">/System/huawei/findPoLineList_all.jsp
+			</result>
+			<result name="showOrderForB2BDetail">/System/huawei/showOrderForB2BDetail.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--B2B对接 -->
+		<action name="RwlBarcodeWebServiceAction" class="rwlBarcodeWebServiceAction">
+			<result name="showBarcodeLockList">/System/HWAndBTS/showBarcodeLockList.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 主营应付 -->
+		<action name="CorePayableAction" class="corePayableAction">
+			<result name="corePayable_showList">/System/caiwu/core/corePayable_showList.jsp
+			</result>
+			<result name="corePayableMonth_showList">/System/caiwu/core/corePayableMonth_showList.jsp
+			</result>
+			<result name="corePayable_showfkspList">/System/caiwu/core/corePayable_showfkspList.jsp
+			</result>
+			<result name="SupplierCorePayable_showList">/System/caiwu/core/SupplierCorePayable_showList.jsp
+			</result>
+			<result name="SupplierCorePayable_showList_sk">/System/caiwu/core/SupplierCorePayable_showList_sk.jsp
+			</result>
+			<result name="SupplierCorePayable_showPerson">/System/caiwu/core/SupplierCorePayable_showPerson.jsp
+			</result>
+			<result name="monthPayableBill_showList">/System/caiwu/core/monthPayableBill_showList.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--付款单 -->
+		<action name="ReceiptAction" class="receiptAction">
+			<result name="Receipt_showList">/System/caiwu/receivePayment/Receipt_showList.jsp
+			</result>
+			<result name="ReceiptLog_showList">/System/caiwu/receivePayment/ReceiptLog_showList.jsp
+			</result>
+			<result name="ReceiptLog_auditList">/System/caiwu/receivePayment/ReceiptLog_auditList.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--人脸识别测试 -->
+		<action name="VideoThumbTakerAction" class="com.test.face.VideoThumbTakerAction">
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

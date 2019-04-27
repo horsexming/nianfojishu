@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-makai" extends="struts-stack">
+		<!--
+			****************************************马凯Action操作********************************************************************
+			**
+		-->
+		<!-- 看板 -->
+		<action name="board_*" class="boardAction" method="{1}">
+			<result name="addPage">/System/bbs/boardAdd.jsp</result>
+			<result name="updatePage">/System/bbs/boardEdit.jsp</result>
+			<result name="list">/System/bbs/board.jsp</result>
+			<result name="get">/System/bbs/boardGet.jsp</result>
+			<result name="add_success" type="redirect">board_findBoardAllByparentId.action?board.parentId=${board.parentId}</result>
+			<result name="update_success" type="redirect">board_findBoardAllByparentId.action?board.parentId=${board.parentId}</result>
+			<result name="delete_success" type="redirect">board_findBoardAllByparentId.action?board.parentId=${board.parentId}</result>
+			<result name="addTitlePage">/System/bbs/title_add.jsp</result>
+			<result name="getUpdateTitlePage">/System/bbs/title_update.jsp</result>
+			<result name="listTitle">/System/bbs/title_list.jsp</result>
+		</action>
+		<!-- 屏幕 -->
+		<action name="screenFiles_*" class="screenFilesAction" method="{1}">
+			<result name="showProcess">/System/bbs/screenShowProcess.jsp</result>
+			<result name="uploadPage">/System/bbs/screenFileUploadPage.jsp</result>
+			<result name="uploadOK" type="redirect">screenFiles_showFilePage?id=${id}</result>
+			<result name="showFilePage">/System/bbs/screenFileShowFilePage.jsp</result>
+		</action>
+		<action name="screen_*" class="screenAction" method="{1}">
+			<result name="addPage">/System/bbs/screenAdd.jsp</result>
+			<result name="listPage">/System/bbs/screen.jsp</result>
+			<result name="getWorkStation">/System/bbs/screenItem.jsp</result>
+			<result name="editPage">/System/bbs/screenEdit.jsp</result>
+			<result name="showScreen">/System/bbs/screenShow.jsp</result>
+			<result name="printScreen">/System/bbs/showScreen.jsp</result>
+			<result name="printScreen2">/System/bbs/showScreen2.jsp</result>
+			<result name="printer_List">/System/printer/printer_List.jsp</result>
+			<result name="printer_add">/System/printer/printer_add.jsp</result>
+			<result name="showScreen3_gongwei">/System/bbs/showScreen3_gongwei.jsp</result>
+			<result name="screenShowContent">/System/bbs/screenShowContent.jsp</result>
+		</action>
+		<!-- 仓库 -->
+		<action name="WareHouse_*" class="wareHouseAction" method="{1}">
+			<result name="addInput">/System/SOP/ruku/auth/houseAdd.jsp</result>
+			<result name="list">/System/SOP/ruku/auth/house.jsp</result>
+			<result name="updateInput">/System/SOP/ruku/auth/houseEdit.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 仓库权限 -->
+		<action name="WareHouseAuth_*" class="wareHouseAuthAction" method="{1}">
+			<result name="addInput">/System/SOP/ruku/auth/authAdd.jsp</result>
+			<result name="edit">/System/SOP/ruku/auth/authEdit.jsp</result>
+			<result name="price_authupdate">System/SOP/ruku/auth/price_authupdate.jsp</result>
+			<result name="list">/System/SOP/ruku/auth/auth.jsp</result>
+		</action>
+		
+		<!-- 外购件检查 -->
+		<action name="OsTemplate_*" class="osTemplateAction" method="{1}">
+			<result name="addInput">/System/xunjian/OsTemplate_addInput.jsp</result>
+			<result name="add">/System/xunjian/OsTemplate_add.jsp</result>
+			<result name="list">/System/xunjian/OsTemplate_list.jsp</result>
+			<result name="showScope">/System/xunjian/OsTemplate_showScope.jsp</result>
+			<result name="deleteOsTemplate" type="redirect">OsTemplate_list.action</result>
+			<result name="addInput1">/System/xunjian/OsTemplate_addInput1.jsp</result>
+			<result name="showScopeAction" type="redirect">OsTemplate_showScope.action?status=${status}&amp;t.id=${t.id}</result>
+			<result name="toUpdateOsTemplate">/System/xunjian/OsTemplate_update.jsp</result>
+			<result name="updateOsTemplate">/System/xunjian/OsTemplate_update.jsp</result>
+			<result name="updatexjsuccess" type="redirect">OsTemplate_toUpdateOsTemplate.action?t.id=${t.id}&amp;status=${status}&amp;errorMessage=${errorMessage}</result>
+			<result name="InsTemplate_updateInput">/System/xunjian/InsTemplate_updateInput.jsp</result>
+			<result name="UpdateOsScope">/System/xunjian/OsScope_update.jsp</result>
+			<result name="addOsScope">/System/xunjian/OsScope_add.jsp</result>
+			<result name="InsScope_get">/System/xunjian/InsScope_get.jsp</result>
+			<result name="InsTemplate_listdel" type="redirect">InsTemplate_listdel.action</result>
+			
+		</action>
+		
+		<action name="OsRecord_*" class="osRecordAction" method="{1}">
+			<result name="InsRecord_show">/System/xunjian/InsRecord_show.jsp</result>
+			<result name="show">/System/xunjian/OsRecord_show.jsp</result>
+			<result name="list">/System/xunjian/OsRecord_list.jsp</result>
+			<result name="showScope">/System/xunjian/OsRecord_showScope.jsp</result>
+			<result name="rukuList">/System/xunjian/OsRecord_rukuList.jsp</result>
+			<result name="OsRecord_screanRuku">/System/xunjian/OsRecord_screanRuku.jsp</result>
+			<result name="rukuInput">/System/xunjian/OsRecord_rukuInput.jsp</result>
+			<result name="InsRecord_list">/System/xunjian/InsRecord_list.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 巡检 -->
+		<action name="InsRecord_*" class="insRecordAction" method="{1}">
+			<result name="show">/System/xunjian/InsRecord_show.jsp</result>
+			<result name="list">/System/xunjian/InsRecord_list.jsp</result>
+			<result name="checkProcess">/System/xunjian/checkProcess.jsp</result>
+			<result name="wgcheckProcess">/System/xunjian/wgcheckProcess.jsp</result>
+			<result name="InsRecord_toXjLis">/System/xunjian/InsRecord_toXjLis.jsp</result>
+			<result name="getXjProcess" type="redirect">InsRecord_getXjProcess.action?id=${id}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="InsScope_*" class="insScopeAction" method="{1}">
+			<result name="get">/System/xunjian/InsScope_get.jsp</result>
+		</action>
+		<action name="InsTemplate_*" class="insTemplateAction" method="{1}">
+			<result name="addInput">/System/xunjian/InsTemplate_addInput.jsp</result>
+			<result name="updateInput">/System/xunjian/InsTemplate_updateInput.jsp</result>
+			<result name="list">/System/xunjian/InsTemplate_list.jsp</result>
+			<result name="listdel">/System/xunjian/InsTemplate_listdel.jsp</result>
+			<result name="deleteInsTemplate" type="redirect">InsTemplate_listdel.action</result>
+		</action>
+		<action name="TemplateTypem_*" class="templateTypemAction" method="{1}">
+			<result name="list">/System/xunjian/TemplateTypem_list.jsp</result>
+			<result name="listSingle">/System/xunjian/TemplateTypem_listSingle.jsp</result>
+		</action>
+		<action name="Templatem_*" class="templatemAction" method="{1}">
+			<result name="addInput">/System/xunjian/Templatem_addInput.jsp</result>
+			<result name="list">/System/xunjian/Templatem_list.jsp</result>
+			<result name="updateInput">/System/xunjian/Templatem_updateInput.jsp</result>
+			<result name="rdToList" type="redirect">Templatem_list</result>
+		</action>
+		<action name="ManufacturingProp_*" class="manufacturingPropAction" method="{1}">
+			<result name="list">/System/xunjian/ManufacturingProp_list.jsp</result>
+		</action>
+		<!-- 巡检 -->
+		<action name="Manufacturing_*" class="manufacturingAction" method="{1}">
+			<result name="addInput">/System/xunjian/Manufacturing_addInput.jsp</result>
+			<result name="list">/System/xunjian/Manufacturing_list.jsp</result>
+			<result name="relist" type="redirect">Manufacturing_list</result>
+		</action>
+		
+		
+		<!-- 索赔记录 -->
+		<action name="tclaimsRecord_*" class="tclaimsRecordAction" method="{1}">
+			<result name="list">/System/shouhou/tclaimsRecord_list.jsp</result>
+			<result name="analysisInput">/System/shouhou/tclaimsRecord_analysisInput.jsp</result>
+			<result name="notificationInput">/System/shouhou/tclaimsRecord_notificationInput.jsp</result>
+			<result name="handleInput">/System/shouhou/tclaimsRecord_handleInput.jsp</result>
+			<result name="rhandleInput" type="redirect">tclaimsRecord_handleInput.action?tclaimsRecord.root.id=${tclaimsRecord.root.id}</result>
+		</action>
+		<!-- 索赔 -->
+		<action name="tclaimform_*" class="tclaimformAction" method="{1}">
+			<result name="addInput">/System/shouhou/tclaimform_addInput.jsp</result>
+			<result name="addOk">/System/shouhou/tclaimform_addOk.jsp</result>
+			<result name="list">/System/shouhou/tclaimform_list.jsp</result>
+			<result name="updateInput">/System/shouhou/tclaimform_updateInput.jsp</result>
+			<result name="debitInput">/System/shouhou/tclaimform_debitInput.jsp</result>
+		</action>
+		
+		<!-- 项目工序 -->
+		<action name="tprocess_*" class="tprocessAction" method="{1}">
+			<result name="list">/System/project/quotation2/tprocess_list.jsp</result>
+			<result name="addInput">/System/project/quotation2/tprocess_addInput.jsp</result>
+			<result name="addOk">/System/project/quotation2/tprocess_addOk.jsp</result>
+		</action>
+		<!-- 项目设备 -->
+		<action name="tequipment_*" class="tequipmentAction" method="{1}">
+			<result name="addInput">/System/project/quotation2/tequipment_addInput.jsp</result>
+			<result name="addOk">/System/project/quotation2/tequipment_addOk.jsp</result>
+		</action>
+		<!-- 项目工装 -->
+		<action name="ttooling_*" class="ttoolingAction" method="{1}">
+			<result name="addInput">/System/project/quotation2/ttooling_addInput.jsp</result>
+			<result name="addOk">/System/project/quotation2/ttooling_addOk.jsp</result>
+		</action>
+		<!-- 项目消耗 -->
+		<action name="tconsumption_*" class="tconsumptionAction" method="{1}">
+			<result name="addOk">/System/project/quotation2/tconsumption_addOk.jsp</result>
+		</action>
+		<!-- 项目BOM -->
+		<action name="tdetail_*" class="tdetailAction" method="{1}">
+			<result name="addInput">/System/project/quotation2/tdetail_addInput.jsp</result>
+			<result name="getZizhi">/System/project/quotation2/tdetail_getZizhi.jsp</result>
+			<result name="getWaigou">/System/project/quotation2/tdetail_getWaigou.jsp</result>
+			<result name="list">/System/project/quotation2/tdetail_list.jsp</result>
+			<result name="listRoot">/System/project/quotation2/tdetail_listRoot.jsp</result>
+			<result>/System/project/quotation2/detailAdd.jsp</result>
+		</action>
+		<!-- 项目跟踪 -->
+		<action name="ProjectTrackRecord_*" class="projectTrackRecordAction"
+			method="{1}">
+			<result name="input">/System/project/track/record/{1}.jsp</result>
+			<result name="success">/System/project/track/record/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目跟踪 -->
+		<action name="ProjectTrack_*" class="projectTrackAction"
+			method="{1}">
+			<result name="input">/System/project/track/{1}.jsp</result>
+			<result name="success">/System/project/track/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+			<result name="nohas">/System/project/track/nohas.jsp</result>
+		</action>
+		<!-- 项目启动书 -->
+		<action name="ProjectStart_*" class="projectStartAction"
+			method="{1}">
+			<result name="input">/System/project/start/{1}.jsp</result>
+			<result name="success">/System/project/start/{1}.jsp</result>
+			<result name="has">/System/project/start/has.jsp</result>
+			<result name="nohas">/System/project/start/nohas.jsp</result>
+
+		</action>
+		<!-- 项目启动书_第一步基础资料 -->
+		<action name="ProjectStartOutline_*" class="projectStartOutlineAction"
+			method="{1}">
+			<result name="input">/System/project/start/outline/{1}.jsp</result>
+			<result name="success">/System/project/start/outline/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第二步技术方案 -->
+		<action name="ProjectStartTechnical_*" class="projectStartTechnicalAction"
+			method="{1}">
+			<result name="input">/System/project/start/technical/{1}.jsp</result>
+			<result name="success">/System/project/start/technical/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第三步项目预算 -->
+		<action name="ProjectStartBudget_*" class="projectStartBudgetAction"
+			method="{1}">
+			<result name="input">/System/project/start/budget/{1}.jsp</result>
+			<result name="success">/System/project/start/budget/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第四步项目预算 -->
+		<action name="ProjectStartCountersigned_*" class="projectStartCountersignedAction"
+			method="{1}">
+			<result name="input">/System/project/start/countersigned/{1}.jsp
+			</result>
+			<result name="success">/System/project/start/countersigned/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第五步项目责任书 -->
+		<action name="ProjectStartResponsible_*" class="projectStartResponsibleAction"
+			method="{1}">
+			<result name="input">/System/project/start/responsible/{1}.jsp
+			</result>
+			<result name="success">/System/project/start/responsible/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+
+		<!-- 项目启动书_第六步项目进度表 -->
+		<action name="ProjectStartSchedule_*" class="projectStartScheduleAction"
+			method="{1}">
+			<result name="input">/System/project/start/schedule/{1}.jsp</result>
+			<result name="success">/System/project/start/schedule/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第七步项目人员 -->
+		<action name="ProjectStartUser_*" class="projectStartUserAction"
+			method="{1}">
+			<result name="input">/System/project/start/user/{1}.jsp</result>
+			<result name="success">/System/project/start/user/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目启动书_第八步项目要求 -->
+		<action name="ProjectStartClaim_*" class="projectStartClaimAction"
+			method="{1}">
+			<result name="input">/System/project/start/claim/{1}.jsp</result>
+			<result name="success">/System/project/start/claim/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 询价包_设备折旧 -->
+		<action name="ProjectQuotationEquipmentDepreciation_*" class="projectQuotationEquipmentDepreciationAction"
+			method="{1}">
+			<result name="input">/System/project/quotation/equipmentDepreciation/{1}.jsp
+			</result>
+			<result name="success">/System/project/quotation/equipmentDepreciation/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 询价包_模具成本 -->
+		<action name="ProjectQuotationToolingCost_*" class="projectQuotationToolingCostAction"
+			method="{1}">
+			<result name="input">/System/project/quotation/toolingCost/{1}.jsp
+			</result>
+			<result name="success">/System/project/quotation/toolingCost/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 询价包_物流费用 -->
+		<action name="ProjectQuotationLogistics_*" class="projectQuotationLogisticsAction"
+			method="{1}">
+			<result name="input">/System/project/quotation/logistics/{1}.jsp
+			</result>
+			<result name="success">/System/project/quotation/logistics/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目管理_报价_直接人工 -->
+		<action name="ProjectQuotationDirectLaborCost_*" class="projectQuotationDirectLaborCostAction"
+			method="{1}">
+			<result name="input">/System/project/quotation/directLaborCost/{1}.jsp
+			</result>
+			<result name="success">/System/project/quotation/directLaborCost/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目管理_报价_外购外协 -->
+		<action name="ProjectQuotationSubContract_*" class="projectQuotationSubContractAction"
+			method="{1}">
+			<result name="input">/System/project/quotation/subContract/{1}.jsp
+			</result>
+			<result name="success">/System/project/quotation/subContract/{1}.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+
+		<!-- 项目管理_报价_材料 -->
+		<action name="ProjectQuotationRawMaterial_*" class="projectQuotationRawMaterialAction"
+			method="{1}">
+			<result>/System/project/quotation/rawMaterial/{1}.jsp</result>
+			<result name="input">/System/project/quotation/rawMaterial/{1}.jsp
+			</result>
+			<result name="noClosed">/System/project/quotation/rawMaterial/noClosed.jsp
+			</result>
+			<result name="has">/System/project/quotation/rawMaterial/has.jsp
+			</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+		<!-- 项目管理_报价 -->
+		<action name="ProjectQuotation_*" class="projectQuotationAction"
+			method="{1}">
+			<result>/System/project/quotation/{1}.jsp</result>
+			<result name="input">/System/project/quotation/{1}.jsp</result>
+			<result name="updateOtherInput">/System/project/quotation/showAll.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+			<result name="noClosed">/System/project/quotation/noClosed.jsp</result>
+			<result name="has">/System/project/quotation/has.jsp</result>
+			<result name="nohas">/System/project/quotation/nohas.jsp</result>
+		</action>
+		<!-- 项目管理_报价 -->
+		<action name="ProjectQuotationList_*" class="projectQuotationListAction" method="{1}">
+			<result>/System/project/quotation/list/{1}.jsp</result>
+			<result name="input">/System/project/quotation/list/{1}.jsp</result>
+			<result name="updateOtherInput">/System/project/quotation/list/showAll.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+			<result name="noClosed">/System/project/quotation/noClosed.jsp</result>
+			<result name="has">/System/project/quotation/has.jsp</result>
+			<result name="nohas">/System/project/quotation/nohas.jsp</result>
+		</action>
+		<!-- 项目管理_项目建议书_审核 -->
+		<action name="ProjectProposalFlow_*" class="projectProposalFlowAction" method="{1}">
+			<result>/System/project/proposal/flow/{1}.jsp</result>
+			<result name="input">/System/project/proposal/flow/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+			<result name="noCheck">/System/project/proposal/flow/noCheck.jsp</result>
+			<result name="hasCheck">/System/project/proposal/flow/hasCheck.jsp</result>
+		</action>
+		<!-- 项目管理_项目建议书 -->
+		<action name="ProjectProposal_*" class="projectProposalAction"
+			method="{1}">
+			<result>/System/project/proposal/{1}.jsp</result>
+			<result name="input">/System/project/proposal/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+			<result name="hasPP">/System/project/proposal/hasPP.jsp</result>
+			<result name="check">/System/project/proposal/check.jsp</result>
+		</action>
+		<!-- 项目管理_人员管理 -->
+		<action name="ProjectAuth_*" class="projectAuthAction" method="{1}">
+			<result>/System/project/auth/{1}.jsp</result>
+			<result name="input">/System/project/auth/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+		</action>
+
+		<!-- 项目管理_人员管理 -->
+		<action name="ProjectUser_*" class="projectUserAction" method="{1}">
+			<result>/System/project/user/{1}.jsp</result>
+			<result name="input">/System/project/user/{1}.jsp</result>
+			<result name="noAuth">/System/project/noAuth.jsp</result>
+
+		</action>
+
+		<!-- 项目管理 -->
+		<action name="Project_*" class="projectAction" method="{1}">
+			<result>/System/project/{1}.jsp</result>
+			<result name="input">/System/project/{1}.jsp</result>
+		</action>
+
+		<action name="Templet_*" class="templetAction" method="{1}">
+			<result name="success">/System/SOP/Templet_{1}.jsp</result>
+			<result name="chainToList" type="chain">Templet_list</result>
+			<result name="redirectLV" type="redirect">Templet_listVerify.action</result>
+		</action>
+
+		<action name="Detail_*" class="detailAction" method="{1}">
+			<result name="success">/System/SOP/Detail_{1}.jsp</result>
+			<result name="input">/System/SOP/Detail_{1}.jsp</result>
+			<result name="redirect" type="redirect">Detail_listInput.action</result>
+			<result name="chainAdd" type="chain">Detail_addInput</result>
+			<result name="redirectDeleteItem" type="redirect">Detail_listDetailItem.action</result>
+			<result name="chainToList" type="dispatcher">/System/SOP/Detail_query.jsp</result>
+			<result name="chainToListVerify" type="chain">Detail_listVerify</result>
+		</action>
+
+		<action name="Product_*" class="productAction" method="{1}">
+			<result name="success">/System/SOP/Product_{1}.jsp</result>
+			<result name="chainList" type="chain">Product_list</result>
+			<result name="redirect" type="redirect">Product_list.action</result>
+		</action>
+		<action name="ShortMessage_*" class="shortMessageAction"
+			method="{1}">
+			<result name="success">/System/xinxi/duanxin/ShortMessage_{1}.jsp
+			</result>
+			<result name="input">/System/xinxi/duanxin/ShortMessage_{1}.jsp
+			</result>
+			<result name="chainToSend" type="chain">ShortMessage_sendMessageInput
+			</result>
+		</action>
+		<action name="Flow_*" class="flowAction" method="{1}">
+			<result name="success">/System/SOP/Flow_{1}.jsp</result>
+			<result name="input">/System/SOP/Flow_{1}.jsp</result>
+		</action>
+		<action name="Metric_*" class="metricAction" method="{1}">
+			<result>/System/SOP/Metric_{1}.jsp</result>
+			<result name="input">/System/SOP/Metric_{1}.jsp</result>
+			<result name="toAddInput" type="redirect">Metric_addInput.action?flow.fid=${metric.fid}&amp;product.id=${product.id}
+			</result>
+		</action>
+
+		<action name="smsGroup_*" class="smsGroupAction" method="{1}">
+			<result>/System/xinxi/duanxin/index.jsp</result>
+			<result name="sendInput">/System/xinxi/duanxin/sms/sendInput.jsp</result>
+
+			<result name="chainToAdd" type="chain">MsgGroup_addInput</result>
+		</action>
+		<action name="smsUser_*" class="smsUserAction" method="{1}">
+			<result>/System/xinxi/duanxin/index.jsp</result>
+		</action>
+		<action name="File_*" class="fileAction" method="{1}">
+			<result name="input">/System/SOP/File_{1}.jsp</result>
+			<result name="toFileUpload" type="redirect">File_fileUpload.action?file.fid=${file.fid}&amp;file.mid=${file.mid}
+			</result>
+		</action>
+		<action name="sms_*" class="smsAction" method="{1}">
+			<result></result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="ModuleFunction" table="ta_sys_moduleFunction">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+		<set name="users" table="ta_usersMF" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="ta_mfId" />
+			<many-to-many class="Users" column="ta_userId" />
+		</set>
+		
+		<set name="userRole" table="ta_roleMF" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="ta_mfId" />
+			<many-to-many class="UserRole" column="ta_roleId" />
+		</set>
+		
+		
+
+		<property name="functionName" column="ta_mf_functionName"
+			length="100" />
+		<property name="functionIntro" column="ta_mf_functionIntro"
+			length="600" />
+		<property name="functionLink" column="ta_mf_functionLink" />
+		<property name="fatherId" column="ta_mf_fatherId" index="sy_fatherId"/>
+		<property name="belongLayer" column="ta_mf_belongLayer" />
+		<property name="timeControl" column="ta_mf_timeControl" />
+		<property name="stratDateTime" column="ta_mf_stratDateTime" />
+		<property name="endDateTime" column="ta_mf_endDateTime" />
+		<property name="qximageName" column="ta_mf_qximageName" />
+		<property name="imageName" column="ta_mf_imagesName" />
+		<property name="smallImageName" column="smallImageName" />
+		<property name="dhHasColor" column="ta_mf_dhHasColor" />
+		<property name="dhNoColor" column="ta_mf_dhNoColor" />
+		<property name="bgColor" column="ta_mf_bgColor" />
+		<property name="rootId" column="ta_mf_rootId" />
+		
+		<property name="isSubModule" column="ta_mf_subModule" index="sy_isSubModule"/>
+		
+		
+		
+
+		<property name="targetNewPage" />
+		<property name="phoneShow" />
+		<property name="targetName" />
+
+		<property name="englishName" />
+		<property name="sequence_id" />
+	</class>
+
+</hibernate-mapping>

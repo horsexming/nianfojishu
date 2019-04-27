@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-licong" extends="struts-stack">
+		<!--
+			****************************************李聪Action操作(2015-05-03_2015-05-20)**********************************************************************
+		-->
+		<!--人事面试单 -->
+		<action name="interviewLogAction_*" class="interviewLogAction"
+			method="{1}">
+			<result name="interview_add">/System/renshi/interview_add.jsp</result>
+			<result name="interview_select">/System/renshi/interview_select.jsp</result>
+			<result name="interview_show">/System/renshi/interview_show.jsp</result>
+			<result name="int_add_succ" type="redirect">interviewLogAction_showList.action?successMessage=${successMessage}&amp;cpage=${cpage}
+			</result>
+			<result name="interviewQuizzes_1" type="redirect">ProvisionAction!findAllProvisionMsd.action?provision.provisionStatus=mst&amp;interviewLog.id=${interviewLog.id}
+			</result>
+			<result name="interview_update">/System/renshi/interview_update.jsp</result>
+			<result name="hr_adddai_show">/System/renshi/hr_adddai_show.jsp</result>
+			<result name="hr_addUser">/System/renshi/hr_addUser.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪宿舍申请Action操作(2015-06-11)**********************************************************************
+		-->
+		<!--宿舍申请表 -->
+		<action name="dormitoryLogAction_*" class="dormitoryLogAction"
+			method="{1}">
+			<result name="dormitoryLog_shenqing">/System/renshi/dormitoryLog_shenqing.jsp</result>
+			<result name="dormitoryLog_show">/System/renshi/dormitoryLog_show.jsp</result>
+			<result name="dormitoryLog_show_code">/System/renshi/dormitoryLog_show_code.jsp
+			</result>
+			<result name="dor_add_succ" type="redirect">dormitoryLogAction_showList.action?successMessage=${successMessage}
+			</result>
+			<result name="dor_add_succ_code" type="redirect">dormitoryLogAction_showList_code.action?successMessage=${successMessage}
+			</result>
+			<result name="dormitoryLog_update">/System/renshi/dormitoryLog_update.jsp</result>
+			<result name="dormitoryLog_selete">/System/renshi/dormitoryLog_selete.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪离职申请单Action操作(2015-06-23)**********************************************************************
+		-->
+		<!--离职申请表 -->
+		<action name="dimissionLogAction_*" class="dimissionLogAction"
+			method="{1}">
+			<result name="dimissionLog_add">/System/renshi/lizhi/dimissionLog_add.jsp
+			</result>
+			<result name="dimissionLog_show">/System/renshi/lizhi/dimissionLog_show.jsp
+			</result>
+			<result name="dimissionLog_show_dai">/System/renshi/lizhi/dimissionLog_show_dai.jsp
+			</result>
+			<result name="dimissionLog_show_xieyi">/System/renshi/lizhi/dimissionLog_show_xieyi.jsp
+			</result>
+			<result name="dimissionLog_show_tongzhi">/System/renshi/lizhi/dimissionLog_show_tongzhi.jsp
+			</result>
+			<result name="dimissionLog_show_code">/System/renshi/lizhi/dimissionLog_show_code.jsp
+			</result>
+			<result name="dimissionLog_show_zhuguan">/System/renshi/lizhi/dimissionLog_show_zhuguan.jsp
+			</result>
+			<result name="dimission_hand" type="redirect">dimission_HandoverAction_toadd.action?dimissionLog.id=${dimissionLog.id}
+			</result>
+			<result name="dim_add_succ" type="redirect">dimissionLogAction_showList.action?successMessage=${successMessage}
+			</result>
+			<result name="dim_add_zg_succ" type="redirect">dimissionLogAction_showList_zhuguan.action?successMessage=${successMessage}
+			</result>
+			<result name="dim_add_code_succ" type="redirect">dimissionLogAction_showList_code.action?successMessage=${successMessage}
+			</result>
+			<result name="dim_add_dai_succ" type="redirect">dimissionLogAction_showList_dai.action?successMessage=${successMessage}
+			</result>
+			<result name="dimissionLog_update">/System/renshi/lizhi/dimissionLog_update.jsp
+			</result>
+			<result name="dimissionLog_zhuguan_up">/System/renshi/lizhi/dimissionLog_zhuguan_up.jsp
+			</result>
+			<result name="dimissionLog_select">/System/renshi/lizhi/dimissionLog_select.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪离职交接单Action操作(2015-06-24)**********************************************************************
+		-->
+		<!--离职交接表 -->
+		<action name="dimission_HandoverAction_*" class="dimission_HandoverAction"
+			method="{1}">
+			<result name="dimission_Handover_add">/System/renshi/lizhi/dimission_handover_add.jsp
+			</result>
+			<result name="dimission_Handover_show">/System/renshi/lizhi/dimission_handover_show.jsp
+			</result>
+			<result name="dimission_Handover_show_code">/System/renshi/lizhi/dimission_handover_show_code.jsp
+			</result>
+			<result name="dim_H_add_succ" type="redirect">dimission_HandoverAction_showList.action?successMessage=${successMessage}
+			</result>
+			<result name="dim_H_add_succ_code" type="redirect">dimission_HandoverAction_showList_code.action?successMessage=${successMessage}
+			</result>
+			<result name="dimission_Handover_update">/System/renshi/lizhi/dimission_handover_update.jsp
+			</result>
+			<result name="dimission_Handover_select">/System/renshi/lizhi/dimission_handover_select.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+
+		<!--
+			****************************************李聪面试测试单Action操作(2015-06-30)**********************************************************************
+		-->
+		<!--面试测试单 -->
+		<action name="interviewQuizzesAction_*" class="interviewQuizzesAction"
+			method="{1}">
+			<result name="interviewQuizzes_1">/System/renshi/interviewQuizzes.jsp</result>
+			<result name="interviewQuizzes_show_add" type="redirect">interviewLogAction_showList.action?successMessage=${successMessage}
+			</result>
+			<result name="interviewQuizzes_select">/System/renshi/interviewQuizzes_select.jsp
+			</result>
+			<result name="interviewLog_show_select" type="redirect">interviewLogAction_showList.action?errorMessage=${errorMessage}
+			</result>
+			<result name="interviewLog_add">/System/renshi/interview_add.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪离职争议单Action操作(2015-07-16)**********************************************************************
+		-->
+		<!--离职争议单 -->
+		<action name="dimission_ZhengYiAction_*" class="dimission_ZhengYiAction"
+			method="{1}">
+			<result name="dimission_show_1">/System/renshi/lizhi/dimission_zhengyi_show.jsp
+			</result>
+			<result name="dimission_zhengyi_add">/System/renshi/lizhi/dimission_zhengyi_add.jsp
+			</result>
+			<result name="dimission_zhengyi_update">/System/renshi/lizhi/dimission_zhengyi_update.jsp
+			</result>
+			<result name="dimission_zhengyi_select">/System/renshi/lizhi/dimission_zhengyi_select.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="dim_add_succ_1" type="redirect">dimission_ZhengYiAction_showList.action?successMessage=${successMessage}
+			</result>
+			<result name="dimission_gongzimuban" type="redirect">WageStandardAction!findWsById.action?id=${standard.id}&amp;pageStatus=details
+			</result>
+		</action>
+
+
+		<!--
+			****************************************李聪终止劳动关系协议单Action操作(2015-08-16)**********************************************************************
+		-->
+		<!--离职xieyi单 -->
+		<action name="dimission_XieYiAction_*" class="dimission_XieYiAction"
+			method="{1}">
+			<result name="dimission_Xieyi_show">/System/renshi/lizhi/dimission_xieyi_show.jsp
+			</result>
+			<result name="dimission_Xieyi_add">/System/renshi/lizhi/dimission_Xieyi_add.jsp
+			</result>
+			<result name="dimission_Xieyi_update">/System/renshi/lizhi/dimission_Xieyi_update.jsp
+			</result>
+			<result name="dimission_Xieyi_select">/System/renshi/lizhi/dimission_Xieyi_select.jsp
+			</result>
+			<result name="dimissionNotice_add">/System/renshi/lizhi/dimissionNotice_add.jsp
+			</result>
+			<result name="dimissionNotice_update">/System/renshi/lizhi/dimissionNotice_update.jsp
+			</result>
+			<result name="dimissionNotice_show">/System/renshi/lizhi/dimissionNotice_show.jsp
+			</result>
+			<result name="dimissionNotice_select">/System/renshi/lizhi/dimissionNotice_select.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="dim_add_succ_1" type="redirect">dimission_XieYiAction_showList.action?successMessage=${successMessage}
+			</result>
+		</action>
+		<!--
+			****************************************李聪门禁记录表Action操作(2015-10-12)**********************************************************************
+		-->
+		<!--门禁记录表 -->
+		<action name="AccessAction_*" class="accessAction" method="{1}">
+			<result name="accessAction_show">/System/menjin/accessAction_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪门禁设备表&摄像头Action操作(2015-10-12)**********************************************************************
+		-->
+		<!--门禁设备表 -->
+		<action name="AccessEquipmentAction_*" class="accessEquipmentAction"
+			method="{1}">
+			<result name="accessEquipment_add">/System/menjin/accessEquipment_add.jsp</result>
+			<result name="accessEquipment_show">/System/menjin/accessEquipment_show.jsp</result>
+			<result name="accessEquipment_admin">/System/menjin/accessEquipment_admin.jsp</result>
+			<result name="accessEquipment_update">/System/menjin/accessEquipment_update.jsp</result>
+			<!-- 门禁摄像头页面 -->
+			<result name="accessWebcam_add">/System/menjin/accessWebcam_add.jsp</result>
+			<result name="accessWebcam_show">/System/menjin/accessWebcam_show.jsp</result>
+			<result name="accessWebcam_update">/System/menjin/accessWebcam_update.jsp</result>
+			<!-- 人员绑定 -->
+			<result name="aceSBbangding_show">/System/menjin/aceSBbangding_show.jsp</result>
+			<result name="update_Success" type="redirect">
+				AccessEquipmentAction_findMfById.action?accessEquipment.id=${accessEquipment.id}&amp;pageStatus=${pageStatus}
+			</result> 
+			<!-- 室内灯绑定 --> 
+			<result name="oneLightbangdingace">/System/menjin/oneLightbangdingace.jsp</result>
+			<!-- 档案柜 -->
+			<result name="accessWebcam_dag">/System/menjin/accessWebcam_dag.jsp</result>
+			<result name="acWbangding_show">/System/menjin/acWbangding_show.jsp</result>
+			<!-- 时间段 -->
+			<result name="accessTime_add">/System/menjin/accessTime_add.jsp</result>
+			<result name="accessTime_show">/System/menjin/accessTime_show.jsp</result>
+			<result name="accessTime_update">/System/menjin/accessTime_update.jsp</result>
+			<result name="priceGui_show">/System/menjin/priceGui_show.jsp</result>
+			<result name="xungengRecord_showList">/System/menjin/xungengRecord_showList.jsp</result>
+			<!-- 快递柜操作 -->
+			<result name="resAccess_add">/System/menjin/resAccess_add.jsp</result>
+			<result name="resAccess_addji">/System/menjin/resAccess_addji.jsp</result>
+			<result name="resAccess_show">/System/menjin/resAccess_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪车辆管理表Action操作(2015-10-21)**********************************************************************
+		-->
+		<!--车辆管理表 -->
+		<action name="InEmployeeCarInforAction_*" class="inEmployeeCarInforAction"
+			method="{1}">
+			<!--常访车辆 -->
+			<result name="oftenVisitAction_add">/System/menjin/oftenVisitAction_add.jsp</result>
+			<result name="oftenVisitAction_show">/System/menjin/oftenVisitAction_show.jsp</result>
+			<result name="oftenVisitAction_update">/System/menjin/oftenVisitAction_update.jsp</result>
+			<!--内部车辆 -->
+			<result name="inEmployeeCarInfor_add">/System/menjin/inEmployeeCarInfor_add.jsp</result>
+			<result name="inEmployeeCarInfor_show">/System/menjin/inEmployeeCarInfor_show.jsp</result>
+			<result name="inEmployeeCarInfor_update">/System/menjin/inEmployeeCarInfor_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--门卫卡管理表 -->
+		<action name="GuardCardAction_*" class="guardCardAction"
+			method="{1}">
+			<result name="GuardCard_find">/System/menjin/GuardCard_find.jsp</result>
+			<result name="GuardCard_add">/System/menjin/GuardCard_add.jsp</result>
+			<result name="GuardCard_update">/System/menjin/GuardCard_update.jsp</result>
+			<result name="getByIdGuardCard">/System/menjin/GuardCard_update.jsp</result>
+			<result name="GuardCard_delete" type="redirect">/System/menjin/GuardCardAction_findGuardCard.action
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪进出管理表Action操作(2015-11-04)**********************************************************************
+		-->
+		<!--进出管理表 -->
+		<action name="AccessRecordsAction_*" class="accessRecordsAction"
+			method="{1}">
+			<result name="accessRecordsAction_show">/System/menjin/accessRecordsAction_show.jsp</result>
+			<result name="accessRecordsActionLog_show">/System/menjin/accessRecordsActionLog_show.jsp</result>
+			<result name="accessRecordsActionShui_show">/System/menjin/accessRecordsActionShui_show.jsp</result>
+			<result name="accessRecordsAction_show_carType">/System/menjin/accessRecordsAction_show_carType.jsp</result>
+			<result name="accessRecordsAction_update_carType">/System/menjin/accessRecordsAction_update_carType.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪车辆常访表Action操作(2015-11-19)**********************************************************************
+		-->
+		<!--进出管理表 -->
+		<action name="OftenVisitAction_*" class="oftenVisitAction" method="{1}">
+			<result name="oftenVisitAction_add">/System/menjin/oftenVisitAction_add.jsp</result>
+			<result name="oftenVisitAction_show">/System/menjin/oftenVisitAction_show.jsp</result>
+			<result name="oftenVisitAction_update">/System/menjin/oftenVisitAction_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪车位管理表Action操作(2015-12-06)**********************************************************************
+		-->
+		<!--车位管理表 -->
+		<action name="ParkSpaceAction_*" class="parkSpaceAction"
+			method="{1}">
+			<result name="parkSpace_add">/System/parking/parkSpace_add.jsp</result>
+			<result name="parkSpace_guan">/System/parking/parkSpace_guan.jsp</result>
+			<result name="parkSpace_show">/System/parking/parkSpace_show.jsp</result>
+			<result name="parkSpace_update">/System/parking/parkSpace_update.jsp</result>
+			<result name="parkSpaceInfor_show">/System/parking/parkSpaceInfor_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪打卡（汇总）管理表Action操作(2016-01-02)**********************************************************************
+		-->
+		<!--打卡表 -->
+		<action name="AttendanceTowAction_*" class="attendanceTowAction"
+			method="{1}">
+			<result name="attendanceTow_show">/System/AttendanceTow/attendanceTow_show.jsp</result>
+			<result name="attendanceTowCollect_show">/System/AttendanceTow/attendanceTowCollect_show.jsp</result>
+			<result name="download_show_show">/System/AttendanceTow/download_show_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪档案室申请表Action操作(2016-01-02)**********************************************************************
+		-->
+		<!--档案室申请表 -->
+		<action name="DanganAction_*" class="danganAction" method="{1}">
+			<result name="dangan_add">/System/menjin/dangan_add.jsp</result>
+			<result name="dangan_add_fp">/System/menjin/dangan_add_fp.jsp</result>
+			<result name="dangan_show">/System/menjin/dangan_show.jsp</result>
+			<result name="dangan_show_1">/System/menjin/dangan_show_1.jsp</result>
+			<result name="dangan_select">/System/menjin/dangan_select.jsp</result>
+			<result name="dangan_add_qu">/System/menjin/dangan_add_qu.jsp</result>
+			<result name="dangan_update">/System/menjin/dangan_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪一体机表Action操作(2016-01-02)**********************************************************************
+		-->
+		<!--一体机表 -->
+		<action name="OneMachineAction_*" class="oneMachineAction"
+			method="{1}">
+			<result name="machine_add">/System/SOP/oneMachine/machine_add.jsp</result>
+			<result name="machine_show">/System/SOP/oneMachine/machine_show.jsp</result>
+			<result name="oneLightbangding">/System/onemark/oneLightbangding.jsp</result>
+			<result name="machine_update">/System/SOP/oneMachine/machine_update.jsp</result>
+			<result name="gwbangding_show">/System/SOP/oneMachine/gwbangding_show.jsp</result>
+			<result name="Procard_noCardList_2">/System/SOP/produce/Procard_noCardList.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			****************************************李聪工位领工序Action操作(2016-01-02)**********************************************************************
+		-->
+		<!--悬挂一体机领工序 -->
+		<action name="SuspsomAction_*" class="suspsomAction" method="{1}">
+			<result name="Su_show">/System/SOP/oneMachine/show_1.jsp</result>
+			<result name="gongwei_show">/System/SOP/oneMachine/showgw.jsp</result>
+			<result name="tuzhi_show">/System/SOP/oneMachine/tuzhi_show.jsp</result>
+			<result name="oneMac_ask">/System/SOP/oneMachine/oneMac_ask.jsp</result>
+			<result name="oneMac_xuanzhe">/System/SOP/oneMachine/oneMac_xuanzhe.jsp</result>
+			<result name="otherLogin_float">/System/SOP/oneMachine/otherLogin_float.jsp</result>
+			<result name="quexiantuzhi_show">/System/SOP/oneMachine/quexiantuzhi_show.jsp</result>
+			<result name="Procard_noCardList_lq">/System/SOP/produce/Procard_noCardList.jsp</result>
+			<result name="Procard_noCardList_1">/System/SOP/produce/Procard_noCardList_oma.jsp</result>
+			<result name="oneMac_wageandjangjin">/System/SOP/oneMachine/oneMac_wageandjangjin.jsp</result>
+			<result name="Visit_show">/System/menjin/Visit_show.jsp</result>
+			<result name="logOff__1">/logOff__1.jsp</result>
+			<result name="login_Dang">/login_Dang.jsp</result>
+			<result name="login_Dang_1" type="redirect">AccessEquipmentAction_selectPrice.action?id=${id}</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪档案室申请表Action操作(2016-03-11)**********************************************************************
+		-->
+		<!--电灯表 -->
+		<action name="OneLightAction_*" class="oneLightAction" method="{1}">
+			<result name="onelight_add">/System/onemark/onelight_add.jsp</result>
+			<result name="onelight_show">/System/onemark/onelight_show.jsp</result>
+			<result name="onelight_guan">/System/onemark/oneLight_guan.jsp</result>
+			<result name="onelight_update">/System/onemark/onelight_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪工具柜表Action操作(2016-06-08)**********************************************************************
+		-->
+		<!--工具柜表，存物表，取物表 -->
+		<action name="ToolCabineAction_*" class="toolCabineAction" method="{1}">
+			<result name="toolCabine_add">/System/menjin/toolCabine_add.jsp</result>
+			<result name="toolCabine_add_1">/System/menjin/toolCabine_add_1.jsp</result>
+			<result name="toolCabine_add_2">/System/menjin/toolCabine_add_2.jsp</result>
+			<result name="toolCabine_add_3">/System/menjin/toolCabine_add_3.jsp</result>
+			<result name="toolCabine_show">/System/menjin/toolCabine_show.jsp</result>
+			<result name="drinksType_show">/System/menjin/drinksType_show.jsp</result>
+			<result name="toolCabine_show_1">/System/menjin/toolCabine_show_1.jsp</result>
+			<result name="toolCabine_show_2">/System/menjin/toolCabine_show_2.jsp</result>
+			<result name="toolCabine_show_3">/System/menjin/toolCabine_show_3.jsp</result>
+			<result name="toolCabine_show_4">/System/menjin/toolCabine_show_4.jsp</result>
+			<result name="toolCabine_update">/System/menjin/toolCabine_update.jsp</result>
+			<result name="toolCabine_update_1">/System/menjin/toolCabine_update_1.jsp</result>
+			<result name="toolCabine_update_2">/System/menjin/toolCabine_update_2.jsp</result>
+			<result name="toolCabine_update_3">/System/menjin/toolCabine_update_3.jsp</result>
+			<result name="drinksType_update">/System/menjin/drinksType_update.jsp</result>
+			<result name="receiveCabinet_show">/System/menjin/receiveCabinet_show.jsp</result>
+			<result name="depositCabinet_show">/System/menjin/depositCabinet_show.jsp</result>
+			<result name="guizibangding_show">/System/menjin/guizibangding_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪工具柜表Action操作(2016-06-08)**********************************************************************
+		-->
+		<!--工具柜表，存物表，取物表 -->
+		<action name="UserSignInAction_*" class="userSignInAction" method="{1}">
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪特殊日期表Action操作(2016-09-20)**********************************************************************
+		-->
+		<!--特殊日期表 -->
+		<action name="SpecialDateAction_*" class="specialDateAction" method="{1}">
+			<result name="specialDate_add">/System/menjin/specialDate_add.jsp</result>
+			<result name="specialDate_show">/System/menjin/specialDate_show.jsp</result>
+			<result name="specialDate_update">/System/menjin/specialDate_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪指纹管理表Action操作(2016-10-27)**********************************************************************
+		-->
+		<!--指纹信息表 -->
+		<action name="FingerprintMgAction_*" class="fingerprintMgAction" method="{1}">
+			<result name="fingsbangding">/System/menjin/fingsbangding.jsp</result>
+			<result name="fingerprintMg_add">/System/menjin/fingerprintMg_add.jsp</result>
+			<result name="fingerprintMg_show">/System/menjin/fingerprintMg_show.jsp</result>
+			<result name="fingerprintMg_Oneshow">/System/menjin/fingerprintMg_Oneshow.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪库位管理表Action操作(2016-11-18)**********************************************************************
+		-->
+		<!--库位管理表 -->
+		<action name="WarehouseApplicationAction_*" class="warehouseApplicationAction" method="{1}">
+			<result name="warehouseApplication_show">/System/menjin/warehouseApplication_show.jsp</result>
+			<result name="warehouseCertificate_show">/System/menjin/warehouseCertificate_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪卷帘门申请表Action操作(2017-02-09)**********************************************************************
+		-->
+		<!--卷帘门信息表 -->
+		<action name="JLMApplicationAction_*" class="jlmApplicationAction" method="{1}">
+			<result name="jlm_add">/System/menjin/jlm_add.jsp</result>
+			<result name="jlmApplication_show">/System/menjin/jlmApplication_show.jsp</result>
+			<result name="jlmOperation_show">/System/menjin/jlmOperation_show.jsp</result>
+			<result name="jlm_boss">/System/menjin/jlm_boss.jsp</result>	
+			<result name="doorType_add">/System/menjin/doorType_add.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪Rfid表Action操作(2017-04-13)**********************************************************************
+		-->
+		<!--Rfid信息表 -->
+		<action name="RfidAction_*" class="rfidAction" method="{1}">
+			<result name="rfid_add">/System/rfid/rfid_add.jsp</result>
+			<result name="rfid_show">/System/rfid/rfid_show.jsp</result>
+			<result name="rfid_update">/System/rfid/rfid_update.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪凭证表Action操作(2017-08-21)**********************************************************************
+		-->
+		<!--凭证信息表 -->
+		<action name="CwCertificateAction_*" class="cwCertificateAction" method="{1}">
+			<result name="cwCertificate_add">/System/caiwu/pz/cwCertificate_add.jsp</result>
+			<result name="cwCertificate_add_pl">/System/caiwu/pz/cwCertificate_add_pl.jsp</result>
+			<result name="cwCertificate_show">/System/caiwu/pz/cwCertificate_show.jsp</result>
+			<result name="cwCertificate_appli">/System/caiwu/pz/cwCertificate_appli.jsp</result>
+			<result name="cwCertificate_update">/System/caiwu/pz/cwCertificate_update.jsp</result>
+			<result name="cwCertificate_show_xuanz">/System/caiwu/pz/cwCertificate_show_xuanz.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--
+			****************************************李聪用户对接信息表Action操作(2017-12-01)**********************************************************************
+		-->
+		<!--凭证信息表 -->
+		<action name="US" class="userFacialInforAction">
+			<result name="facialInfor_show">/System/renshi/facialInfor_show.jsp</result>
+			<result name="facialFeatures_show">/System/renshi/facialFeatures_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--
+			****************************************李聪用户面部特征信息表Action操作(2017-12-01)**********************************************************************
+		-->
+		<!--凭证信息表 -->
+		<action name="UF" class="userFacialFeaturesAction">
+			<result name="error">/error.jsp</result>
+		</action>
+    </package>
+</struts>

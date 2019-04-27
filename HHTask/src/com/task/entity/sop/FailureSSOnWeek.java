@@ -1,0 +1,165 @@
+package com.task.entity.sop;
+
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/***
+ * 每周不合格统计(表名:ta_sop_FailureSSOnWeek)
+ * 
+ * @author 刘培
+ * 
+ */
+public class FailureSSOnWeek implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private Float oneWeekSc;// 周检验总数(oneWeekSubmitCount)
+	private Float oneWeekFc;// 周提交不合格数量(oneWeekFailureCount)
+	private Float frequency;// 发生频率
+	private String weekds;// 周(yyyy年xx周)
+	private String addTime;// 添加时间(yyyy-MM-dd HH:mm:ss)
+	private String gongwei;//工位
+	private String type;//类型(外购、自制、外委)
+	
+	
+	
+
+	private Float weldingDefects;// 焊接缺陷
+	private Float strikeSize;// 走向/尺寸
+	private Float flangeFlatness;// 法兰平面度
+	private Float tfb;// 箭筒内异物(tubeForeignBody)
+	private Float airtight;// 气密
+	private Float exterior;// 外观
+	private Float other;// 其它(注明原因)
+	private Set<FailureStatisticsDetail> fsdSet;// 不合格品明细
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Float getOneWeekSc() {
+		return oneWeekSc;
+	}
+
+	public void setOneWeekSc(Float oneWeekSc) {
+		this.oneWeekSc = oneWeekSc;
+	}
+
+	public Float getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(Float frequency) {
+		this.frequency = frequency;
+	}
+
+	public Float getWeldingDefects() {
+		return weldingDefects;
+	}
+
+	public void setWeldingDefects(Float weldingDefects) {
+		this.weldingDefects = weldingDefects;
+	}
+
+	public Float getStrikeSize() {
+		return strikeSize;
+	}
+
+	public void setStrikeSize(Float strikeSize) {
+		this.strikeSize = strikeSize;
+	}
+
+	public Float getFlangeFlatness() {
+		return flangeFlatness;
+	}
+
+	public void setFlangeFlatness(Float flangeFlatness) {
+		this.flangeFlatness = flangeFlatness;
+	}
+
+	public Float getTfb() {
+		return tfb;
+	}
+
+	public void setTfb(Float tfb) {
+		this.tfb = tfb;
+	}
+
+	public Float getAirtight() {
+		return airtight;
+	}
+
+	public void setAirtight(Float airtight) {
+		this.airtight = airtight;
+	}
+
+	public Float getExterior() {
+		return exterior;
+	}
+
+	public void setExterior(Float exterior) {
+		this.exterior = exterior;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public Float getOneWeekFc() {
+		return oneWeekFc;
+	}
+
+	public void setOneWeekFc(Float oneWeekFc) {
+		this.oneWeekFc = oneWeekFc;
+	}
+
+	public Float getOther() {
+		return other;
+	}
+
+	public void setOther(Float other) {
+		this.other = other;
+	}
+
+	public String getWeekds() {
+		return weekds;
+	}
+
+	public void setWeekds(String weekds) {
+		this.weekds = weekds;
+	}
+
+	public String getGongwei() {
+		return gongwei;
+	}
+
+	public void setGongwei(String gongwei) {
+		this.gongwei = gongwei;
+	}
+	@JSONField(serialize = false)
+	public Set<FailureStatisticsDetail> getFsdSet() {
+		return fsdSet;
+	}
+
+	public void setFsdSet(Set<FailureStatisticsDetail> fsdSet) {
+		this.fsdSet = fsdSet;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+}

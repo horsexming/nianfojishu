@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.CpGoodsChangeWG" table="ta_CpGoodsChangeWG">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="goodsId" />	
+		<property name="goodsMarkId" />	
+		<property name="goodsLotId" />	
+		<property name="goodsFullName" />	
+		<property name="goodsFormat" />
+		<property name="goodsUnit" />
+			
+		
+		<property name="changeCount" />	
+		<property name="actualChangeCount" />	
+		<property name="changePeopleId" />
+		<property name="changePeoleName" />	
+		<property name="changeDate" />	
+		<property name="changeTime" />	
+		
+		<property name="sellId" />	
+		<property name="GoodsStoreId" />	
+		
+		
+		<property name="ep_Id" />	
+		<property name="ep_status" />
+		
+		
+		<property name="cpSellId" />	
+		<property name="cpGoodsClass" />	
+		<property name="cpGoodHouseName" />	
+		<property name="cpGoodsPosition" />	
+		
+		<property name="wgGoodStoreId" />	
+		<property name="wgGoodsClass" />	
+		<property name="wgGoodHouseName" />
+		<property name="wgGoodsPosition" />
+		
+
+	</class>
+
+</hibernate-mapping>

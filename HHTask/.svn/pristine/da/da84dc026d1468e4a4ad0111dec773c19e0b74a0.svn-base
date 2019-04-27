@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.core">
+	<class name="CorePayable" table="ta_fin_caiwu_CorePayable">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fk_CPMId" />
+		<property name="fkNumber" />
+		<property name="wageMonth" />
+		<property name="fk_fundApplyId" />
+		<property name="coreType" />
+		
+		<property name="subjectItem" />
+		<property name="zhaiyao" />
+		<property name="number" />
+		<property name="unit" />
+		<property name="hsPrice" />
+		<property name="bhsPrice" />
+		<property name="zgbhsPrice" />
+		<property name="priceId" />
+		<property name="taxprice" />
+		<property name="hetongbianhao" />
+		<property name="kkpNumber" />
+		<property name="yufukuanJine" />
+		<property name="yingfukuanJine" />
+		<property name="yipizhunJine" />
+		<property name="realfukuanJine" />
+		<property name="saveTime" />
+		<property name="jzMonth" />
+		<property name="saveUser" />
+		<property name="fukuanZq" />
+		<property name="fukuanDate" />
+		<property name="lateDate" />
+		<property name="fuzeren" />
+		<property name="fapiaoNum" />
+		<property name="fujian" />
+		<property name="status" />
+		<property name="orderNumber" />
+		<property name="orderId" />
+		<property name="deliveryNumber" />
+		<property name="deliveryId" />
+		<property name="supplierName" />
+		<property name="supplierId" />
+		<property name="markId" />
+		<property name="processNo" />
+		<property name="processName" />
+		<property name="lot" />
+		<property name="goodsId" />
+		<property name="selfCard" />
+		<property name="procardId" />
+		<property name="epId" />
+		<property name="auditStatus" />
+		<property name="more" />
+		<property name="shDte" />
+		<property name="rukuNumber" />
+		<property name="cangqu" />
+		<property name="proName" />
+		<property name="specification" length="500"/>
+		<property name="shNumber" />
+		<property name="kgliao" />
+		<property name="ywmarkId" />
+		<property name="cgOrderType" />
+	</class>
+</hibernate-mapping>

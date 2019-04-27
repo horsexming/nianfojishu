@@ -1,0 +1,124 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * @Title: BusinessSubsidiaryResult.java
+ * @Package com.task.entity
+ * @Description: TODO 业务明细结果类
+ * @author 曾建森
+ * @date 2012-11-1 下午05:17:41
+ * @version V1.0
+ */
+public class BusinessSubsidiaryResult implements Serializable {
+	private static final long serialVersionUID = 1L;
+	public int id;
+	public int sellId;
+	public int businessId;
+	public String lot;
+	public String markId;
+	public String productName;
+	public float count;
+	public String unit;
+	public String conpanyName;
+	public String date;
+
+	public BusinessSubsidiaryResult() {
+		super();
+	}
+
+	public BusinessSubsidiaryResult(int id, int sellId, int businessId, String lot, String markId, String productName,
+			float count, String unit, String conpanyName, String date) {
+		super();
+		this.id = id;
+		this.sellId = sellId;
+		this.businessId = businessId;
+		this.lot = lot;
+		this.markId = markId;
+		this.productName = productName;
+		this.count = count;
+		this.unit = unit;
+		this.conpanyName = conpanyName;
+		this.date = date;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getSellId() {
+		return sellId;
+	}
+
+	public void setSellId(int sellId) {
+		this.sellId = sellId;
+	}
+
+	public int getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(int businessId) {
+		this.businessId = businessId;
+	}
+
+	public String getLot() {
+		return lot;
+	}
+
+	public void setLot(String lot) {
+		this.lot = lot;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public float getCount() {
+		return count;
+	}
+
+	public void setCount(float count) {
+		this.count = count;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getConpanyName() {
+		return conpanyName;
+	}
+
+	public void setConpanyName(String conpanyName) {
+		this.conpanyName = conpanyName;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+}

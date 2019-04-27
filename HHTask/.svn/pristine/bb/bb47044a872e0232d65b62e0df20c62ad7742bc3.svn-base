@@ -1,0 +1,326 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 980px;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">关联外购件信息</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<iframe id="showProcess" src="" marginwidth="0" marginheight="0"
+						hspace="0" vspace="0" frameborder="0" scrolling="yes"
+						style="width: 98%; height: 500px; margin: 0px; padding: 0px;">
+					</iframe>
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<table class="table">
+					<tr>
+						<th>
+							件号
+						</th>
+						<th>
+							名称
+						</th>
+						<th>
+							批次
+						</th>
+						<th>
+							申请人
+						</th>
+						<th>
+							申请时间
+						</th>
+						<th>
+							备注
+						</th>
+						<th>
+							操作
+						</th>
+					</tr>
+					<form action="ProcardAction!wwsq.action" method="post" id="form_${pwwApply.id}">
+						<input type="hidden" value="${pwwApply.id}" name="pwwApply.id">
+						<tr>
+							<td align="center">
+								${pwwApply.markId}
+							</td>
+							<td align="center">
+								${pwwApply.proName}
+							</td>
+							<td align="center">
+								${pwwApply.selfCard}
+							</td>
+							<td align="center">
+								${pwwApply.userName}
+							</td>
+							<td align="center">
+								${pwwApply.addTime}
+							</td>
+							<td align="center">
+								<textarea rows="1" cols="10" name="pwwApply.remarks">${pwwApply.remarks}</textarea>
+							</td>
+							<td align="center">
+								<s:if test="pwwApply.epId==null||pwwApply.status=='打回'">
+									<input id="sqspbtn" onclick="sqsp(${pwwApply.id})" type="button"
+										value="申请审批" style="width: 80px; height: 25px;" />
+								</s:if>
+								<s:else>
+									<input onclick="sqdt(${pwwApply.epId})" type="button"
+										value="审批动态" style="width: 80px; height: 25px;" />
+								</s:else>
+								<input onclick="exportWwApplyDetail(${pwwApply.id});todisabledone(this)" data="downData"
+									type="button" value="导出明细" style="width: 80px; height: 25px;" />
+							</td>
+						</tr>
+					</form>
+					<tr>
+						<td align="center" colspan="7">
+						<form action="ProcardAction!deleteWwApplyDetails.action?" method="POST">
+							<table class="table" style="border-collapse: collapse;">
+								<tr>
+									<th>
+										<input type="checkbox"  name="" onclick="chageAllCheck(this)"/>
+										<input type="hidden" value="${id}" name="id"/>
+									</th>
+									<th>
+										序号
+									</th>
+									<th>
+										供应商
+									</th>
+									<th>
+										件号
+									</th>
+									<th>
+										零件名称
+									</th>
+									<th>
+										批次
+									</th>
+									<th>
+										版本
+									</th>
+									<th>
+										版次
+									</th>
+									<th>
+										工序号
+									</th>
+									<th>
+										工序名称
+									</th>
+									<th>
+										数量
+									</th>
+									<th>
+										外委类型
+									</th>
+									<th>
+										状态
+									</th>
+									<th>
+										进度
+									</th>
+									<th>
+										添加人
+									</th>
+									<th>
+										添加时间
+									</th>
+									<th width="300px">
+										关联外购件
+									</th>
+									<th>
+										调整工序
+									</th>
+									<th>
+										操作
+									</th>
+								</tr>
+								<s:iterator value="pwwApply.detailList" id="pagedetail"
+									status="step1">
+									<s:if test="#step1.index%2==1">
+										<tr align="center" bgcolor="#e6f3fb" style="height: 50px;"
+											onmouseover="chageBgcolor(this)"
+											onmouseout="outBgcolor(this,'#e6f3fb')">
+									</s:if>
+									<s:else>
+										<tr align="center" onmouseover="chageBgcolor(this)"
+											style="height: 50px;" onmouseout="outBgcolor(this,'')">
+									</s:else>
+									<td align="center">
+										<input type="checkbox" value="${pagedetail.id}" name="processIds"/>
+									</td>
+									<td align="center">
+										<s:property value="#step1.index+1" />
+									</td>
+									<td align="center">
+										<s:if test="#pagedetail.gysId==null">
+											<font color="red">尚未匹配到合同</font>
+										</s:if>
+										<s:else>
+								${pagedetail.gysName}
+								</s:else>
+									</td>
+									<td align="center">
+										${pagedetail.markId}
+									</td>
+									<td align="left">
+										${pagedetail.proName}
+									</td>
+									<td align="center">
+										${pagedetail.selfCard}
+									</td>
+									<td align="center">
+										${pagedetail.banbenNumber}
+									</td>
+									<td align="center">
+										${pagedetail.banci}
+									</td>
+									<td align="left">
+										${pagedetail.processNOs}
+									</td>
+									<td align="left">
+										${pagedetail.processNames}
+									</td>
+									<td align="center">
+										${pagedetail.applyCount}
+									</td>
+									<td align="center">
+										${pagedetail.wwType}
+									</td>
+									<s:if test='#pagedetail.dataStatus=="删除"'>
+										<td align="center" style="background-color: red;">
+											${pagedetail.dataStatus}
+										</td>
+									</s:if>
+									<s:else>
+										<td align="center">
+											${pagedetail.dataStatus}
+										</td>
+									</s:else>
+									<td align="center">
+										${pagedetail.processStatus}
+									</td>
+									<td align="center">
+										${pagedetail.userName}
+									</td>
+									<td align="center">
+										${pagedetail.addTime}
+									</td>
+									<td width="300px" align="left">
+										<s:if test='#pagedetail.wwType == "包工包料"'>
+											<input type="button" value="已关联外购件"
+												onclick="showwgjmarkId(${pagedetail.procardId})" />
+										</s:if>
+										<s:else>
+											<s:property value="#pagedetail.guanlianMarkId" />
+										</s:else>
+									</td>
+									<td>
+										<input type="button" value="调整工序"
+											onclick="totzgongxu(${pagedetail.id})" />
+										<s:if
+											test='#pagedetail.wwType == "工序外委"||(#pagedetail.wwType == "包工包料"&&pwwApply.status!="同意")'>
+											<input type="button" value="调整外购件"
+												onclick="totzwgy(${pagedetail.id})" />
+										</s:if>
+									</td>
+										<td>
+									<s:if test="#pagedetail.deleteEpId!=null">
+										<a href="CircuitRunAction_findAduitPage.action?id=${pagedetail.deleteEpId}">删除审批动态</a>
+										<s:if test="#pagedetail.deleteStatus=='打回'">
+										<input value="删除" type="button"
+												style="width: 40px; height: 20px;"
+												onclick="deleteDetail(${pagedetail.id})" />
+										</s:if>
+									</s:if>
+									<s:elseif test='#pagedetail.userCode == #session.Users.code '>
+										<s:if test="#pagedetail.processStatus=='预选未审批'||
+										#pagedetail.processStatus=='合同待确认' || #pagedetail.processStatus=='外委待下单' ">
+											<input value="删除" type="button"
+												style="width: 40px; height: 20px;"
+												onclick="deleteDetail(${pagedetail.id})" />
+										</s:if>
+									</s:elseif>
+										</td>
+									</tr>
+								</s:iterator>
+							</table>
+							<s:if test="pwwApply.userCode==#session.Users.code">
+								<s:if test="pwwApplyprocessStatus=='预选未审批'||
+								pwwApplyprocessStatus=='合同待确认'">
+									<input type="submit" value="删除" class="input" onclick="todisabled(this)" />
+								</s:if>
+							</s:if>
+							
+					</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<SCRIPT type="text/javascript">
+function sqdt(id){
+	window.location.href="CircuitRunAction_findAduitPage.action?id="+id;
+}
+function sqsp(id){
+	$("#sqspbtn").attr("disabled","disabled");
+	$("#form_"+id).submit();
+	//window.location.href="ProcardAction!wwsq.action?id="+id;
+}
+function deleteDetail(id){
+	if(confirm("您是否要删除此条记录!")){
+		window.location.href="ProcardAction!deleteWwApplyDetail.action?id="+id;
+	}
+}
+function showwgjmarkId(id){
+	chageDiv("block");
+	$("#showProcess").attr("src","ProcardAction!showwgjmarkId.action?id="+id);
+	
+}
+function exportWwApplyDetail(id){
+	window.location.href="ProcardAction!exportWwApplyDetail.action?id="+id;
+}
+function totzgongxu(id){
+	window.location.href="ProcardAction!totzgongxu.action?id="+id;
+}
+function totzwgy(id){
+	chageDiv("block");
+	$("#showProcess").attr("src","ProcardAction!totzwgj.action?id="+id);
+}
+
+</SCRIPT>
+	</body>
+</html>

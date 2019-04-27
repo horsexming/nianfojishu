@@ -1,0 +1,105 @@
+package com.task.entity.bybz;
+
+import java.io.Serializable;
+
+/**
+ * 设备保养记录
+ * 
+ * @author Administrator
+ *
+ */
+
+public class BaoYangRecord implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String baoyangCondition;// 保养条件
+	private String baoyangMeans;// 保养方法
+	private Integer BaoYangBiaoZhunId;// 关联保养标准表
+	private Integer machineId;// 设备表
+	private Integer baoyangCycle;// 保养周期(天)
+	private String result;// 结果
+	private String addTime;// 保养时间（添加时间）
+	private String nextTime;// 预计下次保养时间
+	private String person;// 保养人
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getBaoyangCondition() {
+		return baoyangCondition;
+	}
+
+	public void setBaoyangCondition(String baoyangCondition) {
+		this.baoyangCondition = baoyangCondition;
+	}
+
+	public String getBaoyangMeans() {
+		return baoyangMeans;
+	}
+
+	public void setBaoyangMeans(String baoyangMeans) {
+		this.baoyangMeans = baoyangMeans;
+	}
+
+	public Integer getBaoYangBiaoZhunId() {
+		return BaoYangBiaoZhunId;
+	}
+
+	public void setBaoYangBiaoZhunId(Integer baoYangBiaoZhunId) {
+		BaoYangBiaoZhunId = baoYangBiaoZhunId;
+	}
+
+	public Integer getMachineId() {
+		return machineId;
+	}
+
+	public void setMachineId(Integer machineId) {
+		this.machineId = machineId;
+	}
+
+	public Integer getBaoyangCycle() {
+		return baoyangCycle;
+	}
+
+	public void setBaoyangCycle(Integer baoyangCycle) {
+		this.baoyangCycle = baoyangCycle;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getNextTime() {
+		return nextTime;
+	}
+
+	public void setNextTime(String nextTime) {
+		this.nextTime = nextTime;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+}

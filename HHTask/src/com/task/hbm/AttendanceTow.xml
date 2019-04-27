@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.AttendanceTow" table="ta_kq_AttendanceTow">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property name="name" />
+		<property name="dept" />
+		<property name="cardId"/>
+		<property name="code"/>
+		<property name="userId"/>
+		<property name="outInDoor"/>
+		<property name="dateTime"/>
+		<property name="time"/>
+		<property name="addTime"/>
+		<property name="downType"/>
+		<property name="downAddress"/>
+	</class>
+</hibernate-mapping>

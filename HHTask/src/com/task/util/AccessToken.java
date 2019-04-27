@@ -1,0 +1,88 @@
+package com.task.util;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.qq.weixin.mp.aes.AccessTokenJason;
+
+/**
+ * R 获取access_token类 调用getAccessToken()方法
+ * 
+ * @author Administrator
+ *
+ */
+public class AccessToken {
+
+	public static String APPID = "wxa62d21c7055ef60d";
+	public static String APPSECRET = "36067905224e7f8d2761e587babdd539";
+	// 单例模式
+	private static AccessToken accessToken = null;
+	// access_token值
+	private String access_token;
+	// 有效时间戳
+	private long endTime;
+
+	// 私有构造方法
+	private AccessToken() {
+	}
+
+	/**
+	 * 获取access_token值
+	 * 
+	 * @return access_token
+	 */
+	public static String getAccessToken() {
+		if (accessToken == null) {
+			accessToken = new AccessToken();
+			accessToken.makeAccessToken();
+		}
+		long nowTime = System.currentTimeMillis();
+		if (nowTime > accessToken.endTime) {
+			accessToken.makeAccessToken();
+		}
+		// System.out.println(accessToken.access_token);
+		return accessToken.access_token;
+	}
+
+	/**
+	 * 从微信服务器获取access_token值
+	 */
+	private void makeAccessToken() {
+		// 创建一个http请求
+		HttpRequest request = new HttpRequest();
+		// 设置参数
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("grant_type", "client_credential");
+		params.put("appid", APPID);
+		params.put("secret", APPSECRET);
+		HttpResponse result = null;
+		// 发起https请求
+		try {
+			result = request.sendHttpsGet("https://api.weixin.qq.com/cgi-bin/token", params);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// System.out.println(result);
+		// 返回数据转成对象，得到access_token
+		try {
+			Gson gson = new Gson();
+			AccessTokenJason atj = gson.fromJson(result.getDataString(), AccessTokenJason.class);
+			access_token = atj.getAccess_token();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 设置access_token有效时间
+		endTime = System.currentTimeMillis() + 7100 * 1000;
+	}
+
+	public static void setAppInfo(String appid, String appsecret) {
+		APPID = appid;
+		APPSECRET = appsecret;
+		if (accessToken == null) {
+			accessToken = new AccessToken();
+		}
+		accessToken.makeAccessToken();
+	}
+}

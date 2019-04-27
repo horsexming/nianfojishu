@@ -1,0 +1,78 @@
+package com.task.entity.caiwu;
+
+import java.io.Serializable;
+
+/****
+ * 银行帐号表
+ * 
+ * @表名 ta_fin_Accounts
+ * @author 刘培
+ * 
+ */
+public class BankAccounts implements Serializable{
+
+	private Integer id;// id主键
+	private String bankNC;// 银行名称
+	private String bankZH;// 银行账户
+	private Double bankZE;// 银行总额
+	private Double allZC;// 总支出
+	private Double allSR;// 总收入
+	private String addDateTime;// 添加时间
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getBankNC() {
+		return bankNC;
+	}
+
+	public void setBankNC(String bankNC) {
+		this.bankNC = bankNC;
+	}
+
+	public String getBankZH() {
+		return bankZH;
+	}
+
+	public void setBankZH(String bankZH) {
+		this.bankZH = bankZH;
+	}
+
+	public Double getBankZE() {
+		return bankZE;
+	}
+
+	public void setBankZE(Double bankZE) {
+		this.bankZE = bankZE;
+	}
+
+	public Double getAllZC() {
+		return allZC;
+	}
+
+	public void setAllZC(Double allZC) {
+		this.allZC = allZC;
+	}
+
+	public Double getAllSR() {
+		return allSR;
+	}
+
+	public void setAllSR(Double allSR) {
+		this.allSR = allSR;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+
+}

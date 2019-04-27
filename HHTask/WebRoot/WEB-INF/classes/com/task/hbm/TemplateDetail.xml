@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="TemplateDetails" table="ta_hr_TemplateDetails">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<property name="project" length="1000" column="ta_hr_project" />
+		<property name="customScore" length="4" column="ta_hr_customScore" />
+		<property name="onLayer" length="10" column="ta_hr_onLayer" />
+		<property name="layer" length="4" column="ta_hr_layer" />
+		<property name="isSroce" length="6" column="ta_hr_isSroce" />
+		<property name="oldOnLayer" length="10" column="ta_hr_oldOnLayer" />
+		<property name="isJida" length="10" />
+		<property name="jidaClasss" length="10" />
+		<property name="weight"/>
+		<many-to-one name="template" column="ta_hr_templateId"
+			lazy="false" class="Template">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

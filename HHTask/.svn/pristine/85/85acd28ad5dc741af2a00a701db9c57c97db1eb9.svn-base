@@ -1,0 +1,155 @@
+package com.task.entity.sop;
+
+import java.util.List;
+
+/**
+ * PCN执行跟踪表 ta_sop_w_ProcessChangeNotice
+ * @author txb
+ *
+ */
+public class ProcessChangeNotice {
+
+	private Integer id;
+	private Integer addUserId;//
+	private String addUserName;//
+	private String addUserCode;//
+	private String addTime;//
+	private String applyDate;//
+	private String pcnNumber;//编号
+	private String ywMarkId;//产品编码
+	private Integer applyUserId;//发起人ID
+	private String applyUserName;//
+	private String applyUserCode;//
+	private String belongto;//归属
+	private String pcntheme;//主题
+	private String submitDate;//提交客户日期
+	private String feedbackDate;//客户反馈日期
+	private String feedbackoption;//客户反馈意见(接收，拒绝)
+	private String zxStatus;//执行情况
+	private String isend;//是否结案(已结案，未结案)
+	private List<ProcessChangeNoticeFile> files;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+	public String getAddUserName() {
+		return addUserName;
+	}
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getApplyDate() {
+		return applyDate;
+	}
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
+	}
+	public String getPcnNumber() {
+		return pcnNumber;
+	}
+	public void setPcnNumber(String pcnNumber) {
+		this.pcnNumber = pcnNumber;
+	}
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+	public String getPcntheme() {
+		return pcntheme;
+	}
+	public void setPcntheme(String pcntheme) {
+		this.pcntheme = pcntheme;
+	}
+	public String getSubmitDate() {
+		return submitDate;
+	}
+	public void setSubmitDate(String submitDate) {
+		this.submitDate = submitDate;
+	}
+	public String getFeedbackDate() {
+		return feedbackDate;
+	}
+	public void setFeedbackDate(String feedbackDate) {
+		this.feedbackDate = feedbackDate;
+	}
+	public String getFeedbackoption() {
+		return feedbackoption;
+	}
+	public void setFeedbackoption(String feedbackoption) {
+		this.feedbackoption = feedbackoption;
+	}
+	public String getZxStatus() {
+		return zxStatus;
+	}
+	public void setZxStatus(String zxStatus) {
+		this.zxStatus = zxStatus;
+	}
+	public String getIsend() {
+		return isend;
+	}
+	public void setIsend(String isend) {
+		this.isend = isend;
+	}
+	public List<ProcessChangeNoticeFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<ProcessChangeNoticeFile> files) {
+		this.files = files;
+	}
+	public Integer getApplyUserId() {
+		return applyUserId;
+	}
+	public void setApplyUserId(Integer applyUserId) {
+		this.applyUserId = applyUserId;
+	}
+	public String getApplyUserName() {
+		return applyUserName;
+	}
+	public void setApplyUserName(String applyUserName) {
+		this.applyUserName = applyUserName;
+	}
+	public String getApplyUserCode() {
+		return applyUserCode;
+	}
+	public void setApplyUserCode(String applyUserCode) {
+		this.applyUserCode = applyUserCode;
+	}
+	public String getBelongto() {
+		return belongto;
+	}
+	public void setBelongto(String belongto) {
+		this.belongto = belongto;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

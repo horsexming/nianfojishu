@@ -1,0 +1,45 @@
+package com.task.entity.fin.budget;
+
+import java.io.Serializable;
+
+/**
+ * 部门科目表表（ta_fin_deptSubjects）
+ * @author jhh
+ *
+ */
+public class DeptSubjects implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;//主键
+	private String deptName;//部门
+	private String rootSubjectName;//一级科目名称
+	private String subjectName;//二级科目名称
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public String getRootSubjectName() {
+		return rootSubjectName;
+	}
+	public void setRootSubjectName(String rootSubjectName) {
+		this.rootSubjectName = rootSubjectName;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	
+	
+}

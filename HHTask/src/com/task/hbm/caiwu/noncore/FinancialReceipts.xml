@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.noncore">
+	<class name="FinancialReceipts" table="ta_fin_caiwu_FinancialReceipts">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="coreReceivablesDetailId"/>		
+		<property name="kemu" />
+		<property name="zhangqi" />
+		<property name="jiluTime" />
+		<property name="jiezTime" />
+		<property name="tiJiaoTime" />
+		<property name="photoPath" />
+		<property name="querenMoney" />
+		<property name="saveCode" />
+		<property name="saveUser" />
+		<property name="saveUserId"/>
+	</class>
+</hibernate-mapping>

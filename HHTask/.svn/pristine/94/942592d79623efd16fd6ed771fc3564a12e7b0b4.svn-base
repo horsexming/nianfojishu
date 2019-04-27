@@ -1,0 +1,188 @@
+/**
+ * 
+ */
+package com.task.ServerImpl.expresscabinet;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.expresscabinet.WePayServer;
+import com.task.entity.expresscabinet.HttpUtil;
+import com.task.entity.expresscabinet.PayCommonUtil;
+import com.task.entity.expresscabinet.PayConfigUtil;
+import com.task.entity.expresscabinet.XMLUtil;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import org.jdom.JDOMException;
+
+
+@SuppressWarnings("unchecked")
+public class WePayServerImpl implements WePayServer{
+	
+	private TotalDao totalDao;
+		
+
+	/**
+	 * 调用微信统一支付接口-梁盼-2018年12月29日11:18:24
+	 * @param userId  用户id
+	 * @param productId  商品id
+	 * @return
+	 */
+	public String weixinPay(String userId, String productId,String order_price,String body){
+		
+		// 账号信息  
+        String appid = PayConfigUtil.appid;  // appid  
+        String appsecret = PayConfigUtil.APP_SECRET; // appsecret  
+        String mch_id = PayConfigUtil.MCH_ID; // 商业号  
+        String key = PayConfigUtil.API_KEY; // key  
+
+        String currTime = PayCommonUtil.getCurrTime();  //获取当前时间
+        String strTime = currTime.substring(8, currTime.length());  
+        String strRandom = PayCommonUtil.buildRandom(4) + "";    //取出一个指定长度大小的随机正整数
+        String nonce_str = strTime + strRandom;  
+        System.out.println("输出一下strTime"+strTime);
+        System.out.println("输出一下strRandom"+strRandom);
+        System.out.println("输出一下nonce_str"+nonce_str);
+        //String order_price = "10"; // 价格   注意：价格的单位是分  (可变)
+        //String body = "可乐";   // 商品名称 (可变)
+        String out_trade_no = "7623956"; // 订单号  
+        
+
+        //获取发起电脑 ip  
+        String spbill_create_ip = PayConfigUtil.CREATE_IP;  
+        //回调接口   
+        String notify_url = PayConfigUtil.NOTIFY_URL;  
+        String trade_type = "NATIVE";  
+
+        SortedMap<Object,Object> packageParams = new TreeMap<Object,Object>();  
+        packageParams.put("appid", appid);  
+        packageParams.put("mch_id", mch_id);  
+        packageParams.put("nonce_str", nonce_str);  
+        packageParams.put("body", body);  
+        packageParams.put("out_trade_no", out_trade_no);  
+        packageParams.put("total_fee", order_price);  
+        packageParams.put("spbill_create_ip", spbill_create_ip);  
+        packageParams.put("notify_url", notify_url);  
+        packageParams.put("trade_type", trade_type);  
+
+        String sign = PayCommonUtil.createSign("UTF-8", packageParams,key);  
+        packageParams.put("sign", sign);  
+
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);  
+        System.out.println(requestXML);  
+
+        String resXml = HttpUtil.postData(PayConfigUtil.UFDODER_URL, requestXML);  
+        System.out.println(resXml);
+
+        Map map = new Hashtable();
+		try {
+			map = XMLUtil.doXMLParse(resXml);
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+        //String return_code = (String) map.get("return_code");  
+        //String prepay_id = (String) map.get("prepay_id");  
+        String urlCode = (String) map.get("code_url");  
+        System.out.println("看看urlCode是什么"+urlCode);
+
+        return urlCode; 
+	}
+	
+	
+	
+	
+	
+	
+	public static String weixinPay_1(String userId, String productId,String order_price,String body){
+		
+		// 账号信息  
+        String appid = PayConfigUtil.appid;  // appid  
+        String appsecret = PayConfigUtil.APP_SECRET; // appsecret  
+        String mch_id = PayConfigUtil.MCH_ID; // 商业号  
+        String key = PayConfigUtil.API_KEY; // key  
+
+        String currTime = PayCommonUtil.getCurrTime();  //获取当前时间
+        String strTime = currTime.substring(8, currTime.length());  
+        String strRandom = PayCommonUtil.buildRandom(4) + "";    //取出一个指定长度大小的随机正整数
+        String nonce_str = strTime + strRandom;  
+        System.out.println("输出一下strTime"+strTime);
+        System.out.println("输出一下strRandom"+strRandom);
+        System.out.println("输出一下nonce_str"+nonce_str);
+        //String order_price = "10"; // 价格   注意：价格的单位是分  (可变)
+        //String body = "可乐";   // 商品名称 (可变)
+        String out_trade_no = "7623956"; // 订单号  
+        
+
+        //获取发起电脑 ip  
+        String spbill_create_ip = PayConfigUtil.CREATE_IP;  
+        //回调接口   
+        String notify_url = PayConfigUtil.NOTIFY_URL;  
+        String trade_type = "NATIVE";  
+
+        SortedMap<Object,Object> packageParams = new TreeMap<Object,Object>();  
+        packageParams.put("appid", appid);  
+        packageParams.put("mch_id", mch_id);  
+        packageParams.put("nonce_str", nonce_str);  
+        packageParams.put("body", body);  
+        packageParams.put("out_trade_no", out_trade_no);  
+        packageParams.put("total_fee", order_price);  
+        packageParams.put("spbill_create_ip", spbill_create_ip);  
+        packageParams.put("notify_url", notify_url);  
+        packageParams.put("trade_type", trade_type);  
+
+        String sign = PayCommonUtil.createSign("UTF-8", packageParams,key);  
+        packageParams.put("sign", sign);  
+
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);  
+        System.out.println(requestXML);  
+
+        String resXml = HttpUtil.postData(PayConfigUtil.UFDODER_URL, requestXML);  
+        System.out.println(resXml);
+
+        Map map = new Hashtable();
+		try {
+			map = XMLUtil.doXMLParse(resXml);
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+        //String return_code = (String) map.get("return_code");  
+        //String prepay_id = (String) map.get("prepay_id");  
+        String urlCode = (String) map.get("code_url");  
+        System.out.println("看看urlCode是什么"+urlCode);
+
+        return urlCode; 
+	}
+	
+	
+	
+	/**
+	 * 支付返回url接口
+	 * @return
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+	
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.kvp.KVPAssess" table="ta_KVPAssess" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="kvp_number" />
+        <property name="kvp_username" />
+        <property name="part_number" />
+        <property name="part_name" />
+        <property name="process_no" />
+        <property name="process_name" />
+        <property name="quality_assessment" />
+        <property name="assessment_findings" />
+        <property name="kvp_date" />
+        <property name="epId" />
+        <property name="status" />
+        <property name="improved_beforeproblems"  type="text" />
+        <property name="improved_endproblems"  type="text" />
+        
+	<!-- 与持项目执行一对一 -->
+		  <one-to-one name="executeKVP" property-ref="kvpAssess" cascade="all"
+			lazy="false" />
+    </class>
+</hibernate-mapping>

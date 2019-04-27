@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Requisition" table="ta_xinxi_requisition">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="singleumber" length="50" />
+		<property name="name" length="50" />
+		<property name="startdate" length="50" />
+		<property name="enddate" length="50" />
+		<property name="content" length="100" />
+		<property name="subjectmatter" length="100" />
+		<property name="department" length="50" />
+		<property name="manager" length="50" />
+		<property name="managerdate" length="50" />
+		<property name="dgmanagerdate" length="50" />
+		<property name="gmanagerdate" length="50" />
+		<property name="itdate" length="50" />
+		<property name="replyremarks" length="200" />
+		<property name="executiondate" length="200" />
+		<property name="completedate" length="200" />
+		<property name="userid" length="10" />
+
+	</class>
+
+</hibernate-mapping>

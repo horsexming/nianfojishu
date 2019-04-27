@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PEBS生产力平衡系统用户登录</title>
+	<link type="text/css" rel="styleSheet" href="css/index3.css"/>
+	<link type="text/css" rel="styleSheet" href="css/jquery.mCustomScrollbar.css"/>
+    <script type="text/javascript" src="js/jQuery-1.7.1.js"></script>
+	<!-- // <script type="text/javascript" src="js/jquery.jpanelmenu.js"></script> -->
+	<script type="text/javascript" src="js/jquery.tree.js"></script>
+	<script type="text/javascript" src="js/time.js"></script>
+	<script type="text/javascript" src="js/leftnav.js"></script>
+	<script type="text/javascript" src="js/jqPaginator.js"></script>		
+</head>
+<body>
+<div class="menucontainer">
+<!-- 关闭右边按钮 -->
+   <div class="togglebtn" ></div>
+	 <div  class="content-1 left" >
+	   <ul class="files">
+	     <li class="firstnode"><a href="#">客户关系管理</a>
+            <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li>
+	     <li class="secondnode"><a href="#">项目考核</a>
+             <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li>
+	     <li class="thirdnode"><a href="#">研发项目</a>
+              <ul>
+              	 <li><a href="#">1111</a>
+                    <ul>
+                    	<li><a href="#">222222</a>
+                           <ul>
+                           	 <li><a href="#">333333</a></li>
+                           </ul>
+                    	</li>
+                    </ul>
+              	 </li>
+              	 <li><a href="#">1111</a></li>
+              </ul>
+	     </li>
+	     <li class="fournode"><a href="#">项目建议书管理</a>
+              <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li>  	
+	   </ul>
+	 	
+	 </div>
+</div>
+<div class="menucontainer">
+    <div class="togglebtn" ></div>
+    <div  class="content-1 left" >
+     <ul class="files">
+	     <li class="firstnode active"><a href="#">供应商管理</a>
+            <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li>
+	     <li class="secondnode"><a href="#">一般采购管理</a>
+             <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li>
+	     <li class="thirdnode"><a href="#">采购规划单</a>
+              <ul>
+              	 <li><a href="#">1111</a>
+                    <ul>
+                    	<li><a href="#">222222</a>
+                           <ul>
+                           	 <li><a href="#">333333</a></li>
+                           </ul>
+                    	</li>
+                    </ul>
+              	 </li>
+              	 <li><a href="#">1111</a></li>
+              </ul>
+	     </li>
+	     <li class="fournode"><a href="#">大宗商品采购管理</a>
+              <ul>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            	 <li><a href="#">111111</a></li>
+            </ul>
+	     </li> 
+	      <li class="fournode"><a href="#">基础数据</a>
+	     </li>  	
+	   </ul>
+	   </div>
+    
+</div>
+<div class="menucontainer">
+    <div class="togglebtn" ></div>
+    <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#">333333</a></li>
+		 </ul>
+	 </div>
+</div>
+<div class="menucontainer">
+     <div class="togglebtn" ></div>
+     <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#">44444444</a></li>
+		 </ul>
+	 </div>
+</div>
+<div class="menucontainer">
+    <div class="togglebtn" ></div>
+   <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#">5555555</a></li>
+		 </ul>
+	 </div>
+</div>
+<div class="menucontainer">
+     <div class="togglebtn" ></div>
+   <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#"> 6666666666</a></li>
+		 </ul>
+	 </div>
+</div>
+<div class="menucontainer">
+    <div class="togglebtn" ></div>
+    <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#"> 777777</a></li>
+		 </ul>
+	 </div>
+</div>
+<div class="menucontainer">
+     <div class="togglebtn" ></div>
+   <div  class="content-1 left" >
+	     <ul class="files">
+		     <li class="firstnode active"><a href="#"> 88888888</a></li>
+		 </ul>
+	 </div>
+</div>
+
+<div class="menu custom-menu-trigger-selector" id="menu">
+<div style="position:fixed;top:0;left:0;">
+	<ul>
+		 <li><a href="index.html"><img src="img/logo.png" height="36" width="122"  class="logoleft"></a></li>
+	 	  <li><a href="setting.html"><img src="img/person.png" height="88" width="89" class="person"></a></li>
+	</ul>
+	 <ul id="list">
+	 	  <li data="1"><a href="#">项目管理</a></li>
+	 	  <li data="1"><a href="#">采购管理</a></li>
+	 	  <li data="1"><a href="#">生产管理</a></li>
+	 	  <li data="1"><a href="#">物流系统</a></li>
+	 	  <li data="1"><a href="#">财务管理</a></li>
+	 	  <li data="1"><a href="#">人力资源</a></li>
+	 	  <li data="1"><a href="#">信息管理</a></li>
+	 	  <li data="1"><a href="#">仪  表  盘</a></li>
+	 </ul>
+</div>
+</div>
+
+<div class="centercontainer">
+   <div class="header">
+   	    <div class="headrinfo">
+   	         <ul>
+   	         	 <li><a href="#"> <h1>欢迎你,Yui.huang</h1></a></li>
+   	         	 <li><a href="#"><img src="img/icon_03.png" height="13" width="13"></a></li>
+   	         	 <li><a href="#"><img src="img/icon_06.png" height="13" width="13"></a></li>
+   	         	 <li><a href="#"><img src="img/icon_08.png" height="12" width="12"><span>(3)</span></a></li>
+   	         	 <li><a href="#"><img src="img/icon_10.png" height="13" width="14"></a></li>
+   	         	 <li><a href="#">[退出]</a></li>
+   	         </ul>
+   	         <div class="searchbox">
+   	         	    <form class="form" action="">
+   	         	     <div class="form-item">
+   	         	         <input  type="submit" value="" class="subbtn">
+   	         	         <label><img src="img/search_03.png" height="16" width="16"></label>
+   	         	  	     <input  type="text" value=""  class="search"/>
+   	         	  	 </div>
+   	         	  	  </form>
+   	         </div>
+   	    	  
+   	    </div>
+   </div>
+   <div class="notice">
+      <div class="header_bt">
+		<div class="noticeleft">
+			<strong><img src="img/notice_07.png" height="22" width="22"></strong>
+		</div>
+		<div class="marquee">
+			<marquee direction="left" scrollamount="5" onmouseout="this.start()" onmouseover="this.stop()">
+				<font color="#737373" id="show">1、系统功能结构调整幅度较大，如若发现个人功能有丢失，请您反馈！谢谢！&nbsp;&nbsp;&nbsp;&nbsp;2、生产力生态平衡系统改用新版页面，如某个页面打不开、异常等情况，请您反馈！谢谢&nbsp;&nbsp;&nbsp;&nbsp;</font>
+			</marquee>
+		</div>
+		<div class="fr time">
+					北京时间：
+					<span id="hour">16</span>时
+					<span id="minute">46</span>分
+					<span id="second">38</span>秒
+					<a href="DingdanAction!listLoginUsers.action"> 当前 <span class="zxrs">1</span>人在线</a>
+		</div>
+   	
+   </div>
+	</div>
+	<div  class="centernav">
+		   <ul class="leftindexnav">
+		   	  <li><a href="#"><img src="img/navicon_12.png" height="18" width="17"></a></li>
+		      <li><a href="#"><img src="img/navicon_06.png" height="20" width="21"></a></li>
+		   	  <li><a href="#"><img src="img/navicon_03.png" height="20" width="18"></a></li>
+		   	  <li><a href="#"><img src="img/navicon_09.png" height="19" width="19"></a></li>
+		   
+		   </ul> 
+		   <div class="cenjinav">
+		   	  <p>/　<a href="#">生产管理</a>　/　<a href="#">LP（大批量生产）</a>　/<a href="#">　工艺控制　</a>/　<a href="#">工艺编制管理</a>　/　<a href="#">工艺规范查看</a>　</p>
+		   </div>
+	</div>
+	<div class="tablecontent">
+	   <div class="content">
+	       <div class="headercon">
+	          <ul>
+	          	  <li> <a href="#"><strong>工艺规范查看</strong>(Craft Specification View) </a></li>
+	          </ul>
+	          <dl>
+	          	  <dt><a href="#">全屏</a></dt>
+	          	  <dd><a href="#">返回</a></dd>
+	          	  <dd><a href="#">刷新</a></dd>
+	          </dl>   	  
+	       </div>
+	      <div class="searchitem"> 
+               <form class="searchform">
+               <div class="colmun">
+	               	  <div class="form-item">
+	               	  	  <label>件号</label>
+	               	  	  <input  type="text" />
+	               	  </div>
+	               	  <div class="form-item">
+	               	  	  <label>状态</label>
+	               	  	 <select>
+	               	  	 	  <option>请选择</option>
+	               	  	 </select>
+	               	  </div>
+	               	   <div class="form-item">
+	               	  	  <label>件号</label>
+	               	  	 <input  type="text" />
+	               	  </div>
+               </div>
+                 <div class="colmun">
+	               	   <div class="form-item">
+	               	  	  <label>件号</label>
+	               	  	  <input  type="text" />
+	               	  </div>
+	               	  <div class="form-item">
+	               	  	  <label>状态</label>
+	               	  	 <select>
+	               	  	 	  <option>请选择</option>
+	               	  	 	  <option>已结束</option>
+	               	  	 	  <option>已结束</option>
+	               	  	 	  <option>已结束</option>
+	               	  	 </select>
+	               	  </div>
+	               	   <div class="form-item">
+	               	  	  <label>件号</label>
+	               	  	 <input  type="text" />
+	               	  </div>
+               	  </div>
+               	 <div class="colmun">
+	               	  <div class="form-item">
+	               	  	  <label>产品类型</label>
+	               	  	 <input  type="text" />
+	               	  </div>
+	               	  <div class="form-item">
+	               	  	  <label>开始时间</label>
+	               	  	 <input  type="text" />
+	               	  </div>
+	               	   <div class="form-item">
+	               	  	   <input  type="button"   class="find" value="查询">
+	               	  	   <input  type="button"   class="reset" value="重置">
+	               	  </div>
+               	  </div>
+               </form>
+	      </div>
+	      <div class="percent100">
+		      <div class="tableContent">
+	              <table>
+		         	 <colgroup width="4%"></colgroup>
+		         	 <colgroup width="10%"></colgroup>
+		         	 <colgroup width="10%"></colgroup>
+		         	 <colgroup width="10%"></colgroup>
+		         	 <colgroup width="6%"></colgroup>
+		         	 <colgroup width="6%"></colgroup>
+		         	 <colgroup width="6%"></colgroup>
+		         	 <colgroup width="6%"></colgroup>
+		         	 <colgroup width="7%"></colgroup>
+		         	 <colgroup width="6%"></colgroup>
+		         	 <colgroup width="7%"></colgroup>
+		         	 
+
+		         	 <thead>
+		         	 	 <tr>
+		         	 	 	 <td>序号</td>
+		         	 	 	 <td>工艺规程编号</td>
+		         	 	 	 <td>件号</td>
+		         	 	 	 <td>件名</td>
+		         	 	 	 <td>编制</td>
+		         	 	 	 <td>校对</td>
+		         	 	 	 <td>审核</td>
+		         	 	 	 <td>批准</td>
+		         	 	 	 <td>发出日</td>
+		         	 	 	 <td>状态</td>
+		         	 	 	 <td>操作</td>
+		         	 	 </tr>
+		         	 </thead>
+		         	 <tbody>
+		         	 	 <tr>
+		         	 	    <td>1</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>2</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>3</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>4</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>5</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 	  	 <tr>
+		         	 	    <td>6</td>
+		         	 	 	 <td>SH-GY12-068</td>
+		         	 	 	 <td>6262630M91-1-2</td>
+		         	 	 	 <td>后净化器总成</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>秦振磊</td>
+		         	 	 	 <td>2015-06-26</td>
+		         	 	 	 <td>待编制</td>
+		         	 	 	 <td><a href="#">查看规范</a></td>	         	 	 	
+		         	 	 </tr>
+		         	 </tbody>
+		         </table>
+		  </div>
+		  	         <div class="page">
+		  	          <div class="paginationpage">
+		         <!-- 分页 -->
+	                <div id="demo3-text"></div>
+			         <div class="pagination2">   
+				    </div>
+				    <script type="text/javascript">
+	                      $(".pagination2").jqPaginator({
+				            totalPages: 20,
+				            visiblePages: 4,
+				            currentPage: 2,
+				            first:'<a href="javascript:void(0);"><img src="img/first.png"/><\/a>',
+				            prev: '<a class="prev" href="javascript:void(0);"><img src="img/prev.png"/><\/a>',
+				            next: '<a class="next" href="javascript:void(0);"><img src="img/next.png"/><\/a>',
+				            last:'<a href="javascript:void(0);"><img src="img/last.png"><\/a>',
+				            page: '<a href="javascript:void(0);">{{page}}<\/a>',
+				            onPageChange: function (n,totalPages) {
+				                $("#demo3-text").html("第" + n + "/20页");
+				            }
+				        });
+				    </script>
+			  </div>	 	  
+	      </div>
+	      </div>
+	   	  
+	   </div>
+		  
+	</div>
+	
+	
+</div>
+
+
+
+ <div id="fix_sidebar">
+        <div id="back_top">
+            <a href="javascript:;"></a>
+            TOP
+        </div>
+    </div>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+<script>
+	(function($){
+			$(window).load(function(){
+				
+				$(".left").mCustomScrollbar({
+					 scrollbarPosition:"inside",
+					 autoDraggerLength:"false",
+					 mouseWheel:{ scrollAmount: "400px", preventDefault: true },
+				});
+			});
+		})(jQuery);
+	</script>
+	<script type="text/javascript">
+
+ // 回到顶部
+           $("#back_top").css("display", "none");
+            $(window).scroll(function() {
+                var s_top = $(document).scrollTop() - $(document).height();
+                if ($(document).scrollTop() > 0) {
+                    $("#back_top").css("display", "block");
+                } else {
+                    $("#back_top").css("display", "none");
+                }
+            });
+
+            $("#back_top").on('click', 'a', function() {
+                $.scrollTo(0, 800);
+            });
+	</script>
+
+	
+</body>
+</html>

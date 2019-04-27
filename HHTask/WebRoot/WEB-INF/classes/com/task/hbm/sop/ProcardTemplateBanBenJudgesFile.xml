@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplateBanBenJudgesFile" table="ta_ProcardTemplateBanBenJudgesFile">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="addTime" />
+	<property name="addUserId" />
+	<property name="addUserName" />
+	<property name="addUserCode" />
+	<property name="ptbbjId" />
+	<property name="ptbbapplyId" />
+	<property name="filename" />
+	<property name="oldFileName" />
+	<property name="dataStatus" />
+	<property name="spStatus" />
+	<property name="spRemark" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,88 @@
+package com.task.entity;
+
+/***
+ * 刷卡汇总表
+ * @author Li_Cong
+ * @Date 2016-01-02
+ * ta_kq_AttendanceTowCollect
+ */
+
+public class AttendanceTowCollect{
+	private Integer id;// 考勤Id主键.
+	private Integer userId;// userId主键.
+	private String name;// 员工姓名
+	private String dept;// 部门名称
+	private String cardId;// 卡号
+	private String code;// 工号
+	private String dateTime;// 打卡日期 yyyy-MM-dd
+	private String inTime;// 进门打卡时间 HH：mm 
+	private String outTime;// 出门打卡时间 HH：mm 
+	private String time;// 打卡时间 HH：mm 
+	private String addTime;// 打卡时间 HH：mm:ss
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getInTime() {
+		return inTime;
+	}
+	public void setInTime(String inTime) {
+		this.inTime = inTime;
+	}
+	public String getOutTime() {
+		return outTime;
+	}
+	public void setOutTime(String outTime) {
+		this.outTime = outTime;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getCardId() {
+		return cardId;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public String getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+}

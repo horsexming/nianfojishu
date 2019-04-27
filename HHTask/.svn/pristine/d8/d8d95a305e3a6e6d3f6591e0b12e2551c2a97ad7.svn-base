@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************李聪Server层管理****************************************************
+	-->
+
+	<!-- 面试登记单 -->
+	<!-- server -->
+	<bean id="interviewLogServerImpl" class="com.task.ServerImpl.renshi.InterviewLogServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="interviewLogAction" class="com.task.action.renshi.InterviewLogAction"
+		scope="prototype">
+		<property name="interviewLogServer" ref="interviewLogServerImpl"></property>
+	</bean>
+
+	<!-- 单身宿舍申请表 -->
+	<!-- server -->
+	<bean id="dormitoryLogServerImpl" class="com.task.ServerImpl.renshi.DormitoryLogServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="dormitoryLogAction" class="com.task.action.renshi.DormitoryLogAction"
+		scope="prototype">
+		<property name="dormitoryLogServer" ref="dormitoryLogServerImpl"></property>
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+
+	<!-- 离职申请单 -->
+	<!-- server -->
+	<bean id="dimissionLogServerImpl" class="com.task.ServerImpl.renshi.DimissionLogServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="dimissionLogAction" class="com.task.action.renshi.DimissionLogAction"
+		scope="prototype">
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+
+	<!-- 离职交接单 -->
+	<!-- server -->
+	<bean id="dimission_HandoverServerImpl" class="com.task.ServerImpl.renshi.Dimission_HandoverServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="dimission_HandoverAction" class="com.task.action.renshi.Dimission_HandoverAction"
+		scope="prototype">
+		<property name="dimission_HandoverServer" ref="dimission_HandoverServerImpl"></property>
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+
+	<!-- 面试测试单 -->
+	<!-- server -->
+	<bean id="interviewQuizzesServerImpl" class="com.task.ServerImpl.renshi.InterviewQuizzesServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="interviewQuizzesAction" class="com.task.action.renshi.InterviewQuizzesAction"
+		scope="prototype">
+		<property name="interviewQuizzesServer" ref="interviewQuizzesServerImpl"></property>
+	</bean>
+
+	<!-- 离职争议单 -->
+	<!-- server -->
+	<bean id="dimission_ZhengYiServerImpl" class="com.task.ServerImpl.renshi.Dimission_ZhengYiServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="dimission_ZhengYiAction" class="com.task.action.renshi.Dimission_ZhengYiAction"
+		scope="prototype">
+		<property name="dimissionZhengYiServer" ref="dimission_ZhengYiServerImpl"></property>
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+	</bean>
+
+	<!-- 离职终止劳动关系协议单 -->
+	<!-- server -->
+	<bean id="dimission_XieYiServerImpl" class="com.task.ServerImpl.renshi.Dimission_XieYiServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="dimission_XieYiAction" class="com.task.action.renshi.Dimission_XieYiAction"
+		scope="prototype">
+		<property name="dimissionXieYiServer" ref="dimission_XieYiServerImpl"></property>
+		<property name="dimissionLogServer" ref="dimissionLogServerImpl"></property>
+	</bean>
+
+	<!-- 门禁记录表 -->
+	<!-- server -->
+	<bean id="accessServerImpl" class="com.task.ServerImpl.menjin.AccessServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="accessAction" class="com.task.action.menjin.AccessAction"
+		scope="prototype">
+		<property name="accessServer" ref="accessServerImpl"></property>
+	</bean>
+
+	 <!-- 来访登记表 -->
+	<bean id="visitServerImpl" class="com.task.ServerImpl.menjin.VisitServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action --> 
+	<bean id="VisitAction" class="com.task.action.menjin.VisitAction" scope="prototype">
+			<property name="visitServer" ref="visitServerImpl"></property>
+	</bean>
+
+	<!-- 门禁设备表 -->
+	<!-- server -->
+	<bean id="accessEquipmentServerImpl" class="com.task.ServerImpl.menjin.AccessEquipmentServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="accessEquipmentAction" class="com.task.action.menjin.AccessEquipmentAction"
+		scope="prototype">
+		<property name="accessEquipmentServer" ref="accessEquipmentServerImpl"></property>
+	</bean>
+
+	<!-- 车辆管理表 -->
+	<!-- server -->
+	<bean id="inEmployeeCarInforServerImpl" class="com.task.ServerImpl.menjin.InEmployeeCarInforServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="inEmployeeCarInforAction" class="com.task.action.menjin.InEmployeeCarInforAction"
+		scope="prototype">
+		<property name="inEmployeeCarInforServer" ref="inEmployeeCarInforServerImpl"></property>
+	</bean>
+	<!-- 门卫卡管理表 -->
+	<!-- server -->
+	<bean id="guardCardServerImpl" class="com.task.ServerImpl.menjin.GuardCardServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="guardCardAction" class="com.task.action.menjin.GuardCardAction"
+		scope="prototype">
+		<property name="guardCardServer" ref="guardCardServerImpl"></property>
+	</bean>
+
+	<!-- 进出记录表 -->
+	<!-- server -->
+	<bean id="accessRecordsActionServerImpl" class="com.task.ServerImpl.menjin.AccessRecordsServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="accessRecordsAction" class="com.task.action.menjin.AccessRecordsAction"
+		scope="prototype">
+		<property name="accessRecordsServer" ref="accessRecordsActionServerImpl"></property>
+	</bean>
+
+	<!-- 常访车辆表 -->
+	<!-- server -->
+	<bean id="oftenVisitActionServerImpl" class="com.task.ServerImpl.menjin.OftenVisitServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="oftenVisitAction" class="com.task.action.menjin.OftenVisitAction"
+		scope="prototype">
+		<property name="oftenVisitServer" ref="oftenVisitActionServerImpl"></property>
+	</bean>
+
+	<!-- 打卡表 -->
+	<!-- server -->
+	<bean id="downloadServerImpl" class="com.task.ServerImpl.DownloadServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	<!-- 车位表 -->
+	<!-- server -->
+	<bean id="parkSpaceServerImpl" class="com.task.ServerImpl.parking.ParkSpaceServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="parkSpaceAction" class="com.task.action.parking.ParkSpaceAction"
+		scope="prototype">
+		<property name="accessEquipmentServer" ref="accessEquipmentServerImpl"></property>
+		<property name="parkSpaceServer" ref="parkSpaceServerImpl"></property>
+	</bean>
+
+	<!-- 打卡表 -->
+	<!--server -->
+	<bean id="attendanceTowServerImpl" class="com.task.ServerImpl.AttendanceTowServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	<!--action -->
+	<bean id="attendanceTowAction" class="com.task.action.AttendanceTow.AttendanceTowAction"
+		scope="prototype">
+		<property name="attendanceTowServer" ref="attendanceTowServerImpl"></property>
+	</bean>
+
+
+	<!-- 档案存档表 -->
+	<!-- server -->
+	<bean id="danganServerImpl" class="com.task.ServerImpl.dangan.DanganServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="danganAction" class="com.task.action.dangan.DanganAction"
+		scope="prototype">
+		<property name="danganServer" ref="danganServerImpl"></property>
+	</bean>
+
+	<!-- 一体机表 -->
+	<!-- server -->
+	<bean id="machineServerImpl"
+		class="com.task.ServerImpl.android.processpush.OneMachineServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="oneMachineAction" class="com.task.action.android.processpush.OneMachineAction"
+		scope="prototype">
+		<property name="machineServer" ref="machineServerImpl"></property>
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+	</bean>
+	
+	<!-- 领工序页面action -->
+	<bean id="suspsomAction" class="com.task.action.SuspsomAction"
+		scope="prototype">
+		<property name="accessEquipmentServer" ref="accessEquipmentServerImpl"></property>
+		<property name="machineServer" ref="machineServerImpl"></property>
+		<property name="procardServer" ref="ProcardServerImpl"></property>
+		<property name="lightServer" ref="oneLightServerImpl"></property>
+		<property name="visitServer" ref="visitServerImpl"></property>
+		<property name="leaveServer" ref="leaveServerImpl"></property>
+		<property name="wageServer" ref="wageServerImpl"></property>
+	</bean>
+
+	<!-- 电灯表 -->
+	<!-- server -->
+	<bean id="oneLightServerImpl" class="com.task.ServerImpl.onemark.OneLightServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="oneLightAction" class="com.task.action.onemark.OneLightAction"
+		scope="prototype">
+		<property name="lightServer" ref="oneLightServerImpl"></property>
+	</bean>
+
+
+	<!-- 工具柜表 -->
+	<!-- server -->
+	<bean id="toolCabineServerImpl" class="com.task.ServerImpl.menjin.ToolCabineServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="toolCabineAction" class="com.task.action.menjin.ToolCabineAction"
+		scope="prototype">
+		<property name="toolCabineServer" ref="toolCabineServerImpl"></property>
+	</bean>
+
+	<!-- 签到表 -->
+	<!-- server -->
+	<bean id="userSignInServerImpl" class="com.task.ServerImpl.UserSignInServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="userSignInAction" class="com.task.action.AttendanceTow.UserSignInAction"
+		scope="prototype">
+		<property name="userSignInServer" ref="userSignInServerImpl"></property>
+	</bean>
+	
+	<!-- 特殊日期表 -->
+	<!-- server -->
+	<bean id="specialDateServerImpl" class="com.task.ServerImpl.menjin.SpecialDateServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="specialDateAction" class="com.task.action.menjin.SpecialDateAction"
+		scope="prototype">
+		<property name="specialDateServer" ref="specialDateServerImpl"></property>
+	</bean>
+	
+	<!-- 指纹信息表 -->
+	<!-- server -->
+	<bean id="fingerprintMgServerImpl" class="com.task.ServerImpl.menjin.FingerprintMgServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="fingerprintMgAction" class="com.task.action.menjin.FingerprintMgAction"
+		scope="prototype">
+		<property name="fingerprintMgServer" ref="fingerprintMgServerImpl"></property>
+	</bean>
+	
+	<!-- 库位信息表 -->
+	<!-- server -->
+	<bean id="warehouseApplicationServerImpl" class="com.task.ServerImpl.menjin.WarehouseApplicationServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="warehouseApplicationAction" class="com.task.action.menjin.WarehouseApplicationAction"
+		scope="prototype">
+		<property name="warehouseApplicationServer" ref="warehouseApplicationServerImpl"></property>
+	</bean>
+	
+	<!-- 卷帘门信息表 -->
+	<!-- server -->
+	<bean id="jlmApplicationServerImpl" class="com.task.ServerImpl.menjin.JLMApplicationServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="jlmApplicationAction" class="com.task.action.menjin.JLMApplicationAction"
+		scope="prototype">
+		<property name="jlmApplicationServer" ref="jlmApplicationServerImpl"></property>
+	</bean>
+	
+	<!-- Rfid表 -->
+	<!-- server -->
+	<bean id="rfidServerImpl" class="com.task.ServerImpl.rfid.RfidServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="rfidAction" class="com.task.action.rfid.RfidAction"
+		scope="prototype">
+		<property name="rfidServer" ref="rfidServerImpl"></property>
+	</bean>
+	
+	<!-- 凭证表 -->
+	<!-- server -->
+	<bean id="cwCertificateServerImpl" class="com.task.ServerImpl.caiwu.pz.CwCertificateServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="cwCertificateAction" class="com.task.action.caiwu.pz.CwCertificateAction"
+		scope="prototype">
+		<property name="cwCertificateServer" ref="cwCertificateServerImpl"></property>
+	</bean>
+	
+	<!-- 用户对接信息表 -->
+	<!-- server -->
+	<bean id="userFacialInforServerImpl" class="com.task.ServerImpl.UserFacialInforServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="userFacialInforAction" class="com.task.action.UserFacialInforAction"
+		scope="prototype">
+		<property name="facialInforServer" ref="userFacialInforServerImpl"></property>
+	</bean>
+	
+	<!-- 用户面部特征信息表 -->
+	<!-- action -->
+	<bean id="userFacialFeaturesAction" class="com.task.action.UserFacialFeaturesAction"
+		scope="prototype">
+		<property name="facialInforServer" ref="userFacialInforServerImpl"></property>
+	</bean>
+</beans>

@@ -1,0 +1,210 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+
+		<title>评分界面</title>
+
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	    <link rel="stylesheet" type="text/css" href="styles.css">
+	    -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=0.5, maximum-scale=1.0"/>
+        <script type="text/javascript" src="System/lpanclear/jquery-1.8.3.js"></script>
+	</head>
+  <style type="text/css">
+*{margin:0;padding:0;list-style-type:none;font-family: 楷体;}
+a,img{border:0;}
+img{vertical-align:middle;}
+#QuacorGrading input{background:url(images/lpanclear/grading.png) no-repeat scroll right center;cursor:pointer;height:30px;width:30px;padding:0;border:0;}
+</style>
+  <body style="background-color:#97BCE4;">
+      <div style="border:3px solid;width:480px;height:680px;margin-top:75px;border: 3px solid #5472B4;">
+      <p height=6%><a href="javascript:history.go(-1);"><img src="images/lpanclear/fhsyyl.png" height=6% width=9% title="返回上一页" alt="返回上一页"/></a></p>
+      <p height=6%></p>
+      <h2 style="text-align:center;color: #27408B;padding-top:28px;">Score Upload Interface</h2>
+      <form action="ClearInfoAction_evaluatorOperation.action" method="POST" enctype="multipart/form-data" onsubmit="return pfdate()">     
+          <input type="hidden" value="${User.name}" id="ycempName"/>
+          <input type="hidden" value="${tId}" id="yctitleName"/>
+          <input type="hidden" value="${pingfents}" id="ycpfhts"/>
+          <table border="0" height=66% width=99% style="border-color:#CCFF99;font-size:19px;margin-top:25px;border-color: #9370DB;color:#9932CC;text-align: center;">
+              <tr height=9%>
+                  <th width=46% style="text-align:right;">评分日期:</th>
+                  <th width=8%></th>
+                  <th width=46% style="color:#7700FF;text-align:left;">${temp_str}</th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </th>
+              </tr>           
+              <tr height=9%>
+                  <th width=46% style="text-align: right;">房间标题:</th>
+                  <th width=8%></th>
+                  <th width=46% style="color:#7700FF;text-align:left;" id="titleName">
+                      <select id="ht" name="titleName" style="">                   
+	                      <s:iterator id="htName" value="homeTitleList">	                      
+	                          <option value="${htName.titleName}">${htName.titleName}</option>
+	                      </s:iterator>     
+                      </select>
+                  </th>
+              </tr>        
+              <tr height=9%>                 
+                  <th width=46% style="text-align: right;">领取人员:</th>
+                  <th width=8%></th>
+                  <th width=46% style="color:#7700FF;text-align:left;">${cleanrecord2.receive}</th> 
+              </tr>
+              <tr height=9%>                 
+                  <th width=46% style="text-align: right;">提交人员:</th>
+                  <th width=8%></th>
+                  <th width=46% style="color:#7700FF;text-align:left;">${cleanrecord2.submitter}</th>
+              </tr>            
+              <tr height=2%>
+                  <th colspan="8">
+                  <strong style="color:#7700FF;">评分:</strong>
+                      <div id="QuacorGrading" >							
+					      <input name="1" type="button" />
+						  <input name="2" type="button" />
+						  <input name="3" type="button" />
+					      <input name="4" type="button" />
+						  <input name="5" type="button" />
+						  <input name="6" type="button" />
+						  <input name="7" type="button" />
+						  <input name="8" type="button" />
+					      <input name="9" type="button" />
+						  <input name="10" type="button" />
+						  <span id="QuacorGradingValue"><b><font size="5" color="#fd7d28" class="fenshu">6</font></b>分</span>	
+						  <input type="hidden" id="fenshu" name="fraction" value="" />					
+				     </div>
+                  </th>
+              </tr>
+              <tr height=4% id="ycqrtr" style="text-align: center;">
+                  <th colspan="8" id="ycqrth" style="text-align: center;">
+                      <input type="submit" value="确认" style="width:70px;height:30px; background-color:#9999ff; font-size: 18px;"/>
+                  </th>  
+              </tr>
+              <tr height=7%>
+                  <th colspan="8">                    
+                      <a href="javascript:void(0)"><img id="xlxs" src="images/lpanclear/xll3.png" height=13% width=13% alt="下拉上传图片" title="下拉关闭"></a>
+                  </th>  
+              </tr>
+          </table>
+          <!-- 此处为上传图片 -->
+             <div id="scyc" style="display:none;">
+                 <!-- <p style="font-size: 13px;color:#BA55D3;">文件名:<input type="text" name="name" style="width:80px; background-color:#DDA0DD; font-size: 16px;"/><br></p> -->
+                 <input type=file name="picture" id="picture" accept="image/*" capture=”camera” style=" color:red; font-size: 12px;" onchange="javascript:setImagePreview();">  
+                 <p style="float:left" id="localImag"><p><img id="preview" width=-1 height=-1  style="display:block;transform: rotate(90deg);" /></p></p>
+                 <p style="text-align: center;"><input style="width:70px;height:30px; background-color:#9999ff; font-size: 18px;" type="submit" value="提交"/></p>
+             </div>
+         </form> 
+      </div> 
+      <script type="text/javascript">
+      var pfhts = $("#ycpfhts").val();
+      if(pfhts=="评分成功"){
+    	  alert("评分成功");
+      }else if(pfhts=="已评分"){
+    	  alert("该标题已评过分!!!");
+      }
+      var GradList = document.getElementById("QuacorGrading").getElementsByTagName("input");			
+			for(var di=0;di<parseInt(document.getElementById("QuacorGradingValue").getElementsByTagName("font")[0].innerHTML);di++){
+				GradList[di].style.backgroundPosition = 'left center';
+			}			
+			for(var i=0;i < GradList.length;i++){
+				GradList[i].onmouseover = function(){
+					for(var Qi=0;Qi<GradList.length;Qi++){
+						GradList[Qi].style.backgroundPosition = 'right center';
+					}
+					for(var Qii=0;Qii<this.name;Qii++){
+						GradList[Qii].style.backgroundPosition = 'left center';
+					}
+					document.getElementById("QuacorGradingValue").innerHTML = '<b><font size="5" class="fenshu" color="#fd7d28">'+this.name+'</font></b>分';
+					document.getElementById("fenshu").value=this.name;
+
+				}
+			}
+			$("#xlxs").click(function(){
+				if(document.getElementById("scyc").style.display=="none"){
+					var r=confirm("是否上传图片!!!");
+					if(r==true){
+						if(document.getElementById("scyc").style.display=="none"){ 
+					        $('#ycqrth').hide();
+					        $("#xlxs").attr("src","images/lpanclear/sll2.png");
+				    		document.getElementById("scyc").style.display="block"; 
+						}else{
+							$('#ycqrth').show();
+							$("#xlxs").attr("src","images/lpanclear/xll3.png");
+							document.getElementById("scyc").style.display="none";    	    
+						}
+					}else{			
+					}
+				}else{
+					var r=confirm("是否确认关闭!!!");
+					if(r==true){
+						if(document.getElementById("scyc").style.display=="none"){
+					        $('#ycqrth').hide();
+					        $("#xlxs").attr("src","images/lpanclear/sll2.png");
+				    		document.getElementById("scyc").style.display="block"; 
+						}else{
+							$('#ycqrth').show();
+							$("#xlxs").attr("src","images/lpanclear/xll3.png");
+							document.getElementById("scyc").style.display="none";    	    
+						}
+					}else{			
+					}
+				}							   
+			})
+			
+            //from表单提交
+            function pfdate(){
+				return true;		              	
+            }
+            			                			
+
+    function setImagePreview() {          
+    var docObj=document.getElementById("picture");           
+    var imgObjPreview=document.getElementById("preview");  
+    if(docObj.files && docObj.files[0]){                          
+        //火狐下，直接设img属性                          
+        imgObjPreview.style.display = 'block';                          
+        imgObjPreview.style.width = '40px';                          
+        imgObjPreview.style.height = '40px';                                              
+        //imgObjPreview.src = docObj.files[0].getAsDataURL();  
+        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式          
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);  
+     }else{                          
+         //IE下，使用滤镜                          
+         docObj.select();                          
+         var imgSrc = document.selection.createRange().text;                          
+         var localImagId = document.getElementById("localImag");  
+         //必须设置初始大小                          
+         localImagId.style.width = "40px";                          
+         localImagId.style.height = "40px";  
+        //图片异常的捕捉，防止用户修改后缀来伪造图片  
+        try{                                  
+            localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";                                  
+            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;                          
+        }catch(e){                                  
+            alert("您上传的图片格式不正确，请重新选择!");                                  
+            return false;                          
+        }  
+            imgObjPreview.style.display = 'none';                          
+            document.selection.empty();                  
+        }                  
+            return true;          
+        }  
+			
+
+     </script>
+  </body>
+</html>

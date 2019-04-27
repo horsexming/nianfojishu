@@ -1,0 +1,876 @@
+package com.task.ServerImpl.oa;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.opensymphony.xwork2.ActionContext;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.Number;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.ChartNOSQServer;
+import com.task.Server.oa.OAAppdetailTemplateService;
+import com.task.ServerImpl.sys.CircuitRunServerImpl;
+import com.task.entity.AlertMessages;
+import com.task.entity.Category;
+import com.task.entity.ChartNOSC;
+import com.task.entity.ChartNOSQ;
+import com.task.entity.OaAppDetailTemplate;
+import com.task.entity.system.CircuitRun;
+import com.task.util.Util;
+
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 物料编码模板
+ * @author wcy
+ */
+public class OaAppdetailTemplateServiceImpl implements
+		OAAppdetailTemplateService {
+
+	private TotalDao totalDao;
+	private ChartNOSQServer chartNOSQServer;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	public ChartNOSQServer getChartNOSQServer() {
+		return chartNOSQServer;
+	}
+
+	public void setChartNOSQServer(ChartNOSQServer chartNOSQServer) {
+		this.chartNOSQServer = chartNOSQServer;
+	}
+
+	// 删除申购
+	@Override
+	public boolean deleteTemplate(Integer id) {
+		OaAppDetailTemplate template = (OaAppDetailTemplate) totalDao.getObjectById(OaAppDetailTemplate.class, id);
+		String wlcode = template.getWlcode();
+		if(totalDao.delete(template)){
+			ChartNOSC chartNOSC =(ChartNOSC) totalDao.getObjectByCondition("from ChartNOSC where cpcode=?", wlcode);
+			if(chartNOSC!=null){
+				if(totalDao.delete(chartNOSC)){
+					return true;
+				}
+			}else{
+				return true;
+			}
+			
+			
+		}
+		return false;
+	}
+
+	// 根据条件查询申购总数
+	@Override
+	public Integer findOADTCountByCondition(OaAppDetailTemplate template) {
+		if (null == template) {
+			template = new OaAppDetailTemplate();
+		}
+		String hql = totalDao.criteriaQueries(template, null, null);
+		Integer count = totalDao.getCount(hql);
+		return count;
+	}
+
+	//
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OaAppDetailTemplate> findOADTListByCondition(
+			OaAppDetailTemplate template, Integer cpage, Integer pageSize) {
+		if (null == template) {
+			template = new OaAppDetailTemplate();
+		}
+		String hql = totalDao.criteriaQueries(template, null, null);
+		hql += " order by detailAppDate desc";
+		return totalDao.findAllByPage(hql, cpage, pageSize);
+	}
+	
+	//查询分页，筛选
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object[] findList(OaAppDetailTemplate template, String startDate,
+			String endDate,Integer cpage,Integer pageSize) {
+		//Object[] obj = new Object[2];
+		String [] between = new String [2];
+		if(null==template){
+			template = new OaAppDetailTemplate();
+		}
+		
+		if(null!=startDate && !"".equals(startDate) && null!=endDate && !"".equals(endDate)){
+			between[0] = startDate;
+			between[1] = endDate;
+		}
+		
+		String hql = totalDao.criteriaQueries(template, "detailAppDate", between, "1=1 order by detailAppDate desc");
+		List<OaAppDetailTemplate> list = totalDao.findAllByPage(hql, cpage, pageSize);
+		Integer count = totalDao.getCount(hql);
+		
+		return new Object[]{list,count};
+	}
+
+	/*
+	    * @author fy
+	　　* @date 2018/9/21 10:57
+	　　* @Description: 导出Excel
+	　　* @param [template, startDate, endDate, cpage, pageSize]
+	　　* @return void
+	　　* @throws
+	　　*/
+	@SuppressWarnings("unchecked")
+	@Override
+	public void findListExportExcel(OaAppDetailTemplate template, String startDate,
+									String endDate, Integer cpage, Integer pageSize) {
+		String [] between = new String [2];
+		if(null==template){
+			template = new OaAppDetailTemplate();
+		}
+
+		if(null!=startDate && !"".equals(startDate) && null!=endDate && !"".equals(endDate)){
+			between[0] = startDate;
+			between[1] = endDate;
+		}
+
+		String hql = totalDao.criteriaQueries(template, "detailAppDate", between, "1=1 order by detailAppDate desc");
+		List<OaAppDetailTemplate> list = totalDao.query(hql,null);
+
+		try {
+			// 取得HttpServletResponse
+			HttpServletResponse response = (HttpServletResponse) ActionContext
+					.getContext().get(ServletActionContext.HTTP_RESPONSE);
+			OutputStream os = response.getOutputStream();// 取得输出流
+			response.reset();// 清空输出流
+			if(list.size()>60000){
+				response.setHeader("Content-disposition", "attachment; filename="
+						+ new String("申购物品记录".getBytes("GB2312"), "8859_1")
+						+ ".xlsx");// 设定输出文件头
+			}else {
+				response.setHeader("Content-disposition", "attachment; filename="
+						+ new String("申购物品记录".getBytes("GB2312"), "8859_1")
+						+ ".xls");// 设定输出文件头
+			}
+
+			response.setContentType("application/msexcel");// 定义输出类型
+
+			SXSSFWorkbook workBook = new SXSSFWorkbook(50000);
+			org.apache.poi.ss.usermodel.Sheet sheet = workBook
+					.createSheet("申购物品记录");
+			Row row = sheet.createRow(2);
+			CellRangeAddress rangeAddress = new CellRangeAddress(0, 0, 1, 10);
+			CellStyle style = workBook.createCellStyle();
+			style.setAlignment(HorizontalAlignment.CENTER);
+			Font font = workBook.createFont();
+			font.setFontHeightInPoints((short) 16);
+			font.setBold(true);
+			style.setFont(font);
+			sheet.addMergedRegion(rangeAddress);
+			row = sheet.createRow(0);
+			org.apache.poi.ss.usermodel.Cell cell = row.createCell(1);
+			cell.setCellValue("申购物品记录");
+			cell.setCellStyle(style);
+
+			row = sheet.createRow(1);
+			cell = row.createCell(0, CellType.STRING);
+			cell.setCellValue("序号");
+			cell = row.createCell(1, CellType.STRING);
+			cell.setCellValue("类别");
+			cell = row.createCell(2, CellType.STRING);
+			cell.setCellValue("物料编码");
+			cell = row.createCell(3, CellType.STRING);
+			cell.setCellValue("名称");
+			cell = row.createCell(4, CellType.STRING);
+			cell.setCellValue("规格");
+			cell = row.createCell(5, CellType.STRING);
+			cell.setCellValue("单位");
+			cell = row.createCell(6, CellType.STRING);
+			cell.setCellValue("供料属性");
+			cell = row.createCell(7, CellType.STRING);
+			cell.setCellValue("版本");
+			cell = row.createCell(8, CellType.STRING);
+			cell.setCellValue("申购日期");
+			cell = row.createCell(9, CellType.STRING);
+			cell.setCellValue("借领属性");
+			cell = row.createCell(10, CellType.STRING);
+			cell.setCellValue("状态");
+
+			for (int i = 0, len = list.size(); i < len; i++) {
+				OaAppDetailTemplate o=list.get(i);
+				row = sheet.createRow(i + 2);
+				cell = row.createCell(0, CellType.STRING);
+				cell.setCellValue(i + 1);
+				cell = row.createCell(1, CellType.STRING);
+				cell.setCellValue(o.getDetailChildClass());
+				cell = row.createCell(2, CellType.STRING);
+				cell.setCellValue(o.getWlcode());
+				cell = row.createCell(3, CellType.STRING);
+				cell.setCellValue(o.getDetailAppName());
+				cell = row.createCell(4, CellType.STRING);
+				cell.setCellValue(o.getDetailFormat());
+				cell = row.createCell(5, CellType.STRING);
+				cell.setCellValue(o.getDetailUnit());
+				cell = row.createCell(6, CellType.STRING);
+				cell.setCellValue(o.getKgliao());
+				cell = row.createCell(7, CellType.STRING);
+				cell.setCellValue(o.getBanben());
+				cell = row.createCell(8, CellType.STRING);
+				cell.setCellValue(o.getDetailAppDate());
+				cell = row.createCell(9, CellType.STRING);
+				cell.setCellValue(o.getLendNeckStatus());
+				cell = row.createCell(10, CellType.STRING);
+				cell.setCellValue(o.getEpStatus());
+			}
+			workBook.write(os);
+			workBook.close();// 记得关闭工作簿
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+
+
+	@Override
+	public OaAppDetailTemplate getOADTById(Integer id) {
+		return (OaAppDetailTemplate) totalDao.getObjectById(
+				OaAppDetailTemplate.class, id);
+	}
+
+	// 单条保存申购
+	@SuppressWarnings("unchecked")
+	@Override
+	public String saveOaAppDetailTemp(OaAppDetailTemplate template) {
+		template.setDetailAppDate(Util.getDateTime());
+
+		String search_sql = "from OaAppDetailTemplate where detailChildClass=? and detailAppName = ? " +
+				" and detailFormat = ? ";
+		List<OaAppDetailTemplate> query = totalDao.query(search_sql, template
+				.getDetailChildClass(), template.getDetailAppName(),template.getDetailFormat());
+		if (null != query && query.size() > 0) {
+			return "该物品已经存在";
+		}
+		// 保存图号 判断图号是否存在
+		if (saveChartNOSC(template)) {
+			template.setDetailAppDate(Util.getDateTime());
+			// 先保存或的审批物料id
+			template.setAddUsersName(Util.getLoginUser().getName());
+			if (totalDao.save(template)) {
+				// 进入审批流程
+				String processName = "辅料申购申请";
+				Integer epId = null;
+				try {
+					epId = CircuitRunServerImpl.createProcess(processName,
+							OaAppDetailTemplate.class, template.getId(),
+							"epStatus", "id",
+							"OAAppDetailTemplateAction!getTemplateById.action?id="
+									+ template.getId() + "&tag=showExamine",
+							"部门 :" + Util.getLoginUser().getDept() + "，姓名:"
+									+ Util.getLoginUser().getName() + "，项目："
+									+ processName + "，请您审批", true);
+					if (epId != null && epId > 0) {
+						template.setEpId(epId);
+						CircuitRun circuitRun = (CircuitRun) totalDao.get(
+								CircuitRun.class, epId);
+						if ("同意".equals(circuitRun.getAllStatus())
+								&& "审批完成".equals(circuitRun.getAuditStatus())) {
+							template.setEpStatus("同意");
+						} else {
+							template.setEpStatus("未审批");
+						}
+						return ""+totalDao.update(template);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException(e.getMessage());
+//					return e.getMessage();
+				}
+			}
+		}
+		return "保存失败";
+	}
+
+	@Override
+	public boolean updateTemplate(OaAppDetailTemplate template) {
+		if(template!=null && template.getId()!=null) {
+			OaAppDetailTemplate temp =  (OaAppDetailTemplate) totalDao.getObjectById(OaAppDetailTemplate.class, template.getId());
+			if(temp!=null && temp.getEpId()!=null) {
+				CircuitRun circuitRun = (CircuitRun) totalDao.getObjectById(CircuitRun.class, temp.getEpId());
+				if(circuitRun!=null) {
+					AlertMessages alertMessages = (AlertMessages) totalDao.getObjectByCondition(
+							"from AlertMessages where functionUrl = ?", "CircuitRunAction_findAduitPage.action?id="+circuitRun.getId());
+					if(alertMessages!=null) {
+						totalDao.delete(alertMessages);
+					}
+					totalDao.delete(circuitRun);
+				}
+				totalDao.clear();
+			}
+			if (totalDao.update(template)) {
+				String processName = "辅料申购申请";
+				Integer epId = null;
+				try {
+					epId = CircuitRunServerImpl.createProcess(processName,
+							OaAppDetailTemplate.class, template.getId(),
+							"epStatus", "id",
+							"OAAppDetailTemplateAction!getTemplateById.action?id="
+									+ template.getId() + "&tag=showExamine", "部门 :"
+									+ Util.getLoginUser().getDept() + "，姓名:"
+									+ Util.getLoginUser().getName() + "，项目："
+									+ processName + "，请您审批", true);
+					if (epId != null && epId > 0) {
+						template.setEpId(epId);
+						CircuitRun circuitRun = (CircuitRun) totalDao.get(
+								CircuitRun.class, epId);
+						if ("同意".equals(circuitRun.getAllStatus())
+								&& "审批完成".equals(circuitRun.getAuditStatus())) {
+							template.setEpStatus("同意");
+						} else {
+							template.setEpStatus("未审批");
+						}
+						return totalDao.update(template);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException(e.getMessage());
+				}
+			}
+		}
+		return false;
+	}
+
+	// 多条导入
+	@SuppressWarnings("unchecked")
+	@Override
+	public String batchSaveOaappdetailTemp(File oadetailFile) {
+
+		String fileName = Util.getDateTime("yyyyMMddhhmmss") + ".xls";
+		// 上传到服务器
+		String fileRealPath = ServletActionContext.getServletContext()
+				.getRealPath("/upload/file")
+				+ "\\" + fileName;
+		File file = new File(fileRealPath);
+		try {
+			Integer errorCount = 0;// 错误行数
+			int totalCount = 0;
+			Integer successCount = 0;// 成功数量
+			FileCopyUtils.copy(oadetailFile, file);
+			List<OaAppDetailTemplate> tempList = readXLS(fileRealPath);
+			if (null != tempList && tempList.size() > 0) {
+				totalCount++;
+				WritableWorkbook book = Workbook.createWorkbook(file);
+				WritableSheet sheet = book.createSheet("sheet1", 0);
+				Iterator<OaAppDetailTemplate> iterator = tempList.iterator();
+				// int whileCount = 0; //记录循环的次数
+				sheet.setRowView(0, 400);
+				sheet.setColumnView(0, 20);
+				WritableFont font1 = new WritableFont(WritableFont.COURIER, 14,
+						WritableFont.BOLD, false);
+				sheet.addCell(new Label(0, errorCount, "序号",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(1, 20);
+				sheet.addCell(new Label(1, errorCount, "物料编码",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(2, 20);
+				sheet.addCell(new Label(2, errorCount, "物品类别",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(3, 20);
+				sheet.addCell(new Label(3, errorCount, "物品名称",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(4, 20);
+				sheet.addCell(new Label(4, errorCount, "物品规格",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(5, 20);
+				sheet.addCell(new Label(5, errorCount, "计量单位",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(6, 20);
+				sheet.addCell(new Label(6, errorCount, "供料属性",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(7, 20);
+				sheet.addCell(new Label(7, errorCount, "版本",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(8, 20);
+				sheet.addCell(new Label(8, errorCount, "图号",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(9, 20);
+				sheet.addCell(new Label(9, errorCount, "借领属性",
+						new WritableCellFormat(font1)));
+				sheet.setColumnView(10, 20);
+				sheet.addCell(new Label(10, errorCount, "错误信息",
+						new WritableCellFormat(font1)));
+				String showString = "";
+				while (iterator.hasNext()) {
+					OaAppDetailTemplate temp = iterator.next();
+					boolean success = true;
+
+					String code = null;
+					StringBuffer buffer = new StringBuffer();
+					if (null == temp.getDetailChildClass()
+							|| "".equals(temp.getDetailChildClass())) {
+						// sheet.addCell(new Label(6, errorCount, "物品类别不能为空"));
+						buffer.append("物品类别不能为空、");
+						success = false;
+					} else {
+						try {
+							code = checkWLCode(temp.getWlcode(), temp
+									.getDetailChildClass());
+						} catch (Exception e) {
+							// sheet.addCell(new Label(6, errorCount,
+							// e.getMessage()));
+							buffer.append(e.getMessage() + "、");
+							success = false;
+						}
+					}
+
+					if (null == temp.getDetailAppName()
+							|| "".equals(temp.getDetailAppName())) {
+						// sheet.addCell(new Label(6, errorCount, "物品名称不能为空"));
+						buffer.append("物品名称不能为空、");
+						success = false;
+					}
+
+					if (null == temp.getDetailUnit()
+							|| "".equals(temp.getDetailUnit())) {
+						// sheet.addCell(new Label(6, errorCount, "计量单位不能为空"));
+						buffer.append("计量单位不能为空、");
+						success = false;
+					} else {
+						// 判断计量单位是否正确
+						List list = totalDao.query(
+								"from UnitManager where unitname=?", temp
+										.getDetailUnit());
+						if (null == list || list.size() == 0) {
+							// sheet.addCell(new Label(6, errorCount,
+							// "计量单位在系统中不存在"));
+							buffer.append("计量单位在系统中不存在、");
+							success = false;
+						}
+					}
+
+					Integer categoryId = (Integer) totalDao
+							.getObjectByCondition(
+									"select id from Category where name =?",
+									temp.getDetailChildClass());
+					if (null == categoryId) {
+						// sheet.addCell(new Label(6, errorCount,
+						// "物品类别在系统中不存在"));
+						buffer.append("物品类别在系统中不存在、");
+						success = false;
+					}
+					if(null==temp.getKgliao() || temp.getKgliao().equals("")) {
+						buffer.append("供料属性不能为空、");
+						success = false;
+					}
+					  if(success){ 
+						  String hql_cf =  " from OaAppDetailTemplate where wlcode = ? and detailFormat = ? and detailAppName = ?";
+						  OaAppDetailTemplate oa = (OaAppDetailTemplate) totalDao.getObjectByCondition(hql_cf,  code,temp.getDetailFormat(),temp.getDetailAppName());
+						  if(oa!=null){ 
+							  sheet.addCell(new Label(8, errorCount,"该条记录已经存在"));
+							  buffer.append("该条记录已经存在、"); 
+							  success = false; 
+						  } 
+					  }
+					 
+					String search_sql = "from OaAppDetailTemplate where detailChildClass=? and detailAppName = ? " +
+							" and detailFormat =? ";
+					List query = totalDao.query(search_sql, temp
+							.getDetailChildClass(), temp.getDetailAppName(),temp.getDetailFormat());
+					if (null != query && query.size() > 0) {
+						buffer = new StringBuffer("当前记录（物品类型、物品名称、物品规格）已经存在、");
+						success = false;
+					}
+					// 执行保存
+					if (success) {
+						temp.setEpStatus("同意");
+						temp.setDetailAppDate(Util.getDateTime());
+						temp.setWlcode(code);
+
+						if (saveChartNOSC(temp)) {
+							temp.setAddUsersName(Util.getDateTime());
+							totalDao.save(temp);
+							// 进入审批流程
+							String processName = "辅料申购申请";
+							Integer epId = null;
+							try {
+								epId = CircuitRunServerImpl.createProcess(
+										processName, OaAppDetailTemplate.class,
+										temp.getId(), "epStatus", "id",
+										"OAAppDetailTemplateAction!getTemplateById.action?id="
+												+ temp.getId()
+												+ "&tag=showExamine", "部门 :"
+												+ Util.getLoginUser().getDept()
+												+ "，姓名:"
+												+ Util.getLoginUser().getName()
+												+ "，项目：" + processName
+												+ "，请您审批", true);
+								if (epId != null && epId > 0) {
+									temp.setEpId(epId);
+									CircuitRun circuitRun = (CircuitRun) totalDao
+											.get(CircuitRun.class, epId);
+									if ("同意".equals(circuitRun.getAllStatus())
+											&& "审批完成".equals(circuitRun
+													.getAuditStatus())) {
+										temp.setEpStatus("同意");
+									} else {
+										temp.setEpStatus("未审批");
+									}
+									totalDao.update(temp);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								return e.getMessage();
+							}
+							successCount++;
+						} else {
+
+						}
+					} else {
+						errorCount++;
+					}
+					String saveString = buffer.toString();
+					if (saveString != "" && !saveString.equals("")) {
+						sheet.addCell(new Number(0, errorCount, errorCount));
+						sheet
+								.addCell(new Label(1, errorCount, temp
+										.getWlcode()));
+						sheet.addCell(new Label(2, errorCount, temp
+								.getDetailChildClass()));
+						sheet.addCell(new Label(3, errorCount, temp
+								.getDetailAppName()));
+						sheet.addCell(new Label(4, errorCount, temp
+								.getDetailFormat()));
+						sheet.addCell(new Label(5, errorCount, temp
+								.getDetailUnit()));
+						sheet.addCell(new Label(6, errorCount, temp
+								.getKgliao()));
+						sheet.addCell(new Label(7, errorCount, temp
+								.getBanben()));
+						sheet.addCell(new Label(8, errorCount, temp
+								.getTuhao()));
+						sheet.addCell(new Label(9, errorCount, temp
+								.getLendNeckStatus()));
+						sheet.addCell(new Label(10, errorCount, saveString
+								.substring(0, saveString.length() - 1)));
+						sheet.setRowView(errorCount, 300);
+
+						showString = "行号："
+								+ totalCount
+								+ ",错误信息："
+								+ saveString.substring(0,
+										saveString.length() - 1) + "<br>";
+					}
+				}
+				if (errorCount == 0) {
+					book.close();
+					return "已成功导入" + successCount + "个";
+				} else {
+					book.write();
+					book.close();
+					return "已成功导入"
+							+ successCount
+							+ "个<br>失败"
+							+ errorCount
+							+ "个,<br>"
+							+ showString
+							+ "请点击<a href='"
+							+ ServletActionContext.getRequest()
+									.getContextPath() + "/upload/file/"
+							+ fileName + "'>下载</a>查看失败原因";
+				}
+			}
+			return "没有获取到行数";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "导入出错,请截屏发给管理员!<br>" + e.getMessage();
+		}
+	}
+
+	// 读取xls文件内容
+	private List<OaAppDetailTemplate> readXLS(String fileRealPath)
+			throws Exception {
+		List<OaAppDetailTemplate> list = new ArrayList<OaAppDetailTemplate>();
+		/*
+		 * String fileName = Util.getDateTime("yyyyMMddhhmmss") + ".xls"; //
+		 * 上传到服务器 String fileRealPath = ServletActionContext.getServletContext()
+		 * .getRealPath("/upload/file") + "\\" + fileName; File file = new
+		 * File(fileRealPath);
+		 */
+		jxl.Workbook wk = null;
+		// WritableWorkbook wwb = null;
+		int i = 0;
+		try {
+			// 开始读取excle表格
+			InputStream is = new FileInputStream(fileRealPath);// 创建文件流;
+			// OutputStream os = new FileOutputStream(fileRealPath);
+			if (is != null) {
+				wk = Workbook.getWorkbook(is);// 创建workbook
+				// wwb = Workbook.createWorkbook(os);
+			}
+
+			Sheet st = wk.getSheet(0);// 获得第一张sheet表;
+			// WritableSheet sheet = wwb.createSheet("sheet1", 0);
+			int exclecolums = st.getRows();// 获得excle总行数
+			if (exclecolums >= 2) {
+				OaAppDetailTemplate template = null;
+				for (i = 1; i < exclecolums; i++) {
+					Cell[] cells = st.getRow(i);// 获得每i行的所有单元格（返回的是数组）
+					template = new OaAppDetailTemplate();
+					if(cells.length<2 ){
+						continue;
+					}
+					template.setWlcode(cells[1].getContents().trim());
+					template.setDetailChildClass(cells[2].getContents().trim());
+					template.setDetailAppName(cells[3].getContents().trim());
+					template.setDetailFormat(cells[4].getContents().trim());
+					template.setDetailUnit(cells[5].getContents().trim());
+					if(cells.length>6 && cells[6].getContents()!=null) {
+						template.setKgliao(cells[6].getContents().trim());
+					}
+					if(cells.length>7 && cells[7].getContents()!=null) {
+						template.setBanben(cells[7].getContents().trim());
+					}
+					if(cells.length>8 && cells[8].getContents()!=null) {
+						template.setTuhao(cells[8].getContents().trim());
+					}
+					if(cells.length>9 && cells[9].getContents()!=null) {
+						template.setLendNeckStatus(cells[9].getContents().trim());
+					}
+					list.add(template);
+				}
+				is.close();// 关闭流
+				wk.close();// 关闭工作薄
+				// msg = "已成功导入" + successCount + "个<br>失败" + errorCount +
+				// "个<br>重复" + cfCount ;//+ "个<br>失败的行数分别为：<br>" +
+				// strb.toString();
+			} else {
+				throw new Exception("没有获取到行数据");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("导入出错,请截屏发给管理员!<br>" + e.getMessage() + (i + 1)
+					+ "行");
+		}
+
+		return list;
+	}
+
+	/**
+	 * 检查物料编码
+	 * 
+	 * @param code
+	 *            物料编码
+	 * @param categoryName
+	 *            物品类别
+	 * @return generatorCode 生成的物料编码
+	 */
+	private String checkWLCode(String code, String categoryName)
+			throws Exception {
+		String generatorCode = null;
+		if (null == code || code.length() == 0) {
+			// 生成编号
+			Category category = (Category) totalDao.getObjectByCondition(
+					"from Category where name=?", categoryName);
+			if (null == category) {
+				throw new Exception("没有物品类别为" + categoryName + "的数据");
+			} else {
+				if (null == category.getCode() || category.getCode().equals("")) {
+					throw new Exception("该物品类别还没有设置编码规则");
+				} else {
+					String gzType = (String) totalDao
+							.query(
+									"select type from ChartNOGzType where  groups = '辅料' ")
+							.get(0);// 获取辅料的编码规则
+					ChartNOSQ sQ = new ChartNOSQ();
+					sQ.setSqNum(1);
+					sQ.setGztype(gzType);
+					sQ.setCategoryId(category.getId());
+					ChartNOSQ chartNOSQ = chartNOSQServer.getfirstNo(sQ);
+					generatorCode = chartNOSQ.getFirstNo();
+				}
+			}
+		} else {
+			// 检查编号有没有申请
+			String hql = "from ChartNOSC where chartNO = ?";
+			List<ChartNOSC> chartNOSCList = totalDao.query(hql, code);
+
+			if (null == chartNOSCList || chartNOSCList.size() == 0) {
+				throw new Exception("物料编码没有被申请");
+			} else {
+				ChartNOSQ chartNOSQ = chartNOSCList.get(0).getChartnosq();
+				if(chartNOSQ!=null){//自动生成的物料编码
+					if (chartNOSQ.getEpstatus() != "同意"
+						&& !chartNOSQ.getEpstatus().equals("同意")) {
+						throw new Exception("申请的物料编码还没有同意");
+					}
+				}
+				// 检查有没有相同数据
+				String hql_cf = " from OaAppDetailTemplate where wlcode = ? ";
+				OaAppDetailTemplate oa = (OaAppDetailTemplate) totalDao
+				.getObjectByCondition(hql_cf, code);
+				if (oa != null) {
+					throw new Exception("该条物料编码（"+code+"）已经存在");
+				} else {
+					generatorCode = code;
+				}
+			}
+		}
+		return generatorCode;
+	}
+
+	// 保存图号 判断图号是否存在
+	private boolean saveChartNOSC(OaAppDetailTemplate template) {
+		//
+		ChartNOSC chartNOSC = new ChartNOSC();
+		String existsCharthql = "from ChartNOSC where chartNO = ? ";
+		List list = totalDao.query(existsCharthql, template.getWlcode());
+		if (null == list || list.size() == 0) {
+			chartNOSC.setChartNO(template.getWlcode());
+			chartNOSC.setType(template.getDetailChildClass());
+			chartNOSC.setIsuse("YES");
+			chartNOSC.setSjsqUsers(Util.getLoginUser().getName());
+			String userCode = Util.getLoginUser().getCode();
+			String date = Util.getDateTime("yyyyMM");
+			String saveMaxSqNo = (String) totalDao
+					.getObjectByCondition("select max(sqNo) from ChartNOSC where sqNo like '"
+							+ userCode + date + "%'");
+			String sqNoString = null;
+			if (null == saveMaxSqNo || "".equals(saveMaxSqNo)) {
+				sqNoString = userCode + date + "0001";
+			} else {
+				String valueString = saveMaxSqNo.substring(userCode.length()
+						+ date.length());
+				int value = Integer.parseInt(valueString);
+				String saveValue = "";
+				if (value < 10) {
+					saveValue = "000" + (value + 1);
+				} else if (value < 100) {
+					saveValue = "00" + (value + 1);
+				} else if (value < 1000) {
+					saveValue = "0" + (value + 1);
+				} else {
+					saveValue = String.valueOf(value + 1);
+				}
+				sqNoString = userCode + date + saveValue;
+			}
+
+			chartNOSC.setSqNo(sqNoString);
+			// cpcode;//所属产品编码(产品名称)/所属辅料类别
+			chartNOSC.setCpcode(template.getWlcode());
+			// chartNOSC.setRemak("单条申购");
+		}
+		return totalDao.save(chartNOSC);
+
+	}
+
+	// 下拉查找物品名称
+	@Override
+	public String findchildClass(String tag, String powerTag) {
+		String message = "  |";
+		String hql = "select distinct(detailAppName) from OaAppDetailTemplate where detailChildClass='"
+				+ tag + "'";
+		if ("project".equals(powerTag)) {
+			hql = "select gongzhuang from QuotedProcessInfor where isOld ='no' and quotedPrice.id in (select id from QuotedPrice where proId="
+					+ tag + ")";
+
+		}
+		List<String> list = totalDao.query(hql);
+		for (String d : list) {
+			if (null != d && d.length() > 0) {
+				message += d.toString() + "|";
+			}
+
+		}
+		return message;
+	}
+
+	// 根据物品名称查找申购信息
+	@Override
+	public OaAppDetailTemplate getTempByAppName(String appName) {
+		return (OaAppDetailTemplate) totalDao.getObjectByCondition(
+				"from OaAppDetailTemplate where detailAppName = ?", appName);
+	}
+
+	// 根据物品类别查找和检索数据
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OaAppDetailTemplate> searchAppName(String search,
+			String detailClass) {
+		List<OaAppDetailTemplate> list = null;
+		String hql_search = "from OaAppDetailTemplate odt where 1=1 and CONCAT(wlcode,detailChildClass,detailAppName,detailFormat,detailUnit) like ?"// not
+																																						// exists(select
+																																						// id
+																																						// from
+																																						// OaAppDetail
+																																						// od
+																																						// where
+																																						// od.wlcode=odt.wlcode)
+				+ " and epStatus=?";
+		if (null == detailClass || "".equals(detailClass)) {
+			// hql_search += " ";
+			list = totalDao.query(hql_search, "%" + search + "%", "同意");
+		} else {
+			hql_search += " and detailChildClass =? ";
+			list = totalDao.query(hql_search, "%" + search + "%", "同意",
+					detailClass);
+		}
+
+		return list;
+	}
+
+	// 根据编码查找
+	@Override
+	public OaAppDetailTemplate getTempByCode(String wlcode) {
+		return (OaAppDetailTemplate) totalDao.getObjectByCondition(
+				"from OaAppDetailTemplate where wlcode =? and epStatus=?", wlcode,"同意");
+	}
+
+	@Override
+	public String findOASelect(String tag, String powerTag) {
+		String message = "";
+		// Users user = Util.getLoginUser();
+		if (null != tag && !"".equals(tag)) {
+			String hql = "";
+			// if ("self".equals(powerTag)) {
+			// hql = "select distinct(" + tag
+			// + ") from OaAppDetailTemplate where detailAppDept='"
+			// + user.getDept() + "'";
+			// }/*
+			// * else if("buy".equals(powerTag)){ hql = "select distinct(" + tag
+			// +
+			// * ") from OaPrepareApply "; }
+			// */else {
+			hql = "select distinct(" + tag + ") from OaAppDetailTemplate ";
+			// }
+			hql += " order by " + tag + " desc";
+			List<String> list = totalDao.query(hql);
+			for (String d : list) {
+				if (null != d && d.length() > 0) {
+					message += d.toString() + "|";
+				}
+			}
+		}
+		return message;
+	}
+
+	
+
+}

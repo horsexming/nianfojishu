@@ -1,0 +1,75 @@
+package com.task.entity.sop.muju;
+/**
+ * 开模评估明细
+ * @author (ta_sop_muju_MouldPingGu)
+ *
+ */
+public class MouldPingGu {
+	
+	private Integer id;
+	private String dept;//评估部门;
+	private Integer usersId;//评估人Id;
+	private String userName;//评估人;
+	private String type;//评估类型
+	private String more;//意见/备注/说明
+	private String pinggutime;//评估时间;
+	private String qrstatus;//确认状态
+	private MouldApplyOrder mao;// 多对一 对应开模申请单
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+	public String getPinggutime() {
+		return pinggutime;
+	}
+	public void setPinggutime(String pinggutime) {
+		this.pinggutime = pinggutime;
+	}
+	public MouldApplyOrder getMao() {
+		return mao;
+	}
+	public void setMao(MouldApplyOrder mao) {
+		this.mao = mao;
+	}
+	public String getQrstatus() {
+		return qrstatus;
+	}
+	public void setQrstatus(String qrstatus) {
+		this.qrstatus = qrstatus;
+	}
+	public Integer getUsersId() {
+		return usersId;
+	}
+	public void setUsersId(Integer usersId) {
+		this.usersId = usersId;
+	}
+	
+	
+	
+}

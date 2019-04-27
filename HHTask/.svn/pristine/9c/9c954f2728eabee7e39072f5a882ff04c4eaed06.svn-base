@@ -1,0 +1,560 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<script type="text/javascript"
+			src="<%=basePath%>/javascript/DatePicker/WdatePicker.js">
+</script>
+		<base href="<%=basePath%>">
+		<title>公司信息管理</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<style type="text/css">
+.tag_1 {
+	padding-top: 4px;
+	width: 140px;
+	height: 30px;
+	background: url('<%=path%>/admin/images/tags1_1.jpg');
+}
+
+.tag_2 {
+	padding-top: 4px;
+	width: 140px;
+	height: 30px;
+	background: url('<%=path%>/admin/images/tags1_2_2.jpg');
+}
+</style>
+		<script type="text/javascript">
+
+function updatesubmit() {
+	var form = document.getElementById("updateform");
+	var taskfile = document.getElementById("taskfile");
+	var footfile = document.getElementById("footfile");
+	var logoOKfile = document.getElementById("logoOKfile");
+	var shhhfile = document.getElementById("shhhfile");
+	var shuiyinfile = document.getElementById("shuiyinfile");
+	var logofile = document.getElementById("logofile");
+	var faviconfile = document.getElementById("faviconfile");
+	var name = document.getElementById("name");
+	var tel = document.getElementById("tel");
+	var fax = document.getElementById("fax");
+	var zip = document.getElementById("zip");
+	var email = document.getElementById("email");
+	var address = document.getElementById("address");
+	var urlname = document.getElementById("urlname");
+	var url = document.getElementById("url");
+	var sbtime = document.getElementById("sbtime");
+	var xbtime = document.getElementById("xbtime");
+	var wxstart = document.getElementById("wxstart");
+	var wxend = document.getElementById("wxend");
+	var ext, idx;
+	if (taskfile.value != '') {
+		idx = taskfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = taskfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO' && ext != 'ICON'
+					&& ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+	if (footfile.value != '') {
+		idx = footfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = footfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+
+	if (shuiyinfile.value != '') {
+		idx = shuiyinfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = shuiyinfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+	if (logofile.value != '') {
+		idx = logofile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = logofile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO' && ext!="BMP") {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+	if (faviconfile.value != '') {
+		idx = faviconfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = faviconfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+
+	if (shhhfile.value != '') {
+		idx = shhhfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = shhhfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+	if (logoOKfile.value != '') {
+		idx = logoOKfile.value.lastIndexOf(".");
+		if (idx != -1) {
+			ext = logoOKfile.value.substr(idx + 1).toUpperCase();
+			if (ext != 'GIF' && ext != 'JPG' && ext != 'JPEG' && ext != 'PNG'
+					&& ext != 'ICON' && ext != 'ICO') {
+				alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+				return false;
+			}
+		} else {
+			alert("只能上传.gif, .jpg, .jpeg,.png,.icon,.ico类型的文件!");
+			return false;
+		}
+	}
+
+	var filter = /[0-9][-]{0,}[0-9]+$/;
+	if (name.value == "") {
+		alert("公司名称不能为空!");
+		return false;
+	} else if (tel.value != "" & !filter.test(tel.value)) {
+		alert("请输入正确的号码格式");
+		return false;
+	} else if (fax.value != "" & !filter.test(fax.value)) {
+		alert("请输入正确的传真格式");
+		return false;
+	} else if (zip.value != "" & isNaN(zip.value)) {
+		alert("邮编栏请输入数字");
+		return false;
+	} else if (sbtime.value == "") {
+		alert("请输入上班时间");
+		return false;
+	} else if (xbtime.value == "") {
+		alert("请输入下班时间");
+		return false;
+	} else if (wxstart.value == "") {
+		alert("请输入午休开始时间");
+		return false;
+	} else if (wxend.value == "") {
+		alert("请输入午休结束时间");
+		return false;
+	} else {
+		form.action = "companyInfoAction_update.action";
+		form.submit();
+	}
+}
+
+function backsubmit() {
+	window.location.href = "companyInfoAction_showCompanyInfos.action";
+}
+</SCRIPT>
+		<link rel="stylesheet" href="css/css.css" type="text/css"></link>
+	</head>
+
+	<body bgcolor="#ffffff" onload="createDept('dept')">
+		<center>
+			<div style="width: 1000px;">
+				<div id="xitong" align="center"
+					style="width: 100%; height: 31px; font-weight: bold; padding-left: 35px; padding-top: 5px; padding-bottom: 5px; background: url('admin/images/admin_title.jpg');">
+					<font color="#ffffff">公司信息编辑</font>
+				</div>
+			</div>
+			<div>
+				<div align="center">
+					<font color="red"><s:property
+							value="#session.successMessage" />
+					</font>
+				</div>
+
+				<div align="center" style="padding-top: 20px;">
+					<div align="center" id="addModule">
+						<form id="updateform" action="" method="post"
+							enctype="multipart/form-data">
+							<table class="table">
+								<input type="hidden" name="cpage"
+									value="<s:property value="#request.cpage"/>" />
+								<input type="hidden" name="total"
+									value="<s:property value="#request.total"/>" />
+								<tr>
+									<td align="right">
+										登陆图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.tasklogo"/>"
+											width="100">
+										<input type="file" name="taskfile" id="taskfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										底部图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.bottomlogo"/>"
+											width="100">
+										<input type="file" name="footfile" id="footfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										打印图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.logoOKjpg"/>"
+											width="100">
+										<input type="file" name="logoOKfile" id="logoOKfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										图表图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.shhhjpg"/>"
+											width="100">
+										<input type="file" name="shhhfile" id="shhhfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										水印图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.shuiyinpng"/>"
+											width="100">
+										<input type="file" name="shuiyinfile" id="shuiyinfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										水印图标:
+									</td>
+									<td>
+										<img
+											src="${pageContext.request.contextPath}<s:property value="#request.companyInfo.logo"/>"
+											width="100">
+										<input type="file" name="logofile" id="logofile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										ico图标:
+									</td>
+									<td>
+										<%--											<img  src="${pageContext.request.contextPath}/<s:property value="#request.companyInfo.favicon"/>" width="100">--%>
+										<input type="file" name="faviconfile" id="faviconfile">
+										<font color="red">*</font>
+									</td>
+								</tr>
+
+								<tr>
+									<td align="right">
+										公司名称:
+									</td>
+									<td>
+										<input id="id" type="hidden" name="companyInfo.id"
+											value="<s:property value="#request.companyInfo.id"/>"
+											readonly="readonly" />
+										<input id="name" type="text" name="companyInfo.name"
+											value="<s:property value="#request.companyInfo.name"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										英文名称:
+									</td>
+									<td>
+										<input id="englishName" type="text"
+											name="companyInfo.englishName"
+											value="<s:property value="#request.companyInfo.englishName"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司简称:
+									</td>
+									<td>
+										<input id="name" type="text" name="companyInfo.shortName"
+											value="<s:property value="#request.companyInfo.shortName"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司电话:
+									</td>
+									<td>
+										<input id="tel" type="text" name="companyInfo.tel"
+											value="<s:property value="#request.companyInfo.tel"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司开户银行:
+									</td>
+									<td>
+										<input id="accountBank" type="text"
+											name="companyInfo.accountBank"
+											value="<s:property value="#request.companyInfo.accountBank"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司账户:
+									</td>
+									<td>
+										<input id="accountnum" type="text"
+											name="companyInfo.accountnum"
+											value="<s:property value="#request.companyInfo.accountnum"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司传真:
+									</td>
+									<td>
+										<input id="fax" type="text" name="companyInfo.fax"
+											value="<s:property value="#request.companyInfo.fax"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司邮编:
+									</td>
+									<td>
+										<input id="zip" type="text" name="companyInfo.zip"
+											value="<s:property value="#request.companyInfo.zip"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司邮箱:
+									</td>
+									<td>
+										<input id="email" type="text" name="companyInfo.email"
+											value="<s:property value="#request.companyInfo.email"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										上班时间:
+									</td>
+									<td>
+										<input id="sbtime" type="text" class="Wdate"
+											onClick="WdatePicker({dateFmt:'HH:mm:ss',skin:'whyGreen'})"
+											name="companyInfo.sbtime"
+											value="<s:property value="#request.companyInfo.sbtime"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										下班时间:
+									</td>
+									<td>
+										<input id="xbtime" type="text" class="Wdate"
+											onClick="WdatePicker({dateFmt:'HH:mm:ss',skin:'whyGreen'})"
+											name="companyInfo.xbtime"
+											value="<s:property value="#request.companyInfo.xbtime"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										午休开始时间:
+									</td>
+									<td>
+										<input id="wxstart" type="text" class="Wdate"
+											onClick="WdatePicker({dateFmt:'HH:mm:ss',skin:'whyGreen'})"
+											name="companyInfo.wxstart"
+											value="<s:property value="companyInfo.wxstart"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										午休结束时间:
+									</td>
+									<td>
+										<input id="wxend" type="text" class="Wdate"
+											onClick="WdatePicker({dateFmt:'HH:mm:ss',skin:'whyGreen'})"
+											name="companyInfo.wxend"
+											value="<s:property value="companyInfo.wxend"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司签到经度坐标:
+									</td>
+									<td>
+										<input id="zip" type="text" name="companyInfo.jingdu"
+											value="<s:property value="#request.companyInfo.jingdu"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司签到纬度坐标:
+									</td>
+									<td>
+										<input id="zip" type="text" name="companyInfo.weidu"
+											value="<s:property value="#request.companyInfo.weidu"/>" />
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司签到有效范围:
+									</td>
+									<td>
+										<input id="zip" type="text" name="companyInfo.fanwei"
+											value="<s:property value="#request.companyInfo.fanwei"/>" />
+										<font color="red">*(米)</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司外部IP:
+									</td>
+									<td>
+										<input id="zip" type="text" name="companyInfo.outIp"
+											value="<s:property value="#request.companyInfo.outIp"/>" />
+										<font color="red">*(米)</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										公司地址:
+									</td>
+									<td>
+										<textarea rows="8" cols="35" id="address"
+											name="companyInfo.address"><s:property
+												value="#request.companyInfo.address"/></textarea>
+										<font color="red">*</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										网址名称:
+									</td>
+									<td>
+										<textarea rows="8" cols="35" id="urlname"name="companyInfo.urlname"
+										><s:property value="#request.companyInfo.urlname"/></textarea>
+										<font color="red">*</font>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td align="right">
+										公司网址:
+									</td>
+									<td>
+										<textarea rows="5" cols="40" id="url" name="companyInfo.url"><s:property
+												value="#request.companyInfo.url"/></textarea>
+										<font color="red">*</font>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="2" align="center">
+										<br>
+										<input type="button" style="width: 100px; height: 50"
+											onclick="backsubmit()" value="返回列表">
+										<input type="button" style="width: 100px; height: 50"
+											onclick="updatesubmit()" value="提交">
+										<input type="reset" style="width: 100px; height: 50px;"
+											value="重置">
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+
+				</div>
+
+				<div align="center">
+					<%
+							request.getSession().removeAttribute("successMessage");
+							request.getSession().removeAttribute("errorMessage");
+						%>
+					<br />
+					<br />
+					<br />
+				</div>
+			</div>
+		</center>
+		<script type="text/javascript">
+</script>
+	</body>
+</html>

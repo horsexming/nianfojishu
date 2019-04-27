@@ -1,0 +1,92 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+import com.task.entity.sop.ProcessInfor;
+
+/**
+ * 屏幕对应文件的类
+ * 
+ * @author 马凯
+ * 
+ */
+public class ScreenFiles implements Serializable {
+	private Integer id;//
+	
+	private String filename;// 文件名
+	
+	private String filepath;// 文件路径（换算过后的文件名称）
+	
+	private String type;//类型
+	
+	private String partNumber;//件号
+	private String name;//件号对应的名字
+	private String processName;//工序名
+	
+	private ProcessInfor process;// 工序名称
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public ProcessInfor getProcess() {
+		return process;
+	}
+
+	public void setProcess(ProcessInfor process) {
+		this.process = process;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getPartNumber() {
+		return partNumber;
+	}
+
+	public void setPartNumber(String partNumber) {
+		this.partNumber = partNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+}

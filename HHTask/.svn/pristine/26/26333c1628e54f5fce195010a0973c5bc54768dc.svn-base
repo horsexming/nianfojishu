@@ -1,0 +1,285 @@
+package com.task.action.renshi;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.renshi.InDoorScreenServer;
+import com.task.entity.Users;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.renshi.InDoorScreen;
+import com.task.entity.renshi.InDoorScreenUsers;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+public class InDoorScreenAction {
+
+	private Integer id;
+	private InDoorScreen screen;
+	private List<InDoorScreen> screenList;
+	
+	private String pageStatus;
+	private String cpage="1";
+	private Integer pageSize = 15;
+	private String url;
+	private String total;
+	private String tag;
+	private String errorMessage;
+	private Integer usersId;
+	private InDoorScreenServer inDoorScreenServer;
+	private List<InDoorScreenUsers> screenUserList;
+	
+	private List<Visitor> visitorList;
+	private List<Users> usersList;
+	private List<ResAccess> resList;
+	private String dateTime;
+	private String nextDateTime;
+	
+	
+	public String toAddScreen() {
+		
+		if(id!=null ) {
+			screen = inDoorScreenServer.getScreenById(id, pageStatus);
+		}
+		return "inDoorScreen_add";
+	}
+	
+	public String addScreen() {
+		errorMessage = inDoorScreenServer.addInDoorScreen(screen, pageStatus);
+		setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+		return "error";
+	}
+	
+	public String updateScreen() {
+		errorMessage = inDoorScreenServer.addInDoorScreen(screen, pageStatus);
+		setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+		return "error";
+	}
+	
+	public String findScreenByCon() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		
+		if(screen!=null) {
+			session.put("findScreenByCon", screen);
+		}else {
+			screen = (InDoorScreen) session.get("findScreenByCon");
+		}
+		
+		Map<String, Object> map = inDoorScreenServer.findInDoorScreenByCon(screen, Integer.parseInt(cpage), pageSize, pageStatus);
+		if(map!=null && map.size()>0) {
+			screenList = (List<InDoorScreen>) map.get("list");
+			if(screenList!=null && screenList.size()>0) {
+				Integer count  = (Integer) map.get("count");
+				setUrl("inDoorScreenAction!findScreenByCon.action?pageStatus="+pageStatus+"&tag="+tag);
+				Integer pageCount=(count + pageSize - 1) / pageSize;
+				setTotal(pageCount+"");
+			}
+		}
+		
+		return "inDoorScreen_list";
+	}
+	
+	/**
+	 * 更新屏幕信息
+	 * @return
+	 */
+	public String toScreenUpdate() {
+		
+		return "inDoorScreen_bindUsers";
+	}
+	
+	/**
+	 * 绑定屏幕人员
+	 * @return
+	 */
+	public void bindScreenUsers() {
+		
+		errorMessage = inDoorScreenServer.bindScreenUsers(id, usersId);
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	public void cancelScreenUsers() {
+		errorMessage = inDoorScreenServer.cancelScreenUsers(id, usersId);
+		MKUtil.writeJSON(errorMessage);
+	}
+	
+	public String toBindUsers() {
+		screenUserList = inDoorScreenServer.getScreenUsersById(id);
+		return "inDoorScreen_bindUsers";
+	}
+	
+	//查看屏幕
+	@SuppressWarnings("unchecked")
+	public String toScreenIndex() {
+		Map<String, Object> map = inDoorScreenServer.fingScreenInfoByScreenId(id);
+		if(map!=null ) {
+			usersList =(List<Users>) map.get("users");
+			visitorList = (List<Visitor>) map.get("visitor");
+			resList = (List<ResAccess>) map.get("res");
+		}
+		dateTime = Util.getDateTime("MM-dd号");
+		
+//		nextDateTime = Util.getSpecifiedDayAfter(dateTime, 1);
+		return "inDoorScreen_index";
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public InDoorScreen getScreen() {
+		return screen;
+	}
+
+
+
+
+	public void setScreen(InDoorScreen screen) {
+		this.screen = screen;
+	}
+
+
+
+
+	public List<InDoorScreen> getScreenList() {
+		return screenList;
+	}
+
+
+
+
+	public void setScreenList(List<InDoorScreen> screenList) {
+		this.screenList = screenList;
+	}
+
+
+
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public InDoorScreenServer getInDoorScreenServer() {
+		return inDoorScreenServer;
+	}
+
+	public void setInDoorScreenServer(InDoorScreenServer inDoorScreenServer) {
+		this.inDoorScreenServer = inDoorScreenServer;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public Integer getUsersId() {
+		return usersId;
+	}
+
+	public void setUsersId(Integer usersId) {
+		this.usersId = usersId;
+	}
+
+	public List<InDoorScreenUsers> getScreenUserList() {
+		return screenUserList;
+	}
+
+	public void setScreenUserList(List<InDoorScreenUsers> screenUserList) {
+		this.screenUserList = screenUserList;
+	}
+
+	public List<Visitor> getVisitorList() {
+		return visitorList;
+	}
+
+	public void setVisitorList(List<Visitor> visitorList) {
+		this.visitorList = visitorList;
+	}
+
+	public List<Users> getUsersList() {
+		return usersList;
+	}
+
+	public void setUsersList(List<Users> usersList) {
+		this.usersList = usersList;
+	}
+
+	public List<ResAccess> getResList() {
+		return resList;
+	}
+
+	public void setResList(List<ResAccess> resList) {
+		this.resList = resList;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public String getNextDateTime() {
+		return nextDateTime;
+	}
+
+	public void setNextDateTime(String nextDateTime) {
+		this.nextDateTime = nextDateTime;
+	}
+
+}

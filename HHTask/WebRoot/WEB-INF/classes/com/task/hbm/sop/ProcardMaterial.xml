@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardMaterial" table="ta_sop_ProcardMaterial">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId" />
+		<property name="selfCard" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="name" />
+		<property name="thecount" />
+		<property name="unit" />
+		<property name="procardId" />
+		<property name="procardCount" />
+		<property name="type" />
+		<property name="bili" />
+		<property name="headId" />
+		<property name="lingliaoStatus" />
+		<property name="zaiCount" />
+		<property name="wlZaiCount" />
+		<property name="wlcount" />
+		<property name="yzaiCount" />
+		<property name="wlYzaiCount" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,932 @@
+//改变行颜色
+var oldObj;
+var oldnumber;
+function chageBgcolor(obj, color) {
+	if (oldObj != obj)
+		obj.style.background = color || "#c0dcf2";
+}
+
+function outBgcolor(obj, oldColor) {
+	if (oldObj != obj)
+		obj.style.background = oldColor;
+}
+
+function clickBgcolor(obj, color, number) {
+	if (number == null) {
+		number = 1;
+	}
+	if (oldObj != null && oldObj != obj) {
+		if (oldnumber != null && oldnumber == number) {
+			oldObj.style.background = '';
+		}
+	}
+	oldObj = obj;
+	oldnumber = number;
+	obj.style.background = color || "#fbec88";
+}
+
+var XMLHttpReq;
+//创建XMLHttpRequest对象 
+function createXMLHttpRequest() {
+	if (window.XMLHttpRequest) {//Mozilla 浏览器
+		XMLHttpReq = new XMLHttpRequest();
+	} else {
+		if (window.ActiveXObject) { // IE浏览器
+			try {
+				XMLHttpReq = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					XMLHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+				}
+			}
+		}
+	}
+}
+//发送请求函数 (url=请求地址 ,obj=指定响应函数)
+function sendRequest(url, obj) {
+	createXMLHttpRequest();
+	url = encodeURI(encodeURI(url));
+	XMLHttpReq.open("post", url, false);
+	XMLHttpReq.onreadystatechange = obj;//指定响应函数
+	XMLHttpReq.send(null);// 发送请求
+}
+
+var winWidth = 0;
+var winHeight = 0;
+function findDimensions() //函数：获取尺寸 
+{
+	//获取窗口宽度 
+	if (window.innerWidth)
+		winWidth = window.innerWidth;
+	else if ((document.body) && (document.body.clientWidth))
+		winWidth = document.body.clientWidth;
+	//获取窗口高度 
+	if (window.innerHeight) {
+		winHeight = window.innerHeight;
+	} else if ((document.body) && (document.body.clientHeight))
+		winHeight = document.body.clientHeight;
+}
+
+//弹出透明层(showOrClose为 block/none)
+function chageDiv(showOrClose, title) {
+	if (showOrClose == "none") {
+		$("#bodyDiv").hide();
+		$("#contentDiv").hide();
+		return;
+	}
+	//标题处理
+	var titleSpan = document.getElementById("title");
+	if (title != null && title != "") {
+		titleSpan.innerHTML = title;
+	}
+
+	//网页高度、宽度计算
+	findDimensions();
+	//调整透明层高度
+	var bodyDiv = document.getElementById("bodyDiv");
+	bodyDiv.className = "transDiv";//透明统一样式
+
+	$("#contentDiv").removeAttr("style");
+	$("#contentDiv").addClass("contentDiv");//关闭统一样式
+	$("#closeDiv").removeAttr("style");
+	$("#closeDiv").addClass("closeDiv");//关闭统一样式
+
+	$("#bodyDiv").bind("click", function() {
+		chageDiv("none");
+	})
+
+	var contentDiv = document.getElementById("contentDiv");
+	var conWidth = parseFloat($("#contentDiv").css("width"));//contentDiv div的宽度
+	var conHeight = parseFloat($("#contentDiv").css("height"));//contentDiv div的宽度
+	//计算边距、高度、滚动条距离
+	//获取窗口高度 
+	if (window.innerHeight) {
+		winHeight = window.innerHeight;
+	} else if ((document.body) && (document.body.clientHeight))
+		winHeight = document.body.clientHeight;
+	var scrollTop = getScrollTop();//获取滚动条离顶部距离
+	var lrWidth = ((winWidth - conWidth) / 2).toFixed(0);//两边距离
+	var lrHeight = ((winHeight - conHeight) / 2).toFixed(0);//上下窗口距离
+	if (lrWidth < 0) {
+		lrWidth = 0;
+	}
+	if (lrHeight < 0) {
+		lrHeight = 0;
+	}
+	//调整左边距
+	$("#contentDiv").css("left", lrWidth + "px");
+	//调整上边距
+	contentDiv.style.top = parseFloat(10) + parseFloat(scrollTop);
+	//调整透明层的高度
+	bodyDiv.style.height = parseFloat(scrollTop) + winWidth;//更改透明层的高度
+	//bodyDiv.style.top = parseFloat(10) + parseFloat(scrollTop);//调整透明层的上边距
+
+	//打开层
+	$("#bodyDiv").show('slow');
+	$("#contentDiv").show('slow');
+
+	//esc退出
+	document.onkeydown = function() {
+		if (event.keyCode == 27) {
+			chageDiv('none');
+		}
+	}
+
+	//将主页iframe高度按照弹框高度适应
+	var main = $("#workMainIframe", window.parent.document);//找到iframe对象
+	//获取窗口高度 
+	var thisheight;
+	thisheight = document.body.scrollHeight;
+	thisheight = parseFloat(thisheight);
+	if (thisheight < 500) {
+		thisheight = 500
+	}
+	if (conHeight > thisheight) {
+		thisheight = conHeight;
+	}
+	main.height(thisheight);
+	//将主页iframe高度自适应成功
+
+}
+
+//获取滚动条离顶部距离(兼容所有)
+function getScrollTop() {
+	var scrollPos;
+	if (window.pageYOffset) {
+		scrollPos = window.pageYOffset;
+	} else if (document.compatMode && document.compatMode != 'BackCompat') {
+		scrollPos = document.documentElement.scrollTop;
+	} else if (document.body) {
+		scrollPos = document.body.scrollTop;
+	}
+	var main = window.parent.document.getElementById("workMainIframe");//找到iframe对象
+	if (main != null) {
+		var fscrollPos;
+		var fd = window.parent.document;
+		if (window.pageYOffset) {
+			fscrollPos = window.parent.pageYOffset;
+		} else if (fd.compatMode && fd.compatMode != 'BackCompat') {
+			fscrollPos = fd.documentElement.scrollTop;
+		} else if (fd.body) {
+			fscrollPos = fd.body.scrollTop;
+		}
+		if (fscrollPos > scrollPos) {
+			scrollPos = fscrollPos - 300;
+		}
+	}
+	if (scrollPos < 0) {
+		scrollPos = 0;
+	}
+	return scrollPos;
+}
+
+//下拉框可输入
+function writeSelect(obj) {
+	obj.options[0].selected = "select";
+	obj.options[0].value = obj.options[0].text = obj.options[0].text
+			+ String.fromCharCode(event.keyCode);
+	event.returnValue = false;
+	return obj.options[0].text;
+}
+
+//处理键盘事件 禁止后退键（Backspace）密码或单行、多行文本框除外
+//页面不能返回(调用方法:document.onkeydown(个人需要发生事件) = banBackSpace;)
+function banBackSpace(e) {
+	var ev = e || window.event;//获取event对象 
+	var obj = ev.target || ev.srcElement;//获取事件源      
+	var t = obj.type || obj.getAttribute('type');//获取事件源类型 
+	//获取作为判断条件的事件类型   
+	var vReadOnly = obj.getAttribute('readonly');
+	var vEnabled = obj.getAttribute('enabled');
+	//处理null值情况   
+	vReadOnly = (vReadOnly == null) ? false : vReadOnly;
+	vEnabled = (vEnabled == null) ? true : vEnabled;
+
+	//当敲Backspace键时，事件源类型为密码或单行、多行文本的，   
+	//并且readonly属性为true或enabled属性为false的，则退格键失效   
+	var flag1 = (ev.keyCode == 8
+			&& (t == "password" || t == "text" || t == "textarea") && (vReadOnly == true || vEnabled != true)) ? true
+			: false;
+
+	//当敲Backspace键时，事件源类型非密码或单行、多行文本的，则退格键失效   
+	var flag2 = (ev.keyCode == 8 && t != "password" && t != "text" && t != "textarea") ? true
+			: false;
+
+	//判断   
+	if (flag2) {
+		return false;
+	}
+	if (flag1) {
+		return false;
+	}
+}
+
+var select;
+//为select赋值(返回信息为包含|的字符串)
+function findAllDept(){
+	if (XMLHttpReq.readyState == 4) { // 判断对象状态
+		if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+			var message = XMLHttpReq.responseText;
+			var dept=message.split("|");
+			for(var i=0;i<dept.length-1;i++){
+				var isPresence=jsSelectIsExitItem(select,dept[i]);//判断select选项中 是否存在Value和查出的相同的Item   
+				if(isPresence==false){
+					var optionItem=new Option(dept[i],dept[i]);
+					select.options.add(optionItem);
+				}
+			}
+			//$(select).tinyselect();
+		} else { //页面不正常
+			window.alert("页面异常,请重试!");
+		}
+	}
+}
+
+// 判断select选项中 是否存在Value和查出的相同的Item   
+function jsSelectIsExitItem(objSelect, objItemValue) {        
+    var isPresence = false;
+    for (var i = 0; i < objSelect.options.length; i++) {        
+        if (objSelect.options[i].value == objItemValue) {        
+            isPresence = true;        
+            break;
+        }        
+    }        
+    return isPresence;        
+}  
+
+//生成下拉列表(默认是查询部门)
+function createDept(selectName,actionUrl){
+	if(actionUrl==null){
+		actionUrl="DeptNumberAction!finAllDeptNumberForSetlect.action";
+	}
+	select =document.getElementById(selectName);
+	sendRequest(actionUrl,findAllDept);
+	$("#"+selectName).tinyselect();
+}
+function createDept0(selectName,actionUrl){
+	if(actionUrl==null){
+		actionUrl="DeptNumberAction!finAllDeptNumberForSetlect.action";
+	}
+	select =document.getElementById(selectName);
+	sendRequest(actionUrl,findAllDept);
+}
+
+//为select赋值(返回信息为包含|的字符串)
+function saveShoppingStatus(){
+	if (XMLHttpReq.readyState == 4) { // 判断对象状态
+		if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+			var message = XMLHttpReq.responseText;
+			alert(message);
+		} else { //页面不正常
+			window.alert("页面异常,请重试!");
+		}
+	}
+}
+
+
+//页面打印
+//printStatus sy 打印水印
+function pagePrint(divId,printStatus) {
+	if(printStatus==null||printStatus==""||printStatus=="yes"){
+		$("#"+divId).jqprint();
+	}else if(printStatus=="sy"){
+		var printBody = document.getElementById(divId);
+		var printBodyHTML = printBody.innerHTML;
+		var printObject=new Object();
+		printObject.name=printBodyHTML;
+		$("#"+divId).jqprint();
+		//window.showModalDialog("/HHTask/util/printPreview.jsp",printObject,"dialogHeight:768px;dialogWidth:3024px;help:yes;resizable:yes;status:yes;scroll:yes");
+	}else if(printStatus=="view"){
+		var printBody = document.getElementById(divId);
+		var printBodyHTML = printBody.innerHTML;
+		var printObject=new Object();
+		printObject.name=printBodyHTML;
+		$("#"+divId).jqprint();
+		//window.showModalDialog("/HHTask/util/printView.jsp",printObject,"dialogHeight:768px;dialogWidth:3024px;help:yes;resizable:yes;status:yes;scroll:yes");
+	}
+}
+
+//页面打印
+function pagePrintOld(divId,printStatus) {
+	var printBody = document.getElementById(divId);
+	var printBodyHTML = "";
+	var bodyHTML = "";
+	if (printBodyHTML == "") {
+		printBodyHTML = printBody.innerHTML;
+	}
+	if (bodyHTML == "") {
+		bodyHTML = document.body.innerHTML;
+	}
+	if(printStatus==null||printStatus==""||printStatus=="yes"){
+		
+		document.body.innerHTML = printBodyHTML;
+		window.print();
+		document.body.innerHTML = bodyHTML;
+	}else{
+		var printObject=new Object();
+		printObject.name=printBodyHTML;
+		window.showModalDialog("/util/printOldView.jsp",printObject,"dialogHeight:768px;dialogWidth:3024px;help:yes;resizable:yes;status:yes;scroll:yes");
+	}
+}
+
+//改变class样式 obj=将要改变的对象 (this)  className=将要改变成什么样式(留空为取消样式)
+function chageClass(obj,className) {
+	obj.className=className;
+}
+
+//对某个id的元素显示或隐藏
+function showOrClose(id, soc) {
+	var obj = document.getElementById(id);
+	if (obj != null && soc != null && soc.length > 0) {
+		obj.style.display = soc;
+	}
+}
+
+//对某个id的元素显示
+function show(id,isSlow) {
+	$("#"+id).show(isSlow);
+}
+//对某个id的元素隐藏
+function hide(id,isSlow) {
+	$("#"+id).hide(isSlow);
+}
+
+
+// 添加收藏
+$(function() {
+	$('#nav-add-favorite').click(function(e) {
+		var url = document.location.href;
+		var title = document.title;
+		try {
+			window.external.addFavorite(url, title);
+		} catch (e) {
+			try {
+				window.external.addPanel(title, url, '');
+				ret = true;
+			} catch (e) {
+				alert("您的浏览器不支持自动加收藏, 请按 Ctrl + D 加入收藏");
+			}
+		}
+	});
+});
+
+
+function goPageByUrl(id,target,pageStatus,functionLink) {
+	if(pageStatus==null){
+		pageStatus="";
+	}
+	if(target=="yes"){
+		var a = document.createElement('a');
+		a.href = "ModuleFunctionAction!findMfByIdForJump.action?id=" + id+"&pageStatus="+pageStatus;
+		//a.target = 'modulePage';
+		document.body.appendChild(a);
+		a.click();
+	}else{
+		if(functionLink!=null&&functionLink!=""){
+			window.location = functionLink;
+		}else{
+			window.location = "ModuleFunctionAction!findMfByIdForJump.action?id=" + id+"&pageStatus="+pageStatus;
+		}
+	}
+}
+//返回上一页
+function goBack(){
+	history.go(-1);
+}
+
+Date.prototype.format = function(format)
+{
+    var o = {
+    "M+" : this.getMonth()+1, //month
+    "d+" : this.getDate(),    //day
+    "h+" : this.getHours(),   //hour
+    "m+" : this.getMinutes(), //minute
+    "s+" : this.getSeconds(), //second
+    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+    "S" : this.getMilliseconds() //millisecond
+    }
+ 
+    if(/(y+)/.test(format))
+    {
+        format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    }
+ 
+    for(var k in o)
+    {
+        if(new RegExp("("+ k +")").test(format))
+        {
+            format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+        }
+    }
+    return format;
+}
+
+//强制刷新页面
+function reload(){
+	location.reload(true);
+}
+
+//获得所有单位信息
+function getUnit(unitId,unit) {
+	$.ajax( {
+		type : "POST",
+		url : 'UnitManagerAction_findUninAll.action',
+		dataType : 'json',
+		cache : false,//防止数据缓存
+		success : function(allUnit) {
+			$(allUnit).each(
+					function() {
+						if(this.unitname === unit){
+							$(
+								"<option value='" + this.unitname + "' selected='selected'>"
+										+ this.unitname + "</option>")
+								.appendTo("#" + unitId);
+						}else{
+							$(
+								"<option value='" + this.unitname + "'>"
+										+ this.unitname + "</option>")
+								.appendTo("#" + unitId);
+						}
+						
+					});
+		}
+
+	});
+}
+//获得所有材质
+function getCaizhi(unitId) {
+	$.ajax( {
+		type : "POST",
+		url : 'UnitManagerAction_findUninAll.action',
+		dataType : 'json',
+		data : {
+					pageStatus : "material"
+			},
+		cache : false,//防止数据缓存
+		success : function(allUnit) {
+			$(allUnit).each(
+					function() {
+						$(
+								"<option value='" + this.unitname + "'>"
+										+ this.unitname + "</option>")
+								.appendTo("#" + unitId);
+					});
+		}
+
+	});
+}
+//页面高度自动调整
+function autoHeight(){
+	$("#gongneng").removeAttr("style");
+	$("#xitong").removeAttr("style");
+	$("#xitong font").css( {
+		"color" : "#4f4d4d"
+	});
+	$("#xitong a").css( {
+		"color" : "#4f4d4d"
+	});
+	$("#xitong").after("<div style='clear: both;'></div>");
+
+	//将主页iframe高度自适应
+	$("#workMainIframe",window.parent.document).load(function() {//绑定事件
+				var main = $("#workMainIframe",window.parent.document);//找到iframe对象
+				//获取窗口高度 
+				var thisheight;
+				thisheight = document.body.scrollHeight;
+				thisheight = parseFloat(thisheight);
+				var conHeight = parseFloat($("body").css("height"));//contentDiv div的宽度
+//				alert("thisheight--"+thisheight);
+//				alert("conHeight--"+conHeight);
+				if(conHeight>thisheight){
+					thisheight=conHeight;
+				}
+				if(thisheight<500){
+					thisheight=500;
+				}
+				main.height(thisheight);//为iframe高度赋值如果高度小于500，则等于500，反之不限高，自适应
+			});
+
+
+}
+
+//输入搜索 下拉选择(模糊查询) 开始
+var count_seach=0;
+ function ondiv(obj){
+	 count_seach++;
+	obj.style.background="gray"; 
+ };
+ function outdiv(obj,showAllId){
+	 obj.style.background="#ffffff";
+	 var showAll=document.getElementById(showAllId==null?"showAll":showAllId);
+	 hidediv(showAll);
+	 
+ }
+ function hidediv(showAllId){
+	 count_seach--;
+	 if(count_seach==0){
+	 	var showAll=document.getElementById(showAllId==null?"showAll":showAllId); 
+	   showAll.style.visibility = "hidden";
+	 }
+
+ }
+function init(shortnameId,showAllId,index) {
+	count_seach++;
+	var shortname=document.getElementById(shortnameId==null?"shortname":shortnameId);
+	var showAll=document.getElementById(showAllId==null?"showAll":showAllId);
+	showAll.style.top = getTop(shortname) + 20;
+	showAll.style.left = getLeft(shortname);
+	if(shortname.value!=""){
+		if(index==null){
+			getAllNames();
+		}else{
+			getAllNames(index);
+		}
+		
+	}
+	showAll.style.visibility = "visible";
+}
+function selectdiv(obj,shortnameId,showAllId){
+	var shortname=document.getElementById(shortnameId==null?"shortname":shortnameId);
+	shortname.value=$(obj).find("span").html();
+	var showAll=document.getElementById(showAllId==null?"showAll":showAllId); 
+	showAll.style.visibility = "hidden";
+}
+//获取元素的纵坐标（相对于窗口）
+function getTop(e) {
+	var offset = e.offsetTop;
+	if (e.offsetParent != null)
+		offset += getTop(e.offsetParent);
+	return offset;
+}
+//获取元素的横坐标（相对于窗口）
+function getLeft(e) {
+	var offset = e.offsetLeft;
+	if (e.offsetParent != null)
+		offset += getLeft(e.offsetParent);
+	return offset;
+}
+//输入搜索 下拉选择(模糊查询) 结束
+
+//判断域名能否访问
+	var errorCount=0;
+function getOnline() {
+	$.ajax( {
+		type : "POST",
+		url : "UsersAction!onlineTest.action",
+		dataType : "json",
+		async: false,
+		success : function(data) {
+			//if(errorCount>0){
+				//window.location.reload();
+			//}
+		},
+		error : function() {
+			errorCount++;
+			getOnline();
+		}
+	});
+}
+//输入内容必须为数字
+function mustBeNumber(id){
+	var number=$("#"+id).val();
+	if(isNaN(number)){
+		alert("请输入数字");
+		$("#"+id).val(0);
+		return false;
+	}
+	return true;
+	
+}
+//正则验证数字  type为zhengshu 时 只验证整数; type 为空或其它时 则验证 正数
+
+function numyanzheng(obj,type){
+	var flag=true;
+	if(obj!=null && obj.value!=""){
+		var szReg=/^\d+(\.\d+)?$/;
+		if(type == 'zhengshu'){
+			szReg = /^\d*$/;
+		}
+		var value = parseFloat(obj.value);
+		var bChk=szReg.test(obj.value);
+		if(!bChk){
+			obj.value = "";
+			obj.focus();
+			alert("请输入符合的数字");
+			flag=false;
+			
+		}
+	}
+	
+	return flag;
+}
+
+function chageAllCheck(obj,numId,name) {
+	var inputs = document.getElementsByTagName("input");
+	for ( var i = 0; i < inputs.length; i++) {
+		if (inputs[i].type == "checkbox") {
+			var checkBox = inputs[i];
+			if (checkBox.checked != obj.checked) {
+				checkBox.checked = obj.checked;
+				if (checkBox.id != "checkAll2" && checkBox.id != "checkAll") {
+					chageNum(checkBox,numId,name);
+				}
+			}
+		}
+	}
+}
+var num = 0;
+var other = 0;
+function chageNum(obj,numId,name) {
+	var check = obj;
+	var checkAll = document.getElementById("checkAll");
+	var checkAll2 = document.getElementById("checkAll2");
+	if(checkAll==null){
+		checkAll= $(obj).parents("table").find("input[type='checkbox']")[0];
+	}
+	if(checkAll2==null){
+		checkAll2= $(obj).parents("table").find("input[type='checkbox']")[0];
+	}
+	if (check.checked == true) {
+		var inputs = document.getElementsByTagName("input");
+		var status = true;
+		for ( var i = 0; i < inputs.length; i++) {
+			if (inputs[i].type == "checkbox") {
+				var checkBox = inputs[i];
+				if (checkBox != checkAll2 && checkBox != checkAll) {
+					if (checkBox.checked == false) {
+						status = false;
+						break;
+					}
+				}
+			}
+		}
+		if (status == true) {
+			checkAll.checked = true;
+			checkAll2.checked = true;
+		}
+		num++;
+		if($(obj).attr("data")!=''){
+			other+=parseFloat($(obj).attr("data"));
+		}
+	} else if (num == 0 && check.checked == false) {
+		num = 0;
+	} else {
+		if (checkAll.checked == true || checkAll2.checked == true) {
+			checkAll.checked = false;
+			checkAll2.checked = false;
+		}
+		num--;
+		if($(obj).attr("data")!=''){
+			other-=parseFloat($(obj).attr("data"));
+		}
+	}
+	if(numId!=""){
+		$("#"+numId).html("已选中:"+num+"条 总计："+other.toFixed(2));
+	}
+}
+
+function todisabled(obj){
+	$(obj).attr("disabled","disabled");
+	$(obj).parents("form").submit();
+}
+
+
+function todisabledone(obj){
+	$(obj).attr("disabled","disabled");
+}
+
+
+
+
+//生成二维码并转换图片
+//width 二维码宽 height 二维码高 str 二维码内容  divId 
+
+function getQRCode (width,height,str,divId) {
+		$("#"+divId).append("<div id='code"+divId+"' style='display: none;' ></div>" +
+		" <img alt='' src='' id='myimg"+divId+"'>");
+        var trs = $('#code'+divId).qrcode({        
+            width: width,
+            height: height,
+            render: "canvas", //设置渲染方式 table canvas
+            text: utf16to8(str),
+            background: "#ffffff", //背景颜色 
+            foreground: "#000000" //前景颜色 
+        }).find('tr');
+//        trLen = Math.floor(trs.size() / 2), tdLen = Math.floor(trs.eq(0).find('td').size() / 2), tds, bgColor;
+//        var colors = [['#ff0000', '#0100e2'], ['#00ed01', '#9f4d95']];
+//        trs.each(function (j) {
+//            tds = $(this).find('td');
+//            tds.each(function (i) {
+//                bgColor = this.style.backgroundColor;
+//                if (bgColor == 'red') {
+//                    this.style.backgroundColor = colors[j < trLen ? 0 : 1][i < tdLen ? 0 : 1];
+//                }
+//            });
+//        });
+            var canvas =	$("canvas");
+		var iamge =	canvas[0].toDataURL('image/png');
+			$(canvas[0]).hide();
+		$("#myimg"+divId).attr('src',iamge);
+    }
+function utf16to8(str) {
+        var out, i, len, c;
+        out = "";
+        len = str.length;
+        for (i = 0; i < len; i++) {
+            c = str.charCodeAt(i);
+            if ((c >= 0x0001) && (c <= 0x007F)) {
+                out += str.charAt(i);
+            } else if (c > 0x07FF) {
+                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            } else {
+                out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            }
+        }
+        return out;
+    } 
+
+// 数字转换汉字大写，  type 为最后一个单位 金额 的话 就 type = "元" ,个数 type = "个" 箱数 type = "箱";
+function daxiezhuanhuan(n,type){
+	 var fraction = ['角', '分'];
+    var digit = [
+        '零', '壹', '贰', '叁', '肆',
+        '伍', '陆', '柒', '捌', '玖'
+    ];
+    var unit = [
+        [type, '万', '亿'],
+        ['', '拾', '佰', '仟']
+    ];
+    var head = n < 0 ? '欠' : '';
+    n = Math.abs(n);
+    var s = '';
+    for (var i = 0; i < fraction.length; i++) {
+    	 console.log(' Math.pow(10, i):',Math.pow(10, i));
+        s += (digit[Math.floor((n * 10 * Math.pow(10, i)).toFixed(4)) % 10] + fraction[i]).replace(/零./, '');
+        console.log('s:',s);
+    }
+    s = s || '整';
+    n = Math.floor(n);
+    for (var i = 0; i < unit[0].length && n > 0; i++) {
+        var p = '';
+        for (var j = 0; j < unit[1].length && n > 0; j++) {
+            p = digit[n % 10] + unit[1][j] + p;
+            n = Math.floor(n / 10);
+        }
+        s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
+    }
+    return head + s.replace(/(零.)*零元/, '元')
+        .replace(/(零.)+/g, '零')
+        .replace(/^整$/, '零元整');
+}
+
+
+
+
+//下拉框多选;
+var selectname = "";
+var pageId =0;
+function duoxuaSelect(id,value){//id-username
+	if(pageId != id){
+		selectname = "";
+	}
+	$("#"+id).hide();
+	var obj =	$("#"+id).parent();
+	
+	if(selectname == "" ){
+		 selectname = $("#"+id).attr("name");//gantt.peopleStr
+		  $("#"+id).attr("name",'');
+
+	}
+	var str = '<div class="duoxuaselect_div"><div style="float: left;"><input type="text" id="textselect'+id+'" name='+selectname+' value="'+(value==undefined?"":value)+'" /></div><div style="float: left;margin-left: 4px;" class="select_checkBox"><div class="chartQuota"><p>' +
+	'<a href="javascript:;" hidefocus="true" title="请选择"><span>请选择</span><b></b> </a>' +
+	'</p><br/><div class="chartOptionsFlowTrend" style="overflow: scroll; height: 220px; "> ' +
+	'<input type="text" onkeyup="kuanshu(this,&apos;'+id+'&apos;)" onblur="kuanshu(this,&apos;'+id+'&apos;)" />' +
+	'<ul> '
+	$('#'+id+' option').each(function () {
+    var $option = $(this);//option 对象
+    var html = $option.html();//code_姓名
+    var value = $option.val();//id_姓名
+    str+='<li class=""><input type="checkbox" value="'+value+'" name="chexkSelect'+id+'" onclick="quding(&apos;'+id+'&apos;)" ><span>'+html+'</span></li>';
+});
+	str+='</ul><p><a href="javascript:;" title="确定" hidefocus="true" class="a_0" onclick="quding(&apos;'+id+'&apos;)">确定</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="取消" hidefocus="true" class="a_1" onclick="quxiao(&apos;'+id+'&apos;)">取消</a> </p> </div> </div></div>';
+	$(obj).append(str);
+	$(".select_checkBox").hover(function() {
+		$(".chartOptionsFlowTrend").css("display", "inline-block");
+	}, function() {
+		$(".chartOptionsFlowTrend").css("display", "none");
+	});
+	 pageId = id;
+	}	
+
+function quding(id) {
+	var chexkSelects = document.getElementsByName("chexkSelect"+id);
+	var value = "";
+	if (chexkSelects != null && chexkSelects.length > 0) {
+		for ( var i = 0; i < chexkSelects.length; i++) {
+			if (chexkSelects[i].checked) {
+				value += "," + chexkSelects[i].value
+				
+			}
+		}
+	}
+	value = value.substring("1");
+	$("#textselect"+id).val(value);
+	var obj = document.getElementById("textselect"+id);
+	changvalue(obj);
+}
+function quxiao(id) {
+	var chexkSelects = document.getElementsByName("chexkSelect"+id);
+	if (chexkSelects != null && chexkSelects.length > 0) {
+		for ( var i = 0; i < chexkSelects.length; i++) {
+			chexkSelects[i].checked = "";
+		}
+	}
+	$("#textselect"+id).val("");
+}
+function kuanshu(obj,id) {
+	if (obj != null && obj.value != "") {
+		var chexkSelects = document.getElementsByName("chexkSelect"+id);
+		
+		var name = obj.value;//文本框内容
+		
+		if (chexkSelects != null && chexkSelects.length > 0) {
+			for ( var i = 0; i < chexkSelects.length; i++) {
+				var kuanshuvalue = chexkSelects[i].value;
+				if(kuanshuvalue.indexOf(name)>=0){
+						$(chexkSelects[i]).focus();
+				}
+			}
+		}
+	}
+}
+
+function getNowFormatDate(seperator1,seperator2) {
+	var date = new Date();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+     var currentdate = "";
+    if(seperator1!=null && seperator1!=""){
+    	currentdate+=date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    }
+    if(seperator2!=null && seperator2!=""){
+    	if(currentdate.length>0){
+    		currentdate+=" ";
+    	}
+    	currentdate+=date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    }
+   console.log('currentdate:',currentdate);
+    return currentdate;
+}
+
+
+
+function formtNumber(number, digit) {
+	var num= (Math.round((number)*Math.pow(10,digit))/Math.pow(10,digit));
+	var nums =	(num+"").split(".");
+	if(nums!=null && nums.length==2){
+		var hinder_num = nums[1];
+		if(digit-hinder_num.length ===0){
+			return num;
+		}
+		var str=(Math.pow(10,digit-hinder_num.length)+"").substring("1");
+		num= nums[0]+"."+hinder_num+str;
+	}else{
+		var str=(Math.pow(10,digit)+"").substring("1");
+		num = num+"."+str;
+	}
+	return num;
+}
+//超出文本部门...显示
+// * @param {Object} className1
+function textoverflow(className1,className2){
+	var class1=	document.getElementsByClassName(className1);
+	var class2=	document.getElementsByClassName(className2);
+	for(var i=0;i<class1.length;i++){
+		    var divH = class1[i].style.height;
+		    divH = divH.replace("px","");
+		    var p = class2[i];
+        while (p.clientHeight > divH) {
+        	 p.innerText = p.innerText.replace(/[\s\S](\.\.\.)?$/, "...")
+        };
+	}
+}
+//文本框，数量超出验证
+function chagenumup(obj, num) {
+	var num = parseFloat(num);
+	var num2 = parseFloat(obj.value);
+	if (num2 > num) {
+		obj.value = num;
+		alert("调整数量不能超过:" + num);
+	}
+}

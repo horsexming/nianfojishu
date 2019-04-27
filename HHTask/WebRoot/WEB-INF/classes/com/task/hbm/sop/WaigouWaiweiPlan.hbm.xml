@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouWaiweiPlan" table="ta_sop_w_WaigouWaiweiPlan">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="orderNum" />
+		<property name="markId" />
+		<property name="rootMarkId" />
+		<property name="rootSelfCard" />
+		<property name="ywMarkId" />
+		<property name="proName" />
+		<property name="processName" />
+		<property name="type" />
+		<property name="number" />
+		<property name="beginCount" />
+		<property name="kgliao" />
+		<property name="addTime" />
+		<property name="jihuoTime" />
+		<property name="shArrivalTime" />
+		<property name="acArrivalTime" />
+		<property name="jianyanTime" />
+		<property name="rukuTime" />
+		<property name="gysId" />
+		<property name="gysName" />
+		<property name="gysPhone" />
+		<property name="status" />
+		<property name="oldStatus" />
+		<property name="caigouMonth" />
+		<property name="planNumber" />
+		<property name="selfCard" />
+		<property name="allJiepai" />
+		<property name="deliveryDuration" />
+		<property name="singleDuration" />
+		<property name="procardId" />
+		<property name="processNo" />
+		<property name="userId" />
+		<property name="userCode" />
+		<property name="applyDate" />
+		<property name="oswId" />
+		<property name="applyCount" />
+		<property name="rukuCount" />
+		<property name="hasruku" />
+		<property name="keruku" />
+		<property name="comeCount" />
+		<property name="specification" />
+		<property name="banben" />
+		<property name="banci" />
+		<property name="priceId" />
+		<property name="zzRukCount" />
+		<property name="hadChange" />
+		<property name="unit" />
+		
+
+		<!-- 【与流水卡片对应关系】 -->
+		<many-to-one name="procard" column="fk_procardId" class="Procard"
+			cascade="save-update" />
+			
+		<!-- 和付款多对多 -->
+			<set name="baoxiaodans" table="ta_wwwg_baoxiao" lazy="true" inverse="true">
+			<key column="wwwg_id"></key>
+			<many-to-many class="com.task.entity.fin.BaoxiaoDan" column="baoxiao_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

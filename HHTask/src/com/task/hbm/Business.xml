@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Business" table="ST_Business" >
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+	<property name="type" column="f_businessType" type="string"></property>
+	<property name="content" column="f_businessContent" type="string"></property>
+	<property name="money" column="f_money" type="float"></property>
+	<property name="collectionUnit" column="f_collectionUnit" type="string"></property>
+	<property name="paymentBasis" column="f_paymentBasis" type="string"></property>
+	<property name="transactor" column="f_transactor" type="string"></property>
+	<property name="time" column="f_time" type="string"></property>
+	<property name="currencyType" column="f_currencyType" type="string"></property>
+	<property name="status" column="f_status" type="string"></property>
+	<property name="flow" column="f_flow" type="string"></property>
+	<property name="dept" column="f_dept" type="string"></property>
+	
+	<!-- 配置凭证引用 -->
+	<many-to-one name="pp" class="com.task.entity.PrintProof" column="fk_printproof_id"/>
+	
+	<!-- 配置发票集合 -->
+	<set name="invoices" table="ST_Invoice" cascade="all" inverse="true" lazy="false">
+		<key column="fk_business_id"></key>
+		<one-to-many class="com.task.entity.Invoice"/>
+	</set>
+	</class>
+</hibernate-mapping>

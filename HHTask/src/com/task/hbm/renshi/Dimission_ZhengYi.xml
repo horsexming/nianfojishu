@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi">
+	<class name="Dimission_ZhengYi" table="ta_hr_lz_dimission_ZhengYi">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" />
+		<property name="ruzhiTime" />
+		<property name="liTime" />
+		<property name="code" />
+		<property name="dept" />
+		<property name="cardId" />
+		<property name="dimi_Reason" />
+		<property name="log_number" />
+		<property name="hand_number" />
+		<property name="canfei" />
+		
+		
+		<property name="jz_Time" />
+		<property name="jxr_Time" />
+		<property name="jx_Money" />
+		<property name="gw_Money" />
+		<property name="jiangj_Money" />
+		<property name="add_up_number" />
+		<property name="bc_Money" />
+		<property name="daxie" />
+		<property name="addup_yf" />
+		<property name="butie" />
+		<property name="butie_shuoming" />
+		<property name="sbjf_jzTime" />
+		<property name="buzu_min" />
+
+		<property name="pension" />
+		<property name="yiliao" />
+		<property name="shiye" />
+		<property name="fund" />
+		<property name="rent" />
+		<property name="other" />
+		<property name="real_money" />
+		<property name="remark" />
+		
+
+		<property name="epId" />
+		<property name="zhengyi_Status" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="addUserName" />
+		<property name="addUserId" />
+		<property name="yuefen" />
+		
+		<!-- 多对一 -->
+		<many-to-one name="dimissionLogs" unique="true" column="dimi_log"></many-to-one>
+		<property name="codeId" />
+	</class>
+</hibernate-mapping>

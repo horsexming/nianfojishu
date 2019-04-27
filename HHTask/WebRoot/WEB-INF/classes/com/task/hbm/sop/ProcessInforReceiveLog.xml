@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessInforReceiveLog" table="ta_sop_w_ProcessInforReceiveLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="usercodes" />
+		<property name="userCardId" />
+		<property name="usernames" />
+		<property name="userId"  index="pebs_index_userId"/>
+		<property name="firstApplyDate" />
+		<property name="sumitApplyDate" />
+		<property name="allJiepai" />
+		<property name="allSbJiepai" />
+		<property name="nowCsJiepai" />
+		<property name="allNenghao" />
+		<property name="allDjJiepai" />
+		<property name="allDjNenghao" />
+		<property name="receiveNumber" />
+		<property name="submitNumber" />
+		<property name="status" index="pebs_index_status"/>
+		<property name="breakCount" />
+		<property name="gongwei"/>
+		<property name="shebeiNo" index="pebs_index_shebeiNo"/>
+		<property name="fk_pirLId" index="pebs_index_fk_pirLId"/>
+		<property name="fk_processInforId" index="pebs_index_fk_processInforId"/>
+		<property name="barcode"/>
+		<property name="hadsj"/>
+		<property name="sjStatus"/>
+		<property name="fzwork"/>
+		<property name="fzworkname"/>
+		<property name="processjjMoney"/>
+		<property name="processjjAllMoney"/>
+		<property name="procesdianshu"/>
+		<property name="jjratio"/>
+		<property name="sjprocessMomey"/>
+		<property name="ykprocessMomey"/>
+		<property name="istuliao"/>
+
+		<!-- 【与工序对应关系】
+		<many-to-one name="processInfor" column="fk_processInforId"
+			class="ProcessInfor" cascade="save-update" /> -->
+
+	</class>
+</hibernate-mapping>

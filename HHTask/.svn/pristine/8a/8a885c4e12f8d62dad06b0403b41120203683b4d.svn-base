@@ -1,0 +1,286 @@
+package com.task.entity.sop;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 外协退料申请 (ta_ProcardWxTuiLiao) 
+ * @author 王晓飞 
+ *
+ */
+public class ProcardWxTuiLiao  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	@FieldMeta(name = "件号")
+	private String markId;//件号
+	@FieldMeta(name = "名称")
+	private String proName;//名称
+	@FieldMeta(name = "批次")
+	private String selfCard;//批次
+	@FieldMeta(name = "业务件号")
+	private String ywMarkid;//业务件号
+	@FieldMeta(name = "总成件号")
+	private String rootMarkId;//总成件号
+	@FieldMeta(name = "内部订单号")
+	private String orderNum;//内部订单号
+	private Integer procardId;//对应的procardId
+	@FieldMeta(name = "对应工序号")
+	private String processNos;//对应工序号
+	private Integer nextProcessId;//下工序Id
+	@FieldMeta(name = "对应工序名")
+	private String processNames;//对应工序名
+	private Integer detailId;//外委申请明细Id
+	@FieldMeta(name = "数量")
+	private Float num;//数量
+	@FieldMeta(name = "已领数量")
+	private Float ylNum;//已领数量
+	@FieldMeta(name = "工序提交数量")
+	private Float gxtjNum;//工序提交数量
+	@FieldMeta(name = "下工序完成数量")
+	private Float nextgxtjNum;//下工序完成数量
+	@FieldMeta(name = "申请退料数量")
+	private Float sqtlNum;//申请数量
+	private Float agreeNum;//同意数量
+	private Integer epId;//
+	private String epstatus;//
+	private Integer rootProcardId;//
+	private String addTime;//申请时间
+	private String addUsersName;//申请人姓名
+	private String addUserCode;//申请人工号
+	
+	private String groups;//外协/外购
+	//外购相关;
+	private Integer sellId;//出库记录Id
+	private String sellLot;//出库批次;
+	private String gys;//供应商
+	
+	
+	public ProcardWxTuiLiao() {
+		super();
+	}
+
+	public ProcardWxTuiLiao(String markId, String selfCard, String ywMarkid,
+			String rootMarkId, String orderNum, Integer procardId,
+			String processNos, Integer nextProcessId, String processNames,
+			 Float num, Float sqtlNum, Float agreeNum
+			,Float ylNum,Float gxtjNum,Float nextgxtjNum,String proName,
+			Integer rootProcardId) {
+		super();
+		this.markId = markId;
+		this.selfCard = selfCard;
+		this.ywMarkid = ywMarkid;
+		this.rootMarkId = rootMarkId;
+		this.orderNum = orderNum;
+		this.procardId = procardId;
+		this.processNos = processNos;
+		this.nextProcessId = nextProcessId;
+		this.processNames = processNames;
+		this.num = num;
+		this.sqtlNum = sqtlNum;
+		this.agreeNum = agreeNum;
+		this.ylNum =ylNum;
+		this.gxtjNum = gxtjNum;
+		this.nextgxtjNum = nextgxtjNum;
+		this.proName = proName;
+		this.rootProcardId = rootProcardId;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getSelfCard() {
+		return selfCard;
+	}
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+	public String getYwMarkid() {
+		return ywMarkid;
+	}
+	public void setYwMarkid(String ywMarkid) {
+		this.ywMarkid = ywMarkid;
+	}
+	public String getRootMarkId() {
+		return rootMarkId;
+	}
+	public void setRootMarkId(String rootMarkId) {
+		this.rootMarkId = rootMarkId;
+	}
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+	public Integer getProcardId() {
+		return procardId;
+	}
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+	public String getProcessNos() {
+		return processNos;
+	}
+	public void setProcessNos(String processNos) {
+		this.processNos = processNos;
+	}
+	public Integer getNextProcessId() {
+		return nextProcessId;
+	}
+	public void setNextProcessId(Integer nextProcessId) {
+		this.nextProcessId = nextProcessId;
+	}
+	public String getProcessNames() {
+		return processNames;
+	}
+	public void setProcessNames(String processNames) {
+		this.processNames = processNames;
+	}
+	public Integer getDetailId() {
+		return detailId;
+	}
+	public void setDetailId(Integer detailId) {
+		this.detailId = detailId;
+	}
+	public Float getNum() {
+		return num;
+	}
+	public void setNum(Float num) {
+		this.num = num;
+	}
+	public Float getSqtlNum() {
+		return sqtlNum;
+	}
+	public void setSqtlNum(Float sqtlNum) {
+		this.sqtlNum = sqtlNum;
+	}
+	public Float getAgreeNum() {
+		return agreeNum;
+	}
+	public void setAgreeNum(Float agreeNum) {
+		this.agreeNum = agreeNum;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEpstatus() {
+		return epstatus;
+	}
+	public void setEpstatus(String epstatus) {
+		this.epstatus = epstatus;
+	}
+
+	public Float getYlNum() {
+		return ylNum;
+	}
+
+	public void setYlNum(Float ylNum) {
+		this.ylNum = ylNum;
+	}
+
+	public Float getGxtjNum() {
+		return gxtjNum;
+	}
+
+	public void setGxtjNum(Float gxtjNum) {
+		this.gxtjNum = gxtjNum;
+	}
+
+	public Float getNextgxtjNum() {
+		return nextgxtjNum;
+	}
+
+	public void setNextgxtjNum(Float nextgxtjNum) {
+		this.nextgxtjNum = nextgxtjNum;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	public Integer getRootProcardId() {
+		return rootProcardId;
+	}
+
+	public void setRootProcardId(Integer rootProcardId) {
+		this.rootProcardId = rootProcardId;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getGroups() {
+		return groups;
+	}
+
+	public void setGroups(String groups) {
+		this.groups = groups;
+	}
+
+
+
+	public Integer getSellId() {
+		return sellId;
+	}
+
+	public void setSellId(Integer sellId) {
+		this.sellId = sellId;
+	}
+
+	public String getSellLot() {
+		return sellLot;
+	}
+
+	public void setSellLot(String sellLot) {
+		this.sellLot = sellLot;
+	}
+
+	public String getGys() {
+		return gys;
+	}
+
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+	
+	
+	
+	
+	
+}

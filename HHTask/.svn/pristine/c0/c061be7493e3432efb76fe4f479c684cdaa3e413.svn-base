@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.supplier">
+    <class name="SupplierCertificationReviewContent" table="ta_SupplierCertificationReviewContent">
+        <id name="id">
+            <generator class="identity"></generator>
+        </id>
+        <property name="reviewUser" />
+        <property name="reviewDate" />
+        <property name="reviewOpinion" />
+        <property name="reviewDetail" />
+        <property name="reviewState" />
+        <property name="reviewLevel" />
+        <many-to-one name="supplierCertification" column="fk_supplierCertificationId"
+                     class="SupplierCertification" cascade="save-update" />
+    </class>
+</hibernate-mapping>

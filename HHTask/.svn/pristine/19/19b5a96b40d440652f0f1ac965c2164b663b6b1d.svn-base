@@ -1,0 +1,271 @@
+package com.task.entity.system;
+
+import java.io.Serializable;
+
+/**
+ * 公司信息
+ * 
+ * @表名：ta_sys_companyinfo
+ * @author 唐晓斌
+ */
+@SuppressWarnings("serial")
+public class CompanyInfo implements Serializable {
+	private Integer id;// 主键
+	private String name;// 公司名称
+	private String shortName;// 公司简称
+	private String englishName;// 英文名称
+	private String tel;// 公司电话
+	private String fax;// 公司传真
+	private String address;// 公司地址
+	private String email;// 公司邮箱
+	private String zip;// 公司邮编
+	private String urlname;// 公司网站名称
+	private String url;// 公司网址
+	private String tasklogo;// 公司登陆图标
+	private String bottomlogo;// 公司底部图标
+	private String logoOKjpg;// 打印图标
+	private String shhhjpg;// 图表图标
+	private String shuiyinpng;// 水印图标
+	private String favicon;// ico图标
+	private String sbtime;// 上班时间
+	private String xbtime;// 下班时间
+	private String wxstart;// 午休开始时间
+	private String wxend;// 午休结束时间
+	private String accountBank;// 开户银行
+	private String accountnum;// 账号
+	private String jingdu;// 签到经度
+	private String weidu;// 签到维度
+	private String fanwei;// 签到范围
+	private String outIp;//外部IP;
+	private String logo;
+
+	public String getSbtime() {
+		return sbtime;
+	}
+
+	public void setSbtime(String sbtime) {
+		this.sbtime = sbtime;
+	}
+
+	public String getXbtime() {
+		return xbtime;
+	}
+
+	public void setXbtime(String xbtime) {
+		this.xbtime = xbtime;
+	}
+
+	public CompanyInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUrlname() {
+		return urlname;
+	}
+
+	public void setUrlname(String urlname) {
+		this.urlname = urlname;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTasklogo() {
+		return tasklogo;
+	}
+
+	public void setTasklogo(String tasklogo) {
+		this.tasklogo = tasklogo;
+	}
+
+	public String getBottomlogo() {
+		return bottomlogo;
+	}
+
+	public void setBottomlogo(String bottomlogo) {
+		this.bottomlogo = bottomlogo;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getLogoOKjpg() {
+		return logoOKjpg;
+	}
+
+	public void setLogoOKjpg(String logoOKjpg) {
+		this.logoOKjpg = logoOKjpg;
+	}
+
+	public String getShhhjpg() {
+		return shhhjpg;
+	}
+
+	public void setShhhjpg(String shhhjpg) {
+		this.shhhjpg = shhhjpg;
+	}
+
+	public String getShuiyinpng() {
+		return shuiyinpng;
+	}
+
+	public void setShuiyinpng(String shuiyinpng) {
+		this.shuiyinpng = shuiyinpng;
+	}
+
+	public String getFavicon() {
+		return favicon;
+	}
+
+	public void setFavicon(String favicon) {
+		this.favicon = favicon;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getEnglishName() {
+		return englishName;
+	}
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
+	}
+
+	public String getWxstart() {
+		return wxstart;
+	}
+
+	public void setWxstart(String wxstart) {
+		this.wxstart = wxstart;
+	}
+
+	public String getWxend() {
+		return wxend;
+	}
+
+	public void setWxend(String wxend) {
+		this.wxend = wxend;
+	}
+
+	public String getAccountBank() {
+		return accountBank;
+	}
+
+	public void setAccountBank(String accountBank) {
+		this.accountBank = accountBank;
+	}
+
+	public String getAccountnum() {
+		return accountnum;
+	}
+
+	public void setAccountnum(String accountnum) {
+		this.accountnum = accountnum;
+	}
+
+	public String getFanwei() {
+		return fanwei;
+	}
+
+	public void setFanwei(String fanwei) {
+		this.fanwei = fanwei;
+	}
+
+	public void setJingdu(String jingdu) {
+		this.jingdu = jingdu;
+	}
+
+	public void setWeidu(String weidu) {
+		this.weidu = weidu;
+	}
+
+	public String getJingdu() {
+		return jingdu;
+	}
+
+	public String getWeidu() {
+		return weidu;
+	}
+
+	public String getOutIp() {
+		return outIp;
+	}
+
+	public void setOutIp(String outIp) {
+		this.outIp = outIp;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+}

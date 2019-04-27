@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouDelivery" table="ta_sop_w_WaigouDelivery">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="gysId" index="pebs_index_wd_gysId"/>
+		<property name="userId" />
+		<property name="userCode" />
+		<property name="gysName" />
+		<property name="gysContacts" />
+		<property name="gysPhone" />
+		<property name="planNumber" index="pebs_index_planNumber"/>
+		<property name="customer" />
+		<property name="shContacts" />
+		<property name="shContactsPhone" />
+		<property name="status" />
+		<property name="chepai" />
+		<property name="contacts" />
+		<property name="contactsPhone" />
+		<property name="chufaDizhi" />
+		<property name="daodaDizhi" />
+		<property name="addTime" />
+		<property name="printTime" />
+		<property name="chufaTime" />
+		<property name="daodaTime" />
+		<property name="isprint" />
+
+		<!-- 【配置送货单对应明细关系】 -->
+		<set name="wddSet" inverse="false" cascade="all" lazy="true">
+			<key column="fk_wdId"></key>
+			<one-to-many class="WaigouDeliveryDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

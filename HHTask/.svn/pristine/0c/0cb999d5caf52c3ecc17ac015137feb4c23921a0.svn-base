@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--
+		*****************************王传运action层管理**********************************
+	-->
+
+	<!-- 库存action -->
+	<bean id="wasteDisposeAction" class="com.task.action.ess.WasteDisposeAction"
+		scope="prototype">
+		<property name="wareHouseAuthService" ref="wareHouseAuthService"></property>
+		<property name="goodsServer" ref="goodsServerImpl"></property>
+		<property name="wasteDisponseService" ref="wasteDisponseServiceImpl"></property>
+	</bean>
+	
+	<!-- 申购action -->
+	<bean id="oAAppDetailTemplateAction" class="com.task.action.oa.OAAppDetailTemplateAction"  scope="prototype">
+		<property name="templateService" ref="oaAppdetailTemplateService" />
+	</bean>
+	
+	<bean id="javaMailAction" class="com.task.action.JavaMailAction">
+		<property name="javaMailService" ref="javaMailService"></property>
+	</bean>
+	
+	<!-- 报废处理service -->
+	<bean id="wasteDisponseServiceImpl" class="com.task.ServerImpl.ess.WasteDisponseServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	
+	<!-- 申购service -->
+	<bean id="oaAppdetailTemplateService" class="com.task.ServerImpl.oa.OaAppdetailTemplateServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="chartNOSQServer" ref="ChartNOSQServerImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+	
+	<!-- 获取已读、未读邮件 -->
+	<bean id="javaMailService" class="com.task.ServerImpl.JavaMailServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	
+	<!-- 可靠性测试 -->
+	<bean id="reliabilityTestServer" class="com.task.ServerImpl.zhiliang.ReliabilityTestServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="reliabilityTestAction" class="com.task.action.zhiliang.ReliabilityTestAction" scope="prototype">
+		<property name="reliabilityTestServer"  ref="reliabilityTestServer"></property>
+	</bean>	
+	
+	<!-- 生产任务简报 -->
+	<bean id="productEBServer" class="com.task.ServerImpl.peb.ProductEBServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="circuitRunServer" ref="CircuitRunServerImpl" />
+	</bean>
+	<bean id="ProductEBAction" class="com.task.action.peb.ProductEBAction" scope="prototype">
+		<property name="productEBServer" ref="productEBServer"></property>
+	</bean>
+	
+	<!-- 通用类型和类别 -->
+	<bean id="universalServer" class="com.task.ServerImpl.UniversalServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<bean id="UniversalAction" class="com.task.action.UniversalAction" scope="prototype">
+		<property name="universalServer" ref="universalServer"></property>
+	</bean>
+	
+	<!-- 访客系统 -->
+	<bean id="visitorServer" class="com.task.ServerImpl.menjin.visitor.VisitorServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>	
+	<bean id="VisitorAction" class="com.task.action.menjin.visitor.VisitorAction" scope="prototype">
+		<property name="visitorServer" ref="visitorServer"/>
+	</bean>
+	
+	<!-- 内部屏幕 -->
+	<bean id="inDoorScreenServer" class="com.task.ServerImpl.renshi.InDoorScreenServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<bean id="InDoorScreenAction" class="com.task.action.renshi.InDoorScreenAction" scope="prototype">
+		<property name="inDoorScreenServer" ref="inDoorScreenServer"></property>
+		<property name="clearInfoServer" ref="clearInfoServerImpl"></property>
+	</bean>
+	
+
+	
+	<!-- 短链接服务 -->
+	<bean id="shortLinkServer" class="com.task.ServerImpl.sys.ShortLinkServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	
+	<!-- 申请会议 -->
+	<bean id="meetingServer" class="com.task.ServerImpl.renshi.MeetingServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"/>
+	</bean>
+	<bean id="meetingAction" class="com.task.action.renshi.MeetingAction" scope="prototype">
+		<property name="meetingServer" ref="meetingServer"></property>
+	</bean>
+</beans>

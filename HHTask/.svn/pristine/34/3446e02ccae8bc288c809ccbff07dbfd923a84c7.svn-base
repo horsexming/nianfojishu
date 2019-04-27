@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.gongxu.HanjieGuochengCanshu" table="ta_sop_gygc_pdata_HanjieGuochengCanshu">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cailiaoPaihaoHoudu" type="string" column="cailiao_paihao_houdu"/>
+		<property name="hanliaoMingchengZhijing" type="string" column="hanliao_mingcheng_zhijing"/>
+		<property name="qitiLiuliang" type="string" column="qiti_liuliang"/>
+		<property name="dianliuQiangdu" type="string" column="dianliu_qiangdu"/>
+		<property name="baohuQiti" type="string" column="baohu_qiti"/>
+		<property name="wusiZhijing" type="string" column="wusi_zhijing"/>
+		<property name="songsiSudu" type="string" column="songsi_sudu"/>
+		<property name="dianhuDianya" type="string" column="dianhu_dianya"/>
+		<property name="remark" type="string" column="remark"/>
+		<property name="processDataId" type="integer" column="process_data_id"/>
+	</class>
+</hibernate-mapping>

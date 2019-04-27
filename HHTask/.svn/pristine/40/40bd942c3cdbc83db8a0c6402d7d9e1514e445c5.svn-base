@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.multipart.maxSize" value="524288000" />
+	<constant name="struts.configuration.xml.reload" value="true"/> 
+	<!-- 设置STRUTS2上传文件的大小 -->
+	<!-- struts拦截器 -->
+	<package name="struts-stack" extends="struts-default"
+		namespace="/">
+		<interceptors>
+			<interceptor name="login" class="com.task.util.LoginInterceptor"></interceptor>
+			<interceptor-stack name="checkLoginStack">
+				<interceptor-ref name="login" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="checkLoginStack" />
+		<global-results>
+			<result name="UserLogin">/login.jsp</result>
+			<result name="LoginOut">/logOff.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<!--  <result name="projectMaturity">/projectMaturity.jsp</result> -->
+		</global-results>
+	</package>
+
+	<!--
+		****************************************贾辉辉Action操作**********************************************************************
+	-->
+	<include file="struts-jhh.xml" />
+	<!--
+		****************************************刘培Action操作**********************************************************************
+	-->
+	<include file="struts-liupei.xml" />
+	<!--
+		****************************************马凯Action操作********************************************************************
+	-->
+	<include file="struts-makai.xml" />
+	<!--
+		****************************************曾建森Action操作**********************************************************************
+	-->
+	<include file="struts-zjs.xml" />
+	<!--
+		****************************************程玉林Action操作**********************************************************************
+	-->
+	<include file="struts-cyl.xml" />
+	<!--
+		****************************************钟永林Action操作**********************************************************************
+	-->
+	<include file="struts-zyl.xml" />
+	<!--
+		****************************************张玉山**********************************************************************
+	-->
+	<include file="struts-zhaobiao.xml" />
+	<!--
+		****************************************刘晓霆Action操作**********************************************************************
+	-->
+	<include file="struts-liuxiaoting.xml" />
+	<!--
+		****************************************陈阳Action操作**********************************************************************
+	-->
+	<include file="struts-chenyang.xml" />
+	<!--
+		****************************************陈曦Action操作**********************************************************************
+	-->
+	<include file="struts-chenxi.xml" />
+
+	<!--
+		***************************************毛小龙Action操作**********************************************************************
+	-->
+	<include file="struts-mxl.xml" />
+	<!--
+		***************************************唐晓斌Action操作**********************************************************************
+	-->
+	<include file="struts-txb.xml" />
+	<!--
+		***************************************李聪Action操作**********************************************************************
+	-->
+	<include file="struts-licong.xml" />
+	<!--
+		***************************************聂威Action操作**********************************************************************
+	-->
+	<include file="struts-niewei.xml" />	
+	<!--
+		***************************************王晓飞Action操作**********************************************************************
+	-->
+	<include file="struts-wxf.xml" />
+	<!--
+		***************************************谭鑫Action操作**********************************************************************
+	-->
+	<include file="struts-tx.xml" />
+	<!--
+		***************************************冯杨Action操作**********************************************************************
+	-->
+	<include file="struts-fy.xml" />
+	<!--
+		**************************************鸿斌Action操作**********************************************************************
+	-->
+	<include file="struts-yyhb.xml" />
+	<!--
+		**************************************马逗逗Action操作**********************************************************************
+	-->
+	<include file="struts-mdd.xml" />
+	
+	<!--
+		**************************************王传运Action操作**********************************************************************
+	-->
+	<include file="struts-wcy.xml" />
+	
+	<include file="struts-student.xml"/>
+</struts>

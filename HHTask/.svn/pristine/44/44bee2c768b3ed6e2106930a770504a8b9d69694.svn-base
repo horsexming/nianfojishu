@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Consume" table="XF_Consume">
+		<id name="id" column="id_key" type="int">
+			<generator class="increment"></generator>
+		</id>
+		
+		<property name="personId" column="person_id" type="int"></property>
+		<property name="systemNo" column="system_No" type="string"></property>
+		<property name="consumeMode" column="consume_Mode" type="int"></property>
+		<property name="consumeTime" column="consume_Time" type="timestamp"></property>
+		<property name="consumeFund" column="consume_Fund"></property>
+		<property name="beforeFund" column="before_Fund"></property>
+		<property name="consumeCopy" column="consume_Copy" type="int"></property>
+		<property name="consumeTimeLen" column="consume_TimeLen" type="float"></property>
+		<property name="ConsumeCapacity" column="Consume_Capacity" type="float"></property>
+		<property name="repastNo" column="repast_No" type="string"></property>
+		<property name="wareID" column="ware_ID" type="int"></property>
+		<property name="mocNo" column="moc_No" type="string"></property>
+		<property name="cardBalance" column="card_Balance"></property>
+		<property name="dbBalance" column="db_Balance"></property>
+		<property name="cardSmallAccount" column="card_SmallAccount"></property>
+		<property name="dataType" column="data_Type"></property>
+		
+	</class>
+</hibernate-mapping>

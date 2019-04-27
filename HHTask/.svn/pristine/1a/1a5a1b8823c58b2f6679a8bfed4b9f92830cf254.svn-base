@@ -1,0 +1,118 @@
+package com.task.entity.shizhi;
+
+import java.io.Serializable;
+
+/**
+ * 奖金负荷系数
+ * 
+ * @表名：ta_sk_BonusLoad
+ * @author 唐晓斌
+ */
+public class BonusLoad implements Serializable {
+	private Integer id;
+	private Float bonusLoad;// 奖金负荷比
+	private Float cost;// 单件零件总成本
+	private Double salePrice;// 单件零件销售价格
+	//private Float bonus;// 奖金试算系统的金额
+
+	private Integer qpId;// 零件ID
+	private String markId;// 件号
+	private String procardName;//零件名称
+	// 树形结构附属属性
+	private Integer rootId;// 第一层父类Id
+	private Integer fatherId;// 上层父类Id
+
+
+	public BonusLoad() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Float getBonusLoad() {
+		return bonusLoad;
+	}
+
+	public void setBonusLoad(Float bonusLoad) {
+		this.bonusLoad = bonusLoad;
+	}
+
+
+	public Float getCost() {
+		return cost;
+	}
+
+
+	public void setCost(Float cost) {
+		this.cost = cost;
+	}
+
+
+	
+
+
+	public Double getSalePrice() {
+		return salePrice;
+	}
+
+
+	public void setSalePrice(Double salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public Integer getQpId() {
+		return qpId;
+	}
+
+	public void setQpId(Integer qpId) {
+		this.qpId = qpId;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Integer getFatherId() {
+		return fatherId;
+	}
+
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+
+
+	public String getProcardName() {
+		return procardName;
+	}
+
+
+	public void setProcardName(String procardName) {
+		this.procardName = procardName;
+	}
+
+
+	
+
+	
+
+}

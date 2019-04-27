@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="AccessLogInfor" table="ta_mj_AccessLogInfor">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="infor" length="2000" />
+		<property name="cardId" />
+		<property name="username" />
+		<property name="yanzheng" />
+		<property name="inOutType" />
+		<property name="useStatus" />
+		<property name="aceName" />
+		<property name="aceId" />
+		<property name="aceIp" />
+		<property name="addTime" />
+	</class>
+</hibernate-mapping>

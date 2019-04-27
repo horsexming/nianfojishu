@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.zhuseroffer.NoPriceprocess" table="ta_noPriceprocess" >
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="rootMarkId"/>
+		<property name="markId"/>
+		<property name="ywmarkId"/>
+		<property name="banben"/>
+		<property name="name"/>
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="processId" />
+		<property name="waiweiShenqiCount" />
+		<property name="piciCount" />
+		<property name="stutas"/>
+		<property name="bjStartDate" />
+		<property name="bjEndDate" />
+		<property name="cycle"/>
+		<property name="sumProcessId"/>
+		<property name="procardId"/>
+	</class>
+</hibernate-mapping>

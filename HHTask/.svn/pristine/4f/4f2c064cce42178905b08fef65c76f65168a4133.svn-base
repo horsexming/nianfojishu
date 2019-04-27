@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.task.entity.AttendanceFu" table="ta_hr_AttendanceFu">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property name="attendanceId" length="20"/>
+		<property name="userId" length="20"/>
+		<property name="personName" length="50" />
+		<property name="deptName" length="50" />
+		<property name="cardNo" length="50" />
+		<property name="dateTime" length="50" />
+		<property name="workDateTime" length="50" />
+		<property name="closingDateTime"  length="50" />
+		<property name="attendanceStatus" length="50" />
+		<property name="operationDate" />
+		<property name="more" />
+		<property name="lateTime" length="20" />
+		<property name="earlyTime" length="20" />
+		<property name="qijiaTime" length="20"/>
+		<property name="jiaBTime" length="20"/>
+		<property name="workTime" length="20"/>
+		<property name="workBiaoTime" length="20"/>
+		<property name="queqinTime" length="20"/>
+		<property name="tags" length="5"/>
+		<property name="ExceptTags" length="5"/>
+		<property name="ExceptTagsNei"/>
+		<property name="mingXiLiu"/>
+		<property name="mingXiJi"/>
+		<property name="banci_Id"/>
+		<property name="banci_Name"/>
+		<property name="timeAll"/>
+		<property name="duan"/>
+		<property name="dayType"/>
+	</class>
+</hibernate-mapping>

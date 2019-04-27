@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ManualOrderPlanDetail" table="ta_sop_w_ManualOrderPlanDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="cgnumber"/>
+		<property name="outcgNumber"/>
+		<property name="procardId" index="pebs_index_procardId"/>
+		<property name="addTime"/>
+		<property name="updateTime"/>
+		<property name="addUsers"/>
+		<property name="addUsersCode"/>
+		<property name="type"/>
+		<property name="rukuNum"/>
+		<property name="productId"/>
+		<property name="quotedPriceId"/>
+		<property name="quotedPriceName"/>
+		<property name="isurgent"/>
+		<property name="epId"/>
+		<property name="epStatus"/>
+		<property name="remarks"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="specification"/>
+		<property name="banben"/>
+		<property name="unit"/>
+		<property name="kgliao"/>
+		<property name="tuhao"/>
+		<property name="proNumber"/>
+		<property name="wgType"/>
+		<property name="orderId"/>
+		<property name="status"/>
+		<property name="needFinalDate"/>
+		 <property name="orderNumber"/>
+		 <property name="orderOutNumber"/>
+		 <property name="rootMarkId"/>
+		 <property name="rootSelfCard"/>
+		 <property name="ywMarkId"/>
+		 <property name="category" />
+		 <property name="estimatePrice" />
+		 <property name="ylNumber"/>
+		 <property name="banci"/>
+		 <property name="cancalNum"/>
+		 <property name="pickingStatus"/>
+		 <property name="pickingNumber"/>
+		 <property name="fileUrl"/>
+		 <property name="fileName"/>
+		 <property name="demanddept"/>
+		 <property name="shengChengMopIdTime"/>
+		 <property name="oldNumber"/>
+		 <property name="months"/>
+		 <property name="hsprice"/>
+		 <property name="bhsprice"/>
+		 <property name="totalMoney"/>
+		 <property name="yearSumNum"/>
+		 <property name="yongtu"/>
+		 
+		<many-to-one name="manualPlan" column="mopId"></many-to-one>
+		<many-to-one name="planTotal" column="moptId"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

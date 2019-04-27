@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.ProductManager" table="TA_Product">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" column="f_name"/>
+		<property name="unitPrice" column="f_unitPrice"/>
+		<property name="pieceNumber" column="f_pieceNum"/>
+		<property name="num" column="f_num"/>		
+		<property name="remark" column="f_remark"/>
+		<property name="carType" column="f_carType"/>
+		<property name="type" column="f_type"/>
+		<property name="unit" column="f_unit"></property>
+		<property name="allocationsNum" column="f_allocationsNum"/>
+		<property name="timeNum"/>
+		<property name="sellCount"/>
+	    <property name="applyNumber"/>
+	    <property name="kpNumber"/>
+	    <property name="hkNumber"/>
+	    <property name="hkMoney"/>
+	    <property name="cutNum" />
+	    <property name="hasTurn" />
+	    <property name="priceId"/>
+	    <property name="status"/>
+	    <property name="ywMarkId"/>
+	    <property name="taxprice"/>
+	    <property name="bhsPrice"/>
+	    <property name="banben"/>
+	    <property name="danwei"/>
+	    <property name="cxApplyCount"/>
+	    <property name="cxCount"/>
+	    <property name="cxHasTurn"/>
+	    <property name="cxRukuCount"/>
+	    <property name="cxzkuCount"/>
+	    <property name="cxzkuApplyCount"/>
+	    <property name="paymentDate"/>
+	    <property name="fmarkid" />
+	    <property name="isPeiJian" />
+		<property name="removeDate" />
+		<property name="removeSqDate" />
+		<property name="qx_epstatus" />
+		<property name="qx_epId" />
+		<property name="qxNum" />
+		<!-- 订单引用 -->
+		<many-to-one name="orderManager" column="fk_orderManager_id" class="com.task.entity.OrderManager" lazy="false" cascade="save-update"/>
+	</class>
+</hibernate-mapping>

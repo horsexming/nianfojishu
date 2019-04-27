@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.Rukudan" table="ta_crm_Rukudan" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		
+		
+		<property name="dindanhao" />
+		<property name="songhuodanhao" />
+		<property name="gys" />
+		<property name="songhuoshijian" />
+		<property name="name" />
+		<property name="guige" />
+		<property name="songjainshuliang" />
+		<property name="caigouren" />
+		<property name="bianhao" />
+		<property name="mingcheng" />
+		
+		
+		<property name="picihao" />
+		<property name="lupihao" />
+		<property name="yanshou" />
+		<property name="fankuihao" />
+		<property name="pinzhiren" />
+		
+		
+		<property name="danwei" />
+		<property name="rukushuliang" />
+		<property name="wuliuren" />
+		
+	<!--  -->
+		<property name="status" />
+		<property name="rukubianhao" />
+		<property name="rukushijian" />
+		<property name="caigiuId" />
+		
+		
+	</class>
+</hibernate-mapping>

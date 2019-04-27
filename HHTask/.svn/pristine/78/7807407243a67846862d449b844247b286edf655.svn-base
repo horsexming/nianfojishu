@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ManualOrderPlan" table="ta_sop_w_ManualOrderPlan">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId" index="sy_markId" />
+		<property name="proName" />
+		<property name="specification" />
+		<property name="banben" index="sy_banben" />
+		<property name="needNumber" />
+		<property name="number"  />
+		<property name="unit" />
+		<property name="kgliao" index="sy_kgliao" />
+		<property name="banci" />
+		<property name="wgType" index="sy_wgType" />
+		<property name="outcgNumber" />
+		<property name="tuhao" />
+		<property name="moqNum" />
+		<property name="mpqNum" />
+		<property name="gyscodeAndNum" />
+		<property name="moqGysCode" length="500" />
+		<property name="isuse" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="rukuNum"/>
+		<property name="addtime" />
+		<property name="needFinalDate" />
+		<property name="ylNumber"/>
+		<property name="status"/>
+		<property name="qsCount"/>
+		<property name="hgCount"/>
+		<property name="wshCount"/>
+		<property name="cancalNum"/>
+		<property name="epCancalId"/>
+		<property name="epCancalStatus"/>
+		<property name="category" index="sy_category"/>
+		<set name="modSet" cascade="all" inverse="false">
+			<key column="mopId"></key>
+			<one-to-many class="ManualOrderPlanDetail" />
+		</set>
+		<property name="proNumber"/>
+		<property name="caigouTime"/>
+		<property name="demanddept"/>
+		<property name="oldNumber"/>
+		<property name="maxxdNum"/>
+	</class>
+</hibernate-mapping>

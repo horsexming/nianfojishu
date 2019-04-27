@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+    <class name="AccountCheck" table="ta_fin_caiwu_AccountCheck">
+        <id name="id">
+            <generator class="identity"></generator>
+        </id>
+        <property name="accountNumber" />
+        <property name="accountCategory" />
+        <property name="accountUsers" />
+        <property name="accountUnit" />
+        <!--<property name="accountSum" />-->
+        <property name="accountDate" />
+        <property name="accountDescription" />
+
+        <property name="receiptid" />
+        <property name="receiptLogid" />
+        <property name="allMoney" />
+        <!--<property name="accountPaid" />-->
+        <!--<property name="unPay" />-->
+        <property name="payIng" />
+        <!--<property name="payOn" />-->
+        <!--<property name="payLast" />-->
+        <property name="accountUsersName" />
+
+        <property name="registrationStatus" />
+        <property name="paymentStatus" />
+        <property name="state" />
+        <property name="cwVouchersState" />
+        <property name="addTime" />
+
+    </class>
+</hibernate-mapping>

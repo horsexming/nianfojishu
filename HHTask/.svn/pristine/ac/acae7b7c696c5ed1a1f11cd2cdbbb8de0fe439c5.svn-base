@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Notice" table="TA_Notice">
+		<id name="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		<property name="personname" />
+		<property name="pid" />
+		<property name="time" />
+		<property name="content" />
+		<property name="title" />
+		<property name="status" />
+	</class>
+</hibernate-mapping>

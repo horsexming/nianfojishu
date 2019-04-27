@@ -1,0 +1,218 @@
+package com.task.Dao;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+/**
+ * Dao层
+ * 
+ * @author 刘培
+ * 
+ */
+public interface TotalDao {
+
+	public static String users = "Users";// session用户
+
+	public Object getObjectById(Object o, int id); // 通过ID查询对象
+
+	public Object getObjectByCondition(String hql, Object... agr); // 通过查询获得单个对象
+
+	/***
+	 * 通过条件获得单个对象(所有查询的第一条数据)
+	 */
+	Object getObjectByQuery(String hql, Object... agr);
+
+	public boolean save(Object obj);// 增加
+
+	public boolean delete(Object obj);// 删除
+	
+	public boolean delete2(Object obj);// 删除
+
+	public boolean update(Object obj);// 修改
+
+	public boolean update1(Object obj);// 修改1
+
+	// 修改(不记录日志)
+	boolean update2(Object obj);
+
+	/*** 保存(不记录日志) **/
+	boolean save2(Object obj);
+
+	public List query(String hql, Object... agr);// hql语句查询
+
+	public Query createQuery(String hql);// 创建query对象
+
+	public Session createSession(); // 创建session对象
+
+	public List createQuerySelect(String hql, String sql, Object... obj);// 创建sql语句查询
+
+	public int createQueryUpdate(String hql, String sql, Object... obj);// 创建sql语句修改
+
+	public List findAllByPage(String hql, int pageNo, int pageSize,
+			Object... obj); // 分页方法
+	/**
+	 * 只查询显示具体的列
+	 * @param hql
+	 * @param pageNo
+	 * @param pageSize
+	 * @param obj
+	 * @return
+	 */
+	public List findAllByPageShowCloumn(String hql, int pageNo, int pageSize,
+			String showCloum,
+			Object... obj); // 分页方法
+
+	public Integer getCount(String hql, Object... agr); // 获得总数量
+
+	public List findByPage(final String hql, final int offset,
+			final int pageSize, final Object... obj); // 分页
+
+	/***
+	 * 多条件查询(生成hql语句)
+	 * 
+	 * @param obj
+	 * @param other
+	 * @param otherNames
+	 * @return hql语句
+	 */
+	public String criteriaQueries(Object obj, String other,
+			Object... otherNames);
+
+	/***
+	 * 多条件查询 两个日期之间(生成hql语句)
+	 * 
+	 * @param obj
+	 *            对象
+	 * @param betweenName
+	 *            日期字段
+	 * @param between
+	 *            日期数组[开始时间,结束时间]
+	 * @param other
+	 *            其他拼接语句
+	 * @return hql语句
+	 */
+	public String criteriaQueries(Object obj, String betweenName,
+			String[] between, String other);
+
+	public String getChildHql(String pro, Object obj);// 根据对象内容查询子语句
+
+	/******************************************* 长长的分割线 **************************************************/
+
+	public Query getQuery(String hql, Map<String, Object> map, int pageSize,
+			int pageNo);
+
+	public Query setPageProperty(Query query, int pageSize, int pageNo);
+
+	public Query setParameter(Query query, Map<String, Object> map);
+
+	/**
+	 * 根据条件分页查询 如果用in语句里的参数，请把参数设置成占位符 例如 String hql =
+	 * "from User where id in (:id) and name in (:name)" Map<String, Object>
+	 * params = new HashMap<String, Object>(); Integer[] ids = new Integer[]{1,
+	 * 2, 3, 4, 5, 9, 99} String[] names = new String[]{"Kitty", "Steven",
+	 * "Gaving King"}; params.put("id", ids); params.put("name", names);
+	 * find(hql,params)
+	 * 
+	 * ----------did you know?
+	 * 
+	 * @author 马凯
+	 * @param hql
+	 *            HQL语句
+	 * @param params
+	 *            命名参数的集合
+	 * @param page
+	 *            第几页
+	 * @param rows
+	 *            每页所显示的行数
+	 * @return List 分页后的结果集
+	 */
+	public List find(String hql, Map<String, Object> params, int page, int rows);
+
+	public List find(String hql, Map<String, Object> params);
+
+	public List find(String hql, Object[] params);
+
+	public List find(String hql, int page, int rows);
+
+	public List find(String hql);
+
+	/**
+	 * 根据SQL来查询...上面是HQL，这儿是SQL countBySQL方法没写，现在暂时没用到..
+	 * 
+	 * @author 马凯
+	 * @param sql
+	 * @return
+	 */
+	public List<Map> findBySql(String sql);
+
+	public List<Map> findBySql(String sql, int page, int rows);
+
+	public List<Map> findBySql(String sql, Map<String, Object> params);
+
+	public List<Map> findBySql(String sql, Map<String, Object> params,
+			int page, int rows);
+
+	/**
+	 * 根据条件,查询符合条件的记录数
+	 * 
+	 * @author 马凯
+	 * @param hql
+	 *            HQL语句
+	 * @param params
+	 *            命名参数的集合
+	 * @return 记录数
+	 */
+	public Long count(String hql, Map<String, Object> params);
+
+	public Long count(String hql, Object[] params);
+
+	public Long count(String hql);
+
+	/**
+	 * 取出某个对象
+	 * 
+	 * @author 马凯
+	 * @param c
+	 * @param id
+	 * @return
+	 */
+	public Object get(Class c, Serializable id);
+
+	public Object get(String hql, Object[] param);
+
+	List<Object> queryList(String hql, Object... agr);
+
+	@Deprecated
+	public String getDateTime(String timeFormat);// 获得时间
+
+	@Deprecated
+	public String getLastMonth(String timeFormat);// 获得上个月的日期
+
+	@Deprecated
+	public List listSub(String hql);// 查询对象数组
+
+	@Deprecated
+	public String queryIfhql(Object obj, String dic);
+
+	// 根据整形数组IN查询
+	@Deprecated
+	public List<?> findByHql(String hql, Map<String, Object> map, int pageSize,
+			int pageNo);
+
+	/****
+	 * 提交并清空缓存
+	 */
+	void clear();
+	/**
+	 *  通过条件获得单个对象(所有查询的第一条数据)
+	 * @param hql
+	 * @param agr
+	 * @return
+	 */
+	public Object getObjectByConditionforDouble(String hql, Object... agr);
+
+}

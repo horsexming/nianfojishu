@@ -1,0 +1,257 @@
+package com.task.ServerImpl;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.ShortMessageService;
+import com.task.entity.ShortMessage;
+import com.task.entity.Users;
+
+public class ShortMessageServiceImpl implements ShortMessageService {
+
+	private TotalDao totalDao;
+
+	@Override
+	public ArrayList<Users> get(List<Users> usersSend) {
+		ArrayList<Users> temp = new ArrayList<Users>();
+		for (Users users : usersSend) {
+			String hql = "from Users where code = ?";
+			Users u = (Users) totalDao.getObjectByCondition(hql, users
+					.getCode());
+			temp.add(u);
+		}
+		return temp;
+	}
+
+	private InputStream getSoapInputStream(String userid, String pass,
+			String mobiles, String msg, String time) throws Exception {
+		URLConnection conn = null;
+		InputStream is = null;
+		try {
+			String soap = getSoapSmssend(userid, pass, mobiles, msg, time);
+			if (soap == null) {
+				return null;
+			}
+			try {
+
+				URL url = new URL("http://service2.winic.org:8003/Service.asmx");
+
+				conn = url.openConnection();
+				conn.setUseCaches(false);
+				conn.setDoInput(true);
+				conn.setDoOutput(true);
+				conn.setRequestProperty("Content-Length", Integer.toString(soap
+						.length()));
+				conn.setRequestProperty("Content-Type",
+						"text/xml; charset=utf-8");
+				conn.setRequestProperty("HOST", "service2.winic.org");
+				conn.setRequestProperty("SOAPAction",
+						"\"http://tempuri.org/SendMessages\"");
+
+				OutputStream os = conn.getOutputStream();
+				OutputStreamWriter osw = new OutputStreamWriter(os, "utf-8");
+				osw.write(soap);
+				osw.flush();
+				osw.close();
+			} catch (Exception ex) {
+				System.out.print("SmsSoap.openUrl error:" + ex.getMessage());
+			}
+			try {
+				is = conn.getInputStream();
+			} catch (Exception ex1) {
+				System.out.print("SmsSoap.getUrl error:" + ex1.getMessage());
+			}
+
+			return is;
+		} catch (Exception e) {
+			System.out.print("SmsSoap.InputStream error:" + e.getMessage());
+			return null;
+		}
+	}
+
+	private String getSoapSmssend(String userid, String pass, String mobiles,
+			String msg, String time) {
+		try {
+			String soap = "";
+			soap = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+					+ "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+					+ "<soap:Body>"
+					+ "<SendMessages xmlns=\"http://tempuri.org/\">" + "<uid>"
+					+ userid + "</uid>" + "<pwd>" + pass + "</pwd>" + "<tos>"
+					+ mobiles + "</tos>" + "<msg>" + msg + "</msg>" + "<otime>"
+					+ time + "</otime>" + "</SendMessages>" + "</soap:Body>"
+					+ "</soap:Envelope>";
+			return soap;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	@Override
+	public ArrayList<Users> queryUsers(Users usersInput) {
+		if (usersInput == null) {
+			usersInput = new Users();
+		}
+		if (usersInput.getPassword() != null
+				&& usersInput.getPassword().getPhoneNumber() != null
+				&& usersInput.getPassword().getPhoneNumber().length() > 0) {
+			String hql = "from Users where password.phoneNumber = ?";
+			return (ArrayList<Users>) totalDao.query(hql, usersInput
+					.getPassword().getPhoneNumber());
+		}
+		usersInput.setPassword(null);
+		String hql = totalDao.criteriaQueries(usersInput, null, null);
+		if (hql.contains("where")) {
+			hql += " and password.phoneNumber != null and onWork in ('在职','试用')";
+		} else {
+			hql += " where password.phoneNumber != null and onWork in ('在职','试用')";
+		}
+
+		return (ArrayList<Users>) totalDao.query(hql);
+	}
+
+	@Override
+	public ArrayList<ShortMessage> list() {
+		String hql = "from ShortMessage order by sendDate";
+		ArrayList<ShortMessage> userList = (ArrayList<ShortMessage>) totalDao
+				.query(hql);
+		return userList;
+	}
+
+	// 跟据手机号保存到历史记录表
+	private boolean save(String mobiles, String msg) {
+		String[] mobilesArr = mobiles.split(",");
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String nowStr = sdf.format(now);
+		String hql = "from Users where password.phoneNumber = ?";
+		for (int i = 0; i < mobilesArr.length; i++) {
+			Users u = (Users) totalDao.getObjectByCondition(hql, mobilesArr[i]);
+			if (u != null) {
+				ShortMessage sm = new ShortMessage();
+				sm.setPhone(mobilesArr[i]);
+				sm.setName(u.getName());
+				sm.setContent(msg);
+				sm.setSendDate(nowStr);
+				sm.setDept(u.getDept());
+				sm.setCode(u.getCode());
+				totalDao.save(sm);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public String send(List<Users> usersSend, String msg) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < usersSend.size(); i++) {
+			sb.append(usersSend.get(i).getPassword().getPhoneNumber()
+					+ (i == (usersSend.size() - 1) ? "" : ","));
+		}
+		String s = this.send(sb.toString(), msg);
+		return s;
+	}
+
+	@Override
+	public String send(String msg, Users... usersSend) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < usersSend.length; i++) {
+			sb.append((usersSend[i]).getPassword().getPhoneNumber()
+					+ (i == (usersSend.length - 1) ? "" : ","));
+		}
+		String s = this.send(sb.toString(), msg);
+		return s;
+	}
+
+	@Override
+	public String send(String mobiles, String msg) {
+		// 暂时性封闭短信接口
+		String result = "-12";
+		try {
+			Document doc;
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(true);
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputStream is = getSoapInputStream("dgyt", "x343247", mobiles, msg,
+					"");
+			if (is != null) {
+				doc = db.parse(is);
+				NodeList nl = doc.getElementsByTagName("SendMessagesResult");
+				Node n = nl.item(0);
+				result = n.getFirstChild().getNodeValue();
+				is.close();
+			}
+			if (Long.parseLong(result) >= 0) {
+				save(mobiles, msg);
+			}
+			return result;
+		} catch (Exception e) {
+			return "-12";
+		}
+		// 暂时性封闭短信接口
+		// return "短信接口已暂停，请您通知管理员";
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public ArrayList<ShortMessage> query(ShortMessage shortMessage) {
+		String hql = totalDao.criteriaQueries(shortMessage, null, null);
+		ArrayList<ShortMessage> usersList = (ArrayList<ShortMessage>) totalDao
+				.query(hql);
+
+		return usersList;
+	}
+
+	@Override
+	public String send(String[] mobiles, String msg) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < mobiles.length; i++) {
+			sb.append(mobiles[i] + (i == (mobiles.length - 1) ? "" : ","));
+		}
+		String s = this.send(sb.toString(), msg);
+		return s;
+	}
+	
+	public static void main(String[] args) {
+		ShortMessageServiceImpl sms=new ShortMessageServiceImpl();		
+		sms.send("15921533206", "尊敬的XXX先生/女士：  感谢您在2016年为公司做出了骄人成绩。公司领导 蒯总、毛总、同总 在此向您表示衷心的感谢和敬意！值此新春佳节之际，谨代表 中国航发东莞阳天电子科技有限公司（http://www.i-brights.com/） 祝福您及您的家人：新年快乐！阖家幸福！万事顺意！");
+	}
+
+	@Override
+	public String dsSendMes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+//	@Override
+//	public String dsSendMes(){
+//		ShortMessageServiceImpl sms=new ShortMessageServiceImpl();		
+//		sms.send("15921533206", "尊敬的XXX先生/女士：  感谢您在2016年为公司做出了骄人成绩。公司领导 蒯总、毛总、同总 在此向您表示衷心的感谢和敬意！值此新春佳节之际，谨代表 中国航发东莞阳天电子科技有限公司（http://www.i-brights.com/） 祝福您及您的家人：新年快乐！阖家幸福！万事顺意！");
+//		return "";
+//	}
+	
+
+}

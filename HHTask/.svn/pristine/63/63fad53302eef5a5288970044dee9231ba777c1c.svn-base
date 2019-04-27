@@ -1,0 +1,71 @@
+package com.tast.entity.zhaobiao;
+
+public class Flowdetail  implements java.io.Serializable {
+	private Integer spmxid;//id	
+	private String title;//审批标题	
+	private Integer  sqdid;
+	
+	private String sqtype;
+	private String sphj;
+	private String beginrq  ;
+	private String spr ;
+	private String  spyj;
+	private String  sprq ;
+	public Integer getSpmxid() {
+		return spmxid;
+	}
+	public void setSpmxid(Integer spmxid) {
+		this.spmxid = spmxid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Integer getSqdid() {
+		return sqdid;
+	}
+	public void setSqdid(Integer sqdid) {
+		this.sqdid = sqdid;
+	}
+	public String getSqtype() {
+		return sqtype;
+	}
+	public void setSqtype(String sqtype) {
+		this.sqtype = sqtype;
+	}
+	public String getSphj() {
+		return sphj;
+	}
+	public void setSphj(String sphj) {
+		this.sphj = sphj;
+	}
+	public String getBeginrq() {
+		return beginrq;
+	}
+	public void setBeginrq(String beginrq) {
+		this.beginrq = beginrq;
+	}
+	public String getSpr() {
+		return spr;
+	}
+	public void setSpr(String spr) {
+		this.spr = spr;
+	}
+	public String getSpyj() {
+		return spyj;
+	}
+	public void setSpyj(String spyj) {
+		this.spyj = spyj;
+	}
+	public String getSprq() {
+		return sprq;
+	}
+	public void setSprq(String sprq) {
+		this.sprq = sprq;
+	}
+
+	
+	
+}

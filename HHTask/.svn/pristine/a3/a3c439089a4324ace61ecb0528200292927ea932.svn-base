@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouPlanLock" table="ta_sop_w_WaigouPlanLock">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+	<property name="entityName"/>
+	<property name="entityId"/>
+	<property name="markId"/>
+	<property name="sbApplyId"/>
+	<property name="sbApplyDetailId"/>
+	<property name="sbProcardId"/>
+	<property name="sbmarkId"/>
+	<property name="remark"/>
+	<property name="zxStatus"/>
+	<property name="dataStatus"/>
+	</class>
+</hibernate-mapping>
+

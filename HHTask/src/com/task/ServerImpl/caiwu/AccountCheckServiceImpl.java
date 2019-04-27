@@ -1,0 +1,305 @@
+package com.task.ServerImpl.caiwu;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.caiwu.AccountCheckService;
+import com.task.Server.caiwu.CwVouchersServer;
+import com.task.ServerImpl.AlertMessagesServerImpl;
+import com.task.entity.caiwu.AccountCheck;
+import com.task.entity.caiwu.CwVouchers;
+import com.task.entity.caiwu.receivePayment.ReceiptLog;
+import com.task.util.Util;
+import org.springframework.beans.BeanUtils;
+
+import java.util.List;
+
+public class AccountCheckServiceImpl implements AccountCheckService {
+    private TotalDao totalDao;
+    private CwVouchersServer cwVouchersServer;
+
+
+    @Override
+    public List<ReceiptLog> findAllPayment() {
+        String hql = "from ReceiptLog";
+        return totalDao.query(hql, null);
+    }
+
+    @Override
+    public AccountCheck findAccountCheck(Integer id) {
+        return (AccountCheck) totalDao.getObjectById(AccountCheck.class, id);
+    }
+
+
+
+    @Override
+    public AccountCheck findAccountCheckByReceiptLogId(Integer id) {
+        List l=totalDao.query("from AccountCheck where receiptLogid=?",id);
+        if(l.size()>0){
+            AccountCheck accountCheck= (AccountCheck) l.get(0);
+            return accountCheck;
+        }
+        return null;
+    }
+
+
+    /*
+        * @author fy
+    　　* @date 2018/8/24 10:36
+    　　* @Description:上传时检查是否有对账单。更新状态
+    　　* @param
+    　　* @return
+    　　* @throws
+    　　*/
+    @Override
+    public Boolean checkUplodState(Integer id){
+        ReceiptLog receiptLog= (ReceiptLog) totalDao.getObjectById(ReceiptLog.class,id);
+        AccountCheck accountCheck=findAccountCheckByReceiptLogId(id);
+        if(accountCheck!=null){
+            accountCheck.setAccountNumber(receiptLog.getFkpzNum());
+            accountCheck.setState("完成");
+            UpdateAccountCheck(accountCheck);
+            return true;
+        }
+        return false;
+    }
+
+
+    /*
+        * @author fy
+    　　* @date 2018/8/27 17:00
+    　　* @Description: 上传时检查是否有对账单。更新做账状态
+    　　* @param [id]
+    　　* @return java.lang.Boolean
+    　　* @throws
+    　　*/
+    @Override
+    public Boolean checkCwVouchersState(Integer id){
+        AccountCheck accountCheck=findAccountCheckByReceiptLogId(id);
+        if(accountCheck!=null){
+            accountCheck.setCwVouchersState("已做账");
+            UpdateAccountCheck(accountCheck);
+            return true;
+        }
+        return false;
+    }
+
+//    @Override
+//    public AccountCheck findAccountCheckByReceiptId(Integer id) {
+//        List l=totalDao.query("from AccountCheck where receiptid=?",id);
+//        if(l.size()>0){
+//            AccountCheck accountCheck= (AccountCheck) l.get(0);
+//            return accountCheck;
+//        }
+//        return null;
+//    }
+
+    @Override
+    public ReceiptLog findReceiptLog(Integer id){
+        ReceiptLog receiptLog= (ReceiptLog) totalDao.getObjectById(ReceiptLog.class,id);
+        return receiptLog;
+    }
+
+
+    @Override
+    public String AddAccountCheck(AccountCheck accountCheck) {
+        if (accountCheck != null) {
+            ReceiptLog receiptLog=findReceiptLog(accountCheck.getReceiptLogid());
+//            if(receiptLog.getReceipt().getPayIng()>0f){
+//                accountCheck.setPaymentStatus("已申请");
+//            }else {
+//                accountCheck.setPaymentStatus("未申请");
+//            }
+            //判断是否已有对账单
+            if(checkAccountCheckExistence(accountCheck.getAccountNumber())){
+                return "已有此对账单";
+            }
+            accountCheck.setPaymentStatus("已申请");
+            //判断是否上传
+            if("完成".equals(receiptLog.getStatus())){
+                accountCheck.setState("完成");
+            }else {
+                accountCheck.setState("未上传");
+            }
+            //判断是否做账
+            if(cwVouchersServer.findCwVouchersByReceiptLogId(receiptLog.getId())!=null&&
+                    "已做账".equals(cwVouchersServer.findCwVouchersByReceiptLogId(receiptLog.getId()).getZzStatus())){
+                accountCheck.setCwVouchersState("已做账");
+            }else {
+                accountCheck.setCwVouchersState("未做账");
+            }
+            accountCheck.setAddTime(Util.getDateTime("yyyy-MM-dd"));
+            accountCheck.setPaybank(receiptLog.getPaybank());
+            accountCheck.setPaybankId(receiptLog.getPaybankId());
+            
+            Boolean b = totalDao.save(accountCheck);
+            SendAlertMessages(accountCheck);
+            if (b)
+                return "成功";
+        }
+        return "失败";
+    }
+
+    @Override
+    public String SendAlertMessages(AccountCheck accountCheck){
+        //if 发送“有对账纪录未进行付款申请。请前往付款 申请ReceiptAction!findReceiptList.action?pageStatus=dfk
+        if("未上传".equals(accountCheck.getState())){
+            AlertMessagesServerImpl.addAlertMessages("付款记录管理",
+                    "有对账纪录未进行上传。请前往上传", "任务反馈通知", accountCheck.getAccountUsers());
+        }
+        if("未申请".equals(accountCheck.getPaymentStatus())){
+            AlertMessagesServerImpl.addAlertMessages("待付款账单管理 ",
+                    "有对账纪录未进行付款申请。请前往申请付款", "任务反馈通知", accountCheck.getAccountUsers());
+        }
+        return "成功";
+    }
+
+
+    /*
+        * @author fy
+    　　* @date 2018/8/13 16:12
+    　　* @Description:付款申请记录管理 中是否上传了凭证
+        * @param
+    　　* @return
+    　　* @throws
+    　　*/
+//    @Override
+//    public Boolean findIsUpdate(Integer receiptId){
+//        Receipt receipt= (Receipt) totalDao.getObjectById(Receipt.class,receiptId);
+//        Set<ReceiptLog> receiptLogs=receipt.getReceiptLogSet();
+//        for (ReceiptLog r:receiptLogs) {
+//            if(!"完成".equals(r.getStatus())){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    @Override
+    public String DeleteAccountCheck(AccountCheck accountCheck) {
+        if(accountCheck!=null){
+            Boolean b=totalDao.delete(findAccountCheck(accountCheck.getId()));
+            if (b)
+            return "成功";
+        }
+        return "失败";
+    }
+
+    @Override
+    public String UpdateAccountCheck(AccountCheck accountCheck) {
+        AccountCheck findAccountCheck=findAccountCheck(accountCheck.getId());
+        BeanUtils.copyProperties(accountCheck,findAccountCheck,new String[]{"id"});
+        return null;
+    }
+
+
+    @Override
+    public Object[] findAllAccountCheck(AccountCheck accountCheck,int pageNo, int pageSize){
+//        String hql="from AccountCheck order by id desc";
+        String addTime="";
+        if (accountCheck.getAddTime() != null
+                && !accountCheck.getAddTime().equals("")){
+            addTime=accountCheck.getAddTime();
+            accountCheck.setAddTime("");
+        }
+        String hql = totalDao.criteriaQueries(accountCheck, null);
+        if (!addTime.equals("")) {
+            // 大于时间
+            hql += " and addTime BETWEEN CONVERT(datetime, '" + addTime+"-01',20)";
+            // 小于当月最后一天
+            hql += " AND DATEADD(DAY,-1,DATEADD(MM,DATEDIFF(MM,0,CONVERT(datetime,'"+addTime+"-1',20))+1,0))";
+        }
+        hql+=" order by id desc ";
+        List<AccountCheck> list=totalDao.findAllByPage(hql,pageNo,pageSize);
+        int count=totalDao.getCount(hql);
+        Object[] o={list ,count};
+        accountCheck.setAddTime(addTime);
+        return o;
+    }
+
+    @Override
+    /*
+        * @author fy
+    　　* @date 2018/9/11 9:30
+    　　* @Description:
+    　　* @param [id] receiptlog_id
+    　　* @return java.lang.String
+    　　* @throws
+    　　*/
+    public String findFundApplyByAccountCheck(Integer id) {
+        ReceiptLog receiptLog = (ReceiptLog) totalDao.getObjectById(ReceiptLog.class, id);
+        Integer fundapplyid = receiptLog.getReceipt().getFk_fundApplyId();
+        return fundapplyid.toString();
+    }
+
+    @Override
+    public String findReceiptByAccountCheck(Integer id){
+        ReceiptLog receiptLog = (ReceiptLog) totalDao.getObjectById(ReceiptLog.class, id);
+        return String.valueOf(receiptLog.getReceipt().getId());
+    }
+
+    @Override
+    public String findReceiptLogFileByAccountCheck(Integer id){
+        ReceiptLog receiptLog = (ReceiptLog) totalDao.getObjectById(ReceiptLog.class, id);
+        return receiptLog.getFileName();
+    }
+
+
+    /*
+        * @author fy
+    　　* @date 2018/12/4 11:19
+    　　* @Description: 根据银行流水号判断是否已有对账单
+    　　* @param []
+    　　* @return java.lang.String
+    　　* @throws
+    　　*/
+    public Boolean checkAccountCheckExistence(String num) {
+        String hql = "from AccountCheck where accountNumber = ?";
+        List<AccountCheck> list = totalDao.query(hql, num);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    /*
+        * @author fy
+    　　* @date 2018/9/11 14:12
+    　　* @Description:对账单查看财务对账附件
+    　　* @param [id] receiptlog_id
+    　　* @return java.lang.String
+    　　* @throws
+    　　*/
+    public String findcwVouchersByAccountCheck(Integer id){
+        CwVouchers cwVouchers=cwVouchersServer.findCwVouchersByReceiptLogId(id);
+        cwVouchers.getZzFile();
+        return cwVouchers.getZzFile();
+    }
+//    @Override
+//    public String updateAccountCheckPaymentStatus(Integer receiptId){
+//        Receipt receipt= (Receipt) totalDao.getObjectById(Receipt.class,receiptId);
+//        if(receipt.getPayIng()>0f){
+//            AccountCheck accountCheck=findAccountCheckByReceiptId(receiptId);
+//            accountCheck.setPaymentStatus("已申请");
+//            UpdateAccountCheck(accountCheck);
+//            return "成功";
+//        }
+//        return null;
+//    }
+
+    public TotalDao getTotalDao() {
+        return totalDao;
+    }
+
+    public void setTotalDao(TotalDao totalDao) {
+        this.totalDao = totalDao;
+    }
+
+    public CwVouchersServer getCwVouchersServer() {
+        return cwVouchersServer;
+    }
+
+    public void setCwVouchersServer(CwVouchersServer cwVouchersServer) {
+        this.cwVouchersServer = cwVouchersServer;
+    }
+}

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-cyl" extends="struts-stack">
+		<!--
+			****************************************程玉林Action操作**********************************************************************
+		-->
+		<!-- 信息查询系统Action -->
+		<action name="RequisitionAction" class="RequisitionAction">
+			<result name="findAll">/System/xinxi/lidpas/shenpidan.jsp</result>
+			<result name="addsubmit" type="redirect">RequisitionAction!findAll.action?requisition.name=
+			</result>
+			<result name="delsubmit">/System/xinxi/lidpas/shenpidan.jsp</result>
+			<result name="uprequisition">/System/xinxi/lidpas/updateRequisition.jsp
+			</result>
+			<result name="updrequisition" type="redirect">RequisitionAction!findAll.action?requisition.name=
+			</result>
+			<result name="findByclientManagement">/System/xinxi/lidpas/detailsRequisition.jsp
+			</result>
+			<result name="printRequisitions">/System/xinxi/lidpas/shenpidan.jsp</result>
+			<result name="updateSubmit" type="redirect">RequisitionAction!findAll.action?pageStatus=${pageStatus}
+			</result>
+			<result name="remark">/System/xinxi/lidpas/remarkRequisition.jsp
+			</result>
+
+		</action>
+		<!-- 信息报修系统Action -->
+		<action name="RepairAction" class="RepairAction">
+			<result name="findAll">/System/xinxi/Repair/repairsingle.jsp</result>
+			<result name="addrepairsingle" type="redirect">RepairAction!findAll.action?repair.name=
+			</result>
+			<result name="updatecondition" type="redirect">RepairAction!findAll.action?pageStatus=${pageStatus}
+			</result>
+			<result name="updateZhipai" type="redirect">RepairAction!findAll.action?pageStatus=${pageStatus}&amp;errorMessage=${errorMessage}
+			</result>
+			<result name="findByclientManagement">/System/xinxi/Repair/detailsRepair.jsp</result>
+			<result name="delsubmit" type="redirect">RepairAction!findAll.action?repair.name=
+			</result>
+			<result name="updaterepair">/System/xinxi/Repair/updateRepair.jsp</result>
+			<result name="updaterrepair" type="redirect">RepairAction!findAll.action?repair.name=
+			</result>
+			<result name="remark">/System/xinxi/Repair/remarkRepair.jsp</result>
+			<result name="findAllRe">/System/xinxi/Repair/queryRepair.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="findAlls">/System/xinxi/Repair/Computerrepair.jsp</result>
+			<!-- 报修人信息 -->
+			<result name="findAllpop">/System/xinxi/Repair/repairpop.jsp</result>
+<!--			<result name="findAllpop1">/System/xinxi/Repair/repairpop1.jsp</result>-->
+			<result name="addRepairpop" >/System/xinxi/Repair/addrepairpop.jsp?test=${test}&amp;dept_name=${deptname}</result>
+			<result name="delRepair" type="redirect">RepairAction!findAllpop.action</result>
+			<result name="delRepair1" type="redirect">RepairAction!findAllpop.action?text=0</result>
+			<result name="salRepairpop">/System/xinxi/Repair/findpairpopById.jsp</result>
+			<result name="toupdateRepair" type="redirect">RepairAction!findAllpop.action</result>
+			<result name="toupdateRepair1" type="redirect">RepairAction!findAllpop.action?text=0</result>
+			<!-- 报修类别管理 -->
+			<result name="findRepairtype">/System/xinxi/Repair/findRepairtype.jsp</result>
+			<result name="saveRepairtype"  type="redirect">RepairAction!findRepairtype.action</result>
+			<result name="saveRepairtype1" type="redirect">RepairAction!findRepairtype1.action</result>
+			<result name="delRepairtype" type="redirect">RepairAction!findRepairtype.action</result>
+			<result name="delRepairtype1" type="redirect">RepairAction!findRepairtype1.action</result>
+			<result name="salRepairtypeById">/System/xinxi/Repair/findrepairtypeById.jsp</result>
+			<result name="updateRepairtype" type="redirect">RepairAction!findRepairtype.action</result>
+			<result name="updateRepairtype1" type="redirect">RepairAction!findRepairtype1.action</result>
+		</action>
+		<!-- 设备报修系统Action -->
+		<action name="EquipmentAction" class="EquipmentAction">
+			<result name="findAllRe">/System/Equipment/Barcode.jsp</result>
+			<result name="baoxiuId">/System/Equipment/baoxiuId.jsp</result>
+			<result name="addmchine">/System/Equipment/Barcode.jsp</result>
+			<result name="findallMaintenance">/System/Equipment/Equipment.jsp</result>
+			<result name="addmchine" type="redirect">EquipmentAction!findAlll.action?maintenance.name=
+			</result>
+			<result name="findByclientManagement">/System/Equipment/detailsEquipment.jsp</result>
+			<result name="updaterr">/System/Equipment/updateEquipment.jsp</result>
+			<result name="updateZhipai" type="redirect">EquipmentAction!findAlll.action?pageStatus=${pageStatus}&amp;errorMessage=${errorMessage}
+			</result>
+			<result name="upremarkMaintenance" type="redirect">EquipmentAction!findAlll.action?pageStatus=${pageStatus}
+			</result>
+			<result name="remarker">/System/Equipment/remarkEquipment.jsp</result>
+			<result name="findAllRer">/System/Equipment/queryEquipment.jsp</result>
+			<result name="addrepairsingler" type="redirect">EquipmentAction!findAlll.action?maintenance.name=
+			</result>
+			<result name="updatermaintenancer" type="redirect">EquipmentAction!findAlll.action?maintenance.name=
+			</result>
+			<result name="findAlls">/System/Equipment/faultrepairrate.jsp</result>
+			<result name="findAllas">/System/Equipment/equipmentcondition.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="findallother">/System/Equipment/Oequipment.jsp</result>
+			<result name="otherker">/System/Equipment/Oequipment.jsp</result>
+			<!-- 入库条码管理 -->
+			<result name="findAllfindAllwarehousing">/System/Equipment/Warehousing.jsp</result>
+			<result name="procarder">/System/Equipment/Warehousing.jsp</result>
+			<!-- 更换零件查询 -->
+			<result name="findAllparts">/System/Equipment/queryparts.jsp</result>
+			<result name="generateexcel" type="redirect">DownAction.action?fileName=${fileName}&amp;directory=/upload/sheet/equipment/
+			</result>
+			
+			<result name="listresponsibilities">/System/Equipment/responsibilities_list.jsp</result>
+			
+			<result name="addresponsibilities">/System/Equipment/responsibilities_add.jsp</result>
+			
+			<result name="toUpdateresponsibilities">/System/Equipment/responsibilities_update.jsp</result>
+			<result name="updateresponsibilities">/System/Equipment/responsibilities_update.jsp</result>
+			
+		</action>
+		<!-- 生产设备管理Action -->
+		<action name="ProdEquipmentAction" class="ProdEquipmentAction">
+			<result name="findAllRe" type="redirect">ProdEquipmentAction!findAll.action?machine.name=
+			</result>
+			<result name="addmchiner" type="redirect">ProdEquipmentAction!findAll.action?machine.name=
+			</result>
+			<result name="addBaoYangrecord">/System/Equipment/addBaoYangrecord.jsp</result>
+			<result name="baoYangrecord_List">/System/Equipment/baoYangrecord_List.jsp</result>
+			<result name="upper">/System/Equipment/uppEquipment.jsp</result>
+			<result name="updatermachin" type="redirect">ProdEquipmentAction!findAll.action?cpage=${cpage}
+			</result>
+			<result name="findAll" type="redirect">ProdEquipmentAction!findAll.action?pageStatus=${pageStatus}&amp;id=${id}&amp;cpage=${cpage}
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="success">/System/Equipment/addprintmanine.jsp</result>
+			<result name="addSuccess">/System/Equipment/addEquipment.jsp</result>
+			<result name="findMachine">/System/Equipment/findMachine.jsp</result>
+			<result name="bddjnr" >/System/Equipment/DJNR_bdlist.jsp</result>
+			<result name="bdGongwei">/System/SOP/gongwei/bdGongwei.jsp</result>
+			<result name="toupdate" type="redirect">ProdEquipmentAction!findAll.action??machine.name=</result>
+			<result name="checkMachiner">/System/Equipment/checkMachiner.jsp</result>
+			<result name="shebeiLogin">sheBeiLogin.jsp?id=${id}</result>
+			<result name="djday_add">System/SOP/produce/djday_add.jsp</result>
+		</action>
+		<!-- 设备变动Action -->
+		<action name="EquipmentChangesAction" class="EquipmentChangesAction">
+			<result name="findAll">/System/Equipment/EquipmentChanges.jsp</result>
+			<result name="addequipmentChanges" type="redirect">EquipmentChangesAction!findAll.action?equipmentChanges.name=
+			</result>
+			<result name="delsubmit" type="redirect">EquipmentChangesAction!findAll.action?equipmentChanges.name=
+			</result>
+			<result name="updateSubmit" type="redirect">EquipmentChangesAction!findAll.action?pageStatus=${pageStatus}
+			</result>
+			<result name="addSuccess">/System/Equipment/queryMachine.jsp</result>
+			<result name="upper">/System/Equipment/addEquipmentChanges.jsp
+			</result>
+			<result name="addSuccesss">/System/Equipment/queryEquipmentChanges.jsp
+			</result>
+			<result name="findByclientManagement">/System/Equipment/detailsEquipmentChanges.jsp
+			</result>
+			<result name="updaterr">/System/Equipment/uppEquipmentChanges.jsp
+			</result>
+			<result name="updatermaintenancer" type="redirect">EquipmentChangesAction!findAll.action?equipmentChanges.name=
+			</result>
+			<result name="generateexcel" type="redirect">DownAction.action?fileName=${fileName}&amp;directory=/upload/sheet/equipment/
+			</result>
+		</action>
+		<!-- 流程管理系统Action -->
+		<action name="ProcessManagementAction" class="ProcessManagementAction">
+			<result name="templateber">/System/Process/Personneladd.jsp</result>
+			<result name="otherker">/System/Process/Pcustomizationadd.jsp</result>
+			<result name="prorcess">/System/Process/Pcustomizationadd.jsp</result>
+			<result name="addtemplatebSuccess">/System/Process/Personnelquery.jsp</result>
+			<result name="delsubmit" type="redirect">ProcessManagementAction!findas.action?templateb.templateb=
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

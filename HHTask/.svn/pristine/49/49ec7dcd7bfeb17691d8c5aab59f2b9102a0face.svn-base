@@ -1,0 +1,123 @@
+package com.task.Server.caiwu.receivePayment;
+
+import java.io.File;
+import java.util.List;
+
+import com.task.entity.caiwu.receivePayment.Receipt;
+import com.task.entity.caiwu.receivePayment.ReceiptLog;
+
+/****
+ * 付款单SErver
+ * 
+ * @author liupei
+ * 
+ */
+public interface ReceiptServer {
+	/****
+	 * 添加应付账单
+	 * 
+	 * @param receipt
+	 * @return
+	 */
+	boolean addReceipt(Receipt receipt);
+
+	/****
+	 * 付款单查询
+	 * 
+	 * @return
+	 */
+	Object[] findReceiptList(Receipt receipt, int pageNo, int pageSize,
+			String pageStatus);
+
+	/***
+	 * 申请付款
+	 * 
+	 * @param list
+	 * @return
+	 */
+	String applyForPay(List<Receipt> list);
+
+	/***
+	 * 付款调额及审批
+	 * 
+	 * @param list
+	 * @return
+	 */
+	String auditPay(List<ReceiptLog> list,Integer subId);
+
+	/****
+	 * 付款记录管理
+	 */
+	Object[] findReceiptLogList(ReceiptLog receiptLog, int pageNo,
+			int pageSize, String pageStatus,Boolean isAccountCheck);
+
+	/***
+	 * 上传支付凭证，生成财务凭证
+	 * 
+	 * @param logId
+	 *            付款记录id
+	 * @param subjectId
+	 *            科目id
+	 * @param proofFile
+	 *            支付凭证文件
+	 * @param fileName
+	 *            文件名称
+	 * @return
+	 */
+	String uploadPayProof(ReceiptLog receiptLog, Integer subjectId, File proofFile,
+			String fileName);
+	/***
+	 * 重新上传支付凭证
+	 * 
+	 * @param logId
+	 *            付款记录id
+	 * @param subjectId
+	 *            科目id
+	 * @param proofFile
+	 *            支付凭证文件
+	 * @param fileName
+	 *            文件名称
+	 * @return
+	 */
+	String chongxin(ReceiptLog receiptLog, Integer subjectId, File proofFile,
+			String fileName);
+
+	/***
+	 * 更新科目余额(迭代更新上层N层科目)
+	 * 
+	 * @param subBudgetRate
+	 * @param borrowMoney
+	 * @param lendMoney
+	 * @return
+	 */
+	boolean updatesubBudgetRate(Integer subBudgetRateId, double borrowMoney,
+			double lendMoney);
+
+	/***
+	 * 查询科目父类名称表
+	 * 
+	 * @return
+	 */
+	String findBudgetRateNames(Integer subBudgetRateId);
+
+	/**
+	 * 
+	 * @param ids
+	 * @param bwtCompany
+	 * @return
+	 */
+	String weituo(Integer[] ids, String bwtCompany, String payWay);
+
+	/***
+	 * 已付款确认
+	 * 
+	 * @return
+	 */
+	String chenkreceiptLog(Integer logId);
+
+	/**
+	 * 发送取钥匙
+	 * @param subId
+	 */
+	void quKey(Integer subId,ReceiptLog dbReceiptLog);
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="ProTryMakeScore" table="ta_sk_ProTryMakeScore">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="groupName" />
+	<property name="cusName" />
+	<property name="month" />
+	<property name="poSize" />
+		<property name="proName" />
+		<property name="proNum" />
+		<property name="approvalId" />
+		<property name="productStatus" />
+		<property name="completionrate" />
+		<!-- 对项目需求单 -->
+		<set name="projectOrder"  lazy="true">
+			<key column="ptm_id"></key>
+			<one-to-many class="ProjectOrder" />
+		</set>
+		<!-- 对试制表 -->
+		<set name="tryMake" cascade="all" lazy="true">
+			<key column="protry_id"></key>
+			<one-to-many class="TryMake" />
+		</set>
+		
+
+	</class>
+</hibernate-mapping>

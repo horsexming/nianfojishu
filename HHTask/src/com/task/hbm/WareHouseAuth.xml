@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WareHouseAuth" table="ta_WareHouseAuth">
+		<id name="Id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="auth" column="auth" length="1000" />
+		<property name="group" column="cgroup" length="30"/>
+		<property name="usercode" column="usercode" length="20"/>
+		<property name="username" column="username" length="20"/>
+		<property name="type" column="type" length="20"/>
+
+	</class>
+
+</hibernate-mapping>

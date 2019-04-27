@@ -1,0 +1,112 @@
+package com.task.entity;
+
+public class ZhFile implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String fid;
+	private String mid;
+	private String title;
+	private String url;
+	private String classs;
+	private String des;
+	private String creattime;
+	private String repairtime;
+	private String creator;
+	private String repairtor;
+
+	public ZhFile() {
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFid() {
+		return this.fid;
+	}
+
+	public void setFid(String fid) {
+		this.fid = fid;
+	}
+
+	public String getMid() {
+		return this.mid;
+	}
+
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getClasss() {
+		return this.classs;
+	}
+
+	public void setClasss(String classs) {
+		this.classs = classs;
+	}
+
+	public String getDes() {
+		return this.des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+
+	public String getCreattime() {
+		return this.creattime;
+	}
+
+	public void setCreattime(String creattime) {
+		this.creattime = creattime;
+	}
+
+	public String getRepairtime() {
+		return this.repairtime;
+	}
+
+	public void setRepairtime(String repairtime) {
+		this.repairtime = repairtime;
+	}
+
+	public String getCreator() {
+		return this.creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public String getRepairtor() {
+		return this.repairtor;
+	}
+
+	public void setRepairtor(String repairtor) {
+		this.repairtor = repairtor;
+	}
+
+}

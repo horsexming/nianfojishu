@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FuLiaoZhuiSu" table="ta_sop_FuLiaoZhuiSu">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="orderNum"/>
+		<property name="ywmarkId"/>
+		<property name="rootmarkId"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="num"/>
+		<property name="scdate"/>
+		<property name="gongwei"/>
+		<property name="shebeiNo"/>
+		<property name="groupA"/>
+		<property name="groupB"/>
+		<property name="person"/>
+		<property name="rootselfCard"/>
+		<property name="addtime"/>
+	</class>
+
+</hibernate-mapping>

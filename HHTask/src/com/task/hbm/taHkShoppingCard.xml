@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="TaHkShoppingCard" table="ta_hk_shoppingCard">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<!-- 开票任务栏对应开票明细-->
+		<many-to-one name="haSellSta" class="com.task.entity.TaHkSellSta" unique="true" lazy="false"
+		 column="shopping_StaId" />		
+		
+		<property name="shoppingUserCode" column="shopping_userCode"/>
+		<property name="shoppingUserName" column="shopping_userName"/>
+		<property name="shoppingTime" column="shopping_Time"/>
+		<property name="shoppingMore" column="shopping_more"/>
+
+	</class>
+</hibernate-mapping>

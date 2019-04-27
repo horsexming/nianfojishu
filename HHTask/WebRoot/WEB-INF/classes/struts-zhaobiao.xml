@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-zhaobiao" extends="struts-stack">
+		<!--
+			****************************************招标操作**********************************************************************
+		-->
+		<!-- 招标管理 -->
+
+		<action name="zhaobiaoAction" class="zhaobiaoAction">
+			<result name="error">/error.jsp</result>
+			<result name="prepayApp_add">/System/caigou/zhaobiao/prepayApp_add.jsp</result>
+			<result name="prepayApp_show">/System/caigou/zhaobiao/prepayApp_show.jsp</result>
+			<result name="prepayApp_update">/System/caigou/zhaobiao/prepayApp_update.jsp</result>
+			<result name="prepayApp_select">/System/caigou/zhaobiao/prepayApp_select.jsp</result>
+			<result name="chargebackNotice_add">/System/caigou/zhaobiao/chargebackNotice_add.jsp</result>
+			<result name="chargebackNotice_show">/System/caigou/zhaobiao/chargebackNotice_show.jsp</result>
+			<result name="chargebackNotice_update">/System/caigou/zhaobiao/chargebackNotice_update.jsp</result>
+			<result name="chargebackNotice_select">/System/caigou/zhaobiao/chargebackNotice_select.jsp</result>
+
+			<result name="meetingrecord">/System/caigou/zhaobiao/meetingrecord.jsp</result>
+			<result name="listAll">/System/caigou/zhaobiao/list.jsp</result>
+			<result name="toaddUser">/System/caigou/zhaobiao/addUser.jsp</result>
+			<result name="listByIdZhUser">/System/caigou/zhaobiao/listbyid.jsp</result>
+			<result name="addUser" type="redirectAction">zhaobiaoAction!listAll.action
+			</result>
+			<result name="deletezhUser" type="redirectAction">zhaobiaoAction!listAll.action
+			</result>
+			<result name="toUpdatezhUser">/System/caigou/zhaobiao/toUpdatezhUser.jsp
+			</result>
+			<result name="updatezhUser" type="redirectAction">zhaobiaoAction!listAll.action
+			</result>
+			<result name="laheizhUser" type="redirectAction">zhaobiaoAction!listAll.action
+			</result>
+			<result name="listZhmoban">/System/caigou/zhaobiao/listZhmoban.jsp</result>
+			<result name="addmoban" type="redirectAction">zhaobiaoAction!listZhmoban.action
+			</result>
+			<result name="deleteMoban" type="redirectAction">zhaobiaoAction!listZhmoban.action
+			</result>
+			<result name="toUpdateMoban">/System/caigou/zhaobiao/Zhmoban_update.jsp
+			</result>
+			<result name="updatezhmoban" type="redirectAction">zhaobiaoAction!listZhmoban.action
+			</result>
+			<result name="listzhaobiao">/System/caigou/zhaobiao/listzhaobiao.jsp</result>
+			<result name="toaddzhaobiao">/System/caigou/zhaobiao/addzhaobiao.jsp</result>
+			<result name="addzhaobiao">/System/caigou/zhaobiao/addzhaobiao.jsp </result>
+			<result name="deletezhaobiao" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="listById">/System/caigou/zhaobiao/addZhaobiaoXi.jsp
+			</result>
+			<result name="addxi" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<!-- 审核 -->
+			<result name="listshenhe">/System/caigou/zhaobiao/listshenhe.jsp</result>
+			<result name="shenhe">/System/caigou/zhaobiao/shenhe.jsp</result>
+			<result name="addshenhe" type="redirectAction">zhaobiaoAction!listshenhe.action
+			</result>
+			<!-- 次招标信息列给招商用户看 -->
+			<result name="listUserZhaobiao">/System/caigou/zhaobiao/listyonghu.jsp</result>
+			<result name="listtoubiao">/System/caigou/zhaobiao/listtoubiao.jsp</result>
+			<result name="qutoubiao">/System/caigou/zhaobiao/qutoubiao.jsp</result>
+
+			<result name="listzhongbiao">/System/caigou/zhaobiao/zhongbiao.jsp</result>
+			<result name="addtoubiao" type="redirectAction">zhaobiaoAction!listtotoubiao.action?zhaobiao.id=${ZhaobiaoXi.t10}
+			</result>
+			<result name="fabu" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="jieshu" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+
+			<!-- 评选 -->
+			<result name="qupingxuan">/System/caigou/zhaobiao/qupingxuan.jsp</result>
+			<result name="qupingxuanToubiao">/System/caigou/zhaobiao/qupingxuanToubiao.jsp
+			</result>
+			<result name="pingxuanzhongbiao" type="redirectAction">zhaobiaoAction!qupingxuan.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+			<result name="toupdatetoubiao">/System/caigou/zhaobiao/toupdatetoubiao.jsp
+			</result>
+			<result name="updatetoubiao" type="redirectAction">zhaobiaoAction!listtotoubiao.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+
+
+			<!-- 自动评标 -->
+			<result name="pingxuan" type="redirectAction">zhaobiaoAction!listzidongXi.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+			<result name="listzidong">/System/caigou/zhaobiao/listzidong.jsp</result>
+			<result name="listzidongXi">/System/caigou/zhaobiao/listzidongXi.jsp</result>
+			<result name="listzidongpingxuanToubiao">/System/caigou/zhaobiao/listzidongpingxuanToubiao.jsp
+			</result>
+			<result name="chakantoubiao">/System/caigou/zhaobiao/chakantoubiao.jsp
+			</result>
+			<result name="chakanflowdetail">/System/caigou/zhaobiao/chakanflowdetail.jsp
+			</result>
+			<result name="xianshizhaoshangyonghu">/System/caigou/zhaobiao/fabu.jsp</result>
+			<result name="chongxin" type="redirectAction">zhaobiaoAction!qupingxuan.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+			<result name="mingxi">/System/caigou/zhaobiao/mingxi.jsp</result>
+			<result name="tochakanhetong">/System/caigou/zhaobiao/chakanhetong.jsp</result>
+			<result name="jieshu" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="shenhezhaobiao" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="tijiaohetong" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="tijiaohetong" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="shengchenhetong">/System/caigou/zhaobiao/hetong.jsp</result>
+			<result name="tohuikuang" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="listcaiwu">/System/caigou/zhaobiao/listcaiwu.jsp</result>
+			<result name="listcaiwutotoubiao">/System/caigou/zhaobiao/listcaiwuXi.jsp</result>
+			<result name="quedinghuikuang" type="redirectAction">zhaobiaoAction!listcaiwutotoubiao.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+			<result name="dayinzhongbiaoxinxi">/System/caigou/zhaobiao/dayin.jsp</result>
+			<!-- 发布之前选择回款方式 -->
+			<result name="huikuangfangshi">/System/caigou/zhaobiao/fangshi.jsp</result>
+			<result name="tofangshi">/System/caigou/zhaobiao/tofangshi.jsp</result>
+			<result name="fangshi" type="redirectAction">zhaobiaoAction!huikuangfangshi.action?zhaobiao.id=${zhaobiaoXi.t10}
+			</result>
+			<result name="toxuanzhe">/System/caigou/zhaobiao/toxuanzhe.jsp</result>
+			<result name="chakanjine">/System/caigou/zhaobiao/chakanjine.jsp</result>
+			<result name="listhuikuanfangshi">/System/caigou/zhaobiao/listhuikuanfangshi.jsp
+			</result>
+			<result name="addhuikuan" type="redirectAction">zhaobiaoAction!listhuikuanfangshi.action
+			</result>
+			<result name="toUpdatehuikuang">/System/caigou/zhaobiao/toUpdatehuikuang.jsp
+			</result>
+			<result name="Updatehuikuang" type="redirectAction">zhaobiaoAction!listhuikuanfangshi.action
+			</result>
+			<result name="deletehuikuang" type="redirectAction">zhaobiaoAction!listhuikuanfangshi.action
+			</result>
+			<result name="chankantoubiaoXi">/System/caigou/zhaobiao/chankantoubiaoXi.jsp
+			</result>
+			<result name="chakantoubiaojilu">/System/caigou/zhaobiao/chakantoubiaojilu.jsp
+			</result>
+			<result name="chankanshenpijilu">/System/caigou/zhaobiao/chankanshenpijilu.jsp
+			</result>
+			<result name="listgongxu">/System/caigou/zhaobiao/listgongxu.jsp</result>
+			<result name="addZhgongxu" type="redirectAction">zhaobiaoAction!listgongxu.action
+			</result>
+			<result name="toUpdatezhgongxu">/System/caigou/zhaobiao/Updatezhgongxu.jsp
+			</result>
+			<result name="Updatezhgongxu" type="redirectAction">zhaobiaoAction!listgongxu.action
+			</result>
+			<result name="deletezhgongxu" type="redirectAction">zhaobiaoAction!listgongxu.action
+			</result>
+			<result name="toUpdatezhaobiao">/System/caigou/zhaobiao/toUpdatezhaobiao.jsp
+			</result>
+			<result name="updatezhaobiao">/System/caigou/zhaobiao/toUpdatezhaobiao.jsp
+			</result>
+			<result name="hesuanzhaobiao">/System/caigou/zhaobiao/zhaobiao_list_hesuan.jsp
+			</result>
+			<result name="zhaobiaoXilist">/System/caigou/zhaobiao/zhaobiaoXi_list_hesuan.jsp
+			</result>
+			<result name="zhtoubiaolist">/System/caigou/zhaobiao/zhtoubiao_list_hesuan.jsp
+			</result>
+			<result name="hesuan">/System/caigou/zhaobiao/hesuan.jsp</result>
+			<result name="hesuanjiage" type="redirect">zhaobiaoAction!zhtoubiaolist.action?zhaobiaoXi.id=${zhaobiaoXi.id}
+			</result>
+			<result name="updatezhaobiaoXi">/System/caigou/zhaobiao/zhaobiaoXi_update.jsp
+			</result>
+			<result name="updatezhaobiaoXijuti">/System/caigou/zhaobiao/zhaobiaoXi_update_dahui.jsp
+			</result>
+			<result name="updatezhaobiaoXidahui">/System/caigou/zhaobiao/zhaobiaoXi_update_dahui.jsp
+			</result>
+			<result name="addzhaobiaoXidahui">/System/caigou/zhaobiao/zhaobiaoXi_add_dahui.jsp
+			</result>
+			<result name="addzhaobiaoXidahuito">/System/caigou/zhaobiao/zhaobiaoXi_add_dahui.jsp
+			</result>
+			<result name="listlilv">/System/caigou/zhaobiao/zhaobiao_list_lilv.jsp
+			</result>
+			<result name="zhaobiaoXilistlilv">/System/caigou/zhaobiao/zhaobiaoXi_list_lilv.jsp
+			</result>
+			<result name="lilv">/System/caigou/zhaobiao/lilv.jsp</result>
+			<result name="updatezhaobiaoXililv">/System/caigou/zhaobiao/lilv.jsp</result>
+			<result name="addnianlilv">/System/caigou/zhaobiao/nianlilv_add.jsp</result>
+			<result name="pingbiao" type="redirectAction">zhaobiaoAction!listzhaobiao.action
+			</result>
+			<result name="listzhongbiaoUsers">/System/caigou/zhaobiao/zhaobiao_chakan.jsp
+			</result>
+			<result name="zhtoubiao_gyschankan">/System/caigou/zhaobiao/zhtoubiao_gyschankan.jsp
+			</result>
+			<result name="ruku">/System/caigou/zhaobiao/rukudan.jsp
+			</result>
+			<result name="screenSupplierManagement">/System/bbs/screenSupplierManagement.jsp
+			</result>
+
+			<!-- 件号绑定 -->
+
+			<result name="listProcardTemplate">/System/caigou/zhaobiao/bangding/procardTemplate_list.jsp
+			</result>
+
+			<result name="listbandingjianhao">/System/caigou/zhaobiao/bangding/procardTemplate_jiepai.jsp
+			</result>
+			<result name="listtianxiejiepai">/System/caigou/zhaobiao/bangding/procardTemplate_jiepai.jsp
+			</result>
+
+			<result name="tojiepai">/System/caigou/zhaobiao/bangding/procardTemplate_buchong.jsp
+			</result>
+			<result name="buchongjiepai">/System/caigou/zhaobiao/bangding/procardTemplate_buchong.jsp
+			</result>
+			<result name="chakan">/System/caigou/zhaobiao/bangding/gysjiepai_chakan.jsp
+			</result>
+			<result name="prepayDetils_add">/System/caigou/zhaobiao/prepayDetils_add.jsp
+			</result>
+			<result name="prepayDetils_mingxi">System/caigou/zhaobiao/prepayDetils_mingxi.jsp
+			</result>
+		</action>
+
+		<!--
+			****************************************部门工作缺陷**********************************************************************
+		-->
+		<!-- 部门工作缺陷管理 -->
+
+		<action name="queXianAction" class="queXianAction">
+			<result name="listQueXian">/System/renshi/quexian/list_quexian.jsp</result>
+			<result name="addqueXian" type="redirectAction">queXianAction!listQueXian.action
+			</result>
+			<result name="deletequeXian" type="redirectAction">queXianAction!listQueXian.action
+			</result>
+			<result name="toUpdatequeXian">/System/renshi/quexian/update_quexian.jsp
+			</result>
+			<result name="UpdatequeXian" type="redirectAction">queXianAction!listQueXian.action
+			</result>
+
+
+			<result name="listqueXianZong">/System/renshi/quexian/list_quexian_guanliyuan.jsp
+			</result>
+			<result name="deletequeXianguanliyuan" type="redirectAction">queXianAction!listqueXianZong.action
+			</result>
+			<result name="toUpdatequeXianguanliyuan">/System/renshi/quexian/update_quexian_guanliyuan.jsp
+			</result>
+			<result name="UpdatequeXianguanliyuan" type="redirectAction">queXianAction!listqueXianZong.action
+			</result>
+
+		</action>
+
+		<!--
+			****************************************一线员工实际操作能力调查表
+			**********************************************************************
+		-->
+		<!-- 一线员工实际操作能力调查表	管理 -->
+		<action name="caoZuoAction" class="caoZuoAction">
+			<result name="listCaoZuo">/System/renshi/caozuonengli/shebei_list.jsp
+			</result>
+			<result name="addshebei" type="redirectAction">caoZuoAction!listCaoZuo.action
+			</result>
+			<result name="tozhCaozuoDengji">/System/renshi/caozuonengli/zhCaozuoDengji_add.jsp
+			</result>
+			<result name="addzhCaozuoDengji" type="redirectAction">caoZuoAction!todengji.action?zhShebei.id=${zhCaozuoDengji.shebeiId}
+			</result>
+			<result name="tozhCaozuoEmp">/System/renshi/caozuonengli/zhCaozuoEmp_add.jsp
+			</result>
+			<result name="addzhCaozuoEmp" type="redirectAction">caoZuoAction!tozhCaozuoEmp.action?zhShebei.id=${zhCaozuoEmp.shebeiId}
+			</result>
+			<result name="toupdatezhShebei">/System/renshi/caozuonengli/zhShebei_update.jsp
+			</result>
+			<result name="updateshebei" type="redirectAction">caoZuoAction!listCaoZuo.action
+			</result>
+			<result name="deletezhShebei" type="redirectAction">caoZuoAction!listCaoZuo.action
+			</result>
+
+			<result name="deletezhCaozuoDengji" type="redirectAction">caoZuoAction!todengji.action?zhShebei.id=${zhShebei.id}
+			</result>
+			<result name="deletezhCaozuoEmp" type="redirectAction">caoZuoAction!tozhCaozuoEmp.action?zhShebei.id=${zhShebei.id}
+			</result>
+			<result name="listCaoZuoHuiZong">/System/renshi/caozuonengli/CaoZuo_list.jsp
+			</result>
+			<result name="addshebeiEmp" type="redirectAction">caoZuoAction!listCaoZuo.action
+			</result>
+			<result name="deletezhShebeiEmp" type="redirectAction">caoZuoAction!listCaoZuo.action
+			</result>
+			<result name="listUsers">/System/xinxi/mimachongzhi/Users_list.jsp
+			</result>
+			<result name="chongzhi" type="redirectAction">caoZuoAction!listUsers.action
+			</result>
+			<result name="listBaofei">/System/SOP/sanjianbaofei/Baofei_list.jsp
+			</result>
+
+			<result name="addbaofei">/System/SOP/sanjianbaofei/baofei_add.jsp
+			</result>
+
+			<result name="toUpdatbaofei">/System/SOP/sanjianbaofei/baofei_update.jsp
+			</result>
+		</action>
+		<!--
+			***************************************年休管理*********************************************************************
+		-->
+		<action name="nianXiuAction" class="nianXiuAction">
+			<result name="listnianxiu">/System/renshi/caozuonengli/CaoZuo_list.jsp
+			</result>
+			<result name="KaoQin_list">/System/renshi/kaoqing/KaoQin_list.jsp</result>
+			<result name="KaoQin_update">/System/renshi/kaoqing/KaoQin_update.jsp</result>
+			<result name="mingxi">/System/renshi/kaoqing/KaoQin_mingxi.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--
+			***************************************招标订单******************************************************************
+		-->
+		<action name="DingdanAction" class="DingdanAction">
+			<result name="listOrderManager">/System/SOP/zhaobiaodingdan/OrderManager_list.jsp
+			</result>
+			<result name="printStorage">/System/SOP/zhaobiaodingdan/OrderManager_ProductManager_list1.jsp
+			</result>
+			<result name="batchConversion" type="redirectAction">DingdanAction!listOrderManager.action
+			</result>
+			<result name="listInternalOrderzhaobiao">/System/SOP/zhaobiaodingdan/InternalOrderzhaobiao_list.jsp
+			</result>
+			<result name="listInternalOrderDetail">/System/SOP/zhaobiaodingdan/InternalOrderDetail_list.jsp
+			</result>
+			<result name="listInternalOrderzhaobiao_InternalOrderDetail">/System/SOP/zhaobiaodingdan/InternalOrderzhaobiao_list_updateInternalOrderDetail.jsp
+			</result>
+			<result name="listInternalOrderDetail_hedui">/System/SOP/zhaobiaodingdan/InternalOrderDetail_list_hedui.jsp
+			</result>
+			<result name="listjihuadan">/System/SOP/zhaobiaodingdan/jihuadan_list.jsp
+			</result>
+			<result name="addJihuadan" type="redirectAction">DingdanAction!listInternalOrderzhaobiao_InternalOrderDetail.action
+			</result>
+			<!--
+				<result name="addJihuadan"
+				type="redirectAction">DingdanAction!listjihuadan.action</result>
+				<result
+				name="caigou">/System/SOP/zhaobiaodingdan/jihuadan_list_caigou.jsp</result>
+			-->
+			<result name="listjihua">/System/SOP/zhaobiaodingdan/jihuadan_list_caigou.jsp
+			</result>
+			<result name="xuanzhejihua">/System/SOP/zhaobiaodingdan/jihuadan_list_addzhaobiao.jsp
+			</result>
+			<result name="xuanzhejihua">/System/SOP/zhaobiaodingdan/jihuadan_list_shuliang.jsp
+			</result>
+			<result name="addcaigouxiangxiangxin" type="redirectAction">DingdanAction!listInternalOrderzhaobiao.action
+			</result>
+			<result name="caigou">/System/SOP/zhaobiaodingdan/jihuadan_list_addzhaobiao.jsp
+			</result>
+			<result name="showcaigou">/System/SOP/zhaobiaodingdan/Dingdanzhuanhua_list_show.jsp
+			</result>
+
+			<result name="ruku">/System/SOP/zhaobiaodingdan/Dingdanzhuanhua_list_show.jsp
+			</result>
+			<result name="torukudan">/System/SOP/zhaobiaodingdan/rukudan_add.jsp
+			</result>
+			<result name="addRukudancaigou">/System/SOP/zhaobiaodingdan/rukudan_add.jsp
+			</result>
+			<result name="listRukudan">/System/SOP/zhaobiaodingdan/rukudan_list.jsp
+			</result>
+			<result name="rukuchaxun">/System/SOP/zhaobiaodingdan/zhtoubiao_list_ruku.jsp
+			</result>
+			<result name="torukudanchaxun">/System/SOP/zhaobiaodingdan/rukudan_add.jsp
+			</result>
+			<result name="zhijian">/System/SOP/zhaobiaodingdan/rukudan_pinzhi.jsp
+			</result>
+			<result name="updateRukudanpinzhi">/System/SOP/zhaobiaodingdan/rukudan_pinzhi.jsp
+			</result>
+			<result name="toruku">/System/SOP/zhaobiaodingdan/rukudan_wuliu.jsp
+			</result>
+			<result name="quruku">/System/SOP/zhaobiaodingdan/rukudan_wuliu.jsp
+			</result>
+			<result name="listRukudanwuliu">/System/SOP/zhaobiaodingdan/rukudan_caigou.jsp
+			</result>
+			<!-- 统计在线人数 -->
+			<result name="listLoginUsers">/System/renshi/kaoqing/Users_login.jsp</result>
+			<!--  查看在职。试用.离职等人数 -->
+			<result name="listUserstatus">/System/renshi/kaoqing/Users_status.jsp</result>
+			<result name="error">/error.jsp</result>
+
+		</action>
+
+
+		<!--
+			************************供应商节拍 GysMarkIdjiepaiAction***************************************
+		-->
+
+		<action name="markIdAction" class="markIdAction">
+			<result name="listtianxiejiepai">/System/caigou/zhaobiao/bangding/procardTemplate_jiepai.jsp
+			</result>
+			<result name="ProcardTemDetails">/System/caigou/zhaobiao/bangding/ProcardTemDetails.jsp
+			</result>
+			<result name="updateProcardT" type="redirect">markIdAction!findCardTemForShow.action?id=${id}
+			</result>
+			<result name="ProcessTemplateDetails">/System/caigou/zhaobiao/bangding/ProcessTemplateDetails.jsp
+			</result>
+			<result name="updateProcessT" type="redirect">markIdAction!showProcess.action?id=${pIdZijian.id}&amp;successMessage=true
+			</result>
+			<result name="gongzi">/System/caigou/zhaobiao/bangding/zhUser_gongzi.jsp
+			</result>
+			<result name="tijiao">/System/caigou/zhaobiao/bangding/Template_findProcard.jsp?id=${gysMarkIdjiepai.id}
+			</result>
+
+			<result name="listgysMarkIdjiepai">/System/caigou/zhaobiao/bangding/gysMarkIdjiepai_list.jsp
+			</result>
+
+			<result name="listBom">/System/caigou/zhaobiao/bangding/procardTemplate_waiwei_list.jsp
+			</result>
+
+			<result name="listgongxu">/System/caigou/zhaobiao/bangding/processTemplate_waiwei_bangdin.jsp
+			</result>
+			<result name="listWaiweiGongxu">/System/caigou/zhaobiao/bangding/waiwei_gys_list.jsp
+			</result>
+			<result name="tojiepai">/System/caigou/zhaobiao/bangding/waiwei_gys_tojiepai.jsp
+			</result>
+			<result name="waiweijiepai">/System/caigou/zhaobiao/bangding/waiwei_gys_tojiepai.jsp
+			</result>
+
+			<result name="listWaigoujianpinci">/System/caigou/zhaobiao/bangding/Waigoujianpinci_list.jsp
+			</result>
+			<result name="addwaigoujianpinci">/System/caigou/zhaobiao/bangding/addWaigoujianpinci.jsp
+			</result>
+			<result name="toUpdatewaigoujianpinci">/System/caigou/zhaobiao/bangding/Waigoujianpinci_update.jsp
+			</result>
+			<result name="updatewaigoujianpinci">/System/caigou/zhaobiao/bangding/Waigoujianpinci_update.jsp
+			</result>
+
+			<result name="listyanshoupincizi">/System/caigou/zhaobiao/bangding/waigoujianpinciZi_list.jsp
+			</result>
+			<result name="toaddwaigoujianpinci">/System/caigou/zhaobiao/bangding/WaigoujianpinciZi_add.jsp
+			</result>
+			<result name="addwaigoujianpinciZi">/System/caigou/zhaobiao/bangding/WaigoujianpinciZi_add.jsp
+			</result>
+
+			<result name="toUpdatewaigoujianpinciZi">/System/caigou/zhaobiao/bangding/WaigoujianpinciZi_update.jsp
+			</result>
+			<result name="updatewaigoujianpinciZi">/System/caigou/zhaobiao/bangding/WaigoujianpinciZi_update.jsp
+			</result>
+
+
+			<result name="listBOMwaigou">/System/caigou/zhaobiao/bangding/processTemplate_list_waigouyanshou.jsp
+			</result>
+
+			<result name="listwaigoujianyan">/System/caigou/zhaobiao/bangding/processTemplate_Waigoujianpinci_bangding.jsp
+			</result>
+
+
+			<result name="listGysMarkIdjiepaichakan">/System/caigou/zhaobiao/bangding/gysMarkIdjiepai_list_chakan.jsp
+			</result>
+
+			<result name="listAction" type="redirect">markIdAction!listGysMarkIdjiepaichakan.action</result>
+			<result name="xunijanpiliang_list">/System/caigou/zhaobiao/bangding/xunijanpiliang_list.jsp</result>
+			<result name="xunjianpiliang_add">/System/caigou/zhaobiao/bangding/xunjianpiliang_add.jsp</result>
+			<result name="xunjianpiliang_update">/System/caigou/zhaobiao/bangding/xunjianpiliang_update.jsp</result>
+			<result name="gysMarkIdjiepai_add">/System/caigou/zhaobiao/bangding/gysMarkIdjiepai_add.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+
+		<!-- 交款管理 -->
+
+		<action name="ClauseAction" class="ClauseAction">
+			<result name="listClause">/System/renshi/xieyi/Clause_list.jsp
+			</result>
+			<result name="addClause">/System/renshi/xieyi/Clause_add.jsp
+			</result>
+			<result name="toUpdateClause">/System/renshi/xieyi/Clause_update.jsp
+			</result>
+
+			<result name="listclauseFatherSon">/System/renshi/xieyi/clauseSon_list.jsp
+			</result>
+
+			<result name="toaddClauseSon">/System/renshi/xieyi/clauseSon_add.jsp
+			</result>
+
+			<result name="addClauseSon">/System/renshi/xieyi/clauseSon_add.jsp
+			</result>
+
+			<result name="toUpdateClauseSon">/System/renshi/xieyi/clauseSon_update.jsp
+			</result>
+			<result name="updateClauseSon">/System/renshi/xieyi/clauseSon_update.jsp
+			</result>
+
+
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,85 @@
+package com.task.entity.parking;
+/**
+ * 车位管理表
+ * @author Li_Cong 2015-12-06
+ * 表名：ta_cw_ParkSpaceUseInfor
+ */
+public class ParkSpaceUseInfor {
+	private Integer id;
+	private Integer parkId;//对应车位ID
+	private String useName;//打开人
+	private String useCode;//打开人工号
+	private String useStatus;//使用状态（使用中/已结束）
+	private String closeName;//关闭人
+	private String closeCode;//关闭人工号
+	private String useTime;//使用时长
+	private String jlType;//记录类型
+	private String addTime;//添加时间（打开时间）
+	private String updateTime;//修改时间（关闭时间）
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getUseName() {
+		return useName;
+	}
+	public void setUseName(String useName) {
+		this.useName = useName;
+	}
+	public String getUseCode() {
+		return useCode;
+	}
+	public void setUseCode(String useCode) {
+		this.useCode = useCode;
+	}
+	public String getCloseName() {
+		return closeName;
+	}
+	public void setCloseName(String closeName) {
+		this.closeName = closeName;
+	}
+	public String getCloseCode() {
+		return closeCode;
+	}
+	public void setCloseCode(String closeCode) {
+		this.closeCode = closeCode;
+	}
+	public String getUseTime() {
+		return useTime;
+	}
+	public void setUseTime(String useTime) {
+		this.useTime = useTime;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getUseStatus() {
+		return useStatus;
+	}
+	public void setUseStatus(String useStatus) {
+		this.useStatus = useStatus;
+	}
+	public Integer getParkId() {
+		return parkId;
+	}
+	public void setParkId(Integer parkId) {
+		this.parkId = parkId;
+	}
+	public String getJlType() {
+		return jlType;
+	}
+	public void setJlType(String jlType) {
+		this.jlType = jlType;
+	}
+}

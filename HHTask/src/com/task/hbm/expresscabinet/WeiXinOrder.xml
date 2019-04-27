@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.expresscabinet">
+	<class name="WeiXinOrder" table="ta_kdg_WeiXinOrder">
+
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="appId"/>	
+		<property name="mch_id"/>
+		<property name="transaction_id"/>
+		<property name="out_trade_no"/>
+		<property name="nonce_str"/>
+		<property name="sign"/>
+		<property name="sign_type"/>
+		<property name="keyId"/>
+		<property name="spbill_create_ip"/>
+		<property name="userId"/>
+		<property name="order_price"/>
+		<property name="productId"/>
+		<property name="body"/>
+		<property name="urlCode"/>
+		<property name="notify_url"/>
+		<property name="trade_type"/>
+		<property name="startTime"/>
+		<property name="startTimesfm"/>		
+		<property name="tradingStatus"/>
+		<property name="is_subscribe"/>
+		<property name="openId"/>
+		<property name="quCodes"/>
+		
+		
+	</class>
+
+</hibernate-mapping>

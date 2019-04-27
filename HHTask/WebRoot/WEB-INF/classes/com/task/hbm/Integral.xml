@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Integral" table="ta_integral">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="totalIntegral" type="integer"/>
+		<property name="integralName"/>
+		<property name="integrdept" />
+		<property name="integrcode"/>
+		<property name="userId" type="integer"/>
+		<property name="sumxf" type="integer"/>
+		<property name="year"></property>
+		<property name="xfmonth"/>
+		<property name="status"/>
+		<property name="laheitime"/>
+		<!-- 积分对积分来源表 --> 
+		<set name="is" cascade="all" lazy="false" >
+			<key column="integral_id"></key>
+			<one-to-many class="com.task.entity.Integralsource" />
+		</set>
+		<!-- 积分对消费表 -->
+		<set name="xf" cascade="all" lazy="false">
+			<key column="integral_id"></key>
+			<one-to-many class="com.task.entity.XiaoFei" />
+		</set>
+  </class>
+</hibernate-mapping>

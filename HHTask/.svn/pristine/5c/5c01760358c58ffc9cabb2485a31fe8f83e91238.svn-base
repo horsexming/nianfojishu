@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bargain.BarContract" table="ta_BarContract">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="contract_num" />
+		<property name="supplier" />
+		<property name="contract_name"/>
+		<property name="contract_according" />
+		<property name="startDate" />
+		<property name="endDate" />
+		<property name="demandside"></property>
+		<property name="signedPlace" />
+		<property name="signedDate" />
+		<property name="contract_source" />
+		<property name="contract_num1"  length="1000"/>
+		<property name="heji" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="paymentDate" />
+		<property name="deliveryPlace" />
+		<property name="username" />
+		
+		<property name="paymentway1" />
+		<property name="paymentway2" />
+		<property name="paymentway3" />
+		
+		<property name="transpor_tway" />
+		<property name="pack_ask" />
+		<property name="istax" />
+		<property name="contract_affix" />
+		<property name="deliverydate" />
+		<property name="projectname" />
+		
+		<property name="unit_name" />
+		<property name="address" />
+		<property name="tel" />
+		<property name="accountBank" />
+		<property name="accountnum" />
+		<property name="zip" />
+		<property name="dept" />
+		<property name="gysId" />
+		
+		<!-- 与议价物品一对多 -->
+		<set name="SetbarContractDetails" inverse="false" cascade="all" lazy="true">
+			<key column="barContract_id"></key>
+			<one-to-many class="com.task.entity.bargain.BarContractDetails" />
+		</set>
+	</class>
+	</hibernate-mapping>

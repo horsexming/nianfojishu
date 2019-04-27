@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.OsTemplate" table="ta_m_OsTemplate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="cmodel" length="50" />
+		<property name="ctype" length="50" />
+		<property name="partNumber" length="50" />
+		<property name="filename" length="150" />
+		<property name="material" length="150" />
+		<property name="name"/>
+		<property name="ctype1" length="50" />
+		<property name="serialNumber" length="50" />
+		
+		<property name="gongxuNum" length="50"/>
+		<property name="gongxuName" length="50"/>
+		<property name="zhonglei" length="50"/>
+		<property name="gongweiNum" length="50"/>
+		<property name="xjtype" length="50"/>
+		<property name="xjcheckpc" type="java.lang.Integer" />
+		<property name="username" length="50"/>
+		<property name="createDate" length="50"/>
+		<property name="productType" length="50"/>
+		<property name="banbenNumber" length="50"/>
+		<property name="ispublic" length="50"/>
+		<property name="xjbzId" />
+		<property name="xjbz" />
+		
+		<set name="scopes" cascade="save-update" lazy="false">
+			<key column="scopeId"></key>
+			<one-to-many class="com.task.entity.android.OsScope" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

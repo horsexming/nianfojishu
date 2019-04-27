@@ -1,0 +1,230 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * (CRM)客户管理表(表名:ta_crm_clientManagement)
+ * 
+ * @author 钟永林
+ */
+public class ClientManagement implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private Integer id; // 序号
+	private String clientname; // 姓名
+	private String clientsex; // 性别
+	private String clientdept; // 所在部门
+	private String clientposition; // 职位
+	private String clientmobilenumber; // 手机号
+	private String clientphonenumber; // 电话号码
+	private String clientcompanyname; // 公司名称
+	private String clientdz; // 公司地址
+	private String clientcardnumber; // 身份证号码
+	private String clientdatatime; // 时间
+	private String clientremarks; // 备注
+	private String companyAbbreviation;
+	/** 公司性质 */
+	private String natureOfBusiness;
+	/** 公司地址 */
+	private String address;
+	/** 公司法人 */
+	private String legalPerson;
+	/** 开户行 */
+	private String banks;
+	/** 营业执照 */
+	private String businessLicense;
+	/** 组织机构代码 */
+	private String organization;
+	/** 公司Logo */
+	private String logo;
+	/** 订单 */
+	private String number;// 客户编号
+	private Integer userId;// 对应用户id
+	private Set<OrderManager> orders = new HashSet<OrderManager>();
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getClientname() {
+		return clientname;
+	}
+
+	public void setClientname(String clientname) {
+		this.clientname = clientname;
+	}
+
+	public String getClientsex() {
+		return clientsex;
+	}
+
+	public void setClientsex(String clientsex) {
+		this.clientsex = clientsex;
+	}
+
+	public String getClientdept() {
+		return clientdept;
+	}
+
+	public void setClientdept(String clientdept) {
+		this.clientdept = clientdept;
+	}
+
+	public String getClientposition() {
+		return clientposition;
+	}
+
+	public void setClientposition(String clientposition) {
+		this.clientposition = clientposition;
+	}
+
+	public String getClientmobilenumber() {
+		return clientmobilenumber;
+	}
+
+	public void setClientmobilenumber(String clientmobilenumber) {
+		this.clientmobilenumber = clientmobilenumber;
+	}
+
+	public String getClientphonenumber() {
+		return clientphonenumber;
+	}
+
+	public void setClientphonenumber(String clientphonenumber) {
+		this.clientphonenumber = clientphonenumber;
+	}
+
+	public String getClientcompanyname() {
+		return clientcompanyname;
+	}
+
+	public void setClientcompanyname(String clientcompanyname) {
+		this.clientcompanyname = clientcompanyname;
+	}
+
+	public String getClientcardnumber() {
+		return clientcardnumber;
+	}
+
+	public void setClientcardnumber(String clientcardnumber) {
+		this.clientcardnumber = clientcardnumber;
+	}
+
+	public String getClientdatatime() {
+		return clientdatatime;
+	}
+
+	public void setClientdatatime(String clientdatatime) {
+		this.clientdatatime = clientdatatime;
+	}
+
+	public String getClientremarks() {
+		return clientremarks;
+	}
+
+	public void setClientremarks(String clientremarks) {
+		this.clientremarks = clientremarks;
+	}
+
+	public String getNatureOfBusiness() {
+		return natureOfBusiness;
+	}
+
+	public void setNatureOfBusiness(String natureOfBusiness) {
+		this.natureOfBusiness = natureOfBusiness;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getLegalPerson() {
+		return legalPerson;
+	}
+
+	public void setLegalPerson(String legalPerson) {
+		this.legalPerson = legalPerson;
+	}
+
+	public String getBanks() {
+		return banks;
+	}
+
+	public void setBanks(String banks) {
+		this.banks = banks;
+	}
+
+	public String getBusinessLicense() {
+		return businessLicense;
+	}
+
+	public void setBusinessLicense(String businessLicense) {
+		this.businessLicense = businessLicense;
+	}
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public Set<OrderManager> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<OrderManager> orders) {
+		this.orders = orders;
+	}
+
+	public String getCompanyAbbreviation() {
+		return companyAbbreviation;
+	}
+
+	public void setCompanyAbbreviation(String companyAbbreviation) {
+		this.companyAbbreviation = companyAbbreviation;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getClientdz() {
+		return clientdz;
+	}
+
+	public void setClientdz(String clientdz) {
+		this.clientdz = clientdz;
+	}
+}

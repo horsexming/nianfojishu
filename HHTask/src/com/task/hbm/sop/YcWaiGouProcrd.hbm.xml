@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="YcWaiGouProcrd" table="ta_yc_YcWaiGouProcrd">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		 <property name="markId"/>
+		 <property name="proName"/>
+		 <property name="specification"/>
+		 <property name="banben"/>
+		 <property name="unit"/>
+		 <property name="kgliao"/>
+		 <property name="tuhao"/>
+		 <property name="wgType"/>
+		 <property name="xqNum"/>
+		 <property name="zcNum"/>
+		 <property name="addTime"/>
+		 <property name="addUsersName"/>
+		 <property name="addUsersCode"/>
+		 <property name="ycProductId"/>
+		 <property name="procardTId"/>
+		 <property name="ltdengji"/>
+		 <property name="ltuse"/>
+		 <property name="mopdId"/>
+		 <property name="epstatus"/>
+		 <property name="fpNum"/>
+		 <property name="sjxqNum"/>
+		 <property name="fpweek" length="500"/>
+		 <property name="more" length="500"/>
+		 
+		 <set name="setycWeekfepei" table="ta_week_ycwgprocard" cascade="save-update"
+			inverse="false" lazy="true">
+			<key column="ta_ycwgprocardId" />
+			<many-to-many class="YcWeekFePei" column="ta_ycweekId" />
+		</set>
+	</class>
+</hibernate-mapping>

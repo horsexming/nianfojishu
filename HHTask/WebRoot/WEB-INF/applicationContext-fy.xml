@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--
+		*****************************冯杨Server层管理**********************************
+	-->
+	<!-- 门禁开关 -->
+	<!-- server -->
+	<bean id="AccessSwitchServerImpl" class="com.task.ServerImpl.menjin.AccessSwitchServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="accessSwitchAction" class="com.task.action.menjin.AccessSwitchAction"
+		scope="prototype">
+		<property name="accessSwitchServer" ref="accessSwitchServerImpl"></property>
+	</bean>
+
+	<!-- action -->
+	<bean id="attachmentPreviewAction" class="com.task.action.pdf.attachmentPreviewAction"
+		scope="prototype">
+		<property name="systemFileServer" ref="systemFileServerImpl" />
+	</bean>
+
+	<!-- 屏幕内容 -->
+	<!-- server -->
+	<bean id="ScreenContentServerImpl" class="com.task.ServerImpl.ScreenContentServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="ScreenContentAction" class="com.task.action.ScreenContentAction"
+		scope="prototype">
+		<property name="screenContentServer" ref="ScreenContentServerImpl"></property>
+		<property name="screenService" ref="screenService" />
+	</bean>
+
+
+	<!-- 用户角色 -->
+	<!-- server -->
+	<bean id="UserRoleServerImpl" class="com.task.ServerImpl.UserRoleServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="UserRoleAction" class="com.task.action.UserRoleAction"
+		scope="prototype">
+		<property name="userroleserver" ref="UserRoleServerImpl"></property>
+	</bean>
+
+
+
+	<!-- 收藏夹 -->
+	<!-- server -->
+	<bean id="FavoriteServerImpl" class="com.task.ServerImpl.FavoriteServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="FavoriteAction" class="com.task.action.FavoriteAction"
+		scope="prototype">
+		<property name="favoriteServer" ref="FavoriteServerImpl"></property>
+	</bean>
+
+	<!-- -->
+	<!-- server -->
+	<bean id="VisitCoServerImpl" class="com.task.ServerImpl.menjin.VisitCoServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="VisitCoAction" class="com.task.action.menjin.VisitCoAction"
+		scope="prototype">
+		<property name="visitCoServer" ref="VisitCoServerImpl"></property>
+	</bean>
+
+
+
+	<!-- 任务管理 -->
+	<!-- server -->
+	<bean id="TaskmanagerServiceImpl" class="com.task.ServerImpl.TaskmanagerServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="TaskmanagerAction" class="com.task.action.TaskmanagerAction"
+		scope="prototype">
+		<property name="taskmanagerService" ref="TaskmanagerServiceImpl"></property>
+		<property name="userService" ref="userServerImpl" />
+		<property name="alertMessagesServer" ref="AlertMessagesServerImpl" />
+	</bean>
+	
+	<!-- 品质异常履历 -->
+	<!-- server -->
+	<bean id="QualityAbnormalresumeServiceimpl" class="com.task.ServerImpl.quality.QualityAbnormalresumeServiceimpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- action -->
+	<bean id="QualityAbnormalresumeAction" class="com.task.action.quality.QualityAbnormalresumeAction"
+		scope="prototype">
+		<property name="qualityAbnormalresumeService" ref="QualityAbnormalresumeServiceimpl"></property>
+	</bean>
+
+	<!-- 供应商开发认证 -->
+	<!-- server -->
+	<bean id="SupplierCertificationServiceimpl" class="com.task.ServerImpl.supplier.SupplierCertificationServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!--&lt;!&ndash; action &ndash;&gt;-->
+	<bean id="SupplierCertificationAction" class="com.task.action.supplier.SupplierCertificationAction"
+		  scope="prototype">
+		<property name="supplierCertificationService" ref="SupplierCertificationServiceimpl"></property>
+		<property name="userService" ref="userServerImpl" />
+	</bean>
+
+
+	<!-- 供应商考核-->
+	<!-- server -->
+	<bean id="SupplierEvaluateServiceimpl" class="com.task.ServerImpl.supplier.SupplierEvaluateServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!--&lt;!&ndash; action &ndash;&gt;-->
+	<bean id="SupplierEvaluateAction" class="com.task.action.supplier.SupplierEvaluateAction"
+		  scope="prototype">
+		<property name="supplierEvaluateServer" ref="SupplierEvaluateServiceimpl"></property>
+	</bean>
+
+
+	<!--对账单-->
+	<!-- server -->
+	<bean id="AccountCheckServiceimpl" class="com.task.ServerImpl.caiwu.AccountCheckServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="cwVouchersServer" ref="cwVouchersServerImpl" />
+	</bean>
+	<!--&lt;!&ndash; action &ndash;&gt;-->
+	<bean id="AccountCheckAction" class="com.task.action.caiwu.AccountCheckAction"
+		  scope="prototype">
+		<property name="accountCheckService" ref="AccountCheckServiceimpl"></property>
+		<property name="receiptServer" ref="ReceiptServerImpl"></property>
+
+	</bean>
+
+
+
+	<!-- 信息轮询 -->
+	<!-- server -->
+	<bean id="MessagePollingServiceimpl" class="com.task.ServerImpl.MessagePollingServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+</beans>

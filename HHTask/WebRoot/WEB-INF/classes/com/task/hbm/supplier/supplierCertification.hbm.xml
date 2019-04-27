@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.supplier">
+    <class name="SupplierCertification" table="ta_supplierCertification">
+        <id name="id">
+            <generator class="identity"></generator>
+        </id>
+        <property name="applyUser" />
+        <property name="applyUserName" />
+        <property name="applyDept" />
+        <property name="applyDate" />
+        <property name="supplierName" />
+        <property name="supplierType" />
+        <property name="supplierTel" />
+        <property name="supplierContact" />
+        <property name="supplierAddress" />
+        <property name="applyReason" />
+        <property name="state" />
+        <property name="info" />
+        <property name="info_attachment" />
+
+
+        <set name="supplierCertificationReviewContents"  inverse="false" cascade="save-update">
+            <key column="fk_supplierCertificationId"></key>
+            <one-to-many class="com.task.entity.supplier.SupplierCertificationReviewContent"/>
+        </set>
+    </class>
+</hibernate-mapping>

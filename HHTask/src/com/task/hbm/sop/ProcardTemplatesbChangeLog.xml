@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplatesbChangeLog" table="ta_ProcardTemplatesbChangeLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="ptbbApplyId" />
+	<property name="sbNumber" />
+	<property name="sbPtId" />
+	<property name="sbMarkId" />
+	<property name="sbbanci" />
+	<property name="entityId" />
+	<property name="entityData" />
+	<property name="entityData2" />
+	<property name="entityProcardStyle" />
+	<property name="xiaohao" />
+	<property name="entityBanben" />
+	<property name="oldFileName" />
+	<property name="realFileName" />
+	<property name="month" />
+	<property name="entityType" />
+	<property name="optype" />
+	<property name="addTime" />
+	<property name="addUserId" />
+	<property name="addUsername" />
+	<property name="addUsercode" />
+	<property name="dataStatus" />
+	
+   <set name="changeLogDetailSet" cascade="all" inverse="false" lazy="false" order-by="xuhao">
+			<key column="changelogid"></key>
+			<one-to-many class="ProcardTemplatesbChangeLogDetail" />
+	</set>
+
+	</class>
+</hibernate-mapping>

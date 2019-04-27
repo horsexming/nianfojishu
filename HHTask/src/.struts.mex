@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="struts-stack" location="0,0" size="0,0" />
+  <webResource name="selectSell.jsp" path="/System/caiwu/huikuan/selectSell.jsp" location="0,0" size="0,0" />
+  <webResource name="saveSellSta.jsp" path="/System/caiwu/huikuan/saveSellSta.jsp" location="0,0" size="0,0" />
+  <webResource name="printAddHk.jsp" path="/System/caiwu/huikuan/printAddHk.jsp" location="0,0" size="0,0" />
+  <webResource name="suplyNoteInfor.jsp" path="/System/caiwu/huikuan/suplyNoteInfor.jsp" location="0,0" size="0,0" />
+  <webResource name="selectSta.jsp" path="/System/caiwu/huikuan/selectSta.jsp" location="0,0" size="0,0" />
+  <webResource name="showProductPrice.jsp" path="/System/renshi/tiPrice/showProductPrice.jsp" location="0,0" size="0,0" />
+  <webResource name="selectGongwei.jsp" path="/System/SOP/gongwei/selectGongwei.jsp" location="0,0" size="0,0" />
+  <include file="struts-jhh.xml" location="0,0" size="0,0" />
+  <include file="struts-liupei.xml" location="0,0" size="0,0" />
+  <include file="struts-makai.xml" location="0,0" size="0,0" />
+  <include file="struts-zjs.xml" location="0,0" size="0,0" />
+  <include file="struts-cyl.xml" location="0,0" size="0,0" />
+  <include file="struts-zyl.xml" location="0,0" size="0,0" />
+  <include file="struts-zhaobiao.xml" location="0,0" size="0,0" />
+  <include file="struts-liuxiaoting.xml" location="0,0" size="0,0" />
+  <include file="struts-chenyang.xml" location="0,0" size="0,0" />
+  <include file="struts-chenxi.xml" location="0,0" size="0,0" />
+  <include file="struts-mxl.xml" location="0,0" size="0,0" />
+  <include file="struts-txb.xml" location="0,0" size="0,0" />
+  <include file="struts-licong.xml" location="0,0" size="0,0" />
+  <include file="struts-niewei.xml" location="0,0" size="0,0" />
+  <include file="struts-wxf.xml" location="0,0" size="0,0" />
+  <include file="struts-tx.xml" location="0,0" size="0,0" />
+  <include file="struts-fy.xml" location="0,0" size="0,0" />
+  <include file="struts-yyhb.xml" location="0,0" size="0,0" />
+  <include file="struts-mdd.xml" location="0,0" size="0,0" />
+  <include file="struts-wcy.xml" location="0,0" size="0,0" />
+  <include file="struts-student.xml" location="0,0" size="0,0" />
+</Struts2Diagram>
+

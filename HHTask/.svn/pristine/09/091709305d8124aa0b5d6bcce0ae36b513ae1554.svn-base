@@ -1,0 +1,47 @@
+package com.task.entity.project;
+/**
+ * 投资人月可参与投资绩效 ta_pro_InvestorMonthJx
+ * @author txb
+ *
+ */
+public class InvestorMonthJx implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;
+	private Float monthMoney;//月份可充值金额（当月绩效工资）
+	private Float syMoney;//剩余金额
+	private String month;//月份
+	private Integer investorId;//投资人Id
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Float getMonthMoney() {
+		return monthMoney;
+	}
+	public void setMonthMoney(Float monthMoney) {
+		this.monthMoney = monthMoney;
+	}
+	public Float getSyMoney() {
+		return syMoney;
+	}
+	public void setSyMoney(Float syMoney) {
+		this.syMoney = syMoney;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public Integer getInvestorId() {
+		return investorId;
+	}
+	public void setInvestorId(Integer investorId) {
+		this.investorId = investorId;
+	}
+	
+
+	
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ReturnsDetails" table="ta_sop_w_ReturnsDetails">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="gysId"/>
+		<property name="gysName"/>
+		<property name="gysdizhi"/>
+		<property name="gysUser"/>
+		<property name="gysPhone"/>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="tuhao"/>
+		<property name="kgliao"/>
+		<property name="wgType"/>
+		<property name="specification"/>
+		<property name="unit"/>
+		<property name="hsPrice"/>
+		<property name="price"/>
+		<property name="taxprice"/>
+		<property name="priceId"/>
+		<property name="thNumber"/>
+		<property name="examineLot"/>
+		<property name="dpId"/>
+		<property name="wgddId"/>
+		<property name="status"/>
+		<property name="shOrderNum"/>
+		<property name="cgOrderNum"/>
+		<property name="banben"/>
+		<property name="bldescribe"/>
+		<property name="clResult"/>
+		<property name="epstatus"/>
+		<property name="epId"/>
+		<property name="approvalTime"/>
+		<many-to-one name="returnSingle" column="rs_Id" class="ReturnSingle"
+			cascade="save-update" lazy="false" />
+ 	</class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FailureStatisticsDetail" table="ta_sop_FailureStatisticsDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="buhegeId" />
+		<property name="code" type="java.lang.String" />
+		<property name="type" type="java.lang.String" />
+		<property name="badNumber" />
+		<many-to-one name="failureStatistics" class="FailureStatistics"
+			column="fk_fsId"></many-to-one>
+		<many-to-one name="failureSSOnDay" class="FailureSSOnDay"
+			column="fk_fsdId"></many-to-one>
+		<many-to-one name="failureSSOnWeek" class="FailureSSOnWeek"
+			column="fk_fswId"></many-to-one>
+		<many-to-one name="failureSSOnMonth" class="FailureSSOnMonth"
+			column="fk_fsmId"></many-to-one>
+	</class>
+</hibernate-mapping>

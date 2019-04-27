@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouDailySheet" table="ta_sop_w_WaigouDailySheet">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId" />
+		<property name="proName" />
+		<property name="gysName" />
+		<property name="gysId" />
+		<property name="cgOrderNum" />
+		<property name="tuhao" />
+		<property name="llNumber" />
+		<property name="examineLot" />
+		<property name="caizi" />
+		<property name="bxgczfx" />
+		<property name="csROHS" />
+		<property name="saltspraytest" />
+		<property name="hbNumber" />
+		<property name="bldescribe" />
+		<property name="zzpd" />
+		<property name="liaodate" />
+		<property name="year" />
+		<property name="month" />
+		<property name="week" />
+		<property name="reamk" />
+		<property name="addTime" />
+		<property name="addUser" />
+		<property name="wgddId" />
+		 <property name="kgliao"/>
+		 <property name="wgType"/>
+		 <property name="cjTime"/>
+		 <property name="cjUser"/>
+		 <property name="cjUserId"/>
+		 <property name="cjNumber"/>
+		 <property name="cjhgNumber"/>
+		 <property name="cjbhgNumber"/>
+		 <property name="zjTime"/>
+		 <property name="zjUser"/>
+		 <property name="zjUserId"/>
+		 <property name="zjhgNumber"/>
+		 <property name="zjbhgNumber"/>
+		 <property name="status"/>
+		 <property name="shOrderNum"/>
+		 <property name="specification"/>
+		 <property name="scopeId"/>
+		 <property name="gysjc"/>
+ 		 <property name="flammabilitytest"/>
+		  <property name="bxgczfxfile"/>
+		  <property name="csROHSfile"/>
+		  <property name="saltspraytestfile"/>
+		  <property name="flammabilitytestfile"/>
+		  <property name="sampleNumber"/>
+		  <property name="banbenNumber"/>
+		  <property name="ywmarkId"/>
+		 </class>
+</hibernate-mapping>

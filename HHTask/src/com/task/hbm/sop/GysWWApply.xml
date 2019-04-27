@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="GysWWApply" table="ta_sop_GysWWApply">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="gysId" />
+	<property name="gysName" />
+	<property name="compayName" />
+	<property name="lxPeople" />
+	<property name="tel" />
+	<property name="fax" />
+	<property name="type" />
+	<property name="wwType" />
+	<property name="condition" />
+	<property name="wwNumber" />
+	<property name="cgPeople" />
+	<property name="addDate" />
+	<property name="addTime" />
+	<property name="rootId" />
+	<property name="processApplyId" />
+	<property name="status" />
+	<property name="epId" />
+	<property name="ghAddress" />
+	<property name="shAddress" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+         <set name="gysWWApplyDetails" inverse="false" cascade="all" lazy="true">
+			<key column="applyId">
+			</key>
+			<one-to-many class="com.task.entity.sop.GysWWApplyDetail" />
+		</set>
+
+	</class>
+</hibernate-mapping>

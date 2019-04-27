@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.core">
+	<class name="SupplierCorePayable" table="ta_fin_caiwu_SupplierCorePayable">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="supplierName" not-null="true"/>
+		<property name="payeeId" />
+		<property name="coreType" />
+		<property name="payableType" />
+		<property name="supplierId" />
+		<property name="customerId" />
+		
+		<property name="cargoTotal" />
+		<property name="shouNumber" />
+		<property name="goodsNumber" />
+		<property name="useNumber" />
+		<property name="sellNumber" />
+		
+		<property name="billingTotal" />
+		<property name="kaipiaoYgz" />
+		<property name="kaipiaoWgz" />
+		<property name="weiKaipiao" />
+		<property name="jieqing" />
+		
+		<property name="paymentTotal" />
+		<property name="fkCount" />
+		<property name="yingfukuanJine" />
+		<property name="overTimeYfmoney" />
+		<property name="realfukuanJine" />
+		<property name="weifukuanJine" />
+		<property name="fukuanzhongJine" />
+		<property name="more" />
+		<property name="addTime" />
+	</class>
+</hibernate-mapping>

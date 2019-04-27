@@ -1,0 +1,616 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 价格表
+ * 
+ * @表名 ta_price
+ * @author 刘培
+ */
+@SuppressWarnings("serial")
+public class Price implements Serializable {
+	private static final long serialVersionUID = 1L;
+	/*
+	 * Id Id partNumber 件号 specification 规格 name 名称 type 型别 productCategory 产品类别
+	 * price 价格 produceType 生产类型 contractNumber 合同编号 attachmentName 附件名称 rmarks
+	 * 备注 chargePerson 负责人 pricePeriodStart 价格有效期开始 pricePeriodEnd 价格有效期结束
+	 * inputPeople 录入人 parent 父类 identityColumn 标识列
+	 */
+	private int id;
+	private String partNumber;// 件号
+	private String banbenhao;// 版本号
+	private String name;// 名称
+	private String type;// 型别
+	private String specification;// 规格
+	private String productCategory;// 产品类别
+	private Double cgbl;// 采购比例
+	private Double hsPrice;// 含税价格
+	private Double bhsPrice;// 不含税价格
+	private Double taxprice; // 税率
+	private String produceType;// 生产类型
+	private String contractNumber;// 合同编号
+	private String attachmentName;// 附件名称
+	private String rmarks;// 备注
+	private String chargePerson;// 负责人
+	private String pricePeriodStart;// 价格有效期开始
+	private String pricePeriodEnd;// 价格有效期结束
+	private String writeDate;// 当前信息录入时间（添加时间）
+	private String inputPeople;// 录入人
+	private String updatePeople;// 修改人
+	private String parent;// 父类
+	private String identityColumn;// 标识列
+	private String fileNumber;// 档案号
+	private String reTime;// 预上传时间
+	private String isGuiDang;// 是否归档(no,yes 默认yes)
+	private String guiDangTime;// 归档时间
+	private String jimiDJ;// 机密等级
+	private List<Goods> goodsList;// 页面使用不记录数据库
+	private String danganWeizhi;// 档案柜编号
+	private String danganId;// 档案柜ID
+	private String danganCunQuStatus;// 档案存取状态(待存/已存/已取)
+	private Integer kehuId;// 客户Id
+	private Integer gysId;// 供应商Id;\
+	private String gys;// 供应商名称（页面传值）
+	private Integer firstnum;// 起始数量
+	private Integer endnum;// 截止数量
+	private String gongxunum;// 工序号(多个工序号以;分割)
+	private String processNames;// 工序名称
+	private String kgliao;// 供料属性
+	private String wwType;// 外委类型（工序外委,包工包料）
+	private String wlType;// 物料类别(外购件使用);
+	private String danwei;// 单件单位
+	private String bzdanwei;// 标准单位
+	private Float danweiNum;// 单位数量(某个件号有多少kg,某个件号有多少平方)
+	private Float danweihsPrice;// 单位含税价格;如：每平方多少钱、每公斤多少钱。不参与计算。
+	private Float danweibhsPrice;// 单位不含税价格
+	private Float zdqdl;// 最低起订量(MOQ)
+	private Float zdzxl;// 最低装箱量(MPQ)
+	private Float zdqsl;// 最低起送量
+	private String qidingfang;// 签订方;
+	private String flag;// 标识
+	private String iscriterion;// 是否为标准价格(YES/NO);
+	private String ywmarkId;// 业务件号
+	private String mjsqplanNum;// 模具申请单号
+	private String picNo;// 图号
+	private String modelNo;// 型号
+	private String cunType;// 存档类型(电子档/复印件/原件)
+	private String isCunType;// 是否存档到文件柜(yes/no)lc_20180604
+	private String isCunTime;// 实际存档时间lc_20180604
+	private String cunStatus;// 存档状态
+	private String cunRen;// 存档人
+
+	public String getFileNumber() {
+		return fileNumber;
+	}
+
+	public void setFileNumber(String fileNumber) {
+		this.fileNumber = fileNumber;
+	}
+
+	/**
+	 * @return the cunStatus
+	 */
+	public String getCunStatus() {
+		return cunStatus;
+	}
+
+	/**
+	 * @param cunStatus
+	 *            the cunStatus to set
+	 */
+	public void setCunStatus(String cunStatus) {
+		this.cunStatus = cunStatus;
+	}
+
+	/**
+	 * @return the cunRen
+	 */
+	public String getCunRen() {
+		return cunRen;
+	}
+
+	/**
+	 * @param cunRen
+	 *            the cunRen to set
+	 */
+	public void setCunRen(String cunRen) {
+		this.cunRen = cunRen;
+	}
+
+	/**
+	 * @return the isCunType
+	 */
+	public String getIsCunType() {
+		return isCunType;
+	}
+
+	/**
+	 * @param isCunType
+	 *            the isCunType to set
+	 */
+	public void setIsCunType(String isCunType) {
+		this.isCunType = isCunType;
+	}
+
+	/**
+	 * @return the isCunTime
+	 */
+	public String getIsCunTime() {
+		return isCunTime;
+	}
+
+	/**
+	 * @param isCunTime
+	 *            the isCunTime to set
+	 */
+	public void setIsCunTime(String isCunTime) {
+		this.isCunTime = isCunTime;
+	}
+
+	/**
+	 * @return the cunType
+	 */
+	public String getCunType() {
+		return cunType;
+	}
+
+	/**
+	 * @param cunType
+	 *            the cunType to set
+	 */
+	public void setCunType(String cunType) {
+		this.cunType = cunType;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPartNumber() {
+		return partNumber;
+	}
+
+	public void setPartNumber(String partNumber) {
+		this.partNumber = partNumber;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public Double getHsPrice() {
+		return hsPrice;
+	}
+
+	public void setHsPrice(Double hsPrice) {
+		this.hsPrice = hsPrice;
+	}
+
+	public Double getBhsPrice() {
+		return bhsPrice;
+	}
+
+	public void setBhsPrice(Double bhsPrice) {
+		this.bhsPrice = bhsPrice;
+	}
+
+	public String getProduceType() {
+		return produceType;
+	}
+
+	public void setProduceType(String produceType) {
+		this.produceType = produceType;
+	}
+
+	public String getContractNumber() {
+		return contractNumber;
+	}
+
+	public void setContractNumber(String contractNumber) {
+		this.contractNumber = contractNumber;
+	}
+
+	public String getAttachmentName() {
+		return attachmentName;
+	}
+
+	public void setAttachmentName(String attachmentName) {
+		this.attachmentName = attachmentName;
+	}
+
+	public String getRmarks() {
+		return rmarks;
+	}
+
+	public void setRmarks(String rmarks) {
+		this.rmarks = rmarks;
+	}
+
+	public String getChargePerson() {
+		return chargePerson;
+	}
+
+	public void setChargePerson(String chargePerson) {
+		this.chargePerson = chargePerson;
+	}
+
+	public String getPricePeriodStart() {
+		return pricePeriodStart;
+	}
+
+	public void setPricePeriodStart(String pricePeriodStart) {
+		this.pricePeriodStart = pricePeriodStart;
+	}
+
+	public String getPricePeriodEnd() {
+		return pricePeriodEnd;
+	}
+
+	public void setPricePeriodEnd(String pricePeriodEnd) {
+		this.pricePeriodEnd = pricePeriodEnd;
+	}
+
+	public String getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+
+	public String getInputPeople() {
+		return inputPeople;
+	}
+
+	public void setInputPeople(String eople) {
+		this.inputPeople = eople;
+	}
+
+	public String getParent() {
+		return parent;
+	}
+
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+
+	public String getIdentityColumn() {
+		return identityColumn;
+	}
+
+	public void setIdentityColumn(String identityColumn) {
+		this.identityColumn = identityColumn;
+	}
+
+	public String getUpdatePeople() {
+		return updatePeople;
+	}
+
+	public void setUpdatePeople(String updatePeople) {
+		this.updatePeople = updatePeople;
+	}
+
+	public String getReTime() {
+		return reTime;
+	}
+
+	public void setReTime(String reTime) {
+		this.reTime = reTime;
+	}
+
+	public String getIsGuiDang() {
+		return isGuiDang;
+	}
+
+	public void setIsGuiDang(String isGuiDang) {
+		this.isGuiDang = isGuiDang;
+	}
+
+	public String getGuiDangTime() {
+		return guiDangTime;
+	}
+
+	public void setGuiDangTime(String guiDangTime) {
+		this.guiDangTime = guiDangTime;
+	}
+
+	public List<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Goods> goodsList) {
+		this.goodsList = goodsList;
+
+	}
+
+	public Double getTaxprice() {
+		return taxprice;
+	}
+
+	public String getJimiDJ() {
+		return jimiDJ;
+	}
+
+	public void setJimiDJ(String jimiDJ) {
+		this.jimiDJ = jimiDJ;
+	}
+
+	public void setTaxprice(Double taxprice) {
+		this.taxprice = taxprice;
+	}
+
+	public String getDanganWeizhi() {
+		return danganWeizhi;
+	}
+
+	public void setDanganWeizhi(String danganWeizhi) {
+		this.danganWeizhi = danganWeizhi;
+	}
+
+	public String getDanganCunQuStatus() {
+		return danganCunQuStatus;
+	}
+
+	public void setDanganCunQuStatus(String danganCunQuStatus) {
+		this.danganCunQuStatus = danganCunQuStatus;
+	}
+
+	public String getDanganId() {
+		return danganId;
+	}
+
+	public void setDanganId(String danganId) {
+		this.danganId = danganId;
+	}
+
+	public Integer getKehuId() {
+		return kehuId;
+	}
+
+	public void setKehuId(Integer kehuId) {
+		this.kehuId = kehuId;
+	}
+
+	public Integer getGysId() {
+		return gysId;
+	}
+
+	public void setGysId(Integer gysId) {
+		this.gysId = gysId;
+	}
+
+	public Integer getFirstnum() {
+		return firstnum;
+	}
+
+	public void setFirstnum(Integer firstnum) {
+		this.firstnum = firstnum;
+	}
+
+	public Integer getEndnum() {
+		return endnum;
+	}
+
+	public void setEndnum(Integer endnum) {
+		this.endnum = endnum;
+	}
+
+	public Double getCgbl() {
+		return cgbl;
+	}
+
+	public void setCgbl(Double cgbl) {
+		this.cgbl = cgbl;
+	}
+
+	public String getGongxunum() {
+		return gongxunum;
+	}
+
+	public void setGongxunum(String gongxunum) {
+		this.gongxunum = gongxunum;
+	}
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+	public String getProcessNames() {
+		return processNames;
+	}
+
+	public void setProcessNames(String processNames) {
+		this.processNames = processNames;
+	}
+
+	public String getGys() {
+		return gys;
+	}
+
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+
+	public String getWwType() {
+		return wwType;
+	}
+
+	public void setWwType(String wwType) {
+		this.wwType = wwType;
+	}
+
+	public String getWlType() {
+		return wlType;
+	}
+
+	public void setWlType(String wlType) {
+		this.wlType = wlType;
+	}
+
+	public String getDanwei() {
+		return danwei;
+	}
+
+	public void setDanwei(String danwei) {
+		this.danwei = danwei;
+	}
+
+	public Float getZdqdl() {
+		return zdqdl;
+	}
+
+	public void setZdqdl(Float zdqdl) {
+		this.zdqdl = zdqdl;
+	}
+
+	public Float getZdzxl() {
+		return zdzxl;
+	}
+
+	public void setZdzxl(Float zdzxl) {
+		this.zdzxl = zdzxl;
+	}
+
+	public Float getZdqsl() {
+		return zdqsl;
+	}
+
+	public void setZdqsl(Float zdqsl) {
+		this.zdqsl = zdqsl;
+	}
+
+	public String getBanbenhao() {
+		return banbenhao;
+	}
+
+	public void setBanbenhao(String banbenhao) {
+		this.banbenhao = banbenhao;
+	}
+
+	public String getQidingfang() {
+		return qidingfang;
+	}
+
+	public void setQidingfang(String qidingfang) {
+		this.qidingfang = qidingfang;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getIscriterion() {
+		return iscriterion;
+	}
+
+	public void setIscriterion(String iscriterion) {
+		this.iscriterion = iscriterion;
+	}
+
+	public Float getDanweiNum() {
+		return danweiNum;
+	}
+
+	public void setDanweiNum(Float danweiNum) {
+		this.danweiNum = danweiNum;
+	}
+
+	public Float getDanweihsPrice() {
+		return danweihsPrice;
+	}
+
+	public void setDanweihsPrice(Float danweihsPrice) {
+		this.danweihsPrice = danweihsPrice;
+	}
+
+	public Float getDanweibhsPrice() {
+		return danweibhsPrice;
+	}
+
+	public void setDanweibhsPrice(Float danweibhsPrice) {
+		this.danweibhsPrice = danweibhsPrice;
+	}
+
+	public String getBzdanwei() {
+		return bzdanwei;
+	}
+
+	public void setBzdanwei(String bzdanwei) {
+		this.bzdanwei = bzdanwei;
+	}
+
+	public String getYwmarkId() {
+		return ywmarkId;
+	}
+
+	public void setYwmarkId(String ywmarkId) {
+		this.ywmarkId = ywmarkId;
+	}
+
+	public String getMjsqplanNum() {
+		return mjsqplanNum;
+	}
+
+	public void setMjsqplanNum(String mjsqplanNum) {
+		this.mjsqplanNum = mjsqplanNum;
+	}
+
+	public String getPicNo() {
+		return picNo;
+	}
+
+	public void setPicNo(String picNo) {
+		this.picNo = picNo;
+	}
+
+	public String getModelNo() {
+		return modelNo;
+	}
+
+	public void setModelNo(String modelNo) {
+		this.modelNo = modelNo;
+	}
+
+}

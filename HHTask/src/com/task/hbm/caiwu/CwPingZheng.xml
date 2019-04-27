@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="CwPingZheng" table="ta_fin_CwPingZheng">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="pzNumber" />
+		<property name="userName" />
+		<property name="userDept" />
+		<property name="subject" />
+		<property name="crStatus" />
+		<property name="crType" />
+		<property name="money" />
+		<property name="year" />
+		<property name="addDateTime" />
+		<property name="detailUrl" />
+		<property name="processStatus" />
+		<property name="userId" />
+		<property name="pzDate" />
+		<property name="pzAddUser" />
+	</class>
+</hibernate-mapping>

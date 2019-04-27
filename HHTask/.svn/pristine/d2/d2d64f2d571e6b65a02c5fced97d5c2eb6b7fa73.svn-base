@@ -1,0 +1,115 @@
+package com.task.entity.sop;
+/**
+ * 外购件入库 表：ta_PurchasedPartsInput
+ * @author txb
+ *
+ */
+public class PurchasedPartsInput {
+	private Integer id;
+	private Integer orderId;//采购执行单id
+    private String number;//订单号
+    private String inNumber;//送货单号
+    private String company;//供货厂商
+    private String time;//送货时间
+    private String name;//名称
+    private String markId;//件号
+    private Float inCount;//入库申请数量
+    private Float hasruku;//已入库数量
+    private String userName;//经办人名字
+    private String userCode;//经办人工号
+    private String userDept;//经办人部门
+    private String selfCard;//批次号
+    private String status;//状态（未检测,合格,不合格,入库）
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getInNumber() {
+		return inNumber;
+	}
+	public void setInNumber(String inNumber) {
+		this.inNumber = inNumber;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Float getInCount() {
+		return inCount;
+	}
+	public void setInCount(Float inCount) {
+		this.inCount = inCount;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getUserDept() {
+		return userDept;
+	}
+	public void setUserDept(String userDept) {
+		this.userDept = userDept;
+	}
+	public Float getHasruku() {
+		return hasruku;
+	}
+	public void setHasruku(Float hasruku) {
+		this.hasruku = hasruku;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getSelfCard() {
+		return selfCard;
+	}
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+    
+}

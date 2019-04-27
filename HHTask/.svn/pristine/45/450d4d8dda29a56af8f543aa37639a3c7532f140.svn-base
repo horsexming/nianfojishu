@@ -1,0 +1,758 @@
+package com.task.action.yuce;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.struts2.StrutsStatics;
+
+import com.huawei.openapi.openaipexample.client.http.OrderForB2B;
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.b2b.HttpRestClientForYcServer;
+import com.task.util.MKUtil;
+
+public class HttpRestClientForaction {
+
+	private HttpRestClientForYcServer httpRestClientForYcServer;
+	private Object[] obj;
+	// 分页
+	private static String cpage = "1";
+	private static String total;
+	private String url;
+	private int pageSize = 20;
+	private int pagesizeye = 60;
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+
+	// itemCode 华为物料编码
+	private String itemCode;
+	// suppItemCode 供法物料编码
+	private String suppItemCode;
+	// orgId组织名称，固定值218是华为
+	private String orgId;
+	// startTime开始时间
+	private String startTime;
+	// endTime结束时间
+	private String endTime;
+	// 采购员
+	private String buyerName;
+	// 采购模式
+	private String purchaseMode;
+	// 欠料标识
+	private String version;
+
+	private List<OrderForB2B> list;
+	private List<OrderForB2B> DNlist;
+	private List<OrderForB2B> itemASN = new ArrayList<OrderForB2B>();
+	private List<OrderForB2B> ASN = new ArrayList<OrderForB2B>();
+
+	// 回复内容
+	private String array;
+	private List<OrderForB2B> subList;
+	private String pageStatus;// 页面状态
+	private Integer limtInteger;
+	private String zhuangtai;
+	// 时间
+	private String taday;
+	private String nexttoday;
+	private String twonextday;
+	private String threeday;
+	private String forday;
+	private String friveday;
+	private String sixday;
+	private String sevenday;
+	private String eitday;
+	private String nineday;
+	private String tenday;
+	private String elevenday;
+	private Integer sizeInteger;
+	private String validityPeriod;
+	private List<OrderForB2B> labelist;
+	private String add;
+	private Integer p;
+	private String excellist;
+
+	// 供应商编码
+	private String vendorCode;
+
+	/**
+	 * 查询
+	 * 
+	 * @return
+	 */
+	public String selhuawei() {
+
+		try {
+			obj = httpRestClientForYcServer.getList(Integer.parseInt(cpage), pageSize, itemCode, suppItemCode, orgId,
+					startTime, endTime, buyerName, purchaseMode, version);
+			if (obj != null) {
+				list = (List<OrderForB2B>) obj[0];
+				if (list != null) {
+					sizeInteger = list.size();
+				}
+				int count = (Integer) obj[1];
+				pageSize = (Integer) obj[2];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("HttpRestClientForaction!selhuawei.action?=pageStatus" + pageStatus);
+			} else {
+				list = null;
+				System.out.println("为空测试");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "yuce";
+
+	}
+
+	public void bqExcel() {
+		try {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			HSSFSheet sheet = workbook.createSheet("New_ASN_LabelList");
+			HSSFRow row = sheet.createRow(0);
+			row.createCell(0).setCellValue("序号");
+			row.createCell(1).setCellValue("箱号");
+			row.createCell(2).setCellValue("物料版本");
+			row.createCell(3).setCellValue("物料单位");
+			row.createCell(4).setCellValue("追溯类型");
+			row.createCell(5).setCellValue("信息是否完整");
+			row.createCell(6).setCellValue("ASN单号");
+			row.createCell(7).setCellValue("PO号");
+			row.createCell(8).setCellValue("件套数SN/TN");
+			row.createCell(9).setCellValue("内装数量");
+			row.createCell(10).setCellValue("是否尾箱");
+			row.createCell(11).setCellValue("数据类型");
+			row.createCell(12).setCellValue("制造日期");
+			row.createCell(13).setCellValue("制造批次");
+			row.createCell(14).setCellValue("绑定内标签");
+			row.createCell(15).setCellValue("打印次数");
+			row.createCell(16).setCellValue("创建人");
+			row.createCell(17).setCellValue("创建时间");
+			row.createCell(18).setCellValue("最后修改时间");
+
+			// 有几组
+			int listzu = excellist.length() - excellist.replaceAll("]", "").length();
+			for (int i = 0; i < listzu; i++) {
+
+				HSSFRow createRow = sheet.createRow(i + 1);
+
+				String zusuh = excellist.substring(getIndex(excellist, "[", i + 1),
+						getIndex(excellist, "]", i + 1) + 1);
+
+				// 行号
+				createRow.createCell(0)
+						.setCellValue(zusuh.substring(getIndex(zusuh, "[", 1) + 1, getIndex(zusuh, ",", 1)));
+				// 箱号
+				createRow.createCell(1)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 1) + 1, getIndex(zusuh, ",", 2)));
+				// 物料编码
+				createRow.createCell(2)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 2) + 1, getIndex(zusuh, ",", 3)));
+				// 物料版本
+				createRow.createCell(3)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 3) + 1, getIndex(zusuh, ",", 4)));
+				// 物料单位
+				createRow.createCell(4)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 4) + 1, getIndex(zusuh, ",", 5)));
+				// 追溯类型
+				createRow.createCell(5)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 5) + 1, getIndex(zusuh, ",", 6)));
+				// 信息是否完整
+				createRow.createCell(6)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 6) + 1, getIndex(zusuh, ",", 7)));
+				// ASN单号
+				createRow.createCell(7)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 7) + 1, getIndex(zusuh, ",", 8)));
+				// PO号
+				createRow.createCell(8)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 8) + 1, getIndex(zusuh, ",", 9)));
+				// 件套数SN/TN
+				createRow.createCell(9)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 9) + 1, getIndex(zusuh, ",", 10)));
+				// 内装数量
+				createRow.createCell(10)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 10) + 1, getIndex(zusuh, ",", 11)));
+				// 是否尾箱
+				createRow.createCell(11)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 11) + 1, getIndex(zusuh, ",", 12)));
+				// 制造日期
+				createRow.createCell(12)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 12) + 1, getIndex(zusuh, ",", 13)));
+				// 制造批次
+				createRow.createCell(13)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 13) + 1, getIndex(zusuh, ",", 14)));
+				// 绑定内标签
+				createRow.createCell(14)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 14) + 1, getIndex(zusuh, ",", 15)));
+				// 打印次数
+				createRow.createCell(15)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 15) + 1, getIndex(zusuh, ",", 16)));
+				// 创建人
+				createRow.createCell(16)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 16) + 1, getIndex(zusuh, ",", 17)));
+				// 创建时间
+				createRow.createCell(17)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 17) + 1, getIndex(zusuh, ",", 18)));
+				// 最后修改时间
+				createRow.createCell(18)
+						.setCellValue(zusuh.substring(getIndex(zusuh, ",", 18) + 1, getIndex(zusuh, "]", 1)));
+
+			}
+
+			SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+			String datep = "New_ASN_LabelList" + df.format(new Date());
+			HttpServletResponse response = (HttpServletResponse) ActionContext.getContext()
+					.get(StrutsStatics.HTTP_RESPONSE);
+			OutputStream os;
+			os = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition",
+					"attachment; filename=" + new String(datep.getBytes("GB2312"), "8859_1") + ".xls");
+			workbook.write(os);
+			workbook.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 查询标签
+	 * 
+	 * @return
+	 */
+	public String selbaioqian() {
+		try {
+			obj = httpRestClientForYcServer.selbaioqian(pagesizeye, Integer.parseInt(cpage), vendorCode);
+			if (obj != null) {
+				labelist = (List<OrderForB2B>) obj[0];
+
+				int count = (Integer) obj[1];
+				pageSize = (Integer) obj[2];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("HttpRestClientForaction!selbaioqian.action?=pageStatus" + pageStatus);
+			} else {
+				return "label";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "label";
+
+	}
+
+	/**
+	 * 回复能力
+	 * 
+	 * @return
+	 */
+	public void huifu() {
+		try {
+			String regexp = "\'";
+			array = array.replaceAll(regexp, "\"");
+			boolean hui = httpRestClientForYcServer.getet(array);
+			if (hui == true) {
+				MKUtil.writeJSON(true, "回复成功", null);
+			} else {
+				MKUtil.writeJSON(true, "回复失败", null);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/*
+	 * 输入字符串和截取的字符再输入第一个出现就可以算出xiabiao
+	 */
+	public static int getIndex(String str, String s, int count) {
+		if (count == 0)
+			return -1;
+		int len = s.length();
+		int index = -1 - len;
+		while (count > 0 && (index = str.indexOf(s, index + len)) != -1) {
+			count--;
+		}
+		return index;
+	}
+
+	/**
+	 * 填写ASN信息查询item包规
+	 * 
+	 * @return
+	 */
+	public String selASN() {
+
+		try {
+			int n = add.length() - add.replaceAll("]", "").length();
+			for (int i = 1; i <= n; i++) {
+				String rucan = add.substring(getIndex(add, "[", i), getIndex(add, "]", i) + 1);
+				// 物料编码
+				String itemCode = rucan.substring(getIndex(rucan, "[", 1) + 1, getIndex(rucan, ",", 1));
+				// 物料版本
+				String itemRevision = rucan.substring(getIndex(rucan, ",", 1) + 1, getIndex(rucan, ",", 2));
+				// 本次发货数量
+				String quantityShipped = rucan.substring(getIndex(rucan, ",", 2) + 1, getIndex(rucan, ",", 3));
+				// 组织id
+				String invOrgId = rucan.substring(getIndex(rucan, ",", 3) + 1, getIndex(rucan, "]", 1));
+
+				obj = httpRestClientForYcServer.selASN(itemCode, itemRevision, quantityShipped, invOrgId);
+				if (obj != null) {
+					// itemASN = (List<OrderForB2B>) obj[0];
+					String baogui = (String) obj[2];
+					if (baogui.equals("包规异常")) {
+						p = (Integer) obj[1];
+					} else {
+						OrderForB2B orderForB2B = (OrderForB2B) obj[0];
+						itemASN.add(orderForB2B);
+						OrderForB2B b2b = (OrderForB2B) obj[0];
+						ASN.add(b2b);
+					}
+
+				} else {
+					return "asninform";
+				}
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "asninform";
+	}
+
+	/**
+	 * 送货查询DN
+	 * 
+	 * @return
+	 */
+	public String sellDN() {
+
+		try {
+			obj = httpRestClientForYcServer.songhuo(pageSize, Integer.parseInt(cpage), validityPeriod);
+			if (obj != null) {
+				DNlist = (List<OrderForB2B>) obj[0];
+				int count = (Integer) obj[1];
+				pageSize = (Integer) obj[2];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("HttpRestClientForaction!sellDN.action?=pageStatus" + pageStatus);
+			} else {
+				return "tableDelive";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "tableDelive";
+	}
+
+	// 导入ExCEl当前数据
+	public void excel() {
+
+		if (zhuangtai.equals("当前页")) {
+			try {
+				httpRestClientForYcServer.get(Integer.parseInt(cpage), pageSize, itemCode, suppItemCode, orgId,
+						startTime, endTime, buyerName, purchaseMode, version, zhuangtai, taday, nexttoday, twonextday,
+						threeday, forday, friveday, sixday, sevenday, eitday, nineday, tenday, elevenday);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (zhuangtai.equals("全部")) {
+			if (total != null) {
+
+				try {
+					httpRestClientForYcServer.get(Integer.parseInt(total), pageSize, itemCode, suppItemCode, orgId,
+							startTime, endTime, buyerName, purchaseMode, version, zhuangtai, taday, nexttoday,
+							twonextday, threeday, forday, friveday, sixday, sevenday, eitday, nineday, tenday,
+							elevenday);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public Object[] getObj() {
+		return obj;
+	}
+
+	public void setObj(Object[] obj) {
+		this.obj = obj;
+	}
+
+	public List<OrderForB2B> getList() {
+		return list;
+	}
+
+	public void setList(List<OrderForB2B> list) {
+		this.list = list;
+	}
+
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	public String getSuppItemCode() {
+		return suppItemCode;
+	}
+
+	public void setSuppItemCode(String suppItemCode) {
+		this.suppItemCode = suppItemCode;
+	}
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getBuyerName() {
+		return buyerName;
+	}
+
+	public void setBuyerName(String buyerName) {
+		this.buyerName = buyerName;
+	}
+
+	public String getPurchaseMode() {
+		return purchaseMode;
+	}
+
+	public void setPurchaseMode(String purchaseMode) {
+		this.purchaseMode = purchaseMode;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getArray() {
+		return array;
+	}
+
+	public void setArray(String array) {
+		this.array = array;
+	}
+
+	public List<OrderForB2B> getSubList() {
+		return subList;
+	}
+
+	public void setSubList(List<OrderForB2B> subList) {
+		this.subList = subList;
+	}
+
+	public HttpRestClientForYcServer getHttpRestClientForYcServer() {
+		return httpRestClientForYcServer;
+	}
+
+	public void setHttpRestClientForYcServer(HttpRestClientForYcServer httpRestClientForYcServer) {
+		this.httpRestClientForYcServer = httpRestClientForYcServer;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public Integer getLimtInteger() {
+		return limtInteger;
+	}
+
+	public void setLimtInteger(Integer limtInteger) {
+		this.limtInteger = limtInteger;
+	}
+
+	public String getZhuangtai() {
+		return zhuangtai;
+	}
+
+	public void setZhuangtai(String zhuangtai) {
+		this.zhuangtai = zhuangtai;
+	}
+
+	public String getTaday() {
+		return taday;
+	}
+
+	public void setTaday(String taday) {
+		this.taday = taday;
+	}
+
+	public String getNexttoday() {
+		return nexttoday;
+	}
+
+	public void setNexttoday(String nexttoday) {
+		this.nexttoday = nexttoday;
+	}
+
+	public String getTwonextday() {
+		return twonextday;
+	}
+
+	public void setTwonextday(String twonextday) {
+		this.twonextday = twonextday;
+	}
+
+	public String getThreeday() {
+		return threeday;
+	}
+
+	public void setThreeday(String threeday) {
+		this.threeday = threeday;
+	}
+
+	public String getForday() {
+		return forday;
+	}
+
+	public void setForday(String forday) {
+		this.forday = forday;
+	}
+
+	public String getFriveday() {
+		return friveday;
+	}
+
+	public void setFriveday(String friveday) {
+		this.friveday = friveday;
+	}
+
+	public String getSixday() {
+		return sixday;
+	}
+
+	public void setSixday(String sixday) {
+		this.sixday = sixday;
+	}
+
+	public String getSevenday() {
+		return sevenday;
+	}
+
+	public void setSevenday(String sevenday) {
+		this.sevenday = sevenday;
+	}
+
+	public String getEitday() {
+		return eitday;
+	}
+
+	public void setEitday(String eitday) {
+		this.eitday = eitday;
+	}
+
+	public String getNineday() {
+		return nineday;
+	}
+
+	public void setNineday(String nineday) {
+		this.nineday = nineday;
+	}
+
+	public String getTenday() {
+		return tenday;
+	}
+
+	public void setTenday(String tenday) {
+		this.tenday = tenday;
+	}
+
+	public String getElevenday() {
+		return elevenday;
+	}
+
+	public void setElevenday(String elevenday) {
+		this.elevenday = elevenday;
+	}
+
+	public Integer getSizeInteger() {
+		return sizeInteger;
+	}
+
+	public void setSizeInteger(Integer sizeInteger) {
+		this.sizeInteger = sizeInteger;
+	}
+
+	public List<OrderForB2B> getDNlist() {
+		return DNlist;
+	}
+
+	public void setDNlist(List<OrderForB2B> dNlist) {
+		DNlist = dNlist;
+	}
+
+	public String getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	public void setValidityPeriod(String validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	public List<OrderForB2B> getItemASN() {
+		return itemASN;
+	}
+
+	public void setItemASN(List<OrderForB2B> itemASN) {
+		this.itemASN = itemASN;
+	}
+
+	public List<OrderForB2B> getASN() {
+		return ASN;
+	}
+
+	public void setASN(List<OrderForB2B> aSN) {
+		ASN = aSN;
+	}
+
+	public String getVendorCode() {
+		return vendorCode;
+	}
+
+	public void setVendorCode(String vendorCode) {
+		this.vendorCode = vendorCode;
+	}
+
+	public List<OrderForB2B> getLabelist() {
+		return labelist;
+	}
+
+	public void setLabelist(List<OrderForB2B> labelist) {
+		this.labelist = labelist;
+	}
+
+	public int getPagesizeye() {
+		return pagesizeye;
+	}
+
+	public void setPagesizeye(int pagesizeye) {
+		this.pagesizeye = pagesizeye;
+	}
+
+	public String getAdd() {
+		return add;
+	}
+
+	public void setAdd(String add) {
+		this.add = add;
+	}
+
+	public Integer getP() {
+		return p;
+	}
+
+	public void setP(Integer p) {
+		this.p = p;
+	}
+
+	public String getExcellist() {
+		return excellist;
+	}
+
+	public void setExcellist(String excellist) {
+		this.excellist = excellist;
+	}
+
+}

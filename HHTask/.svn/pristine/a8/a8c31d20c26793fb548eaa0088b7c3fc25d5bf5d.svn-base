@@ -1,0 +1,20 @@
+package com.task.ServerImpl.renshi;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.renshi.InDoorScreenServer;
+
+public class InDoorScreenServerImpl implements InDoorScreenServer{
+
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+	
+	
+	
+}

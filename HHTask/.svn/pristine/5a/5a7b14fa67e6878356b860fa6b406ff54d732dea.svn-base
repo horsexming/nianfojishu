@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+     <class name="com.task.entity.AttendanceCount" table="ta_hr_AttendanceCount">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property name="cardDateTime" />
+		<property name="normalAM" />
+		<property name="normalPM" />
+		<property name="normalDate" />
+		<property name="lateCount" />
+		<property name="leaveEarlyCount" />
+		<property name="askForLeaveCount" />
+		<property name="notCardCount" />
+		<property name="kuangGongCount" />
+		<property name="totalAttendance" />
+		<property name="attendance" />
+		<property name="banci_id" />
+		<property name="banci_name" />
+		<property name="operationDate" />
+	</class>
+</hibernate-mapping>

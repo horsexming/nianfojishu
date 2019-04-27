@@ -1,0 +1,172 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @ClassName: Consuming
+ * @Description: 领用（表名:ta_Consuming）
+ * @author Damon
+ * @date 2013-4-23 下午03:03:32
+ * 
+ *       add relaction Fields private Store store 关系:Borrow(many-to-one) :
+ *       Store(one-to-many)
+ */
+public class Consuming implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String peopleName; // 借主
+	private String matetag;// 名称
+	private Date date;// 日期
+	private String format;// 规格
+	private Float num;// 数量
+	private String storehouse; // 仓库?
+	private String remark; // 备注
+	private String cardNum;// 卡号
+	private String dept;// 部门
+	private String number;// 编号
+	private String unit;// 单位
+	private String mix;// 合成
+	private String state; // 状态
+	private String carType; // 车型
+
+	private Store store; // 入库
+	private OutLib out;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getPeopleName() {
+		return peopleName;
+	}
+
+	public void setPeopleName(String peopleName) {
+		this.peopleName = peopleName;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public Float getNum() {
+		return num;
+	}
+
+	public void setNum(Float num) {
+		this.num = num;
+	}
+
+	public String getStorehouse() {
+		return storehouse;
+	}
+
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getMix() {
+		return mix;
+	}
+
+	public void setMix(String mix) {
+		this.mix = mix;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCarType() {
+		return carType;
+	}
+
+	public void setCarType(String carType) {
+		this.carType = carType;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public String getMatetag() {
+		return matetag;
+	}
+
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+
+	public OutLib getOut() {
+		return out;
+	}
+
+	public void setOut(OutLib out) {
+		this.out = out;
+	}
+
+}

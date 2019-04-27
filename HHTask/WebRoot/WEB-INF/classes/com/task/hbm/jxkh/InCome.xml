@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="InCome" table="ta_InCome">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept"/> 
+		<property name="name"/> 
+		<property name="post"/> 
+		<property name="nowsalary"/> 
+		<property name="deptaverage"/> 
+		<property name="postfactor"/> 
+		<property name="jixiao"/> 
+		<property name="heji"/> 
+		<property name="wagesCoefficient"/> 
+		<property name="jieGouBi"/> 
+		<property name="weiwaibi"/> 
+		<property name="d_value"/> 
+		<property name="zzIncome"/> 
+		 <property name="months"/>
+		 <property name="addUsersName"/>
+		 <property name="addTime"/>
+		 <property name="shouruHeJi"/>
+	</class>
+</hibernate-mapping>

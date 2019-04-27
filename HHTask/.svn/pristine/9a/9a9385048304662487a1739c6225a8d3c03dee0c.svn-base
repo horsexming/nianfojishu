@@ -1,0 +1,71 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--
+		***********************************陈阳Server层管理****************************************************
+	-->
+	<bean id="mealServiceImpl" class="com.task.ServerImpl.MealServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<bean id="InformServerImpl" class="com.task.ServerImpl.iao.InformServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="NoticeServerImpl" class="com.task.ServerImpl.NoticeServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<bean id="QexamineServerImpl" class="com.task.ServerImpl.QexamineServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<bean id="AddUserServerImpl" class="com.task.ServerImpl.AddUserServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="userServer" ref="userServerImpl" />
+	</bean>
+	<bean id="QualityccServerImpl" class="com.task.ServerImpl.QualityccServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="YusuantianbaobiaoServerImpl" class="com.task.ServerImpl.YusuantianbaobiaoServerImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!--
+		***********************************陈阳Action层管理****************************************************
+	-->
+	<bean id="mealAction" class="com.task.action.MealAction" scope="prototype">
+		<property name="mealService" ref="mealServiceImpl"></property>
+	</bean>
+
+	<bean id="InformAction" class="com.task.action.iao.InformAction"
+		scope="prototype">
+		<property name="informServer" ref="InformServerImpl"></property>
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<bean id="NoticeAction" class="com.task.action.NoticeAction"
+		scope="prototype">
+		<property name="noticeServer" ref="NoticeServerImpl"></property>
+	</bean>
+	<bean id="QexamineAction" class="com.task.action.QexamineAction"
+		scope="prototype">
+		<property name="qexamineServer" ref="QexamineServerImpl"></property>
+	</bean>
+	<bean id="AddUserAction" class="com.task.action.AddUserAction"
+		scope="prototype">
+		<property name="addUserServer" ref="AddUserServerImpl"></property>
+	</bean>
+	<bean id="QualityccAction" class="com.task.action.QualityccAction" scope="prototype">
+	    <property name="qualityccServer" ref="QualityccServerImpl"></property>
+	</bean>
+	<bean id="YusuantianbaobiaoAction" class="com.task.action.YusuantianbaobiaoAction" scope="prototype">
+	    <property name="yusuantianbaobiaoServer" ref="YusuantianbaobiaoServerImpl"></property>
+	</bean>
+	
+</beans>

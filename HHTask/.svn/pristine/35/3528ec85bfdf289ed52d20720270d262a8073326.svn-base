@@ -1,0 +1,23 @@
+package com.task.entity.fin.jmwj;
+/**
+ * 机密文件存放位置（ta_fin_fileLocation）
+ * @author jhh
+ *
+ */
+public class FileLocation {
+	private Integer id;
+	private String fileLocation;//文件存放位置
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getFileLocation() {
+		return fileLocation;
+	}
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
+	}
+	
+}

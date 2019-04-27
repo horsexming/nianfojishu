@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-chenxi" extends="struts-stack">
+		<!--
+			****************************************陈曦Action操作********************************************************************
+			**
+		-->
+		<!-- 加班管理 -->
+		<action name="overtimeAction" class="overtimeAction">
+			<result name="addOvertime_success" type="redirect">overtimeAction!findAllOvertime.action?role=jb
+			</result>
+			<result name="deleteOvertime_success" type="redirect">overtimeAction!findAllOvertime.action?role=jb
+			</result>
+			<result name="getUpdatePage">/System/renshi/hr_overtime_update.jsp</result>
+			<result name="submitOvertime_success_jb" type="redirect">overtimeAction!findAllOvertime.action?role=jb
+			</result>
+			<result name="updaeOvertime_success_jb" type="redirect">overtimeAction!findAllOvertime.action?role=jb
+			</result>
+			<result name="confirmOvertime_success_rs" type="redirect">overtimeAction!findAllOvertime.action?role=rs
+			</result>
+			<result name="hr_overtime_add">/System/renshi/hr_overtime_add.jsp</result>
+			<result name="hr_overtime_addApply">/System/renshi/hr_overtime_addApply.jsp</result>
+			<result name="hr_overtime_list_jb">/System/renshi/hr_overtime_list_jb.jsp</result>
+			<result name="hr_overtime_list_rs">/System/renshi/hr_overtime_list_rs.jsp</result>
+			<result name="hr_overtime_list_sp">/System/renshi/hr_overtime_list_sp.jsp</result>
+			<result name="hr_overtime_list_all">/System/renshi/hr_overtime_list_all.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="findPreHuizongOK" type="redirect">overtimeAction!findOvertimeListForAll.action</result>
+			<result name="hr_overtime_backup">/System/renshi/hr_overtime_backup.jsp</result>
+			<result name="hr_overtime_detail">/System/renshi/hr_overtime_detail.jsp</result>
+		</action>
+		<!-- 奖扣管理 -->
+		<action name="rewardPunishAction" class="rewardPunishAction">
+			<result name="addRewardPunish_success" type="redirect">rewardPunishAction!findAllRewardPunish.action
+			</result>
+			<result name="deleteRewardPunish_success" type="redirect">rewardPunishAction!findAllRewardPunish.action
+			</result>
+			<result name="getUpdatePage">/System/renshi/hr_rewardPunish_update.jsp
+			</result>
+			<result name="updaeRewardPunish_success" type="redirect">rewardPunishAction!findAllRewardPunish.action
+			</result>
+			<result name="hr_rewardPunish_list">/System/renshi/hr_rewardPunish_list.jsp</result>
+			<result name="hr_rewardPunish_collect">/System/renshi/hr_rewardPunish_collect.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 项目管理 -->
+		<action name="proAction" class="proAction">
+			<result name="addPro_success" type="redirect">proAction!findAllPro.action
+			</result>
+			<result name="deletePro_success" type="redirect">proAction!findAllPro.action
+			</result>
+			<result name="getProUpdatePage_success">/System/pro/pro_update.jsp</result>
+			<result name="updatePro_success" type="redirect">proAction!findAllPro.action
+			</result>
+			<result name="findAllPro_success">/System/pro/pro_list.jsp
+			</result>
+			<result name="getProDetailPage_success">/System/pro/pro_detail.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+
+		</action>
+		<!-- 项目人员管理 -->
+		<action name="proUserAction" class="proUserAction">
+
+			<result name="getProUserAddPage_success">/System/pro/user/user_add.jsp</result>
+			<result name="addProUser_success" type="redirect">proUserAction!findAllProUserByproId.action?proUser.proId=${proUser.proId}
+			</result>
+			<result name="deleteProUser_success" type="redirect">proUserAction!findAllProUserByproId.action?proUser.proId=${proUser.proId}
+			</result>
+			<result name="getProUserUpdatePage_success">/System/pro/user/user_update.jsp</result>
+			<result name="updateProUser_success" type="redirect">proUserAction!findAllProUserByproId.action?proUser.proId=${proUser.proId}
+			</result>
+			<result name="findAllProUserByproId_success">/System/pro/user/user_list.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 项目产品管理 -->
+		<action name="proProductAction" class="proProductAction">
+			<result name="getProProductAddPage_success">/System/pro/product/product_add.jsp</result>
+			<result name="addProProduct_success" type="redirect">proProductAction!findAllProProductByproId.action?proProduct.proId=${proProduct.proId}
+			</result>
+			<result name="deleteProProduct_success" type="redirect">proProductAction!findAllProProductByproId.action?proProduct.proId=${proProduct.proId}
+			</result>
+			<result name="getProProductUpdatePage_success">/System/pro/product/product_update.jsp</result>
+			<result name="updateProProduct_success" type="redirect">proProductAction!findAllProProductByproId.action?proProduct.proId=${proProduct.proId}
+			</result>
+			<result name="findAllProProductByproId_success">/System/pro/product/product_list.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 项目工装管理 -->
+		<action name="proToolingAction" class="proToolingAction">
+			<result name="getProToolingAddPage_success">/System/pro/tooling/tooling_add.jsp</result>
+			<result name="addProTooling_success" type="redirect">proToolingAction!findAllProToolingByproId.action?proTooling.proId=${proTooling.proId}
+			</result>
+			<result name="deleteProTooling_success" type="redirect">proToolingAction!findAllProToolingByproId.action?proTooling.proId=${proTooling.proId}
+			</result>
+			<result name="getProToolingUpdatePage_success">/System/pro/tooling/tooling_update.jsp</result>
+			<result name="updateProTooling_success" type="redirect">proToolingAction!findAllProToolingByproId.action?proTooling.proId=${proTooling.proId}
+			</result>
+			<result name="findAllProToolingByproId_success">/System/pro/tooling/tooling_list.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--屏幕管理-->
+		<action name="scrnAction" class="scrnAction">
+			<result name="addScrn_success" type="redirect">scrnAction!findAllScrn.action
+			</result>
+			<result name="deleteScrn_success" type="redirect">scrnAction!findAllScrn.action
+			</result>
+			<result name="getScrnUpdatePage_success">/System/bbs/scrn_update.jsp</result>
+			<result name="updateScrn_success" type="redirect">scrnAction!findAllScrn.action
+			</result>
+			<result name="findAllScrn_success">/System/bbs/scrn_list.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--屏幕评论-->
+		<action name="boardReviewAction" class="boardReviewAction">
+			<result name="getBoard_success">/System/bbs/boardReview.jsp
+			</result>
+			<result name="getBoardReviewShowAllPage_success">/System/bbs/boardReviewShowAll.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--附件管理 -->
+		<action name="affixAction" class="affixAction">
+		</action>
+		<!--工艺规程 -->
+		<action name="gongyiGuichengAction" class="gongyiGuichengAction">
+			<result name="addGongyiGuicheng_success" type="redirect">gongyiGuichengAction!findAllGongyiGuicheng.action?role=bianzhi
+			</result>
+			<result name="deleteGongyiGuicheng_success" type="redirect">gongyiGuichengAction!findAllGongyiGuicheng.action?role=bianzhi
+			</result>
+			<result name="deleteGongyiGuicheng_all_success" type="redirect">gongyiGuichengAction!findAllGongyiGuicheng.action?role=all
+			</result>
+			<result name="updateGongyiGuicheng_success" type="redirect">gongyiGuichengAction!findAllGongyiGuicheng.action?role=bianzhi
+			</result>
+			<result name="findAllGongyiGuicheng_bianzhi_success">/System/gongyi/gongyi_guicheng_list_bianzhi.jsp
+			</result>
+			<result name="findAllGongyiGuicheng_jiaodui_success">/System/gongyi/gongyi_guicheng_list_jiaodui.jsp
+			</result>
+			<result name="findAllGongyiGuicheng_shenhe_success">/System/gongyi/gongyi_guicheng_list_shenhe.jsp
+			</result>
+			<result name="findAllGongyiGuicheng_pizhun_success">/System/gongyi/gongyi_guicheng_list_pizhun.jsp
+			</result>
+			<result name="findAllGongyiGuicheng_all_success">/System/gongyi/gongyi_guicheng_list_all.jsp
+			</result>
+			<result name="findAllGongyiGuicheng_kanban_success">/System/gongyi/gongyi_guicheng_list_kanban.jsp
+			</result>
+			<result name="getGongyiGuichengDetail_success">/System/gongyi/gongyi_guicheng_detail.jsp
+			</result>
+			<result name="getGongyiGuichengListForHistoryByParentId_success">
+				/System/gongyi/gongyi_guicheng_list_history.jsp</result>
+			<result name="gongyi_guicheng_submit">
+				/System/gongyi/gongyi_guicheng_submit.jsp</result>
+			<result name="bomReview">/System/gongyi/gongyi_guicheng_bomreview.jsp?rootId=${rootId}</result>
+			<result name="buildBom">/System/gongyi/gongyi_guicheng_buildBom.jsp?</result>
+			<result name="buildBOMList">/System/gongyi/gongyi_guicheng_list_buildBom.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+			<!-- 获取页面 -->
+			<!--工艺规程  -->
+			<result name="getGongyiGuiChengGygcPage_success">/System/gongyi/gongyi_guicheng_gygc.jsp
+			</result>
+			<!--工艺程序图表  -->
+			<result name="getGongyiGuiChengGycxtbPage_success">/System/gongyi/gongyi_guicheng_gycxtb.jsp
+			</result>
+			<!--工序图表栏目分区明细  -->
+			<result name="getGongyiGuiChengGxtblmfqmxPage_success">/System/gongyi/gongyi_guicheng_gxtblmfqmx.jsp
+			</result>
+			<!--工序说明栏区  -->
+			<result name="getGongyiGuiChengGxsmlqPage_success">/System/gongyi/gongyi_guicheng_gxsmlq.jsp
+			</result>
+			<!--工序说明栏区 a4 -->
+			<result name="getGongyiGuiChengGxsmlqa4Page_success">/System/gongyi/gongyi_guicheng_gxsmlqa4.jsp
+			</result>
+			<!--工序说明栏区 毛料 -->
+			<result name="getGongyiGuiChengGxsmlqMaoliaoPage_success">/System/gongyi/gongyi_guicheng_gxsmlq_maoliao.jsp
+			</result>
+			<!--工序说明栏区 焊接 -->
+			<result name="getGongyiGuiChengGxsmlqHanjiePage_success">/System/gongyi/gongyi_guicheng_gxsmlq_hanjie.jsp
+			</result>
+			<!--检验项目栏区  -->
+			<result name="getGongyiGuiChengJyxmlqPage_success">/System/gongyi/gongyi_guicheng_jyxmlq.jsp
+			</result>
+			<!-- 上传工艺规程附件页面 -->
+			<result name="getGongyiGuiChengUploadPage_success">/System/gongyi/gongyi_guicheng_upload.jsp
+			</result>
+			<result name="getGongyiGuiChengUploadPage_gygcsy_success">/System/gongyi/gongyi_guicheng_gygcsy_upload.jsp
+			</result>
+			<!-- 上传工艺规程附件页面成功 -->
+			<result name="uploadProcessDataAffix2_success">/System/gongyi/gongyi_guicheng_upload.jsp
+			</result>
+			<result name="uploadProcessDataAffix2_gygcsy_success">/System/gongyi/gongyi_guicheng_gygcsy_upload.jsp
+			</result>
+			<!-- 删除工艺规程附件页面成功 -->
+			<result name="deleteGongyiGuichengAffix_success">/System/gongyi/gongyi_guicheng_upload.jsp
+			</result>
+			<result name="deleteGongyiGuichengAffix_gygcsy_success">/System/gongyi/gongyi_guicheng_gygcsy_upload.jsp
+			</result>
+			<!-- 获取打印页面 -->
+			<!--工艺规程  -->
+			<result name="getGongyiGuiChengGygcPage_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_gygc_print.jsp
+			</result>
+			<!--工艺程序图表  -->
+			<result name="getGongyiGuiChengGycxtbPage_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_gycxtb_print.jsp
+			</result>
+			<!--工序图表栏目分区明细  -->
+			<result name="getGongyiGuiChengGxtblmfqmxPage_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_gxtblmfqmx_print.jsp
+			</result>
+			<!--工序说明栏区  -->
+			<result name="getGongyiGuiChengGxsmlqPage_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_gxsmlq_print.jsp
+			</result>
+			<!--工序说明栏区 a4 -->
+			<result name="getGongyiGuiChengGxsmlqa4Page_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_gxsmlqa4_print.jsp
+			</result>
+			<!--工序说明栏区 毛料 -->
+			<result name="getGongyiGuiChengGxsmlqMaoliaoPage_print_success">
+				/System/gongyi/gongyiprint/gongyi_guicheng_gxsmlq_maoliao_print.jsp
+			</result>
+			<!--工序说明栏区 焊接 -->
+			<result name="getGongyiGuiChengGxsmlqHanjiePage_print_success">
+				/System/gongyi/gongyiprint/gongyi_guicheng_gxsmlq_hanjie_print.jsp
+			</result>
+			<!--检验项目栏区  -->
+			<result name="getGongyiGuiChengJyxmlqPage_print_success">/System/gongyi/gongyiprint/gongyi_guicheng_jyxmlq_print.jsp
+			</result>
+
+
+			<!-- 工艺规程工序看板 -->
+			<result name="getGongyiGuichengKanbanPage_success">/System/gongyi/gongyi_guicheng_kanban.jsp
+			</result>
+			<result name="gongyi_guicheng_gycxtb2">/System/gongyi/gongyi_guicheng_gycxtb2.jsp
+			</result>
+			<result name="showTuzhi">/System/gongyi/showTuzhi.jsp</result>
+		</action>
+		<!-- 工序数据管理 -->
+		<!--<action name="processDataAction" class="processDataAction">
+			<result name="" type="redirect">gongyiGuichengAction!findProcessList.action?gongyiGuicheng.id=${processId.}
+			</result>
+			 工序数据 
+			<result name="getProcessDataDetailPage_success">/System/gongyi/gongxu/process_data_detail.jsp
+			</result>
+			<result name="getProcessDataAddPage_success">/System/gongyi/gongxu/process_data_add.jsp
+			</result>
+			<result name="updateProcessData_success" type="redirect">processDataAction!getProcessDataDetailPage.action?processData.gongyiGuichengId=${processData.gongyiGuichengId}&amp;processData.processId=${processData.processId}
+			</result>
+			 作业规范 
+			<result name="getOperationStandardAddPage_success">/System/gongyi/gongxu/operation_standard_add.jsp
+			</result>
+			<result name="addOperationStandard_success" type="redirect">processDataAction!findAllOperationStandardList.action?processData.id=${operationStandard.processDataId}
+			</result>
+			<result name="deleteOperationStandard_success" type="redirect">processDataAction!findAllOperationStandardList.action?processData.id=${operationStandard.processDataId}
+			</result>
+			<result name="getOperationStandardUpdatePage_success">/System/gongyi/gongxu/operation_standard_update.jsp
+			</result>
+			<result name="updateOperationStandard_success" type="redirect">processDataAction!findAllOperationStandardList.action?processData.id=${operationStandard.processDataId}
+			</result>
+			<result name="getOperationStandardById_success" type="redirect"></result>
+			<result name="findAllOperationStandardList_success">/System/gongyi/gongxu/operation_standard_list.jsp
+			</result>
+			 过程参数 
+			<result name="getProcessParamAddPage_success">/System/gongyi/gongxu/process_param_add.jsp
+			</result>
+			<result name="updateProcessParam_success" type="redirect">processDataAction!getProcessDataDetailPage.action?processData.gongyiGuichengId=${processData.gongyiGuichengId}&amp;processData.processId=${processData.processId}
+			</result>
+			 检测项目 
+			 作业规范 
+			<result name="getDetectionItemAddPage_success">/System/gongyi/gongxu/detection_item_add.jsp
+			</result>
+			<result name="addDetectionItem_success" type="redirect">processDataAction!findAllDetectionItemList.action?processData.id=${detectionItem.processDataId}
+			</result>
+			<result name="deleteDetectionItem_success" type="redirect">processDataAction!findAllDetectionItemList.action?processData.id=${detectionItem.processDataId}
+			</result>
+			<result name="getDetectionItemUpdatePage_success">/System/gongyi/gongxu/detection_item_update.jsp
+			</result>
+			<result name="updateDetectionItem_success" type="redirect">processDataAction!findAllDetectionItemList.action?processData.id=${detectionItem.processDataId}
+			</result>
+			<result name="getDetectionItemById_success" type="redirect"></result>
+			<result name="findAllDetectionItemList_success">/System/gongyi/gongxu/detection_item_list.jsp
+			</result>
+		</action>
+		--><!--工艺规程打分 -->
+		<action name="gongyiGuichengScoreAction" class="gongyiGuichengScoreAction">
+			<result name="getGongyiGuichengScorePage_success">/System/gongyi/gongyi_guicheng_marking.jsp
+			</result>
+			<result name="getGongyiGuiChengMarkingPage_success">/System/gongyi/gongyi_guicheng_marking.jsp
+			</result>
+			<!-- 打分类别管理 -->
+			<result name="getGongyiGuichengScoreLeibieAddPage_success">/System/gongyi/score/gongyiGuichengScoreLeibie_add.jsp
+			</result>
+			<result name="getGongyiGuichengScoreLeibieUpdatePage_success">/System/gongyi/score/gongyiGuichengScoreLeibie_update.jsp
+			</result>
+			<result name="addGongyiGuichengScoreLeibie_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreLeibieListAll.action
+			</result>
+			<result name="deleteGongyiGuichengScoreLeibie_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreLeibieListAll.action
+			</result>
+			<result name="updateGongyiGuichengScoreLeibie_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreLeibieListAll.action
+			</result>
+			<result name="getGongyiGuichengScoreLeibieListAll_success">/System/gongyi/score/gongyiGuichengScoreLeibie_list.jsp
+			</result>
+			<!-- 打分记录管理 -->
+			<result name="getGongyiGuichengScoreJiluAddPage_success">/System/gongyi/score/gongyiGuichengScoreJilu_add.jsp
+			</result>
+			<result name="getGongyiGuichengScoreJiluUpdatePage_success">/System/gongyi/score/gongyiGuichengScoreJilu_update.jsp
+			</result>
+			<result name="addGongyiGuichengScoreJilu_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreJiluListAll.action?gongyiGuichengScoreJilu.parentId=${gongyiGuichengScoreJilu.parentId}
+			</result>
+			<result name="deleteGongyiGuichengScoreJilu_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreJiluListAll.action?gongyiGuichengScoreJilu.parentId=${gongyiGuichengScoreJilu.parentId}
+			</result>
+			<result name="updateGongyiGuichengScoreJilu_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreJiluListAll.action?gongyiGuichengScoreJilu.parentId=${gongyiGuichengScoreJilu.parentId}
+			</result>
+			<result name="getGongyiGuichengScoreJiluListAll_success">/System/gongyi/score/gongyiGuichengScoreJilu_list.jsp
+			</result>
+			<!-- 打分选项管理 -->
+			<result name="getGongyiGuichengScoreXuanxiangAddPage_success">/System/gongyi/score/gongyiGuichengScoreXuanxiang_add.jsp
+			</result>
+			<result name="getGongyiGuichengScoreXuanxiangUpdatePage_success">/System/gongyi/score/gongyiGuichengScoreXuanxiang_update.jsp
+			</result>
+			<result name="addGongyiGuichengScoreXuanxiang_success" type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreXuanxiangListAll.action?gongyiGuichengScoreXuanxiang.parentId=${gongyiGuichengScoreXuanxiang.parentId}
+			</result>
+			<result name="deleteGongyiGuichengScoreXuanxiang_success"
+				type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreXuanxiangListAll.action?gongyiGuichengScoreXuanxiang.parentId=${gongyiGuichengScoreXuanxiang.parentId}
+			</result>
+			<result name="updateGongyiGuichengScoreXuanxiang_success"
+				type="redirect">gongyiGuichengScoreAction!getGongyiGuichengScoreXuanxiangListAll.action?gongyiGuichengScoreXuanxiang.parentId=${gongyiGuichengScoreXuanxiang.parentId}
+			</result>
+			<result name="getGongyiGuichengScoreXuanxiangListAll_success">/System/gongyi/score/gongyiGuichengScoreXuanxiang_list.jsp
+			</result>
+		</action>
+		<!-- 防护用品 -->
+		<action name="fanghuYongpinAction" class="fanghuYongpinAction">
+			<result name="addFanghuYongpin_success" type="redirect">fanghuYongpinAction!getFanghuYongpinLeibieList.action
+			</result>
+			<result name="deleteFanghuYongpin_success" type="redirect">fanghuYongpinAction!getFanghuYongpinLeibieList.action
+			</result>
+			<result name="updateFanghuYongpin_success" type="redirect">fanghuYongpinAction!getFanghuYongpinLeibieList.action
+			</result>
+			<result name="getFanghuYongpinAddPage_success">/System/SOP/fhyp/fanghuYongpin_add.jsp</result>
+			<result name="getUpdateFanghuYongpinPage_success">/System/SOP/fhyp/fanghuYongpin_update.jsp
+			</result>
+			<result name="getFanghuYongpinLeibieList_success">/System/SOP/fhyp/fanghuYongpin_list.jsp</result>
+			<!-- 防护用品规格 -->
+			<result name="getFanghuYongpinGuigeAddPage_success">/System/SOP/fhyp/fanghuYongpinGuige_add.jsp
+			</result>
+			<result name="getFanghuYongpinGuigeUpdatePage_success">/System/SOP/fhyp/fanghuYongpinGuige_update.jsp
+			</result>
+			<result name="deleteFanghuYongpinGuige_success" type="redirect">fanghuYongpinAction!getFanghuYongpinGuigeListByParentId.action?fanghuYongpin.parentId=${fanghuYongpin.parentId}
+			</result>
+			<result name="updateFanghuYongpinGuige_success" type="redirect">fanghuYongpinAction!getFanghuYongpinGuigeListByParentId.action?fanghuYongpin.parentId=${fanghuYongpin.parentId}
+			</result>
+			<result name="addFanghuYongpinGuige_success" type="redirect">fanghuYongpinAction!getFanghuYongpinGuigeListByParentId.action?fanghuYongpin.parentId=${fanghuYongpin.parentId}
+			</result>
+			<result name="getFanghuYongpinGuigeListByParentId_success">/System/SOP/fhyp/fanghuYongpinGuige_list.jsp
+			</result>
+
+			<result name="getFanghuYongpinQuanxianUserList_success">/System/SOP/fhyp/fanghuYongpinQuanxianUser_list.jsp
+			</result>
+		</action>
+	</package>
+</struts>

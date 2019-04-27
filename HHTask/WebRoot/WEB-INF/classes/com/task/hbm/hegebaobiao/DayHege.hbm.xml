@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.hegebaobiao.DayHege" table="ta_dayHege">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="gysid" />
+		<property name="gysname" />
+		<property name="day"></property>
+		<property name="bhgCount" />
+		<property name="shCount" />
+		<property name="qualifiedrate" />
+		<property name="piciCount" />
+		<property name="picihgCount" />
+		<property name="piciQualifiedrate" />
+		<property name="jiaofuCount" />
+		<property name="zhunshijiaofuCount" />
+		<property name="jiaofuhege" />
+		<property name="shijiyunsongCount" />
+		<property name="shenqinCount" />
+		<property name="quejianrate" />
+		<property name="checkNopass" />
+		<property name="noProduce" />
+	</class>
+</hibernate-mapping>

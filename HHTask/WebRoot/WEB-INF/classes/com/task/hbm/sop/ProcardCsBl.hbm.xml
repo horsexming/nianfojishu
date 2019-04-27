@@ -1,0 +1,45 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardCsBl" table="ta_ProcardCsBl">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="specification"/>
+		<property name="kgliao"/>
+		<property name="unit"/>
+		<property name="wgtype"/>
+		<property name="procardId"/>
+		<property name="blNum"/>
+		<property name="selfcard"/>
+		<property name="ywmarkId"/>
+		<property name="rootMarkId"/>
+		<property name="rootSelfCard"/>
+		<property name="orderNum"/>
+		<property name="epStatus"/>
+		<property name="epId"/>
+		<property name="addtime"/>
+		<property name="userCode"/>
+		<property name="userName"/>
+		<property name="rootId"/>
+		<property name="procardStyle"/>
+		<property name="hsprice"/>
+		<property name="bhsprice"/>
+		<property name="taxprice"/>
+		<property name="sumPrice"/>
+		<property name="banebenhao"/>
+		<property name="type"/>
+		<property name="processNos"/>
+		<property name="processNames"/>
+		<property name="wgplanId"/>
+		<property name="cgOrderNum"/>
+		<property name="remark"/>
+		<many-to-one name="csblOrder"  cascade="all" column="fk_csorderId"  class="ProcardCsBlOrder" 
+		 />
+		
+	</class>
+</hibernate-mapping>

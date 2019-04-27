@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="RunningWaterCard" table="ta_sop_runningWaterCard">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cardNum" type="java.lang.String">
+			<column name="card_cardNum" length="50" />
+		</property>
+		<property name="customer" type="java.lang.String">
+			<column name="card_customer" length="50" />
+		</property>
+		<property name="carStyle" type="java.lang.String">
+			<column name="card_carStyle" length="50" />
+		</property>
+		<property name="markId" type="java.lang.String">
+			<column name="card_markId" length="50" />
+		</property>
+		<property name="createCardTime" type="java.lang.String">
+			<column name="card_createCardTime" length="50" />
+		</property>
+		<property name="creator" type="java.lang.String">
+			<column name="card_creator" length="50" />
+		</property>
+		<property name="cardStatus" type="java.lang.String">
+			<column name="card_cardStatus" length="50" />
+		</property>
+		<property name="receiveStatus" type="java.lang.String">
+			<column name="card_receiveStatus" length="50" />
+		</property>
+		<property name="followCardId" type="java.lang.String">
+			<column name="card_followCardId" length="50" />
+		</property>
+		<property name="followTime" type="java.lang.String">
+			<column name="card_followTime" length="50" />
+		</property>
+		<property name="ownUsername" type="java.lang.String">
+			<column name="card_ownUsername" length="50" />
+		</property>
+		<property name="more" type="java.lang.String">
+			<column name="card_more" length="50" />
+		</property>
+		<property name="lastProcessTime" type="java.lang.String">
+			<column name="card_lastProcessTime" length="50" />
+		</property>
+		
+		<property name="rwStyle" />		
+		<property name="productStyle" />
+		<property name="partName" />
+		<property name="procardId" />
+	</class>
+</hibernate-mapping>

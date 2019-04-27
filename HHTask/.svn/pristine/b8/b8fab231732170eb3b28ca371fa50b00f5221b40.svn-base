@@ -1,0 +1,94 @@
+package com.task.entity.gongyi;
+
+import java.io.Serializable;
+
+/***
+ * 工艺规程（表名:ta_sop_gygc_affix）
+ * @author 陈曦
+ *
+ */
+public class GongyiGuichengAffix implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//命名id numb name date type status  remarks 是基本的 其他用
+	private Integer id;
+	private String url;
+	private String fileName;
+	private String affixType;//fujian shipin tupian
+	private String fileType;//文件后缀
+	private String weizhi;//工艺规程中的位置
+	private Integer gongyiGuichengId;
+	private Integer processDataId;
+	private String isGys;//是否为供应商(null或者no表示不是数字表示供应商id为表ZhUser的id)
+	/**获取客户端参数*/
+	private String params;
+	
+	public String getParams() {
+		if(params!=null){
+			return params.replace("\\t", "").replace("\\r","").replace("\\n","").replace("\\f","").replace("\\","");
+		}
+		return params;
+	}
+	public void setParams(String params) {
+		this.params = params;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public Integer getGongyiGuichengId() {
+		return gongyiGuichengId;
+	}
+	public void setGongyiGuichengId(Integer gongyiGuichengId) {
+		this.gongyiGuichengId = gongyiGuichengId;
+	}
+	public Integer getProcessDataId() {
+		return processDataId;
+	}
+	public void setProcessDataId(Integer processDataId) {
+		this.processDataId = processDataId;
+	}
+	public String getAffixType() {
+		return affixType;
+	}
+	public void setAffixType(String affixType) {
+		this.affixType = affixType;
+	}
+	
+	public String getWeizhi() {
+		return weizhi;
+	}
+	public void setWeizhi(String weizhi) {
+		this.weizhi = weizhi;
+	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+	public String getIsGys() {
+		return isGys;
+	}
+	public void setIsGys(String isGys) {
+		this.isGys = isGys;
+	}
+	
+	
+}

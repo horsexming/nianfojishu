@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi"><!--lc_ta_dimissionLog-->
+	<class name="DimissionNotice" table="ta_hr_lz_DimissionNotice">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="noticeNumber" />
+		<property name="chaosong" />
+		<property name="name" />
+		<property name="dept" />
+		<property name="code" />
+		<property name="lizhi" />
+		<property name="banli_time" />
+		<property name="zhixin_time" />
+		<property name="shebao_time" />
+		<property name="gongzijiesuan" />
+		<property name="banliren" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="dim_tongzhi_id" />
+	</class>
+</hibernate-mapping>

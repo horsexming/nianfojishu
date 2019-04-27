@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-tx" extends="struts-stack">
+	<!-- result name  和页面保持一致   action name 必须和类名保持一致 -->
+		<action name="customerClaimAction_*" class="customerClaimAction"
+			method="{1}">
+			<result name="customerClaim_toList" type="redirectAction">customerClaimAction_showList.action?tag=all</result>
+			<result name="customerClaim_show">/System/customerClaim/customerClaim_show.jsp</result>
+			<result name="customerClaim_toAnalysisList" type="redirectAction">customerClaimAction_showAnalysis.action?tag=all</result>
+			<result name="customerClaim_updateA">/System/customerClaim/customerClaim_detail.jsp</result>
+			<result name="customerClaim_showAnalysis">/System/customerClaim/customerClaim_showAnalysis.jsp</result>
+			<result name="customerClaim_updateAnalysis">/System/customerClaim/customerClaim_approval.jsp</result>
+			<result name="customerClaim_cdetail">/System/customerClaim/customerClaim_detail.jsp</result>
+			<result name="customerClaim_add">/System/customerClaim/customerClaim_add.jsp</result>
+			<result name="customerClaim_client_add">/System/customerClaim/customerClaim_client_add.jsp
+			</result>
+			<result name="customerClaim_update">/System/customerClaim/customerClaim_update.jsp
+			</result>
+			<result name="customerClaim_analysis">/System/customerClaim/customerClaim_analysis.jsp
+			</result>
+			<result name="customerClaim_improve">/System/customerClaim/customerClaim_improve.jsp
+			</result>
+			<result name="customerClaim_approval">/System/customerClaim/customerClaim_approval.jsp
+			</result>
+		</action>
+		<action name="codeTranslationAction_*" class="codeTranslationAction" method="{1}">
+			<result name="codeTranslation_List">/System/codetranslation/codetranslationList.jsp</result>
+			<result name="codeTranslation_add">/System/codetranslation/addCodeTranslation.jsp</result>
+			<result name="codeTranslation_toList" type="redirectAction">codeTranslationAction_findAll.action?tag=${tag}</result>
+			<result name="codeTranslation_sList">/System/systemsetup/systemSetupList.jsp</result>
+			<result name="codeTranslation_sadd">/System/systemsetup/addSystemSetup.jsp</result>
+			<result name="codeTranslation_toSysList" type="redirectAction">codeTranslationAction_findAll.action?tag=${tag}</result>
+			<result name="PanelSize_fenmodz">/System/yclandwgj/PanelSize_fenmodz.jsp</result>
+			<result name="PanelSize_updatefenmo">/System/yclandwgj/PanelSize_updatefenmo.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="systemFileAction_*" class="systemFileAction" method="{1}">
+			<result name="systemFile_List">/System/systemfile/systemFileList.jsp</result>
+			<result name="noSystemFileList">/System/systemfile/noSystemFileList.jsp</result>
+			<result name="systemFile_toList" type="redirectAction">systemFileAction_findAll.action?tag=${tag}</result>
+			<result name="systemFile_add">/System/systemfile/addSystemFile.jsp</result>
+			<result name="systemfileShow">/System/systemfile/systemfileShow.jsp</result>
+			<result name="sysFile_ListByshenpi">/System/systemfile/sysFile_ListByshenpi.jsp</result>
+			<result name="sysFile_ListBynoshenpi">/System/systemfile/sysFile_ListBynoshenpi.jsp</result>
+			<result name="Filetype_List">/System/systemfile/Filetype_List.jsp</result>
+			<result name="systemFile_addshenpi">/System/systemfile/systemFile_addforshenpi.jsp</result>
+			<result name="systemFile_forLook">/System/systemfile/systemFile_forLook.jsp</result>
+			<result name="fileType_update">/System/systemfile/fileType_update.jsp</result>
+			<result name="systemFile_search">/System/systemfile/systemFile_search.jsp</result>
+			<result name="systemFile_detail">/System/systemfile/systemFile_detail.jsp</result>
+			<result name="systemFile_shengban">/System/systemfile/systemFile_shengban.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="SetupCheckAction_*" class="setupCheckAction" method="{1}">
+			<result name="setupCheck_add">/System/setupCheck/addSetupCheck.jsp</result>
+			<result name="setupCheck_List">/System/setupCheck/setupCheckList.jsp</result>
+			<result name="setupCheck_toList" type="redirectAction">SetupCheckAction_findAll.action</result>
+			<result name="setupCheck_addW">/System/setupCheck/addSetupCheckFile.jsp</result>
+			<result name="setupCheck_toShow">/System/setupCheck/setupCheckShow.jsp</result>
+			<result name="setupCheck_selfList">/System/setupCheck/selfList.jsp</result>
+			<result name="setupCheck_noSelfList">/System/setupCheck/noSelfList.jsp</result>
+			<result name="setupCheck_toFile">/System/setupCheck/uploadSetup.jsp</result>
+			<result name="setupCheck_tosList" type="redirectAction">SetupCheckAction_findAllByName.action</result>
+			<result name="setupCheck_zhuizong">/System/setupCheck/setupCheck_zhuizong.jsp</result>
+			<result name="trackRecord_add">/System/setupCheck/trackRecord_add.jsp</result>
+			<result name="trackRecord_List">/System/setupCheck/trackRecord_List.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="checkTypeAction_*" class="checkTypeAction" method="{1}">
+			<result name="checkType_toList" type="redirectAction">checkTypeAction_findAll.action</result>
+			<result name="checkType_List">/System/checktype/checkTypeList.jsp</result>
+			<result name="checkType_add">/System/checktype/addCheckType.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="CheckNoteAction_*" class="checkNoteAction" method="{1}">
+			<result name="checkNote_toList" type="redirectAction">CheckNoteAction_findAll.action</result>
+			<result name="checkNoteList">/System/checktype/checkNoteList.jsp</result>
+			<result name="checkNoteOne">/System/checktype/checkNoteOne.jsp</result>
+			<result name="checkNoteListBysys">/System/checktype/checkNoteListBysys.jsp</result>
+			<result name="checkNotequeren">/System/checktype/checkNotequeren.jsp</result>
+			<result name="bindDept">/System/checktype/bindDept.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="shuaxinCheckNote">/System/checktype/shuaxinCheckNote.jsp</result>
+		</action>
+		<action name="QuestionAction_*" class="questionAction" method="{1}">
+			<result name="question_toList" type="redirectAction">QuestionAction_findAll.action</result>
+			<result name="questionList">/System/question/questionList.jsp</result>
+			<result name="answerList">/System/question/answerList.jsp</result>
+			<result name="addAnswer">/System/question/addAnswer.jsp</result>
+			<result name="questionDetail">/System/question/questionDetail.jsp</result>
+			<result name="answerDetail">/System/question/answerDetail.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="CompetenceTypeAction_*" class="competenceTypeAction" method="{1}">
+			<result name="competenceType_List">/System/competencetype/competenceType_List.jsp</result>
+			<result name="competenceType_add">/System/competencetype/competenceType_add.jsp</result>
+			<result name="competenceType_toList" type="redirectAction">CompetenceTypeAction_findAll.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="ZhuserOfferAction_*" class="zhuserOfferAction" method="{1}">
+			<result name="findByZhUser" type="redirectAction">ZhuserOfferAction_findListByZhUser.action</result>
+			<result name="findByZhStatus" type="redirectAction">ZhuserOfferAction_findListByStatus.action</result>
+			<result name="findSampleByCaigou" type="redirectAction">ZhuserOfferAction_findSampleByCaigou.action?status=${status}</result>
+			<result name="findQueRenListByZhUser" type="redirectAction">ZhuserOfferAction_findQueRenListByZhUser.action</result>
+			<result name="findOfferById_Detail">/System/zhuseroffer/findOfferById_Detail.jsp</result>
+			<result name="findDaiDaYangByZhuers_List">/System/zhuseroffer/findDaiDaYangByZhuers_List.jsp</result>
+			<result name="daYang_Detail">/System/zhuseroffer/daYang_Detail.jsp</result>
+			<result name="findByZhUser_List">/System/zhuseroffer/findByZhUser_List.jsp</result>
+			<result name="findQueRenByYw_List">/System/zhuseroffer/findQueRenByYw_List.jsp</result>
+			<result name="findAllSampleByZhuser">/System/zhuseroffer/findAllSampleByZhuser.jsp</result>
+			<result name="findAllSample_List">/System/zhuseroffer/findAllSample_List.jsp</result>
+			<result name="findSample_Detail">/System/zhuseroffer/findSample_Detail.jsp</result>
+			<result name="yuanCailiao_all">/System/zhuseroffer/yuanCailiao_all.jsp</result>
+			<result name="dayang_process">/System/noPriceprocess/dayang_process.jsp</result>
+			<result name="yangpin_detail">/System/noPriceprocess/yangpin_detail.jsp</result>
+			<result name="zhuserOffer_detail">/System/zhuseroffer/zhuserOffer_detail.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+<!--		<action name="SpotQuestionAction_*" class="spotQuestionAction" method="{1}">-->
+<!--			<result name="showSpotQuestion" type="redirectAction">SpotQuestionAction_showSpotQuestion.action</result>-->
+<!--			<result name="showProcard" type="redirectAction">SpotQuestionAction_showProcard.action</result>-->
+<!--			<result name="spotQuestion_allProcard">/System/spotquestion/spotQuestion_allProcard.jsp</result>-->
+<!--			<result name="error">/error.jsp</result>-->
+<!--		</action>-->
+		
+		<action name="NoPriceprocessAction_*" class="noPriceprocessAction" method="{1}">
+			<result name="noPriceprocess_all">/System/noPriceprocess/noPriceprocess_all.jsp</result>
+			<result name="noPriceprocess_queren">/System/noPriceprocess/noPriceprocess_queren.jsp</result>
+			<result name="zhuser_all">/System/noPriceprocess/zhuser_all.jsp</result>
+			<result name="zhuserOfferAll_forZhuser">/System/noPriceprocess/zhuserOfferAll_forZhuser.jsp</result>
+			<result name="baojiao_add">/System/noPriceprocess/baojiao_add.jsp</result>
+			<result name="price_queren">/System/noPriceprocess/price_queren.jsp</result>
+			<result name="yangpin_queren">/System/noPriceprocess/yangpin_queren.jsp</result>
+			<result name="noPriceprocess_yangpin">/System/noPriceprocess/noPriceprocess_yangpin.jsp</result>
+			<result name="noPriceprocess_luru">/System/noPriceprocess/noPriceprocess_luru.jsp</result>
+			<result name="process_line">/System/noPriceprocess/process_line.jsp</result>
+			<result name="noPriceprocess_status">/System/noPriceprocess/noPriceprocess_status.jsp</result>
+			<result name="price_allZhUsers">/System/noPriceprocess/price_allZhUsers.jsp</result>
+			<result name="sumProcess_all">/System/noPriceprocess/sumProcess_all.jsp</result>
+			<result name="sumProcess_line">/System/noPriceprocess/sumProcess_line.jsp</result>
+			<result name="allZhuser_forMarkId">/System/noPriceprocess/allZhuser_forMarkId.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

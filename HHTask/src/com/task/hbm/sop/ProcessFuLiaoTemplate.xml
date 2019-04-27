@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessFuLiaoTemplate" table="ta_sop_w_ProcessFuLiaoTemplate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="quanzhi1" />
+		<property name="quanzhi2" />
+		<property name="name" />
+		<property name="type" />
+		<property name="specification" />
+		<property name="unit" />
+		
+		
+		<!-- 【辅料模板对工序模板(多对一)】 -->
+		<many-to-one name="processTemplate" lazy="false" class="ProcessTemplate"
+			cascade="save-update" column="fk_processId" />
+
+	</class>
+</hibernate-mapping>

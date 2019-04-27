@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectStartSchedule" table="ta_ProjectStart_Schedule">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" length="50" />
+		<property name="startDate" length="30" />
+		<property name="endDate" length="30" />
+		<property name="description" length="250" />
+		<many-to-one name="root" column="pid" lazy="false"/>
+	</class>
+
+</hibernate-mapping>

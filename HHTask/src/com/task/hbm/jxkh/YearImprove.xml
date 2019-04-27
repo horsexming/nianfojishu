@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="YearImprove" table="ta_YearImprove">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		 <property name="dept"/>
+		 <property name="name"/>
+		 <property name="post"/>
+		 <property name="improveInfor"/>
+		 <property name="ndxs"/>
+		 <property name="jyx"/>
+		 <property name="tzd"/>
+		 <property name="months"/>
+		 <property name="addTime"/>
+		 <property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

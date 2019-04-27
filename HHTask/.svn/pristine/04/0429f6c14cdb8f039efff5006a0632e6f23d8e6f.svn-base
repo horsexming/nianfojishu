@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gzbj.Gzstore" table="Gzstore">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fk_stoid" />
+<!--		<property name="fk_progzid" />-->
+		<property name="number" />
+		<property name="matetag" />
+		<property name="total" />
+		<property name="unit" />
+
+<!--		<property name="format" />-->
+		<property name="storehouse" />
+		<property name="mix" />
+		<property name="parClass" />
+		<property name="place" />
+
+		<property name="period" />
+		<property name="startDate" />
+		<property name="curAmount" />
+		<property name="maxBorrowNum" />
+		<property name="more" />
+
+		<property name="more1" />
+		<property name="price" />
+		<property name="carePeriod" />
+		<property name="curworkAmount" />
+		<property name="lastCareDate" />
+		<property name="serverCardId" />
+		<property name="carModel" />
+		<property name="duizhang" />
+		<property name="minStore" />
+		<property name="appDept" />
+		<property name="totMoney" />
+		<property name="classify" />
+		<property name="xingbie"/>
+		<property name="bjcs"/>
+		<property name="sumshuliang"/>
+		<property name="status"/>
+		<property name="sybjcs"/>
+		<property name="fileName"/>
+
+		<!-- name：本XML文件中对应Bean定义对方的一个SET集合属性 -->
+		<!-- table: 指向数据库中的中间表的表名 -->
+		<set name="gzstores" table="ta_many" inverse="false" cascade="all"
+			lazy="true">
+			<!-- column：指向本XML对应中间表的外键字段（外键字段是中间表中的字段） -->
+			<key column="gzbj_id"></key>
+			<!-- class：指向对方bean的完整路径 -->
+			<!-- column：指向中间表中，对方的外键字段 -->
+			<many-to-many class="com.task.entity.gzbj.ProcessGzstore"
+				column="process_id">
+			</many-to-many>
+		</set>
+		<set name="checkrecordSet" lazy="false" cascade="all" inverse="false">
+        	<key column="fk_gzId"></key>
+        	<one-to-many class="com.task.entity.gzbj.Checkrecord"/>
+        </set>
+	</class>
+</hibernate-mapping>

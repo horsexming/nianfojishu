@@ -1,0 +1,42 @@
+package com.task.entity.supplier;
+
+import java.io.Serializable;
+
+/*
+    * @author fy
+　　* @date 2018/9/4 10:25
+　　* @Description: 供应商考核评分等级
+　　* @param
+　　* @return
+　　* @throws
+　　*/
+public class SupplierEvaluateLevel implements Serializable {
+	private static final long serialVersionUID = 1L;
+    private Integer id;
+    private Float levelScore;
+    private String levelName;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Float getLevelScore() {
+        return levelScore;
+    }
+
+    public void setLevelScore(Float levelScore) {
+        this.levelScore = levelScore;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
+}

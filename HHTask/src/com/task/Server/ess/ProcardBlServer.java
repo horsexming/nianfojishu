@@ -1,0 +1,222 @@
+package com.task.Server.ess;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.action.ess.GoodsAction;
+import com.task.entity.Goods;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.ProcardWxTuiLiao;
+
+public interface ProcardBlServer {
+	/**
+	 * 通过条件获取生产备料信息
+	 * 
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findProcardBlbyCondition(Procard procard, int parseInt,
+			int pageSize);
+
+	/**
+	 * 获取需领料的BOM
+	 * 
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findRootProcardBlbyCondition(Procard procard, int parseInt,
+			int pageSize, String pagestatus);
+
+	/**
+	 * 通过rootId获取其下待领料数据
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findProcardllDetailbyRootId(Integer id, Integer blRootid);
+
+	/**
+	 * 通过rootId获取其下备料数据
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findProcardBlDetailbyRootId(Integer id);
+
+	/**
+	 * 获取备货要领料
+	 * 
+	 * @param checkboxs
+	 * @param peiqiCount
+	 * @param goods
+	 * @return
+	 */
+	Map<Integer, Object> findProcardForbllingliao(int[] checkboxs,
+			float[] peiqiCount, Goods goods,String cardId);
+
+	/**
+	 * 获取备货要领料
+	 * 
+	 * @param checkboxs
+	 * @param peiqiCount
+	 * @return
+	 */
+	Map<Integer, Object> findProcardForbeiliao(int[] checkboxs,
+			float[] peiqiCount);
+
+	/**
+	 * 给选中的物料出库
+	 * 
+	 * @param checkboxs
+	 *            前一步选中的要领料的零件id
+	 * @param peiqiCount
+	 *            前一步选中的要领的零件的配齐数
+	 * @param goodsList
+	 *            删选出来的库存物料
+	 * @param selected
+	 *            被选中的库存物料
+	 * @param cardId
+	 *            领料人卡号
+	 * @return
+	 */
+	String outblDetail(int[] checkboxs, float[] peiqiCount,
+			List<Goods> goodsList, int[] selected, String cardId,String password,Integer procardBlRootId);
+
+	/**
+	 * 根据Id获取库存用于领料出库
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findGoodstoProductlingliao(Integer id);
+
+	Object[] findLackGoods(Goods goods, String startDate, String endDate,
+			Integer cpage, Integer pageSize, String role, String pagestatus,
+			Integer goodsAge);
+
+	/**
+	 * 通过rootId获取其下可退料数据
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object[] findProcardTlDetailbyRootId(Integer id);
+
+	/**
+	 * 生产领料申请退料
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	String addApplicationTuiliao(Procard procard);
+	/**
+	 * 生产领料申请退料(对选)
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	String addApplicationTuiliao(Integer[] procardId,Float[] stuiLiaoNumber);
+	/**
+	 *
+	 * 生产领料申请退料(对选)选择批次，供应商
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	String addApplicationTuiliao(List<Procard> procardList);
+
+	/****
+	 * 通过ProcardId 查找备料信息
+	 * 
+	 * @param procardId
+	 * @return
+	 */
+	List findProcardBlByPId(Integer procardId);
+
+	/****
+	 * 创建/调整 备料排产计划
+	 * 
+	 * @param procard
+	 * @return
+	 */
+	String creatBlPlan(Procard procard);
+	
+
+	/**
+	 * 未审批退料申请
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @param tag
+	 * @return
+	 */
+	Object[] findAllTuiLiao(Procard procard, int parseInt, int pageSize,
+			String tag,String starttime,String endtime);
+
+	/**
+	 * 批量处理退料信息
+	 * @param ids
+	 * @param tag
+	 * @return
+	 */
+	String auditTuiliao(Integer[] ids, String tag);
+
+	/**
+	 * 批量处理外协退料信息
+	 * @param ids
+	 * @param tag
+	 * @return
+	 */
+	String auditWxTuiliao(Integer[] ids, String tag);
+	
+	/**
+	 * 未审批退料申请
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @param tag
+	 * @return
+	 */
+	Object[] findAllWxTuiliao(ProcardWxTuiLiao wxtl, int parseInt, int pageSize,
+			String tag);
+
+	void tuihuiWaiweiLingliao();
+
+	/**
+	 * 外购退料确认(仓管)
+	 * @param id
+	 * @return
+	 */
+	String waigouTuiliaoQueren(Integer[] id);
+
+	/**
+	 * 查询待退料数据
+	 * @param procard
+	 * @param parseInt
+	 * @param pageSize
+	 * @param pagestatus
+	 * @return
+	 */
+	Object[] findAllDaiTuiliao(Procard procard, int parseInt, int pageSize,
+			String pagestatus,String starttime,String endtime);
+	/***
+	 * 单件领料模式--新
+	 * @param checkboxs
+	 * @param peiqiCount
+	 * @param goodsList
+	 * @param selected
+	 * @param cardId
+	 * @param password
+	 * @param procardBlRootId
+	 * @return
+	 */
+	String updateblDetailNew(int[] checkboxs, float[] peiqiCount,
+			List<Goods> goodsList, int[] selected, String cardId,
+			String password, Integer procardBlRootId);
+	
+
+}

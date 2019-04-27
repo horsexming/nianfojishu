@@ -1,0 +1,210 @@
+package com.task.entity;
+
+import java.util.Date;
+
+/**
+ * @author 曾建森
+ * @FileNam Consume.java
+ * @Date 2012-10-9
+ */
+public class Consume {
+	
+	private int id;
+	
+	private int personId;
+	
+	private String systemNo;
+	
+	private int consumeMode;
+	
+	private Date consumeTime;
+	
+	private float consumeFund;
+	
+	private float beforeFund;
+	
+	private int consumeCopy;
+	
+	private float consumeTimeLen;
+	
+	private float ConsumeCapacity;
+	
+	private String repastNo;
+	
+	private int wareID;
+	
+	private String mocNo;
+	
+	private float cardBalance;
+	
+	private float dbBalance;
+	
+	private float cardSmallAccount;
+	
+	private int dataType;
+
+	public Consume() {
+		super();
+	}
+
+	public Consume(int personId, String systemNo, int consumeMode,
+			Date consumeTime, float consumeFund, float beforeFund,
+			int consumeCopy, float consumeTimeLen, float consumeCapacity,
+			String repastNo, int wareID, String mocNo, float cardBalance,
+			float dbBalance, float cardSmallAccount, int dataType) {
+		super();
+		this.personId = personId;
+		this.systemNo = systemNo;
+		this.consumeMode = consumeMode;
+		this.consumeTime = consumeTime;
+		this.consumeFund = consumeFund;
+		this.beforeFund = beforeFund;
+		this.consumeCopy = consumeCopy;
+		this.consumeTimeLen = consumeTimeLen;
+		ConsumeCapacity = consumeCapacity;
+		this.repastNo = repastNo;
+		this.wareID = wareID;
+		this.mocNo = mocNo;
+		this.cardBalance = cardBalance;
+		this.dbBalance = dbBalance;
+		this.cardSmallAccount = cardSmallAccount;
+		this.dataType = dataType;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getSystemNo() {
+		return systemNo;
+	}
+
+	public void setSystemNo(String systemNo) {
+		this.systemNo = systemNo;
+	}
+
+	public int getConsumeMode() {
+		return consumeMode;
+	}
+
+	public void setConsumeMode(int consumeMode) {
+		this.consumeMode = consumeMode;
+	}
+
+	public Date getConsumeTime() {
+		return consumeTime;
+	}
+
+	public void setConsumeTime(Date consumeTime) {
+		this.consumeTime = consumeTime;
+	}
+
+	public float getConsumeFund() {
+		return consumeFund;
+	}
+
+	public void setConsumeFund(float consumeFund) {
+		this.consumeFund = consumeFund;
+	}
+
+	public float getBeforeFund() {
+		return beforeFund;
+	}
+
+	public void setBeforeFund(float beforeFund) {
+		this.beforeFund = beforeFund;
+	}
+
+	public int getConsumeCopy() {
+		return consumeCopy;
+	}
+
+	public void setConsumeCopy(int consumeCopy) {
+		this.consumeCopy = consumeCopy;
+	}
+
+	public float getConsumeTimeLen() {
+		return consumeTimeLen;
+	}
+
+	public void setConsumeTimeLen(float consumeTimeLen) {
+		this.consumeTimeLen = consumeTimeLen;
+	}
+
+	public float getConsumeCapacity() {
+		return ConsumeCapacity;
+	}
+
+	public void setConsumeCapacity(float consumeCapacity) {
+		ConsumeCapacity = consumeCapacity;
+	}
+
+	public String getRepastNo() {
+		return repastNo;
+	}
+
+	public void setRepastNo(String repastNo) {
+		this.repastNo = repastNo;
+	}
+
+	public int getWareID() {
+		return wareID;
+	}
+
+	public void setWareID(int wareID) {
+		this.wareID = wareID;
+	}
+
+	public String getMocNo() {
+		return mocNo;
+	}
+
+	public void setMocNo(String mocNo) {
+		this.mocNo = mocNo;
+	}
+
+	public float getCardBalance() {
+		return cardBalance;
+	}
+
+	public void setCardBalance(float cardBalance) {
+		this.cardBalance = cardBalance;
+	}
+
+	public float getDbBalance() {
+		return dbBalance;
+	}
+
+	public void setDbBalance(float dbBalance) {
+		this.dbBalance = dbBalance;
+	}
+
+	public float getCardSmallAccount() {
+		return cardSmallAccount;
+	}
+
+	public void setCardSmallAccount(float cardSmallAccount) {
+		this.cardSmallAccount = cardSmallAccount;
+	}
+
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
+	public int getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+
+}

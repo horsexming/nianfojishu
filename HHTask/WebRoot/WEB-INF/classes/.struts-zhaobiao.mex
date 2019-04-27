@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-zhaobiao" location="10,10" size="280,140">
+    <action name="zhaobiaoAction" location="65,57" size="150,41">
+      <result name="listAll">
+        <resourceEdge source="listAll" routing="0" target="list.jsp" />
+      </result>
+      <result name="toaddUser">
+        <resourceEdge source="toaddUser" routing="0" target="addUser.jsp" />
+      </result>
+      <result name="listByIdZhUser">
+        <resourceEdge source="listByIdZhUser" routing="0" target="listbyid.jsp" />
+      </result>
+      <result name="addUser" />
+      <result name="deletezhUser" />
+      <result name="toUpdatezhUser">
+        <resourceEdge source="toUpdatezhUser" routing="0" target="toUpdatezhUser.jsp" />
+      </result>
+      <result name="updatezhUser" />
+      <result name="laheizhUser" />
+      <result name="listZhmoban">
+        <resourceEdge source="listZhmoban" routing="0" target="listZhmoban.jsp" />
+      </result>
+      <result name="addmoban" />
+      <result name="deleteMoban" />
+      <result name="toUpdateMoban">
+        <resourceEdge source="toUpdateMoban" routing="0" target="Zhmoban_update.jsp" />
+      </result>
+      <result name="updatezhmoban" />
+      <result name="listzhaobiao">
+        <resourceEdge source="listzhaobiao" routing="0" target="listzhaobiao.jsp" />
+      </result>
+      <result name="toaddzhaobiao">
+        <resourceEdge source="toaddzhaobiao" routing="0" target="addzhaobiao.jsp" />
+      </result>
+      <result name="addzhaobiao">
+        <resourceEdge source="addzhaobiao" routing="0" target="addzhaobiao.jsp" />
+      </result>
+      <result name="deletezhaobiao" />
+      <result name="listById">
+        <resourceEdge source="listById" routing="0" target="addZhaobiaoXi.jsp" />
+      </result>
+      <result name="addxi" />
+      <result name="listshenhe">
+        <resourceEdge source="listshenhe" routing="0" target="listshenhe.jsp" />
+      </result>
+      <result name="shenhe">
+        <resourceEdge source="shenhe" routing="0" target="shenhe.jsp" />
+      </result>
+      <result name="addshenhe" />
+      <result name="listUserZhaobiao">
+        <resourceEdge source="listUserZhaobiao" routing="0" target="listyonghu.jsp" />
+      </result>
+      <result name="listtoubiao">
+        <resourceEdge source="listtoubiao" routing="0" target="listtoubiao.jsp" />
+      </result>
+      <result name="qutoubiao">
+        <resourceEdge source="qutoubiao" routing="0" target="qutoubiao.jsp" />
+      </result>
+      <result name="listzhongbiao">
+        <resourceEdge source="listzhongbiao" routing="0" target="zhongbiao.jsp" />
+      </result>
+      <result name="addtoubiao" />
+      <result name="fabu" />
+      <result name="jieshu" />
+      <result name="qupingxuan">
+        <resourceEdge source="qupingxuan" routing="0" target="qupingxuan.jsp" />
+      </result>
+      <result name="qupingxuanToubiao">
+        <resourceEdge source="qupingxuanToubiao" routing="0" target="qupingxuanToubiao.jsp" />
+      </result>
+      <result name="pingxuanzhongbiao" />
+      <result name="toupdatetoubiao">
+        <resourceEdge source="toupdatetoubiao" routing="0" target="toupdatetoubiao.jsp" />
+      </result>
+      <result name="updatetoubiao" />
+      <result name="pingxuan" />
+      <result name="listzidong">
+        <resourceEdge source="listzidong" routing="0" target="listzidong.jsp" />
+      </result>
+      <result name="listzidongXi">
+        <resourceEdge source="listzidongXi" routing="0" target="listzidongXi.jsp" />
+      </result>
+      <result name="listzidongpingxuanToubiao">
+        <resourceEdge source="listzidongpingxuanToubiao" routing="0" target="listzidongpingxuanToubiao.jsp" />
+      </result>
+      <result name="chakantoubiao">
+        <resourceEdge source="chakantoubiao" routing="0" target="chakantoubiao.jsp" />
+      </result>
+      <result name="chakanflowdetail">
+        <resourceEdge source="chakanflowdetail" routing="0" target="chakanflowdetail.jsp" />
+      </result>
+      <result name="xianshizhaoshangyonghu">
+        <resourceEdge source="xianshizhaoshangyonghu" routing="0" target="fabu.jsp" />
+      </result>
+      <result name="chongxin" />
+      <result name="mingxi">
+        <resourceEdge source="mingxi" routing="0" target="mingxi.jsp" />
+      </result>
+      <result name="tochakanhetong">
+        <resourceEdge source="tochakanhetong" routing="0" target="chakanhetong.jsp" />
+      </result>
+      <result name="jieshu" />
+      <result name="shenhezhaobiao" />
+      <result name="tijiaohetong" />
+      <result name="tijiaohetong" />
+      <result name="shengchenhetong">
+        <resourceEdge source="shengchenhetong" routing="0" target="hetong.jsp" />
+      </result>
+      <result name="tohuikuang" />
+      <result name="listcaiwu">
+        <resourceEdge source="listcaiwu" routing="0" target="listcaiwu.jsp" />
+      </result>
+      <result name="listcaiwutotoubiao">
+        <resourceEdge source="listcaiwutotoubiao" routing="0" target="listcaiwuXi.jsp" />
+      </result>
+      <result name="quedinghuikuang" />
+      <result name="dayinzhongbiaoxinxi">
+        <resourceEdge source="dayinzhongbiaoxinxi" routing="0" target="dayin.jsp" />
+      </result>
+      <result name="huikuangfangshi">
+        <resourceEdge source="huikuangfangshi" routing="0" target="fangshi.jsp" />
+      </result>
+      <result name="tofangshi">
+        <resourceEdge source="tofangshi" routing="0" target="tofangshi.jsp" />
+      </result>
+      <result name="fangshi" />
+      <result name="toxuanzhe">
+        <resourceEdge source="toxuanzhe" routing="0" target="toxuanzhe.jsp" />
+      </result>
+      <result name="chakanjine">
+        <resourceEdge source="chakanjine" routing="0" target="chakanjine.jsp" />
+      </result>
+      <result name="listhuikuanfangshi">
+        <resourceEdge source="listhuikuanfangshi" routing="0" target="listhuikuanfangshi.jsp" />
+      </result>
+      <result name="addhuikuan" />
+      <result name="toUpdatehuikuang">
+        <resourceEdge source="toUpdatehuikuang" routing="0" target="toUpdatehuikuang.jsp" />
+      </result>
+      <result name="Updatehuikuang" />
+      <result name="deletehuikuang" />
+      <result name="chankantoubiaoXi">
+        <resourceEdge source="chankantoubiaoXi" routing="0" target="chankantoubiaoXi.jsp" />
+      </result>
+      <result name="chakantoubiaojilu">
+        <resourceEdge source="chakantoubiaojilu" routing="0" target="chakantoubiaojilu.jsp" />
+      </result>
+      <result name="chankanshenpijilu">
+        <resourceEdge source="chankanshenpijilu" routing="0" target="chankanshenpijilu.jsp" />
+      </result>
+      <result name="listgongxu">
+        <resourceEdge source="listgongxu" routing="0" target="listgongxu.jsp" />
+      </result>
+      <result name="addZhgongxu" />
+      <result name="toUpdatezhgongxu">
+        <resourceEdge source="toUpdatezhgongxu" routing="0" target="Updatezhgongxu.jsp" />
+      </result>
+      <result name="Updatezhgongxu" />
+      <result name="deletezhgongxu" />
+      <result name="toUpdatezhaobiao">
+        <resourceEdge source="toUpdatezhaobiao" routing="0" target="toUpdatezhaobiao.jsp" />
+      </result>
+      <result name="updatezhaobiao">
+        <resourceEdge source="updatezhaobiao" routing="0" target="toUpdatezhaobiao.jsp" />
+      </result>
+      <result name="hesuanzhaobiao">
+        <resourceEdge source="hesuanzhaobiao" routing="0" target="zhaobiao_list_hesuan.jsp" />
+      </result>
+      <result name="zhaobiaoXilist">
+        <resourceEdge source="zhaobiaoXilist" routing="0" target="zhaobiaoXi_list_hesuan.jsp" />
+      </result>
+      <result name="zhtoubiaolist">
+        <resourceEdge source="zhtoubiaolist" routing="0" target="zhtoubiao_list_hesuan.jsp" />
+      </result>
+      <result name="hesuan">
+        <resourceEdge source="hesuan" routing="0" target="hesuan.jsp" />
+      </result>
+      <result name="hesuanjiage" />
+      <result name="updatezhaobiaoXi" />
+      <result name="updatezhaobiaoXijuti" />
+      <result name="updatezhaobiaoXidahui" />
+      <result name="addzhaobiaoXidahui" />
+      <result name="addzhaobiaoXidahuito" />
+      <result name="listlilv" />
+      <result name="zhaobiaoXilistlilv" />
+      <result name="lilv" />
+      <result name="updatezhaobiaoXililv" />
+      <result name="addnianlilv" />
+      <result name="pingbiao" />
+      <result name="listzhongbiaoUsers" />
+      <result name="zhtoubiao_gyschankan" />
+      <result name="ruku" />
+      <result name="listProcardTemplate" />
+      <result name="listbandingjianhao" />
+      <result name="listtianxiejiepai" />
+      <result name="tojiepai" />
+      <result name="buchongjiepai" />
+      <result name="chakan" />
+    </action>
+    <action name="queXianAction" location="0,0" size="0,0">
+      <result name="listQueXian" />
+      <result name="addqueXian" />
+      <result name="deletequeXian" />
+      <result name="toUpdatequeXian" />
+      <result name="UpdatequeXian" />
+      <result name="listqueXianZong" />
+      <result name="deletequeXianguanliyuan" />
+      <result name="toUpdatequeXianguanliyuan" />
+      <result name="UpdatequeXianguanliyuan" />
+    </action>
+    <action name="caoZuoAction" location="0,0" size="0,0">
+      <result name="listCaoZuo" />
+      <result name="addshebei" />
+      <result name="tozhCaozuoDengji" />
+      <result name="addzhCaozuoDengji" />
+      <result name="tozhCaozuoEmp" />
+      <result name="addzhCaozuoEmp" />
+      <result name="toupdatezhShebei" />
+      <result name="updateshebei" />
+      <result name="deletezhShebei" />
+      <result name="deletezhCaozuoDengji" />
+      <result name="deletezhCaozuoEmp" />
+      <result name="listCaoZuoHuiZong" />
+      <result name="addshebeiEmp" />
+      <result name="deletezhShebeiEmp" />
+      <result name="listUsers" />
+      <result name="chongzhi" />
+      <result name="listBaofei" />
+      <result name="addbaofei" />
+      <result name="toUpdatbaofei" />
+    </action>
+    <action name="nianXiuAction" location="0,0" size="0,0">
+      <result name="listnianxiu" />
+      <result name="listKaoQin" />
+      <result name="mingxi" />
+    </action>
+    <action name="DingdanAction" location="0,0" size="0,0">
+      <result name="listOrderManager" />
+      <result name="printStorage" />
+      <result name="batchConversion" />
+      <result name="listInternalOrderzhaobiao" />
+      <result name="listInternalOrderDetail" />
+      <result name="listInternalOrderzhaobiao_InternalOrderDetail" />
+      <result name="listInternalOrderDetail_hedui" />
+      <result name="listjihuadan" />
+      <result name="addJihuadan" />
+      <result name="listjihua" />
+      <result name="xuanzhejihua" />
+      <result name="xuanzhejihua" />
+      <result name="addcaigouxiangxiangxin" />
+      <result name="caigou" />
+      <result name="showcaigou" />
+      <result name="ruku" />
+      <result name="torukudan" />
+      <result name="addRukudancaigou" />
+      <result name="listRukudan" />
+      <result name="rukuchaxun" />
+      <result name="torukudanchaxun" />
+      <result name="zhijian" />
+      <result name="updateRukudanpinzhi" />
+      <result name="toruku" />
+      <result name="quruku" />
+      <result name="listRukudanwuliu" />
+      <result name="listLoginUsers" />
+      <result name="listUserstatus" />
+    </action>
+    <action name="markIdAction" location="0,0" size="0,0">
+      <result name="listtianxiejiepai" />
+      <result name="ProcardTemDetails" />
+      <result name="updateProcardT" />
+      <result name="ProcessTemplateDetails" />
+      <result name="updateProcessT" />
+      <result name="gongzi" />
+      <result name="tijiao" />
+      <result name="listgysMarkIdjiepai" />
+      <result name="listBom" />
+      <result name="listgongxu" />
+      <result name="listWaiweiGongxu" />
+      <result name="tojiepai" />
+      <result name="waiweijiepai" />
+      <result name="listWaigoujianpinci" />
+      <result name="addwaigoujianpinci" />
+      <result name="toUpdatewaigoujianpinci" />
+      <result name="updatewaigoujianpinci" />
+      <result name="listyanshoupincizi" />
+      <result name="toaddwaigoujianpinci" />
+      <result name="addwaigoujianpinciZi" />
+      <result name="toUpdatewaigoujianpinciZi" />
+      <result name="updatewaigoujianpinciZi" />
+      <result name="listBOMwaigou" />
+      <result name="listwaigoujianyan" />
+      <result name="listGysMarkIdjiepaichakan" />
+      <result name="listAction" />
+    </action>
+    <action name="ClauseAction" location="0,0" size="0,0">
+      <result name="listClause" />
+      <result name="addClause" />
+      <result name="toUpdateClause" />
+      <result name="listclauseFatherSon" />
+      <result name="toaddClauseSon" />
+      <result name="addClauseSon" />
+      <result name="toUpdateClauseSon" />
+      <result name="updateClauseSon" />
+    </action>
+  </package>
+  <webResource name="list.jsp" path="/System/caigou/zhaobiao/list.jsp" location="38,205" size="150,55" />
+  <webResource name="addUser.jsp" path="/System/caigou/zhaobiao/addUser.jsp" location="0,0" size="0,0" />
+  <webResource name="listbyid.jsp" path="/System/caigou/zhaobiao/listbyid.jsp" location="0,0" size="0,0" />
+  <webResource name="toUpdatezhUser.jsp" path="/System/caigou/zhaobiao/toUpdatezhUser.jsp" location="0,0" size="0,0" />
+  <webResource name="listZhmoban.jsp" path="/System/caigou/zhaobiao/listZhmoban.jsp" location="0,0" size="0,0" />
+  <webResource name="Zhmoban_update.jsp" path="/System/caigou/zhaobiao/Zhmoban_update.jsp" location="0,0" size="0,0" />
+  <webResource name="listzhaobiao.jsp" path="/System/caigou/zhaobiao/listzhaobiao.jsp" location="0,0" size="0,0" />
+  <webResource name="addzhaobiao.jsp" path="/System/caigou/zhaobiao/addzhaobiao.jsp" location="0,0" size="0,0" />
+  <webResource name="addZhaobiaoXi.jsp" path="/System/caigou/zhaobiao/addZhaobiaoXi.jsp" location="0,0" size="0,0" />
+  <webResource name="listshenhe.jsp" path="/System/caigou/zhaobiao/listshenhe.jsp" location="0,0" size="0,0" />
+  <webResource name="shenhe.jsp" path="/System/caigou/zhaobiao/shenhe.jsp" location="0,0" size="0,0" />
+  <webResource name="listyonghu.jsp" path="/System/caigou/zhaobiao/listyonghu.jsp" location="0,0" size="0,0" />
+  <webResource name="listtoubiao.jsp" path="/System/caigou/zhaobiao/listtoubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="qutoubiao.jsp" path="/System/caigou/zhaobiao/qutoubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="zhongbiao.jsp" path="/System/caigou/zhaobiao/zhongbiao.jsp" location="0,0" size="0,0" />
+  <webResource name="qupingxuan.jsp" path="/System/caigou/zhaobiao/qupingxuan.jsp" location="0,0" size="0,0" />
+  <webResource name="qupingxuanToubiao.jsp" path="/System/caigou/zhaobiao/qupingxuanToubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="toupdatetoubiao.jsp" path="/System/caigou/zhaobiao/toupdatetoubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="listzidong.jsp" path="/System/caigou/zhaobiao/listzidong.jsp" location="0,0" size="0,0" />
+  <webResource name="listzidongXi.jsp" path="/System/caigou/zhaobiao/listzidongXi.jsp" location="0,0" size="0,0" />
+  <webResource name="listzidongpingxuanToubiao.jsp" path="/System/caigou/zhaobiao/listzidongpingxuanToubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="chakantoubiao.jsp" path="/System/caigou/zhaobiao/chakantoubiao.jsp" location="0,0" size="0,0" />
+  <webResource name="chakanflowdetail.jsp" path="/System/caigou/zhaobiao/chakanflowdetail.jsp" location="0,0" size="0,0" />
+  <webResource name="fabu.jsp" path="/System/caigou/zhaobiao/fabu.jsp" location="0,0" size="0,0" />
+  <webResource name="mingxi.jsp" path="/System/caigou/zhaobiao/mingxi.jsp" location="0,0" size="0,0" />
+  <webResource name="chakanhetong.jsp" path="/System/caigou/zhaobiao/chakanhetong.jsp" location="0,0" size="0,0" />
+  <webResource name="hetong.jsp" path="/System/caigou/zhaobiao/hetong.jsp" location="0,0" size="0,0" />
+  <webResource name="listcaiwu.jsp" path="/System/caigou/zhaobiao/listcaiwu.jsp" location="0,0" size="0,0" />
+  <webResource name="listcaiwuXi.jsp" path="/System/caigou/zhaobiao/listcaiwuXi.jsp" location="0,0" size="0,0" />
+  <webResource name="dayin.jsp" path="/System/caigou/zhaobiao/dayin.jsp" location="0,0" size="0,0" />
+  <webResource name="fangshi.jsp" path="/System/caigou/zhaobiao/fangshi.jsp" location="0,0" size="0,0" />
+  <webResource name="tofangshi.jsp" path="/System/caigou/zhaobiao/tofangshi.jsp" location="0,0" size="0,0" />
+  <webResource name="toxuanzhe.jsp" path="/System/caigou/zhaobiao/toxuanzhe.jsp" location="0,0" size="0,0" />
+  <webResource name="chakanjine.jsp" path="/System/caigou/zhaobiao/chakanjine.jsp" location="0,0" size="0,0" />
+  <webResource name="listhuikuanfangshi.jsp" path="/System/caigou/zhaobiao/listhuikuanfangshi.jsp" location="0,0" size="0,0" />
+  <webResource name="toUpdatehuikuang.jsp" path="/System/caigou/zhaobiao/toUpdatehuikuang.jsp" location="0,0" size="0,0" />
+  <webResource name="chankantoubiaoXi.jsp" path="/System/caigou/zhaobiao/chankantoubiaoXi.jsp" location="0,0" size="0,0" />
+  <webResource name="chakantoubiaojilu.jsp" path="/System/caigou/zhaobiao/chakantoubiaojilu.jsp" location="0,0" size="0,0" />
+  <webResource name="chankanshenpijilu.jsp" path="/System/caigou/zhaobiao/chankanshenpijilu.jsp" location="0,0" size="0,0" />
+  <webResource name="listgongxu.jsp" path="/System/caigou/zhaobiao/listgongxu.jsp" location="0,0" size="0,0" />
+  <webResource name="Updatezhgongxu.jsp" path="/System/caigou/zhaobiao/Updatezhgongxu.jsp" location="0,0" size="0,0" />
+  <webResource name="toUpdatezhaobiao.jsp" path="/System/caigou/zhaobiao/toUpdatezhaobiao.jsp" location="0,0" size="0,0" />
+  <webResource name="zhaobiao_list_hesuan.jsp" path="/System/caigou/zhaobiao/zhaobiao_list_hesuan.jsp" location="0,0" size="0,0" />
+  <webResource name="zhaobiaoXi_list_hesuan.jsp" path="/System/caigou/zhaobiao/zhaobiaoXi_list_hesuan.jsp" location="0,0" size="0,0" />
+  <webResource name="zhtoubiao_list_hesuan.jsp" path="/System/caigou/zhaobiao/zhtoubiao_list_hesuan.jsp" location="0,0" size="0,0" />
+  <webResource name="hesuan.jsp" path="/System/caigou/zhaobiao/hesuan.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

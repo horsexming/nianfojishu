@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.task.Server.b2b;
+
+import java.io.IOException;
+
+import com.huawei.openapi.openaipexample.client.http.OrderForB2B;
+
+public interface HttpRestClientForYcServer {
+	
+}

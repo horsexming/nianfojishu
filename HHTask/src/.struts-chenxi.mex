@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-chenxi" location="0,0" size="0,0">
+    <action name="overtimeAction" location="0,0" size="0,0">
+      <result name="addOvertime_success" />
+      <result name="deleteOvertime_success" />
+      <result name="getUpdatePage" />
+      <result name="submitOvertime_success_jb" />
+      <result name="updaeOvertime_success_jb" />
+      <result name="confirmOvertime_success_rs" />
+      <result name="hr_overtime_list_jb" />
+      <result name="hr_overtime_list_rs" />
+      <result name="hr_overtime_list_sp" />
+      <result name="findOvertimeListForAll_success" />
+      <result name="error" />
+      <result name="findPreHuizongOK" />
+    </action>
+    <action name="rewardPunishAction" location="0,0" size="0,0">
+      <result name="addRewardPunish_success" />
+      <result name="deleteRewardPunish_success" />
+      <result name="getUpdatePage" />
+      <result name="updaeRewardPunish_success" />
+      <result name="hr_rewardPunish_list" />
+      <result name="hr_rewardPunish_collect" />
+      <result name="error" />
+    </action>
+    <action name="proAction" location="0,0" size="0,0">
+      <result name="addPro_success" />
+      <result name="deletePro_success" />
+      <result name="getProUpdatePage_success" />
+      <result name="updatePro_success" />
+      <result name="findAllPro_success" />
+      <result name="getProDetailPage_success" />
+      <result name="error" />
+    </action>
+    <action name="proUserAction" location="0,0" size="0,0">
+      <result name="getProUserAddPage_success" />
+      <result name="addProUser_success" />
+      <result name="deleteProUser_success" />
+      <result name="getProUserUpdatePage_success" />
+      <result name="updateProUser_success" />
+      <result name="findAllProUserByproId_success" />
+      <result name="error" />
+    </action>
+    <action name="proProductAction" location="0,0" size="0,0">
+      <result name="getProProductAddPage_success" />
+      <result name="addProProduct_success" />
+      <result name="deleteProProduct_success" />
+      <result name="getProProductUpdatePage_success" />
+      <result name="updateProProduct_success" />
+      <result name="findAllProProductByproId_success" />
+      <result name="error" />
+    </action>
+    <action name="proToolingAction" location="0,0" size="0,0">
+      <result name="getProToolingAddPage_success" />
+      <result name="addProTooling_success" />
+      <result name="deleteProTooling_success" />
+      <result name="getProToolingUpdatePage_success" />
+      <result name="updateProTooling_success" />
+      <result name="findAllProToolingByproId_success" />
+      <result name="error" />
+    </action>
+    <action name="scrnAction" location="0,0" size="0,0">
+      <result name="addScrn_success" />
+      <result name="deleteScrn_success" />
+      <result name="getScrnUpdatePage_success" />
+      <result name="updateScrn_success" />
+      <result name="findAllScrn_success" />
+      <result name="error" />
+    </action>
+    <action name="boardReviewAction" location="0,0" size="0,0">
+      <result name="getBoard_success" />
+      <result name="getBoardReviewShowAllPage_success" />
+      <result name="error" />
+    </action>
+    <action name="affixAction" location="0,0" size="0,0" />
+    <action name="gongyiGuichengAction" location="0,0" size="0,0">
+      <result name="addGongyiGuicheng_success" />
+      <result name="deleteGongyiGuicheng_success" />
+      <result name="deleteGongyiGuicheng_all_success" />
+      <result name="updateGongyiGuicheng_success" />
+      <result name="findAllGongyiGuicheng_bianzhi_success" />
+      <result name="findAllGongyiGuicheng_jiaodui_success" />
+      <result name="findAllGongyiGuicheng_shenhe_success" />
+      <result name="findAllGongyiGuicheng_pizhun_success" />
+      <result name="findAllGongyiGuicheng_all_success" />
+      <result name="findAllGongyiGuicheng_kanban_success" />
+      <result name="getGongyiGuichengDetail_success" />
+      <result name="getGongyiGuichengListForHistoryByParentId_success" />
+      <result name="gongyi_guicheng_submit" />
+      <result name="bomReview" />
+      <result name="error" />
+      <result name="getGongyiGuiChengGygcPage_success" />
+      <result name="getGongyiGuiChengGycxtbPage_success" />
+      <result name="getGongyiGuiChengGxtblmfqmxPage_success" />
+      <result name="getGongyiGuiChengGxsmlqPage_success" />
+      <result name="getGongyiGuiChengGxsmlqa4Page_success" />
+      <result name="getGongyiGuiChengGxsmlqMaoliaoPage_success" />
+      <result name="getGongyiGuiChengGxsmlqHanjiePage_success" />
+      <result name="getGongyiGuiChengJyxmlqPage_success" />
+      <result name="getGongyiGuiChengUploadPage_success" />
+      <result name="getGongyiGuiChengUploadPage_gygcsy_success" />
+      <result name="uploadProcessDataAffix2_success" />
+      <result name="uploadProcessDataAffix2_gygcsy_success" />
+      <result name="deleteGongyiGuichengAffix_success" />
+      <result name="deleteGongyiGuichengAffix_gygcsy_success" />
+      <result name="getGongyiGuiChengGygcPage_print_success" />
+      <result name="getGongyiGuiChengGycxtbPage_print_success" />
+      <result name="getGongyiGuiChengGxtblmfqmxPage_print_success" />
+      <result name="getGongyiGuiChengGxsmlqPage_print_success" />
+      <result name="getGongyiGuiChengGxsmlqa4Page_print_success" />
+      <result name="getGongyiGuiChengGxsmlqMaoliaoPage_print_success" />
+      <result name="getGongyiGuiChengGxsmlqHanjiePage_print_success" />
+      <result name="getGongyiGuiChengJyxmlqPage_print_success" />
+      <result name="getGongyiGuichengKanbanPage_success" />
+      <result name="gongyi_guicheng_gycxtb2" />
+      <result name="showTuzhi" />
+    </action>
+    <action name="processDataAction" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="getProcessDataDetailPage_success" />
+      <result name="getProcessDataAddPage_success" />
+      <result name="updateProcessData_success" />
+      <result name="getOperationStandardAddPage_success" />
+      <result name="addOperationStandard_success" />
+      <result name="deleteOperationStandard_success" />
+      <result name="getOperationStandardUpdatePage_success" />
+      <result name="updateOperationStandard_success" />
+      <result name="getOperationStandardById_success" />
+      <result name="findAllOperationStandardList_success" />
+      <result name="getProcessParamAddPage_success" />
+      <result name="updateProcessParam_success" />
+      <result name="getDetectionItemAddPage_success" />
+      <result name="addDetectionItem_success" />
+      <result name="deleteDetectionItem_success" />
+      <result name="getDetectionItemUpdatePage_success" />
+      <result name="updateDetectionItem_success" />
+      <result name="getDetectionItemById_success" />
+      <result name="findAllDetectionItemList_success" />
+    </action>
+    <action name="gongyiGuichengScoreAction" location="0,0" size="0,0">
+      <result name="getGongyiGuichengScorePage_success" />
+      <result name="getGongyiGuiChengMarkingPage_success" />
+      <result name="getGongyiGuichengScoreLeibieAddPage_success" />
+      <result name="getGongyiGuichengScoreLeibieUpdatePage_success" />
+      <result name="addGongyiGuichengScoreLeibie_success" />
+      <result name="deleteGongyiGuichengScoreLeibie_success" />
+      <result name="updateGongyiGuichengScoreLeibie_success" />
+      <result name="getGongyiGuichengScoreLeibieListAll_success" />
+      <result name="getGongyiGuichengScoreJiluAddPage_success" />
+      <result name="getGongyiGuichengScoreJiluUpdatePage_success" />
+      <result name="addGongyiGuichengScoreJilu_success" />
+      <result name="deleteGongyiGuichengScoreJilu_success" />
+      <result name="updateGongyiGuichengScoreJilu_success" />
+      <result name="getGongyiGuichengScoreJiluListAll_success" />
+      <result name="getGongyiGuichengScoreXuanxiangAddPage_success" />
+      <result name="getGongyiGuichengScoreXuanxiangUpdatePage_success" />
+      <result name="addGongyiGuichengScoreXuanxiang_success" />
+      <result name="deleteGongyiGuichengScoreXuanxiang_success" />
+      <result name="updateGongyiGuichengScoreXuanxiang_success" />
+      <result name="getGongyiGuichengScoreXuanxiangListAll_success" />
+    </action>
+    <action name="fanghuYongpinAction" location="0,0" size="0,0">
+      <result name="addFanghuYongpin_success" />
+      <result name="deleteFanghuYongpin_success" />
+      <result name="updateFanghuYongpin_success" />
+      <result name="getFanghuYongpinAddPage_success" />
+      <result name="getUpdateFanghuYongpinPage_success" />
+      <result name="getFanghuYongpinLeibieList_success" />
+      <result name="getFanghuYongpinGuigeAddPage_success" />
+      <result name="getFanghuYongpinGuigeUpdatePage_success" />
+      <result name="deleteFanghuYongpinGuige_success" />
+      <result name="updateFanghuYongpinGuige_success" />
+      <result name="addFanghuYongpinGuige_success" />
+      <result name="getFanghuYongpinGuigeListByParentId_success" />
+      <result name="getFanghuYongpinQuanxianUserList_success" />
+    </action>
+  </package>
+</Struts2Diagram>
+

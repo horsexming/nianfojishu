@@ -1,0 +1,228 @@
+package com.task.entity.shizhi;
+
+import java.io.Serializable;
+
+import com.task.entity.sop.ProcardTemplate;
+
+
+/**
+ * 试制
+ * 
+ * @表名：ta_sk_TryMake
+ * @author 唐晓斌
+ */
+public class TryMake implements Serializable {
+	private Integer id;
+	private Integer approvalNum;//申请数量
+	private Integer inputNum;// 入库数量
+	private String partName;// 零件名称
+	private String projectStatu;// 项目阶段
+
+	private Integer qpId;// 零件ID
+	private String markId;// 件号
+	// 树形结构附属属性
+	private Integer rootId;// 第一层父类Id
+	private Integer fatherId;// 上层父类Id
+	
+	private Float cloadScore;//工艺负荷分值
+	private Float bloadScore;//奖金负荷分值
+	private Float ploadScore;//产能负荷分值
+	private Float cimScore;//客户重要系数
+	
+	private Float cloadRate;//工艺负荷占比
+	private Float bloadRate;//奖金负荷占比
+	private Float ploadRate;//产能负荷占比
+	private Float cimRate;//客户重要系数占比
+	private Float totalRate;//总占比
+	private Float allTotalRate;//月总占比之和
+	
+	private Float bonus;//月奖金额（totalBonus*inputNum/approvalNum）
+	private Float totalBonus;//该月全入库可获得奖金额
+
+	private String remark;// 备注
+	private ProTryMakeScore proTryMakeScore;// 项目试制评分
+
+	public TryMake() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public void setProcardTemplate(ProcardTemplate procardTemplate){
+		if(procardTemplate!=null){
+			this.qpId=procardTemplate.getId();
+			this.rootId=procardTemplate.getRootId();
+			this.fatherId=procardTemplate.getFatherId();
+			this.markId=procardTemplate.getMarkId();
+			this.partName=procardTemplate.getProName();
+		}
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getInputNum() {
+		return inputNum;
+	}
+
+	public void setInputNum(Integer inputNum) {
+		this.inputNum = inputNum;
+	}
+
+	public String getPartName() {
+		return partName;
+	}
+
+	public void setPartName(String partName) {
+		this.partName = partName;
+	}
+
+	public String getProjectStatu() {
+		return projectStatu;
+	}
+
+	public void setProjectStatu(String projectStatu) {
+		this.projectStatu = projectStatu;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public ProTryMakeScore getProTryMakeScore() {
+		return proTryMakeScore;
+	}
+
+	public void setProTryMakeScore(ProTryMakeScore proTryMakeScore) {
+		this.proTryMakeScore = proTryMakeScore;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Integer getQpId() {
+		return qpId;
+	}
+
+	public void setQpId(Integer qpId) {
+		this.qpId = qpId;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Integer getFatherId() {
+		return fatherId;
+	}
+
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+
+	public Float getCloadScore() {
+		return cloadScore;
+	}
+	public void setCloadScore(Float cloadScore) {
+		this.cloadScore = cloadScore;
+	}
+	public Float getBloadScore() {
+		return bloadScore;
+	}
+	public void setBloadScore(Float bloadScore) {
+		this.bloadScore = bloadScore;
+	}
+	public Float getPloadScore() {
+		return ploadScore;
+	}
+	public void setPloadScore(Float ploadScore) {
+		this.ploadScore = ploadScore;
+	}
+	public Float getCimScore() {
+		return cimScore;
+	}
+
+	public void setCimScore(Float cimScore) {
+		this.cimScore = cimScore;
+	}
+
+	public Float getCloadRate() {
+		return cloadRate;
+	}
+	public void setCloadRate(Float cloadRate) {
+		this.cloadRate = cloadRate;
+	}
+	public Float getBloadRate() {
+		return bloadRate;
+	}
+	public void setBloadRate(Float bloadRate) {
+		this.bloadRate = bloadRate;
+	}
+	public Float getPloadRate() {
+		return ploadRate;
+	}
+	public void setPloadRate(Float ploadRate) {
+		this.ploadRate = ploadRate;
+	}
+	public Float getCimRate() {
+		return cimRate;
+	}
+
+	public void setCimRate(Float cimRate) {
+		this.cimRate = cimRate;
+	}
+
+	public Float getTotalRate() {
+		return totalRate;
+	}
+
+	public void setTotalRate(Float totalRate) {
+		this.totalRate = totalRate;
+	}
+
+	public Float getAllTotalRate() {
+		return allTotalRate;
+	}
+
+	public void setAllTotalRate(Float allTotalRate) {
+		this.allTotalRate = allTotalRate;
+	}
+
+	public Float getBonus() {
+		return bonus;
+	}
+
+	public void setBonus(Float bonus) {
+		this.bonus = bonus;
+	}
+	public Integer getApprovalNum() {
+		return approvalNum;
+	}
+	public void setApprovalNum(Integer approvalNum) {
+		this.approvalNum = approvalNum;
+	}
+	public Float getTotalBonus() {
+		return totalBonus;
+	}
+	public void setTotalBonus(Float totalBonus) {
+		this.totalBonus = totalBonus;
+	}
+    
+	
+}

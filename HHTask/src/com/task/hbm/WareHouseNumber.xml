@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WarehouseNumber" table="ta_WarehouseNumber">
+		<id name="Id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="number" />
+		<property name="oneNumber" length="20"/>
+		<property name="numid" length="20"/>
+		<property name="ip" />
+		<property name="markTyptName" />
+		<property name="status" />
+		<property name="wuType" />
+		<property name="have" />
+		<property name="kwStatus" />
+		<property name="czUserId" />
+		<property name="sczTime" />
+		<property name="floorNumbe" />
+		<property name="direction" />
+		<property name="volume" />
+		<property name="barCode" />
+		<property name="nowArticleName" />
+		<property name="totalNumber" />
+		<property name="warehouseArea" />
+		<property name="wareHouseName" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="addUser" />
+		<property name="fourlightIp" />
+		
+		<!-- 库位对类型 -->
+        <many-to-one name="markTypt" class="com.task.entity.menjin.MarkStatusType" column="ta_mTypt"></many-to-one>
+	</class>
+
+</hibernate-mapping>

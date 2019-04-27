@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.sop.fhyp.FanghuYongpinQuanxian" table="ta_sop_fhyp_FanghuYongpinQuanxian">
+        <id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<!--  领取用户-->
+		<property name="lingquUserId" type="integer" column="lingqu_user_id"/>
+		
+		<property name="fanghuYongpinId" type="integer" column="fanghu_yongpin_id"/>
+		<property name="lingquZhouqi" type="string" column="lingqu_zhouqi"/>
+		<property name="lingquEnable" type="string" column="lingqu_enable"/>
+		
+    </class>
+</hibernate-mapping>

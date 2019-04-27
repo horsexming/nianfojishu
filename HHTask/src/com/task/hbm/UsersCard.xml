@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="UsersCard" table="ta_UsersCard">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="cardId"/>
+		<property name="ckUserName"/>
+		<property name="ckUserId"/>
+		<property name="dept"/>
+		<property name="ckUserCode"/>
+		<property name="groupcalass"/>
+				<!-- 卡号对用户 -->
+		<set name="usersSet"  cascade="save-update" lazy="true">
+			<key column="ta_usercarddId"></key>
+			<one-to-many class="Users" />
+		</set>
+	</class>
+</hibernate-mapping>

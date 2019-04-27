@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="WarehouseApplication" table="ta_mj_WarehouseApplication">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="usersId" />
+		<property name="name" />
+		<property name="dept" />
+		<property name="code" />
+		<property name="cardId" />
+		<property name="selfCard" />
+		<property name="pici" />
+		<property name="type" />
+		<property name="cuiqutype" />
+		<property name="appStatus" />
+		<property name="className" />
+		<property name="classNameId" />
+		<property name="totalNumber" />
+		<property name="addTime" />
+		<property name="shixiaoTime" />
+	</class>
+</hibernate-mapping>

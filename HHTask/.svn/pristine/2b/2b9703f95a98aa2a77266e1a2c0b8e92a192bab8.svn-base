@@ -1,0 +1,170 @@
+package com.task.entity.seal;
+
+
+
+/**
+ * 印章使用情况 (表名 ： ta_SealLogType)
+ * 
+ * @author LiCong 16-08-26
+ * 
+ */
+public class SealLogType{
+	private Integer id;
+	private String slname;// 印章名称
+	
+	private String cunFangWeizhi;// 存放位置档案室name
+	private String cunFangNum;// 存放位置档案室编号
+	private Integer cunShiId;// 存档室门禁ID
+	
+	private String guiHao;// 柜子编号
+	private String guiHaoNum;// 柜子编号(开门指令)
+	private String guiIp;// 柜子IP
+	private Integer guiId;// 柜子ID
+	
+	private String bgDept;//印章保管人部门
+	private String bgName;//印章保管人姓名
+	private String bgCardId;//印章保管人卡号
+	private String bgTel;//印章保管人电话
+	private String bgCode;//印章保管人工号
+	
+	private String yzZGStatus;//印章在柜状态(待入柜/在柜/出借)
+	
+	private String shangTime;//前一次柜时间
+	private String addTime;//
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getBgCode() {
+		return bgCode;
+	}
+
+	public void setBgCode(String bgCode) {
+		this.bgCode = bgCode;
+	}
+
+	public String getBgCardId() {
+		return bgCardId;
+	}
+
+	public void setBgCardId(String bgCardId) {
+		this.bgCardId = bgCardId;
+	}
+
+	public String getYzZGStatus() {
+		return yzZGStatus;
+	}
+
+	public void setYzZGStatus(String yzZGStatus) {
+		this.yzZGStatus = yzZGStatus;
+	}
+
+	public String getShangTime() {
+		return shangTime;
+	}
+
+	public void setShangTime(String shangTime) {
+		this.shangTime = shangTime;
+	}
+
+	public String getGuiHaoNum() {
+		return guiHaoNum;
+	}
+
+	public void setGuiHaoNum(String guiHaoNum) {
+		this.guiHaoNum = guiHaoNum;
+	}
+
+	public String getSlname() {
+		return slname;
+	}
+
+	public void setSlname(String slname) {
+		this.slname = slname;
+	}
+
+	public String getCunFangWeizhi() {
+		return cunFangWeizhi;
+	}
+
+	public void setCunFangWeizhi(String cunFangWeizhi) {
+		this.cunFangWeizhi = cunFangWeizhi;
+	}
+
+	public String getCunFangNum() {
+		return cunFangNum;
+	}
+
+	public void setCunFangNum(String cunFangNum) {
+		this.cunFangNum = cunFangNum;
+	}
+
+	public Integer getCunShiId() {
+		return cunShiId;
+	}
+
+	public void setCunShiId(Integer cunShiId) {
+		this.cunShiId = cunShiId;
+	}
+
+	public String getGuiHao() {
+		return guiHao;
+	}
+
+	public void setGuiHao(String guiHao) {
+		this.guiHao = guiHao;
+	}
+
+	public String getGuiIp() {
+		return guiIp;
+	}
+
+	public void setGuiIp(String guiIp) {
+		this.guiIp = guiIp;
+	}
+
+	public Integer getGuiId() {
+		return guiId;
+	}
+
+	public void setGuiId(Integer guiId) {
+		this.guiId = guiId;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getBgDept() {
+		return bgDept;
+	}
+
+	public void setBgDept(String bgDept) {
+		this.bgDept = bgDept;
+	}
+
+	public String getBgName() {
+		return bgName;
+	}
+
+	public void setBgName(String bgName) {
+		this.bgName = bgName;
+	}
+
+	public String getBgTel() {
+		return bgTel;
+	}
+
+	public void setBgTel(String bgTel) {
+		this.bgTel = bgTel;
+	}
+}

@@ -1,0 +1,17 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+
+<script type="text/javascript"
+	src="<%=basePath%>/javascript/DatePicker/WdatePicker.js">
+</script>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>${moduleFunction.functionName},生产力生态平衡系统</title>
+<link rel="shortcut icon" href="/upload/file/sysImages/favicon.ico" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/index.css" />
+<%@include file="/util/inc.jsp"%>
+
+
+

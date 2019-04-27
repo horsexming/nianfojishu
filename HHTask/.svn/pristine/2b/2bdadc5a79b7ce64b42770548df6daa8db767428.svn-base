@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <!--
+        发送邮件配置 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="mail.i-brights.com"/>
+        <property name="username" value="ytcgb@i-brights.com"/>
+        <property name="password" value="ytcgb123+."/>
+        <property name="port" value="25"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <!--
+                    是否需要auth认证 <prop key="mail.smtp.timeout">25000</prop> <prop
+                    key="mail.smtp.starttls.enable">true</prop> <prop
+                    key="mail.transport.protocol">smtp</prop> <prop
+                    key="mail.smtp.socketFactory.port">465</prop>
+                -->
+                <!--
+                    指定ssl <prop key="mail.smtp.socketFactory.class">
+                    javax.net.ssl.SSLSocketFactory </prop> <prop
+                    key="mail.smtp.socketFactory.fallback"> false </prop>
+                -->
+            </props>
+        </property>
+    </bean>
+    
+    
+    <!-- 配置值日定时提醒(早上未评分时==每天早上9点30进行提醒) -->
+	<bean id="timeDitail1_14"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="clearInfoServerImpl"></property>		
+		<property name="targetMethod" value="timingAMTask"></property>
+	</bean>
+	<bean id="timeTigger14" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="timeDitail1_14"></property>
+		<property name="cronExpression">
+			<value>00 20 09 * * ?</value>
+		</property>
+	</bean>
+	<!-- 值日定时提醒(每天早上9点30进行提醒)  开始-->
+	<bean id="startJob1_14"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="timeTigger14" />
+			</list>
+		</property>
+	</bean>	
+	<!-- 值日定时提醒(每天早上9点30进行提醒)  结束-->
+    
+    
+    
+    
+    <!-- 配置值日定时提醒(早上未评分时==每天早上9点30进行提醒) -->
+	<bean id="timeDitail1_15"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="clearInfoServerImpl"></property>		
+		<property name="targetMethod" value="timingPMTask"></property>
+	</bean>
+	<bean id="timeTigger15" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="timeDitail1_15"></property>
+		<property name="cronExpression">
+			<value>00 00 17 * * ?</value>
+		</property>
+	</bean>
+	<!-- 值日定时提醒(每天早上9点30进行提醒)  开始-->
+	<bean id="startJob1_15"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="timeTigger15" />
+			</list>
+		</property>
+	</bean>	
+	<!-- 值日定时提醒(每天早上9点30进行提醒)  结束-->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+</beans>

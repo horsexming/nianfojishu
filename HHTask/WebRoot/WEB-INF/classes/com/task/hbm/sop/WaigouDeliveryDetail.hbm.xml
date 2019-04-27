@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouDeliveryDetail" table="ta_sop_w_WaigouDeliveryDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="cgOrderNum" />
+		<property name="markId" index="pebs_index_wdd_markId"/>
+		<property name="kgliao" />
+		<property name="banben" />
+		<property name="banci" />
+		<property name="tuhao" />
+		<property name="proName" />
+		<property name="processNo" />
+		<property name="processName" />
+		<property name="specification" />
+		<property name="unit" />
+		<property name="hsPrice" />
+		<property name="price"/>
+		<property name="taxprice" />
+		<property name="priceId" />
+		<property name="gysId" index="pebs_index_wdd_gysId" />
+		<property name="gysName" />
+		<property name="type" />
+		<property name="shNumber" />
+		<property name="qrNumber" />
+		<property name="ycNumber" />
+		<property name="qrWeizhi" />
+		<property name="hgNumber" />
+		<property name="bhgNumber" />
+		<property name="ctn" />
+		<property name="oneCtnNum" />
+
+		<property name="addTime" />
+		<property name="printTime" />
+		<property name="jinmenTime" />
+		<property name="querenTime" />
+		<property name="jianyanTime" />
+		<property name="rukuTime" />
+		<property name="remarks" />
+		<property name="examineLot" />
+
+		<property name="status" />
+
+		<property name="waigouPlanId"  index="pebs_index_wdd_waigouPlanId"/>
+		<property name="userId" />
+		<property name="userCode" />
+		<property name="userName" />
+		<property name="checkTime" />
+		<property name="isHege" />
+		<property name="demandExamContent" />
+		<property name="realExamContent" />
+		<property name="wwType" />
+		<property name="jyuserName" />
+		<property name="wgType" />
+		<property name="ywmarkId" />
+		<property name="wbdId" />
+		<property name="jyNumber" />
+		<property name="jyhgNumber" />
+		<property name="jybhgNumber" />
+		<property name="thStatus" />
+		<property name="lingliaoNum" />
+		<property name="yrukuNum" />
+		<property name="isprint"/>
+		<property name="zhuanhuanNum"/>
+		<property name="zhuanhuanUnit"/>
+		<property name="changqu"/>
+		<property name="qrUsersName"/>
+		<property name="hegeRate"/>
+		<property name="quejianRate"/>
+		<property name="againcheck"/>
+		<property name="gysjc"/>
+		<property name="mujuNumber"/>
+		<property name="avgProductionTakt"/>
+		<property name="avgDeliveryTime"/>
+		<property name="cgperiod"/>
+		<property name="allJiepai"/>
+		<property name="datastatus"/>
+		<property name="qrUsersId"/>
+		<property name="caigouUserName"/>
+		<property name="printNumber"/>
+		<property name="tuihuoNum"/>
+		<property name="demanddept"/>
+		<!-- 【与采购订单对应关系】 -->
+		<many-to-one name="waigouDelivery" column="fk_wdId" class="WaigouDelivery"
+			cascade="save-update" lazy="false" />
+		<property name="proNumber"/>
+		<!--
+			【与采购订单明细对应关系】 <many-to-one name="waigouPlan" column="fk_wpId"
+			class="WaigouPlan" cascade="save-update" />
+		-->
+
+	</class>
+</hibernate-mapping>

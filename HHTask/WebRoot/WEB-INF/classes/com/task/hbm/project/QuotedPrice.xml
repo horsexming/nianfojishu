@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedPrice" table="ta_pro_QuotedPrice">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="quotedNumber" />
+		<property name="procardLifeCycle" />
+		<property name="quantityLifeCycle" />
+		<property name="markId" />
+		<property name="proName" />
+		<property name="unit" />
+		<property name="carStyle" />
+		<property name="xingbie" />
+		<property name="filnalCount" />
+		<property name="corrCount" />
+		<property name="procardStyle" />
+		<property name="productStyle" />
+		<property name="status" />
+		<property name="remark" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="lastMonthPrice" />
+		<property name="materialXh" />
+		<property name="materialPrice" />
+		<property name="procardTime" />
+		<property name="zhikaren" />
+		<property name="barcode" />
+		<property name="proId" />
+		<property name="yuanUnit" />
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="needProcess" />
+		<property name="lastMonthPricesj" />
+		<property name="lastMonthPricesz" />
+		<property name="materialXhsj" />
+		<property name="materialXhsz" />
+		<property name="materialPricesj" />
+		<property name="materialPricesz" />
+		<property name="waigouPricesz" />
+		<property name="waigouPricesj" />
+		<property name="shuiFeisz" />
+	<property name="dianFeisz" />
+	<property name="fengFeisz" />
+	<property name="qitiFeisz" />
+	<property name="shuiFeisj" />
+	<property name="dianFeisj" />
+	<property name="fengFeisj" />
+	<property name="qitiFeisj" />
+	<property name="baozhuangFeisz" />
+	<property name="yunshuFeisz" />
+	<property name="baozhuangFeisj" />
+	<property name="yunshuFeisj" />
+
+		<property name="waigouPrice" />
+		<property name="shuiFei" />
+		<property name="dianFei" />
+		<property name="fengFei" />
+		<property name="qitiFei" />
+
+		<property name="baozhuangFei" />
+		<property name="yunshuFei" />
+		<property name="allFeiyong" />
+		<property name="realAllfy" />
+		<property name="touziFeiyong" />
+		<property name="cheziFeiyong" />
+		<property name="tfzonge" />
+		<property name="yingkui" />
+		<property name="fhmoney" />
+
+		<property name="gongzhuangFei" />
+		<property name="fileName" />
+
+		<property name="caiwuFei" />
+		<property name="manageFei" />
+		<property name="yucailiaostatus" />
+		<property name="epId" />
+		<property name="fbSatuts" />
+		<property name="fbBili" />
+		<property name="dfMoney" />
+		<property name="gzcb" />
+		<property name="szCount" />
+		<property name="szrefy" />
+		<property name="sjrefy" />
+		<property name="ywmrkId"/>
+		<property name="laiyuan"/>
+		<property name="caizhi"/>
+		<property name="biaochu"/>
+		<property name="thisLength"/>
+		<property name="thisWidth"/>
+		<property name="thisHight"/>
+		<property name="banBenNumber"/>
+		<property name="tuhao"/>
+		<property name="showSize"/>
+		<property name="clType"/>
+		<property name="bzStatus"/>
+		<property name="loadMarkId"/>
+		<property name="xuhao"/>
+		<property name="rootMarkId"/>
+		<property name="historyId"/>
+		<property name="bili"/>
+		<property name="yuanName"/>
+		<property name="ytuhao"/>
+		<property name="xiaohaoCount"/>
+		<property name="banci"/>
+		<property name="kgliao"/>
+		<property name="clClass"/>
+		<property name="wgType"/>
+		<property name="dateStatus"/>
+		<property name="isbaomi"/>
+		<property name="rengongFei"/>
+		
+		
+
+		<!-- 【配置核算自身的对应关系(一对多)】 -->
+		<set name="quotedPriceSet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="fk_QuotedPriceId"></key>
+			<one-to-many class="QuotedPrice" />
+		</set>
+		<!-- 【配置核算自身的对应关系(多对一)】 -->
+		<many-to-one name="quotedPrice" class="QuotedPrice"
+			cascade="save-update" lazy="false" column="fk_QuotedPriceId" />
+
+		<!-- 【配置核算对应工序信息关系(一对多)】 -->
+		<set name="qpinfor" inverse="false" cascade="all" lazy="true"
+			order-by="processNO">
+			<key column="fk_quotedPriceId"></key>
+			<one-to-many class="QuotedProcessInfor" />
+		</set>
+	</class>
+</hibernate-mapping>

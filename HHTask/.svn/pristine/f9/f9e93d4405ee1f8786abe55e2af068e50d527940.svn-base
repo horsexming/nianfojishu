@@ -1,0 +1,101 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 工作年限 (表名:TA_AnnualLeave)
+ * 
+ * 1-10 :5天 11-20:10天 >20年是15天 每年一月份,提供一个方法,统一在所有人的年限上增加一年. 然后再添加年休的天数
+ * 做一个判断,如果是新入职,未满一年的,则不增加年限.
+ * 
+ * @ClassName: AnnualLeave
+ * @Description: TODO
+ * @author Damon
+ * @date 2013-4-12 上午08:55:47
+ */
+public class AnnualLeave  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
+	private Integer id;
+	private String jobNum; // 工号
+	private String name; // 姓名
+	private String dept; // 部门
+	private Integer standardAnnualLeave; // 年休调整
+	private Float surplus; // 累计可用年休 单位（天）每天上班时长
+	private Float linshi; // 导出临时存放
+	private Integer lengthOfService; // 工龄
+	private String remark; // 备注：
+	private String status;// 状态 年休 换休
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getJobNum() {
+		return jobNum;
+	}
+	public void setJobNum(String jobNum) {
+		this.jobNum = jobNum;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public Integer getStandardAnnualLeave() {
+		return standardAnnualLeave;
+	}
+	public void setStandardAnnualLeave(Integer standardAnnualLeave) {
+		this.standardAnnualLeave = standardAnnualLeave;
+	}
+	public Float getSurplus() {
+		if (null != surplus) {
+			return Float.parseFloat(String.format("%.2f", surplus));
+		}
+		return surplus;
+	}
+	public void setSurplus(Float surplus) {
+		
+		this.surplus = surplus;
+	}
+	public Float getLinshi() {
+		return linshi;
+	}
+	public void setLinshi(Float linshi) {
+		this.linshi = linshi;
+	}
+	public Integer getLengthOfService() {
+		return lengthOfService;
+	}
+	public void setLengthOfService(Integer lengthOfService) {
+		this.lengthOfService = lengthOfService;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+
+}

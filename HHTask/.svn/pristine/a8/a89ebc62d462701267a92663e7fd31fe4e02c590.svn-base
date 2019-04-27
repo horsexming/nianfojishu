@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WorkLogClass" table="ta_log_WorkLogClass">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code" column="ta_log_code" length="10"
+			not-null="true" />
+		<property name="cardId" column="ta_log_cardId" length="40"
+			not-null="true" />
+		<property name="name" column="ta_log_name" length="200"
+			not-null="true" />
+		<property name="remarks" column="ta_log_remarks" length="1000" />
+		<property name="addDateTime" column="ta_log_addDateTime"
+			length="100" />
+		<!-- 日志类别对日志 -->
+		<set name="workLog" lazy="true" inverse="false" cascade="save-update">
+			<key column="ta_log_classId"></key>
+			<one-to-many class="WorkLog" />
+		</set>
+
+		<!-- 日志类别对用户 -->
+		<many-to-one name="user" class="Users" column="ta_userId" />
+	</class>
+</hibernate-mapping>

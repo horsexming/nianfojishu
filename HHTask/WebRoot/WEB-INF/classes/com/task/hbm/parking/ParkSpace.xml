@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.parking">
+	<class name="ParkSpace" table="ta_cw_ParkSpace">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="parkingLot" />
+		<property name="parkNum" />
+		<property name="parkType" />
+		<property name="parkStatus" />
+		<property name="parkIP" />
+		<property name="parkPort" />
+		<property name="parkOpen" />
+		<property name="parkClose" />
+		<property name="usePeople" />
+		<property name="usePeopleCode" />
+		<property name="competence" />
+		<property name="vipName" />
+		<property name="vipCode" />
+		<property name="inforId" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="blueAddress" />
+		<property name="blueName" />
+		<property name="userTelNum" />
+		<property name="visitName" />
+	</class>
+</hibernate-mapping>

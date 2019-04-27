@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Contract" table="ta_hr_contract">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+		<!-- 合同对条款 -->
+		<set name="provision" inverse="false" cascade="all" lazy="true">
+			<key column="ta_provision_contractId" />
+			<one-to-many class="Provision" />
+		</set>
+
+		<property name="userId" column="ta_contract_userId"></property>
+		<property name="code" column="ta_contract_code" />
+		<property name="cardId" column="ta_contract_cardId" />
+		<property name="recruitmentSquare" column="ta_contract_recruitmentSquare" />
+		<property name="employedSquare" column="ta_contract_employedSquare" />
+		<property name="contractNumber" column="ta_contract_contractNumber" />
+		<property name="sex" column="ta_contract_sex" />
+		<property name="dety" column="ta_contract_dety" />
+		<property name="joinDate" column="ta_contract_joinDate" />
+		<property name="startDate" column="ta_contract_startDate" />
+		<property name="endDate" column="ta_contract_endDate" />
+		<property name="qiandingAddress" column="ta_contract_qiandingAddress" />
+		<property name="daibiao" column="ta_contract_daibiao" />
+		<property name="content" column="ta_contract_content" length="1000" />
+		<property name="contractStatus" column="ta_contract_contractStatus"
+			length="20" />
+		<property name="uid" column="ta_contract_uid" length="20" />
+		<property name="residence" column="ta_contract_residence" />
+		<property name="presentAddress" column="ta_contract_presentAddress" />
+		<property name="phoneNumber" column="ta_contract_phoneNumber" />
+		<property name="isUse" column="ta_contract_isUse" length="10" />
+		<property name="addDateTime" column="ta_contract_addDateTime" />
+
+		<property name="probationaryPeriod" column="ta_contract_probationaryPeriod" />
+		<property name="sqType" />
+
+		<property name="addUserId" />
+		<property name="addUserName" />
+		<property name="sqyy" />
+
+
+	</class>
+
+</hibernate-mapping>

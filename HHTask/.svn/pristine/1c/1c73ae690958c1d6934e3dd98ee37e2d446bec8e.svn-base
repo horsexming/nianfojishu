@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.wlWeizhiDt.WlWeizhiDt" table="ta_wlWeizhiDt">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardId" />
+		<property name="waigouPlanId" />
+		<property name="waigouDeliveryDetailId"/>
+		<property name="detail" length="1000"/>
+		<property name="addDate" />
+	</class>
+</hibernate-mapping>

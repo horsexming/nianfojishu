@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping >
+	<class name="com.task.entity.face.FaceAlarm" table="ta_hr_faceAlarm">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="userName" />
+		<property name="dateTime" />
+		<property name="userCode" />
+		<property name="picturePath" />
+		<property name="cameraPosition" />
+	</class>
+</hibernate-mapping>

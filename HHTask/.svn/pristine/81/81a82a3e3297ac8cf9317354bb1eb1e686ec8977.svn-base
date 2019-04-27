@@ -1,0 +1,341 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng"
+			style="width: 100%; border: solid 1px #0170b8; margin-top: 10px;">
+			<div id="xitong"
+				style="width: 100%; font-weight: bold; height: 50px; "
+				align="left">
+				<div
+					style="float: left; width: 50%; padding-left: 30px; padding-top: 5px;"
+					align="left">
+					
+				</div>
+			</div>
+			
+			<div align="center">
+				<p>
+					<span><font style="font-size: 20px; font-weight: bold">请刷卡：</font>
+					</span>
+					<input id="cardNum" type="text"/>
+					<input type="button" onclick="clickCard()" value="确定">
+				</p>
+				<input id="cardNum2" type="hidden" />
+				<hr>
+				
+				<h3>
+					 库存出借详单
+				</h3>
+				<form action="LendNectAction!lend.action" method="post"
+					 id="submit" onsubmit="return validate()" enctype="multipart/form-data">
+					<table border="1" style="border-collapse: collapse;">
+						<tr>
+							<td align="left">
+								<input type="hidden" name="good.goodsId" value="${good.goodsId}" />
+								<input type="hidden" name="lend.goodsId" value="${good.goodsId}" />
+								件号：
+								<input type="text" name="lend.goodsMarkId" value="${good.goodsMarkId}"
+									readonly="readonly" />
+								
+							</td>
+							<td align="left">
+								批次：
+								<input type="text" name="lend.goodsLotId" value="${good.goodsLotId}"
+									readonly="readonly" />
+							</td>
+							<td align="left">
+								名称：
+								<input type="text" name="lend.goodsFullName" value="${good.goodsFullName}"
+									readonly="readonly" />
+							</td>
+							
+							
+						</tr>
+						<tr>
+							
+							<td align="left">
+								库别：
+								<input type="text" name="lend.storehouse"
+									value="${good.goodsClass}" readonly="readonly" />
+							</td>
+							
+							<td align="left">
+								仓区：
+								<input type="text" name="lend.goodHouse"
+									value="${good.goodHouseName}" readonly="readonly" />
+							</td>
+							<td align="left">
+								类别：
+								<input type="text" name="lend.wgType" value="${good.wgType}"
+									readonly="readonly" />
+							</td>
+						</tr>
+						
+						<tr>		
+							<td align="left">
+								数量：
+								<input type="text" name="lend.num" id="num" /><br/>
+								<span style="color:red;">最多可借${good.lendNeckCount}</span>
+								<input type="hidden" name="maxNum" value="${good.lendNeckCount}" id="maxNum"  readonly="readonly"> 
+							</td>
+						
+							<td align="left">
+								单位：
+								<input type="text" name="lend.unit" value="${good.goodsUnit}"
+									readonly="readonly" />
+							</td>
+							<td align="left">
+								规格：
+								<input type="text" name="lend.format" value="${good.goodsFormat}"
+									readonly="readonly" />
+							</td>
+						</tr>
+						<tr>
+							<td align="left" colspan="3">
+								库位：
+								<input type="text" name="lend.wareHouse"
+									value="${good.goodsPosition}" readonly="readonly"  style="width:300px;"/>
+							</td>
+							
+						</tr>
+						<tr>
+							<td align="left" colspan="3">
+								备注：
+								<input type="text" id="more" name="lend.remark" style="width:300px;" />
+							</td>
+						</tr>
+						<tr>
+							<td align="left" colspan="3">
+								附件：
+								<input type="file" value="" name="attachment"/>
+							</td>
+							
+						</tr>
+						<tr style="display: none;">
+							<td align="left">
+								卡号：
+								<input type="text" id="cardId" name="lend.cardNum"
+									readonly="readonly" />
+							</td>
+							<td style="width: 30px;"></td>
+							<td align="right">
+								姓名：
+								<input type="text" id="peopleName" name="lend.peopleName"
+									readonly="readonly" />
+							</td>
+						</tr>
+						<tr style="display: none;">
+							<td align="left">
+								部门：
+								<input type="text" id="dept" name="lend.dept" readonly="readonly" />
+							</td>
+							<td style="width: 30px;"></td>
+							<td align="left">
+								操作人：
+								<input type="text" id="admin" readonly="readonly" name="lend.admin"/>
+								<input type="hidden"  id="adminId" name="lend.adminId"/>
+								<input type="hidden" name="subTag" value="lend"/>
+								
+							</td> 
+						</tr>
+					
+						<tr style="display: none;">
+							<td align="center" colspan="3">
+
+								<input type="submit" id="agree" value="借出" 
+									/>
+							</td>
+						</tr>
+
+					</table>
+				</form>
+			</div>
+		</div>
+		<br>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		</center>
+		<div id="ajaxContent"></div>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+var cardNumber = "";
+function enter() {
+	var keyCode = window.event.keyCode;
+	if (keyCode < 48 || keyCode > 57) {
+		if (keyCode == 13 && cardNumber.length == 10) {
+			document.getElementById("cardNum").value = cardNumber;
+			document.getElementById("cardNum2").value = cardNumber;
+			cardNumber = "";
+			getUser();
+			return;
+		} else {
+			cardNumber = "";
+			event.returnvalue = false;
+			return;
+		}
+	}
+	if (keyCode == 48) {
+		keyCode = 0;
+	} else if (keyCode == 49) {
+		keyCode = 1;
+	} else if (keyCode == 50) {
+		keyCode = 2;
+	} else if (keyCode == 51) {
+		keyCode = 3;
+	} else if (keyCode == 52) {
+		keyCode = 4;
+	} else if (keyCode == 53) {
+		keyCode = 5;
+	} else if (keyCode == 54) {
+		keyCode = 6;
+	} else if (keyCode == 55) {
+		keyCode = 7;
+	} else if (keyCode == 56) {
+		keyCode = 8;
+	} else if (keyCode == 57) {
+		keyCode = 9;
+	}
+	cardNumber = cardNumber + keyCode;
+}
+</script>
+
+
+
+<script type="text/javascript">
+
+var exp = /^\d+$/;
+function validate() {
+	var cardNumStr = document.getElementById("cardNum").value.trim();
+	var num = document.getElementById("num").value;
+	var numObj=document.getElementById("num");
+	var numFlag=false;
+	//var dateStr = document.getElementById("dateStr").value.trim();
+	var maxNum=document.getElementById("maxNum").value;
+	if (cardNumStr == "") {
+		alert("请刷卡!");
+		$("#cardNum").focus();
+		$("#cardNum").val("");
+		return false;
+	}
+	if (num == "") {
+		alert("请输入数量!");
+		$("#num").focus();
+		$("#num").val("");
+		return false;
+	}
+	numFlag=numyanzheng(numObj,null);
+	if(!numFlag){
+		return false;
+	}
+	
+<%--	if (!exp.test(num)) {--%>
+<%--		alert("请输入整数!");--%>
+<%--		$("#num").focus();--%>
+<%--		$("#num").val("");--%>
+<%--		return false;--%>
+<%--	}--%>
+	
+
+	if(num-maxNum>0){
+		alert("借用数量不能大于库存量!");
+		$("#num").focus();
+		$("#num").val("");
+		return false;
+	}
+<%--	if (dateStr == "") {--%>
+<%--		alert("请选择时间");--%>
+<%--		$("#dateStr").focus();--%>
+<%--		$("#dateStr").val("");--%>
+<%--		return false;--%>
+<%--	}--%>
+	
+	return true;
+}
+
+
+function tijiao(){
+	var bool=validate();
+	var lendId=0;
+	if(bool){
+		$.ajax({
+			type : "POST",
+			url : "LendNectAction!lend.action",
+			dataType : "json",
+			data : $("#submit").serialize(),
+			async : false,
+			success : function(data) {
+				if(data!=null){
+					var str=data.split(",");
+					if(str[0]){
+						alert("出借成功，打印出借清单中");
+						lendId=str[1];
+						window.location.href="LendNectAction!printLend.action?lendId="+lendId;
+					}else{
+						alert("出借失败，请检查");
+					}
+				}
+			}
+		});
+	}
+}
+
+</script>
+
+
+<script>
+function clickCard(){
+	var cardNum=$("#cardNum").val().trim();
+	if (cardNum=="") {
+		alert("请刷卡!");
+		return ;
+	}
+	
+	$.ajax({
+			url : "LendNectAction!ajaxGetUser.action",
+			type : "post",
+			dataType : 'json',
+			data : {
+				cardNum : cardNum
+			},
+			success : function(data) {
+				if(data!=null){
+					var user=data.data1;
+					var loginUser=data.data2;
+					
+					$('tr:hidden').show();
+					$('#cardId').val(user.cardId);
+					$('#peopleName').val(user.name);
+					$('#dept').val(user.dept);
+					//$('#portrait').attr('src', src);
+					$('#power').val(user.power);
+					$('#admin').val(loginUser.name);
+					$('#adminId').val(loginUser.id);
+					
+				}else{
+					alert("卡号错误,请重输");
+					$("#cardNum").focus();
+					$("#cardNum").val("");
+					$('tr:hidden').hide();
+				}
+			}
+	});	
+}
+
+</script>
+
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.IntelligentDiagnosis" table="ta_IntelligentDiagnosis" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        	<property name="processName"/>
+        	<property name="isman"/>
+        	<property name="dept"/>
+        	<property name="post"/>
+        	<property name="postnum"/>
+        	<property name="age"/>
+        	<property name="zorj"/>
+        	<property name="pcai"/>
+        	<property name="tcai"/>
+        	
+        	<property name="isxuyao"/>
+        	<property name="iseconomize"/>
+        	<property name="servingtime"/>
+        	<many-to-one name="campanyname" class="com.task.entity.CampanyName" column="ta_cnId" />
+    </class>
+</hibernate-mapping>

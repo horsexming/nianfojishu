@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FailureSSOnWeek" table="ta_sop_FailureSSOnWeek">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="oneWeekSc" />
+		<property name="oneWeekFc" />
+		<property name="frequency" />
+		<property name="weldingDefects" />
+		<property name="strikeSize" />
+		<property name="flangeFlatness" />
+		<property name="tfb" />
+		<property name="airtight" />
+		<property name="exterior" />
+		<property name="other" />
+		<property name="weekds" />
+		<property name="addTime" />
+		<property name="gongwei"/>
+		<property name="type"/>
+		<!-- 周报表对检验不合格明细 -->
+		<set name="fsdSet" inverse="false" cascade="all" lazy="false">
+			<key column="fk_fswId"></key>
+			<one-to-many class="FailureStatisticsDetail" />
+		</set>
+	</class>
+
+</hibernate-mapping>

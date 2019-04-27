@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.Stylebook" table="ta_Stylebook"
+		>
+		<id name="id">
+			<generator class="identity" />
+		</id> 
+		<property name="qid"/> 
+		<property name="nature"/>
+		<property name="place"/>
+		<property name="method"/>
+		<property name="packing1"/>
+		<property name="packing2"/>
+		<property name="packing3"/>	
+		<property name="sizeHeat1"/>
+		<property name="sizeHeat2"/>
+		<property name="checkx"/>
+		<property name="decree"/>
+		<property name="tapped"/>
+		<property name="totalgrowth"/>
+		<property name="orificesize"/>
+		<property name="trend"/>
+		<property name="surface1"/>
+		<property name="surface2"/>
+		<property name="surface3"/>
+		<property name="surface4"/>
+		<property name="sexfunction"/> 
+		<property name="numb"/> 
+	</class>
+</hibernate-mapping>

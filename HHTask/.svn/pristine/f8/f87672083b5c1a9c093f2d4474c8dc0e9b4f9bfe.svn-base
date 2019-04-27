@@ -1,0 +1,132 @@
+@import "commen.css";
+
+/*//中间的表格的内容*/
+.tablecontent {
+	margin: 1px;
+	background: #ffffff;
+}
+
+.tablecontent .content {
+	border: 1px solid #d0d1d3;
+	min-height: 1100px;
+	background: #ffffff;
+}
+
+.tablecontent .content .person {
+	width: 100%;
+}
+
+.tablecontent .content .person .homepage {
+	width: 100%;
+	background: url(../img/setting.jpg) no-repeat;
+	height: 223px;
+	background-size: cover;
+}
+
+.homepage .infoleft {
+	width: 120px;
+	height: 130px;
+	float: left;
+	margin: 35px 30px 30px 25px;
+	display: inline-block;
+}
+
+.homepage .inforight {
+	float: left;
+	width: 80%;
+	margin-top: 20px;
+}
+
+.homepage .inforight h1 {
+	height: 40px;
+	line-height: 40px;
+	font-family: "microsoft yahei";
+	font-size: 36px;
+	color: #545454;
+	font-weight: bold;
+	margin: 15px;
+}
+
+.homepage .inforight ul li {
+	float: left;
+	background: #33363f;
+	width: 114px;
+	height: 49px;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.homepage .inforight ul li a {
+	color: #ffffff;
+	line-height: 49px;
+	height: 49px;
+	text-align: center;
+	width: 114px;
+	display: block;
+}
+
+.messageinfo {
+	width: 80%;
+}
+
+.messageinfo h1 {
+	font-size: 24px;
+	color: #c9452b;
+	font-family: "microsoft yahei";
+	height: 60px;
+	line-height: 60px;
+	margin-left: 20px;
+}
+
+.messageinfo table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.messageinfo table tr {
+	
+}
+
+.messageinfo table tr td {
+	height: 41px;
+	text-align: center;
+	font-family: "microsoft yahei";
+	line-height: 41px;
+	font-size: 16px;
+	color: #515151;
+	border: 1px solid #e2e2e2;
+}
+
+.messageinfo
+ 
+table
+ 
+tr
+ 
+td
+:nth-child
+(2n
++
+1){
+background
+:
+ 
+#f1f1f1
+;
+
+	
+height
+:
+ 
+41
+px
+;
+
+
+}
+.messageinfo table tr td:nth-child (2n){
+	background: #ffffff;
+	height: 41px;
+}

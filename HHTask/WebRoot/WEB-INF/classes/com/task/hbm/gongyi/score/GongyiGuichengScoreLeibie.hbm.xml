@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.score.GongyiGuichengScoreLeibie" table="ta_sop_GongyiGuicheng_Score_Leibie">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" type="string" column="name"/>
+		<property name="biaoshi" type="string" column="biaoshi"/>
+		<property name="score" type="integer" column="score"/>
+		<property name="orderNumb" type="integer" column="order_numb"/>
+		<property name="parentId" type="integer" column="parent_id"/>
+	</class>
+</hibernate-mapping>

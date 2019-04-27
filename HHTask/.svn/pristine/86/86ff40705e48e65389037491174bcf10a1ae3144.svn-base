@@ -1,0 +1,54 @@
+package com.task.Server.supplier;
+
+import com.task.entity.supplier.SupplierEvaluate;
+import com.task.entity.supplier.SupplierEvaluateLevel;
+
+import java.util.List;
+
+public interface SupplierEvaluateService {
+
+    SupplierEvaluate findSupplierEvaluate(Integer id);
+
+    List<SupplierEvaluate> findSupplierEvaluateListByMonth(String month);
+
+    Boolean skipSupplier(SupplierEvaluate supplierEvaluate);
+
+
+    boolean updatelevelscore(List<String> ls);
+
+
+    List<SupplierEvaluateLevel> findlevelsocre();
+
+    Object[] findSupplierEvaluateList(SupplierEvaluate supplierEvaluate, String month, String category, int pageNo, int pageSize);
+
+    String addSupplierEvaluate(SupplierEvaluate supplierEvaluate);
+
+    String addSupplierEvaluateList(List<SupplierEvaluate> slist);
+
+    String deleteSupplierEvaluate(SupplierEvaluate supplierEvaluate);
+
+    String updateSupplierEvaluate(SupplierEvaluate supplierEvaluate);
+
+    //查询某月数据
+    List<SupplierEvaluate> findMonthRecord(String month);
+
+    List<String> findlevelScore();
+
+    /*
+        * @author fy
+    　　* @date 2018/8/20 10:12
+    　　* @Description: 每月生成审核评分表
+    　　* @param []
+    　　* @return java.lang.Boolean
+    　　* @throws
+    　　*/
+    Boolean generateLastMonthReport();
+
+    Boolean findHaveMonthReport(String month);
+
+    List getMonth();
+
+    List getsupplierCatagory();
+
+    String updateSupplierEvaluatesScore(List<SupplierEvaluate> supplierEvaluates);
+}

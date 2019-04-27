@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-mxl" extends="struts-stack">
+		<!--
+			****************************************毛小龙Action操作**********************************************************************
+		-->
+		<!-- 工序 -->
+		<action name="processGzstoreAction_*" class="processGzstoreAction"
+			method="{1}">
+			<result name="findGX">/System/gzbj/progx.jsp</result>
+			<result name="OsScope_bdlist">/System/gzbj/OsScope_bdlist.jsp</result>
+			<result name="PamList_show">/System/gzbj/PamList_show.jsp</result>
+			<result name="measuringList_bangding">/System/gzbj/measuringList_bangding.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 工装报检 -->
+		<action name="GzstoreAction_*" class="gzstoreAction" method="{1}">
+			<result name="findBygzbj">/System/gzbj/gzbj.jsp</result>
+			<result name="doupdate">/System/gzbj/editgzbj.jsp</result>
+			<result name="gz_jiaoyan">/System/gzbj/gz_jiaoyan.jsp</result>
+			<result name="toupdate" type="redirect">GzstoreAction_findAll.action?edit_id=${edit_id}
+			</result>
+			<result name="addGzbj" type="redirect">GzstoreAction_findAll.action?edit_id=${edit_id}
+			</result>
+			<result name="delGzbj" type="redirect">GzstoreAction_findAll.action
+			</result>
+			<!-- 查看工装-->
+			<result name="findByProcess">/System/gzbj/Gzbj_findProcess.jsp</result>
+			<!-- 对应设备 -->
+			<result name="findByProcess1">/System/gzbj/Gzbj_findProcess1.jsp</result>
+			<!-- 根据编号查询工序信息 -->
+			<result name="findGzbjById">/System/gzbj/Gzbj_findProcessById.jsp</result>
+			<!--  -->
+			<result name="toUpdateProcess">/System/gzbj/Gzbj_findProcessById.jsp
+			</result>
+
+			<result name="toupdateProcess1">/System/gzbj/Gzbj_findProcessById2.jsp
+			</result>
+			<!-- 根据用户id查询用户的可操作工序信息 -->
+			<result name="userprocess">/System/gzbj/userprocess.jsp</result>
+			<!--  -->
+			<!--
+				<result name="doupdateProcess"
+				type="redirect">/processGzstoreAction_findGX.action</result>
+			-->
+			<!-- 添加工序之前先查询 -->
+			<result name="toaddProcess">/System/gzbj/Gzbj_addProcess1.jsp
+			</result>
+			<!-- 添加设备之前先查询 -->
+			<result name="toaddProcess1">/System/gzbj/Gzbj_addProcess2.jsp
+			</result>
+			<!-- 添加工序 -->
+			<result name="doaddProcess">/System/gzbj/Gzbj_addProcess1.jsp</result>
+			<!-- 添加设备 -->
+			<result name="doaddProcess1">/System/gzbj/Gzbj_addProcess2.jsp
+			</result>
+			<!-- 删除工序 -->
+			<result name="delProcess2" type="redirect">processGzstoreAction_findGX.action
+			</result>
+			<result name="delProcess" type="redirect">GzstoreAction_findGgbj_Process.action?id=${id}
+			</result>
+			<result name="delProcess1" type="redirect">GzstoreAction_findGgbj_Process1.action?id=${id}
+			</result>
+			<result name ="cdList_show">/System/gzbj/cdList_show.jsp</result>
+		</action>
+
+		<!-- 量具管理 -->
+		<action name="MeasuringAction_*" class="measuringAction"
+			method="{1}">
+			<result name="findMeasuring">/System/measuring/showMeasuring.jsp</result>
+			<result name="findMeasuring1" type="redirect">MeasuringAction_saveMeasuring.action?cpage=${cpage}&amp;tag=${tag}
+			</result>
+			<result name="findMeasuringById">/System/measuring/showMeasuringById.jsp</result>
+			<result name="updateMeasuring" type="redirect">MeasuringAction_saveMeasuring.action?measuring.number=
+			</result>
+			<result name="updateandsaveMeasuring" type="redirect">MeasuringAction_saveMeasuring.action?measuring.number=
+			</result>
+			<result name="findMeasuringdetail">/System/measuring/showMeasuringDetail.jsp
+			</result>
+			<result name="measuring_add">/System/measuring/measuring_add.jsp
+			</result>
+			<result name="updateMeasuringandstore" type="redirect">MeasuringAction_saveMeasuring.action?measuring.number=
+			</result>
+			<result name="findAccountsDate" type="redirect">MeasuringAction_findAccountsDate.action
+			</result>
+			<result name="AccountsDate_add" >/System/caiwu/baobiao/AccountsDate_add.jsp</result>
+			<result name="checkrecordList_show" >/System/measuring/checkrecordList_show.jsp</result>
+		</action>
+		<!-- 品质部门审核管理 -->
+		<action name="QualityAction_*" class="qualityAction" method="{1}">
+			<result name="findQuailty">/System/quailty/showquailty.jsp</result>
+			<result name="toaddQuality">/System/quailty/addquailty.jsp</result>
+			<result name="addQuality">/System/quailty/addquailty.jsp</result>
+			<result name="delQuality" type="redirect">QualityAction_findQuailty.action?quality_file=
+			</result>
+			<result name="delQuality1" type="redirect">QualityAction_findQuailty.action?test=1&amp;quality_file=
+			</result>
+			<result name="salQuality">/System/quailty/editquailty.jsp</result>
+			<result name="updateQuality">/System/quailty/editquailty.jsp</result>
+		</action>
+
+		<!-- 单位管理 -->
+		<action name="UnitManagerAction_*" class="unitManagerAction"
+			method="{1}">
+			<result name="findUnitManager">/System/unitmanger/showunitmanger.jsp</result>
+			<result name="findCaizhiManager">/System/unitmanger/showcaizhimanger.jsp</result>
+			<result name="addUnitManager">/System/unitmanger/addunitmanger.jsp</result>
+			<result name="delUnitManager" type="redirect">UnitManagerAction_findUnitManager.action
+			</result>
+			<result name="findUnitManagerById">/System/unitmanger/findUnitManagerById.jsp
+			</result>
+			<result name="updateUnitManager">/System/unitmanger/findUnitManagerById.jsp
+			</result>
+		</action>
+
+		<!-- 安卓模块 -->
+		<!-- 动声控制管理系统 -->
+		<action name="CustomerAction_*" class="customerAction" method="{1}">
+			<result name="findCustomerAll">/android/pscs/customer.jsp</result>
+			<result name="addCustomer">/android/pscs/addcustomer.jsp</result>
+			<result name="findCustomerById">/android/pscs/findcustomerById.jsp</result>
+			<result name="updateCustomer">/android/pscs/findcustomerById.jsp</result>
+			<result name="delCustomerById" type="redirect">CustomerAction_findCustomerAll.action
+			</result>
+		</action>
+
+		<!-- 安卓模块 -->
+		<!-- 付款管理 -->
+		<action name="paymentVoucherAction_*" class="paymentVoucherAction"
+			method="{1}">
+			<result name="findPaymentVoucher">/System/payment/findPaymentVoucher.jsp</result>
+			<result name="addPaymentVoucher">/System/payment/addPaymentVoucher.jsp</result>
+			<result name="findPaymentVoucherById">/System/payment/findPaymentVoucherbyid.jsp
+			</result>
+			<result name="updatePaymentVoucher">/System/payment/findPaymentVoucherbyid.jsp
+			</result>
+			<result name="findExamList">/System/payment/findPaymentApproval.jsp</result>
+			<result name="findExamList1" type="redirect">paymentVoucherAction_findExamList.action
+			</result>
+
+			<result name="salPaymentDetail1">/System/payment/findDetailbyid1.jsp
+			</result>
+
+			<result name="delPaymentVoucher" type="redirect">paymentVoucherAction_findPaymentVoucher1.action?test=${test}
+			</result>
+			<result name="updatePaymentVouche1" type="redirect">paymentVoucherAction_findPaymentVoucher1.action
+			</result>
+			<result name="updatePaymentVouche2" type="redirect">paymentVoucherAction_findPaymentVoucher1.action?test=${test}
+			</result>
+			<result name="saveBorrowings" type="redirect">paymentVoucherAction_findPaymentVoucher1.action?test=1
+			</result>
+			<result name="findPaymentVoucher1">/System/payment1/findPaymentVoucher.jsp
+			</result>
+			<result name="findPaymentVoucher2">/System/payment1/findPaymentVoucher2.jsp
+			</result>
+			<result name="salPaymentDetail">/System/payment1/PaymentVoucher_print.jsp
+			</result>
+			<result name="updatePaymentDetail">/System/payment1/findDetailbyid.jsp
+			</result>
+			<result name="updateBorrowings" type="redirect">paymentVoucherAction_findPaymentVoucher1.action
+			</result>
+			<result name="updateBorrowings1" type="redirect">paymentVoucherAction_findPaymentVoucher1.action?test=${test}
+			</result>
+			<result name="updatePayment" type="redirect">paymentVoucherAction_findPaymentVoucher1.action
+			</result>
+			<result name="updatePayment1" type="redirect">paymentVoucherAction_findPaymentVoucher2.action
+			</result>
+		</action>
+		<!-- 付款明细 -->
+		<action name="paymentDetailAction_*" class="paymentDetailAction"
+			method="{1}">
+			<result name="findPaymentDetail">/System/payment/findPaymentDetail.jsp</result>
+			<result name="addPaymentDetail">/System/payment/addPaymentDetail.jsp
+			</result>
+			<result name="addPaymentDetail1">/System/payment/addPaymentDetail.jsp
+			</result>
+			<result name="delPaymentDetail" type="redirect">paymentDetailAction_findPaymentDetail.action
+			</result>
+			<result name="findPaymentDetailById">/System/payment/findPaymentDetailbyid.jsp
+			</result>
+			<result name="updatePaymentVoucher">/System/payment/findPaymentDetailbyid.jsp
+			</result>
+			<result name="salPaymentDetail">/System/payment/findDetailbyid.jsp
+			</result>
+		</action>
+		<!-- 询比议价 -->
+		<action name="bargainAction_*" class="bargainAction" method="{1}">
+			<result name="addBargain" type="redirect">bargainAction_findBargain.action?test=${test}
+			</result>
+			<result name="findBargain">/System/bargain/findBargain.jsp</result>
+			<result name="findExamList">/System/bargain/findbargainApproval.jsp</result>
+			<result name="findContractExamList">/System/bargain/findContractExamList.jsp</result>
+			<result name="updateExamBargain" type="redirect">bargainAction_findExamList.action
+			</result>
+			<result name="updateContractExamList" type="redirect">bargainAction_findContractExamList.action
+			</result>
+			<result name="salBargain2">/System/bargain/findbargainbyid.jsp?test=${tag}
+			</result>
+			<result name="salBargain1">/System/bargain/bargain_print.jsp</result>
+			<result name="delBargain" type="redirect">bargainAction_findBargain.action?test=${test}
+			</result>
+			<result name="updateBargain" type="redirect">bargainAction_findBargain.action?test=${test}
+			</result>
+			<result name="jumpaddBargain">/System/bargain/addbargain.jsp</result>
+			<result name="jumpaddBargain1">/System/bargain/addBarContract.jsp?contract_num1=${contract_num1}
+				&amp;contract_source=${contract_source}</result>
+			<result name="addBarContract" type="redirect">bargainAction_findBarContract.action?test=${test}
+			</result>
+			<result name="findBarContract">/System/bargain/findBarContract.jsp</result>
+			<result name="salBarContract">/System/bargain/salBarContract.jsp</result>
+			<result name="printBarContract">/System/bargain/printBarContract.jsp</result>
+			<result name="updateBarContract" type="redirect">bargainAction_findBarContract.action?test=${test}
+			</result>
+			<result name="delBarContract" type="redirect">bargainAction_findBarContract.action?test=${test}
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 电子签名 -->
+		<action name="signatureAction_*" class="signatureAction"
+			method="{1}">
+			<result name="findSignature">/System/signature/findSignature.jsp?test={test}
+			</result>
+			<result name="addSignature">/System/signature/addSignature.jsp
+			</result>
+			<result name="delSignature" type="redirect">signatureAction_findHistorySignature.action?test=${test}
+			</result>
+			<result name="findSignatureByid">/System/signature/findSignaturebyid.jsp
+			</result>
+			<result name="updateSignature">/System/signature/findSignaturebyid.jsp
+			</result>
+			<result name="findHistorySignature">/System/signature/findHistorySignature.jsp
+			</result>
+		</action>
+		<!-- kvp产品评估 -->
+		<action name="kvpAssessAction_*" class="kvpAssessAction"
+			method="{1}">
+			<result name="addKVPAssess">/System/tvp/addtvpAssess.jsp
+			</result>
+			<result name="findkvpassess">/System/tvp/findkvpassess.jsp</result>
+			<result name="updateExamKVP" type="redirect">kvpAssessAction_findExamList.action
+			</result>
+			<result name="findKVPAssess1">/System/tvp/findAllKVPAssess.jsp
+			</result>
+			<result name="updateKVPAssess">/System/tvp/updateKVPAssess.jsp?test=${test}
+			</result>
+			<result name="doupdateKVPAssess" type="redirect">kvpAssessAction_findKVPAssess.action
+			</result>
+			<result name="delKVPAssess" type="redirect">kvpAssessAction_findKVPAssess.action?test=${test}
+			</result>
+			<result name="addExecuteKVP">/System/tvp/addExecuteKVP.jsp</result>
+			<result name="findExecuteKVPById">/System/tvp/findExecuteKVPById.jsp?test=${test}
+			</result>
+			<result name="findExecuteKVPById1">/System/tvp/findExecuteKVPById1.jsp</result>
+			<result name="findExamExecuteKVP">/System/tvp/findExamExecuteKVP.jsp</result>
+			<result name="updateExamExecuteKVP" type="redirect">kvpAssessAction_findExamList1.action
+			</result>
+
+			<result name="findEightBReport">/System/tvp/findEightBReport.jsp?tag=${tag}
+			</result>
+			<result name="addEightBReport" type="redirect">kvpAssessAction_findEightBReport.action?tag=${tag}
+			</result>
+			<result name="findExamEightBReport">/System/tvp/findExamEightBReport.jsp
+			</result>
+			<result name="updateExamEightBReport" type="redirect">kvpAssessAction_findExamEightBReport.action
+			</result>
+			<result name="findEightBReportById">/System/tvp/findEightBReportById.jsp?tag=${tag}
+			</result>
+			<result name="findPrintEightBReport">/System/tvp/findPrintEightBReport.jsp
+			</result>
+			<result name="updateEightBReport" type="redirect">kvpAssessAction_findEightBReport.action?tag=${tag}
+			</result>
+			<result name="delEightBReport" type="redirect">kvpAssessAction_findEightBReport.action?tag=${tag}
+			</result>
+		</action>
+		<!-- 用车单 -->
+		<action name="singleCarAction_*" class="singleCarAction"
+			method="{1}">
+			<!--
+				<result
+				name="addSingleCar">/System/singleCar/addSingleCar.jsp</result>
+			-->
+			<result name="addSingleCar" type="redirect">singleCarAction_findSingleCar.action?tag=${tag}
+			</result>
+			<result name="findExamSingleCarA">/System/singleCar/findExamSingleCarA.jsp</result>
+			<result name="findExamSingleCarB">/System/singleCar/findExamSingleCarB.jsp</result>
+			<result name="findSingleCar">/System/singleCar/findSingleCar.jsp</result>
+			<result name="updateExamListA" type="redirect">singleCarAction_findExamListA.action</result>
+			<result name="updateExamListB" type="redirect">singleCarAction_findExamListB.action</result>
+			<result name="updateExamListC" type="redirect">singleCarAction_findExamListC.action?status=per</result>
+			<result name="findExamListC">/System/singleCar/findSingleCarSP.jsp</result>
+			<result name="findSingleCarById" >/System/singleCar/findSingleCarById.jsp?tag=${tag}</result>
+			<result name="findSingleCarById1" >/System/singleCar/findSingleCarById1.jsp</result>
+			<result name="findSingleCarDaYin" >/System/singleCar/findSingleCarDaYin.jsp</result>
+			<result name="updateSingleCar"  type="redirect">singleCarAction_findSingleCar.action?tag=${tag}</result>
+			<result name="delSingleCarById"  type="redirect">singleCarAction_findSingleCar.action?tag=${tag}</result>
+			<result name="updateSingleCarStatus"  type="redirect">singleCarAction_findSingleCar.action?tag=${tag}</result>
+			<result name="updateSingleCarAllStatus"  type="redirect">singleCarAction_getCountkilometers.action?status=${status}</result>
+			<result name="getCountkilometers">/System/singleCar/findSingleCar1.jsp</result>
+		</action>
+		<!-- 工艺规范推送 -->
+		<action name="PushAction_*" class="pushAction" method="{1}">
+			<result name="findPush">/android/processpush/findPush.jsp</result>
+			<result name="addProcessandmeid">/android/processpush/addPush.jsp</result>
+			<result name="findPushById">/android/processpush/findPushById.jsp</result>
+			<result name="updateProcessandmeid">/android/processpush/findPushById2.jsp</result>
+			<result name="delPush" type="redirect">PushAction_findPush.action?push.sysdate=
+			</result>
+			<result name="findTaSopGongwei">/android/processpush/addPush.jsp
+			</result>
+			<result name="findPushById1">/android/processpush/findPushById1.jsp</result>
+			<result name="findPushById2">/android/processpush/findPushById2.jsp</result>
+			<result name="delGongweiById" type="redirect">PushAction_findGwById.action?push_id=${push_id}
+			</result>
+		</action>
+		<!-- pmi管理 -->
+		<action name="pmiManagementAction_*" class="pmiManagementAction"
+			method="{1}">
+			<result name="findPmi">/System/pmi/findPmi.jsp</result>
+			<result name="addPmi">/System/pmi/addPmi.jsp</result>
+			<result name="salPmiByid">/System/pmi/salPmiByid.jsp</result>
+			<result name="updatePmi">/System/pmi/salPmiByid.jsp</result>
+			<result name="delPmi" type="redirect">pmiManagementAction_findPmi.action
+			</result>
+			<result name="findMachineByid">/System/pmi/findMachineByid.jsp</result>
+			<result name="findProcessInforBypmi_id">/System/pmi/findProcessInforBypmi_id.jsp</result>
+			<result name="addMachine">/System/pmi/addMachine.jsp?pmi_id=${pmi_id}
+			</result>
+			<result name="delMachine" type="redirect">pmiManagementAction_findMachineByid.action?pmi_id=${id1}
+			</result>
+			<result name="pmi_rootId" type="redirect">ProcardAction!findProcardView.action?id=${infor_rootid}&amp;pageStatus=history&amp;viewStatus=zjl
+			</result>
+		</action>
+
+		<!-- 采购执行单管理 -->
+		<action name="performsingleAction_*" class="performsingleAction"
+			method="{1}">
+			<result name="jumpaddBargain">/System/perform/addPerformsingle.jsp?purchase_category=${bargain_source}&amp;
+				purchase_number=${bargain_num}&amp;purchase_name=${purchase_name}
+			</result>
+			<result name="findPerformsingle">/System/perform/findPerformsingle.jsp</result>
+			<result name="salPerformsingle">/System/perform/salPerformsingle.jsp</result>
+			<result name="addPerformsingle" type="redirect">performsingleAction_findPerformsingle.action?tag=${tag}
+			</result>
+			<result name="delPerformsingle" type="redirect">performsingleAction_findPerformsingle.action?tag=${tag}
+			</result>
+			<result name="findContractExamList">/System/perform/performsingleExamList.jsp
+			</result>
+			<result name="updateContractExamList" type="redirect">performsingleAction_findContractExamList.action
+			</result>
+		</action>
+
+	</package>
+</struts>

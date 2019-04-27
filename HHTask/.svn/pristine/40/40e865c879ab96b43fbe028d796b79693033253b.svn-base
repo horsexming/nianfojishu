@@ -1,0 +1,145 @@
+package com.task.entity.project;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 项目投资表（ta_pro_QuotedPriceUserCost）
+ * @author txb
+ *
+ */
+public class QuotedPriceUserCost {
+	private Integer id;
+	@FieldMeta(name = "投资类别", order = 2)
+	private String costType;//花费类型
+	private Float timeMoney;//投资时该阶段项目费用
+	@FieldMeta(name = "投资金额", order = 3)
+	private Float tzMoney;//投资数量（公司成员投资数额以同意的为标准申请时不扣）
+	private Float tzFenshu;//投资份数
+	private Float klMoney;//可获取分红
+	@FieldMeta(name = "项目阶段", order = 1)
+	private String proStatus;//项目阶段
+	private Integer qpId;//项目Id
+	private String markId;//件号
+	private Integer investorId;//投资人Id 
+	private String userName;//申请人名称
+	private String userCode;//申请人工号
+	private String dept;//申请人部门
+	private String remark;//备注
+	private String applyStatus;//审批状态
+	private String tzStatus;//投资状态（投资,撤资）
+	private Integer epId;//
+	private String addTime;//添加时间
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCostType() {
+		return costType;
+	}
+	public void setCostType(String costType) {
+		this.costType = costType;
+	}
+	public Float getTzMoney() {
+		return tzMoney;
+	}
+	public void setTzMoney(Float tzMoney) {
+		this.tzMoney = tzMoney;
+	}
+	public String getProStatus() {
+		return proStatus;
+	}
+	public void setProStatus(String proStatus) {
+		this.proStatus = proStatus;
+	}
+	 
+	public Integer getQpId() {
+		return qpId;
+	}
+	public void setQpId(Integer qpId) {
+		this.qpId = qpId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getApplyStatus() {
+		return applyStatus;
+	}
+	public void setApplyStatus(String applyStatus) {
+		this.applyStatus = applyStatus;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public Float getTimeMoney() {
+		return timeMoney;
+	}
+	public void setTimeMoney(Float timeMoney) {
+		this.timeMoney = timeMoney;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getTzStatus() {
+		return tzStatus;
+	}
+	public void setTzStatus(String tzStatus) {
+		this.tzStatus = tzStatus;
+	}
+	public Float getKlMoney() {
+		return klMoney;
+	}
+	public void setKlMoney(Float klMoney) {
+		this.klMoney = klMoney;
+	}
+	public Float getTzFenshu() {
+		return tzFenshu;
+	}
+	public void setTzFenshu(Float tzFenshu) {
+		this.tzFenshu = tzFenshu;
+	}
+	public Integer getInvestorId() {
+		return investorId;
+	}
+	public void setInvestorId(Integer investorId) {
+		this.investorId = investorId;
+	}
+	
+	
+	
+	
+}

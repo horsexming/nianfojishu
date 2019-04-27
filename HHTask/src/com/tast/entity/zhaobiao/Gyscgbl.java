@@ -1,0 +1,116 @@
+package com.tast.entity.zhaobiao;
+
+import java.io.Serializable;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 供应商采购配额申请修改记录表:(ta_Gyscgbl)
+ * @author 王晓飞
+ *
+ */
+public class Gyscgbl implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private Integer gmId;//供应产品Id;
+	private Integer zhuserId;//供应商Id;
+	@FieldMeta(name="件号")
+	private String markId;//件号
+	@FieldMeta(name="产品名称")
+	private String proName;//产品名称;
+	@FieldMeta(name="申请人")
+	private String username;//申请人;
+	private String dept;//申请人部门
+	private String sqtime;//申请时间;
+	@FieldMeta(name="申请前配额")
+	private Float qcgbl;//申请前配额；
+	@FieldMeta(name="申请配额")
+	private Float cgbl;//配额
+	@FieldMeta(name="供应商")
+	private String gys;//供应商
+	private Integer epId;//审批流程Id;
+	private String ep_status;//审批状态
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getGmId() {
+		return gmId;
+	}
+	public void setGmId(Integer gmId) {
+		this.gmId = gmId;
+	}
+	public Integer getZhuserId() {
+		return zhuserId;
+	}
+	public void setZhuserId(Integer zhuserId) {
+		this.zhuserId = zhuserId;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public String getSqtime() {
+		return sqtime;
+	}
+	public void setSqtime(String sqtime) {
+		this.sqtime = sqtime;
+	}
+	
+	public String getGys() {
+		return gys;
+	}
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getEp_status() {
+		return ep_status;
+	}
+	public void setEp_status(String epStatus) {
+		ep_status = epStatus;
+	}
+	public Float getCgbl() {
+		return cgbl;
+	}
+	public void setCgbl(Float cgbl) {
+		this.cgbl = cgbl;
+	}
+	public Float getQcgbl() {
+		return qcgbl;
+	}
+	public void setQcgbl(Float qcgbl) {
+		this.qcgbl = qcgbl;
+	}
+	
+}

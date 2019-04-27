@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.fin.jmwj">
+	<class name="FileManager" table="ta_fin_jmfileManager">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fileName"/>		
+		<property name="fileType" />
+		<property name="fileLocation" />
+		<property name="fileXingzhi" />
+		<property name="filearchivesNo" />
+		<property name="archivesId" />
+		<property name="fileRemarks" />		
+		<property name="fileStoreTime" />	
+		<property name="fileStoreUser" />	
+		<property name="fileNumber" />	
+		<property name="fileCount" />	
+		<property name="fileSignDate" />	
+		<property name="isCundang" />	
+		<property name="cundangCount" />	
+		<property name="filePages" />
+		<property name="danganWeizhi" />
+		<property name="danganId" />
+		
+		<property name="epId" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,44 @@
+package com.task.Server.renshi;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.renshi.InDoorScreen;
+import com.task.entity.renshi.InDoorScreenUsers;
+
+public interface InDoorScreenServer {
+
+	/**
+	 * 添加内部人员屏幕记录
+	 */
+	String addInDoorScreen(InDoorScreen screen,String pageStatus);
+	
+	/**
+	 * 根据条件查询屏幕列表
+	 */
+	public Map<String, Object> findInDoorScreenByCon(InDoorScreen screen,Integer pageNo,Integer pageSize,String pageStatus);
+	
+	/**
+	 * 根据屏幕获取屏幕信息
+	 * @param id
+	 * @param pageStatus
+	 * @return
+	 */
+	public InDoorScreen getScreenById(Integer id,String pageStatus);
+	
+	
+	public String bindScreenUsers(Integer screenId,Integer usersId);
+	public String cancelScreenUsers(Integer screenId, Integer usersId);
+	
+	/*
+	 * 根据屏幕Id查询所有员工
+	 */
+	public List<InDoorScreenUsers> getScreenUsersById(Integer id);
+	
+	/**
+	 * 根据员工Id查询屏幕主页显示的信息
+	 */
+	public Map<String, Object> findScreenInfoByScreenId(Integer id);
+	
+}

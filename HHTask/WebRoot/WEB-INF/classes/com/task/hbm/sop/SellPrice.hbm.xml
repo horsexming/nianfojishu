@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping  package="com.task.entity.sop">
+	<class name="SellPrice" table="ta_sellprice">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="partNumber" column="ta_partNumber"></property>
+		<property name="name" column="ta_name"></property>
+		<property name="clientManagement" column="ta_clientManagement"></property>
+		<property name="hair" column="ta_hair"></property>
+		<property name="hsPrice" column="ta_hsPrice"></property>
+		<property name="bhsPrice" column="ta_bhsPrice"></property>
+		<property name="starttime" column="ta_starttime" ></property>
+		<property name="endtime" column="ta_endtime" ></property>
+		<property name="addtime" column="ta_addtime"></property>
+		<property name="contractNumber" column="ta_contractNumber"></property>
+		<property name="fileNumber" column="ta_fileNumber"></property>
+		<property name="attachmentName" column="ta_attachmentName"></property>
+		<property name="chargePerson" column="ta_chargePerson"></property>
+		<property name="rmarks" column="ta_rmarks"></property>
+		<property name="status" column="ta_status"></property>
+		<property name="cdStatus" column="ta_cdStatus"></property>
+		<property name="productCategory" column="ta_productCategory"></property>
+		<property name="type" column="ta_type"></property>
+		<property name="produceType" column="produceType"></property>
+		
+	</class>
+</hibernate-mapping>

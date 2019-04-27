@@ -1,0 +1,111 @@
+/**
+ * 
+ */
+package com.task.entity.lpanclear;
+
+import java.io.Serializable;
+
+/**
+ * 清洁领取提交评分记录表
+ * @author 梁盼 
+ */
+public class Cleanrecord implements Serializable {
+	   
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;           //主键ID
+	private String theDay;               //记录日期
+	private String receive;              //领取人
+    private String receiveTime;          //领取时间
+    private String submitter;            //提交人
+    private String submitterTime;        //提交时间
+    private String evaluator;            //评分人
+    private String evaluatorTime;        //评分时间
+    private Integer fraction;            //评分分数
+    private String state;                //当前记录状态
+       
+       
+	public Cleanrecord() {
+		super();
+	} 
+	public Cleanrecord(Integer id,String theDay,String receive, String receiveTime, String submitter, String submitterTime,
+			String evaluator, String evaluatorTime,Integer fraction,String state) {
+		super();
+		this.id = id;
+		this.theDay = theDay;
+		this.receive = receive;
+		this.receiveTime = receiveTime;
+		this.submitter = submitter;
+		this.submitterTime = submitterTime;
+		this.evaluator = evaluator;
+		this.evaluatorTime = evaluatorTime;
+		this.fraction = fraction;
+		this.state = state;
+	}
+
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+    public String getTheDay() {
+		return theDay;
+	}
+	public void setTheDay(String theDay) {
+		this.theDay = theDay;
+	}
+	public String getReceive() {
+		return receive;
+	}
+	public void setReceive(String receive) {
+		this.receive = receive;
+	}
+	public String getReceiveTime() {
+		return receiveTime;
+	}
+	public void setReceiveTime(String receiveTime) {
+		this.receiveTime = receiveTime;
+	}
+	public String getSubmitter() {
+		return submitter;
+	}
+	public void setSubmitter(String submitter) {
+		this.submitter = submitter;
+	}
+	public String getSubmitterTime() {
+		return submitterTime;
+	}
+	public void setSubmitterTime(String submitterTime) {
+		this.submitterTime = submitterTime;
+	}
+	public String getEvaluator() {
+		return evaluator;
+	}
+	public void setEvaluator(String evaluator) {
+		this.evaluator = evaluator;
+	}
+	public String getEvaluatorTime() {
+		return evaluatorTime;
+	}
+	public void setEvaluatorTime(String evaluatorTime) {
+		this.evaluatorTime = evaluatorTime;
+	}
+    public Integer getFraction() {
+		return fraction;
+	}
+	public void setFraction(Integer fraction) {
+		this.fraction = fraction;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+    
+}

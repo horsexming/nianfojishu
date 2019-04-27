@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.gongyi.gongxu.OperationOrderItem" table="ta_sop_GongyiGuicheng_OperationOrderItem">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="xiangmu" type="string" column="xiangmu"/>
+		<property name="qiju" type="string" column="qiju"/>
+		<property name="pandingBiaozhun" type="string" column="panding_biaozhun"/>
+		<property name="jianchaPinci" type="string" column="jiancha_pinci"/>
+		<property name="operationOrderId" type="integer" column="operation_order_id"/>
+	</class>
+</hibernate-mapping>

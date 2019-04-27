@@ -1,0 +1,1008 @@
+package com.task.entity;
+
+/**
+ * 入库表(表名:goodsStore)
+ * 
+ *@author 贾辉辉
+ */
+
+@SuppressWarnings("serial")
+public class GoodsStore implements java.io.Serializable {
+	private Integer goodsStoreId;// ID
+	/******************* 可合并库存条件 **********/
+	private String goodsStoreWarehouse;// 库别
+	private String goodHouseName;// 仓区
+
+	private String goodsStorePosition;// 库位
+	private Integer kuweiId;// 库位id
+	private String goodsStoreMarkId;// 件号
+	private String banBenNumber;// 版本号
+	private String kgliao;// 供料属性
+	private String goodsStoreLot;// 批次
+	/******************* 可合并库存条件 结束 **********/
+
+	private String goodsStoreGoodsName;// 名称
+	private String goodsStoreFormat;// 规格
+	private String wgType;// 物料类别
+	private String goodsStoreUnit;// 单位
+	private Float goodsStoreCount;// 数量
+	private Float goodsStoreZhishu;// 转换数量
+	private String goodsStoreZHUnit; // 转换单位
+
+	private Double hsPrice;// 单价(含税)
+	private Double goodsStorePrice;// 单价(不含税)
+	private Double taxprice; // 税率
+	private Double money;// 总额
+	private Integer priceId;// 价格id
+
+	private String goodsStoreCompanyName;// 客户
+	private String goodsStoreSupplier;// 供应商
+	private String gysId;// 供应商Id
+	private String customerId;// 客户ID
+
+	private String goodsStoreDate;// 时间
+	private String goodsStoreTime;// 系统默认入库时间
+
+	private Float goodsStoreTotal;// 总数
+	private String goodsStoreLuId;// 炉号(需求部门)
+	private String goodsStoreTechnologeIf;//
+	private String goodsStoreFapiaoId;// 发票号
+	private String goodsStoreHrtongId;// 合同号
+	private String goodsStoreUseful;// 用途
+	private String goodsStoreNumber;// 申请单编号
+	private String goodsStorePerson;// 负责人
+
+	private String goodsStoreGoodsMore;// 备注
+	private Integer goodsStoreAdminId;// 管理员ID
+	private String goodsStoreAdminName;// 管理员姓名
+	private String goodsStoreCharger;// 办理人
+	private String goodsStorePlanner;// 入库人
+	private String goodsStorePiaoId;// 票号
+
+	private String goodsStoreMore;
+	private String goodsStoreMarkFormat;// 规格
+	private String goodsStoreArtsCard;// 工艺卡片号
+	private String goodsStoreProMarkId;// 总成件号
+
+	private Integer wwddId;// 送货单明细Id;
+	private String goodsStoreSendId;// 送货单号
+	private Integer osrecordId;// 检验id
+	private Float beginning_num;// 期初数量
+	private Float contrast_num;// 对比数量
+
+	private String baoxiao_status;// 报销状态(对账、未对账、 未报完、已报销)
+	private String goodsStorelasttime;// 上次质检时间
+	private String goodsStorenexttime;// 下次质检时间
+	private Float goodsStoreround;// 质检周期
+	private String tuhao;// 图号(别称)
+
+	private Integer procardId;// 成品入库申请时记录成品Id
+	private String neiorderId;// 内部订单号;
+	private String waiorderId;// 外部订单号;
+	private Integer order_Id;// 订单Id;
+	private String inputSource;// 入库来源（手动入库(来源为手动入库时出库关联的订单id为order_Id)，生产入库(默认为生产入库)）
+	private Float deleteZt;// 减去对应在途数量
+	private Integer izabId;// 正式订单与备货内部计划关系表
+	private Integer processNo;// 工序号(外委接受回来的标识为半成品转库的库存记录外委最后一道工序)
+	/**
+	 * 流水卡片处理新增字段
+	 * 
+	 * 
+	 */
+
+	private String status;// 状态（待入库/入库）
+	private String style;// 入库类型（领用、可借用。
+							// /返修入库/退货入库/批产/试制/中间件）（冲销转库和半成品转库为特殊入库类型与功能相关慎用）
+	private String planID;// 计划单号
+	private String orderId;// 订单ID
+	private String applyTime;// 申请入库时间
+	private String printStatus;// 打印状态(YES/NO)
+	private String printNumber;// 打印单据号
+	private String sqUsersName;// 申请入库人;
+	private Integer sqUsrsId;// 申请人姓名
+	private String sqUsersCode;// 申请人工号
+	private String sqUsersdept;// 申请人部门
+	private String startDate;
+	private String endDate;
+	private Boolean bedit;
+	private Boolean isdel;
+	private String ywmarkId;// 业务件号
+	private String processName;// 工序名
+
+	private Float songHuoPrice;// 入库送货价格
+
+	private String jhdw;// 交货单位 （成品导出时使用）
+	private String rukuGroup;// 入库班组（成品导出时使用）
+
+	// 借领属性
+	private String lendNeckStatus;// 借领属性:借/领
+	private Float lendNeckCount;// 可借数量(领的时候此值不存在)
+	private String nectCanChangeStatus;// 领的时候是否可以以旧换新状态：是/否
+
+	private String suodingdanhao;// 锁定单号
+	private Integer oaAppDetailId;// 申请单明细
+
+	private String proNumber;// 项目编号(研发项目编号)
+	private String zhidanPerson;// 制单人;
+	// Constructors
+	private String more;// 备注（调仓出库）
+	private Integer sellId;// 记录出库历史记录ID（退料专用）
+
+	private String changePrint;// 调拨单打印（是，null)
+	private String sellWarehouse;// 库别--不保存记录
+	private String sellHouseName;// 仓区--不保存记录
+	private String sellKuwei;// 库位;--不保存记录
+	// g.goodsStoreId,g.goodsStoreWarehouse,g.goodHouseName,"
+	// +
+	// "g.goodsStorePosition,g.goodsStoreMarkId,g.banBenNumber,g.kgliao,g.goodsStoreLot,g.goodsStoreGoodsName,"
+	// +
+	// "g.goodsStoreFormat,g.wgType,g.goodsStoreUnit,g.goodsStoreCount,g.goodsStoreDate,"
+	// +
+	// "g.style,g.more,g.sellId,s.sellWarehouse,s.goodHouseName,s.kuwei
+
+	public GoodsStore(Integer goodsStoreId, String goodsStoreWarehouse,
+			String goodHouseName, String goodsStorePosition,
+			String goodsStoreMarkId, String banBenNumber, String kgliao,
+			String goodsStoreLot, String goodsStoreGoodsName,
+			String goodsStoreFormat, String wgType, String goodsStoreUnit,
+			Float goodsStoreCount, String goodsStoreDate, String style,
+			String more, Integer sellId, String changePrint,
+			String sellWarehouse, String sellHouseName, String sellKuwei) {
+		super();
+		this.goodsStoreId = goodsStoreId;
+		this.goodsStoreWarehouse = goodsStoreWarehouse;
+		this.goodHouseName = goodHouseName;
+		this.goodsStorePosition = goodsStorePosition;
+		this.goodsStoreMarkId = goodsStoreMarkId;
+		this.banBenNumber = banBenNumber;
+		this.kgliao = kgliao;
+		this.goodsStoreLot = goodsStoreLot;
+		this.goodsStoreGoodsName = goodsStoreGoodsName;
+		this.goodsStoreFormat = goodsStoreFormat;
+		this.wgType = wgType;
+		this.goodsStoreUnit = goodsStoreUnit;
+		this.goodsStoreCount = goodsStoreCount;
+		this.goodsStoreDate = goodsStoreDate;
+		this.style = style;
+		this.more = more;
+		this.sellId = sellId;
+		this.changePrint = changePrint;
+		this.sellWarehouse = sellWarehouse;
+		this.sellHouseName = sellHouseName;
+		this.sellKuwei = sellKuwei;
+	}
+
+	public GoodsStore(Integer goodsStoreId, String goodsStoreWarehouse,
+			String goodHouseName, String goodsStorePosition,
+			String goodsStoreMarkId, String banBenNumber, String kgliao,
+			String goodsStoreLot, String goodsStoreGoodsName,
+			String goodsStoreFormat, String wgType, String goodsStoreUnit,
+			Float goodsStoreCount, String goodsStoreDate, String style,
+			String more, Integer sellId, String changePrint,
+			String sellWarehouse, String sellHouseName, String sellKuwei,
+			String ywmarkId) {
+		super();
+		this.goodsStoreId = goodsStoreId;
+		this.goodsStoreWarehouse = goodsStoreWarehouse;
+		this.goodHouseName = goodHouseName;
+		this.goodsStorePosition = goodsStorePosition;
+		this.goodsStoreMarkId = goodsStoreMarkId;
+		this.banBenNumber = banBenNumber;
+		this.kgliao = kgliao;
+		this.goodsStoreLot = goodsStoreLot;
+		this.goodsStoreGoodsName = goodsStoreGoodsName;
+		this.goodsStoreFormat = goodsStoreFormat;
+		this.wgType = wgType;
+		this.goodsStoreUnit = goodsStoreUnit;
+		this.goodsStoreCount = goodsStoreCount;
+		this.goodsStoreDate = goodsStoreDate;
+		this.style = style;
+		this.more = more;
+		this.sellId = sellId;
+		this.changePrint = changePrint;
+		this.sellWarehouse = sellWarehouse;
+		this.sellHouseName = sellHouseName;
+		this.sellKuwei = sellKuwei;
+		this.ywmarkId = ywmarkId;
+	}
+
+	public String getPrintStatus() {
+		return printStatus;
+	}
+
+	public String getProNumber() {
+		return proNumber;
+	}
+
+	public Integer getSellId() {
+		return sellId;
+	}
+
+	public void setSellId(Integer sellId) {
+		this.sellId = sellId;
+	}
+
+	public void setProNumber(String proNumber) {
+		this.proNumber = proNumber;
+	}
+
+	public String getGoodsStorelasttime() {
+		return goodsStorelasttime;
+	}
+
+	/**
+	 * @return the lendNeckStatus
+	 */
+	public String getLendNeckStatus() {
+		return lendNeckStatus;
+	}
+
+	/**
+	 * @param lendNeckStatus
+	 *            the lendNeckStatus to set
+	 */
+	public void setLendNeckStatus(String lendNeckStatus) {
+		this.lendNeckStatus = lendNeckStatus;
+	}
+
+	/**
+	 * @return the lendNeckCount
+	 */
+	public Float getLendNeckCount() {
+		return lendNeckCount;
+	}
+
+	/**
+	 * @param lendNeckCount
+	 *            the lendNeckCount to set
+	 */
+	public void setLendNeckCount(Float lendNeckCount) {
+		this.lendNeckCount = lendNeckCount;
+	}
+
+	/**
+	 * @return the nectCanChangeStatus
+	 */
+	public String getNectCanChangeStatus() {
+		return nectCanChangeStatus;
+	}
+
+	/**
+	 * @param nectCanChangeStatus
+	 *            the nectCanChangeStatus to set
+	 */
+	public void setNectCanChangeStatus(String nectCanChangeStatus) {
+		this.nectCanChangeStatus = nectCanChangeStatus;
+	}
+
+	public void setGoodsStorelasttime(String goodsStorelasttime) {
+		this.goodsStorelasttime = goodsStorelasttime;
+	}
+
+	public Float getGoodsStoreround() {
+		return goodsStoreround;
+	}
+
+	public void setGoodsStoreround(Float goodsStoreround) {
+
+		this.goodsStoreround = goodsStoreround;
+	}
+
+	public String getGoodHouseName() {
+		return goodHouseName;
+	}
+
+	public void setGoodHouseName(String goodHouseName) {
+		this.goodHouseName = goodHouseName;
+	}
+
+	public void setPrintStatus(String printStatus) {
+		this.printStatus = printStatus;
+	}
+
+	/** default constructor */
+	public GoodsStore() {
+	}
+
+	/** minimal constructor */
+	public GoodsStore(Integer goodsStoreId) {
+		this.goodsStoreId = goodsStoreId;
+	}
+
+	public Integer getGoodsStoreId() {
+		return this.goodsStoreId;
+	}
+
+	public void setGoodsStoreId(Integer goodsStoreId) {
+		this.goodsStoreId = goodsStoreId;
+	}
+
+	public String getGoodsStoreMarkId() {
+		return this.goodsStoreMarkId;
+	}
+
+	public void setGoodsStoreMarkId(String goodsStoreMarkId) {
+		this.goodsStoreMarkId = goodsStoreMarkId;
+	}
+
+	public String getGoodsStoreLuId() {
+		return this.goodsStoreLuId;
+	}
+
+	public void setGoodsStoreLuId(String goodsStoreLuId) {
+		this.goodsStoreLuId = goodsStoreLuId;
+	}
+
+	public String getGoodsStoreTechnologeIf() {
+		return this.goodsStoreTechnologeIf;
+	}
+
+	public void setGoodsStoreTechnologeIf(String goodsStoreTechnologeIf) {
+		this.goodsStoreTechnologeIf = goodsStoreTechnologeIf;
+	}
+
+	public String getGoodsStoreFapiaoId() {
+		return this.goodsStoreFapiaoId;
+	}
+
+	public void setGoodsStoreFapiaoId(String goodsStoreFapiaoId) {
+		this.goodsStoreFapiaoId = goodsStoreFapiaoId;
+	}
+
+	public String getGoodsStoreHrtongId() {
+		return this.goodsStoreHrtongId;
+	}
+
+	public void setGoodsStoreHrtongId(String goodsStoreHrtongId) {
+		this.goodsStoreHrtongId = goodsStoreHrtongId;
+	}
+
+	public String getGoodsStoreUseful() {
+		return this.goodsStoreUseful;
+	}
+
+	public void setGoodsStoreUseful(String goodsStoreUseful) {
+		this.goodsStoreUseful = goodsStoreUseful;
+	}
+
+	public String getGoodsStoreCompanyName() {
+		return this.goodsStoreCompanyName;
+	}
+
+	public void setGoodsStoreCompanyName(String goodsStoreCompanyName) {
+		this.goodsStoreCompanyName = goodsStoreCompanyName;
+	}
+
+	public String getGoodsStoreDate() {
+		return this.goodsStoreDate;
+	}
+
+	public void setGoodsStoreDate(String goodsStoreDate) {
+		this.goodsStoreDate = goodsStoreDate;
+	}
+
+	public String getGoodsStoreNumber() {
+		return this.goodsStoreNumber;
+	}
+
+	public void setGoodsStoreNumber(String goodsStoreNumber) {
+		this.goodsStoreNumber = goodsStoreNumber;
+	}
+
+	public String getGoodsStoreWarehouse() {
+		return this.goodsStoreWarehouse;
+	}
+
+	public void setGoodsStoreWarehouse(String goodsStoreWarehouse) {
+		this.goodsStoreWarehouse = goodsStoreWarehouse;
+	}
+
+	public String getGoodsStorePerson() {
+		return this.goodsStorePerson;
+	}
+
+	public void setGoodsStorePerson(String goodsStorePerson) {
+		this.goodsStorePerson = goodsStorePerson;
+	}
+
+	public String getGoodsStoreGoodsName() {
+		return this.goodsStoreGoodsName;
+	}
+
+	public void setGoodsStoreGoodsName(String goodsStoreGoodsName) {
+		this.goodsStoreGoodsName = goodsStoreGoodsName;
+	}
+
+	public String getGoodsStoreFormat() {
+		return this.goodsStoreFormat;
+	}
+
+	public void setGoodsStoreFormat(String goodsStoreFormat) {
+		this.goodsStoreFormat = goodsStoreFormat;
+	}
+
+	public String getGoodsStoreUnit() {
+		return this.goodsStoreUnit;
+	}
+
+	public void setGoodsStoreUnit(String goodsStoreUnit) {
+		this.goodsStoreUnit = goodsStoreUnit;
+	}
+
+	public Float getGoodsStoreCount() {
+		return this.goodsStoreCount;
+	}
+
+	public void setGoodsStoreCount(Float goodsStoreCount) {
+		this.goodsStoreCount = goodsStoreCount;
+	}
+
+	public Float getGoodsStoreTotal() {
+		return this.goodsStoreTotal;
+	}
+
+	public void setGoodsStoreTotal(Float goodsStoreTotal) {
+		this.goodsStoreTotal = goodsStoreTotal;
+	}
+
+	public String getGoodsStorePosition() {
+		return this.goodsStorePosition;
+	}
+
+	public void setGoodsStorePosition(String goodsStorePosition) {
+		this.goodsStorePosition = goodsStorePosition;
+	}
+
+	public String getGoodsStoreLot() {
+		return this.goodsStoreLot;
+	}
+
+	public void setGoodsStoreLot(String goodsStoreLot) {
+		this.goodsStoreLot = goodsStoreLot;
+	}
+
+	public String getGoodsStoreGoodsMore() {
+		return this.goodsStoreGoodsMore;
+	}
+
+	public void setGoodsStoreGoodsMore(String goodsStoreGoodsMore) {
+		this.goodsStoreGoodsMore = goodsStoreGoodsMore;
+	}
+
+	public Integer getGoodsStoreAdminId() {
+		return this.goodsStoreAdminId;
+	}
+
+	public void setGoodsStoreAdminId(Integer goodsStoreAdminId) {
+		this.goodsStoreAdminId = goodsStoreAdminId;
+	}
+
+	public String getGoodsStoreAdminName() {
+		return this.goodsStoreAdminName;
+	}
+
+	public void setGoodsStoreAdminName(String goodsStoreAdminName) {
+		this.goodsStoreAdminName = goodsStoreAdminName;
+	}
+
+	public String getGoodsStoreCharger() {
+		return this.goodsStoreCharger;
+	}
+
+	public void setGoodsStoreCharger(String goodsStoreCharger) {
+		this.goodsStoreCharger = goodsStoreCharger;
+	}
+
+	public String getGoodsStorePlanner() {
+		return this.goodsStorePlanner;
+	}
+
+	public void setGoodsStorePlanner(String goodsStorePlanner) {
+		this.goodsStorePlanner = goodsStorePlanner;
+	}
+
+	public String getGoodsStorePiaoId() {
+		return this.goodsStorePiaoId;
+	}
+
+	public void setGoodsStorePiaoId(String goodsStorePiaoId) {
+		this.goodsStorePiaoId = goodsStorePiaoId;
+	}
+
+	public String getGoodsStoreSupplier() {
+		return this.goodsStoreSupplier;
+	}
+
+	public void setGoodsStoreSupplier(String goodsStoreSupplier) {
+		this.goodsStoreSupplier = goodsStoreSupplier;
+	}
+
+	public String getGoodsStoreMore() {
+		return this.goodsStoreMore;
+	}
+
+	public void setGoodsStoreMore(String goodsStoreMore) {
+		this.goodsStoreMore = goodsStoreMore;
+	}
+
+	public String getGoodsStoreMarkFormat() {
+		return this.goodsStoreMarkFormat;
+	}
+
+	public void setGoodsStoreMarkFormat(String goodsStoreMarkFormat) {
+		this.goodsStoreMarkFormat = goodsStoreMarkFormat;
+	}
+
+	public String getGoodsStoreArtsCard() {
+		return this.goodsStoreArtsCard;
+	}
+
+	public void setGoodsStoreArtsCard(String goodsStoreArtsCard) {
+		this.goodsStoreArtsCard = goodsStoreArtsCard;
+	}
+
+	public String getGoodsStoreProMarkId() {
+		return this.goodsStoreProMarkId;
+	}
+
+	public void setGoodsStoreProMarkId(String goodsStoreProMarkId) {
+		this.goodsStoreProMarkId = goodsStoreProMarkId;
+	}
+
+	public String getGoodsStoreTime() {
+		return this.goodsStoreTime;
+	}
+
+	public void setGoodsStoreTime(String goodsStoreTime) {
+		this.goodsStoreTime = goodsStoreTime;
+	}
+
+	public String getGoodsStoreSendId() {
+		return this.goodsStoreSendId;
+	}
+
+	public void setGoodsStoreSendId(String goodsStoreSendId) {
+		this.goodsStoreSendId = goodsStoreSendId;
+	}
+
+	public Float getGoodsStoreZhishu() {
+		return this.goodsStoreZhishu;
+	}
+
+	public void setGoodsStoreZhishu(Float goodsStoreZhishu) {
+		this.goodsStoreZhishu = goodsStoreZhishu;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	public String getPlanID() {
+		return planID;
+	}
+
+	public void setPlanID(String planID) {
+		this.planID = planID;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getApplyTime() {
+		return applyTime;
+	}
+
+	public void setApplyTime(String applyTime) {
+		this.applyTime = applyTime;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public Boolean getBedit() {
+		return bedit;
+	}
+
+	public void setBedit(Boolean bedit) {
+		this.bedit = bedit;
+	}
+
+	public Float getBeginning_num() {
+		return beginning_num;
+	}
+
+	public void setBeginning_num(Float beginningNum) {
+		beginning_num = beginningNum;
+	}
+
+	public Float getContrast_num() {
+		return contrast_num;
+	}
+
+	public void setContrast_num(Float contrastNum) {
+		contrast_num = contrastNum;
+	}
+
+	public String getBaoxiao_status() {
+		return baoxiao_status;
+	}
+
+	public void setBaoxiao_status(String baoxiaoStatus) {
+		baoxiao_status = baoxiaoStatus;
+	}
+
+	public String getBanBenNumber() {
+		return banBenNumber;
+	}
+
+	public void setBanBenNumber(String banBenNumber) {
+		this.banBenNumber = banBenNumber;
+	}
+
+	public String getGoodsStoreZHUnit() {
+		return goodsStoreZHUnit;
+	}
+
+	public void setGoodsStoreZHUnit(String goodsStoreZHUnit) {
+		this.goodsStoreZHUnit = goodsStoreZHUnit;
+	}
+
+	public String getGoodsStorenexttime() {
+		return goodsStorenexttime;
+	}
+
+	public void setGoodsStorenexttime(String goodsStorenexttime) {
+		this.goodsStorenexttime = goodsStorenexttime;
+	}
+
+	public String getTuhao() {
+		return tuhao;
+	}
+
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+
+	public String getNeiorderId() {
+		return neiorderId;
+	}
+
+	public void setNeiorderId(String neiorderId) {
+		this.neiorderId = neiorderId;
+	}
+
+	public String getWaiorderId() {
+		return waiorderId;
+	}
+
+	public void setWaiorderId(String waiorderId) {
+		this.waiorderId = waiorderId;
+	}
+
+	public Integer getOrder_Id() {
+		return order_Id;
+	}
+
+	public void setOrder_Id(Integer orderId) {
+		order_Id = orderId;
+	}
+
+	public String getKgliao() {
+		return kgliao;
+	}
+
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+
+	public Integer getKuweiId() {
+		return kuweiId;
+	}
+
+	public void setKuweiId(Integer kuweiId) {
+		this.kuweiId = kuweiId;
+	}
+
+	public String getInputSource() {
+		return inputSource;
+	}
+
+	public void setInputSource(String inputSource) {
+		this.inputSource = inputSource;
+	}
+
+	public String getGysId() {
+		return gysId;
+	}
+
+	public void setGysId(String gysId) {
+		this.gysId = gysId;
+	}
+
+	public Double getTaxprice() {
+		return taxprice;
+	}
+
+	public void setTaxprice(Double taxprice) {
+		this.taxprice = taxprice;
+	}
+
+	public Integer getPriceId() {
+		return priceId;
+	}
+
+	public void setPriceId(Integer priceId) {
+		this.priceId = priceId;
+	}
+
+	public Integer getOsrecordId() {
+		return osrecordId;
+	}
+
+	public void setOsrecordId(Integer osrecordId) {
+		this.osrecordId = osrecordId;
+	}
+
+	public void setWwddId(Integer wwddId) {
+		this.wwddId = wwddId;
+	}
+
+	public Integer getWwddId() {
+		return wwddId;
+	}
+
+	public Float getDeleteZt() {
+		return deleteZt;
+	}
+
+	public void setDeleteZt(Float deleteZt) {
+		this.deleteZt = deleteZt;
+	}
+
+	public Integer getIzabId() {
+		return izabId;
+	}
+
+	public void setIzabId(Integer izabId) {
+		this.izabId = izabId;
+	}
+
+	public String getWgType() {
+		return wgType;
+	}
+
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+
+	public Integer getProcessNo() {
+		return processNo;
+	}
+
+	public void setProcessNo(Integer processNo) {
+		this.processNo = processNo;
+	}
+
+	public String getYwmarkId() {
+		return ywmarkId;
+	}
+
+	public void setYwmarkId(String ywmarkId) {
+		this.ywmarkId = ywmarkId;
+	}
+
+	public String getSqUsersName() {
+		return sqUsersName;
+	}
+
+	public void setSqUsersName(String sqUsersName) {
+		this.sqUsersName = sqUsersName;
+	}
+
+	public String getSqUsersCode() {
+		return sqUsersCode;
+	}
+
+	public void setSqUsersCode(String sqUsersCode) {
+		this.sqUsersCode = sqUsersCode;
+	}
+
+	public String getSqUsersdept() {
+		return sqUsersdept;
+	}
+
+	public void setSqUsersdept(String sqUsersdept) {
+		this.sqUsersdept = sqUsersdept;
+	}
+
+	public Integer getSqUsrsId() {
+		return sqUsrsId;
+	}
+
+	public void setSqUsrsId(Integer sqUsrsId) {
+		this.sqUsrsId = sqUsrsId;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public Float getSongHuoPrice() {
+		return songHuoPrice;
+	}
+
+	public void setSongHuoPrice(Float songHuoPrice) {
+		this.songHuoPrice = songHuoPrice;
+	}
+
+	public Integer getOaAppDetailId() {
+		return oaAppDetailId;
+	}
+
+	public void setOaAppDetailId(Integer oaAppDetailId) {
+		this.oaAppDetailId = oaAppDetailId;
+	}
+
+	public String getSuodingdanhao() {
+		return suodingdanhao;
+	}
+
+	public void setSuodingdanhao(String suodingdanhao) {
+		this.suodingdanhao = suodingdanhao;
+	}
+
+	public String getPrintNumber() {
+		return printNumber;
+	}
+
+	public void setPrintNumber(String printNumber) {
+		this.printNumber = printNumber;
+	}
+
+	public String getJhdw() {
+		return jhdw;
+	}
+
+	public void setJhdw(String jhdw) {
+		this.jhdw = jhdw;
+	}
+
+	public String getRukuGroup() {
+		return rukuGroup;
+	}
+
+	public void setRukuGroup(String rukuGroup) {
+		this.rukuGroup = rukuGroup;
+	}
+
+	public String getZhidanPerson() {
+		return zhidanPerson;
+	}
+
+	public void setZhidanPerson(String zhidanPerson) {
+		this.zhidanPerson = zhidanPerson;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public Boolean getIsdel() {
+		return isdel;
+	}
+
+	public void setIsdel(Boolean isdel) {
+		this.isdel = isdel;
+	}
+
+	public Integer getProcardId() {
+		return procardId;
+	}
+
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+
+	public String getChangePrint() {
+		return changePrint;
+	}
+
+	public void setChangePrint(String changePrint) {
+		this.changePrint = changePrint;
+	}
+
+	public String getSellWarehouse() {
+		return sellWarehouse;
+	}
+
+	public void setSellWarehouse(String sellWarehouse) {
+		this.sellWarehouse = sellWarehouse;
+	}
+
+	public String getSellHouseName() {
+		return sellHouseName;
+	}
+
+	public void setSellHouseName(String sellHouseName) {
+		this.sellHouseName = sellHouseName;
+	}
+
+	public String getSellKuwei() {
+		return sellKuwei;
+	}
+
+	public void setSellKuwei(String sellKuwei) {
+		this.sellKuwei = sellKuwei;
+	}
+
+	public Double getHsPrice() {
+		return hsPrice;
+	}
+
+	public void setHsPrice(Double hsPrice) {
+		this.hsPrice = hsPrice;
+	}
+
+	public Double getGoodsStorePrice() {
+		return goodsStorePrice;
+	}
+
+	public void setGoodsStorePrice(Double goodsStorePrice) {
+		this.goodsStorePrice = goodsStorePrice;
+	}
+
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
+	}
+
+}

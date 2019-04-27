@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="SpecialDate" table="ta_mj_SpecialDate">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="banciName" />
+		<property name="banciId" />
+		<property name="specialType" />
+		<property name="date" />
+		<property name="addPName" />
+		<property name="addTime" />
+	</class>
+</hibernate-mapping>

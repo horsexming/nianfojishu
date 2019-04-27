@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="Block" table="ta_sop_Block">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="blockName" />
+		<property name="blockMore" />
+		<property name="status" />
+		<property name="addDateTime" />
+		<property name="userCount" />
+		<property name="jihuoCount" />
+		<property name="finalCount" />
+
+		<property name="topDistance" />
+		<property name="leftDistance" />
+		<property name="width" />
+		<property name="hight" />
+		<property name="blockStatus" />
+	</class>
+</hibernate-mapping>

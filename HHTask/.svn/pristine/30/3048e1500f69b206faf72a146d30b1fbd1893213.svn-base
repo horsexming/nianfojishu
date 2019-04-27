@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="InEmployeeCarInfor" table="ta_mj_InEmployeeCarInfor">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="addCode" />
+		<property name="addName" />
+		<property name="ncode" />
+		<property name="name" />
+		<property name="ndept" />
+		<property name="ncardId" />
+		<property name="oftenname" />
+		<property name="oftenSex" />
+		<property name="oftenTel" />
+		<property name="oftenInfor" />
+		<property name="nplates" />
+		<property name="carType" />
+		<property name="carModels" />
+		<property name="carColor" />
+		<property name="car_User_Id" />
+		<property name="rtxMessage" />
+		<property name="carFiles" />
+		<property name="whiteCar" />
+		<property name="carInCangType" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="effectiveDate" />
+		<property name="borrowStatus" />
+		<property name="nbdaijian" />
+		<property name="nbdaiSQ" />
+		<property name="isKong" />
+		<property name="oftenStatus" />
+		<property name="epId" />
+		<property name="temporaryName" />
+		<property name="price" />
+		<property name="zjDistance" />
+		<property name="driveDistance" />
+		<property name="drivePrice" />
+	</class>
+</hibernate-mapping>

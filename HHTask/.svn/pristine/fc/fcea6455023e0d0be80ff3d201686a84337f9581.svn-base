@@ -1,0 +1,402 @@
+package com.task.entity.sop.jy;
+
+import java.util.Set;
+
+import com.task.entity.sop.ProcessTemplate;
+
+/**
+ * 精益计算流水卡模板
+ * @author txb
+ *
+ */
+public class ProcardTemplateJY {
+	private Integer id;
+	// 公共属性
+	private String markId;// 件号
+	private String carStyle;// 车型
+	private String proName;// 名称
+	private Float maxCount;// 数量(流水卡片最大数量)
+	private Float corrCount;// 对应数量(权值)
+	private String unit;// 单位(自制)
+	private String procardStyle;// 卡片类型(总成，组合，外购，自制)
+	private String productStyle;// 产品类型(试制，批产)
+	private String remark;// 备注
+
+	private Integer rootId;// 第一层父类Id
+	private Integer fatherId;// 上层父类Id
+	private Integer belongLayer;// 当前层
+	private String jihuoType;// 激活类型(层次激活(cc)、自制件激活(zzj))
+	private String danjiaojian;// 是、否单交件
+
+	// 原材料属性
+	private String trademark;// 牌号(件号)
+	private String specification;// 规格
+	private String luhao;// 炉号
+	private String number;// 编号
+	private String actualFixed;// 实际定额
+	private String yuanUnit;// 原材料/外购件单位
+	private Float quanzi1;// 权值(自制件:原材料)/(组合:外购)
+	private Float quanzi2;// 权值(自制件:原材料)
+	private String clClass;// 材料类型(管料、卷料、外购件)
+	private String status;// 自制件下 原材料属性 ：是否外购
+	private String lingliaostatus;// 是否领料
+
+	// 奖金计算相关
+	private Float laborcost;// 报价人工费 对外
+	private Float fenpeiRate;// 可调系数
+	private Float dailyoutput;// 日产量
+	private Double onePrice;// 单件提奖额,对内提奖价
+
+	private String proTemStatus;// 状态(单独/并行)
+	private Integer parallelId;// 并行id
+
+	private String addDateTime;// 添加时间
+
+	/*** 精益生产相关 */
+	private Float needCapacity;// 客户需求产能
+	private Float singleDuration;// 单班时长(工作时长)
+	private Float capacity;// 产能(单班时长)
+	private Float capacitySurplus;// 产能盈余
+	private Float capacityRatio;// 产能比
+	private Float deliveryDuration;// 延误时长
+	private Float deliveryRatio;// 配送比
+	private Integer deliveryPeriod;// 配送周期(X天/次)
+	private Float deliveryAmount;// 送货量
+	private Float proSingleDuration;// 总成单班生产时长
+	private Float allJiepai;// 总节拍
+
+	private Integer zhuserId;// 供应商的Id
+	private String gys;// 供应商
+
+	private Float jianyanjiepai;//外购件检验节拍；
+	
+	private Integer versionNo;//版本号
+	private String progressStatus;//进度状态(未分析，分析中，执行中（经过精益计算通过才能变成执行中），完成)
+	private String versionStatus;//版本状态（当前，历史）
+	
+	
+
+	private ProcardTemplateJY procardTemplateJY;
+	private Set<ProcardTemplateJY> procardTJYSet;// 下层流水卡片信息(本表的一对多关系)
+	private Set<ProcessTemplateJY> processTemplateJY;// 对应的工序信息(一对多关系)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getCarStyle() {
+		return carStyle;
+	}
+	public void setCarStyle(String carStyle) {
+		this.carStyle = carStyle;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public Float getMaxCount() {
+		return maxCount;
+	}
+	public void setMaxCount(Float maxCount) {
+		this.maxCount = maxCount;
+	}
+	public Float getCorrCount() {
+		return corrCount;
+	}
+	public void setCorrCount(Float corrCount) {
+		this.corrCount = corrCount;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getProcardStyle() {
+		return procardStyle;
+	}
+	public void setProcardStyle(String procardStyle) {
+		this.procardStyle = procardStyle;
+	}
+	public String getProductStyle() {
+		return productStyle;
+	}
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public Integer getRootId() {
+		return rootId;
+	}
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+	public Integer getFatherId() {
+		return fatherId;
+	}
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+	public Integer getBelongLayer() {
+		return belongLayer;
+	}
+	public void setBelongLayer(Integer belongLayer) {
+		this.belongLayer = belongLayer;
+	}
+	public String getJihuoType() {
+		return jihuoType;
+	}
+	public void setJihuoType(String jihuoType) {
+		this.jihuoType = jihuoType;
+	}
+	public String getDanjiaojian() {
+		return danjiaojian;
+	}
+	public void setDanjiaojian(String danjiaojian) {
+		this.danjiaojian = danjiaojian;
+	}
+	public String getTrademark() {
+		return trademark;
+	}
+	public void setTrademark(String trademark) {
+		this.trademark = trademark;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getLuhao() {
+		return luhao;
+	}
+	public void setLuhao(String luhao) {
+		this.luhao = luhao;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getActualFixed() {
+		return actualFixed;
+	}
+	public void setActualFixed(String actualFixed) {
+		this.actualFixed = actualFixed;
+	}
+	public String getYuanUnit() {
+		return yuanUnit;
+	}
+	public void setYuanUnit(String yuanUnit) {
+		this.yuanUnit = yuanUnit;
+	}
+	public Float getQuanzi1() {
+		return quanzi1;
+	}
+	public void setQuanzi1(Float quanzi1) {
+		this.quanzi1 = quanzi1;
+	}
+	public Float getQuanzi2() {
+		return quanzi2;
+	}
+	public void setQuanzi2(Float quanzi2) {
+		this.quanzi2 = quanzi2;
+	}
+	public String getClClass() {
+		return clClass;
+	}
+	public void setClClass(String clClass) {
+		this.clClass = clClass;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getLingliaostatus() {
+		return lingliaostatus;
+	}
+	public void setLingliaostatus(String lingliaostatus) {
+		this.lingliaostatus = lingliaostatus;
+	}
+	public Float getLaborcost() {
+		return laborcost;
+	}
+	public void setLaborcost(Float laborcost) {
+		this.laborcost = laborcost;
+	}
+	public Float getFenpeiRate() {
+		return fenpeiRate;
+	}
+	public void setFenpeiRate(Float fenpeiRate) {
+		this.fenpeiRate = fenpeiRate;
+	}
+	public Float getDailyoutput() {
+		return dailyoutput;
+	}
+	public void setDailyoutput(Float dailyoutput) {
+		this.dailyoutput = dailyoutput;
+	}
+	public Double getOnePrice() {
+		return onePrice;
+	}
+	public void setOnePrice(Double onePrice) {
+		this.onePrice = onePrice;
+	}
+	public String getProTemStatus() {
+		return proTemStatus;
+	}
+	public void setProTemStatus(String proTemStatus) {
+		this.proTemStatus = proTemStatus;
+	}
+	public Integer getParallelId() {
+		return parallelId;
+	}
+	public void setParallelId(Integer parallelId) {
+		this.parallelId = parallelId;
+	}
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+	public Float getNeedCapacity() {
+		return needCapacity;
+	}
+	public void setNeedCapacity(Float needCapacity) {
+		this.needCapacity = needCapacity;
+	}
+	public Float getSingleDuration() {
+		return singleDuration;
+	}
+	public void setSingleDuration(Float singleDuration) {
+		this.singleDuration = singleDuration;
+	}
+	public Float getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(Float capacity) {
+		this.capacity = capacity;
+	}
+	public Float getCapacitySurplus() {
+		return capacitySurplus;
+	}
+	public void setCapacitySurplus(Float capacitySurplus) {
+		this.capacitySurplus = capacitySurplus;
+	}
+	public Float getCapacityRatio() {
+		return capacityRatio;
+	}
+	public void setCapacityRatio(Float capacityRatio) {
+		this.capacityRatio = capacityRatio;
+	}
+	public Float getDeliveryDuration() {
+		return deliveryDuration;
+	}
+	public void setDeliveryDuration(Float deliveryDuration) {
+		this.deliveryDuration = deliveryDuration;
+	}
+	public Float getDeliveryRatio() {
+		return deliveryRatio;
+	}
+	public void setDeliveryRatio(Float deliveryRatio) {
+		this.deliveryRatio = deliveryRatio;
+	}
+	public Integer getDeliveryPeriod() {
+		return deliveryPeriod;
+	}
+	public void setDeliveryPeriod(Integer deliveryPeriod) {
+		this.deliveryPeriod = deliveryPeriod;
+	}
+	public Float getDeliveryAmount() {
+		return deliveryAmount;
+	}
+	public void setDeliveryAmount(Float deliveryAmount) {
+		this.deliveryAmount = deliveryAmount;
+	}
+	public Float getProSingleDuration() {
+		return proSingleDuration;
+	}
+	public void setProSingleDuration(Float proSingleDuration) {
+		this.proSingleDuration = proSingleDuration;
+	}
+	public Float getAllJiepai() {
+		return allJiepai;
+	}
+	public void setAllJiepai(Float allJiepai) {
+		this.allJiepai = allJiepai;
+	}
+	public Integer getZhuserId() {
+		return zhuserId;
+	}
+	public void setZhuserId(Integer zhuserId) {
+		this.zhuserId = zhuserId;
+	}
+	public String getGys() {
+		return gys;
+	}
+	public void setGys(String gys) {
+		this.gys = gys;
+	}
+	public ProcardTemplateJY getProcardTemplateJY() {
+		return procardTemplateJY;
+	}
+	public void setProcardTemplateJY(ProcardTemplateJY procardTemplateJY) {
+		this.procardTemplateJY = procardTemplateJY;
+	}
+	public Set<ProcardTemplateJY> getProcardTJYSet() {
+		return procardTJYSet;
+	}
+	public void setProcardTJYSet(Set<ProcardTemplateJY> procardTJYSet) {
+		this.procardTJYSet = procardTJYSet;
+	}
+	public Set<ProcessTemplateJY> getProcessTemplateJY() {
+		return processTemplateJY;
+	}
+	public void setProcessTemplateJY(Set<ProcessTemplateJY> processTemplateJY) {
+		this.processTemplateJY = processTemplateJY;
+	}
+	public Float getJianyanjiepai() {
+		return jianyanjiepai;
+	}
+	public void setJianyanjiepai(Float jianyanjiepai) {
+		this.jianyanjiepai = jianyanjiepai;
+	}
+	public Integer getVersionNo() {
+		return versionNo;
+	}
+	public void setVersionNo(Integer versionNo) {
+		this.versionNo = versionNo;
+	}
+	public String getProgressStatus() {
+		return progressStatus;
+	}
+	public void setProgressStatus(String progressStatus) {
+		this.progressStatus = progressStatus;
+	}
+	public String getVersionStatus() {
+		return versionStatus;
+	}
+	public void setVersionStatus(String versionStatus) {
+		this.versionStatus = versionStatus;
+	}
+	
+	
+}

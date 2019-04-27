@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.banci">
+	<class name="SchedulingTable" table="ta_SchedulingTable">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<!-- 排班信息表对用户表 多对一 -->
+		<many-to-one name="users" class="com.task.entity.Users" column="ta_userId"></many-to-one>
+		<property name="name" />
+		<property name="dept" />
+		<property name="code"/>
+		<property name="cardId"/>
+		<property name="dateTime"/>
+		<property name="banci_name"/>
+		<property name="addtime" />
+		<property name="updatetime" />
+		<property name="dataType" />
+		<!-- 排班信息表对班次表 多对一 -->
+		<many-to-one name="banCi" class="BanCi" column="ta_banci"></many-to-one>
+	</class>
+</hibernate-mapping>

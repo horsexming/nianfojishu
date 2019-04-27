@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.InternalOrderDetail" table="ta_crm_internalOrderDetail">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="procardId" />
+		<property name="orderId" />
+		<property name="productManagerId" />
+		<property name="orderNum" />
+		<property name="touchanDate" />
+		<property name="status" />
+
+		<property name="name" column="f_name"/>
+		<property name="unit" />
+		<property name="pieceNumber" column="f_pieceNum"/>
+		<property name="num" column="f_num"/>
+		<property name="remark" column="f_remark"/>
+		<property name="quantityCompletion" column="f_quantityCompletion"/>
+		<property name="turnCount" />
+		<property name="sellCount" />
+		<property name="cxCount" />
+		<property name="ywMarkId" />
+		<property name="paymentDate" />
+		<property name="jihuoDate" />
+		<property name="isPeiJian" length="10"/>
+		<many-to-one name="internalOrder" column="fk_internalOrder_id"
+			class="com.task.entity.InternalOrder" lazy="false" />
+	</class>
+</hibernate-mapping>

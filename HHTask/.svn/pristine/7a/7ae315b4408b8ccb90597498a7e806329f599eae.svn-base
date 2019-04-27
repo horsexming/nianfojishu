@@ -1,0 +1,309 @@
+package com.task.Server.ess;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.ChengPinTuiHuo;
+import com.task.entity.Goods;
+import com.task.entity.PrintedOutOrder;
+import com.task.entity.Sell;
+import com.task.entity.WarehouseNumber;
+import com.task.entity.menjin.WareBangGoogs;
+import com.task.entity.sop.Procard;
+import com.task.entity.sop.WaigouOrder;
+import com.task.entity.sop.WaigouPlan;
+
+public interface SellServer {
+	/**
+	 * 根据卡片查找需要出库的库存记录
+	 * 
+	 * @param runningWaterCard
+	 * @param ckType 登陆用户拥有出库权限的仓库
+	 * @return
+	 */
+	public Map<Integer,Object> findSellOutlist(Procard procard,String ckType,String status);
+	/**
+	 * 根据卡片查找需要出库的库存记录(组合部分领料)
+	 * 
+	 * @param runningWaterCard
+	 * @param ckType 登陆用户拥有出库权限的仓库
+	 * @return
+	 */
+	public Map<Integer,Object> findSellOutlist2(Procard procard,String ckType,String status);
+
+	/**
+	 * 根据流水卡扫描出库
+	 * 
+	 * @param rw
+	 * @param pro
+	 * @param li
+	 * @param ckType
+	 * @param selected 
+	 * @return
+	 */
+	public List saveSellList(Integer id, Procard pro, List<Goods> li, String tag,float qingling, float shifa, float getCount,String ckType, int[] selected);
+	/**
+	 * 根据流水卡扫描出库(组合或总成部分领料)
+	 * 
+	 * @param rw
+	 * @param pro
+	 * @param li
+	 * @return
+	 */
+	public List saveSellList2(Integer id, Procard pro, List<Goods> li, String tag, float getCount);
+
+	/**
+	 * 出库未打印记录查询
+	 * 
+	 * @return
+	 */
+	public List<Sell> findOutSellList(Sell sell);
+
+	/**
+	 * 条件查询Sell 列表
+	 * 
+	 * @param sell
+	 * @param startDate
+	 * @param endDate
+	 * @param cpage
+	 * @param pageSize
+	 * @return
+	 */
+	public Object[] findSellByCondition(Sell sell, String startDate,
+			String endDate, Integer cpage, Integer pageSize);
+
+	/**
+	 * 插叙Sell对象
+	 * 
+	 * @param id
+	 * @param tag
+	 * @return
+	 */
+	public Sell getOneSellById(Integer id, String tag);
+
+	/**
+	 * 删除ONE sell
+	 * 
+	 * @return
+	 */
+	public boolean deleteSellById(Sell sell);
+
+	/**
+	 * 更新sell信息
+	 * 
+	 * @param sell
+	 * @return
+	 */
+	public boolean updateSell(Sell sell);
+
+    void explorExcelByPoi(Sell sell, String startDate, String endDate,
+                          String tag, String status);
+
+    /**
+	 * 导出excel
+	 * 
+	 * @param sell
+	 * @param startDate
+	 * @param endDate
+	 * @param tag
+	 */
+	public void explorExcel(Sell sell, String startDate, String endDate,
+			String tag,String status);
+
+	// 打印sell修改打印状态
+	public void printInfor(Integer id);
+
+	/**
+	 * 自制件领料处理
+	 * 
+	 * @param id
+	 * @param pro
+	 * @param li
+	 * @param tag
+	 * @param qingling
+	 * @param shifa
+	 * @return
+	 */
+	public List saveSellListZZ(Integer id, Procard pro, List<Goods> li,
+			String tag, float qingling, float shifa, float getCount);
+
+	/***
+	 * 根据件号和批次查询出库信息
+	 * 
+	 * @param sellMarkId
+	 *            件号
+	 * @param sellLot
+	 *            批次
+	 * @return
+	 */
+	List findSell(String sellMarkId, String sellLot);
+
+	public List printStorage(int[] selected);
+	/**
+	 * 检查实发数量是否足够
+	 * @param id
+	 * @param shifa
+	 * @return
+	 */
+	public boolean checkshifacount(String goodsMarkId,String goodsFormat, float shifa);
+    /**
+     * 查询目前可用在制品数量
+     * @param id 自制件id
+     * @param b 是否扣去本批次已占用的数量
+     * @return
+     */
+	public Float getZaiZhiCount(Integer id);
+    /**
+     * 在领料时领了多少在制品就提交多少工序
+     * @param zaizhiCount
+     * @param getCount
+     * @param id
+     * @return
+     */
+	public boolean updateProcessNumber(Float zaizhiCount, Float getCount,
+			Integer id);
+	public void unCreateWaiWei();
+	/**
+	 * 获取登陆人拥有的对应权限类型的组仓库
+	 * @param type(查看 view,入库 in,出库 out， 编辑edit)
+	 * @return
+	 */
+	public String getCkTypeByLoginUser(String type);
+	/**
+	 * 批量出库导入
+	 */
+	public String PladdSell(File addSell,String statue);
+	/**
+	 * 获取下层是否已全部被领出来
+	 * @param id
+	 * @return
+	 */
+	public boolean getHasOut(Integer id);
+	/**
+	 * 发送库位二维码（领料确认）
+	 * @param wn
+	 * @return
+	 */
+	public String queRenSendTow(Integer id);
+	/**
+	 * 根据库存Id查出库存信息;
+	 */
+	Goods findGoodsById(Integer id);
+	 /**
+	  * 根据库存Id查出中间表信息;
+	  */
+	WareBangGoogs findWareBangBygoodsId(Integer id);
+	/**
+	 * 领料成功减去中间表数量;
+	 */
+	String updateWareBangGoogs(List<WareBangGoogs> bangList);
+	/**
+	 * 关门操作
+	 * @param wn
+	 * @return
+	 */
+	public String oaCloseW(WarehouseNumber wn);
+	/**
+	 * 根据中间表信息查询出库位信息然后关闭库位门;
+	 */
+	String oaCloseWN(WareBangGoogs bang);
+	/**
+	 * 获取外委材料清单
+	 * @param wwOrderNumber 外委订单号
+	 * @return
+	 */
+	public Map<Integer,Object> getWwclDetail(String wwOrderNumber,Integer id);
+	/**
+	 * 获取外委材料清单
+	 * @param wwPlanList 外委订单明细id和领取数量
+	 * @param id 外委订单id
+	 * @return
+	 */
+	public Map<Integer,Object> getWwclDetail2(List<WaigouPlan> wwPlanList,Integer id);
+	/**
+	 * 外委材料出库
+	 * @param order
+	 * @param goodsList
+	 * @return
+	 */
+	public String outwwcl(WaigouOrder order, List<Goods> goodsList,int[] selected);
+	/**
+	 * 添加打印单
+	 */
+	public Object[] addPrintedOutOrder(List<Sell> sellList,String status);
+	/**
+	 * 获取所有领料人部门
+	 * @return
+	 */
+	public List getAlllingliaodept();
+	/**
+	 * 展示外委领料配套清单
+	 * @param barCode
+	 * @param id
+	 * @return
+	 */
+	public Map<Integer, Object> showWwPlanoutDetail(String barCode, Integer id);
+	void daoru();
+	/**
+	 * 退库操作
+	 * @param sell
+	 * @return
+	 */
+	public String tuiKuSell(Sell sell);
+	/**
+	 * 获取出库记录
+	 * @return
+	 */
+	public List<Sell> getSellList();
+	/**
+	 * 外协退库
+	 * @param sell
+	 */
+	public String backwxSell(Sell sell);
+	
+	/**
+	 * 查询库存调拨打印
+	 */
+	Map<Integer, Object> findChangeGoods(String tag,Integer pageNo,Integer pageSize,Sell sell);
+	
+	/**
+	 * 根据sellId 查询调拨单打印
+	 */
+	
+	List<Sell> findchangeGoodsBySellIds(List<Integer> sellIds,String tag);
+	
+	/**
+	 * 更新库存调拨打印记录
+	 * @param selected Sell.sellId用,分割
+	 */
+	String updateChangeSellPrintStatus(String selected,String tag,PrintedOutOrder poor);
+	
+	/**
+	 * 查询打印编号等信息
+	 */
+	PrintedOutOrder getPOOByCond(String selected,String changeNum);
+	/**
+	 * 删除异常出库数据
+	 * @return
+	 */
+	public String deleteYcSell(List<Sell> sellList);
+	/**
+	 * 获取异常出库列表
+	 * @return
+	 */
+	public List<Sell> getycSellList();
+	/**
+	 * 成品退货申请
+	 * ChengPinTuiHuoSq
+	 */
+	String ChengPinTuiHuoSq(Sell sell);
+	/**
+	 * findAllChengPinTuiHuo
+	 */
+	Object[] findAllChengPinTuiHuo(ChengPinTuiHuo cpth,Integer pageSize,Integer pageNo,String status);
+	/**
+	 * 成品退货打印
+	 */
+	ChengPinTuiHuo toCpthPrint(Integer id);
+}

@@ -1,0 +1,76 @@
+package com.task.Server.sop;
+
+import java.util.List;
+
+import com.task.entity.sop.FailureSSOnWeek;
+import com.task.entity.sop.FailureStatistics;
+import com.task.entity.sop.FailureStatisticsDetail;
+
+/***
+ * 周不合格提交量统计Server
+ * 
+ * @author 刘培
+ * 
+ */
+public interface FailureStServer {
+	/***
+	 * 添加零件周不合格量(统计周数据)
+	 * 
+	 * @param FailureSt
+	 * @return
+	 */
+	String addFailureSt(FailureStatistics failureSt);
+
+	/***
+	 * 每周一次提交不合格统计
+	 */
+	Object[] findAllFailure(Integer id,String weekds ,int page, int rows);
+
+	/***
+	 * 不合格状态统计查询
+	 */
+	List findAllFailureSSOnWeek(String weekds,Integer id,String type);
+
+	/***
+	 * 各件号不合格品数量统计 查询
+	 */
+	List findAllFailureSSMarkId(String weekds);
+	
+	/***
+	 * 各件号不合格品数量统计 查询 ajax
+	 */
+	Object[] findAllFailureSSMarkId(String weekds, int page, int rows);
+
+	/***
+	 * 不合格状态统计查询(当前周)
+	 */
+	FailureSSOnWeek findAllFailureSSOnWeek();
+
+	/***
+	 * 产品一次提交不合格品率趋势图 （PPM）
+	 */
+	Object[] findAllFsMarkId(String weekds, String client);
+
+	Object[] listFailureStatistics(FailureStatistics failureStatistics,
+			Integer parseInt, Integer pageSize);
+
+	FailureStatistics byId(Integer id);
+
+	void UpdatefailureStatistics(FailureStatistics failureStatistics);
+
+	void deletefailureStatistics(FailureStatistics failureStatistics);
+	
+	/**
+	 *  根据周不合格Id查询对应的不合格明细记录
+	 */
+	
+	List<FailureStatisticsDetail> findFsdByweekId(Integer id);
+	/***
+	 * 手动添加质量不良
+	 * @param failureSt
+	 * @return
+	 */
+	String addFailureStdetail(FailureStatistics failureSt);
+
+	List findFsdByweekId(String ids);
+}

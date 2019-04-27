@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="task-chenyang" extends="struts-stack">
+		<!--
+			****************************************陈阳Action操作**********************************************************************
+		-->
+		<!-- 客饭票 -->
+		<action name="mealAction" class="mealAction">
+			<result name="saveSuccess" type="redirect">mealAction!personFind.action
+			</result>
+			<result name="rekan" type="redirect">mealAction!reKan.action</result>
+			<result name="rekan3" type="redirect">mealAction!reKan3.action</result>
+			<result name="list">/System/renshi/fanpiao/allfind.jsp</result>
+			<result name="personlist">/System/renshi/fanpiao/personfind.jsp</result>
+			<result name="f">/System/renshi/fanpiao/meal.jsp</result>
+			<result name="meal1">/System/renshi/fanpiao/meal1.jsp</result>
+			<result name="h">/System/renshi/fanpiao/remind.jsp</result>
+			<result name="fuck">/System/renshi/fanpiao/mealticket.jsp</result>
+			<result name="reKan">/System/renshi/fanpiao/rekan.jsp</result>
+			<result name="reKan3">/System/renshi/fanpiao/rekan3.jsp</result>
+			<result name="look">/System/renshi/fanpiao/look1.jsp</result>
+			<result name="look1">/System/renshi/fanpiao/look.jsp</result>
+			<result name="error">/error.jsp</result>
+
+		</action>
+		<!-- 通知管理 -->
+		<action name="AddUserAction" class="AddUserAction"></action>
+		<action name="InformAction" class="InformAction">
+			<result name="leave" type="redirect">InformAction!leave.action</result>
+			<!-- /System/renshi/iao/iaoLeaveInform_Apply.jsp -->
+			<result name="print">/System/renshi/iao/iaoLeavePrint.jsp</result>
+			<result name="findli">/System/renshi/iao/iaoLeaveFind.jsp</result>
+			<result name="iaoAddCInform">/System/renshi/iao/iaoAddCInform.jsp</result>
+			<result name="iaoComeInform">/System/renshi/iao/iaoComeInform.jsp</result>
+			<result name="caiwuAdd">/System/renshi/iao/inform/caiwuAdd.jsp</result>
+			<result name="caiwulizhiadd">/System/renshi/iao/inform/caiwulizhiadd.jsp
+			</result>
+			<result name="caiwulizhiprint">/System/renshi/iao/inform/caiwulizhiprint.jsp
+			</result>
+			<result name="caiwuruzhi">/System/renshi/iao/inform/caiwuruzhi.jsp</result>
+			<result name="caiwuruzhiprint">/System/renshi/iao/inform/caiwuruzhiprint.jsp
+			</result>
+			<result name="caiwutstzAdd">/System/renshi/iao/inform/caiwutstzAdd.jsp
+			</result>
+			<result name="caiwutstzprint">/System/renshi/iao/inform/caiwutstzprint.jsp
+			</result>
+			<result name="xingzhengtzprint">/System/renshi/iao/inform/xingzhengtzprint.jsp
+			</result>
+			<result name="xingzhengtz">/System/renshi/iao/inform/xingzhengtz.jsp
+			</result>
+
+			<!-- 删除专用 -->
+			<result name="li" type="redirect">InformAction!findli.action</result>
+			<result name="ru" type="redirect">InformAction!findru.action</result>
+			<result name="ti" type="redirect">InformAction!findti.action</result>
+			<result name="cli" type="redirect">InformAction!findcli.action</result>
+			<result name="cru" type="redirect">InformAction!findcru.action</result>
+			<result name="cgrlm" type="redirect">InformAction!findcgrlm.action
+			</result>
+			<result name="cnt" type="redirect">InformAction!findcnt.action</result>
+			<result name="cwts" type="redirect">InformAction!findcwts.action</result>
+			<result name="xztz" type="redirect">InformAction!findxztz.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 公告管理 -->
+		<action name="NoticeAction" class="NoticeAction">
+			<result name="addpage">/System/xinxi/gonggao/addpage.jsp</result>
+			<result name="save" type="redirect">NoticeAction!Search.action</result>
+			<result name="search">/System/xinxi/gonggao/list.jsp</result>
+		</action>
+		<!-- 质量管理 -->
+		<action name="QexamineAction" class="QexamineAction">
+			<result name="addQexamine">/System/SOP/Qexamin/addQexamine.jsp</result>
+			<result name="qexamineList" type="redirect">QexamineAction!qexamineList.action</result>
+			<result name="addstylebook">/System/SOP/Qexamin/addStylebook.jsp</result>
+			<result name="fixqexamine">/System/SOP/Qexamin/fixqexamine.jsp</result>
+			<result name="addcoffficient">/System/SOP/Qexamin/addcoefficient.jsp</result>
+			<result name="qexamineListfind">/System/SOP/Qexamin/Qexaminelist.jsp</result>
+			<result name="findQexamine" type="redirect">QexamineAction!findQexamine.action?
+							qexamine.id=${stylebook.getQid()}</result>
+			<result name="stylebooklist">/System/SOP/Qexamin/stylebooklist.jsp</result>
+			<result name="stylebook">/System/SOP/Qexamin/stylebook.jsp</result>
+			<result name="fixStylebook">/System/SOP/Qexamin/fixStylebook.jsp</result>
+			<result name="fixCoffficient">/System/SOP/Qexamin/fixcoefficient.jsp</result>
+			<result name="adddefect">/System/SOP/Qexamin/adddefect.jsp</result>
+		</action>
+		<!-- 检查质量表 -->
+		<action name="QualityccAction" class="QualityccAction">
+				<result name="qualitychecktolist" type="redirect">QualityccAction!qualitychecktoList.action</result>
+				<result name="qualitychecktolist0">/System/SOP/Qexamin/qualitychecktolist.jsp</result>
+				<result name="addQualitycheckta">/System/SOP/Qexamin/qualitychecktalist.jsp</result>
+				<result name="qualityto">/System/SOP/Qexamin/qualitytolist.jsp</result>
+				<result name="qualitytos">/System/SOP/Qexamin/qualitytolists.jsp</result>
+				<result name="qualitytoo">/System/SOP/Qexamin/qualiltyto.jsp</result>
+				<result name="qualitytoox">/System/SOP/Qexamin/qualitytoox.jsp</result>
+				<result name="qualitytooxt">/System/SOP/Qexamin/qualitytooxt.jsp</result>
+				<result name="qualitytolist" type="redirect">QualityccAction!findQualitytoList.action</result>
+				<result name="lookqualityto" type="redirect">QualityccAction!lookQualityta.action?qualityto.Id=${qualityto.id}</result>
+				<result name="qualitytooxts" type="redirect">QualityccAction!findQualitytoLists.action</result>
+				<result name="qualitychecktorp">/System/SOP/Qexamin/qualitychecktorp.jsp</result>
+		</action>
+		<!-- 预算报表 -->
+		<action name="YusuantianbaobiaoAction" class="YusuantianbaobiaoAction">
+			<result name="yusuantianbaobiaolist">/System/caiwu/yusuantianbaobiao/yusuantianbaobiaolist.jsp</result>
+			<result name="getAllList" type="redirect">YusuantianbaobiaoAction!getAllList.action?id=${yusuantianbaototal.id}</result>
+			<result name="yusuantianbaobiao">/System/caiwu/yusuantianbaobiao/yusuantianbaobiao.jsp</result>
+			<result name="updateyusuantianbaobiao">/System/caiwu/yusuantianbaobiao/updateyusuantianbaobiao.jsp</result>
+			<result name="getZlist" type="redirect">YusuantianbaobiaoAction!getAllZlist.action</result>
+			<result name="yusuantianbaototallist">/System/caiwu/yusuantianbaobiao/yusuantianbaototallist.jsp</result>
+			<result name="addyusuan">/System/caiwu/yusuantianbaobiao/addyusuan.jsp</result>
+			<result name="updateyusuantianbaototal">/System/caiwu/yusuantianbaobiao/updateyusuantianbaototal.jsp</result>
+			<result name="getSlist" type="redirect">YusuantianbaobiaoAction!getAllSlist.action</result>
+			<result name="getAllgerenlist" type="redirect">YusuantianbaobiaoAction!getAllgerenlist.action</result>
+			<result name="yusuantianbaobiaolistsimple">/System/caiwu/yusuantianbaobiao/yusuantianbaolistsimple.jsp</result>
+			
+		</action>
+	</package>
+</struts>

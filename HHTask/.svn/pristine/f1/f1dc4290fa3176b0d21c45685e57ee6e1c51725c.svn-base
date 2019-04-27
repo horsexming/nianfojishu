@@ -1,0 +1,172 @@
+package com.task.entity.sop;
+/**
+ * 设变修改内容明细 ta_sop_w_ProcardTemplatesbDifferenceDetail
+ * @author txb
+ *
+ */
+public class ProcardTemplatesbDifferenceDetail {
+	private Integer id;
+	private String zbMarkId;//主表件号
+	private String datatype;//数据类型(本身，子件，工序，图纸)
+	private String optype;//操作类型
+	private String markId;//子件件号
+	private Integer dataId;//数据id
+	private String proname;//名称
+	//工序使用
+	private String processno;//新工序号（;隔开）
+	private String processname;//新工序名称
+	private String processno1;//原工序号
+	private String processname1;//原工序名称
+	
+	//子件使用
+	private String banbenNumber;
+	private Integer banci;
+	
+	//本身使用
+	private String sxName;//变值属性名称
+	private String oldData;//原值
+	private String newData;//新值
+	private Integer xuhao;//序号（显示时排序使用）
+	
+	//图纸使用
+	private String month;//月份
+	private String fileName;//
+	private String oldfileName;//
+	
+	private Integer ptsbdId;//主表Id (ProcardTemplatesbDifference)
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getZbMarkId() {
+		return zbMarkId;
+	}
+	public void setZbMarkId(String zbMarkId) {
+		this.zbMarkId = zbMarkId;
+	}
+	public String getDatatype() {
+		return datatype;
+	}
+	public void setDatatype(String datatype) {
+		this.datatype = datatype;
+	}
+	public String getOptype() {
+		return optype;
+	}
+	public void setOptype(String optype) {
+		this.optype = optype;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public Integer getDataId() {
+		return dataId;
+	}
+	public void setDataId(Integer dataId) {
+		this.dataId = dataId;
+	}
+	public String getProname() {
+		return proname;
+	}
+	public void setProname(String proname) {
+		this.proname = proname;
+	}
+	public String getOldData() {
+		return oldData;
+	}
+	public void setOldData(String oldData) {
+		this.oldData = oldData;
+	}
+	public String getNewData() {
+		return newData;
+	}
+	public void setNewData(String newData) {
+		this.newData = newData;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getOldfileName() {
+		return oldfileName;
+	}
+	public void setOldfileName(String oldfileName) {
+		this.oldfileName = oldfileName;
+	}
+	public Integer getPtsbdId() {
+		return ptsbdId;
+	}
+	public void setPtsbdId(Integer ptsbdId) {
+		this.ptsbdId = ptsbdId;
+	}
+	public String getSxName() {
+		return sxName;
+	}
+	public void setSxName(String sxName) {
+		this.sxName = sxName;
+	}
+	public String getProcessno() {
+		return processno;
+	}
+	public void setProcessno(String processno) {
+		this.processno = processno;
+	}
+	public String getBanbenNumber() {
+		return banbenNumber;
+	}
+	public void setBanbenNumber(String banbenNumber) {
+		this.banbenNumber = banbenNumber;
+	}
+	public Integer getBanci() {
+		return banci;
+	}
+	public void setBanci(Integer banci) {
+		this.banci = banci;
+	}
+	public Integer getXuhao() {
+		return xuhao;
+	}
+	public void setXuhao(Integer xuhao) {
+		this.xuhao = xuhao;
+	}
+	public String getProcessno1() {
+		return processno1;
+	}
+	public void setProcessno1(String processno1) {
+		this.processno1 = processno1;
+	}
+	public String getProcessname() {
+		return processname;
+	}
+	public void setProcessname(String processname) {
+		this.processname = processname;
+	}
+	public String getProcessname1() {
+		return processname1;
+	}
+	public void setProcessname1(String processname1) {
+		this.processname1 = processname1;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+}

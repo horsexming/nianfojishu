@@ -1,0 +1,131 @@
+package com.task.entity.zgkh;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.task.entity.Template;
+import com.task.entity.UsersGroup;
+
+/***
+ * 成员人员(表名:ta_hr_zgkh_AssessPersonnel、中间表:ta_sys_usersTemplate)
+ * 
+ * @author 刘培
+ * 
+ */
+public class AssessPersonnel  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private Integer userId;// 用户id
+	private String code;// 工号
+	private String cardId;// 卡号
+	private String userName;// 用户名
+	private String dept;// 部门
+	private Integer addUserId;// 添加人的id
+	private String addUserCode;// 添加人工号
+	private String addTime;// 添加时间
+	private String remark;// 备注
+	private Set<Template> template;// 考核模板(多对多)
+	private UsersGroup usersGroup;// 所属组(多对一)
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	@JSONField(serialize = false)
+	public Set<Template> getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Set<Template> template) {
+		this.template = template;
+	}
+	@JSONField(serialize = false)
+	public UsersGroup getUsersGroup() {
+		return usersGroup;
+	}
+
+	public void setUsersGroup(UsersGroup usersGroup) {
+		this.usersGroup = usersGroup;
+	}
+
+}

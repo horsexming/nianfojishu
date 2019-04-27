@@ -1,0 +1,384 @@
+package com.task.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.task.util.FieldMeta;
+
+/***
+ * 加班申请表
+ * 
+ * @表名 overtime
+ * @author 陈曦
+ * 
+ */
+public class Overtime  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;// 主键
+
+	private Integer applyId; // 申请人ID
+	@FieldMeta(name = "申请人姓名")
+	private String applyName; // 姓名
+	private String applyCode; // 工号
+	private String applyDept;// 申请人部门
+
+	private Integer overtimeId; // 加班人ID
+	@FieldMeta(name = "加班人姓名")
+	private String overtimeName; // 加班人姓名
+	@FieldMeta(name = "加班人工号")
+	private String overtimeCode; // 加班人工号
+	private String overtimeCardId; // 加班人卡号
+	private String overtimeDept;// 加班人部门
+
+	@FieldMeta(name = "开始加班时间")
+	private String startDate;// 开始加班时间
+	@FieldMeta(name = "结束时间")
+	private String endDate;// 结束时间
+	private Integer xiuxi;// 中途休息时长 (分钟)
+
+	@FieldMeta(name = "创建时间")
+	private String createDate;// 创建时间
+	@FieldMeta(name = "预估人工成本")
+	private Float reCost;// 产生的工资
+
+//	@FieldMeta(name = "加工件号")
+	private String markId;// 加工件号
+
+//	@FieldMeta(name = "数量")
+	private Integer amount;// 数量
+	@FieldMeta(name = "状态")
+	private String status; // 状态（审批的状态）、已打卡
+	private Integer epId;// 流程实例ID
+	@FieldMeta(name="加班时长(小时)")
+	private Float overTimeLong;// 加班时长（小时）
+	private Float overTimeMinutes;// 加班时长（分钟）(没有保存记录)
+	@FieldMeta(name = "加班说明")
+	private String shuoming;// 加班说明
+	//
+	@FieldMeta(name = "是否换休")
+	private String huanxiu;// 是否换休
+	private String huanxiustatus;// 是否生成换休记录
+	// 获取客户端参数
+	private String params;
+
+	private String overtimeType;// 加班原因： 项目 / 生产/KVP
+	private String category;
+	@FieldMeta(name="加班内容")
+	private String overtimeNeirong;// 加班内容
+	private String accessStatus;// 门禁记录生成状态
+	private String carPaiNum;// 加班进出车辆
+	private String zhongjian;
+
+	private Float usablehxTime;// 可用换休时间(小时)
+
+	private Integer actualEpId;// 后补epid
+	private String actualEpStatus;// 后补审批状态
+	
+	private String startStatus;//上班打卡状态
+	private String endStatus;//下班打卡状态
+
+	private Set<OvertimeDetail> overtimeDetails;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getApplyName() {
+		return applyName;
+	}
+
+	public void setApplyName(String applyName) {
+		this.applyName = applyName;
+	}
+
+	public String getApplyCode() {
+		return applyCode;
+	}
+
+	public void setApplyCode(String applyCode) {
+		this.applyCode = applyCode;
+	}
+
+	public String getApplyDept() {
+		return applyDept;
+	}
+
+	public void setApplyDept(String applyDept) {
+		this.applyDept = applyDept;
+	}
+
+	public String getOvertimeName() {
+		return overtimeName;
+	}
+
+	public String getZhongjian() {
+		return zhongjian;
+	}
+
+	public void setZhongjian(String zhongjian) {
+		this.zhongjian = zhongjian;
+	}
+
+	public void setOvertimeName(String overtimeName) {
+		this.overtimeName = overtimeName;
+	}
+
+	public String getOvertimeCode() {
+		return overtimeCode;
+	}
+
+	public void setOvertimeCode(String overtimeCode) {
+		this.overtimeCode = overtimeCode;
+	}
+
+	public String getOvertimeDept() {
+		return overtimeDept;
+	}
+
+	public void setOvertimeDept(String overtimeDept) {
+		this.overtimeDept = overtimeDept;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getApplyId() {
+		return applyId;
+	}
+
+	public void setApplyId(Integer applyId) {
+		this.applyId = applyId;
+	}
+
+	public Integer getOvertimeId() {
+		return overtimeId;
+	}
+
+	public void setOvertimeId(Integer overtimeId) {
+		this.overtimeId = overtimeId;
+	}
+
+	public Integer getEpId() {
+		return epId;
+	}
+
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+
+	public String getParams() {
+		return params;
+	}
+
+	public void setParams(String params) {
+		this.params = params;
+	}
+
+	public Float getOverTimeLong() {
+		if (null != overTimeLong) {
+			return Float.parseFloat(String.format("%.2f", overTimeLong));
+		}
+		return overTimeLong;
+	}
+
+	public void setOverTimeLong(Float overTimeLong) {
+		this.overTimeLong = overTimeLong;
+	}
+
+	public String getHuanxiu() {
+		return huanxiu;
+	}
+
+	public void setHuanxiu(String huanxiu) {
+		this.huanxiu = huanxiu;
+	}
+
+	public String getHuanxiustatus() {
+		return huanxiustatus;
+	}
+
+	public void setHuanxiustatus(String huanxiustatus) {
+		this.huanxiustatus = huanxiustatus;
+	}
+
+	public String getShuoming() {
+		return shuoming;
+	}
+
+	public void setShuoming(String shuoming) {
+		this.shuoming = shuoming;
+	}
+
+	public String getOvertimeType() {
+		return overtimeType;
+	}
+
+	public void setOvertimeType(String overtimeType) {
+		this.overtimeType = overtimeType;
+	}
+
+	public String getOvertimeNeirong() {
+		return overtimeNeirong;
+	}
+
+	public void setOvertimeNeirong(String overtimeNeirong) {
+		this.overtimeNeirong = overtimeNeirong;
+	}
+
+	public String getOvertimeCardId() {
+		return overtimeCardId;
+	}
+
+	public void setOvertimeCardId(String overtimeCardId) {
+		this.overtimeCardId = overtimeCardId;
+	}
+
+	public String getAccessStatus() {
+		return accessStatus;
+	}
+
+	public void setAccessStatus(String accessStatus) {
+		this.accessStatus = accessStatus;
+	}
+
+	public String getCarPaiNum() {
+		return carPaiNum;
+	}
+
+	public void setCarPaiNum(String carPaiNum) {
+		this.carPaiNum = carPaiNum;
+	}
+
+	public Float getReCost() {
+		return reCost;
+	}
+
+	public void setReCost(Float reCost) {
+		this.reCost = reCost;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public Integer getXiuxi() {
+		return xiuxi;
+	}
+
+	public void setXiuxi(Integer xiuxi) {
+		this.xiuxi = xiuxi;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public Float getUsablehxTime() {
+		return usablehxTime;
+	}
+
+	public void setUsablehxTime(Float usablehxTime) {
+		this.usablehxTime = usablehxTime;
+	}
+
+	public Integer getActualEpId() {
+		return actualEpId;
+	}
+
+	public void setActualEpId(Integer actualEpId) {
+		this.actualEpId = actualEpId;
+	}
+
+	public String getActualEpStatus() {
+		return actualEpStatus;
+	}
+
+	public void setActualEpStatus(String actualEpStatus) {
+		this.actualEpStatus = actualEpStatus;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Set<OvertimeDetail> getOvertimeDetails() {
+		return overtimeDetails;
+	}
+
+	public void setOvertimeDetails(Set<OvertimeDetail> overtimeDetails) {
+		this.overtimeDetails = overtimeDetails;
+	}
+
+	public Float getOverTimeMinutes() {
+		return overTimeMinutes;
+	}
+
+	public void setOverTimeMinutes(Float overTimeMinutes) {
+		this.overTimeMinutes = overTimeMinutes;
+	}
+
+	public String getStartStatus() {
+		return startStatus;
+	}
+
+	public void setStartStatus(String startStatus) {
+		this.startStatus = startStatus;
+	}
+
+	public String getEndStatus() {
+		return endStatus;
+	}
+
+	public void setEndStatus(String endStatus) {
+		this.endStatus = endStatus;
+	}
+
+}

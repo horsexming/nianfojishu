@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="BreakSubmit" table="ta_sop_w_BreakSubmit"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardId"/>
+		<property name="processId"/>
+		<property name="type"/>
+		<property name="processNo"/>
+		<property name="processName"/>
+		<property name="markId"/>
+		<property name="wgmarkId"/>
+		<property name="tjbreakcount"/>
+		<property name="qrbreakcount"/>
+		<property name="tjUsersId"/>
+		<property name="tjUsersName"/>
+		<property name="qrUsersId"/>
+		<property name="qrUsersName"/>
+		<property name="tjTime"/>
+		<property name="qrTime"/>
+		<property name="breakgroup"/>
+		<property name="osRecordId"/>
+		<property name="tjtype"/>
+		<property name="epId"/>
+		<property name="epstatus"/>
+		<property name="clResult"/>
+		<property name="prologId"/>
+		<property name="personLiable"/>
+		<property name="ywmarkId"/>
+		<property name="selfcard"/>
+		<property name="proName"/>
+		<property name="codeLiable"/>
+		<property name="cardIdLiable"/>
+		<property name="fanxiuUsers"/>
+		<property name="fanxiuCode"/>
+		<property name="fanxiuCardId"/>
+		<property name="hxStatus"/>
+		<property name="gongwei"/>
+		<property name="wgproName"/>
+		<property name="wgselfcard"/>
+		<property name="rootmarkId"/>
+		<property name="rootselfCard"/>
+		<set name="osrSet" inverse="false" lazy="true" cascade="save-update">
+			<key column="fk_breakId"></key>
+			<one-to-many class="com.task.entity.android.OsRecord" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,208 @@
+package com.task.entity.caiwu.receivePayment;
+
+/****
+ * 付款记录 表名 ta_fin_ReceiptLog
+ * 
+ * @author liupei
+ * 
+ */
+public class ReceiptLog {
+
+	private Integer id;
+	private String pkNumber;// 付款流水号(APyyyyMMdd0001)
+
+	private Float allMoney;// 付款金额（应付）
+	private String paybank;//付款银行
+	private Integer paybankId;//银行id即科目id
+
+	private String fileName;// 凭证文件
+	private String payUserName;// 支付人员名称
+	private String payUserCode;// 支付人员工号
+
+	private String status;// 状态(待审批、收款确认、上传凭证、完成)
+
+	private String addTime;// 添加时间
+	private String auditTime;// 批准时间
+	private String needPayDate;// 应付款日期
+	private String confirmTime;// 确认时间
+	private String realPayDate;// 实际付款时间
+
+	private String applyUserCode;// 申请人员工号
+	private String applyUserName;// 申请人员名称
+	private String addUserCode;// 添加人员工号
+	private String addUserName;// 添加人员名称
+
+	private String haswt;// 是否已委托付款
+	private Receipt receipt;// 对应付款账单
+
+	private String fkpzNum;// 付款凭证编号
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFkpzNum() {
+		return fkpzNum;
+	}
+
+	public void setFkpzNum(String fkpzNum) {
+		this.fkpzNum = fkpzNum;
+	}
+
+	public String getPkNumber() {
+		return pkNumber;
+	}
+
+	public void setPkNumber(String pkNumber) {
+		this.pkNumber = pkNumber;
+	}
+
+	public Float getAllMoney() {
+		return allMoney;
+	}
+
+	public void setAllMoney(Float allMoney) {
+		this.allMoney = allMoney;
+	}
+
+	public String getNeedPayDate() {
+		return needPayDate;
+	}
+
+	public void setNeedPayDate(String needPayDate) {
+		this.needPayDate = needPayDate;
+	}
+
+	public String getRealPayDate() {
+		return realPayDate;
+	}
+
+	public void setRealPayDate(String realPayDate) {
+		this.realPayDate = realPayDate;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getPayUserName() {
+		return payUserName;
+	}
+
+	public void setPayUserName(String payUserName) {
+		this.payUserName = payUserName;
+	}
+
+	public String getPayUserCode() {
+		return payUserCode;
+	}
+
+	public void setPayUserCode(String payUserCode) {
+		this.payUserCode = payUserCode;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+
+	public String getAddUserCode() {
+		return addUserCode;
+	}
+
+	public void setAddUserCode(String addUserCode) {
+		this.addUserCode = addUserCode;
+	}
+
+	public String getAddUserName() {
+		return addUserName;
+	}
+
+	public void setAddUserName(String addUserName) {
+		this.addUserName = addUserName;
+	}
+
+	public Receipt getReceipt() {
+		return receipt;
+	}
+
+	public void setReceipt(Receipt receipt) {
+		this.receipt = receipt;
+	}
+
+	public String getHaswt() {
+		return haswt;
+	}
+
+	public void setHaswt(String haswt) {
+		this.haswt = haswt;
+	}
+
+	public String getConfirmTime() {
+		return confirmTime;
+	}
+
+	public void setConfirmTime(String confirmTime) {
+		this.confirmTime = confirmTime;
+	}
+
+	public String getApplyUserName() {
+		return applyUserName;
+	}
+
+	public void setApplyUserName(String applyUserName) {
+		this.applyUserName = applyUserName;
+	}
+
+	public String getApplyUserCode() {
+		return applyUserCode;
+	}
+
+	public void setApplyUserCode(String applyUserCode) {
+		this.applyUserCode = applyUserCode;
+	}
+
+	public String getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(String auditTime) {
+		this.auditTime = auditTime;
+	}
+
+	public String getPaybank() {
+		return paybank;
+	}
+
+	public void setPaybank(String paybank) {
+		this.paybank = paybank;
+	}
+
+	public Integer getPaybankId() {
+		return paybankId;
+	}
+
+	public void setPaybankId(Integer paybankId) {
+		this.paybankId = paybankId;
+	}
+
+}

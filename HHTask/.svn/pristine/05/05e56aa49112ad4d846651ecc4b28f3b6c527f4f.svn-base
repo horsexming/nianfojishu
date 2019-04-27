@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-fy" extends="struts-stack">
+
+		<!--门禁开关 -->
+		<action name="AccessSwitchAction_*" class="accessSwitchAction"
+			method="{1}">
+			<result name="accessSwitchAction_show">/System/menjin/accessSwitchAction_show.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!--文件浏览器 -->
+		<action name="FileViewAction_*" class="attachmentPreviewAction"
+			method="{1}">
+			<result name="show">attachmentPreview.jsp?FilePath=${FilePath}
+			</result>
+			<result name="error">/error.jsp</result>
+			<result name="downloadatt" type="redirect">DownAction.action?fileName=${dfile}&amp;directory=${dpath}&amp;fileName2=${Rename}
+			</result>
+
+		</action>
+		<!-- 屏幕内容 -->
+		<action name="ScreenContentAction_*" class="ScreenContentAction"
+			method="{1}">
+			<result name="screenContent_show">/System/bbs/screenContent_show.jsp</result>
+			<result name="screenContent_add">/System/bbs/screenContent_add.jsp</result>
+			<result name="totalscreen">/System/bbs/totalscreen.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="addScreenContentSuccess" type="redirect">ScreenContentAction_showContent.action
+			</result>
+			<result name="updateScreenContentSuccess" type="redirect">ScreenContentAction_showContent.action
+			</result>
+		</action>
+
+
+		<!-- 用户角色  -->
+		<action name="UserRoleAction_*" class="UserRoleAction" method="{1}">
+			<result name="UserRole_listshow">/System/xinxi/role/userrole_listshow.jsp
+			</result>
+			<result name="UserRole_editModuleFunction">/System/xinxi/role/userrole_editModuleFunction.jsp
+			</result>
+			<result name="UserRole_edituser">/System/xinxi/role/userrole_edituser.jsp
+			</result>
+			<result name="UserRole_update">/System/xinxi/role/userrole_update.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+
+		<!-- 收藏夹  -->
+		<action name="FavoriteAction_*" class="FavoriteAction" method="{1}">
+			<result name="favoriteManage">/favoriteManage.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 来访公司列表  -->
+		<action name="VisitCoAction_*" class="VisitCoAction" method="{1}">
+			<result name="VisitCo_show">/System/menjin/VisitCo_show.jsp
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!--  任务记录管理 -->
+		<action name="TaskmanagerAction_*" class="TaskmanagerAction" method="{1}">
+			<result name="Taskmanager_attachment">/System/xinxi/Taskmanager_attachment.jsp</result>
+			<result name="success" type="redirect">TaskmanagerAction_list.action?level=${level}&amp;status=${status} 
+			</result>
+			<result name="Taskmanager_suggestion">/System/xinxi/Taskmanager_suggestion.jsp</result>
+			<result name="Taskmanager_update">/System/xinxi/Taskmanager_update.jsp</result>
+			<result name="Taskmanager_add">/System/xinxi/Taskmanager_add.jsp
+			</result>
+			<result name="TaskmanagerList">/System/xinxi/TaskmanagerList.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!-- 品质异常履历  -->
+		<action name="QualityAbnormalresumeAction_*" class="QualityAbnormalresumeAction" method="{1}">
+			<result name="QualityAbnormalresume_updatepage">/System/quailty/QualityAbnormalresume_updatepage.jsp</result>
+			<result name="QualityAbnormalresume_addpage">/System/quailty/QualityAbnormalresume_addpage.jsp</result>
+			<result name="QualityAbnormalresume_list">/System/quailty/QualityAbnormalresume_list.jsp</result>
+			<result name="QualityAbnormalresume_pic">/System/quailty/QualityAbnormalresume_pic.jsp</result>
+			<result name="success" type="redirect">QualityAbnormalresumeAction_list.action
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 供应商开发认证  -->
+		<action name="SupplierCertificationAction_*" class="SupplierCertificationAction" method="{1}">
+			<result name="SupplierCertificationLevel">/System/caigou/supplier/SupplierCertificationLevel.jsp</result>
+			<result name="SupplierCertificationAction_addpage">/System/caigou/supplier/SupplierCertification.jsp</result>
+			<result name="SupplierCertificationList">/System/caigou/supplier/SupplierCertificationList.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="success" type="redirect">SupplierCertificationAction_listall.action
+			</result>
+		</action>
+
+
+		<!-- 供应商考核  -->
+		<action name="SupplierEvaluateAction_*" class="SupplierEvaluateAction" method="{1}">
+			<result name="SupplierEvaluate">/System/caigou/supplier/SupplierEvaluate.jsp</result>
+			<result name="SupplierEvaluateAdd">/System/caigou/supplier/SupplierEvaluateAdd.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="success" type="redirect">SupplierEvaluateAction_find.action?supplierEvaluateMonth=${supplierEvaluateMonth}&amp;category=${category}&amp;cpage=${cpage}&amp;total=${total}
+			</result>
+			<result name="SupplierEvaluateGenerate">//System/caigou/supplier/SupplierEvaluateGenerate.jsp</result>
+
+		</action>
+
+
+
+		<!-- 对账单  -->
+		<action name="AccountCheckAction_*" class="AccountCheckAction" method="{1}">
+			<result name="accountCheckAdd">/System/caiwu/accountCheckAdd.jsp</result>
+			<result name="accountCheckList">/System/caiwu/accountCheckList.jsp</result>
+			<result name="AccountCheck_Receipt_showList">/System/caiwu/AccountCheck_Receipt_showList.jsp</result>
+			<result name="AccountCheck_ReceiptLog_showList">/System/caiwu/AccountCheck_ReceiptLog_showList.jsp</result>
+            <result name="success" type="redirect">AccountCheckAction_accountCheckList.action</result>
+			<result name="accountCheck_FundApply" type="redirect">FundApplyAction_findfundDetailedList.action?id=${id}</result>
+			<!--<result name="accountCheck_Receipt" type="redirect">ReceiptAction!findReceiptList.action?receipt.id=${id}</result>-->
+			<result name="accountCheck_ReceiptLog" type="redirect">ReceiptAction!findReceiptLogList.action?receiptLog.receipt.id=${id}</result>
+			<result name="accountCheck_ReceiptLogFile" type="redirect">FileViewAction.action?FilePath=/upload/file/payPz/${filename}</result>
+			<result name="accountCheck_CwVouchers" type="redirect">FileViewAction.action?FilePath=/upload/file/payPz/${filename}</result>
+            <result name="AccountCheck_NonCoreReceivablesDetail_showList">/System/caiwu/AccountCheck_NonCoreReceivablesDetail_showList.jsp
+            </result>
+		</action>
+	</package>
+</struts>
+

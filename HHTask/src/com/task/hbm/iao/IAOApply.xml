@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.iao">
+	<class name="IAOApply" table="ta_iao_apply">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="code"/>
+		<property name="username" />
+		<property name="outCard" />
+		<property name="applyName" />
+		<property name="iaoStyle" />
+		<property name="result" />
+		<property name="carryGoods" />
+		<property name="applyOutTime" />
+		<property name="getOutTime" />
+		<property name="applyInTime" />
+		<property name="getInTime" />
+		<property name="submitTime" />
+		<property name="status" />
+		<property name="barcode" />
+		<property name="iaoStatus" />
+		<property name="prePath" />
+		<property name="relPath" />
+		<property name="examPoint" />
+		<property name="plateNum" />
+		<property name="ascTime" />
+		<property name="printStatus" />
+		<property name="followPerson" />
+		<property name="iaoPersonTyle" />
+		<property name="dept" />
+		<property name="iaoPingzheng" />
+		
+		<!-- 【配置本流水卡片自身的对应关系】 -->
+		<set name="iaoCarryGoods" cascade="all" inverse="false" lazy="false"
+			order-by="id">
+			<key column="carryGoods_id"></key>
+			<one-to-many class="CarryGoods" />
+		</set>
+	</class>
+</hibernate-mapping>

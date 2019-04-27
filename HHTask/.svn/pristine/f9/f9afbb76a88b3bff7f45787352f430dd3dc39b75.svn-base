@@ -1,0 +1,674 @@
+package com.task.ServerImpl.menjin.visitor;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.task.Dao.TotalDao;
+import com.task.DaoImpl.TotalDaoImpl;
+import com.task.Server.menjin.visitor.VisitorServer;
+import com.task.ServerImpl.sys.CircuitRunServerImpl;
+import com.task.entity.DeptNumber;
+import com.task.entity.Users;
+import com.task.entity.codetranslation.CodeTranslation;
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.system.CircuitRun;
+import com.task.util.AESEnctypeUtil;
+import com.task.util.Util;
+
+public class VisitorServerImpl implements VisitorServer{
+	
+	private TotalDao totalDao;
+	private String ip = "192.168.0.197";
+	private Integer port = 8877;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public Visitor addVisitorApply(Visitor visitor, String pageStatus) {
+		if(visitor!=null) {
+			if(visitor.getIdentityCard()==null || visitor.getIdentityCard().length()<=0) {
+				throw new RuntimeException("没有检测到身份证号码，申请失败");
+			}
+			if(visitor.getVisitorPhone()==null || visitor.getVisitorPhone().equals("")) {
+				throw new RuntimeException("电话号码是和您联系的方式，不能为空。") ;
+			}
+			if(visitor.getVisitorName()==null || visitor.getVisitorName().equals("")) {
+				throw new RuntimeException("请输入您的姓名或姓氏，谢谢") ;
+			}
+			String dateTime = visitor.getDateTime();
+			if(dateTime==null || dateTime.equals("")) {
+				throw new RuntimeException("请输入访客时间。谢谢。") ;
+			}else {
+				String format = "yyyy-MM-dd";
+				String currentDate = Util.getDateTime(format);
+				try {
+					if(Util.getDateDiff(dateTime, format, currentDate, format)/60/60/24>0) {
+						throw new RuntimeException("不能选择历史时间") ;
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			visitor.setEndTime(dateTime+" 23:59:59");
+			String interviewee = visitor.getInterviewee();//被访人
+			if(interviewee==null || interviewee.equals("") || visitor.getIntervieweeId()==null) {
+				throw new RuntimeException("请选择被访人，谢谢。") ;
+			}
+			Integer count = totalDao.getCount("from Visitor where identityCard = ? and visitorStatus"
+					+ " in ('预申请','待打印','待进门','待出门') and dateTime <=? and endTime>=?",
+					visitor.getIdentityCard(),visitor.getDateTime(),visitor.getDateTime());
+			if(count>0) {
+				throw new RuntimeException("您在 "+dateTime+" 已经申请了访客，请勿重复申请，谢谢。") ;
+			}
+			
+			Users users = (Users) totalDao.getObjectById(Users.class, visitor.getIntervieweeId());
+			if(users==null) {
+				throw new RuntimeException("被访人不存在，请重新选择，谢谢。") ;
+			}
+			
+			//计算指纹数据库Id
+			DecimalFormat df = new DecimalFormat("0000");
+			if(visitor.getFingerId()==null || visitor.getFingerId().equals("")) {
+				for (int i = 1; i < 1000; i++) {
+					String format = df.format(i);
+					Integer fingerCount = totalDao.getCount("from Visitor where fingerId is not null and fingerId = ?", format);
+					if(fingerCount==null || fingerCount<=0) {
+						visitor.setFingerId(format);
+						break;
+					}
+				}
+			}
+			
+			//生成编号--凭证
+			String before = "VISITOR-" + Util.getDateTime("yyyyMMdd")+"-";
+			String maxnumber = (String) totalDao
+					.getObjectByCondition("select max(voucher) from Visitor where voucher like '"
+							+ before + "%'");
+			if (maxnumber != null && !"".equals(maxnumber)) {
+				// String number1 = paymentVoucher2.getNumber();
+				String now_number = maxnumber.split(before)[1];
+				Integer number2 = Integer.parseInt(now_number) + 1;
+				String number3 = df.format(number2);
+				visitor.setVoucher(before + number3);
+			} else {
+				visitor.setVoucher(before  + "0001");
+			}
+			
+			//增加随访和主访关联
+			if(visitor.getFollowId()==null || visitor.getFollowId()<=0) {
+				Integer oldFollowId = (Integer) totalDao.getObjectByCondition("select max(followId) from Visitor");
+				if(oldFollowId!=null) {
+					visitor.setFollowId(oldFollowId+1);
+				}else {
+					visitor.setFollowId(1);
+				}
+			}
+//			visitor.setVisitorStatus("待申请");
+			boolean save = totalDao.save(visitor);
+			if(save) {
+				return visitor;
+			}else {
+				throw new RuntimeException("保存失败");
+			}
+			
+		}else {
+			throw new RuntimeException("系统异常，提交了空对象。") ;
+		}
+	}
+
+	/**
+	 * 查询申请记录
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findVisitorByCon(Visitor visitor, Integer pageNo, Integer pageSize,String tag) {
+		if(visitor==null) {
+			visitor = new Visitor();
+		}
+		String hql = totalDao.criteriaQueries(visitor,null);
+		if(tag!=null && tag.equals("all")) {
+			
+		}else if(tag!=null && tag.equals("dept")){
+			List<Integer> list = totalDao.query("select id from Users where dept is not null and dept= ?", Util.getLoginUser().getDept());
+			StringBuffer buffer = new StringBuffer();
+			if(list!=null && list.size()>0) {
+				for (int i = 0; i < list.size(); i++) {
+					if(i==0) {
+						buffer.append(""+list.get(i));
+					}else {
+						buffer.append(","+list.get(i));
+					}
+				}
+			}
+			hql+=" and intervieweeId in("+buffer.toString()+") ";
+		}else {
+			hql+=" and interviewee='"+Util.getLoginUser().getName()+"' ";
+		}
+		List<Visitor> list = totalDao.findAllByPage(hql+" order by dateTime desc ", pageNo, pageSize, null);
+		if(list!=null && list.size()>0) {
+			Integer count = totalDao.getCount(hql);
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("list", list);
+			map.put("count", count);
+			return map;
+		}
+		
+		return null;
+	}
+
+	/**
+	 * 进出门验证
+	 */
+	@Override
+	public String checkIdCard(String idCard,String pageStatus) {
+		if(idCard==null || !idCard.equals("")) {
+			return "身份证号为空";
+		}
+		String currentDate = Util.getDateTime("yyyy-MM-dd");
+		Visitor visitor = (Visitor) totalDao.getObjectByCondition(
+				"from Visitor where identityCard=? and dateTime<=? order by dateTime desc", idCard,currentDate);
+		if(visitor!=null) {
+			
+		}
+		
+		return null;
+	}
+
+	//判断身份证
+	@Override
+	public String judgeIdentity(String idCard) {
+		if(idCard!=null && !idCard.equals("") && !idCard.equals("null")) {
+			if(totalDao.getCount("from Users where uid is not null and uid = ? ", idCard)>0) {
+				throw new RuntimeException("对不起，内部员工不可以申请访客。");
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 进出确认
+	 * @param param 参数
+	 * @param pageStatus
+	 * idCard 根据身份证号
+	 * fingerprint 根据指纹
+	 * voucher 根据凭证
+	 */
+	@Override
+	public String verifyInAndOut(String param, String pageStatus) {
+		
+		if(param==null || param.equals("") || pageStatus==null || pageStatus.equals("")) {
+			return "参数异常，请重试。";
+		}
+		Visitor visitor = null;
+		String dateTime = Util.getDateTime("yyyy-MM-dd HH:mm:ss");
+		String hql = " from Visitor where visitorStatus in ('待打印','待进门','待出门') and dateTime <=? and endTime>=? and ";
+		String style=null;
+		if(pageStatus.equals("idCard")) {
+			style=" identityCard =? ";
+		}else if(pageStatus.equals("finger")){
+			String userprefix = param.substring(0,2);
+			String usersuffix = param.substring(2,4);
+			Integer perfix = Integer.parseInt(userprefix,16);
+			Integer suffix = Integer.parseInt(usersuffix,16);
+			if(perfix<10) {
+				userprefix = "0"+perfix;
+			}else {
+				userprefix = perfix+"";
+			}
+			if(suffix<10) {
+				usersuffix = "0"+suffix;
+			}else {
+				usersuffix = suffix+"";
+			}
+			param = userprefix+usersuffix;
+			style=" fingerId =? ";
+		}else if(pageStatus.equals("voucher")){
+			style=" voucher =? ";
+		}
+		visitor = (Visitor) totalDao.getObjectByCondition(hql+style,dateTime,dateTime, param);
+		String dateFormat = "yyyy-MM-ddHH:mm:ss";
+		String time = Util.getDateTime("HH:mm:ss");
+		String date = Util.getDateTime("yyyy-MM-dd");
+		String returnStr = "";
+		if(visitor!=null) {
+			String userStatus = judgeUsersStatusById(visitor.getIntervieweeId());
+			if(userStatus!=null) {
+				return userStatus;
+			}
+			//设置刷卡延迟
+			String visitorStatus = visitor.getVisitorStatus();
+			if(visitorStatus.equals("待进门") || visitorStatus.equals("待打印")) {
+				visitor.setInTime(time);
+				visitor.setVisitorStatus("待出门");
+				boolean update = totalDao.update(visitor);
+				if(update) {
+//					return "身份识别正确，可以进入，感谢您的使用。";
+					returnStr = "身份识别正确，可以进入，感谢您的使用。";
+				}
+			}else if(visitorStatus.equals("待出门")){
+				String inTime = visitor.getInTime();
+				try {
+					//如果刷一次后三分钟内再次刷一次不生成记录
+					if(Util.getDateDiff(date+inTime, dateFormat, date+time, dateFormat)<=15) {//相差秒数
+//						return "身份识别正确，可以进入，感谢您的使用。";
+						returnStr = "身份识别正确，可以进入，感谢您的使用。";
+					}else {
+						visitor.setVisitorStatus("已出门");
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+					visitor.setVisitorStatus("已出门");
+				}
+				visitor.setOutTime(time);
+				String calendarModified = Util.getCalendarModified(Util.getDateTime(), 12, 3);
+				visitor.setEndTime(calendarModified);
+				boolean update = totalDao.update(visitor);
+				if(update) {
+//					return "身份识别正确，可以离开，感谢您的使用。";
+					returnStr = "身份识别正确，可以离开，感谢您的使用。";
+				}
+				
+			}else { //已出门
+				String outTime = visitor.getOutTime();
+				//如果刷一次后三分钟内再次刷一次不生成记录
+				try {
+					if(Util.getDateDiff(date+outTime, dateFormat, date+time, dateFormat)<=15) {//相差秒数
+//						return "身份识别正确，可以离开，感谢您的使用。";
+						returnStr = "身份识别正确，可以离开，感谢您的使用。";
+					}
+				} catch (ParseException e) {
+				}
+				return "当天访客申请已出门，身份核实无效，感谢您的使用。";
+			}
+			
+		}else {
+			
+			//查询最后出门时间
+			visitor = (Visitor) totalDao.getObjectByCondition("from Visitor where visitorStatus ='已出门' "
+					+ " and dateTime <=? and endTime>=? and "+style+"order by outTime desc", dateTime,dateTime,param);
+			if(visitor!=null) {
+				String userStatus = judgeUsersStatusById(visitor.getIntervieweeId());
+				if(userStatus!=null) {
+					return userStatus;
+				}
+				String outTime = visitor.getOutTime();
+				//如果刷一次后三分钟内再次刷一次不生成记录
+				try {
+					if(Util.getDateDiff(date+outTime, dateFormat, date+time, dateFormat)<=15) {//相差秒数
+//						return "身份识别正确，可以离开，感谢您的使用。";
+						returnStr = "身份识别正确，可以离开，感谢您的使用。";
+					}
+				} catch (ParseException e) {
+				}
+			}
+			
+			//查询是否有长访申请
+			visitor = (Visitor) totalDao.getObjectByCondition("from Visitor where"
+					+ " longEpStatus is not null and longEpStatus='同意' and visitorLongDateTime<=? and "+style, dateTime,param);
+			if(visitor!=null) {
+				String userStatus = judgeUsersStatusById(visitor.getIntervieweeId());
+				if(userStatus!=null) {
+					return userStatus;
+				}
+//				return "身份识别正确，长访客，可以进入或离开，感谢您的使用。";
+				returnStr = "身份识别正确，长访客，可以进入或离开，感谢您的使用。";
+			}else {
+				return "身份无效！请重新核实，谢谢！";
+			}
+		}
+		if(returnStr!=null && returnStr.indexOf("正确")>=0) {
+			try {
+				Socket s = new Socket(ip, port);
+				PrintStream p = new PrintStream(s.getOutputStream());
+				System.out.println("ip="+ip+"port="+port);
+				p.write(2);
+				p.flush();
+				p.close();
+				s.close();
+				return returnStr;
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "系统异常，请联系管理员";
+	}
+	
+	/**
+	 * 判断用户是否在岗
+	 * @return
+	 */
+	public String judgeUsersStatusById(Integer id) {
+		Integer count = totalDao.getCount("from Users where id = ? and userStatus is not null and userStatus='在岗'", id);
+		if(count==null || count<=0) {
+			return "对不起，被访人不在岗，不能进入，请联系被访人，谢谢";
+		}
+		return null;
+	}
+	
+	@Override
+	public List<DeptNumber> findAllDeptByIsVisitor(String isVisitor) {
+		@SuppressWarnings("unchecked")
+		List<DeptNumber> list = totalDao.query("from DeptNumber where isVisitor is not null and isVisitor=?", isVisitor);
+		return list;
+	}
+	
+	
+	/***
+	 * 通过部门查询人员
+	 * 
+	 * @param deptName
+	 *            部门名称
+	 * @return Users集合
+	 */
+	@Override
+	public List<Users> findUsersByDept(String deptName) {
+		if (deptName == null || deptName.length() < 1) {
+			throw new NullPointerException("部门名称不能为空!");
+		}
+		String hql = null;
+		if (deptName.indexOf(";") < 0) {
+			hql = "from Users where dept=? and onWork not in ('离职','内退','离职中','退休') and dept not in('内退','病休')";
+			return totalDao.query(hql, deptName);
+		} else {
+			String[] deptNames = deptName.split(";");
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < deptNames.length; i++) {
+				if (i == 0) {
+					sb.append("'" + deptNames[i] + "'");
+				} else {
+					sb.append(",'" + deptNames[i] + "'");
+				}
+			}
+			hql = "from Users where dept in ("
+					+ sb.toString()
+					+ ") and onWork not in ('离职','内退','离职中','退休') and dept not in('内退','病休')";
+			return totalDao.query(hql);
+		}
+	}
+
+	@Override
+	public Visitor getVisitorById(Integer id) {
+		Visitor visitor = (Visitor) totalDao.getObjectById(Visitor.class, id);
+		return visitor;
+	}
+
+	@Override
+	public Visitor getVisitorByIdenttiyCard(String idCard,String pageStatus,String dateTime) {
+		if(idCard!=null) {
+			String hql = "from Visitor where identityCard =? ";
+			if(pageStatus!=null && pageStatus.equals("finger")) {
+				hql+=" and fingerprint is not null and fingerId is not null";
+			}
+			if(pageStatus!=null && pageStatus.equals("idCard")) {
+				hql+=" and visitorStatus is null and dateTime ='"+dateTime+"' ";
+			}
+			Visitor visitor = (Visitor) totalDao.getObjectByCondition(hql, idCard);
+			return visitor;
+		}
+		return null;
+	}
+
+	/**
+	 * 下发指纹到设备（门禁系统）
+	 */
+	public static void sendFingerDevice() {
+		TotalDao totalDao = TotalDaoImpl.findTotalDao();
+		@SuppressWarnings("unchecked")
+		List<Visitor> list = totalDao.query("from Visitor where visitorStatus in ('待打印','待进门','待出门') and dateTime =? ",
+						Util.getDateTime("yyyy-MM-dd"));
+		for (Visitor visitor : list) {
+			String finger = visitor.getFingerprint();
+			if(finger!=null && !finger.equals("")) {
+				
+			}
+		}
+	}
+
+	@Override
+	public List<Visitor> findVisitorByDatetime(String dateTime, String pageStatus) {
+		String hql = "from Visitor where visitorStatus in ('待打印','待进门','待出门') ";
+		if(pageStatus!=null && pageStatus.equals("inandout") ) {
+			String time = Util.getDateTime("yyyy-MM-dd HH:mm:ss");
+			hql+=" and dateTime <= '"+time+"' and endTime>= '"+time+"' ";
+		}
+		List<Visitor> list = totalDao.query(hql);
+		return list;
+	}
+
+	@Override
+	public Visitor getVisitorVoucher(String param) {
+		AESEnctypeUtil util = new AESEnctypeUtil();
+		String dencype = util.dencype(param);
+		Integer id = Integer.parseInt(dencype.trim());
+		Visitor visitor = (Visitor) totalDao.getObjectById(Visitor.class, id);
+		if(visitor!=null) {
+			String voucher = util.enctype(visitor.getVoucher());//加密二维码
+			visitor.setVoucher(voucher);
+		}
+//		System.out.println(dencype);
+		return visitor;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Visitor> visitorByVoucherEnctype(String param) {
+		AESEnctypeUtil util = new AESEnctypeUtil();
+		String dencype = util.dencype(param);
+		List<Visitor> list = null;
+		try {
+			list = totalDao.query("from Visitor where id in ("+dencype+") and visitorStatus='待打印'");
+		} catch (Exception e) {
+			String hql = "from Visitor where followId in(select followId from Visitor where voucher =? and visitorStatus='待打印')";
+//			String hql = "from Visitor where voucher =? and visitorStatus='待打印'";
+			list = totalDao.query(hql,dencype);
+		}
+		if(list!=null) {
+			for (Visitor visitor : list) {
+				visitor.setVisitorStatus("待进门");
+				totalDao.update(visitor);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public Users getIntervieweeByPhone(String phone) {
+		String hql = "from Users where password.phoneNumber = ?";
+		if(phone!=null && phone!="") {
+			Users users = (Users) totalDao.getObjectByCondition(hql, phone);
+			return users;
+		}
+		return null;
+	}
+
+	@Override
+	public Visitor getVisitorByIdentityId(Integer id, String pageStatus) {
+		if(id!=null) {
+			String hql = "from Visitor where identityCard in (select identityCard from VisitorIdentity where id = ?) ";
+			if(pageStatus!=null && pageStatus.equals("finger")) {
+				hql+=" and fingerprint is not null and fingerId is not null";
+			}
+			Visitor visitor = (Visitor) totalDao.getObjectByCondition(hql+" order by id desc ", id);
+			return visitor;
+		}
+		return null;
+	}
+
+	@Override
+	public Visitor fillFingerByVisitorId(Integer id) {
+		Visitor visitor = (Visitor) totalDao.getObjectById(Visitor.class, id);
+		if(visitor!=null) {
+			String identityCard = visitor.getIdentityCard();
+			Visitor oldVisitor = (Visitor) totalDao.getObjectByCondition("from Visitor where identityCard = ?"
+					+ " and fingerprint is not null and fingerId is not null order by id desc", identityCard);
+			if(oldVisitor!=null) {
+				visitor.setFingerId(oldVisitor.getFingerId());
+				totalDao.update(visitor);
+				return visitor;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Visitor addLongVisitorApply(Visitor v, String pageStatus) {
+		if(v!=null) {
+			Visitor visitor = (Visitor) totalDao.getObjectById(Visitor.class, v.getId());
+			if(visitor!=null && v.getVisitorLongDateTime()!=null) {
+				visitor.setVisitorLongDateTime(v.getVisitorLongDateTime());
+				visitor.setApplyPerson(Util.getLoginUser().getName());
+				String processName = "常访申请(访客系统)";
+				String changf="";
+				if(visitor.getVisitorComp()!=null && !visitor.getVisitorComp().equals("")) {
+					changf = visitor.getVisitorComp()+"的";
+				}
+				
+				String message = "访客系统，申请人："+visitor.getApplyPerson()+",申请"+changf+visitor.getVisitorName()+"长访，请您审批";
+				try {
+					Integer epId = CircuitRunServerImpl.createProcess(processName, Visitor.class, visitor.getId(), "longEpStatus", "id",
+							"visitorAction!showVisitorDetail.action?id="+visitor.getId(), message, true);
+					if(epId!=null && epId>0) {
+						visitor.setLongEpId(epId);
+						CircuitRun circuitRun = (CircuitRun) totalDao.getObjectById(CircuitRun.class, epId);
+						if(circuitRun!=null) {
+							if ("同意".equals(circuitRun.getAllStatus())
+									&& "审批完成".equals(circuitRun.getAuditStatus())) {
+								visitor.setLongEpStatus("同意");
+							} else {
+								visitor.setLongEpStatus("预申请");
+							}
+							totalDao.update(visitor);
+						}
+						return visitor;
+					}
+				}catch (Exception e) {
+					throw new RuntimeException(e.toString());
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String confirmVisitorApply(List<Visitor> visitors, String pageStatus) {
+		if(visitors!=null && visitors.size()>0) {
+			List<Visitor> visitorList = new ArrayList<Visitor>();
+			for (Visitor visitor : visitors) {
+				if(visitor!=null && visitor.getId()!=null) {
+					Visitor v = (Visitor) totalDao.getObjectById(Visitor.class, visitor.getId());
+					visitorList.add(v);
+				}
+			}
+			Visitor visitor = visitorList.get(0);
+			String dateTime = visitor.getDateTime();
+			Integer userId = visitor.getIntervieweeId();
+			String message = "您收到一份来自"+visitor.getVisitorComp()+"的"+visitor.getVisitorName()+"的访客申请，申请日期："+dateTime+"，请您审批，谢谢。";
+			try {
+				Integer epId = CircuitRunServerImpl.createProcessbf("访客申请", Visitor.class, visitor.getId(), "epStatus", "id",
+						"visitorAction!showVisitorDetail.action?id="+visitor.getId(), message, true, userId+"");
+				if(epId!=null && epId>0) {
+					visitor.setEpId(epId);
+					CircuitRun circuitRun = (CircuitRun) totalDao.getObjectById(CircuitRun.class, epId);
+					if(circuitRun!=null) {
+						if ("同意".equals(circuitRun.getAllStatus())
+								&& "审批完成".equals(circuitRun.getAuditStatus())) {
+							visitor.setEpStatus("同意");
+							visitor.setVisitorStatus("待进门");
+							for (Visitor visitor2 : visitorList) {
+								visitor2.setEpStatus("同意");
+								visitor2.setVisitorStatus("待进门");
+								totalDao.update(visitor2);
+							}
+						} else {
+							visitor.setEpStatus("未审批");
+							visitor.setVisitorStatus("预申请");
+							
+							for (Visitor visitor2 : visitorList) {
+								visitor2.setEpStatus("未审批");
+								visitor2.setVisitorStatus("预申请");
+								totalDao.update(visitor2);
+							}
+						}
+						totalDao.update(visitor);
+					}
+					return "申请成功，请耐心等待，我们将以短信的方式提醒您，感谢您的使用。";
+				}else {
+					throw new RuntimeException("申请审批异常，请联系管理员，谢谢。");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e.getMessage());
+			}
+		}else {
+			return "没有申请记录";
+		}
+	}
+
+	@Override
+	public boolean deleteVisitorById(Integer id) {
+		if(id!=null) {
+			Visitor visitor = (Visitor) totalDao.getObjectById(Visitor.class, id);
+			if(visitor!=null) {
+				return totalDao.delete(visitor);
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteVisitorByIdCard(String idCard,String dateTime) {
+		if(idCard!=null ) {
+			Visitor visitor = (Visitor) totalDao.getObjectByCondition(
+					"from Visitor where dateTime=? and identityCard = ?", dateTime,idCard);
+			if(visitor!=null) {
+				return totalDao.delete(visitor);
+			}
+		}
+		
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Visitor> fingVisitorFollowById(Integer id) {
+		List<Visitor> list = totalDao.query("from Visitor where followId = (select followId from Visitor where id=?)",id);
+		return list;
+	}
+
+	@Override
+	public List<String> findFollowVisitorVoucher(String voucher) {
+		AESEnctypeUtil util = new AESEnctypeUtil();
+		String dencype = util.dencype(voucher);
+		String hql = "select voucher from Visitor where followId in(select followId from Visitor where voucher =?)";
+		List<String> list = totalDao.query(hql,dencype);
+		return list;
+	}
+
+	@Override
+	public String getVisitorIp() {
+//		CodeTranslation codeTranslation = (CodeTranslation) totalDao
+//				.getObjectByCondition("from CodeTranslation where type='sys' and valueName='VisitorIP'");
+//		if(codeTranslation!=null) {
+//			return codeTranslation.getValueCode();
+//		}
+		return null;
+	}
+	
+	
+}

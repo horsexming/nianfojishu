@@ -1,0 +1,57 @@
+package com.task.entity.jxkh;
+
+import java.io.Serializable;
+
+/**
+ * 车间工资中提取明细:(ta_WorkShopTiQuMx)
+ * @author wxf
+ *
+ */
+public class WorkShopTiQuMx implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String months;//月份
+	private String dept;//车间/部门
+	private Double tiquMoney;//提取金额
+	
+	private String addUsersName;//添加人
+	private String addTime;//添加时间;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public Double getTiquMoney() {
+		return tiquMoney;
+	}
+	public void setTiquMoney(Double tiquMoney) {
+		this.tiquMoney = tiquMoney;
+	}
+	public String getAddUsersName() {
+		return addUsersName;
+	}
+	public void setAddUsersName(String addUsersName) {
+		this.addUsersName = addUsersName;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	
+	
+}

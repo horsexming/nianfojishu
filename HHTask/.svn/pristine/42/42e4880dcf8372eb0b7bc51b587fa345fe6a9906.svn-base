@@ -1,0 +1,55 @@
+package com.task.entity.kvp;
+
+/***
+ * 持续改进表:ta_ImproveKVP
+ * @author 毛小龙
+ *
+ */
+public class ImproveKVP {
+	private Integer id;
+	private String improved_beforeproblems; //改进前的问题
+	private String improved_endproblems;//改进后的问题
+	private String beforeimage_Path;//改进前图片
+	private String afterimage_Path;//改进后图片
+	private KVPAssess kvpAssess;//关联kvp主表
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getImproved_beforeproblems() {
+		return improved_beforeproblems;
+	}
+	public void setImproved_beforeproblems(String improvedBeforeproblems) {
+		improved_beforeproblems = improvedBeforeproblems;
+	}
+	public String getImproved_endproblems() {
+		return improved_endproblems;
+	}
+	public void setImproved_endproblems(String improvedEndproblems) {
+		improved_endproblems = improvedEndproblems;
+	}
+	 
+	public KVPAssess getKvpAssess() {
+		return kvpAssess;
+	}
+	public void setKvpAssess(KVPAssess kvpAssess) {
+		this.kvpAssess = kvpAssess;
+	}
+	public String getBeforeimage_Path() {
+		return beforeimage_Path;
+	}
+	public void setBeforeimage_Path(String beforeimagePath) {
+		beforeimage_Path = beforeimagePath;
+	}
+	public String getAfterimage_Path() {
+		return afterimage_Path;
+	}
+	public void setAfterimage_Path(String afterimagePath) {
+		afterimage_Path = afterimagePath;
+	}
+	 
+	
+}

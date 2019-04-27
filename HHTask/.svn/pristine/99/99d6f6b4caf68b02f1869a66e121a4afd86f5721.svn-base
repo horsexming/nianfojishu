@@ -1,0 +1,329 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+		<style type="text/css">
+.dhlabel {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 3px 5px;
+	white-space: nowrap;
+}
+</style>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv"
+			onclick="chageDiv('none')">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none;"
+			align="center">
+			<div id="closeDiv"
+				style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 900px;">
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<span id="title">您正在进行手动下单修改操作</span>
+						</td>
+						<td align="right">
+							<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+								id="closeTcDiv" height="32" onclick="chageDiv('none')">
+						</td>
+					</tr>
+				</table>
+				<div id="operatingDiv"
+					style="background-color: #ffffff; width: 100%;">
+					<iframe id="xiugaiIframe" src="" marginwidth="0" marginheight="0"
+						hspace="0" vspace="0" frameborder="0" scrolling="yes"
+						style="width: 98%; height: 500px; margin: 0px; padding: 0px;"></iframe>
+
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+<%--				<s:if test='tag!="daoru"'>--%>
+<%--					<s:if test="status=='All'">--%>
+<%--						<label style="background-color: gray;" class="dhlabel">--%>
+<%--							所有--%>
+<%--						</label>--%>
+<%--					</s:if>--%>
+<%--					<s:else>--%>
+<%--						<label style="background-color: #5cb85c;"--%>
+<%--							onclick="toShowWW('All');" class="dhlabel">--%>
+<%--							<font color="white">所有</font>--%>
+<%--						</label>--%>
+<%--					</s:else>--%>
+<%--					<s:if test="status=='wsq'">--%>
+<%--						<label style="background-color: gray;" class="dhlabel">--%>
+<%--							未申请--%>
+<%--						</label>--%>
+<%--					</s:if>--%>
+<%--					<s:else>--%>
+<%--						<label style="background-color: #5cb85c;"--%>
+<%--							onclick="toShowWW('wsq');" class="dhlabel">--%>
+<%--							<font color="white">未申请</font>--%>
+<%--						</label>--%>
+<%--					</s:else>--%>
+<%--				</s:if>--%>
+				<form action="ManualOrderPlanAction_findManualPlanTotal.action"
+					method="POST">
+					<table class="table">
+						<tr>
+							<th align="right">
+								添加人
+							</th>
+							<td>
+								<s:if test="tag!=null&&tag=='self'">
+									<input type="text" name="planTotal.userName" value="${planTotal.userName}" readonly="readonly"/>
+								</s:if>
+								<s:else>
+									<input type="text" name="planTotal.userName" value="${planTotal.userName}" />
+								</s:else>
+							</td>
+							<th align="right">
+								添加人部门
+							</th>
+							<td>
+								<s:if test="tag!=null&&tag=='dept'">
+									<input type="text" name="planTotal.userDept" value = "${planTotal.userDept}" readonly="readonly"/>
+								</s:if>
+								<s:else>
+									<input type="text" name="planTotal.userDept" value = "${planTotal.userDept}"/>
+								</s:else>
+							</td>
+							<th align="right">流水单号</th>
+							<td><input type="text" name="planTotal.totalNum" value="${planTotal.totalNum }"></td>
+							<th align="right">件号</th>
+							<td><input type="text" name="planTotal.markId" value="${planTotal.markId }"></td>
+						</tr>
+					</table>
+					<input type="hidden" value="${status}" name="status">
+					<input type="hidden" value="${tag}" name="tag">
+					<input type="hidden" value="${flag}" name="flag">
+					<input type="hidden" value="${mod1.addUsersCode}"
+						name="mod1.addUsersCode">
+					<input type="submit" value="查询" class="input" />
+<%--					<input type="button" value="导出" onclick="exportExcel(this.form)"--%>
+<%--						class="input" />--%>
+				</form>
+					<table class="table">
+						<tr align="center" bgcolor="#c0dcf2" height="50px" ondblclick="showmingxi('')">
+							<th>
+								序号
+							</th>
+							<th>
+								流水单号
+							</th>
+							<th>
+								采购类别
+							</th>
+							<th>
+								添加人
+							</th>
+							<th>
+								添加人工号
+							</th>
+							<th>
+								添加人部门
+							</th>
+							<th>
+								添加时间
+							</th>
+							<th>
+								审批动态
+							</th>
+							<s:if test='tag!="daoru"'>
+								<th>
+									操作
+								</th>
+							</s:if>
+						</tr>
+						<s:iterator value="planTotalList" id="ptotal" status="pagestatus">
+							<s:if test="#pagestatus.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')"
+									ondblclick="showmingxi(${ptotal.id})" class="zong"
+									id="zong_${ptotal.id}">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'')"
+									ondblclick="showmingxi(${ptotal.id})" class="zong"
+									id="zong_${ptotal.id}">
+							</s:else>
+							<td align="right">
+								<s:property value="#pagestatus.index+1" />
+							</td>
+							<td align="left">
+								${ptotal.totalNum}
+							</td>
+							<td align="center">${ptotal.category}</td>
+							<td algin="left">
+								${ptotal.userName}
+							</td>
+							<td align="left">
+								${ptotal.userCode}
+							</td>
+							<td align="left">
+								${ptotal.userDept}
+							</td>
+							<td align="left">
+								${ptotal.addTime}
+							</td>
+							<td>
+								<s:if test="#ptotal.epId!=null && #ptotal.epId>0">
+									<a
+										href="CircuitRunAction_findAduitPage.action?id=${ptotal.epId}">${ptotal.epStatus}</a>
+								</s:if>
+								<s:elseif test="#ptotal.epId == 0">
+									同意
+								</s:elseif>
+								<s:else>
+									<s:if test='#ptotal.epStatus!=null && #ptotal.epStatus!=""'>
+										${ptotal.epStatus}
+									</s:if>
+									<s:else>
+										未申请
+									</s:else>
+								</s:else>
+							</td>
+							<td>
+								<input type="button" value="查看" onclick="location.href='ManualOrderPlanAction_manualPlanTotalPrint.action?id=${ptotal.id}&flag=search&tag=${tag}'"/>/
+								<input type="button" value="打印" onclick="location.href='ManualOrderPlanAction_manualPlanTotalPrint.action?id=${ptotal.id}&pageStatus=print&flag=${flag}&tag=${tag}'"/>
+								<s:if test="#ptotal.epStatus!=null && #ptotal.epStatus=='同意'">
+								</s:if>
+								<s:elseif test="#ptotal.epStatus!=null && #ptotal.epStatus=='审批中' ">
+								</s:elseif>
+								<s:else>
+									<input type="button" value="修改" onclick="location.href='ManualOrderPlanAction_manualPlanTotalPrint.action?id=${ptotal.id}&pageStatus=update&flag=${flag}&tag=${tag}&status=${status}'"/>
+									<input type="button"  value="删除" onclick="location.href='ManualOrderPlanAction_delManualTotal.action?id=${ptotal.id}&pageStatus=${pageStatus}&tag=${tag}&flag=${flag}&status=${status}'"/>
+								</s:else>
+							</td>
+							</tr>
+							<s:if test="#ptotal.details!=null && #ptotal.details.size()>0">
+								<tr class="mingxi" id="mingxi_${ptotal.id}" style="display: none;">
+									<td colspan="25">
+										<table class="table">
+											<tr>
+												<td>
+													件号
+												</td>
+												<td>
+													物料类别
+												</td>
+												<td>
+													名称
+												</td>
+												<td>
+													规格
+												</td>
+												<td>
+													单位
+												</td>
+												<td>
+													数量
+												</td>
+												<td>
+													项目编号
+												</td>
+												<td>
+													是否紧急
+												</td>
+												<td>
+													供料属性
+												</td>
+												<td>
+													版本号
+												</td>
+												<td>
+													图号
+												</td>
+												<td>
+													到货日期
+												</td>
+												<td>
+													预估价格
+												</td>
+											</tr>
+											<s:iterator value="#ptotal.details" id="d">
+												<tr  >
+													<td>${d.markId }</td>
+													<td>${d.wgType }</td>
+													<td>${d.proName }</td>
+													<td>${d.specification }</td>
+													<td>${d.unit }</td>
+													<td>${d.cgnumber }</td>
+													<td>${d.proName }</td>
+													<td>${d.isurgent }</td>
+													<td>${d.kgliao }</td>
+													<td>${d.banben }</td>
+													<td>${d.tuhao }</td>
+													<td>${d.needFinalDate }</td>
+													<td>${d.estimatePrice }</td>
+												</tr>
+											</s:iterator>
+										</table>
+									</td>
+								</tr>
+							</s:if>
+						</s:iterator>
+						<tr>
+							<td colspan="30" align="right">
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<SCRIPT type="text/javascript">
+		
+var count =0;
+function showmingxi(id){
+	if(count == 0){
+		if(id==''){
+			$(".mingxi").show();
+			$(".zong").attr("style","font-weight: bold;")
+		}else{
+			$("#mingxi_"+id).show();
+			$("#zong_"+id).attr("style","font-weight: bold;")
+		}
+		count =1;
+	}else if(count == 1){
+		if(id==''){
+			$(".mingxi").hide();
+			$(".zong").removeAttr("style");
+		}else{
+			$("#mingxi_"+id).hide();
+			$("#zong_"+id).removeAttr("style");
+		}
+		count =0;
+	}
+}
+</SCRIPT>
+	</body>
+</html>

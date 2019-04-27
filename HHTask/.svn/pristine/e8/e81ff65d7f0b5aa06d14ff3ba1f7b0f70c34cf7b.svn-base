@@ -1,0 +1,251 @@
+package com.task.entity.systemfile;
+
+import com.task.util.FieldMeta;
+
+/**
+ * ta_SystemFile
+ * @author Administrator
+ *
+ */
+public class SystemFile implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String fileUrl;//文件
+	@FieldMeta(name="文件类型")
+	private String fileType;//文件类型
+	@FieldMeta(name="文件编号")
+	private String fileNo;//文件编号
+	@FieldMeta(name="文件名称")
+	private String fileName;//文件名称
+	@FieldMeta(name="文件别名")
+	private String otherName;//文件别名
+	@FieldMeta(name="文件等级")
+	private String fileLevel;//文件等级
+	@FieldMeta(name="部门")
+	private String department;//部门
+	@FieldMeta(name="描述")
+	private String description;//描述
+	private String personToLook;//需要通知的人
+	private String personToLookId;//需要通知的人id
+	@FieldMeta(name="版本")
+	private String banben;//版本
+	private String banben_old;//旧版本ID（1;2....）
+	@FieldMeta(name="上传人员")
+	private String person;//上传人员
+	@FieldMeta(name="上传时间")
+	private String uploadDate;//上传时间
+	private String cpCode;// 产品编码
+	private String baomi;// 保密
+	@FieldMeta(name="合同金额")
+	private Float money;// 合同价格
+	private Float yyMoney;//已用金额
+	private Integer epId;
+	private String status;
+	@FieldMeta(name="文件来源")
+	private String source;
+	@FieldMeta(name="文件类别")
+	private String category;
+	//@FieldMeta(name="申请时间")
+	private String applyDate;
+	@FieldMeta(name="修改时间")
+	private String updateDate;
+	private String canStatus;//作废状态
+	private Integer canEpId;//
+	private String canRemark;//作废描述
+	@FieldMeta(name="项目编号")
+	private String proCode;//项目编号
+	private String loggingFile;//文件更改单
+	private String canPersonCode;//作废人
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+	public String getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileLevel() {
+		return fileLevel;
+	}
+	public void setFileLevel(String fileLevel) {
+		this.fileLevel = fileLevel;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getPerson() {
+		return person;
+	}
+	public void setPerson(String person) {
+		this.person = person;
+	}
+	public String getUploadDate() {
+		return uploadDate;
+	}
+	public void setUploadDate(String uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+	public String getCpCode() {
+		return cpCode;
+	}
+	public void setCpCode(String cpCode) {
+		this.cpCode = cpCode;
+	}
+	public String getBaomi() {
+		return baomi;
+	}
+	public void setBaomi(String baomi) {
+		this.baomi = baomi;
+	}
+	public String getBanben() {
+		return banben;
+	}
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+	public String getPersonToLook() {
+		return personToLook;
+	}
+	public void setPersonToLook(String personToLook) {
+		this.personToLook = personToLook;
+	}
+	public String getBanben_old() {
+		return banben_old;
+	}
+	public void setBanben_old(String banbenOld) {
+		banben_old = banbenOld;
+	}
+	public String getPersonToLookId() {
+		return personToLookId;
+	}
+	public void setPersonToLookId(String personToLookId) {
+		this.personToLookId = personToLookId;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Float getMoney() {
+		return money;
+	}
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getApplyDate() {
+		return applyDate;
+	}
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
+	}
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+	public String getOtherName() {
+		return otherName;
+	}
+	public void setOtherName(String otherName) {
+		this.otherName = otherName;
+	}
+	public String getCanStatus() {
+		return canStatus;
+	}
+	public void setCanStatus(String canStatus) {
+		this.canStatus = canStatus;
+	}
+	public String getCanRemark() {
+		return canRemark;
+	}
+	public void setCanRemark(String canRemark) {
+		this.canRemark = canRemark;
+	}
+	public Integer getCanEpId() {
+		return canEpId;
+	}
+	public void setCanEpId(Integer canEpId) {
+		this.canEpId = canEpId;
+	}
+	public Float getYyMoney() {
+		return yyMoney;
+	}
+	public void setYyMoney(Float yyMoney) {
+		this.yyMoney = yyMoney;
+	}
+	public String getProCode() {
+		return proCode;
+	}
+	public void setProCode(String proCode) {
+		this.proCode = proCode;
+	}
+	public String getLoggingFile() {
+		return loggingFile;
+	}
+	public void setLoggingFile(String loggingFile) {
+		this.loggingFile = loggingFile;
+	}
+	public String getCanPersonCode() {
+		return canPersonCode;
+	}
+	public void setCanPersonCode(String canPersonCode) {
+		this.canPersonCode = canPersonCode;
+	}
+
+}
+

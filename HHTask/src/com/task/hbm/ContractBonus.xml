@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="ContractBonus" table="ta_hr_cb_contractBonus">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="userId" column="contractBonus_userId" length="100" />
+		<property name="code" column="contractBonus_code" length="100" />
+		<property name="cardId" column="contractBonus_cardId" length="100" />
+		<property name="userName" column="contractBonus_userName"
+			length="100" />
+		<property name="deptName" column="contractBonus_deptName"
+			length="100" />
+		<property name="bonusMouth" column="contractBonus_bonusMouth"
+			length="50" />
+		<property name="totalMoney" column="contractBonus_totalMoney" />
+		<property name="addDate" column="contractBonus_addDate"
+			length="50" />
+		<property name="bonusStatus" column="contractBonus_bonusStatus"
+			length="10" />
+		<property name="status" column="contractBonus_status" length="10" />
+		<property name="ifReceive" column="contractBonus_ifReceive"
+			length="10" />
+			<property name="epId"></property>
+	</class>
+</hibernate-mapping>

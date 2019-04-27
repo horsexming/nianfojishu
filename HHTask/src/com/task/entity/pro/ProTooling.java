@@ -1,0 +1,68 @@
+package com.task.entity.pro;
+
+import java.io.Serializable;
+
+public class ProTooling implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;//工装ID
+	private String numb;//工装号
+	private String name;//工装名称
+	private Double amount;//金额
+	private String specification;//规格
+	private Integer proId;//项目ID
+	private String status;//状态 已有 新购
+	private String explain;//备注
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNumb() {
+		return numb;
+	}
+	public void setNumb(String numb) {
+		this.numb = numb;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Double getAmount() {
+		return amount;
+	}
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public String getExplain() {
+		return explain;
+	}
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
+	public Integer getProId() {
+		return proId;
+	}
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+}

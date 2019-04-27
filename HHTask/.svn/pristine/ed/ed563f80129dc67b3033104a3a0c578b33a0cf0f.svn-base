@@ -1,0 +1,226 @@
+package com.task.util;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.List;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import com.task.Dao.TotalDao;
+import com.task.ServerImpl.menjin.DoorBangDingServerImpl;
+import com.task.entity.menjin.AccessEquipment;
+import com.task.entity.menjin.AccessLogInfor;
+import com.task.entity.menjin.DoorBangDing;
+import com.task.util.Util;
+
+public class SocketServersNbLot extends Thread {
+
+	public static final int PORT = 8848;
+	public static final String USERNAME = "李聪";
+	public static final String PASSWORE = "159729";
+	public static int clientcount = 0;
+	public TotalDao toalDao;
+	UsrCloudClient usrCloudClient = null;
+	UsrCloudClientCallback usrCloudClientCallback = null;
+
+	public SocketServersNbLot(TotalDao toalDao) {
+		this.toalDao = toalDao;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void run() {
+		while (true) {
+			try {
+//				usrCloudClient = new UsrCloudClient();
+//				usrCloudClientCallback = new UsrCloudClientCallback(usrCloudClient, toalDao);
+//				usrCloudClient.setUsrCloudMqttCallback(usrCloudClientCallback);
+//				usrCloudClient.Connect(USERNAME, PASSWORE);
+//				listen(usrCloudClient,usrCloudClientCallback);
+				clientcount++;
+				Thread.sleep(1000);
+				if(usrCloudClient==null){
+					usrCloudClient = new UsrCloudClient();
+					usrCloudClientCallback = new UsrCloudClientCallback(usrCloudClient, toalDao);
+					usrCloudClient.setUsrCloudMqttCallback(usrCloudClientCallback);
+					Thread.sleep(1000);
+		        	usrCloudClient.Connect(USERNAME, PASSWORE);
+				}else if(usrCloudClient!=null&&usrCloudClientCallback==null){
+					usrCloudClientCallback = new UsrCloudClientCallback(usrCloudClient, toalDao);
+					usrCloudClient.setUsrCloudMqttCallback(usrCloudClientCallback);
+					Thread.sleep(1000);
+		        	usrCloudClient.Connect(USERNAME, PASSWORE);
+				}else {
+					Thread.sleep(1000);
+		        	usrCloudClient.Connect(USERNAME, PASSWORE);
+				}
+				List<AccessEquipment> array = toalDao.query("from AccessEquipment where equipmentDaoType like 'NB-IoT%'");
+				String EName = "";
+				for (AccessEquipment accessEquipment : array) {
+					EName+=accessEquipment.getEquipmentIP()+",";
+					Thread.sleep(3000);
+					usrCloudClient.SubscribeForDevId(accessEquipment.getEquipmentIP());
+				}
+				DoorBangDingServerImpl.caeLogInfor(new StringBuffer(EName), clientcount+"", "监听", "", "", "", null, null);
+				Thread.sleep(1000*60*60*2);
+			} catch (Exception e) {
+				System.out.println("Error. " + e);
+				DoorBangDingServerImpl.caeLogInfor(new StringBuffer(e.toString()+""), clientcount+"", "异常", "", "", "", null, null);
+			}finally{
+				/* 4.取消连接 */
+				try {
+					if(usrCloudClient!=null){
+						usrCloudClient.DisConnectUnCheck();
+						DoorBangDingServerImpl.caeLogInfor(new StringBuffer(""), clientcount+"", "断开", "", "", "", null, null);
+					}
+				} catch (MqttException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	@SuppressWarnings("unchecked")
+	private void listen(UsrCloudClient usrCloudClient,UsrCloudClientCallback usrCloudClientCallback) throws InterruptedException, MqttException {
+		clientcount++;
+		if(usrCloudClient==null){
+			usrCloudClient = new UsrCloudClient();
+			usrCloudClientCallback = new UsrCloudClientCallback(usrCloudClient, toalDao);
+			usrCloudClient.setUsrCloudMqttCallback(usrCloudClientCallback);
+			Thread.sleep(1000);
+        	usrCloudClient.Connect(USERNAME, PASSWORE);
+		}else if(usrCloudClient!=null&&usrCloudClientCallback==null){
+			usrCloudClientCallback = new UsrCloudClientCallback(usrCloudClient, toalDao);
+			usrCloudClient.setUsrCloudMqttCallback(usrCloudClientCallback);
+			Thread.sleep(1000);
+        	usrCloudClient.Connect(USERNAME, PASSWORE);
+		}
+		List<AccessEquipment> array = toalDao.query("from AccessEquipment where equipmentDaoType like 'NB-IoT%'");
+		String EName = "";
+		for (AccessEquipment accessEquipment : array) {
+			EName+=accessEquipment.getEquipmentIP()+",";
+			usrCloudClient.SubscribeForDevId(accessEquipment.getEquipmentIP());
+		}
+		DoorBangDingServerImpl.caeLogInfor(new StringBuffer(EName), clientcount+"", "监听", "", Util.getDateTime(), "", null, null);
+	}
+
+	public TotalDao getToalDao() {
+		return toalDao;
+	}
+
+	public void setToalDao(TotalDao toalDao) {
+		this.toalDao = toalDao;
+	}
+}
+
+class ServerThreadNbLot extends Thread {
+	private static int number = 0; // 保存本进程的客户计数
+	DatagramSocket socket = null; // 保存与本线程相关的Socket对象
+	DatagramPacket packet = null;
+	TotalDao totalDao;
+
+	public ServerThreadNbLot(DatagramSocket socket, DatagramPacket packet,
+			int clientnum, TotalDao toalDao) {
+		this.socket = socket;
+		this.packet = packet;
+		number = clientnum;
+		this.totalDao = toalDao;
+		System.out.println("当前在线的NbLot数: " + number);
+	}
+	
+	public void run() {
+		// BufferedInputStream bis = null;
+		// InputStream in = null;
+		StringBuilder builder = new StringBuilder();
+		try {
+			String accessIP = packet.getAddress().getHostAddress();
+			System.out.println(accessIP + " 进入服务端了");
+			// 由Socket对象得到输入流,并构造相应的BufferedReader对象
+			// 2、接受客户端发送的数据
+			//socket.receive(packet);// 此方法在接受数据报之前会一致阻塞
+			byte[] data = new byte[12];// 
+			packet = new DatagramPacket(data, data.length);
+			// 3、创建数据报，用于接受客户端发送的数据
+			// //4、读取数据
+			System.out.println("我是服务器，客户端告诉我");
+			String info = new String(data, 0, data.length);
+			System.out.println("我是服务器，客户端告诉我" + info);
+
+			//========================================================= 
+			//向客户端响应数据 
+			//1、定义客户端的地址、端口号、数据 
+			InetAddress address = packet.getAddress();
+			int port = packet.getPort();
+			byte[] data2 = "how are you".getBytes(); 
+//			//2、创建数据报，包含响应的数据信息 
+			//packet = new DatagramPacket(data2,data2.length,address,port); 
+//			//3、响应客户端 
+			socket.send(packet);
+			
+			
+			// 先接收接收第一个字符 用做标识
+//			String mess1 = Util.byteArrayToHexString(data);
+//			System.out.println("服务端开始接受标识！" + mess1);
+//
+//			System.out.println("服务端关闭 soko");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (socket != null) {
+					socket.close(); // 关闭Socket
+					SocketServersNbLot.clientcount--;
+
+					System.out.println("服务端关闭,当前连接设备数量为:"
+							+ SocketServersNbLot.clientcount);
+					AccessLogInfor accessLogInfor = new AccessLogInfor();
+					accessLogInfor.setInfor(builder.toString());
+					accessLogInfor.setAddTime(Util.getDateTime());
+					totalDao.save2(accessLogInfor);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} // 关闭Socket输入流
+		}
+	}
+
+	/**
+	 * @author Li_Cong
+	 * @param sockets
+	 *            连接
+	 * @param i
+	 *            发送指令
+	 * @throws IOException
+	 *             异常抛出
+	 */
+	private static void getsocket(Socket sockets, Integer i) throws IOException {
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(sockets
+				.getOutputStream()));
+		bw.write(i);// 发送不开门信号
+		bw.write(0x0a);// 发送不开门信号
+		// bw.write(new char[] {01});
+		bw.flush();
+	}
+
+	/***
+	 * 读取数据
+	 * 
+	 * @param bis
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unused")
+	private static String readBis(InputStream is) throws Exception {
+		// 再截取后四位
+		byte[] nenghao_data = new byte[1];// 先接收第一个字符
+		is.read(nenghao_data);// 读取数据
+		return Util.byteArrayToHexString(nenghao_data);
+	}
+
+}

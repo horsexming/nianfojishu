@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-zyl" location="0,0" size="0,0">
+    <action name="AssetAction" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="saveAesset.jsp" />
+      </result>
+      <result name="findShouList">
+        <resourceEdge source="findShouList" routing="0" target="shouAssetList.jsp" />
+      </result>
+      <result name="findByID">
+        <resourceEdge source="findByID" routing="0" target="assetList.jsp" />
+      </result>
+      <result name="updateAssetstatus">
+        <resourceEdge source="updateAssetstatus" routing="0" target="scrappedSingleAsset.jsp" />
+      </result>
+      <result name="updateAssetscrappedSingle" />
+      <result name="scrappedSingle" />
+      <result name="updateAssetFindID" />
+      <result name="updateAsset" />
+    </action>
+    <action name="TijingpriceAction" location="0,0" size="0,0">
+      <result name="execute1" />
+      <result name="findtijingprice" />
+      <result name="deletetijingprice" />
+      <result name="updatefind" />
+      <result name="update" />
+      <result name="conditionAllSuccess" />
+      <result name="generateEXCEL" />
+      <result name="error" />
+      <result name="conditionAllBefore" />
+      <result name="conditionAllBefore2" />
+      <result name="findAllPrice" />
+    </action>
+    <action name="TijingAction" location="0,0" size="0,0">
+      <result name="savetijing" />
+      <result name="showtijing" />
+      <result name="error" />
+      <result name="dateEXCEL" />
+      <result name="findGoodStore" />
+      <result name="addShizhiok" />
+      <result name="queryShizhi" />
+      <result name="examIder" />
+      <result name="deleteShizhiOK" />
+      <result name="getOneShizhi" />
+      <result name="updateShizhijiangjinOK" />
+    </action>
+    <action name="MentionrecordAction" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="findExamListOK" />
+      <result name="conditiontFindAll" />
+      <result name="updateMentionrecord" />
+      <result name="updateFind" />
+      <result name="financialupdate" />
+      <result name="Type" />
+    </action>
+    <action name="TeammembersAction" location="0,0" size="0,0">
+      <result name="execute" />
+      <result name="delete" />
+      <result name="findDept" />
+      <result name="error" />
+    </action>
+    <action name="BonusAction" location="0,0" size="0,0">
+      <result name="execute" />
+      <result name="findAllTeammembers" />
+      <result name="error" />
+      <result name="saveBonusPeople" />
+      <result name="findDateBonus" />
+      <result name="update" />
+      <result name="summary" />
+      <result name="findExamListOK" />
+      <result name="updateExamBonusOK" />
+      <result name="generateExcel" />
+    </action>
+    <action name="BonusmoneyAction" location="0,0" size="0,0">
+      <result name="execute" />
+      <result name="finddate" />
+      <result name="error" />
+      <result name="printPreview" />
+      <result name="audit" />
+      <result name="auditDisagree" />
+      <result name="auditDisagreeupdate" />
+      <result name="updateauditDisagree" />
+      <result name="findTeam" />
+      <result name="findzongMoney" />
+      <result name="findDepthuanbi" />
+    </action>
+    <action name="GoodsStoreAction" location="0,0" size="0,0">
+      <result name="execute" />
+      <result name="findMakIDmoney" />
+      <result name="findAllPrice" />
+      <result name="goodsStore_findRuku" />
+      <result name="goodsStore_findRukuQueRen" />
+      <result name="getGoodsStoreOK" />
+      <result name="updateERROR" />
+      <result name="printGoodsStore" />
+      <result name="sdrkInput" />
+      <result name="OsRecord_sdrkInputMultiterm" />
+      <result name="plrkInput" />
+      <result name="rukuList" />
+      <result name="rukuEdit" />
+      <result name="findgoodHouse" />
+      <result name="addgoodHouse" />
+      <result name="salgoodHouseByid" />
+      <result name="updategoodHouse" />
+      <result name="noAuth" />
+      <result name="success1" />
+      <result name="findAll" />
+      <result name="addSgrk" />
+      <result name="goodsStore_zaizhiapplyinput" />
+      <result name="goodsStore_zaizhiapplyinDetail" />
+      <result name="GoodsStore_surezzinputapply" />
+      <result name="GoodsStore_wxdrk" />
+      <result name="print_goodsStoreList" />
+      <result name="print_goodsStore" />
+      <result name="waigouWaiting_all" />
+      <result name="GoodsSum" />
+      <result name="error" />
+      <result name="findSameProductPriceOK" />
+      <result name="goodsStore_changeGoods" />
+      <result name="goodsStore_toChangeGoodsPage" />
+    </action>
+    <action name="ClientManagementAction" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="findAll" />
+      <result name="delete" />
+      <result name="update" />
+      <result name="error" />
+      <result name="updatefind" />
+      <result name="findByclientManagement" />
+    </action>
+    <action name="OrderManagementAction" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="delete" />
+      <result name="update" />
+      <result name="findAll" />
+      <result name="saveqian" />
+      <result name="error" />
+    </action>
+    <action name="OrderprocesstablerAction" location="0,0" size="0,0">
+      <result name="error" />
+    </action>
+  </package>
+  <webResource name="saveAesset.jsp" path="/System/xinxi/saveAesset.jsp" location="0,0" size="0,0" />
+  <webResource name="shouAssetList.jsp" path="/System/xinxi/shouAssetList.jsp" location="0,0" size="0,0" />
+  <webResource name="assetList.jsp" path="/System/xinxi/assetList.jsp" location="0,0" size="0,0" />
+  <webResource name="scrappedSingleAsset.jsp" path="/System/xinxi/scrappedSingleAsset.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

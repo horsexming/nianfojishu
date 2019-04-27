@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="DeptNumber" table="ta_deptNumber">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dept" length="50" column="ta_dept" />
+		<property name="deptNumber" length="20" column="ta_deptNumber" />
+		<property name="fatherId" column="ta_fatherId" />
+		<property name="belongLayer" column="ta_belongLayer" length="50" />
+		<property name="xuhao"></property>
+		<!-- 部门对用户 -->
+		<set name="user" inverse="false" table="ta_dept_user" cascade="save-update" lazy="true">
+			<key column="ta_deptId"></key>
+			<many-to-many class="Users" column="ta_userId"/>
+		</set>
+		<!-- 部门对流程 -->
+		<set name="CircuitCustomizeSet" inverse="true" table="ta_dept_CircuitCustomize" >
+			<key column="ta_deptId"></key>
+			<many-to-many class="com.task.entity.system.CircuitCustomize" column="ta_cId"/>
+		</set>
+		<!-- 部门对流程节点 -->
+		<set name="auditNodeSet"  table="ta_dept_AuditNode" >
+			<key column="ta_deptId"></key>
+			<many-to-many class="com.task.entity.system.AuditNode" column="ta_adId"/>
+		</set>
+	</class>
+</hibernate-mapping>

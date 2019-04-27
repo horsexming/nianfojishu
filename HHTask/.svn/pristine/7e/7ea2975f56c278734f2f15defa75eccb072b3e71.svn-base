@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Calendar" table="ta_hr_Calendar">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="thingsId" />
+		<property name="title" not-null="true" />
+		<property name="allDay" />
+		<property name="start" not-null="true" />
+		<property name="endDate" column="calendar_end" />
+		<property name="url" />
+		<property name="className" />
+		<property name="editable" />
+		<property name="source" />
+		<property name="color" />
+		<property name="backgroundColor" />
+		<property name="borderColor" />
+		<property name="textColor" />
+		<property name="thingType" />
+		<property name="thingStatus" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="code" />
+		<property name="dept" />
+		<property name="addUserId" />
+		<property name="addUserName" />
+		<property name="addUserCode" />
+		<property name="addUserDept" />
+		<property name="addDateTime" />
+		<property name="thingContent" />
+		<property name="sumDay" />
+		<property name="isRepeat" />
+		<property name="repeatCycle" />
+		<property name="repeatFrequency" />
+		<property name="calendarState" />
+	</class>
+</hibernate-mapping>

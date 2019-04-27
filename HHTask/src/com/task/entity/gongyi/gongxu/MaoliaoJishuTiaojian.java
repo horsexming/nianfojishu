@@ -1,0 +1,53 @@
+package com.task.entity.gongyi.gongxu;
+
+import java.io.Serializable;
+
+public class MaoliaoJishuTiaojian implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**ID*/
+	private Integer id;
+	/**内容*/
+	private String content;
+	/**工序数据ID*/
+	private Integer processDataId;
+	/**获取参数*/
+	private String params;
+	
+	public String getParams() {
+		if(params!=null){
+			return params.replace("\\t", "").replace("\\r","").replace("\\n","").replace("\\f","").replace("\\","");
+		}
+		return params;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getProcessDataId() {
+		return processDataId;
+	}
+
+	public void setProcessDataId(Integer processDataId) {
+		this.processDataId = processDataId;
+	}
+
+	public void setParams(String params) {
+		this.params = params;
+	}
+}

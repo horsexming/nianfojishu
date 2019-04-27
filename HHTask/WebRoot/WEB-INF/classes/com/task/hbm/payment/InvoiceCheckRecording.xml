@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.InvoiceCheckRecording"
+		table="ta_InvoiceCheckRecording">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="invoType" />
+		<property name="fpdm" />
+		<property name="fphm" />
+		<property name="je" />
+		<property name="kprq" />
+		<property name="jym" />
+		
+		<property name="msg" />
+		<property name="code" />
+		<property name="msgTow" />
+		<property name="invoiceid" />
+		<property name="forbidens" />
+		
+		<property name="addTime" />
+		<property name="addName" />
+		<property name="addUserId" />
+		<property name="addDept" />
+		<property name="invoiceFilees" />
+		<many-to-one name="invoiceCheck" class="com.task.entity.payment.InvoiceCheck"
+			column="invoice_ids">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

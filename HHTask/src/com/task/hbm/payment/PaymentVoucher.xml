@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.payment.PaymentVoucher" table="ta_PaymentVoucher">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="number" />
+		<property name="unitname" />
+		<property name="relationclient" />
+		<property name="accreditationnum" />
+		<property name="contractnum" />
+		<property name="contractdate" />
+		<property name="approvalcontent" />
+		<property name="approvalexplain" />
+		<property name="approvalStatus" />
+		<property name="voucherMoney" />
+		<property name="prepaidMoney" />
+		<property name="voucherNature" />
+		<property name="voucherway" />
+		<property name="vouchersituation" />
+		<property name="vouchercondition" />
+		<property name="category" />
+		<property name="voucherdate" />
+		<property name="printStatus" />
+		<property name="approvalApplier"></property>
+		<property name="approvaldept"></property>
+		<property name="voucherbasis"></property>
+		<property name="reviewer"></property>
+		<property name="paymentStatus"></property>
+		<property name="epId" />
+		<property name="heTongId" />
+		
+		<set name="paymentDetail" inverse="false" cascade="all" lazy="true">
+			<key column="paymentid"></key>
+			<one-to-many class="com.task.entity.payment.PaymentDetail" />
+		</set>
+		 
+		 <!-- 一方 对应多个借款 -->
+		 <set name="baoxiaoDanSet" inverse="false" cascade="all" lazy="false">
+			<key column="payment_id"></key>
+			<one-to-many class="com.task.entity.fin.BaoxiaoDan" />
+		</set>
+		 
+	</class>
+	</hibernate-mapping>

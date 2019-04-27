@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<package name="task-ls" extends="struts-stack">
+	<!--
+			****************************************于勇鸿斌Action操作********************************************************************
+			**
+		-->
+		<!-- 公司信息管理 -->
+		<action name="ApkAction!*" class="ApkAction"
+			method="{1}">
+			
+		</action>
+		
+		<!-- 证件信息管理 -->
+		<action name="CredentialsAction!*" class="CredentialsAction"
+			method="{1}">
+			<result name="showcredentials">/System/carddate/showcredentials.jsp</result>
+			<result name="jiashizheng">/System/carddate/jiashizheng.jsp</result>
+			<result name="xingshizheng">/System/carddate/xingshizheng.jsp</result>
+			<result name="addjiashizheng">/System/carddate/addjiashizheng.jsp</result>
+			<result name="addxingshizheng">/System/carddate/addxingshizheng.jsp</result>
+			<result name="addzhengjianInfor">/System/carddate/addzhengjianInfor.jsp</result>
+			<result name="int_add_succ" type="redirect">CredentialsAction!showallcredentials.action?successMessage=${successMessage}&amp;cpage=${cpage}&amp;ps=${ps}</result>
+		</action>
+		
+		
+		
+		
+		<action name="DmltryAppFilesAction!*" class="DmltryAppFilesAction"
+			method="{1}">
+			<result name="selall">/System/dmltry/selall.jsp</result>
+			
+			<!-- 添加明细 -->
+			<result name="DmlAppFileUrl_add">/System/dmltry/DmlAppFileUrl_add.jsp</result>
+			<result name="DmltryAppFiles_update">/System/dmltry/DmltryAppFiles_update.jsp</result>
+			<result name="error">/error.jsp</result>
+			
+		</action>
+
+			
+		<action name="DmlAppFileUrlAction!*" class="DmlAppFileUrlAction"
+			method="{1}">
+			<result name="Url_show">/System/dmltry/DmlAppFileUrl_show.jsp</result>
+			<result name="DmlApp_showwid">/System/dmltry/DmlAppFileUrl_update.jsp</result>
+			<result name="DmlAppFileUrl_show">/System/dmltry/DmlAppFileUrl_show.jsp</result>
+			<result name="dmlaps_add">/System/dmltry/dmlaps_add.jsp</result>
+			<result name="DmlAppFileUrl_addmx">/System/dmltry/DmlAppFileUrl_addmx.jsp</result>
+			<!-- 查看明细 -->
+			<result name="DmltryAppFiles_show">/System/dmltry/DmltryAppFiles_show.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		
+		
+		
+	</package>
+</struts>

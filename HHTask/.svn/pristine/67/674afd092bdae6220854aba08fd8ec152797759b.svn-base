@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.bybz.LjuCheckRecordMx" table="ta_bybz_LjuCheckRecordMx" >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="checks" />
+		<property name="jyresult" />
+		<property name="remarks" />
+		<property name="jymeans" />
+		<many-to-one name="ljuCR" class="com.task.entity.bybz.LjuCheckRecord"  column="fk_lcrId" /> 
+	</class>
+</hibernate-mapping>

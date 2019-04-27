@@ -1,0 +1,216 @@
+package com.task.entity.sop;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 外购,外委明细处理申请 （ta_sop_w_WaigouPlanclApply）
+ * @author txb
+ *
+ */
+public class WaigouPlanclApply  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+	private Integer id;
+	@FieldMeta(name="申请单编号")
+	private String applyNumber;//申请单编号
+	private Integer waigouPlanId;//外购,外委明细Id
+	@FieldMeta(name="外购外委单号")
+	private String planNumber;//外购外委单编号
+	private Integer procardSbWgId;//外购设变待处理数据Id
+	@FieldMeta(name="件号")
+	private String markId;//件号
+	@FieldMeta(name="零件名称")
+	private String proName;//零件名称
+	@FieldMeta(name="零件图号")
+	private String tuhao;//零件图号
+	@FieldMeta(name="物料类别")
+	private String wgType;//物料类别
+	@FieldMeta(name="供料属性")
+	private String kgliao;//供料属性
+	@FieldMeta(name="版本")
+	private String banben;// 版本
+	@FieldMeta(name="规格")
+	private String specification;//规格
+	@FieldMeta(name="订单数量")
+	private Float allCount;//总数量
+	@FieldMeta(name="订单未送货数量")
+	private Float syCount;//剩余未送货数量
+	@FieldMeta(name="申请减少数量")
+	private Float clCount;//减单数量
+	private String processNos;//工序号
+	private String processNames;//工序名称
+	private String unit;//单位
+	@FieldMeta(name="供应商名称")
+	private String gysName;//供应商名称
+	@FieldMeta(name="采购员")
+	private String cgname;//采购员名称
+	private String cgCode;//采购员工号
+	private Integer addUserId;//申请人Id
+	private String addUsercode;//申请人工号
+	@FieldMeta(name="申请人")
+	private String addUsername;//申请人名称
+	
+	private String epStatus;//申请状态
+	private Integer epId;//申请Id
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getApplyNumber() {
+		return applyNumber;
+	}
+	public void setApplyNumber(String applyNumber) {
+		this.applyNumber = applyNumber;
+	}
+	public Integer getWaigouPlanId() {
+		return waigouPlanId;
+	}
+	public void setWaigouPlanId(Integer waigouPlanId) {
+		this.waigouPlanId = waigouPlanId;
+	}
+	public String getPlanNumber() {
+		return planNumber;
+	}
+	public void setPlanNumber(String planNumber) {
+		this.planNumber = planNumber;
+	}
+	
+	public Float getAllCount() {
+		return allCount;
+	}
+	public void setAllCount(Float allCount) {
+		this.allCount = allCount;
+	}
+	public Float getSyCount() {
+		return syCount;
+	}
+	public void setSyCount(Float syCount) {
+		this.syCount = syCount;
+	}
+	public Float getClCount() {
+		return clCount;
+	}
+	public void setClCount(Float clCount) {
+		this.clCount = clCount;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProcessNos() {
+		return processNos;
+	}
+	public void setProcessNos(String processNos) {
+		this.processNos = processNos;
+	}
+	public String getProcessNames() {
+		return processNames;
+	}
+	public void setProcessNames(String processNames) {
+		this.processNames = processNames;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public String getGysName() {
+		return gysName;
+	}
+	public void setGysName(String gysName) {
+		this.gysName = gysName;
+	}
+	public String getCgname() {
+		return cgname;
+	}
+	public void setCgname(String cgname) {
+		this.cgname = cgname;
+	}
+	public String getCgCode() {
+		return cgCode;
+	}
+	public void setCgCode(String cgCode) {
+		this.cgCode = cgCode;
+	}
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+	public String getAddUsercode() {
+		return addUsercode;
+	}
+	public void setAddUsercode(String addUsercode) {
+		this.addUsercode = addUsercode;
+	}
+	public String getAddUsername() {
+		return addUsername;
+	}
+	public void setAddUsername(String addUsername) {
+		this.addUsername = addUsername;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public String getTuhao() {
+		return tuhao;
+	}
+	public void setTuhao(String tuhao) {
+		this.tuhao = tuhao;
+	}
+	public String getWgType() {
+		return wgType;
+	}
+	public void setWgType(String wgType) {
+		this.wgType = wgType;
+	}
+	public String getKgliao() {
+		return kgliao;
+	}
+	public void setKgliao(String kgliao) {
+		this.kgliao = kgliao;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public Integer getProcardSbWgId() {
+		return procardSbWgId;
+	}
+	public void setProcardSbWgId(Integer procardSbWgId) {
+		this.procardSbWgId = procardSbWgId;
+	}
+	public String getBanben() {
+		return banben;
+	}
+	public void setBanben(String banben) {
+		this.banben = banben;
+	}
+	public String getEpStatus() {
+		return epStatus;
+	}
+	public void setEpStatus(String epStatus) {
+		this.epStatus = epStatus;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	
+	
+	
+	
+}

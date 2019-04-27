@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardSbWw" table="ta_sop_w_ProcardSbWw"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="ptbbApplyId" />
+		<property name="sbNumber" /> 
+		<property name="procardId" /> 
+	<property name="markId" />  
+	<property name="ywmarkId" /> 
+	<property name="banben" />  
+	<property name="proName" />  
+	<property name="banci" />  
+	<property name="tuhao" /> 
+	<property name="unit" />  
+	<property name="wwType" /> 
+	<property name="wwSource" /> 
+	<property name="number" />  
+	<property name="processNOs" /> 
+	<property name="processNames" />
+	
+	<property name="waigouWaiweiPlanIds" />
+	<property name="wwDetailId" />
+	
+	<property name="hsPrice" />
+	<property name="price" /> 
+	<property name="taxprice" />
+	<property name="money" /> 
+	<property name="priceId" /> 
+	<property name="userId" /> 
+	<property name="userCode" /> 
+	<property name="gysId" /> 
+	<property name="gysName" /> 
+	<property name="waigouPlanId" />
+	<property name="wwOrderNumber" />
+	
+	<property name="clCount" />
+	<property name="clType" />
+	<property name="clUser" />
+	<property name="clUserCode" />
+	<property name="clUserId" />
+	<property name="clTime" />
+	<property name="status" />
+	
+	<property name="addTime" /> 
+	<set name="procardSbWwDetailSet" inverse="false" cascade="all" lazy="true" >
+			<key column="sbwwId"></key>
+			<one-to-many class="ProcardSbWwDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

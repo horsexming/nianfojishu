@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.peb.PebProduction" table="ta_pebProduction">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="banzu" />
+		<property name="year" />
+		<property name="month" />
+		<property name="day" />
+		<property name="markId" />
+		<property name="cuNumber" />
+		<property name="message" />
+		<property name="measure" />
+		<property name="zrComp" />
+		<property name="zrCompMeasure" />
+		<property name="xiShu" />
+		<property name="zsNumber" />
+		<property name="remarks" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="AccessEquipment" table="ta_mj_AccessEquipment">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="equipmentName" />
+		<property name="equipmentNum" />
+		<property name="equipmentSupplier" />
+		<property name="equipmentOutIn" />
+		<property name="equipmentIP" />
+		<property name="equipmentPort" />
+		<property name="equipmentLocation" />
+		<property name="equipmentDaoType" />
+		<property name="simCardNum" />
+		<property name="equipmentType" />
+		<property name="equipmentSecurity" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		<property name="adminCardId" />
+		<property name="adminStatus" />
+		<property name="linYanZ" />
+		<property name="isTrueKao" />
+		<property name="isXungeng" />
+		<property name="state" />
+		<property name="operationNote" />
+		<property name="nbStage" />
+		<property name="guiType" />
+		<!--门禁设备 对面部特征信息表  多对多-->
+		<set name="facialFeatures" table="ta_userFeatureAcEqs" inverse="false" cascade="save-update"
+			lazy="true">
+			<key column="ta_AcEqsId" />
+			<many-to-many class="com.task.entity.UserFacialFeatures" column="ta_userId" />
+		</set>
+		<!--门禁设备 对用户对接信息表  多对多-->
+		<set name="facialInfors" table="ta_userInforAcEqs" inverse="false" cascade="save-update"
+			lazy="true">
+			<key column="ta_AcEqsId" />
+			<many-to-many class="com.task.entity.UserFacialInfor" column="ta_userId" />
+		</set>
+		<!--门禁设备 对用户 多对多-->
+		<set name="users" table="ta_usersAcEqs" inverse="false" cascade="save-update"
+			lazy="true">
+			<key column="ta_AcEqsId" />
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+		<!-- 门禁设备对时间段  一对多-->
+		<set name="accessTimes" inverse="true" cascade="all" lazy="true">
+			<key column="ta_acTime"></key>
+			<one-to-many class="AccessTime"/>
+		</set>
+		<!-- 门禁设备对时间段灯泡  一对多-->
+		<set name="oneLights" inverse="false" cascade="none" lazy="true">
+			<key column="ace_id"></key>
+			<one-to-many class="com.task.entity.onemark.OneLight"/>
+		</set>
+	</class>
+</hibernate-mapping>

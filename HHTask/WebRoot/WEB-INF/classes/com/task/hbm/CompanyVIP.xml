@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.CompanyVIP" table="ta_CompanyVIP" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        	<property name="name"/>
+        	<property name="foundingTime"/>
+        	<property name="writeTime"/>
+        	<property name="rcapital"/>
+        	<property name="number"/>
+        	<property name="typexz"/>
+        	<property name="industry"/>
+        	<property name="range"/>
+        	<property name="address"/>
+        	<property name="zipcode"/>
+        	<property name="website"/>
+        	<property name="email"/>
+        	<property name="synopsis"/>
+        	<property name="honor"/>
+        	<property name="lastsales"/>
+        	<property name="sales"/>
+        	<property name="totaltax"/>
+        	<property name="enumber"/>
+        	<property name="vipNo"/>
+        	<property name="attachmentName"/>
+<!--			<one-to-one name="companyboss" property-ref="companyVIP" cascade="all"-->
+<!--			lazy="false" />-->
+    </class>
+</hibernate-mapping>

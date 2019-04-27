@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tast.entity.zhaobiao.WaigoujianpinciZi" table="ta_WaigoujianpinciZi" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="waigoujianpinciId" />
+		<property name="caigoushuliang1" />
+		<property name="caigoushuliang2" />
+		<property name="choujian" />
+		<property name="erchoujian" />
+		 <property name="ybCode"/>
+		 <property name="type"/>
+		 <property name="ac"/>
+		 <property name="re"/>
+		 <property name="ac1"/>
+		 <property name="re1"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplateBanBenJudges" table="ta_ProcardTemplateBanBenJudges">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+	<property name="dept" />
+<!--	<property name="gldept" />-->
+<!--	<property name="gldeptId" />-->
+	<property name="userId" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="remark" length="500"/>
+	<property name="sblv" />
+<!--	<property name="judgelv" />-->
+	<property name="addTime" />
+	<property name="plTime" />
+	<property name="judgeType" />
+	<property name="selectUserId" />
+	<property name="selectUsers" />
+	<property name="judgedId" />
+	<many-to-one name="ptbbApply" class="ProcardTemplateBanBenApply"
+			cascade="save-update" lazy="false" column="applyId" />
+<!--	<set name="ptbbjset" cascade="all" inverse="false" lazy="true">-->
+<!--			<key column="judgedId"></key>-->
+<!--			<one-to-many class="ProcardTemplateBanBenJudges" />-->
+<!--	</set>-->
+<!--	<many-to-one name="ptbbj" class="ProcardTemplateBanBenJudges"-->
+<!--			cascade="all" lazy="false" column="judgedId" />-->
+<!---->
+	</class>
+</hibernate-mapping>

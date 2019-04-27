@@ -1,0 +1,383 @@
+package com.task.entity;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * @ClassName: Storage
+ * @Description: 入库表(表名:storage)
+ * @author Damon
+ * @date 2013-4-23 上午09:32:06
+ * 
+ *   add relaction Fields private Store store 关系:Storage(many-to-one) :
+ *     Store(one-to-many)
+ */
+public class Storage implements java.io.Serializable {
+
+	private Integer id;// 主键
+	private Date date; // 入库日期
+	private String matetag;// 名称
+	private String format;// 规格
+	private String carModel;// 车型
+	private String unit;// 单位（发票）
+	private Float num;// 数量（发票数量）
+	private String storehouse;// 仓库
+	private String parClass;// 分类
+	private String position;// 位置
+	private String number;// 编号
+	private Float price;// 价格
+	private Float money;// 金额
+	private Integer adminId;// 管理员id
+	private String admin;// 管理员
+	private String jinbanren;// 经办人
+	private String mix;// 合成主码
+	private String more;// 备注
+	private String dept;//申报包门
+	
+	// 新增
+	private Float beginning_num;//期初数量
+	private String storageInvoice;// 发票号
+	private String storageIsTax;// 是否含税
+	private Float storageTaxPrice; // 含税价格（报账单价，发票）
+	private Float storageTaxRate; // 税率
+	private String taxRate; // 百分比税率
+	private String storageCompany;// 公司名称
+	private Float storageTaxMoney; // 含税总金额
+	private String isTranslation; // 是否换算
+	private Float categoryNum; // （转换后数量，即库存对应数量）
+	private String category; // 换算后库存单位
+	private Integer conversionNum; // 对应数量(权值，比例)
+	private String classify; // (可借用/领用)
+	private Float exchangPrice;// 转换后单价
+	private Store store;
+	private String addDateTime;// 添加时间
+	private Set<OaAppDetail> oaDetails = new HashSet<OaAppDetail>();
+	
+	private Float budgetPrice;//送货单价格(含税)
+	private String budgetNumber;//预报账单号
+	private String bzStatus;//报账状态（入库(无价格)，预报账（送货价），可开票/打回，已开票（发票价），报账）
+	
+	public String getBzStatus() {
+		return bzStatus;
+	}
+
+	public void setBzStatus(String bzStatus) {
+		this.bzStatus = bzStatus;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getMatetag() {
+		return matetag;
+	}
+
+	public void setMatetag(String matetag) {
+		this.matetag = matetag;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public String getCarModel() {
+		return carModel;
+	}
+
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getStorehouse() {
+		return storehouse;
+	}
+
+	public void setStorehouse(String storehouse) {
+		this.storehouse = storehouse;
+	}
+
+	public String getParClass() {
+		return parClass;
+	}
+
+	public void setParClass(String parClass) {
+		this.parClass = parClass;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public Float getNum() {
+		return num;
+	}
+
+	public void setNum(Float num) {
+		this.num = num;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Float getMoney() {
+		return money;
+	}
+
+	public void setMoney(Float money) {
+		this.money = money;
+	}
+
+	public Integer getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+
+	public String getJinbanren() {
+		return jinbanren;
+	}
+
+	public void setJinbanren(String jinbanren) {
+		this.jinbanren = jinbanren;
+	}
+
+	public String getMix() {
+		return mix;
+	}
+
+	public void setMix(String mix) {
+		this.mix = mix;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getStorageInvoice() {
+		return storageInvoice;
+	}
+
+	public void setStorageInvoice(String storageInvoice) {
+		this.storageInvoice = storageInvoice;
+	}
+
+	public Float getStorageTaxPrice() {
+		if(null!=storageTaxPrice){
+			return Float.parseFloat(String.format("%.2f", storageTaxPrice));
+		}
+		return this.storageTaxPrice;
+	}
+
+	public void setStorageTaxPrice(Float storageTaxPrice) {
+		this.storageTaxPrice = storageTaxPrice;
+	}
+
+	public String getStorageIsTax() {
+		return storageIsTax;
+		
+	}
+
+	public void setStorageIsTax(String storageIsTax) {
+		this.storageIsTax = storageIsTax;
+	}
+
+	public Float getStorageTaxRate() {
+		return storageTaxRate;
+	}
+
+	public void setStorageTaxRate(Float storageTaxRate) {
+		this.storageTaxRate = storageTaxRate;
+	}
+
+	public String getStorageCompany() {
+		return storageCompany;
+	}
+
+	public void setStorageCompany(String storageCompany) {
+		this.storageCompany = storageCompany;
+	}
+
+	public Float getStorageTaxMoney() {
+		if(null!=storageTaxMoney){
+			return Float.parseFloat(String.format("%.2f", storageTaxMoney));
+		}
+		return this.storageTaxMoney;
+	}
+
+	public void setStorageTaxMoney(Float storageTaxMoney) {
+		this.storageTaxMoney = storageTaxMoney;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	// private String StorageInvoiceType;// 发票类型
+
+	public String getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(String taxRate) {
+		this.taxRate = taxRate;
+	}
+
+	public Set<OaAppDetail> getOaDetails() {
+		return oaDetails;
+	}
+
+	public void setOaDetails(Set<OaAppDetail> oaDetails) {
+		this.oaDetails = oaDetails;
+	}
+
+	public String getIsTranslation() {
+		return isTranslation;
+	}
+
+	public void setIsTranslation(String isTranslation) {
+		this.isTranslation = isTranslation;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Integer getConversionNum() {
+		return conversionNum;
+	}
+
+	public void setConversionNum(Integer conversionNum) {
+		this.conversionNum = conversionNum;
+	}
+
+	public Float getCategoryNum() {
+		return categoryNum;
+	}
+
+	public void setCategoryNum(Float categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+
+	public String getClassify() {
+		return classify;
+	}
+
+	public void setClassify(String classify) {
+		this.classify = classify;
+	}
+
+	public Float getExchangPrice() {
+		return exchangPrice;
+	}
+
+	public void setExchangPrice(Float exchangPrice) {
+		this.exchangPrice = exchangPrice;
+	}
+
+	public String getAddDateTime() {
+		return addDateTime;
+	}
+
+	public void setAddDateTime(String addDateTime) {
+		this.addDateTime = addDateTime;
+	}
+
+	public Float getBudgetPrice() {
+		return budgetPrice;
+	}
+
+	public void setBudgetPrice(Float budgetPrice) {
+		this.budgetPrice = budgetPrice;
+	}
+
+	public String getBudgetNumber() {
+		return budgetNumber;
+	}
+
+	public void setBudgetNumber(String budgetNumber) {
+		this.budgetNumber = budgetNumber;
+	}
+
+	public Float getBeginning_num() {
+		return beginning_num;
+	}
+
+	public void setBeginning_num(Float beginningNum) {
+		beginning_num = beginningNum;
+	}
+
+	
+}

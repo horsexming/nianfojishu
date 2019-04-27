@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessInfor" table="ta_sop_w_ProcessInfor">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="processNO">
+			<column name="processNO" length="50" not-null="true"
+				index="pebs_index_processNO" />
+		</property>
+		<property name="processName" type="java.lang.String">
+			<column name="processName" length="50" index="pebs_index_processName" />
+		</property>
+		<property name="processTemplateId"  index="pebs_index_processTemplateId"/>
+		<property name="processExplain" />
+		<property name="zjStatus" />
+		<property name="hadsj" />
+		<property name="status"  index="pebs_index_status"/>
+		<property name="usercodes" />
+		<property name="usernames" />
+		<property name="userId" />
+		<property name="totalCount" />
+		<property name="applyCount" />
+		<property name="submmitCount" />
+		<property name="breakCount" />
+		<property name="needStartTime" />
+		<property name="needFinishTime" />
+		<property name="firstApplyDate" />
+		<property name="submitDate" />
+		<property name="checkUsersId" />
+		<property name="checkUsersCode" />
+		<property name="checkUsers" />
+		<property name="checkDate" />
+		<property name="checkIdea" />
+		<property name="processStatus" />
+		<property name="parallelId" />
+		<property name="userCardId" />
+		<property name="productStyle" />
+		<property name="isPrice" />
+		<property name="guding" />
+		<property name="isSpecial" />
+
+		<!-- ******* 设备及其他相关 ******* -->
+		<property name="gongwei" index="pebs_index_gognwei" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+		<property name="operatorDept" />
+		<property name="operatorCode" />
+		<property name="operatorCardId" />
+		<property name="operatorName" />
+		<property name="operatorUserId" />
+		<property name="optechnologyRate" />
+		<property name="opCouldReplaceRate" />
+		<property name="opfuheRate" />
+		<property name="opcaozuojiepai" />
+		<property name="opshebeijiepai" />
+		<property name="opnoReplaceRate" />
+		<property name="opzonghezhishu" />
+		<property name="opzongheqiangdu" />
+		<property name="gztechnologyRate" />
+		<property name="gzCouldReplaceRate" />
+		<property name="gzfuheRate" />
+		<property name="gzzhunbeijiepai" />
+		<property name="gzzhunbeicishu" />
+		<property name="gznoReplaceRate" />
+		<property name="gzzonghezhishu" />
+		<property name="gzzongheqiangdu" />
+
+
+
+		<property name="gzstoreId" />
+		<property name="number" />
+		<property name="matetag" />
+
+		<property name="measuringId" />
+		<property name="measuringNumber" />
+		<property name="measuringMatetag" />
+		<property name="measuring_no" />
+
+		<property name="allJiepai" />
+		<property name="shebeistatus" />
+		<property name="gongzhuangstatus" />
+		<property name="guifanstatus" />
+		<property name="liangjustatus" />
+		<property name="kaoqingstatus" />
+		<property name="zhuserId" />
+		<property name="gys" />
+		<property name="gzDateTime" />
+
+		<property name="nowAllJiepai" />
+		<property name="nowAllSbJiepai" />
+		<property name="nowAllNenghao" />
+		<property name="daiNeghao" />
+		<property name="pmiType" />
+		<property name="pmiId" />
+		<property name="pmiName" />
+		<property name="isNeedFuliao" />
+		<property name="processMoney" />
+		<property name="processAllMoney" />
+		<property name="sellCount" />
+
+		<property name="rengongfei" />
+		<property name="shebeiZjFei" />
+		<property name="nyxhFei" />
+
+		<property name="selectWwCount" />
+		<property name="applyWwCount" />
+		<property name="agreeWwCount" />
+		<property name="wwbackCount" />
+		<property name="needSave" />
+		<property name="fzwork" />
+		<property name="fzworkname" />
+		<property name="procesdianshu" />
+		<property name="processjjMoney" />
+		<property name="jjratio" />
+		<property name="dataStatus" />
+		<property name="reProductId" index="pebs_index_reProductId"/>
+		<property name="sjprocessMomey" />
+		<property name="ykprocessMomey" />
+		<property name="wlqrcount" />
+
+
+		<!-- 【与流水卡片对应关系】 -->
+		<many-to-one name="procard" column="fk_procardId" class="Procard"
+			cascade="save-update" />
+
+		<!-- 【与外委工作单对应关系】 -->
+		<set name="osWork" table="ta_ospro" inverse="true" cascade="all"
+			lazy="true">
+			<key column="fk_proId" />
+			<many-to-many class="OutSourcingWorkList" column="fk_osId" />
+		</set>
+
+
+		<!-- 【与生产工序对应关系】 -->
+		<many-to-one name="productProcess" column="process_id"
+			lazy="proxy"></many-to-one>
+		<!-- 【与实际生产对应关系 】-->
+		<set name="procardPro" inverse="false" cascade="all" lazy="true">
+			<key column="Id">
+			</key>
+			<one-to-many class="com.task.entity.sop.ProcardPro" />
+		</set>
+		<!-- 【与自检项对应关系 】-->
+		<set name="processZjSet" inverse="false" cascade="all" lazy="true">
+			<key column="fk_processId">
+			</key>
+			<one-to-many class="ProcessZj" />
+		</set>
+		<!-- 【与辅料对应关系 】-->
+		<set name="processinforFuLiao" inverse="false" cascade="all" lazy="true">
+			<key column="fk_processId">
+			</key>
+			<one-to-many class="ProcessinforFuLiao" />
+		</set>
+		<!--
+			【配置领取记录对应关系】 <set name="pirSet" inverse="false" cascade="all"
+			lazy="true" order-by="id"> <key column="fk_processInforId"></key>
+			<one-to-many class="ProcessInforReceiveLog" /> </set>
+		-->
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-makai" location="0,0" size="0,0">
+    <action name="board_*" location="0,0" size="0,0">
+      <result name="addPage">
+        <resourceEdge source="addPage" routing="0" target="boardAdd.jsp" />
+      </result>
+      <result name="updatePage">
+        <resourceEdge source="updatePage" routing="0" target="boardEdit.jsp" />
+      </result>
+      <result name="list">
+        <resourceEdge source="list" routing="0" target="board.jsp" />
+      </result>
+      <result name="get">
+        <resourceEdge source="get" routing="0" target="boardGet.jsp" />
+      </result>
+      <result name="add_success" />
+      <result name="update_success" />
+      <result name="delete_success" />
+      <result name="addTitlePage" />
+      <result name="getUpdateTitlePage" />
+      <result name="listTitle" />
+    </action>
+    <action name="screenFiles_*" location="0,0" size="0,0">
+      <result name="showProcess" />
+      <result name="uploadPage" />
+      <result name="uploadOK" />
+      <result name="showFilePage" />
+    </action>
+    <action name="screen_*" location="0,0" size="0,0">
+      <result name="addPage" />
+      <result name="listPage" />
+      <result name="getWorkStation" />
+      <result name="editPage" />
+      <result name="showScreen" />
+      <result name="printScreen" />
+      <result name="printScreen2" />
+      <result name="showScreen3_gongwei" />
+    </action>
+    <action name="WareHouse_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="list" />
+      <result name="updateInput" />
+      <result name="error" />
+    </action>
+    <action name="WareHouseAuth_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="edit" />
+      <result name="list" />
+    </action>
+    <action name="OsTemplate_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="add" />
+      <result name="list" />
+      <result name="showScope" />
+      <result name="deleteOsTemplate" />
+      <result name="addInput1" />
+      <result name="showScopeAction" />
+      <result name="toUpdateOsTemplate" />
+      <result name="updateOsTemplate" />
+      <result name="updatexjsuccess" />
+      <result name="InsTemplate_updateInput" />
+      <result name="UpdateOsScope" />
+      <result name="addOsScope" />
+      <result name="InsScope_get" />
+      <result name="InsTemplate_listdel" />
+    </action>
+    <action name="OsRecord_*" location="0,0" size="0,0">
+      <result name="InsRecord_show" />
+      <result name="show" />
+      <result name="list" />
+      <result name="showScope" />
+      <result name="rukuList" />
+      <result name="OsRecord_screanRuku" />
+      <result name="rukuInput" />
+      <result name="InsRecord_list" />
+      <result name="error" />
+    </action>
+    <action name="InsRecord_*" location="0,0" size="0,0">
+      <result name="show" />
+      <result name="list" />
+      <result name="checkProcess" />
+      <result name="InsRecord_toXjLis" />
+      <result name="getXjProcess" />
+      <result name="error" />
+    </action>
+    <action name="InsScope_*" location="0,0" size="0,0">
+      <result name="get" />
+    </action>
+    <action name="InsTemplate_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="updateInput" />
+      <result name="list" />
+      <result name="listdel" />
+      <result name="deleteInsTemplate" />
+    </action>
+    <action name="TemplateTypem_*" location="0,0" size="0,0">
+      <result name="list" />
+      <result name="listSingle" />
+    </action>
+    <action name="Templatem_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="list" />
+      <result name="updateInput" />
+      <result name="rdToList" />
+    </action>
+    <action name="ManufacturingProp_*" location="0,0" size="0,0">
+      <result name="list" />
+    </action>
+    <action name="Manufacturing_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="list" />
+      <result name="relist" />
+    </action>
+    <action name="tclaimsRecord_*" location="0,0" size="0,0">
+      <result name="list" />
+      <result name="analysisInput" />
+      <result name="notificationInput" />
+      <result name="handleInput" />
+      <result name="rhandleInput" />
+    </action>
+    <action name="tclaimform_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="addOk" />
+      <result name="list" />
+      <result name="updateInput" />
+      <result name="debitInput" />
+    </action>
+    <action name="tprocess_*" location="0,0" size="0,0">
+      <result name="list" />
+      <result name="addInput" />
+      <result name="addOk" />
+    </action>
+    <action name="tequipment_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="addOk" />
+    </action>
+    <action name="ttooling_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="addOk" />
+    </action>
+    <action name="tconsumption_*" location="0,0" size="0,0">
+      <result name="addOk" />
+    </action>
+    <action name="tdetail_*" location="0,0" size="0,0">
+      <result name="addInput" />
+      <result name="getZizhi" />
+      <result name="getWaigou" />
+      <result name="list" />
+      <result name="listRoot" />
+      <result name="success" />
+    </action>
+    <action name="ProjectTrackRecord_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectTrack_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+      <result name="nohas" />
+    </action>
+    <action name="ProjectStart_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="has" />
+      <result name="nohas" />
+    </action>
+    <action name="ProjectStartOutline_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartTechnical_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartBudget_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartCountersigned_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartResponsible_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartSchedule_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartUser_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectStartClaim_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationEquipmentDepreciation_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationToolingCost_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationLogistics_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationDirectLaborCost_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationSubContract_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="success" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotationRawMaterial_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="noClosed" />
+      <result name="has" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectQuotation_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="updateOtherInput" />
+      <result name="noAuth" />
+      <result name="noClosed" />
+      <result name="has" />
+      <result name="nohas" />
+    </action>
+    <action name="ProjectQuotationList_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="updateOtherInput" />
+      <result name="noAuth" />
+      <result name="noClosed" />
+      <result name="has" />
+      <result name="nohas" />
+    </action>
+    <action name="ProjectProposalFlow_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="noAuth" />
+      <result name="noCheck" />
+      <result name="hasCheck" />
+    </action>
+    <action name="ProjectProposal_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="noAuth" />
+      <result name="hasPP" />
+      <result name="check" />
+    </action>
+    <action name="ProjectAuth_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="noAuth" />
+    </action>
+    <action name="ProjectUser_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="noAuth" />
+    </action>
+    <action name="Project_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+    </action>
+    <action name="Templet_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="chainToList" />
+      <result name="redirectLV" />
+    </action>
+    <action name="Detail_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="redirect" />
+      <result name="chainAdd" />
+      <result name="redirectDeleteItem" />
+      <result name="chainToList" />
+      <result name="chainToListVerify" />
+    </action>
+    <action name="Product_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="chainList" />
+      <result name="redirect" />
+    </action>
+    <action name="ShortMessage_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="chainToSend" />
+    </action>
+    <action name="Flow_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+    </action>
+    <action name="Metric_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input" />
+      <result name="toAddInput" />
+    </action>
+    <action name="smsGroup_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="sendInput" />
+      <result name="chainToAdd" />
+    </action>
+    <action name="smsUser_*" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="File_*" location="0,0" size="0,0">
+      <result name="input" />
+      <result name="toFileUpload" />
+    </action>
+    <action name="sms_*" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="OsTemplate_addInput.jsp" path="/System/xunjian/OsTemplate_addInput.jsp" location="0,0" size="0,0" />
+  <webResource name="OsTemplate_add.jsp" path="/System/xunjian/OsTemplate_add.jsp" location="0,0" size="0,0" />
+  <webResource name="OsTemplate_list.jsp" path="/System/xunjian/OsTemplate_list.jsp" location="0,0" size="0,0" />
+  <webResource name="OsTemplate_showScope.jsp" path="/System/xunjian/OsTemplate_showScope.jsp" location="0,0" size="0,0" />
+  <webResource name="OsRecord_show.jsp" path="/System/xunjian/OsRecord_show.jsp" location="0,0" size="0,0" />
+  <webResource name="OsRecord_list.jsp" path="/System/xunjian/OsRecord_list.jsp" location="0,0" size="0,0" />
+  <webResource name="OsRecord_showScope.jsp" path="/System/xunjian/OsRecord_showScope.jsp" location="0,0" size="0,0" />
+  <webResource name="InsRecord_show.jsp" path="/System/xunjian/InsRecord_show.jsp" location="0,0" size="0,0" />
+  <webResource name="InsRecord_list.jsp" path="/System/xunjian/InsRecord_list.jsp" location="0,0" size="0,0" />
+  <webResource name="InsScope_get.jsp" path="/System/xunjian/InsScope_get.jsp" location="0,0" size="0,0" />
+  <webResource name="InsTemplate_addInput.jsp" path="/System/xunjian/InsTemplate_addInput.jsp" location="0,0" size="0,0" />
+  <webResource name="InsTemplate_updateInput.jsp" path="/System/xunjian/InsTemplate_updateInput.jsp" location="0,0" size="0,0" />
+  <webResource name="InsTemplate_list.jsp" path="/System/xunjian/InsTemplate_list.jsp" location="0,0" size="0,0" />
+  <webResource name="TemplateTypem_list.jsp" path="/System/xunjian/TemplateTypem_list.jsp" location="0,0" size="0,0" />
+  <webResource name="TemplateTypem_listSingle.jsp" path="/System/xunjian/TemplateTypem_listSingle.jsp" location="0,0" size="0,0" />
+  <webResource name="Templatem_addInput.jsp" path="/System/xunjian/Templatem_addInput.jsp" location="0,0" size="0,0" />
+  <webResource name="Templatem_list.jsp" path="/System/xunjian/Templatem_list.jsp" location="0,0" size="0,0" />
+  <webResource name="Templatem_updateInput.jsp" path="/System/xunjian/Templatem_updateInput.jsp" location="0,0" size="0,0" />
+  <webResource name="OsRecord_rukuList.jsp" path="/System/xunjian/OsRecord_rukuList.jsp" location="0,0" size="0,0" />
+  <webResource name="OsRecord_rukuInput.jsp" path="/System/xunjian/OsRecord_rukuInput.jsp" location="0,0" size="0,0" />
+  <webResource name="authAdd.jsp" path="/System/SOP/ruku/auth/authAdd.jsp" location="0,0" size="0,0" />
+  <webResource name="list.jsp" path="/System/SOP/ruku/auth/list.jsp" location="0,0" size="0,0" />
+  <webResource name="boardAdd.jsp" path="/System/bbs/boardAdd.jsp" location="0,0" size="0,0" />
+  <webResource name="boardEdit.jsp" path="/System/bbs/boardEdit.jsp" location="0,0" size="0,0" />
+  <webResource name="board.jsp" path="/System/bbs/board.jsp" location="0,0" size="0,0" />
+  <webResource name="boardGet.jsp" path="/System/bbs/boardGet.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

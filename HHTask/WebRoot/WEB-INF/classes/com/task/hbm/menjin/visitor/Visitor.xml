@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin.visitor">
+	<class name="Visitor" table="ta_mj_Visitor">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="visitorName" />
+		<property name="visitorComp" />
+		<property name="visitorPhone" />
+		<property name="visitorMail" />
+		<property name="visitorPop" />
+		<property name="interviewee" />
+		<property name="intervieweePhone" />
+		<property name="intervieweeId" />
+		<property name="visitorCause" />
+		<property name="identityCard" />
+		<property name="visitorIdentityPic" />
+		<property name="fingerprint" length="1000"/>
+		<property name="fingerId" length="4"/>
+		<property name="voucher" />
+		<property name="picture" />
+		<property name="addTime" />
+		<property name="dateTime" />
+		<property name="endTime" />
+		<property name="inTime" />
+		<property name="outTime" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="visitorStatus" />
+		<property name="longEpId" />
+		<property name="longEpStatus" />
+		<property name="applyPerson" />
+		<property name="visitorLongDateTime" />
+		<property name="followId" />
+		<property name="smsLine" />
+		<property name="mjFingerId" />
+		<property name="mjFingerStatus" />
+	</class>
+</hibernate-mapping>

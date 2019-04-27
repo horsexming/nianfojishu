@@ -1,0 +1,163 @@
+package com.tast.entity.zhaobiao;
+
+import java.io.Serializable;
+
+import com.task.util.FieldMeta;
+
+/**
+ * 手动添加扣款单
+ * @表名ta_zh_ChargebackNotice
+ */
+
+public class ChargebackNotice implements Serializable {
+	private static final long serialVersionUID = 1L;
+     private Integer id;
+     @FieldMeta(name="编号")
+     private String number;//编号(自动生成)
+     private ZhUser zhUser;//供应商
+     @FieldMeta(name="供应商名称")
+     private String zhUser_name;//供应商名称
+     @FieldMeta(name="扣款详情")
+     private String description;//说明 扣款详情(名称、数量、规格等)
+     @FieldMeta(name="经办人")
+     private String jbName;//经办人
+     private String shName;//审核人(手签)
+     private String pzName;//批准(手签)
+     private String waiGouPlanId;//采购单明细Id
+     private String csblOrderId;//补料申请单Id
+     
+     /**********************财务扣款通知存根***********************/
+     @FieldMeta(name="扣款事由")
+     private String kkCause;//扣款事由
+     @FieldMeta(name="扣款金额")
+     private Float kkMoney;//扣款金额
+     @FieldMeta(name="提报单位")
+     private String reportUnit;//提报单位
+     @FieldMeta(name="扣款月份")
+     private String kkMouth;//扣款月份
+     @FieldMeta(name="添加时间")
+     private String addTime;//添加时间
+     @FieldMeta(name="添加时间")
+     private String addName;//添加人
+     private String fileName;//文件名
+     private String epstatus;//
+     private Integer epId;//
+     
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public ZhUser getZhUser() {
+		return zhUser;
+	}
+	public void setZhUser(ZhUser zhUser) {
+		this.zhUser = zhUser;
+	}
+	public String getZhUser_name() {
+		return zhUser_name;
+	}
+	public void setZhUser_name(String zhUserName) {
+		zhUser_name = zhUserName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getJbName() {
+		return jbName;
+	}
+	public void setJbName(String jbName) {
+		this.jbName = jbName;
+	}
+	public String getShName() {
+		return shName;
+	}
+	public void setShName(String shName) {
+		this.shName = shName;
+	}
+	public String getPzName() {
+		return pzName;
+	}
+	public void setPzName(String pzName) {
+		this.pzName = pzName;
+	}
+	public String getKkCause() {
+		return kkCause;
+	}
+	public void setKkCause(String kkCause) {
+		this.kkCause = kkCause;
+	}
+	public Float getKkMoney() {
+		return kkMoney;
+	}
+	public void setKkMoney(Float kkMoney) {
+		this.kkMoney = kkMoney;
+	}
+	public String getReportUnit() {
+		return reportUnit;
+	}
+	public void setReportUnit(String reportUnit) {
+		this.reportUnit = reportUnit;
+	}
+	public String getKkMouth() {
+		return kkMouth;
+	}
+	public void setKkMouth(String kkMouth) {
+		this.kkMouth = kkMouth;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getAddName() {
+		return addName;
+	}
+	public void setAddName(String addName) {
+		this.addName = addName;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public String getWaiGouPlanId() {
+		return waiGouPlanId;
+	}
+	public void setWaiGouPlanId(String waiGouPlanId) {
+		this.waiGouPlanId = waiGouPlanId;
+	}
+	public String getCsblOrderId() {
+		return csblOrderId;
+	}
+	public void setCsblOrderId(String csblOrderId) {
+		this.csblOrderId = csblOrderId;
+	}
+	public String getEpstatus() {
+		return epstatus;
+	}
+	public void setEpstatus(String epstatus) {
+		this.epstatus = epstatus;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	
+
+}

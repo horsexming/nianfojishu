@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="CaiwuRecharge" table="ta_fin_caiwuRecharge">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="sumID" />
+		<property name="code" />
+		<property name="name" />
+		<property name="platenumber" />
+		<property name="isChongzhORbaoxiao" />
+		<property name="chongzhiJine" />
+		<property name="operateTime" />
+		<property name="fujian" />
+		<property name="more" />
+		<property name="yingfuId" />
+		<property name="baoxiaoStatus" />
+				
+	</class>
+</hibernate-mapping>

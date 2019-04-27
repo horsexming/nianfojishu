@@ -1,0 +1,81 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/***
+ * 公告管理
+ * 
+ * @表名 TA_Notice
+ * @author 陈阳
+ * 
+ */
+public class Notice  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String personname; // 发布人姓名
+	private String pid; // 发布人工号
+	private String time; // 发布时间
+	private String content; // 发布内容
+	private String title; // 发布标题
+	private String status; // 发布状态
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPersonname() {
+		return personname;
+	}
+
+	public void setPersonname(String personname) {
+		this.personname = personname;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+}

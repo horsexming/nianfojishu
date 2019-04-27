@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="Users" table="users">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<!-- 用户对密码 -->
+		<one-to-one name="password" property-ref="user" cascade="all"
+			lazy="false" />
+
+		<!-- 用户对日志类别 -->
+		<set name="worklogClass" inverse="true" cascade="all" lazy="true">
+			<key column="ta_userId"></key>
+			<one-to-many class="WorkLogClass" />
+		</set>
+		<!-- 用户对模块功能-->
+		<set name="moduleFunction" table="ta_usersMF" inverse="false"
+			cascade="save-update" lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="ModuleFunction" column="ta_mfId"
+				order-by="sequence_id" />
+		</set>
+		<!-- 用户对角色-->
+		<set name="userRole" table="ta_usersRole" inverse="true" cascade="save-update"
+			lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="UserRole" column="ta_roleId" />
+		</set>
+		<!-- 用户对机密类型 -->
+		<set name="jimileixing" table="ta_JiMiLeiXingUsers" inverse="true"
+			cascade="save-update" lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="com.task.entity.JiMiLeiXing"
+				column="ta_jimiId" />
+		</set>
+		<!-- 用户对工序-->
+		<set name="processGzstore" table="ta_usersProcess" inverse="true"
+			cascade="save-update" lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="com.task.entity.gzbj.ProcessGzstore"
+				column="ta_processId" />
+		</set>
+		<!-- 用户对门禁设备 -->
+		<set name="accessEquipments" table="ta_usersAcEqs" inverse="true"
+			cascade="save-update" lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="com.task.entity.menjin.AccessEquipment"
+				column="ta_AcEqsId" />
+		</set>
+		<!-- 用户对门禁柜子 -->
+		<set name="toolCabines" table="ta_usersCab" inverse="true"
+			cascade="save-update" lazy="true">
+			<key column="ta_userId" />
+			<many-to-many class="com.task.entity.menjin.ToolCabine"
+				column="ta_CabId" />
+		</set>
+		<!-- 用户对工位设备 -->
+		<set name="machine" inverse="false" table="ta_machine_user"
+			cascade="all" lazy="true">
+			<key column="ta_userId"></key>
+			<many-to-many class="Machine" column="ta_machineId" />
+		</set>
+		<!-- 用户对物料类别 -->
+		<set name="categorySet" inverse="false" table="ta_category_user"
+			cascade="all" lazy="true">
+			<key column="ta_userId"></key>
+			<many-to-many class="Category" column="ta_categoryId" />
+		</set>
+		<!-- 用户对部门 -->
+		<set name="deptNumber" inverse="false" table="ta_dept_user"
+			cascade="all" lazy="true">
+			<key column="ta_userId"></key>
+			<many-to-many class="DeptNumber" column="ta_deptId" />
+		</set>
+		<!-- 用户对指纹 一对多 -->
+		<set name="fingerprintMg" inverse="true" cascade="save-update"
+			lazy="true">
+			<key column="ta_userId"></key>
+			<one-to-many class="com.task.entity.menjin.FingerprintMg" />
+		</set>
+		<!-- 用户对排班 一对多 -->
+		<set name="schedulingTable" inverse="true" cascade="save-update"
+			lazy="true">
+			<key column="ta_userId"></key>
+			<one-to-many class="com.task.entity.banci.SchedulingTable" />
+		</set>
+		<!-- 用户对应付类型 一对多 -->
+		<set name="payableTypes" inverse="true" table="ta_caiwu_ptyUser" cascade="all" lazy="true">
+			<key column="ta_userId"></key>
+			<many-to-many class="com.task.entity.caiwu.noncore.PayableType" column="ta_ptId"/>
+		</set>
+		<!-- 用户多生产卡号 -->
+		<many-to-one name="userscard" class="UsersCard" column="ta_usercarddId"></many-to-one>
+		<property name="deptId" />
+		<property name="birthplace" />
+		<property name="bothday" />
+		<property name="cardId" index="pebs_index_cardId"/>
+		<property name="code" index="pebs_index_code"/>
+		<property name="dept" />
+		<property name="duty" />
+		<property name="dutyLevel" />
+		<property name="education" />
+		<property name="isFormal" />
+		<property name="joined" />
+		<property name="leaveDate" />
+		<property name="more" />
+		<property name="name" />
+		<property name="nation" />
+		<property name="oneMonth" />
+		<property name="onWork" />
+		<property name="post" />
+		<property name="jobtitle" />
+		<property name="leveltitles" />
+		<property name="power" />
+		<property name="residence" />
+		<property name="sex" />
+		<property name="tryDays" />
+		<property name="uid" />
+		<property name="yearWage" />
+		<property name="leaveAgreement" />
+		<property name="loginIp" />
+
+		<property name="bank" />
+		<property name="bankCards" />
+
+		<property name="wagePauseGrant" />
+		<property name="backStage" />
+		<property name="internal" />
+
+		<property name="lastLogin" />
+		<property name="nowLogin" />
+		<property name="loginCount" />
+
+		<property name="whiteCard" />
+		<property name="parkAdmin" />
+
+		<property name="banci_id" />
+		<property name="banci_name" />
+		<property name="codeIdNum" />
+		<property name="zhuanzhengtime" />
+		<property name="classrole" />
+		<property name="userNature" />
+		<property name="whenOnlineLong" />
+		<property name="user_privilege" />
+		<many-to-one name="inDoorScreen" class="com.task.entity.renshi.InDoorScreen" column="ta_inDoorScreenId"></many-to-one>
+		<property name="userStatus" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardWGCenter" table="ta_sop_w_ProcardWGCenter">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="procardId" index="pebs_index_procardId"/>
+		<property name="wgOrderId" index="pebs_index_wgOrderId" />
+		<property name="wwxlId" index="pebs_index_wwxlId" />
+		<property name="procardCount" />
+		<property name="connectionType" />
+		<property name="dhCount" />
+
+	</class>
+</hibernate-mapping>

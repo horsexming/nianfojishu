@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+	<class name="com.task.entity.Tijiangprice" table="tijiangprice">
+		<id name="priceid" column="price_id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="pricemarkId" type="java.lang.String">
+			<column name="price_markId"></column>
+		</property>
+		<property name="pricestyle" type="java.lang.String">
+			<column name="price_Style"></column>
+		</property>
+		<property name="priceformt" type="java.lang.String">
+			<column name="price_format"></column>
+		</property>
+		<property name="pricelotId" type="java.lang.String">
+			<column name="price_lotId"></column>
+		</property>
+		<property name="pricefactPrice" type="java.lang.Float">
+			<column name="price_factPrice" precision="53" scale="0"></column>
+		</property>
+		<property name="pricesenacount" type="java.lang.Float">
+		 <column name="price_senacount" precision="53" scale="0"></column>
+		</property>
+		<property name="priceendcount" type="java.lang.Float">
+		 <column name="price_endcount" precision="53" scale="0"></column>
+		</property>
+		
+		<property name="pricetoxprice" type="java.lang.Float">
+			<column name="price_taxPrice" precision="53" scale="0"></column>
+		</property>
+		<property name="pricedinge" type="java.lang.Float">
+			<column name="price_dinge" precision="53" scale="0"></column>
+		</property>
+		<property name="pricefilepath" type="java.lang.String">
+			<column name="price_filepath"></column>
+		</property>
+		<property name="pricedefault" type="java.lang.String">
+			<column name="price_default"></column>
+		</property>
+		<property name="pricedate" type="java.lang.String">
+			<column name="price_date"></column>
+		</property>
+		<property name="pricemore" type="java.lang.String">
+			<column name="price_more"></column>
+		</property>
+		<property name="priceTjStyle" type="java.lang.String">
+			<column name="price_tjStyle"></column>
+		</property>
+		
+		<property name="newPrice" type="java.lang.Float">
+			<column name="newPrice" precision="53" scale="0"></column>
+		</property>
+		<property name="oldProportion" type="java.lang.Float">
+			<column name="oldProportion" precision="53" scale="0"></column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FailureSSMarkId" table="ta_sop_FailureSSMarkId">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId" />
+		<property name="client" />
+		<property name="oneWeekSc" />
+		<property name="oneWeekFc" />
+		<property name="frequency" />
+		<property name="targetPPM" />
+		<property name="weekds" />
+		<property name="addTime" />
+	</class>
+
+</hibernate-mapping>

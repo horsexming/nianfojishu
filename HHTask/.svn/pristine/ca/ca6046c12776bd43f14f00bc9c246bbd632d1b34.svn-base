@@ -1,0 +1,112 @@
+package com.task.entity.menjin;
+/**
+ * 常访客表
+ * @author Li_Cong 11-08
+ * 表名 ta_mj_OftenVisit
+ * 常访客车辆信息表
+ */
+public class OftenVisit {
+	private Integer id;
+	private String oftenName;// 被访人
+	private String oftenCode;// 被访人工号
+	private Integer oftenmarkId;// 被访人工号
+	private String name;// 常访人姓名
+	private String nage;// 常访人性别
+	private String nameInfor;// 常访原因
+	private String nplates;// 常访人车牌号
+	private String carModels;// 车型
+	private String carColor;// 车颜色
+	private String carFiles;//汽车行驶证附件(表中存文件地址)
+	private String addTime;// 添加时间
+	private String updateTime;// 修改时间
+	private String effectiveDate;// 有效日期
+	
+	
+	//	get set 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getOftenName() {
+		return oftenName;
+	}
+	public void setOftenName(String oftenName) {
+		this.oftenName = oftenName;
+	}
+	public String getOftenCode() {
+		return oftenCode;
+	}
+	public void setOftenCode(String oftenCode) {
+		this.oftenCode = oftenCode;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNameInfor() {
+		return nameInfor;
+	}
+	public void setNameInfor(String nameInfor) {
+		this.nameInfor = nameInfor;
+	}
+	public String getCarModels() {
+		return carModels;
+	}
+	public void setCarModels(String carModels) {
+		this.carModels = carModels;
+	}
+	public String getCarColor() {
+		return carColor;
+	}
+	public void setCarColor(String carColor) {
+		this.carColor = carColor;
+	}
+	public String getCarFiles() {
+		return carFiles;
+	}
+	public void setCarFiles(String carFiles) {
+		this.carFiles = carFiles;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getEffectiveDate() {
+		return effectiveDate;
+	}
+	public void setEffectiveDate(String effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
+	public String getNage() {
+		return nage;
+	}
+	public void setNage(String nage) {
+		this.nage = nage;
+	}
+	public String getNplates() {
+		return nplates;
+	}
+	public void setNplates(String nplates) {
+		this.nplates = nplates;
+	}
+	public Integer getOftenmarkId() {
+		return oftenmarkId;
+	}
+	public void setOftenmarkId(Integer oftenmarkId) {
+		this.oftenmarkId = oftenmarkId;
+	}
+
+	
+}

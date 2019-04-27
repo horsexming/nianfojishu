@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="AlertMessages" table="ta_sys_AlertMessages">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="receiveuserId" index="sy_receiveuserId"/>
+		<property name="sendUserId" />
+		<property name="sendUserName" />
+		<property name="sendUserImg" />
+		<property name="messageType" />
+		<property name="title" length="500"/>
+		<property name="content" length="1000"/>
+		<property name="functionId" />
+		<property name="functionName" />
+		<property name="functionUrl" />
+		<property name="addTime" length="50" />
+		<property name="readStatus" length="10" index="sy_readStatus"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="AssScore" table="ta_hr_assScore">
+		<id name="id" length="4">
+			<generator class="identity"></generator>
+		</id>
+		<set name="scoreDetails" lazy="false" cascade="save-update"
+			inverse="false">
+			<key>
+				<column name="ta_hr_assScoreId"></column>
+			</key>
+			<one-to-many class="ScoreDetails" />
+		</set>
+
+		<many-to-one name="ss" column="ta_ssId"
+			class="com.task.entity.zgkh.ScoreStatistics" />
+
+		<property name="cardId" column="ta_hr_cardId" not-null="true" />
+		<property name="code" column="ta_hr_code" not-null="true" />
+		<property name="userName" column="ta_hr_userName" />
+		<property name="accScore" column="ta_hr_accScore" not-null="true" />
+		<property name="percentageScore" column="ta_hr_percentageScore"
+			not-null="true" />
+		<property name="dept" column="ta_hr_dept" />
+		<property name="rateDate" column="ta_hr_rateDate" />
+		<property name="asstMouth" column="ta_hr_asstMouth" not-null="true" />
+		<property name="assType" column="ta_hr_assType" not-null="true" />
+		<property name="assPeople" column="ta_hr_assPeople" not-null="true" />
+		<property name="remarks" column="ta_hr_remarks" length="500" />
+		<property name="templateId" column="ta_hr_templateId"
+			not-null="true" />
+		<property name="templateName" column="ta_hr_templateName" />
+
+		<property name="userId" column="ta_hr_userId" />
+		<property name="addUserId" column="ta_hr_addUserId" />
+	</class>
+
+</hibernate-mapping>

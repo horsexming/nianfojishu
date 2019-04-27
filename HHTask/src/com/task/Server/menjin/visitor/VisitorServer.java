@@ -1,0 +1,115 @@
+package com.task.Server.menjin.visitor;
+
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.DeptNumber;
+import com.task.entity.Users;
+import com.task.entity.menjin.visitor.Visitor;
+
+public interface VisitorServer {
+
+	/**
+	 * 添加访客申请
+	 * @param visitor
+	 * @param pageStatus
+	 * @return
+	 */
+	Visitor addVisitorApply(Visitor visitor,String pageStatus);
+	
+	/**
+	 * 提交审批访客申请
+	 */
+	String confirmVisitorApply(List<Visitor> visitors,String pageStatus);
+	/**
+	 * 查询访客申请列表
+	 * @param visitor
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	Map<String, Object> findVisitorByCon(Visitor visitor,Integer pageNo,Integer pageSize,String tag);
+	
+	/**
+	 * 根据身份证判断进出门验证
+	 */
+	String checkIdCard(String idCard,String pageStatus);
+	
+	String judgeIdentity(String idCard);
+	/**
+	 * 进出确认
+	 * @param param 参数
+	 * @param pageStatus
+	 * idCard 根据身份证号
+	 * fingerprint 根据指纹
+	 * voucher 根据凭证
+	 */
+	String verifyInAndOut(String param,String pageStatus);
+	
+
+	public List<DeptNumber> findAllDeptByIsVisitor(String isVisitor);
+	
+	List<Users> findUsersByDept(String deptName);
+	
+	Visitor getVisitorById(Integer id);
+	
+	/**
+	 * 根据身份证号查询最近的一次访客申请
+	 * @pagestatus =finger 指纹不为空
+	 */
+	Visitor getVisitorByIdenttiyCard(String idCard,String pageStatus,String dateTime);
+	
+	List<Visitor> findVisitorByDatetime(String dateTime,String pageStatus);
+	
+	/**
+	 * param加密后的visitor.id
+	 * @param param
+	 * @return
+	 */
+	Visitor getVisitorVoucher(String param);
+	
+	/**
+	 * 根据加密的二维码获取Visitor
+	 */
+	List<Visitor> visitorByVoucherEnctype(String param);
+
+	/**
+	 * 根据手机号查询Users
+	 * @param param
+	 * @return
+	 */
+	Users getIntervieweeByPhone(String phone);
+	
+	/**
+	 * 根据身份证号表的Id获取访客信息
+	 * @pageStatus finger=指纹和Id不为空
+	 * @param id
+	 * @return
+	 */
+	Visitor getVisitorByIdentityId(Integer id,String pageStatus);
+	
+	Visitor fillFingerByVisitorId(Integer id);
+	
+	/**
+	 * 长访申请
+	 */
+	Visitor addLongVisitorApply(Visitor visitor,String pageStatus);
+	
+	boolean deleteVisitorById(Integer id);
+
+	boolean deleteVisitorByIdCard(String idCard,String dateTime);
+	
+	/**
+	 * 根据Visitor.id查找随访人列表
+	 */
+	List<Visitor> fingVisitorFollowById(Integer id);
+	
+	
+	List<String> findFollowVisitorVoucher(String voucher);
+	
+	/**
+	 * 根据系统设置项获取访客机Ip
+	 * @return
+	 */
+	String getVisitorIp();
+}

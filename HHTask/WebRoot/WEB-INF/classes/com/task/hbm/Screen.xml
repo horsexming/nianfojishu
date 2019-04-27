@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Screen" table="ta_Screen">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" length="100"/>
+		<property name="description" length="200"/>
+		<property name="createDateTime" type="timestamp" />
+		<property name="modifyDateTime" type="timestamp" />
+		<property name="screenUrl" length="150"/>
+		<property name="desc" length="8000" column="tea_desc"/>
+		
+		<set name="gongweis" table="ta_screen_sopgongwei">
+			<key column="screen_id"></key>
+			<many-to-many class="com.task.entity.TaSopGongwei" column="gongwei_id"/>
+		</set>
+		
+		<set name="screencontents" table="ta_Screen_ScreenContent" inverse="false" cascade="save-update">
+			<key column="screen_id"></key>
+			<many-to-many class="com.task.entity.ScreenContent" column="ScreenContent_id"/>
+		</set>
+
+	</class>
+</hibernate-mapping>

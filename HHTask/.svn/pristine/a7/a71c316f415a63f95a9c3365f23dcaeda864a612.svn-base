@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.TemplateRecordm" table="ta_m_TemplateRecord">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="czg" length="20" />
+		<property name="jcpc" length="20" />
+		<property name="quantity" length="20" />
+		<property name="username" length="20" />
+		<property name="usercode" length="20" />
+		<property name="verification" length="20" />
+		<property name="contentStr" length="1000" />
+		<property name="startDate" type="timestamp" />
+		<property name="nowDate" type="timestamp" />
+
+		<many-to-one name="root" column="parentId" class="com.task.entity.android.TemplateTypem"  />
+
+	</class>
+
+</hibernate-mapping>

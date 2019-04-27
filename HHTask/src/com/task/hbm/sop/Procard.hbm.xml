@@ -1,0 +1,241 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="Procard" table="ta_sop_w_procard">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId" index="sy_markId" not-null="true"/>
+		<property name="ywMarkId" index="sy_ywMarkId" />
+		<property name="rootMarkId" />
+		<property name="proName" />
+		<property name="filnalCount" column="count" not-null="true"/>
+		<property name="sunhao" />
+		<property name="maxCount" />
+		<property name="corrCount" />
+		<property name="unit" />
+		<property name="procardStyle"  index="sy_procardStyle" not-null="true"/>
+		<property name="productStyle" not-null="true"/>
+		<property name="carStyle" />
+<!--		<property name="trademark" />-->
+		<property name="specification" />
+<!--		<property name="yuanName" />-->
+<!--		<property name="luhao" />-->
+<!--		<property name="actualFixed" />-->
+		<property name="number" />
+		<property name="rootId" index="sy_rootId" />
+		<property name="fatherId" index="sy_fatherId" />
+		<property name="belongLayer" />
+		<property name="procardTime" />
+		<property name="remark" />
+		<property name="needCount" />
+<!--		<property name="yuanUnit" />-->
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="hascount" />
+		<property name="hasPlan" />
+<!--		<property name="yhascount" />-->
+		<property name="bili" />
+<!--		<property name="xiaohaoCount" />-->
+<!--		<property name="ytuhao" />-->
+<!--		<property name="clClass" />-->
+		<property name="thisLength" />
+		<property name="thisWidth" />
+		<property name="thisHight" />
+		<property name="calculateType" />
+		<property name="tuhao" />
+		<property name="zzjihuo" />
+
+		<property name="jihuoType" />
+		<property name="danjiaojian" />
+		<property name="lingliaostatus" />
+		<property name="cgStatus" />
+		<property name="needProcess" />
+		<property name="lingliaoType" />
+		<property name="jgyl" />
+		<property name="banBenNumber" index="sy_banBenNumber"/>
+		<property name="banci" />
+		<property name="lingliaoDetail" />
+		<property name="xuhao" />
+
+		<property name="planOrderNum" />
+		<property name="planOrderId" index="pebs_index_planOrderId"/>
+		<property name="planOrderDetailId" />
+		<property name="jioafuDate" />
+		<property name="procardTemplateId" />
+		<property name="status" index="sy_status" />
+		<property name="oldStatus" />
+<!--		<property name="provateSubTime" />-->
+<!--		<property name="applyCount" />-->
+<!--		<property name="realReceive" />-->
+<!--		<property name="money" />-->
+<!--		<property name="barcode" />-->
+		<property name="zhikarenId" />
+		<property name="zhikaren" />
+		<property name="selfCard" />
+<!--		<property name="cardId" />-->
+<!--		<property name="cardNum" />-->
+		<property name="oldProcardId" />
+		<property name="gongwei" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+
+		<property name="proTemStatus" />
+		<property name="parallelId" />
+		<property name="jihuoStatua" />
+		<property name="klNumber" />
+		<property name="ylNumber" />
+		<property name="tjNumber" />
+		<property name="minNumber" not-null="true"/>
+		<property name="rukuCount" />
+		<property name="hasRuku" />
+
+		<property name="singleDuration" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="deliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		<property name="allJiepai" />
+		<property name="jihuoDate" />
+		<property name="nowJihuoDate" />
+		<property name="needFinalDate" />
+		<property name="nowFinalDate" />
+		<property name="zhuserId" />
+		<property name="gys" />
+		<property name="kgliao" />
+		<property name="safeCount" />
+		<property name="lastCount" />
+		<property name="nowAllJiepai" />
+		<property name="nowAllNenghao" />
+
+		<property name="sellCount" />
+		<property name="onePeice" />
+		<property name="allMonty" />
+		<property name="rootSelfCard" />
+
+
+
+		<property name="bzysfei" />
+		<property name="jbfei" />
+		<property name="rengongfei" />
+		<property name="shebeiZjFei" />
+		<property name="nyxhFei" />
+		<property name="clFei" />
+		<property name="wgFei" />
+		<property name="flFei" />
+		<property name="glFei" />
+		<property name="clvFei" />
+		<property name="canFei" />
+		<property name="allMoney" />
+		<property name="hasAlertCount" />
+		<!-- 物料(外购件)跟踪相关 -->
+		<property name="orderNumber" />
+		<property name="wlstatus" />
+<!--		<property name="wlWeizhiDt" length="2000" />-->
+		<property name="wlKw" />
+		<property name="orderId" />
+
+		<property name="zzNumber" />
+		<property name="ztNumber" />
+		<property name="ztzyNumber" />
+		<property name="kcNumber" />
+		<property name="cgNumber" />
+		<property name="outcgNumber" />
+		<property name="dhNumber" />
+		<property name="wgType" />
+		<property name="wwblCount" />
+		<property name="wwblreceiveCount" />
+<!--		<property name="isycl" />-->
+		<property name="priceId" />
+		<property name="hsPrice" />
+		<property name="bhsPrice" />
+		<property name="taxprice" />
+		<property name="zaizhizkCount" />
+		<property name="zaizhiApplyZk" />
+		<property name="wgjihuoTime" />
+		<property name="cangqu" />
+		<property name="caizhi" />
+		<property name="sbStatus" />
+		<property name="hasChange" />
+		<property name="wlqrtime" />
+		<property name="sbId" />
+		<property name="sbNumber" />
+		<property name="oldFatherId" />
+		<property name="oldRootId" />
+		<property name="sunhaoType" />
+		<property name="thProcardId" />
+		<property name="isPeiJian" length="10"/>
+		<property name="mrpjihuoDate"/>
+		<property name="qxCount"/>
+		<property name="oldCount"/>
+		<property name="sduser"/>
+
+
+		<!-- 【配置本流水卡片自身的对应关系(一对多)】 -->
+		<set name="procardSet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="fk_ProcardTId"></key>
+			<one-to-many class="Procard" />
+		</set>
+		<!-- 【配置本流水卡片自身的对应关系(多对一)】 -->
+		<many-to-one name="procard" class="Procard" cascade="save-update"
+			lazy="no-proxy" column="fk_ProcardTId" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+		<set name="processInforSet" inverse="false" cascade="all" lazy="true"
+			order-by="processNO">
+			<key column="fk_procardId"></key>
+			<one-to-many class="ProcessInfor" />
+		</set>
+
+		<!-- 【配置流水卡片对应领料信息关系】 -->
+		<set name="procardPartsSet" inverse="false" cascade="all" lazy="true">
+			<key column="procard_id">
+			</key>
+			<one-to-many class="com.task.entity.sop.ProcardParts" />
+		</set>
+
+		<!-- 待用关系 -->
+		<set name="procardPro" inverse="false" cascade="all" lazy="true">
+			<key column="procard_id">
+			</key>
+			<one-to-many class="com.task.entity.sop.ProcardPro" />
+		</set>
+
+		<set name="oneProcardBonus" inverse="false" cascade="none" lazy="true">
+			<key column="procard_id">
+			</key>
+			<one-to-many class="com.task.entity.sop.OneProcardBonus" />
+		</set>
+
+		<!-- 【配置流水卡片对应领取工序成员信息关系】 -->
+		<set name="processPeopleSet" inverse="false" cascade="all-delete-orphan" lazy="true"
+			order-by="addTime">
+			<key column="fk_procardId"></key>
+			<one-to-many class="ProcessinforPeople" />
+		</set>
+
+		<!-- 【配置流水卡片对应采购计划信息关系】 -->
+		<set name="wgwwPlanSet" inverse="false" cascade="all" lazy="true"
+			order-by="addTime">
+			<key column="fk_procardId"></key>
+			<one-to-many class="WaigouWaiweiPlan" />
+		</set>
+		<property name="epId" />
+		<property name="stuiLiaoNumber" />
+		<property name="ytuiLiaoNumber" />
+		<property name="tuiLiaoStatus" />
+		<property name="appliTime" />
+		<property name="appliUserId" />
+		<property name="appliUserName" />
+		<property name="hgNumber"/>
+		
+
+	</class>
+</hibernate-mapping>

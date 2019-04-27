@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="JoinTrainDetails" table="ta_hr_joinTrainDetails">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="joinTrain" class="JoinTrain" column="ta_he_joinTrainId" />
+
+		<property name="trainContent" column="ta_hr_trainContent" />
+		<property name="speaker" column="ta_hr_speaker" />
+		<property name="trainDate" column="ta_hr_trainDate" />
+		<property name="testScore" column="ta_hr_testScore" />
+		<property name="ownSigStatus" column="ta_hr_ownSigStatus" />
+		<property name="speakerSigStatus" column="ta_hr_speakerSigStatus" />
+	</class>
+</hibernate-mapping>

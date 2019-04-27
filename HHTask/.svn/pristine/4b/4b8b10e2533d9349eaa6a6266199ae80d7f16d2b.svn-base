@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.ZhFile" table="zh_file" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="fid" type="java.lang.String">
+            <column name="fid" />
+        </property>
+        <property name="mid" type="java.lang.String">
+            <column name="mid" />
+        </property>
+        <property name="title" type="java.lang.String">
+            <column name="title" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="url" />
+        </property>
+        <property name="classs" type="java.lang.String">
+            <column name="classs" />
+        </property>
+        <property name="des" type="java.lang.String">
+            <column name="des" />
+        </property>
+        <property name="creattime" type="java.lang.String">
+            <column name="creattime" length="100" />
+        </property>
+        <property name="repairtime" type="java.lang.String">
+            <column name="repairtime" length="100" />
+        </property>
+        <property name="creator" type="java.lang.String">
+            <column name="creator" />
+        </property>
+        <property name="repairtor" type="java.lang.String">
+            <column name="repairtor" />
+        </property>
+    </class>
+</hibernate-mapping>

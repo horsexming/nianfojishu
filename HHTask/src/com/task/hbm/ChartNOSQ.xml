@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ChartNOSQ" table="ta_ChartNOSQ">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="type"/> 
+		<property name="categoryId"/> 
+		<property name="sqNum"/> 
+		<property name="firstNo"/> 
+		<property name="endNo"/> 
+		<property name="addTime"/> 
+		<property name="addUser"/> 
+		<property name="addUserId"/> 
+		<property name="epstatus"/> 
+		<property name="epId"/> 
+		<property name="cpcode"/> 
+		<property name="hsNum"/>
+		<property name="sjsqNum"/>
+		<property name="sqNo"/>
+		<property name="remak"/>
+		
+		<set name="chartNOSCSet"  cascade="all"    >
+			<key column="cq_Id"></key>
+			<one-to-many class="com.task.entity.ChartNOSC"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,214 @@
+package com.task.entity.shizhi;
+
+import java.io.Serializable;
+
+/**
+ * 产能负荷系数
+ * 
+ * @表名：ta_sk_ProductivityLoad
+ * @author 唐晓斌
+ */
+public class ProductivityLoad implements Serializable {
+	private Integer id;
+	private Float proLoad;// 产能负荷系数
+	private Float singleTime;// 单件工序总工时
+	private Float upNumber;// 工作日提交数量
+	private Float curCusNeedNum;// 当月客户需求数量
+	private Float curMonInputNum;// 当月实际入库数量
+	private Float payDays;// 交付实际工作日
+	private Float cusDeadline;// 客户需求期限
+	private Float satisfactionRate;// 工作日交付满足率
+	private Float totalWorkTime;// 超工作日交付总工时
+	private Float workTimeLimits;// 超工作日工作时限
+
+	private Integer qpId;// 零件ID
+	private String markId;// 件号
+	private String procardName;//零件名称
+	// 树形结构附属属性
+	private Integer rootId;// 第一层父类Id
+	private Integer fatherId;// 上层父类Id
+	
+	private Integer processId;// 工序id
+	private Integer processNO;// 工序号
+	private String processName; // 工序名称
+
+
+	public ProductivityLoad() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProductivityLoad(Integer id, Float proLoad, Float singleTime,
+			Float upNumber, Float curCusNeedNum, Float curMonInputNum,
+			Float payDays, Float cusDeadline, Float satisfactionRate,
+			Float totalWorkTime, Float workTimeLimits) {
+		super();
+		this.id = id;
+		this.proLoad = proLoad;
+		this.singleTime = singleTime;
+		this.upNumber = upNumber;
+		this.curCusNeedNum = curCusNeedNum;
+		this.curMonInputNum = curMonInputNum;
+		this.payDays = payDays;
+		this.cusDeadline = cusDeadline;
+		this.satisfactionRate = satisfactionRate;
+		this.totalWorkTime = totalWorkTime;
+		this.workTimeLimits = workTimeLimits;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Float getProLoad() {
+		return proLoad;
+	}
+
+	public void setProLoad(Float proLoad) {
+		this.proLoad = proLoad;
+	}
+
+	public Float getSingleTime() {
+		return singleTime;
+	}
+
+	public void setSingleTime(Float singleTime) {
+		this.singleTime = singleTime;
+	}
+
+	public Float getUpNumber() {
+		return upNumber;
+	}
+
+	public void setUpNumber(Float upNumber) {
+		this.upNumber = upNumber;
+	}
+
+	public Float getCurCusNeedNum() {
+		return curCusNeedNum;
+	}
+
+	public void setCurCusNeedNum(Float curCusNeedNum) {
+		this.curCusNeedNum = curCusNeedNum;
+	}
+
+	public Float getCurMonInputNum() {
+		return curMonInputNum;
+	}
+
+	public void setCurMonInputNum(Float curMonInputNum) {
+		this.curMonInputNum = curMonInputNum;
+	}
+
+	public Float getPayDays() {
+		return payDays;
+	}
+
+	public void setPayDays(Float payDays) {
+		this.payDays = payDays;
+	}
+
+	public Float getCusDeadline() {
+		return cusDeadline;
+	}
+
+	public void setCusDeadline(Float cusDeadline) {
+		this.cusDeadline = cusDeadline;
+	}
+
+	public Float getSatisfactionRate() {
+		return satisfactionRate;
+	}
+
+	public void setSatisfactionRate(Float satisfactionRate) {
+		this.satisfactionRate = satisfactionRate;
+	}
+
+	public Float getTotalWorkTime() {
+		return totalWorkTime;
+	}
+
+	public void setTotalWorkTime(Float totalWorkTime) {
+		this.totalWorkTime = totalWorkTime;
+	}
+
+	public Float getWorkTimeLimits() {
+		return workTimeLimits;
+	}
+
+	public void setWorkTimeLimits(Float workTimeLimits) {
+		this.workTimeLimits = workTimeLimits;
+	}
+
+	public Integer getQpId() {
+		return qpId;
+	}
+
+	public void setQpId(Integer qpId) {
+		this.qpId = qpId;
+	}
+
+	public String getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+
+	public Integer getRootId() {
+		return rootId;
+	}
+
+	public void setRootId(Integer rootId) {
+		this.rootId = rootId;
+	}
+
+	public Integer getFatherId() {
+		return fatherId;
+	}
+
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
+	}
+
+	public Integer getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(Integer processId) {
+		this.processId = processId;
+	}
+
+	public Integer getProcessNO() {
+		return processNO;
+	}
+
+	public void setProcessNO(Integer processNO) {
+		this.processNO = processNO;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getProcardName() {
+		return procardName;
+	}
+
+	public void setProcardName(String procardName) {
+		this.procardName = procardName;
+	}
+
+
+	
+
+}

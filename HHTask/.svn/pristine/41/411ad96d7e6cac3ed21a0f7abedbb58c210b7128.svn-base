@@ -1,0 +1,247 @@
+package com.task.util.invoice;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import org.springframework.boot.json.JacksonJsonParser;
+
+import com.task.util.FileUtil;
+import com.task.util.PostUtil;
+public class MainController {
+
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+    private static String COMPANY_KEY = "611ec6d1-3fd1-4ba4-a8a5-78f48316b9b1";
+    private static String COMPANY_SECRET = "ea2c20f2-c488-4720-8fd2-8ee3dde113d2";
+    private static String OCR_URL = "https://www.feeclouds.com/api/v1/ocr/check";//发票图片接口
+    private static String FOUR_URL ="https://www.feeclouds.com/api/v1/invoice/check";//发票4要素接口
+    
+	public static String check1(String fpdm, String fphm, Double je,
+			String kprq, String jym) {
+
+		String content = ",," + fpdm + "," + fphm + "," + je + "," + kprq + "," + jym + ",";
+		String nonce_str = AppUitls.randomStr(6);
+		String sign = "company_key=" + COMPANY_KEY + "&content=" + content
+				+ "&nonce_str=" + nonce_str + "&company_secret="
+				+ COMPANY_SECRET;
+		System.out.println("签名内容:" + sign);
+		try {
+			sign = Md5.getEncode(sign).toUpperCase();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		System.out.println("签名结果:" + sign);
+		Map<String, String> kvMap = new HashMap<String, String>();
+		kvMap.put("company_key", COMPANY_KEY);
+		kvMap.put("nonce_str", nonce_str);
+		kvMap.put("sign", sign);
+		kvMap.put("content", content);
+		System.out.println("参数:" + kvMap);
+		String result = "";
+		result = PostUtil.postRequest("https://www.feeclouds.com/api/v1/invoice/check", kvMap);
+		return result;
+	}
+    
+    /**
+     * 此Demo未校验发票类型,请自行判断是传金额还是传校验码
+     * fpdm: 发票代码 必填
+     * fphm: 发票号码 必填
+     * kprq: 开票日期 必填
+     * je: 金额 非必填
+     * jym: 校验码 非必填
+     * 
+     */
+    public static Object check(Map<String, String> req){
+        String fpdm = req.get("fpdm");
+        String fphm = req.get("fphm");
+        String je = req.get("je");
+        String kprq = req.get("kprq");
+        String jym = req.get("jym") == null?"":req.get("jym");
+
+        //参数校验
+//        if(TextUtils.isEmpty(fpdm)
+//                || TextUtils.isEmpty(kprq)
+//                || TextUtils.isEmpty(fphm)){
+//            return ErrorResps.PARAM_ERROR.get();
+//        }else if(!TextUtils.isEmpty(jym) && jym.length() != 20 && jym.length() != 6){
+//            return ErrorResps.JYM_ERROR.get();
+//        }
+
+        String formatJe = "";
+//        if(!TextUtils.isEmpty(je)){
+        if(je!=null&&!je.equals("")){
+            try {
+                formatJe = DoubleUtils.round2Str(Double.valueOf(je), 2);
+            }catch (Exception e){
+                return ErrorResps.PARAM_ERROR.get();
+            }
+        }
+
+
+        String content;
+        try {
+            content = ",,"+ fpdm + "," + fphm + "," +
+                    formatJe + "," + DateUtils.yyyyMMdd.format(
+                            DateUtils.date_sdf.parse(kprq)) + ","+
+                    jym + ",";
+        } catch (ParseException e) {
+            return ErrorResps.PARAM_ERROR.get();
+        }
+        String nonce_str = AppUitls.randomStr(6);
+
+        String sign = "company_key=" + COMPANY_KEY +
+                "&content=" + content +
+                "&nonce_str=" + nonce_str +
+                "&company_secret=" + COMPANY_SECRET;
+        logger.info("签名内容:"+ sign);
+        try {
+            sign = Md5.getEncode(sign).toUpperCase();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        logger.info("签名结果:" + sign);
+
+        Map<String, Object> kvMap = new HashMap<String, Object>();
+        kvMap.put("company_key", COMPANY_KEY);
+        kvMap.put("nonce_str", nonce_str);
+        kvMap.put("sign", sign);
+        kvMap.put("content", content);
+
+        logger.info("参数:" + kvMap);
+
+        ResponseContent postEntity = HttpHelper.postEntity(FOUR_URL, kvMap);
+        try {
+        	System.out.println(postEntity.getContent());
+			jiexiJson(postEntity);
+			return null;
+//        	return new JacksonJsonParser().parseMap(postEntity.getContent());
+        } catch (UnsupportedEncodingException e) {
+            return ErrorResps.PARAM_ERROR.get();
+        }//{"msg": "\u7b7e\u540d\u9519\u8bef", "code": 21000, "data": null}
+    }
+    
+    /**
+     * 发票文件路径
+     * 
+     */
+    public static String check2(String image){
+    	String nonce_str = AppUitls.randomStr(6);
+    	
+    	String sign = "company_key=" + COMPANY_KEY +
+    	"&nonce_str=" + nonce_str+
+        "&company_secret=" + COMPANY_SECRET;
+    	System.out.println("签名内容:"+ sign);
+    	try {
+    		sign = Md5.getEncode(sign).toUpperCase();
+    	} catch (NoSuchAlgorithmException e) {
+    		e.printStackTrace();
+    	}
+    	System.out.println("签名结果:" + sign);
+    	
+//    	Map<String, Object> kvMap = new HashMap<String, Object>();
+//    	kvMap.put("company_key", COMPANY_KEY);
+//    	kvMap.put("nonce_str", nonce_str);
+//    	kvMap.put("sign", sign);
+//    	try {
+//			kvMap.put("file_data", FileUtil.encodeBase64File("D:/360安全浏览器下载/微信图片_20180831132434.jpg"));
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//			kvMap.put("file_data","45648679");
+//		}
+    	
+    	//logger.info("参数:" + kvMap);
+    	
+//    	ResponseContent postEntity = HttpHelper.postEntity(
+//    			"https://www.feeclouds.com/api/v1/ocr/check", kvMap);
+//    	HttpRequest httpRequest = new HttpRequest();
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("company_key", COMPANY_KEY);
+    	map.put("nonce_str", nonce_str);
+    	map.put("sign", sign);
+    	try {
+    		map.put("file_data", FileUtil.encodeBase64File(image));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			map.put("file_data","45648679");
+		}
+    	String result = "";
+    	result = PostUtil.postRequest(OCR_URL, map);
+//		try {
+//			httpResponse = httpRequest.sendHttpPost(
+//					"https://www.feeclouds.com/api/v1/ocr/check", map);
+//			result = httpResponse.getDataString();
+//		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		System.out.println(result);
+//		try {
+//			jiexiJson1(result);
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return result;
+//    	try {
+//    		System.out.println(postEntity.getContent());
+//    		return null;
+//        	return new JacksonJsonParser().parseMap(postEntity.getContent());
+//    	} catch (UnsupportedEncodingException e) {
+//    	}//{"msg": "\u7b7e\u540d\u9519\u8bef", "code": 21000, "data": null}
+    }
+//    {"msg": "\u7981\u6b62\u5f55\u5165", "code": 20509, "data": {"msg": "\u6210\u529f", "invoiceid": "0abfca36d9ef463da0b01a471037b6a5", "code": 0, "data": {"status_code": "001", "reason": null, "invoice": {"gfdzdh": "\u4e0a\u6d77\u5e02\u5609\u5b9a\u533a\u5b89\u4ead\u9547\u548c\u9759\u8def1200\u53f7 021-59567041", "fpdm": "031001700111", "zfbz": "N", "xfdzdh": "\u4e0a\u6d77\u5e02\u9752\u6d66\u533a\u5f90\u6cfe\u9547\u53cc\u6d5c\u8def218\u53f7021-69763293", "kprq": "20180525", "gfsbh": "913101141322741773", "title": "\u4e0a\u6d77\u589e\u503c\u7a0e\u7535\u5b50\u666e\u901a\u53d1\u7968", "gfyhzh": "\u4e2d\u56fd\u6c11\u751f\u94f6\u884c\u4e0a\u6d77\u6c7d\u8f66\u57ce\u652f\u884c0220014210010518", "content": ",,031001700111,90267415,16.98,20180525,239812,", "file_path": null, "jqbh": "499099767257", "jshj": "18.00", "memo": null, "cycs": null, "xfsbh": "91310118555931335F", "je": "16.98", "gfmc": "\u4e0a\u6d77\u7ea2\u6e56\u6392\u6c14\u7cfb\u7edf\u6709\u9650\u516c\u53f8", "fpzl": "10", "bz": " ", "fphm": "90267415", "xfmc": "\u4e0a\u6d77\u987a\u8861\u7269\u6d41\u6709\u9650\u516c\u53f8", "xfyhzh": "\u5de5\u884c\u5f90\u6cfe\u652f\u884c1001741919000018783", "jym": "14511539612858239812", "se": "1.02"}, "invoice_detail": [{"dj": "16.98", "ggxh": " ", "hwmc": "*\u7269\u6d41\u8f85\u52a9\u670d\u52a1*\u6536\u6d3e\u670d\u52a1\u8d39", "slv": "6", "dw": "\u6b21", "sl": "1", "je": "16.98", "se": "1.02"}]}, "forbidens": [false, true, false, false, false]}}
+//    禁止录入{"msg":"成功","code":0,"data":{"reason":null,"status_code":"001","invoice_detail":[{"ggxh":" ","se":"1.02","dw":"次","hwmc":"*物流辅助服务*收派服务费","dj":"16.98","sl":"1","je":"16.98","slv":"6"}],"invoice":{"xfsbh":"91310118555931335F","gfsbh":"913101141322741773","file_path":null,"fpdm":"031001700111","gfyhzh":"中国民生银行上海汽车城支行0220014210010518","gfmc":"上海红湖排气系统有限公司","cycs":null,"memo":null,"title":"上海增值税电子普通发票","fpzl":"10","content":",,031001700111,90267415,16.98,20180525,239812,","xfyhzh":"工行徐泾支行1001741919000018783","se":"1.02","gfdzdh":"上海市嘉定区安亭镇和静路1200号 021-59567041","kprq":"20180525","bz":" ","xfdzdh":"上海市青浦区徐泾镇双浜路218号021-69763293","jshj":"18.00","je":"16.98","jqbh":"499099767257","xfmc":"上海顺衡物流有限公司","zfbz":"N","fphm":"90267415","jym":"14511539612858239812"}},"forbidens":[false,true,false,false,false],"invoiceid":"0abfca36d9ef463da0b01a471037b6a5"}
+
+    private static void jiexiJson1(String result)
+    throws UnsupportedEncodingException {
+    	JSONObject data;
+    	String message;
+    	String code;
+    	try {
+    		JSONObject jsonObject = new JSONObject(result);
+    		System.out.println(jsonObject);
+    		code = jsonObject.getString("code");
+    		message = jsonObject.getString("msg");
+    		data = jsonObject.getJSONObject("data");
+    		System.out.println("code:"+code +"msg:"+message +"\ncode:"+ data);
+    	} catch (JSONException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
+    
+	private static void jiexiJson(ResponseContent postEntity)
+			throws UnsupportedEncodingException {
+		String yanzhengnum;
+		String message;
+		try {
+			JSONObject jsonObject = new JSONObject(postEntity.getContent());
+			yanzhengnum = jsonObject.getString("data");
+			message = jsonObject.getString("msg");
+			System.out.println(message + yanzhengnum);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+    public static void main(String[] args) {
+//    	Map<String, String> req = new HashMap<String, String>();
+//    	req.put("fpdm", "031001700111");
+//    	req.put("fphm", "90267415");
+//    	req.put("je", "16.98");
+//    	req.put("kprq", "2018-05-25");
+//    	req.put("jym", "239812");
+//    	check(req);
+//    	check2();
+	}
+
+}

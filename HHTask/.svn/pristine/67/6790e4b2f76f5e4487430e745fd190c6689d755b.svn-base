@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="FailureSSOnMonth" table="ta_sop_FailureSSOnMonth">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		 <property name="oneMonthSc"/>
+		 <property name="oneMonthFc"/>
+		 <property name="frequency"/>
+		 <property name="weekds"/>
+		 <property name="months"/>
+		 <property name="addTime"/>
+		 <property name="gongwei"/>
+		 <property name="type"/>
+		 <!-- 日报表对检验不合格明细 -->
+		<set name="fsdSet" inverse="false" cascade="all" lazy="false">
+			<key column="fk_fsmId"></key>
+			<one-to-many class="FailureStatisticsDetail" />
+		</set>
+	</class>
+
+</hibernate-mapping>

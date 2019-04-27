@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-jhh" location="0,0" size="0,0">
+    <action name="WbzdAction" location="0,0" size="0,0">
+      <result name="findOK">
+        <resourceEdge source="findOK" routing="0" target="wbzd_find.jsp" />
+      </result>
+    </action>
+    <action name="gongxuAction" location="0,0" size="0,0">
+      <result name="selectGongxuOK">
+        <resourceEdge source="selectGongxuOK" routing="0" target="selectGongwei.jsp" />
+      </result>
+      <result name="saveGongweiOK" />
+      <result name="updateGongweiOK" />
+      <result name="deleteGongweiOK" />
+      <result name="getGongweiOK" />
+    </action>
+    <action name="productPriceAction" location="0,0" size="0,0">
+      <result name="findBaojia" />
+      <result name="tijiangShow" />
+      <result name="shizhijisuan" />
+      <result name="jisuanOK" />
+      <result name="queryProductPrice" />
+      <result name="saveProductPriceSuccess" />
+      <result name="deleteProductPriceOK" />
+      <result name="getproductPrice" />
+      <result name="updateProductPriceOK" />
+      <result name="findSparePartsByID" />
+      <result name="findSpareParts" />
+      <result name="saveSparePartsOK" />
+      <result name="queryProductProcess" />
+      <result name="findProductProcess" />
+      <result name="deleteOK" />
+      <result name="getOneSpareParts" />
+      <result name="updateSparePartsOK" />
+      <result name="saveProductProcessOK" />
+      <result name="getOneProductProcess" />
+      <result name="updateProductProcessOK" />
+      <result name="deleteProductProcessOK" />
+    </action>
+    <action name="huikuanAction" location="0,0" size="0,0">
+      <result name="querySell" />
+      <result name="getSelectSell" />
+      <result name="findExamList" />
+      <result name="findExamList1" />
+      <result name="saveSuccess" />
+      <result name="selectSta" />
+      <result name="saveFaile" />
+      <result name="querySta" />
+      <result name="deleteStaOK" />
+      <result name="getoneSta" />
+      <result name="updateStaOK" />
+      <result name="savaSendNumOK" />
+      <result name="NoteExam" />
+      <result name="notExam" />
+      <result name="invoiceExam" />
+      <result name="hkOVER" />
+      <result name="hkRepeatInvo" />
+      <result name="invoiceStaDetail" />
+      <result name="saveInvoiceOK" />
+      <result name="updateInvoiceOK" />
+      <result name="showCheckBillCount" />
+      <result name="checkBillCount" />
+      <result name="showFaPiao" />
+      <result name="invoiceRepeat" />
+      <result name="showOneHK" />
+      <result name="updateOK" />
+      <result name="addBackMoney" />
+      <result name="saveBackMoneyOK" />
+      <result name="deleteOK" />
+      <result name="error" />
+      <result name="managerShopping" />
+      <result name="deleteShoppingOK" />
+    </action>
+    <action name="HKSellStaAction" location="0,0" size="0,0">
+      <result name="finHkSellStaOK" />
+      <result name="getHKsellSta" />
+      <result name="updateStaOK" />
+      <result name="deleteOK" />
+    </action>
+    <action name="LogoStickerAction" location="0,0" size="0,0">
+      <result name="checkSticK" />
+      <result name="findStickertocheck" />
+      <result name="app_printStickertocheck" />
+      <result name="findSticker" />
+      <result name="saveOK" />
+      <result name="findOK" />
+      <result name="updateOK" />
+      <result name="deleteOK" />
+      <result name="saveByModel" />
+      <result name="sumResult" />
+      <result name="findLingLliaoOK" />
+    </action>
+    <action name="BaoXiaoDanAction" location="0,0" size="0,0">
+      <result name="preSaveBaoXiaoDan" />
+      <result name="saveBaoXiaoDanOK" />
+      <result name="saveBaoXiaoDanOK1" />
+      <result name="findBaoxiaoOK" />
+      <result name="findBaoXiaoDan2" />
+      <result name="findBaoXiaoDan1" />
+      <result name="getMoreDetailOK" />
+      <result name="getMoreDetailOK1" />
+      <result name="getUpdateOK" />
+      <result name="getUpdateOK1" />
+      <result name="updateOK" />
+      <result name="updateOK1" />
+      <result name="deleteBXDOK" />
+      <result name="findSumOK" />
+      <result name="findBaoxiaoDanDetailOK" />
+      <result name="payee_List" />
+      <result name="payee_xiangxi" />
+      <result name="payee_add" />
+      <result name="findOtherDetail" />
+      <result name="confirmOK" />
+      <result name="updateXiaoDan" />
+      <result name="updateXiaoDan1" />
+      <result name="updateXiaoDan2" />
+    </action>
+    <action name="TwoDimensionCode" location="0,0" size="0,0">
+      <result name="saveOK" />
+      <result name="piliang" />
+      <result name="creatBarcode" />
+    </action>
+    <action name="RunningWaterCardAction" location="0,0" size="0,0">
+      <result name="saveOK" />
+      <result name="findCardOK" />
+      <result name="findCardNO" />
+      <result name="getCardOK" />
+      <result name="input" />
+      <result name="findRukuOK" />
+      <result name="saveGoodsStoreOK" />
+      <result name="findNeedRukuPro" />
+      <result name="SAVEerror" />
+      <result name="scanRuku" />
+    </action>
+    <action name="sellAction" location="0,0" size="0,0">
+      <result name="findLingliaoListOK" />
+      <result name="InputERROR" />
+      <result name="findOutListOK" />
+      <result name="sell_ScanGoodsOutList2" />
+      <result name="sell_newScanGoodsOutList2" />
+      <result name="sell_ScanGoodsOutListCode" />
+      <result name="sell_ScanGoodsOutListphone" />
+      <result name="saveSellListOK" />
+      <result name="findSellByConditionOK" />
+      <result name="success1" />
+      <result name="sellPrint" />
+      <result name="updateThisSell" />
+      <result name="sell_TuikuSell" />
+      <result name="deleteThisSell" />
+      <result name="updateSellOK" />
+      <result name="sell_showwwclDetail" />
+      <result name="sell_showWwPlanoutDetail" />
+      <result name="sell_showwwclDetail2" />
+      <result name="sell_findWwclDetailByCode" />
+      <result name="print_sell" />
+    </action>
+    <action name="goodsAction" location="0,0" size="0,0">
+      <result name="findGoodsOK" />
+      <result name="goods_showDtcList" />
+      <result name="goods_showDtgoods" />
+      <result name="goods_bcptotalPage" />
+      <result name="goods_bcpllList" />
+      <result name="goods_bcpllList2" />
+      <result name="goods_listfindPhone" />
+      <result name="findGoodsZZ" />
+      <result name="yuGoods_showList" />
+      <result name="yuGoods_changeYcl" />
+      <result name="yuGoods_baoFei" />
+      <result name="yuApply_show" />
+      <result name="showbfgList" />
+      <result name="delbfg" />
+      <result name="findGoodsMarkId" />
+      <result name="out" />
+      <result name="goods_saveSellMultiterm" />
+      <result name="update" />
+      <result name="fcApplyDetail" />
+      <result name="updateGoodsInfor" />
+      <result name="saveSell" />
+      <result name="huizongOK" />
+      <result name="baofeishenqin" />
+      <result name="goodsZJ" />
+      <result name="sceanForBTSToPO" />
+      <result name="goods_cxchangeStore" />
+      <result name="goods_toapplycxzkList" />
+      <result name="goods_toapplycxzkList2" />
+      <result name="goods_bhgth" />
+      <result name="goods_bz_list" />
+      <result name="goods_bz_listdetail" />
+      <result name="goods_bzsq_list" />
+      <result name="goods_bzsq_people" />
+      <result name="goodsbzsqtoQx" />
+      <result name="goods_shsq_list" />
+      <result name="goods_shsq_list_sq" />
+      <result name="goods_shsq_WgDeliveryList" />
+      <result name="goods_shsq_WgDeliveryDetail" />
+      <result name="goods_shsq_WgDeliveryListDetail" />
+      <result name="goods_shsq_WgDeliveryPrint" />
+      <result name="goods_sqxq" />
+      <result name="sell_printMultiterm" />
+      <result name="cpOneChangeWg" />
+      <result name="showAllCPOneChangeWG" />
+      <result name="goods_HistoryCPChangeWG" />
+      <result name="queryHistoryCPChangeWG" />
+      <result name="goods_exChangeGoods" />
+    </action>
+    <action name="OSWorkAction" location="0,0" size="0,0">
+      <result name="findOSWOK" />
+      <result name="getOSWorkOK" />
+      <result name="findOneOSWOK" />
+      <result name="OSWork_print" />
+      <result name="caiwuJIesuanList" />
+      <result name="selectJIeSuanOK" />
+      <result name="addOswGongxu" />
+    </action>
+    <action name="iaoAction" location="0,0" size="0,0">
+      <result name="saveIAOBybarcode" />
+      <result name="saveIAOOK" />
+      <result name="findBaoxiaoOK" />
+      <result name="showIAOApp" />
+      <result name="updateIAOOK" />
+    </action>
+    <action name="osaAction" location="0,0" size="0,0">
+      <result name="tosaveOSApp" />
+      <result name="saveOK" />
+      <result name="findOK" />
+      <result name="updateShowOSA" />
+      <result name="updateShowOSA1" />
+      <result name="updateShowOSA2" />
+      <result name="updateShowOSA3" />
+      <result name="updateShowOSA4" />
+      <result name="updateShowOSA5" />
+      <result name="updateOSAById0" />
+      <result name="updateOSAById1" />
+      <result name="updateOSAById2" />
+      <result name="updateOSAById3" />
+      <result name="updateOSAById4" />
+      <result name="saveOK1" />
+      <result name="printOSA" />
+    </action>
+    <action name="deptBudgetAction" location="0,0" size="0,0">
+      <result name="error" />
+    </action>
+    <action name="saleBudgetAction" location="0,0" size="0,0">
+      <result name="prepareSave" />
+      <result name="findBudgetOK" />
+      <result name="findExamList" />
+      <result name="updateExamBudget" />
+      <result name="ExamBudgetOK" />
+      <result name="exaprepareSave" />
+      <result name="findDetailBysbt" />
+      <result name="newprepareSave" />
+      <result name="findAllProductOK" />
+      <result name="priceNum_selected" />
+      <result name="findDetailBysbt" />
+      <result name="saveSelectedPOK" />
+      <result name="saveSelectedPERROR" />
+      <result name="findDetailOK" />
+      <result name="updateDetailOK" />
+      <result name="deleteDetailOK" />
+      <result name="subBudgetOK" />
+    </action>
+    <action name="oaAppDetailAction" location="0,0" size="0,0">
+      <result name="findOADetailOK" />
+      <result name="oaAppDetail_list_daohuo" />
+      <result name="oaAppDetail_list_gz" />
+      <result name="oaAppDetail_GzQueRenList" />
+      <result name="preSaveOADetail" />
+      <result name="preSaveOADetail1" />
+      <result name="saveDetailOK" />
+      <result name="getOADetailOK" />
+      <result name="getOADetailBuy" />
+      <result name="deleteOADOK" />
+      <result name="updateOADetailOK" />
+      <result name="saveDetailFaile" />
+      <result name="findOAPreAppOK" />
+      <result name="findPreDetailListOK" />
+      <result name="printPre" />
+      <result name="selectPreDetail" />
+      <result name="findExamListOK" />
+      <result name="updateExamDetailOK" />
+      <result name="findExamHistoryListOK" />
+      <result name="saveKemuOK" />
+      <result name="warehouseApplication_add" />
+      <result name="oaAppDetail_selectDetail" />
+      <result name="storage_warehousing" />
+      <result name="error" />
+    </action>
+    <action name="oaReimBursementAction" location="0,0" size="0,0">
+      <result name="findPreBaozhangListOK" />
+      <result name="findBaozhangListOK" />
+      <result name="findStorageBZListOK" />
+      <result name="saveBaoZhangOK" />
+      <result name="findOAReimBursementListOK" />
+      <result name="findBusinessListOK" />
+      <result name="_findBusList" />
+      <result name="updateBZStatusOK" />
+      <result name="selectShaixuangOK" />
+      <result name="findSameProductPriceOK" />
+      <result name="examBusinessOK" />
+      <result name="examOBSok" />
+    </action>
+    <action name="SubjectBudgetAction" location="0,0" size="0,0">
+      <result name="error" />
+      <result name="subject_manage" />
+      <result name="balance_show" />
+      <result name="Profit_show" />
+      <result name="CashFlow_show" />
+      <result name="userandsubdept" />
+      <result name="jisuangs" />
+      <result name="Management" />
+      <result name="xcm_show" />
+    </action>
+    <action name="FileManagerAction" location="0,0" size="0,0">
+      <result name="saveFileOK" />
+      <result name="findFileOK" />
+      <result name="addOK" />
+      <result name="showFileManager" />
+      <result name="createOK" />
+      <result name="findFileTypeOK" />
+      <result name="deleteFileTypeOK" />
+      <result name="error" />
+    </action>
+    <action name="NoncoreReceAction" location="0,0" size="0,0">
+      <result name="findAllNoncoreRece" />
+      <result name="nonCoreReceivables_add" />
+      <result name="nonCoreReceivables_select" />
+      <result name="nonFujianseallogdetail" />
+      <result name="nonCoreReceivables_selectDe" />
+      <result name="nonCoreReceivables_update" />
+      <result name="nonCoreReceivablesDetail_add" />
+      <result name="nonCoreReceivablesDetail_show" />
+      <result name="financialReceipts_show" />
+    </action>
+    <action name="NoncorePayableAction" location="0,0" size="0,0">
+      <result name="energyConsumption_update" />
+      <result name="energyConsumption_show" />
+      <result name="findAllNoncorePayable" />
+      <result name="nonCorePayable_update" />
+      <result name="nonCorePayable_select" />
+      <result name="nonCorePayable_add" />
+      <result name="payableType_add" />
+      <result name="userpapy" />
+    </action>
+    <action name="EscrowAction_*" location="0,0" size="0,0">
+      <result name="escrowList_show" />
+      <result name="escrowList_print" />
+      <result name="escrowList_printrc" />
+      <result name="escrowMonth_apply" />
+      <result name="escrowMonth_print" />
+      <result name="escrowMonthList_show" />
+    </action>
+    <action name="carAllowAction" location="0,0" size="0,0">
+      <result name="saveOK" />
+      <result name="showOneSumAllow" />
+      <result name="queryallSumAllow" />
+      <result name="sumbitOneInfor" />
+      <result name="deleteOK" />
+      <result name="appDengji" />
+      <result name="dengjiOK" />
+      <result name="appHistory" />
+      <result name="appchognzhiHistory" />
+      <result name="shezhiXiane" />
+      <result name="shezhiXianeOK" />
+      <result name="preChongzhi" />
+      <result name="chongzhiOK" />
+      <result name="deleteOneHistoryOK" />
+      <result name="deleteOneCZHistoryok" />
+      <result name="butieSehnling" />
+      <result name="butieSehnlingOK" />
+    </action>
+  </package>
+  <webResource name="wbzd_find.jsp" path="/lc/wbzd_find.jsp" location="0,0" size="0,0" />
+  <webResource name="selectGongwei.jsp" path="/System/SOP/gongwei/selectGongwei.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

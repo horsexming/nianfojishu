@@ -1,0 +1,458 @@
+package com.task.ServerImpl.renshi;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.renshi.InDoorScreenServer;
+
+import com.task.entity.Calendar;
+import com.task.entity.Users;
+import com.task.entity.banci.BanCi;
+import com.task.entity.face.FaceWorkTime;
+import com.task.entity.lpanclear.Cleanrecord;
+import com.task.entity.lpanclear.ClearInfo;
+import com.task.entity.lpanclear.LpanUtils;
+import com.task.entity.lpanclear.Score;
+import com.task.entity.menjin.ResAccess;
+import com.task.entity.menjin.visitor.Visitor;
+import com.task.entity.renshi.InDoorScreen;
+import com.task.entity.renshi.InDoorScreenUsers;
+import com.task.entity.renshi.Meeting;
+import com.task.util.Util;
+
+public class InDoorScreenServerImpl implements InDoorScreenServer{
+
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public String addInDoorScreen(InDoorScreen screen, String pageStatus) {
+		if(screen!=null) {
+			if(screen.getId()!=null) {
+				InDoorScreen inDoorScreen = (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, screen.getId());
+				if(inDoorScreen!=null) {
+					inDoorScreen.setUpdateTime(Util.getDateTime());
+					inDoorScreen.setName(screen.getName());
+					inDoorScreen.setPosition(screen.getPosition());
+					boolean update = totalDao.update(inDoorScreen);
+					if(update) {
+						return "修改成功";
+					}
+				}
+			}else {
+				screen.setAddTime(Util.getDateTime());
+				boolean save = totalDao.save(screen);
+				if(save) {
+					return "添加成功";
+				}
+				
+			}
+			
+			
+		}
+		return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findInDoorScreenByCon(InDoorScreen screen, Integer pageNo, Integer pageSize,
+			String pageStatus) {
+		if(screen==null) {
+			screen = new InDoorScreen();
+		}
+		String hql = totalDao.criteriaQueries(screen, null);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<InDoorScreen> list = totalDao.findAllByPage(hql, pageNo, pageSize);
+		if(list!=null && list.size()>0) {
+			Integer count = totalDao.getCount(hql);
+			map.put("count", count);
+			map.put("list", list);
+		}
+		
+		return map;
+	}
+
+	@Override
+	public InDoorScreen getScreenById(Integer id, String pageStatus) {
+		if(id!=null) {
+			return (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, id);
+		}
+		return null;
+	}
+
+	@Override
+	public String bindScreenUsers(Integer screenId, Integer usersId) {
+		Users users = (Users) totalDao.getObjectById(Users.class, usersId);
+		if(users!=null && screenId!=null) {
+			InDoorScreenUsers screenUsers = (InDoorScreenUsers) totalDao.getObjectByCondition(
+					"from InDoorScreenUsers where usersId = ? and screen.id=?", usersId,screenId);
+			if(screenUsers==null) {
+				InDoorScreen inDoorScreen = (InDoorScreen) totalDao.getObjectById(InDoorScreen.class, screenId);
+				screenUsers = new InDoorScreenUsers();
+				screenUsers.setUsersId(usersId);
+				screenUsers.setScreen(inDoorScreen);
+				screenUsers.setUsersName(users.getName());
+				totalDao.save(screenUsers);
+			}
+			return "success";
+		}
+		return "error";
+	}
+
+	@Override
+	public String cancelScreenUsers(Integer screenId, Integer usersId) {
+		Users users = (Users) totalDao.getObjectById(Users.class, usersId);
+		if(users!=null && screenId!=null) {
+			InDoorScreenUsers screenUsers = (InDoorScreenUsers) totalDao.getObjectByCondition(
+					"from InDoorScreenUsers where usersId = ? and screen.id=?", usersId,screenId);
+			if(screenUsers!=null) {
+				totalDao.delete(screenUsers);
+			}
+			return "success";
+		}
+		return "error";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InDoorScreenUsers> getScreenUsersById(Integer id) {
+		List<InDoorScreenUsers> list = totalDao.query("from InDoorScreenUsers where screen.id=?", id);
+		return list;
+	}
+
+    private static final int FIRST_DAY = java.util.Calendar.MONDAY;
+	private void setToFirstDay(java.util.Calendar calendar) {
+		 while (calendar.get(java.util.Calendar.DAY_OF_WEEK) != FIRST_DAY) {
+			 calendar.add(java.util.Calendar.DATE, -1);
+     	}
+    }
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findScreenInfoByScreenId(Integer id){
+		
+		String dateTime = Util.getDateTime("yyyy-MM-dd");
+		 
+        java.util.Calendar calendarDate = java.util.Calendar.getInstance();
+        setToFirstDay(calendarDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String weekStartTime = dateFormat.format(calendarDate.getTime());
+        calendarDate.add(java.util.Calendar.DATE, 6);
+        String weekEndTime = dateFormat.format(calendarDate.getTime());
+        
+		List<Integer> usersIdList = totalDao.query("select usersId from InDoorScreenUsers where screen.id=?", id);
+		if(usersIdList!=null && usersIdList.size()>0) {
+			StringBuffer buffer = new StringBuffer();
+			for (Integer integer : usersIdList) {
+				if(buffer.toString().equals("")) {
+					buffer.append(integer+"");
+				}else {
+					buffer.append(","+integer);
+				}
+			}
+			String ids = buffer.toString();
+			Map<String, Object> map = new HashMap<String,Object>();
+			java.util.Calendar cal  = java.util.Calendar.getInstance();
+			if(Util.getNowday()==1){
+				cal.add(java.util.Calendar.DATE,   -2);
+			}else{
+				cal.add(java.util.Calendar.DATE,   0);
+			}
+			
+			String yesterday = new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
+			//--------------访客列表
+			List<Visitor> visitorList = totalDao.query("from Visitor where intervieweeId in("+ids+") and dateTime like '"+dateTime
+					+"%' and visitorStatus in('待打印','待进门','待出门')");
+			map.put("visitor", visitorList);
+			
+			//--------------人员状态列表
+			String updateDutyStatus =  (String) totalDao.getObjectByCondition(
+					"select valueCode from CodeTranslation where valueName = 'updateDutyStatus'");//查询是否根据考勤更新人员状态
+			List<Users> usersList =null;
+			if(updateDutyStatus==null || updateDutyStatus.equals("是")) {
+				usersList = totalDao.query("select new  Users(u.id,u.code,u.name,u.userStatus,p.picture,u.sex,u.banci_id)"
+						+ " from Users u join u.password p where u.id in ("+ids+") and u.fristTime like '"+dateTime+"%' order by u.fristTime");
+				//查询已打卡的人员id添加到buffer中
+				StringBuffer existsUserIds = new StringBuffer();
+				if(usersList!=null && usersIdList.size()>0) {
+					for (Users users : usersList) {
+						if(existsUserIds.toString().equals("")) {
+							existsUserIds.append(""+users.getId());
+						}else {
+							existsUserIds.append(","+users.getId());
+						}
+					}
+					if(ids.length()>existsUserIds.toString().length()) {
+						String notExistsIds = "";
+						if(!existsUserIds.toString().equals("")) {
+							notExistsIds =" and u.id not in ("+existsUserIds.toString()+") ";
+						}
+						List<Users> notExistsList = totalDao.query("select new  Users(u.id,u.code,u.name,u.userStatus,p.picture,u.sex,u.banci_id)"
+								+ " from Users u join u.password p where u.id in ("+ids+") "+notExistsIds+" order by u.code ");
+						if(notExistsList!=null ) {
+							for (Users users : notExistsList) {
+								users.setUserStatus("离开");
+//								totalDao.update(users);
+							}
+						}
+						usersList.addAll(notExistsList);
+					}
+				}
+			}else {//不用根据考勤更新人员状态
+				usersList = totalDao.query("select new  Users(u.id,u.code,u.name,u.userStatus,p.picture,u.sex,u.banci_id)"
+						+ " from Users u join u.password p where u.id in ("+ids+") ");
+			}
+			
+			String time = Util.getDateTime(" HH:mm:ss");
+			String startTime = " 00:00:00";
+			String endTime = " 23:59:59";
+			for (Users users : usersList) {
+				//查询值日状态
+				Integer count = totalDao.getCount("from ClearInfo ci join ci.employee e where e.userId =? and clearDate = '"
+							+dateTime+"' order by id desc", users.getId());
+				if(count!=null && count>0) {
+					users.setDutyStatus("是");
+				}else {
+					users.setDutyStatus("否");
+				}
+				
+				//查询人员代办事项
+//				List<Calendar> backlogList = totalDao.query("from Calendar where userId=? and (( (start>=? and start<=?) or (endDate <=? and endDate>=?)) "
+//						+ "or (( start>=? and start<=?)  or (endDate <=? and endDate>=?))"
+//						+ "or (( start>=? and start<=?)) or (endDate <=? and endDate>=?)) order by calendarState ", users.getId(),
+//						weekStartTime+time,weekEndTime+time,weekStartTime+time,weekEndTime+time,
+//						weekStartTime,weekEndTime,weekStartTime,weekEndTime,
+//						weekStartTime,weekEndTime+time,weekStartTime,weekEndTime+time);
+				List<Calendar> backlogList = totalDao.query("from Calendar where userId=? and ("
+						+ "(start<=? and endDate>=?)"
+						+ " or (start>=? and endDate<=?)"
+						+ " or (start<=? and endDate>=? and endDate<=?)"
+						+ " or (endDate>=? and start<=? and start>=?) "
+						+ ") ",users.getId()
+						,weekStartTime+startTime,weekEndTime+endTime
+						,weekStartTime+startTime,weekEndTime+endTime
+						,weekStartTime+startTime,weekStartTime+startTime,weekEndTime+endTime
+						,weekEndTime+endTime,weekEndTime+endTime,weekStartTime+startTime
+						);
+				if(backlogList!=null && backlogList.size()>0) {
+					users.setTotalNum(backlogList.size());
+					Integer successNum = 0;
+					if(backlogList!=null && backlogList.size()>0) {
+						for (Calendar calendar : backlogList) {
+							if(calendar.getCalendarState()!=null && calendar.getCalendarState().equals("完成")) {
+								successNum++;
+							}
+						}
+					}
+					users.setSuccessNum(successNum);
+				}
+				
+				//查询人员未完成历史数量
+				Integer timeOutNum = totalDao.getCount("from Calendar where userId=? and endDate<? "
+						+ "and calendarState is not null and calendarState='未完成'",users.getId(), dateTime+startTime);
+				users.setTimeOutNum(timeOutNum);
+//				users.setBacklogList(backlogList);
+				
+				
+				//查询工作时长
+				List<FaceWorkTime> workList = totalDao.query("from FaceWorkTime where userId=? and dateTime =?", users.getId(),dateTime);
+				Integer totalMinutes = 0;
+				for (FaceWorkTime faceWorkTime : workList) {
+					if (faceWorkTime != null && (faceWorkTime.getEndTime() == null || faceWorkTime.getEndTime().equals("")
+							|| faceWorkTime.getWorkTime() == null )) {
+						if (dateTime.equals(faceWorkTime.getDateTime())) {
+							// 当天的是现在的时间
+							try {
+								Long dateDiff = Util.getDateDiff(faceWorkTime.getStartTime(), "HH:mm:ss",
+										Util.getDateTime("HH:mm:ss"), "HH:mm:ss") / 60 + 1;
+								totalMinutes += dateDiff.intValue();
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+						} 
+					} else {
+						totalMinutes += faceWorkTime.getWorkTime();
+					}
+				}
+				Float floatValue = new BigDecimal(totalMinutes).divide(new BigDecimal(60),3,BigDecimal.ROUND_HALF_UP).setScale(1,BigDecimal.ROUND_HALF_UP).floatValue();
+				String successHours = new DecimalFormat("0.0").format(floatValue);
+				users.setSuccessHours(successHours);
+				if(users.getBanci_id()!=null && totalMinutes!=0) {
+					BanCi banCi = (BanCi) totalDao.getObjectById(BanCi.class, users.getBanci_id());
+					Integer gzTime = banCi.getGzTime();
+					if(gzTime!=null) {
+						int successPer = new BigDecimal(totalMinutes*100).divide(new BigDecimal(gzTime),5,BigDecimal.ROUND_HALF_UP).intValue();
+						users.setSuccessPer(successPer);
+					}
+				}
+			}
+			Collections.sort(usersList, new Comparator<Users>() {
+				@Override
+				public int compare(Users arg0, Users arg1) {
+					if(arg0.getSuccessHours()==null) {
+						arg0.setSuccessHours("0");
+					}
+					if(arg1.getSuccessHours()==null) {
+						arg1.setSuccessHours("0");
+					}
+					float diff = Float.parseFloat(arg0.getSuccessHours()) - Float.parseFloat(arg1.getSuccessHours());
+					if (diff > 0) {
+						return -1;
+					} else if (diff < 0) {
+						return 1;
+					}
+					return 0; // 相等为0
+				}
+				
+			});//按工作时长排序
+			map.put("users", usersList);
+			//查询最后一条记录
+			Cleanrecord cleanrecord = (Cleanrecord)totalDao.getObjectByCondition("from Cleanrecord order by id desc");
+			//查询按日期排序的集合数据
+			List<Cleanrecord> cleanrecordList = (List<Cleanrecord>)totalDao.query("from Cleanrecord order by id desc");
+			//查询今日是否生成领取提交记录
+			Cleanrecord cleanrecordjr = (Cleanrecord)totalDao.getObjectByCondition("from Cleanrecord where theDay=?",Util.getDateTime("yyyy-MM-dd"));
+			List<ClearInfo> clearList1= new ArrayList<ClearInfo>();
+			List<ClearInfo> clearList2 = new ArrayList<ClearInfo>();
+			if(cleanrecordjr ==null&&cleanrecord!=null){
+				clearList1 = totalDao.query("from ClearInfo where clearDate =?",cleanrecord.getTheDay());
+				clearList2 = totalDao.query("from ClearInfo where clearDate =?",dateTime);
+			
+			}else if(cleanrecordjr !=null&&cleanrecord!=null&&cleanrecordList !=null){
+				//查询按日期排序的倒数第二天
+				for(int i =0;i<cleanrecordList.size();i++){
+					if(i==1){
+						clearList1 = totalDao.query("from ClearInfo where clearDate =?",cleanrecordList.get(i).getTheDay());
+					}
+				}				
+				clearList2 = totalDao.query("from ClearInfo where clearDate =?",dateTime);				
+			}
+			//根据最后一条记录的日期查询人员所对应人员信息										
+			List<Users> usersList2 = new ArrayList<Users>(); 
+			if(clearList1 !=null&&usersList !=null){
+				for(ClearInfo clearInfo :clearList1){
+					for(Users users1 :usersList){
+						if(clearInfo.getEmployee().getUserId().equals(users1.getId())){
+							usersList2.add(users1);
+						}						
+					}
+				}
+			}	
+			map.put("usersList2",usersList2);
+			//根据当天查询人员所对应人员信息					
+			List<Users> usersList3 = new ArrayList<Users>();
+			if(clearList2 !=null&&usersList !=null){
+				for(ClearInfo clearInfo :clearList2){
+					for(Users users2 :usersList){
+						if(clearInfo.getEmployee().getUserId().equals(users2.getId())){
+							usersList3.add(users2);
+						}						
+					}
+				}
+			}
+			map.put("usersList3",usersList3);
+			//--------------快递已存入信息
+			List<ResAccess> resList = totalDao.query("from ResAccess where type='存取' and cuseType=2 and quseType = 0 and addUserId in ("+ids+")");
+			for (ResAccess resAccess : resList) {
+				String picture = (String) totalDao.getObjectByCondition("select picture from Password where user.id=?", resAccess.getAddUserId());
+				resAccess.setPicture(picture);
+			}
+			map.put("res", resList);
+			
+			//--------------查询会议信息
+			String timeHHmm= Util.getDateTime(" HH:mm");
+			List<Meeting> meetingList = totalDao.query("from Meeting where endDate>=? and epStatus='同意' order by startDate", dateTime+timeHHmm);
+			map.put("meeting", meetingList);
+			return map;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public String getInDoorScreenPage() {
+		String inDoorScreenPage =  (String) totalDao.getObjectByCondition("select valueCode from CodeTranslation where valueName = 'InDoorScreenPage'");
+		if(inDoorScreenPage==null || inDoorScreenPage.equals("")) {
+			return "inDoorScreen_index";
+		}
+		return inDoorScreenPage;
+	}
+
+	@Override
+	public Map<String, Object> findFaceWorkTimeBycode(String code, String pageStatus) {
+		if(code!=null) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			List<Long> timeList = new ArrayList<Long>();
+			List<String> colorList = new ArrayList<String>();
+			Integer zeroTimestamp = 28800000;//0:00:00 时间戳（为求计时从0:00:00开始所有时间加上这个值。）
+			Long minutesSum = 1440l;//一天的总时长（分钟）
+			List<FaceWorkTime> list = totalDao.query("from FaceWorkTime where userCode=? and dateTime =?", code,Util.getDateTime("yyyy-MM-dd"));
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			try {
+				if (list!=null && list.size()>0) {
+					for (FaceWorkTime faceWorkTime : list) {
+						Long timeStamp = (dateFormat.parse(faceWorkTime.getStartTime()).getTime()+zeroTimestamp)/1000/60;
+						if(timeList.size()==0) {
+							timeList.add(timeStamp);
+						}else {
+							long diff = 0l;
+							for (int i = 0; i < timeList.size(); i++) {
+								diff+=timeList.get(i);
+							}
+							timeList.add(timeStamp-diff);
+						}
+						colorList.add("#999999");
+						
+						if(faceWorkTime.getEndTime()==null || faceWorkTime.getEndTime().equals("") || faceWorkTime.getWorkTime()==null) {
+							timeStamp = (dateFormat.parse(Util.getDateTime("HH:mm:ss")).getTime()+zeroTimestamp)/1000/60;
+						}else {
+							timeStamp = (dateFormat.parse(faceWorkTime.getEndTime()).getTime()+zeroTimestamp)/1000/60;
+						}
+						long diff = 0l;
+						for (int i = 0; i < timeList.size(); i++) {
+							diff+=timeList.get(i);
+						}
+						timeList.add(timeStamp-diff);
+						colorList.add("#009900");
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			long diff = 0l;
+			for (int i = 0; i < timeList.size(); i++) {
+				diff+=timeList.get(i);
+			}
+			timeList.add(minutesSum-diff);
+			colorList.add("#999999");
+			map.put("timeList", timeList);
+			map.put("colorList", colorList);
+			return map;
+		}
+		return null;
+	}
+	
+}

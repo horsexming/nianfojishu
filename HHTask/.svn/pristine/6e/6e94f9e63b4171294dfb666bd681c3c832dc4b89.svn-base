@@ -1,0 +1,140 @@
+package com.task.entity.singlecar;
+
+import java.util.List;
+
+/***
+ * 表名：ta_SingleCarAll
+ * @author 聂威
+ *
+ */
+public class SingleCarAll {
+	private Integer id;
+	private String pilotname;//驾驶员姓名
+    private String car_number;//车号
+    private Float hjkilometers;//合计公里
+    private Float hjmoney;//合计金额
+    private Float ctkilometers;//长途公里
+    private Float ctmoney;//长途金额
+    private Float zcwgcs;//早出晚归次数
+    private Float zcwgmoney;//早出晚归金额
+    private Float zccs;//周末及厂休次数
+    private Float zcmoney;//周末及厂休金额
+    private Float allmoney;//总金额
+    private String permoney;//领款人
+    private String firsttime;//开始时间
+	private String finishtime;//结束时间
+	private String status;//状态(申请中，审批，打回)
+	private Integer epId;
+	private List qianmingList;
+	public String getPilotname() {
+		return pilotname;
+	}
+	public void setPilotname(String pilotname) {
+		this.pilotname = pilotname;
+	}
+	public String getCar_number() {
+		return car_number;
+	}
+	public void setCar_number(String carNumber) {
+		car_number = carNumber;
+	}
+	public Float getHjkilometers() {
+		return hjkilometers;
+	}
+	public void setHjkilometers(Float hjkilometers) {
+		this.hjkilometers = hjkilometers;
+	}
+	public Float getHjmoney() {
+		return hjmoney;
+	}
+	public void setHjmoney(Float hjmoney) {
+		this.hjmoney = hjmoney;
+	}
+	public Float getCtkilometers() {
+		return ctkilometers;
+	}
+	public void setCtkilometers(Float ctkilometers) {
+		this.ctkilometers = ctkilometers;
+	}
+	public Float getCtmoney() {
+		return ctmoney;
+	}
+	public void setCtmoney(Float ctmoney) {
+		this.ctmoney = ctmoney;
+	}
+	public Float getZcwgcs() {
+		return zcwgcs;
+	}
+	public void setZcwgcs(Float zcwgcs) {
+		this.zcwgcs = zcwgcs;
+	}
+	public Float getZcwgmoney() {
+		return zcwgmoney;
+	}
+	public void setZcwgmoney(Float zcwgmoney) {
+		this.zcwgmoney = zcwgmoney;
+	}
+	public Float getZccs() {
+		return zccs;
+	}
+	public void setZccs(Float zccs) {
+		this.zccs = zccs;
+	}
+	public Float getZcmoney() {
+		return zcmoney;
+	}
+	public void setZcmoney(Float zcmoney) {
+		this.zcmoney = zcmoney;
+	}
+	public Float getAllmoney() {
+		return allmoney;
+	}
+	public void setAllmoney(Float allmoney) {
+		this.allmoney = allmoney;
+	}
+	public String getPermoney() {
+		return permoney;
+	}
+	public void setPermoney(String permoney) {
+		this.permoney = permoney;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getFirsttime() {
+		return firsttime;
+	}
+	public void setFirsttime(String firsttime) {
+		this.firsttime = firsttime;
+	}
+	public String getFinishtime() {
+		return finishtime;
+	}
+	public void setFinishtime(String finishtime) {
+		this.finishtime = finishtime;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Integer getEpId() {
+		return epId;
+	}
+	public void setEpId(Integer epId) {
+		this.epId = epId;
+	}
+	public List getQianmingList() {
+		return qianmingList;
+	}
+	public void setQianmingList(List qianmingList) {
+		this.qianmingList = qianmingList;
+	}
+	
+	
+    
+}

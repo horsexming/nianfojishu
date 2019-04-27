@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.KQDate" table="ta_hr_kqDate">
+		<id name="id" column="id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="kqDate" />
+		<property name="synchroTag" />
+		<property name="synchroTime" />
+		<property name="zhixingCS" />
+		<property name="banci_Id" length="10"/>
+		
+	</class>
+</hibernate-mapping>

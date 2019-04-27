@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.Category" table="ta_Category">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<set name="userSet" inverse="false" table="ta_category_user"
+			cascade="all" lazy="true">
+			<key column="ta_categoryId"></key>
+			<many-to-many class="com.task.entity.Users" column="ta_userId" />
+		</set>
+		<set name="zhuserSet"  table="ta_category_zhuser" cascade="all" lazy="true">
+			<key column="ta_categoryId"></key>
+			<many-to-many class="com.tast.entity.zhaobiao.ZhUser" column="ta_zhuserId"/>
+		</set>
+		<!--自身对应关系		-->
+<!--		<set name="categorySet" cascade="all" inverse="false"-->
+<!--			order-by="id" lazy="true">-->
+<!--			<key column="fk_categoryId"></key>-->
+<!--			<one-to-many class="com.task.entity.Category" />-->
+<!--		</set>-->
+<!--		<many-to-one name="category" class="com.task.entity.Category"-->
+<!--			cascade="save-update" lazy="false" column="fk_categoryId" />-->
+		<property name="name" index="sy_name"/>
+		<property name="type"/>
+		<property name="fatherId"  index="sy_fatherId"/>
+		<property name="rootId"/>
+		<property name="checked"/>
+		<property name="belongLayer"/>
+		<property name="code"/>
+		<property name="avgProductionTakt"/>
+		<property name="avgDeliveryTime"/>
+		<property name="sunhaoType" type="integer"/>
+		<property name="sunhao"/>
+		<property name="rangeOfReceipt"/>
+		<property name="round"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,506 @@
+package com.task.action.android.processpush;
+
+import java.util.ArrayList;
+import java.util.List ;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.android.processpush.PushServer;
+import com.task.entity.TaSopGongwei;
+import com.task.entity.android.processpush.Push;
+import com.task.entity.android.pscs.Customer;
+import com.task.entity.gzbj.Gzstore;
+import com.task.entity.sop.Block;
+import com.task.util.MKUtil;
+
+/***
+ *设备序列号管理 
+ * @author 毛小龙
+ *
+ */
+public class PushAction {
+	private PushServer pushServer;
+	private Push push;
+	
+	private String errorMessage;
+	private String successMessage;
+	private TaSopGongwei taSopGongwei;
+	
+//	private List<Map> maps;
+//	private Object[] objects;
+	private List<Object> list;// 集合
+	private List<Push> pushList;// 集合
+	private List<TaSopGongwei> gongweiList;
+	private Integer push_id;
+	private String meid;//android meid唯一标识
+	private String user_name;
+	private String user_pwd;
+	private List list2;
+	private List list3;
+	private Integer id;
+	private Integer[] gw_id;
+	private List<String> contentList;
+	private String ipAddress;
+	private String flatNum;//平板编号
+	private String flatStation;//平板工位
+	
+	
+
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+
+	
+	public Integer[] getGw_id() {
+		return gw_id;
+	}
+
+	public void setGw_id(Integer[] gwId) {
+		gw_id = gwId;
+	}
+
+	//查询推送列表
+	public String findPush(){
+		if (push != null) {
+			ActionContext.getContext().getSession().put("push", push);
+		} else {
+			push = (Push) ActionContext.getContext().getSession()
+					.get("push");
+		}
+		Object[] object = pushServer.findPush(push, Integer.parseInt(cpage), pageSize);
+		if (object != null && object.length > 0) {
+			pushList = (List<Push>) object[0];
+			if (pushList != null && pushList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("PushAction_findPush.action?push.sysdate=");
+				errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+		}
+		return "findPush";
+	}
+	
+	//查询所有工位
+	public String findTaSopGongwei(){
+		this.list2 = this.pushServer.findTaSopGongwei();
+		return "findTaSopGongwei";
+	}
+	
+	//添加序列
+	public String addProcessandmeid(){
+		this.pushServer.addProcessandmeid(this.push);
+		this.successMessage="添加成功!";
+		return "addProcessandmeid";
+	}
+	
+	//添加工位
+	public String addTaSopGongwei(){
+		this.pushServer.addProcessandmeid1(this.push,this.taSopGongwei);
+		this.successMessage="添加成功!";
+		return "addProcessandmeid";
+	}
+	
+	//根据编号查询序列号对应的工位
+	public String findPushById(){
+		this.list2 = this.pushServer.findGwidByname(this.push_id);
+		return "findPushById";
+	}
+	
+	//根据设备编号查询对应工位
+	public String findGwById(){
+		if (this.taSopGongwei != null) {
+			ActionContext.getContext().getSession().put("taSopGongwei", taSopGongwei);
+		} else {
+			taSopGongwei = (TaSopGongwei) ActionContext.getContext().getSession()
+					.get("taSopGongwei");
+		}
+		Object[] object = pushServer.findPush1(taSopGongwei, Integer.parseInt(cpage), pageSize,this.push_id);
+		if (object != null && object.length > 0) {
+			this.gongweiList = (List<TaSopGongwei>) object[0];
+			if (gongweiList != null && gongweiList.size() > 0) {
+				int count = (Integer) object[1];
+				int pageCount = (count + pageSize - 1) / pageSize;
+				this.setTotal(pageCount + "");
+				this.setUrl("PushAction_findGwById.action?push_id="+push_id);
+				errorMessage = null;
+			} else {
+				errorMessage = "没有找到你要查询的内容,请检查后重试!";
+			}
+		}
+		return "findPushById1";
+	}
+	
+	//查询序列号信息
+	public String findPushById2(){
+		this.push = this.pushServer.findPushById(id);
+		return "findPushById2";
+	}
+	
+	
+	//修改序列号和工位信息
+	public String updateProcessandmeid(){
+		this.pushServer.updateProcessandmeid(this.push);
+		this.successMessage="修改成功!";
+		return "updateProcessandmeid";
+	}
+	
+	//删除工位和序列号信息
+	public String delPush(){
+		 this.pushServer.delPush(this.push_id);
+		return "delPush";
+	}
+	
+	//删除工位
+	public String delGongweiById(){
+		this.pushServer.delGongwei(id,this.push_id);
+		return "delGongweiById";
+	}
+	
+	/*
+	 * 
+	 * 客户端工艺规范推送接口
+	 */
+	public void android_Push(){
+		if(!"".equals(meid)){
+			try {
+				push = pushServer.findPushBymeid(meid);//查询序列对应的设备存不存在
+				if(push==null){//如果不存在则添加设备
+					push = pushServer.addProcessandmeid1(meid,ipAddress,flatNum,flatStation);
+					list2 = pushServer.findGwidByname(push.getId());//查看对应的工位
+					List<TaSopGongwei> newList=new ArrayList<TaSopGongwei>();
+					for (int i = 0; i < list2.size(); i++) {
+						TaSopGongwei tsg=(TaSopGongwei) list2.get(i);
+						tsg.setPushs(null);
+						tsg.setProductProcess(null);
+						tsg.setProcessTemplate(null);
+						newList.add(tsg);
+					}
+					push.setTaSopGongweis(null);
+					MKUtil.writeJSON(true,"绑定",new Object[]{push,list2});
+				}else{//如果存在,则判断对应工位是否存在
+					list3 = pushServer.findPushgongweiById(push.getId());
+					if(list3==null|| list3.size()<=0){//如果工位不存在
+						list2 = pushServer.findGwidByname(push.getId());//查看对应的工位
+						List<TaSopGongwei> newList=new ArrayList<TaSopGongwei>();
+						for (int i = 0; i < list2.size(); i++) {
+							TaSopGongwei tsg=(TaSopGongwei) list2.get(i);
+							tsg.setPushs(null);
+							tsg.setProductProcess(null);
+							tsg.setProcessTemplate(null);
+							newList.add(tsg);
+						}
+						push.setTaSopGongweis(null);
+						MKUtil.writeJSON(true,"001",new Object[]{push,list2});
+					}else{//如果工位存在
+						contentList = JSON.parseArray(successMessage, String.class);
+						list2 = pushServer.android_Push(meid);
+						boolean b=true; 
+						if(contentList!=null){
+							if(list2!=null){//判断长度
+								List<String> urlList=list2;
+								if(urlList.size()!=contentList.size()){
+									b=false;
+								}
+								if(b){
+									for(String url1:contentList){
+			                        	   if(!urlList.contains(url1)){
+			                        		   b=false;
+			                        		   break;
+			                        	   }
+			                           }
+								}
+								if(b){
+									for(String url2:urlList){
+			                        	   if(!urlList.contains(url2)){
+			                        		   b=false;
+			                        		   break;
+			                        	   }
+			                           }
+								}
+							}else{
+								b=false;
+							}
+							
+						}else{
+							b=true;  
+							MKUtil.writeJSON(b,"002",list2);
+						}
+						if(!b){//刷新
+							MKUtil.writeJSON(b,"002",list2);
+						}else{//不刷新
+							MKUtil.writeJSON(b,"002",list2);
+						}
+						
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else{
+			MKUtil.writeJSON(false,"",null);
+		}
+	
+	}
+	
+	
+	/*
+	 * 查询工位
+	 * 
+	 */
+	public void findGongwei(){
+		list2 = pushServer.findGwidByname(push.getId());//查看对应的工位（未绑定工位）
+		list3 = pushServer.findGwidByname1(push.getId());//查看对应的工位（已绑定工位）
+		List<TaSopGongwei> newList=new ArrayList<TaSopGongwei>();
+		for (int i = 0; i < list2.size(); i++) {
+			TaSopGongwei tsg=(TaSopGongwei) list2.get(i);
+			tsg.setPushs(null);
+			tsg.setProductProcess(null);
+			tsg.setProcessTemplate(null);
+			newList.add(tsg);
+		}
+		for (int i = 0; i < list3.size(); i++) {
+			TaSopGongwei tsg=(TaSopGongwei) list3.get(i);
+			tsg.setPushs(null);
+			tsg.setProductProcess(null);
+			tsg.setProcessTemplate(null);
+			newList.add(tsg);
+		}
+		MKUtil.writeJSON(true,"",new Object[]{list2,list3});
+	}
+	
+	
+	
+	/*
+	 * 
+	 * 
+	 * 客户端添加工位的接口
+	 * 
+	 */
+	public void addTaSopGongwei1(){
+		if(taSopGongwei!=null){
+			pushServer.addProcessandmeid1(this.push,this.taSopGongwei);
+			//list2 = pushServer.android_Push(meid);
+			MKUtil.writeJSON(true,"添加成功!","");
+		}else{
+			MKUtil.writeJSON(false,"添加失败!","");
+		}
+	}
+	
+	/*
+	 * 绑定工位
+	 */
+	public void addTaSopGongwei2(){
+		push = pushServer.findPushById(push.getId());
+		if(list3==null || list3.size()<=0){
+				boolean bool = pushServer.binDingUsers(push,gw_id);
+				if (bool) {
+					successMessage = "绑定用户成功!";
+					MKUtil.writeJSON(true,successMessage,"");
+				}
+			errorMessage = "绑定用户失败";
+		} else {
+			errorMessage = "不存在该功能!请检查后重试!";
+		}
+		MKUtil.writeJSON(false,errorMessage,"");
+	}
+	
+	
+	public String findPushById1(){
+		this.list2 = this.pushServer.findGwidByname(this.push_id);
+		return "findPushById";
+	}
+
+	public PushServer getPushServer() {
+		return pushServer;
+	}
+
+	public void setPushServer(PushServer pushServer) {
+		this.pushServer = pushServer;
+	}
+
+	public Push getPush() {
+		return push;
+	}
+
+	public void setPush(Push push) {
+		this.push = push;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public TaSopGongwei getTaSopGongwei() {
+		return taSopGongwei;
+	}
+
+	public void setTaSopGongwei(TaSopGongwei taSopGongwei) {
+		this.taSopGongwei = taSopGongwei;
+	}
+
+	public List<Object> getList() {
+		return list;
+	}
+
+	public void setList(List<Object> list) {
+		this.list = list;
+	}
+
+	public List<Push> getPushList() {
+		return pushList;
+	}
+
+	public void setPushList(List<Push> pushList) {
+		this.pushList = pushList;
+	}
+
+	public List<TaSopGongwei> getGongweiList() {
+		return gongweiList;
+	}
+
+	public void setGongweiList(List<TaSopGongwei> gongweiList) {
+		this.gongweiList = gongweiList;
+	}
+
+	public Integer getPush_id() {
+		return push_id;
+	}
+
+	public void setPush_id(Integer pushId) {
+		push_id = pushId;
+	}
+
+	public String getMeid() {
+		return meid;
+	}
+
+	public void setMeid(String meid) {
+		this.meid = meid;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String userName) {
+		user_name = userName;
+	}
+
+	public String getUser_pwd() {
+		return user_pwd;
+	}
+
+	public void setUser_pwd(String userPwd) {
+		user_pwd = userPwd;
+	}
+
+	public List getList2() {
+		return list2;
+	}
+
+	public void setList2(List list2) {
+		this.list2 = list2;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	
+	public List getList3() {
+		return list3;
+	}
+
+	public void setList3(List list3) {
+		this.list3 = list3;
+	}
+
+	public List<String> getContentList() {
+		return contentList;
+	}
+
+	public void setContentList(List<String> contentList) {
+		this.contentList = contentList;
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public String getFlatNum() {
+		return flatNum;
+	}
+
+	public void setFlatNum(String flatNum) {
+		this.flatNum = flatNum;
+	}
+
+	public String getFlatStation() {
+		return flatStation;
+	}
+
+	public void setFlatStation(String flatStation) {
+		this.flatStation = flatStation;
+	}
+    
+	
+	
+	
+
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.AnnualLeave" table="TA_AnnualLeave">
+		<id name="id" column="pk_id"  >
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="jobNum" column="f_jobNum"/>
+		<property name="name" column="f_name" type="string"/>
+		<property name="dept" column="f_dept" type="string"/>
+		<property name="standardAnnualLeave" column="f_standardAnnualLeave"  />
+		<property name="surplus" column="f_surplus" />
+		<property name="lengthOfService" column="f_lengthOfService"  />
+		<property name="remark" column="f_remark" type="string"/>
+		<property name="status"/>
+	</class>
+</hibernate-mapping>

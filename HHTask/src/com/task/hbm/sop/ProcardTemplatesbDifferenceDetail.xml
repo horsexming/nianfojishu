@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardTemplatesbDifferenceDetail" table="ta_sop_w_ProcardTemplatesbDifferenceDetail"  >
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="zbMarkId"/>
+	<property name="datatype"/>
+	<property name="optype"/>
+	<property name="markId"/>
+	<property name="dataId"/>
+	<property name="proname"/>
+	<property name="processno"/>
+	<property name="processname"/>
+	<property name="processno1"/>
+	<property name="processname1"/>
+	<property name="banbenNumber"/>
+	<property name="banci"/>
+	<property name="sxName"/>
+	<property name="oldData"/>
+	<property name="newData"/>
+	<property name="xuhao"/>
+	<property name="month"/>
+	<property name="fileName"/>
+	<property name="oldfileName"/>
+	<property name="ptsbdId"/>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+package com.task.entity.expresscabinet;
+
+public class PayConfigUtil {
+    // 账号信息  
+   public static String appid = "wxefc6de6b94ef9bfc";  // appid 填写自己的 
+   public static String APP_SECRET = "CfD7peGIQeKET394Erqj6WfbRtgx6uF-oji58AKrNA-w8nH6hZfcnxsH7M2dlayh"; // appsecret 填写自己的
+   public static String MCH_ID = "1277163501"; // 商业号 填写自己微信的 
+   public static String API_KEY ="shhhJHH595670311277163501kfjjlmy"; // Api key 填写自己微信的 
+   public static String CREATE_IP ="192.168.32.214";  //ip地址
+   public static String NOTIFY_URL ="http://www.weixin.qq.com/wxpay/pay.php"; //回调url，这个是微信自己的回调接口，测试使用
+   //public static String NOTIFY_URL ="http://xxx/xxx/"; //回调url
+   public static String UFDODER_URL ="https://api.mch.weixin.qq.com/pay/unifiedorder"; //统一下单url，微信提供的
+}
+

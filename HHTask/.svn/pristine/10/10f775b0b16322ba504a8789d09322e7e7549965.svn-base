@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.codetranslation.CodeTranslation" table="ta_CodeTranslation">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="keyCode" />
+		<property name="type" index="sy_type"/>
+		<property name="valueCode"  index="sy_valueCode" />
+		<property name="valueName" />
+	</class>
+</hibernate-mapping>

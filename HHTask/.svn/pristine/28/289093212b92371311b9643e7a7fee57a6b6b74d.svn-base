@@ -1,0 +1,521 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="gongneng">
+			<div id="bodyDiv" align="center" class="transDiv"
+				onclick="chageDiv('none')">
+			</div>
+			<div id="contentDiv"
+				style="position: absolute; z-index: 255; width: 900px; display: none;"
+				align="center">
+				<div id="closeDiv"
+					style="position: relative; top: 165px; left: 0px; right: 200px; z-index: 255; background: url(<%=basePath%>/images/bq_bg2.gif); width: 900px;">
+					<table style="width: 100%">
+						<tr>
+							<td>
+								<span id="title">出/入库历史记录</span>
+							</td>
+							<td align="right">
+								<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+									id="closeTcDiv" height="32" onclick="chageDiv('none')">
+							</td>
+						</tr>
+					</table>
+					<div id="operatingDiv"
+						style="background-color: #ffffff; width: 100%;">
+						<div id="goodsStore_div"
+							style="width: 98%; height: auto; margin: 0px; padding: 0px; display: none;">
+							<h2>
+								入库历史记录
+							</h2>
+							<table class="table" id="goodsStore_table">
+
+							</table>
+							<br />
+							<br />
+							<br />
+						</div>
+						<div id="sell_div"
+							style="width: 98%; height: auto; margin: 0px; padding: 0px; display: none;">
+							<h2>
+								出库历史记录
+							</h2>
+							<table class="table" id="sell_table">
+							</table>
+							<br />
+							<br />
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div align="center">
+				<h2>
+					库存数据汇总
+				</h2>
+				<form action="goodsAction!hiuzong.action" method="post">
+					<table class="table" style="width: 95%;">
+						<tr>
+
+							<th>
+								件号:
+							</th>
+							<td>
+								<input type="text" name="goods.goodsMarkId"
+									value="${goods.goodsMarkId }" />
+							</td>
+							<th>
+								品名:
+							</th>
+							<td>
+								<input type="text" name="goods.goodsFullName"
+									value="${goods.goodsFullName }" />
+							</td>
+							<th>
+								规格:
+							</th>
+							<td>
+								<input type="text" name="goods.goodsFormat"
+									value="${goods.goodsFormat }" />
+							</td>
+							<th rowspan="2">
+								<input class="input" type="button" value="查找"
+									onclick="findHuizong(this.form)" />
+								&nbsp;
+								<input class="input" type="button" value="导出"
+									onclick="exportExcel(this.form);todisabledone(this)" data="downData" />
+								&nbsp;
+								<%--								<br />--%>
+								<%--								<input type="button" value="导出月度汇总"--%>
+								<%--									onclick="exportExcelMonth(this.form)"--%>
+								<%--									style="width: 100px; height: 30px；; margin-top: 5px;" />--%>
+								<%--								&nbsp;--%>
+
+							</th>
+						</tr>
+						<tr>
+							<th>
+								库别：
+							</th>
+							<td>
+								<select name="goods.goodsClass" id="goodsClass"
+									onchange="changvalue(this)"
+									onMouseOver="createDept('goodsClass','goodsAction!findSelectList.action?tag=goodsClass')">
+									<option value="">
+										选择库别
+									</option>
+									<option value="${goods.goodsClass }" selected="selected">
+										${goods.goodsClass }
+									</option>
+								</select>
+							</td>
+							<th>
+								日期从
+							</th>
+							<td>
+								<input class="Wdate" type="text" name="startDate"
+									value="${startDate}" size="15"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen',startDate:'%y-%M-%d 00:00:00'})" />
+							</td>
+							<th>
+								到
+							</th>
+							<td>
+								<input class="Wdate" type="text" name="endDate"
+									value="${ endDate}" size="15"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen',startDate:'%y-%M-%d 23:59:59'})" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								仓库:
+							</th>
+							<td id="cangqu_td">
+								<select id="warehouseArea" name="goods.goodHouseName"
+									onchange="changvalue(this)">
+									<option selected="selected">
+									</option>
+									<option value="${goods.goodHouseName }" selected="selected">
+										${goods.goodHouseName }
+									</option>
+								</select>
+							</td>
+							<td colspan="10">
+								<input type="checkbox" value="" name="tiaojian"
+									checked="checked" style="display: none;" />
+								<input type="checkbox" value="ywmarkId" id="ywmarkId"
+									name="tiaojian" />
+								业务件号
+								<input type="checkbox" value="goodHouseName" id="goodHouseName"
+									name="tiaojian" />
+								仓区
+								<input type="checkbox" value="goodsPosition" id="goodsPosition"
+									name="tiaojian" />
+								库位
+								<input type="checkbox" value="banBenNumber" id="banBenNumber"
+									name="tiaojian" />
+								版本
+								<input type="checkbox" value="kgliao" id="kgliao"
+									name="tiaojian" />
+								供料属性
+							</td>
+						</tr>
+					</table>
+				</form>
+				<table class="table" style="width: 95%;">
+					<tr bgcolor="#c0dcf2" height="30px"
+						style="border-collapse: separate;">
+						<th align="center">
+							序号
+						</th>
+						<th align="center">
+							件号
+						</th>
+						<th align="center">
+							品名
+						</th>
+						<th align="center">
+							规格
+						</th>
+						<th align="center">
+							单位
+						</th>
+						<th align="center">
+							库别
+						</th>
+						<s:iterator value="tiaojian" id="pagetiaojian">
+							<s:if test="#pagetiaojian=='ywmarkId'">
+								<th align="center" id="ywmarkId">
+									业务件号
+								</th>
+							</s:if>
+							<s:elseif test="#pagetiaojian=='goodHouseName'">
+								<th align="center" id="goodHouseName">
+									仓区
+								</th>
+							</s:elseif>
+							<s:elseif test="#pagetiaojian=='goodsPosition'">
+								<th align="center" id="goodsPosition">
+									库位
+								</th>
+							</s:elseif>
+							<s:elseif test="#pagetiaojian=='banBenNumber'">
+								<th align="center" id="banBenNumber">
+									版本
+								</th>
+							</s:elseif>
+							<s:elseif test="#pagetiaojian=='kgliao'">
+								<th align="center" id="kgliao">
+									供料属性
+								</th>
+							</s:elseif>
+						</s:iterator>
+
+						<th align="center">
+							入库累计
+							<br />
+							(A)
+						</th>
+						<th align="center">
+							出库累计
+							<br />
+							(B)
+						</th>
+						<th align="center">
+							理论期末结余
+							<br />
+							(C=A-B)
+						</th>
+						<th align="center">
+							即时库存结余
+							<br />
+							(D)
+						</th>
+						<th>
+							异常
+							<br />
+							(C≠D)
+						</th>
+					</tr>
+					<s:iterator value="listHuizong" status="see" id="huizong">
+						<s:if test="#see.index%2==1">
+							<tr align="center" bgcolor="#e6f3fb"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#e6f3fb')">
+						</s:if>
+						<s:else>
+							<tr align="center" onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'')">
+						</s:else>
+						<td>
+							<s:property value="#see.index+1" />
+						</td>
+						<td align="left">
+							${huizong[0]}
+						</td>
+						<td align="left">
+							${huizong[1]}
+						</td>
+						<td align="left">
+							${huizong[2]}
+						</td>
+						<td align="left">
+							${huizong[3]}
+						</td>
+						<td>
+							${huizong[4]}
+						</td>
+						<s:iterator value="tiaojian" id="pagetiaojian"
+							status="status_indexaa">
+							<s:if test="#pagetiaojian!=''">
+								<td align="center">
+									${huizong[8+(status_indexaa.index-1)]}
+								</td>
+							</s:if>
+						</s:iterator>
+						<td align="right">
+							<a href="javascript:;"
+								onclick="showruku('${huizong[0]}','${huizong[1]}','${huizong[2]}','${huizong[3]}',
+								'${huizong[4]}')">
+								<fmt:formatNumber type="number" value="${huizong[6]}"
+									pattern="0.0000" maxFractionDigits="4" /> </a>
+						</td>
+						<td align="right">
+							<a href="javascript:;"
+								onclick="showsell('${huizong[0]}','${huizong[1]}','${huizong[2]}','${huizong[3]}',
+								'${huizong[4]}')">
+								<fmt:formatNumber type="number" value="${huizong[7]}"
+									pattern="0.0000" maxFractionDigits="4" /> </a>
+						</td>
+						<td align="right">
+							<fmt:formatNumber type="number" value="${huizong[6]-huizong[7]}"
+								pattern="0.0000" maxFractionDigits="4" />
+						</td>
+						<td align="right">
+							<fmt:formatNumber type="number" value="${huizong[5]}"
+								pattern="0.0000" maxFractionDigits="4" />
+						</td>
+						<s:if test="#huizong[6]-#huizong[7]!=#huizong[5]">
+							<td style="background-color: red; color: #ffffff"  align="right">
+								<fmt:formatNumber type="number"
+									value="${huizong[6]-huizong[7]-huizong[5]}" pattern="0.0000"
+									maxFractionDigits="4" />
+							</td>
+						</s:if>
+						<s:else>
+							<td style="background-color: green; color: #ffffff"  align="right">
+								<fmt:formatNumber type="number"
+									value="${huizong[6]-huizong[7]-huizong[5]}" pattern="0.0000"
+									maxFractionDigits="4" />
+							</td>
+						</s:else>
+						</tr>
+					</s:iterator>
+					<tr>
+						<td colspan="20" align="right">
+							共
+							<s:property value="total" />
+							页 第
+							<s:property value="cpage" />
+							页
+							<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+								styleClass="page" theme="number" />
+
+						</td>
+					</tr>
+
+				</table>
+			</div>
+			<br>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		</center>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+$(function() {
+	var msg = '${errorMessage}'
+	if (msg != '') {
+		var tiaojians = msg.split(",");
+		if (tiaojians != null && tiaojians.length > 0) {
+			for ( var i = 0; i < tiaojians.length; i++) {
+				if ($("#" + tiaojians[i]) != null) {
+					$("#" + tiaojians[i]).attr("checked", "checked");
+				}
+			}
+		}
+	}
+})
+function findHuizong(objForm) {
+	objForm.action = "goodsAction!hiuzong.action?tag=sum";
+	objForm.submit();
+}
+
+function exportExcel(objForm) {
+	objForm.action = "goodsAction!exportEXCEL.action?tag=sum";
+	objForm.submit();
+}
+function exportExcelMonth(objForm) {
+	objForm.action = "goodsAction!exportExcelMonth.action?tag=sum";
+	objForm.submit();
+}
+function changvalue(obj) {
+	if (obj != null && obj.value != "") {
+		$.ajax( {
+			type : "POST",
+			url : "WarehouseAreaAction_findwaListByNO.action",
+			data : {
+				wareHouseName : obj.value
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data != null) {
+					$(data).each(
+							function() {
+								$("#warehouseArea").append(
+										'<option value=' + this.goodHouseName
+												+ '>' + this.goodHouseName
+												+ '</option>');
+							});
+					$("#warehouseArea").tinyselect();
+					var tinyselect = $(".tinyselect");
+					if (tinyselect[2] != null) {
+						document.getElementById("cangqu_td").removeChild(
+								tinyselect[2]);
+					}
+				}
+			}
+		});
+	}
+}
+function showruku(markId, name, specification, unit, goodsClass) {
+	$
+			.ajax( {
+				type : "POST",
+				url : "goodsAction!AjaxFindGoodsStore.action",
+				data : {
+					'gs.goodsStoreMarkId' : markId,
+					'gs.goodsStoreWarehouse' : goodsClass
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data != null) {
+						$("#goodsStore_table").empty();
+						$("#goodsStore_table")
+								.append(
+										'<tr bgcolor="#c0dcf2" height="50px"><th>序号</th><th>件号</th><th>名称</th>' + '<th>规格</th><th>单位</th><th>库别</th><th>入库数量</th><th>入库日期</th><th>入库入</th></tr>');
+						var html = "";
+						$(data)
+								.each(
+										function(i, gs) {
+											if (i % 2 == 1) {
+												html += '<tr align="center" bgcolor="#e6f3fb" onmouseover="chageBgcolor(this)" onmouseout="outBgcolor(this,&apos;#e6f3fb&apos;)">'
+											} else {
+												html += '<tr align="center" onmouseover="chageBgcolor(this)" onmouseout="outBgcolor(this,&apos;&apos;)">'
+											}
+											html += '<td>'
+													+ (i + 1)
+													+ '</td><td><a href=QuotedPrice_allProcardSelsct.action?allId='
+													+ gs.goodsStoreMarkId + '>'
+													+ gs.goodsStoreMarkId
+													+ '</a></td><td>'
+													+ gs.goodsStoreGoodsName
+													+ '</td>' + '<td>'
+													+ gs.goodsStoreFormat
+													+ '</td><td>'
+													+ gs.goodsStoreUnit
+													+ '</td><td>'
+													+ gs.goodsStoreWarehouse
+													+ '</td>' + '<td>'
+													+ gs.goodsStoreCount
+													+ '</td><td>'
+													+ gs.goodsStoreDate
+													+ '</td><td>'
+													+ gs.goodsStorePlanner
+													+ '</td>';
+											html += '</tr>'
+										})
+						$("#goodsStore_table").append(html);
+					}
+				}
+			});
+	$("#goodsStore_div").show();
+	$("#sell_table").hide();
+	chageDiv('show');
+}
+function showsell(markId, name, specification, unit, goodsClass) {
+	$
+			.ajax( {
+				type : "POST",
+				url : "goodsAction!AjaxFindSell.action",
+				data : {
+					'sell.sellMarkId' : markId,
+					'sell.sellWarehouse' : goodsClass
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data != null) {
+						$("#sell_table").empty();
+						$("#sell_table")
+								.append(
+										'<tr bgcolor="#c0dcf2" height="50px"><th>序号</th><th>件号</th><th>名称</th>' + '<th>规格</th><th>单位</th><th>库别</th><th>出库数量</th><th>出库日期</th><th>领料人/出库人</th></tr>');
+						var html = "";
+
+						$(data)
+								.each(
+										function(i, sell) {
+											if (i % 2 == 1) {
+												html += '<tr align="center" bgcolor="#e6f3fb" onmouseover="chageBgcolor(this)" onmouseout="outBgcolor(this,&apos;#e6f3fb&apos;)">'
+											} else {
+												html += '<tr align="center" onmouseover="chageBgcolor(this)" onmouseout="outBgcolor(this,&apos;&apos;)">'
+											}
+											var sellUserName = sell.sellCharger;
+											if(sellUserName == null ||
+													sellUserName == 'null'){
+												sellUserName = sell.sellAdminName;
+											}
+											html += '<td>' + (i + 1)
+													+ '</td><td>'
+													+ sell.sellMarkId
+													+ '</td><td>'
+													+ sell.sellGoods + '</td>'
+													+ '<td>' + sell.sellFormat
+													+ '</td><td>'
+													+ sell.sellUnit
+													+ '</td><td>'
+													+ sell.sellWarehouse
+													+ '</td>' + '<td>'
+													+ sell.sellCount
+													+ '</td><td>'
+													+ sell.sellDate
+													+ '</td><td>'
+													+ sellUserName + '</td>';
+											html += '</tr>'
+										})
+
+						$("#sell_table").append(html);
+					}
+				}
+			});
+
+	$("#sell_div").show();
+	$("#goodsStore_div").hide();
+	$("#sell_table").show();
+	chageDiv('show');
+}
+</script>
+	</body>
+</html>

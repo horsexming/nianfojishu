@@ -1,0 +1,85 @@
+package com.task.entity;
+/**
+ * 客户满意度调查表:(ta_KeHuManYiDiaoCha);
+ * @author 王晓飞
+ *
+ */
+public class KeHuManYiDiaoCha  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private Integer kehuId;
+	private String kehuName;
+	private String dcmonth;
+	private String jdfirsttime;
+	private String jdendtime;
+	private String dcyear;
+	private String monthdcb;
+	private String quarterbg;
+	private String yearbg;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
+	public String getDcmonth() {
+		return dcmonth;
+	}
+	public void setDcmonth(String dcmonth) {
+		this.dcmonth = dcmonth;
+	}
+	public String getJdfirsttime() {
+		return jdfirsttime;
+	}
+	public void setJdfirsttime(String jdfirsttime) {
+		this.jdfirsttime = jdfirsttime;
+	}
+	public String getJdendtime() {
+		return jdendtime;
+	}
+	public void setJdendtime(String jdendtime) {
+		this.jdendtime = jdendtime;
+	}
+	public String getDcyear() {
+		return dcyear;
+	}
+	public void setDcyear(String dcyear) {
+		this.dcyear = dcyear;
+	}
+	public Integer getKehuId() {
+		return kehuId;
+	}
+	public void setKehuId(Integer kehuId) {
+		this.kehuId = kehuId;
+	}
+	public String getMonthdcb() {
+		return monthdcb;
+	}
+	public void setMonthdcb(String monthdcb) {
+		this.monthdcb = monthdcb;
+	}
+	public String getQuarterbg() {
+		return quarterbg;
+	}
+	public void setQuarterbg(String quarterbg) {
+		this.quarterbg = quarterbg;
+	}
+	public String getYearbg() {
+		return yearbg;
+	}
+	public void setYearbg(String yearbg) {
+		this.yearbg = yearbg;
+	}
+	public String getKehuName() {
+		return kehuName;
+	}
+	public void setKehuName(String kehuName) {
+		this.kehuName = kehuName;
+	}
+	
+	
+	
+}

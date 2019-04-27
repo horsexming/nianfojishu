@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="WagePay" table="ta_fin_wagepay">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="month" />
+		<property name="type" />
+		<property name="allmoney" />
+		<property name="zgscmoney" />
+		<property name="gjjmoney" />
+		<property name="sbmoney" />
+		<property name="gsmoney" />
+		<property name="payStatus" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="payee" />
+	</class>
+</hibernate-mapping>

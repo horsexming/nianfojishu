@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.barandqr.AirProduct" table="ta_AirProduct">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="markId"/>
+		<property name="customerNumber" />
+		<property name="type" />
+		<property name="beforcontext" />
+		<property name="status" />
+		<property name="isNeedOtherContext" />
+		<property name="testTime" />
+		<property name="addTime" />
+		<property name="xielou" />
+		<property name="yali" />
+		<property name="kgIp" />
+		<property name="czIp" />
+		<property name="syStatus" />
+		
+	</class>
+</hibernate-mapping>

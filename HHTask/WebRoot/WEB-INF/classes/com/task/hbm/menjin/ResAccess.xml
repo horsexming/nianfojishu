@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="ResAccess" table="ta_mj_ResAccess">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="type" />
+		<property name="quCodes" />
+		<property name="cunCodes" />
+		<property name="copenTime" />
+		<property name="qopenTime" />
+		<property name="cuseType" />
+		<property name="quseType" />
+		<property name="daGuiId" />
+		<property name="daGuihao" />
+		<property name="daGuiposition" />
+		<property name="addTime" />
+		<property name="addName" />
+		<property name="addCode" />
+		<property name="addUserId" />
+		<property name="shixiaoTime" />
+		<property name="yxType" />
+		<property name="ace_Ip" />
+		<property name="shouTel" />
+	</class>
+</hibernate-mapping>

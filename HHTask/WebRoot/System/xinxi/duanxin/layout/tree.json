@@ -1,0 +1,30 @@
+[
+	{
+        "id": 1,
+        "text": "发送rtx消息",
+        "attributes": {
+            "url": "System/xinxi/duanxin/sms/rtxInput.jsp"
+        }
+    },
+    {
+        "id": 2,
+        "text": "发送短信",
+        "attributes": {
+            "url": "System/xinxi/duanxin/sms/sendInput.jsp"
+        }
+    },
+    {
+        "id": 3,
+        "text": "用户管理",
+        "attributes": {
+            "url": "System/xinxi/duanxin/sms/userManager.jsp"
+        }
+    },
+    {
+        "id": 4,
+        "text": "群组管理",
+        "attributes": {
+            "url": "System/xinxi/duanxin/sms/group.jsp"
+        }
+    }
+]

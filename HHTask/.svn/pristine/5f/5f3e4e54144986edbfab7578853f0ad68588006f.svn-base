@@ -1,0 +1,106 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+public class ProjectDetailed  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/*
+	 * 项目 跟踪明细
+	 */
+	private Integer id;
+	private String projectname;	//项目名称	varchar
+	private String projectnumber;	//项目编号	varchar
+	private String projectjysnumbner;	//项目建议书编号	varchar
+	private String projectlxr;	//项目联系人	varchar
+	private String projectdianh;	//项目联系人电话	varchar
+	private String projectclientname;	//客户名称	varchar
+	private String projectfile;	//文件	varchar
+	private Float projectmoney;	//金额	Float
+	private String projectdate;	//创建时间	varchar
+	private String projectcreate;	//填写人	varchar
+	private String projectdept;//填写人部门
+	private String projectremarks;	//备注	varchar
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getProjectname() {
+		return projectname;
+	}
+	public void setProjectname(String projectname) {
+		this.projectname = projectname;
+	}
+	public String getProjectnumber() {
+		return projectnumber;
+	}
+	public void setProjectnumber(String projectnumber) {
+		this.projectnumber = projectnumber;
+	}
+	public String getProjectjysnumbner() {
+		return projectjysnumbner;
+	}
+	public void setProjectjysnumbner(String projectjysnumbner) {
+		this.projectjysnumbner = projectjysnumbner;
+	}
+	public String getProjectlxr() {
+		return projectlxr;
+	}
+	public void setProjectlxr(String projectlxr) {
+		this.projectlxr = projectlxr;
+	}
+	public String getProjectdianh() {
+		return projectdianh;
+	}
+	public void setProjectdianh(String projectdianh) {
+		this.projectdianh = projectdianh;
+	}
+	public String getProjectclientname() {
+		return projectclientname;
+	}
+	public void setProjectclientname(String projectclientname) {
+		this.projectclientname = projectclientname;
+	}
+	public String getProjectfile() {
+		return projectfile;
+	}
+	public void setProjectfile(String projectfile) {
+		this.projectfile = projectfile;
+	}
+	public Float getProjectmoney() {
+		return projectmoney;
+	}
+	public void setProjectmoney(Float projectmoney) {
+		this.projectmoney = projectmoney;
+	}
+	public String getProjectdate() {
+		return projectdate;
+	}
+	public void setProjectdate(String projectdate) {
+		this.projectdate = projectdate;
+	}
+	public String getProjectcreate() {
+		return projectcreate;
+	}
+	public void setProjectcreate(String projectcreate) {
+		this.projectcreate = projectcreate;
+	}
+	public String getProjectremarks() {
+		return projectremarks;
+	}
+	public void setProjectremarks(String projectremarks) {
+		this.projectremarks = projectremarks;
+	}
+	public String getProjectdept() {
+		return projectdept;
+	}
+	public void setProjectdept(String projectdept) {
+		this.projectdept = projectdept;
+	}
+	
+}

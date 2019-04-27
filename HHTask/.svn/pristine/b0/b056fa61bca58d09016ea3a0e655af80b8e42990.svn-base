@@ -1,0 +1,345 @@
+package com.task.ServerImpl.jxkh;
+
+import java.util.List;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.jxkh.JiaoXiaoKaoHeServer;
+import com.task.entity.Users;
+import com.task.entity.jxkh.DeptUsersDuty;
+import com.task.entity.jxkh.RankingCounts;
+import com.task.entity.jxkh.SalesAmountCoefficient;
+import com.task.entity.jxkh.TargetAchievedMark;
+import com.task.entity.jxkh.WaiWeiJieGouMuBiao;
+import com.task.util.Util;
+
+public class JiaoXiaoKaoHeServerImpl implements JiaoXiaoKaoHeServer{
+	private TotalDao totalDao;
+	
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	
+	@Override
+	public String addDeptUsersDuty(DeptUsersDuty dud) {
+		Users users =	Util.getLoginUser();
+		if(users == null){
+			return "请先登录!~";
+		}
+		if(dud!=null){
+			dud.setAddTime(Util.getDateTime());
+			dud.setAddUserName(users.getName());
+			return 	totalDao.save(dud)+"";
+		}
+		return "eeror";
+	}
+
+	@Override
+	public String addRankingCounts(RankingCounts rankCounts) {
+		Users users =	Util.getLoginUser();
+		if(users == null){
+			return "请先登录!~";
+		}
+		if(rankCounts!=null){
+			int count =	totalDao.getCount("from RankingCounts where groups=? and ranking =? ", rankCounts.getGroups(),
+					rankCounts.getRanking());
+			if(count>0){
+				return  rankCounts.getGroups()+"已设置过第"+rankCounts.getRanking()+"名次，请重新设置。";
+			}
+			rankCounts.setAddTime(Util.getDateTime());
+			rankCounts.setAddUsers(users.getName());
+			return 	totalDao.save(rankCounts)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String addTargetAchievedMark(TargetAchievedMark tam) {
+		Users users =	Util.getLoginUser();
+		if(users == null){
+			return "请先登录!~";
+		}
+		if(tam!=null){
+			tam.setAddTime(Util.getDateTime());
+			tam.setAddUsersName(users.getName());
+			return	totalDao.save(tam)+"";
+		}
+		return "error";
+	}
+
+	@Override
+	public String addWwJgMb(WaiWeiJieGouMuBiao wwjgmb) {
+		Users users =	Util.getLoginUser();
+		if(users == null){
+			return "请先登录!~";
+		}
+		if(wwjgmb!=null){
+			String years = Util.getDateTime("yyyy");
+			int count =	totalDao.getCount("from WaiWeiJieGouMuBiao where years=? ", years);
+			if(count>0){
+				return years+"年，已设置过结构比委外比目标，无需重复设置！";
+			}
+			wwjgmb.setYears(years);
+			wwjgmb.setAddTime(Util.getDateTime());
+			wwjgmb.setAddUsersName(wwjgmb.getAddUsersName());
+			return	totalDao.save(wwjgmb)+"";
+		}
+		return "error";
+	}
+
+	@Override
+	public String addsac(SalesAmountCoefficient sac) {
+		Users users =	Util.getLoginUser();
+		if(users == null){
+			return "请先登录!~";
+		}
+		if(sac!=null){
+			sac.setAddTime(Util.getDateTime());
+			sac.setAddUsersName(users.getName());
+			return	totalDao.save(sac)+"";
+		}
+		
+		return "error";
+	}
+
+	@Override
+	public String delDud(DeptUsersDuty dud) {
+		if(dud!=null){
+			return totalDao.delete(dud)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String delRankCounts(RankingCounts rankCounts) {
+		if(rankCounts!=null){
+			return totalDao.delete(rankCounts)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String delSac(SalesAmountCoefficient sac) {
+		if(sac!=null){
+			return totalDao.delete(sac)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String delTam(TargetAchievedMark tam) {
+		if(tam!=null){
+			return totalDao.delete(tam)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String dleWwJgMb(WaiWeiJieGouMuBiao wwjgmb) {
+		if(wwjgmb!=null){
+			return totalDao.delete(wwjgmb)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findAllDudList(DeptUsersDuty dud, Integer pageSize,
+			Integer pageNo, String status) {
+		if(dud==null){
+			dud = new DeptUsersDuty();
+		}
+		String hql = totalDao.criteriaQueries(dud,null);
+		List<DeptUsersDuty> dudList =	totalDao.findAllByPage(hql, pageNo, pageSize,null);
+		int count = totalDao.getCount(hql);
+		return new Object[]{dudList,count};
+	}
+
+	@Override
+	public Object[] findAllRankCountsList(RankingCounts rankCounts,
+			Integer pageSize, Integer pageNo, String status) {
+		if(rankCounts==null){
+			rankCounts = new RankingCounts();
+		}
+		String hql = totalDao.criteriaQueries(rankCounts,null);
+		List<RankingCounts> rankCountsList =totalDao.findAllByPage(hql, pageNo, pageSize,null);
+		int count = totalDao.getCount(hql);
+		return new Object[]{rankCountsList,count};
+	}
+
+	@Override
+	public Object[] findAllSacList(SalesAmountCoefficient sac,
+			Integer pageSize, Integer pageNo, String status) {
+		if(sac==null){
+			sac = new SalesAmountCoefficient();
+		}
+		String hql = totalDao.criteriaQueries(sac,null);
+		List<SalesAmountCoefficient> sacList =	totalDao.findAllByPage(hql, pageNo, pageSize,null);
+		int count = totalDao.getCount(hql);
+		return new Object[]{sacList,count};
+	}
+
+	@Override
+	public Object[] findAllTamList(TargetAchievedMark tam, Integer pageSize,
+			Integer pageNo, String status) {
+		if(tam==null){
+			tam = new TargetAchievedMark();
+		}
+		String hql = totalDao.criteriaQueries(tam,null);
+		List<TargetAchievedMark> tamList =	totalDao.findAllByPage(hql, pageNo, pageSize,null);
+		int count = totalDao.getCount(hql);
+		return new Object[]{tamList,count};
+	}
+
+	@Override
+	public Object[] findAllWwJgMbList(WaiWeiJieGouMuBiao wwjgmb,
+			Integer pageSize, Integer pageNo, String status) {
+		if(wwjgmb==null){
+			wwjgmb = new WaiWeiJieGouMuBiao();
+		}
+		String hql = totalDao.criteriaQueries(wwjgmb,null);
+		List<WaiWeiJieGouMuBiao> wwjgmbList =	totalDao.findAllByPage(hql, pageNo, pageSize,null);
+		int count = totalDao.getCount(hql);
+		return new Object[]{wwjgmbList,count};
+	}
+
+	@Override
+	public DeptUsersDuty findDudById(Integer id) {
+		return (DeptUsersDuty) totalDao.get(DeptUsersDuty.class, id);
+	}
+
+	@Override
+	public List<DeptUsersDuty> findDudList(DeptUsersDuty dud, String status) {
+		if(dud==null){
+			dud = new DeptUsersDuty();
+		}
+		String hql = totalDao.criteriaQueries(dud,null);
+		return totalDao.query(hql);
+	}
+
+	@Override
+	public RankingCounts findRankCountsBy(RankingCounts rankCounts) {
+		if(rankCounts==null){
+			rankCounts = new RankingCounts();
+		}
+		String hql = totalDao.criteriaQueries(rankCounts,null);
+		return (RankingCounts) totalDao.getObjectByCondition(hql);
+	}
+
+	@Override
+	public RankingCounts findRankCountsById(Integer id) {
+		return (RankingCounts) totalDao.get(RankingCounts.class, id);
+	}
+
+	@Override
+	public TargetAchievedMark findTamBy(TargetAchievedMark tam) {
+		if(tam==null){
+			tam = new TargetAchievedMark();
+		}
+		String hql = totalDao.criteriaQueries(tam,null);
+		return (TargetAchievedMark) totalDao.getObjectByCondition(hql);
+	}
+
+	@Override
+	public WaiWeiJieGouMuBiao findWwJgMbBy(WaiWeiJieGouMuBiao wwjgmb) {
+		if(wwjgmb==null){
+			wwjgmb = new WaiWeiJieGouMuBiao();
+		}
+		String hql = totalDao.criteriaQueries(wwjgmb,null);
+		return (WaiWeiJieGouMuBiao) totalDao.getObjectByCondition(hql);
+	}
+
+	@Override
+	public SalesAmountCoefficient getSacByValue(Float sales) {
+		if(sales!=null){
+			return (SalesAmountCoefficient) totalDao.getObjectByCondition("from SalesAmountCoefficient where lowAmount>=?" +
+					" and (ceilingAmount<? or ceilingAmount is null)", sales,sales);
+		}
+		return null;
+	}
+
+	@Override
+	public SalesAmountCoefficient getsacById(SalesAmountCoefficient sac) {
+		if(sac==null){
+			sac = new SalesAmountCoefficient();
+		}
+		String hql = totalDao.criteriaQueries(sac,null,"id");
+		if(sac.getId()!=null){
+			hql+= " and id="+sac.getId();
+		}
+		return (SalesAmountCoefficient) totalDao.getObjectByCondition(hql);
+	}
+
+	@Override
+	public String updateDud(DeptUsersDuty dud) {
+		if(dud!=null){
+			DeptUsersDuty olddud =	(DeptUsersDuty) totalDao.get(DeptUsersDuty.class, dud.getId());
+			olddud.setDeptName(dud.getDeptName());
+			olddud.setLeader(dud.getLeader());
+			olddud.setOneOrTwo(dud.getOneOrTwo());
+			olddud.setRank(dud.getRank());
+			olddud.setRankNo(dud.getRankNo());
+			olddud.setIsJiaoXiao(dud.getIsJiaoXiao());
+			olddud.setIsdeptFenPei(dud.getIsdeptFenPei());
+			olddud.setIsZzPj(dud.getIsZzPj());
+			olddud.setIsZzXl(dud.getIsZzXl());
+			return	totalDao.update(olddud)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String updateRankCounts(RankingCounts rankCounts) {
+		if(rankCounts!=null){
+			int count =	totalDao.getCount("from RankingCounts where groups=? and ranking =? ", rankCounts.getGroups(),
+					rankCounts.getRanking());
+			if(count>0){
+				return  rankCounts.getGroups()+"已设置过第"+rankCounts.getRanking()+"名次，请重新设置。";
+			}
+			RankingCounts old =	(RankingCounts) totalDao.get(RankingCounts.class, rankCounts.getId());
+			old.setRanking(old.getRanking());
+			old.setCounts(old.getCounts());
+			old.setFenPeiXIshu(old.getFenPeiXIshu());
+			return totalDao.update(old)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String updateSac(SalesAmountCoefficient sac) {
+		if(sac!=null){
+			SalesAmountCoefficient oldsac =	(SalesAmountCoefficient) totalDao.get(SalesAmountCoefficient.class, sac.getId());
+			oldsac.setLowAmount(sac.getLowAmount());
+			oldsac.setCeilingAmount(sac.getCeilingAmount());
+			oldsac.setCoefficient(sac.getCoefficient());
+			return	totalDao.update(oldsac)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String updateTam(TargetAchievedMark tam) {
+		if(tam!=null){
+			TargetAchievedMark oldtam =	(TargetAchievedMark) totalDao.get(TargetAchievedMark.class, tam.getId());
+			oldtam.setDeptName(tam.getDeptName());
+			oldtam.setMarks(tam.getMarks());
+			return	totalDao.update(oldtam)+"";
+		}
+		return null;
+	}
+
+	@Override
+	public String updateWwJgMb(WaiWeiJieGouMuBiao wwjgmb) {
+		if(wwjgmb!=null){
+			WaiWeiJieGouMuBiao oldwwjgmb = 	(WaiWeiJieGouMuBiao) totalDao.get(WaiWeiJieGouMuBiao.class, wwjgmb.getId());
+			oldwwjgmb.setWaiweiMuBiao(wwjgmb.getWaiweiMuBiao());
+			oldwwjgmb.setJieGouMuBiao(wwjgmb.getJieGouMuBiao());
+			return totalDao.update(oldwwjgmb)+"";
+		}
+		return null;
+	}
+
+}

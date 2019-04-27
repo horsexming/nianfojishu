@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.caiwu.baobiao.BalanceSheet" table="ta_baobiao_BalanceSheet" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		 <property name="months"/>
+		 <property name="cash1"/>
+		 <property name="cash2"/>
+		 <property name="jyxjrzc1"/>
+		 <property name="jyxjrzc2"/>
+		 <property name="yspj1"/>
+		 <property name="yspj2"/>
+		 <property name="yszk1"/>
+		 <property name="yszk2"/>
+		 <property name="yfzk1"/>
+		 <property name="yfzk2"/>
+		 <property name="yslx1"/>
+		 <property name="yslx2"/>
+		 <property name="ysgl1"/>
+		 <property name="ysgl2"/>
+		 <property name="qtysk1"/>
+		 <property name="qtysk2"/>
+		 <property name="ch1"/>
+		 <property name="ch2"/>
+		 <property name="ycl1"/>
+		 <property name="ycl2"/>
+		 <property name="kcsp1"/>
+		 <property name="kcsp2"/>
+		 <property name="fldzcyears1"/>
+		 <property name="fldzcyears2"/>
+		 <property name="qitaldzc1"/>
+		 <property name="qitaldzc2"/>
+		 <property name="liudonghj1"/>
+		 <property name="liudonghj2"/>
+		 <!-- 
+				非流动资产项
+		  -->
+		  <property name="kgcsjrzc1"/>
+		  <property name="kgcsjrzc2"/>
+		  <property name="cyzdqtz1"/>
+		  <property name="cyzdqtz2"/>
+		  <property name="cqysk2"/>
+		  <property name="cqysk1"/>
+		  <property name="cqgqtz1"/>
+		  <property name="cqgqtz2"/>
+		  <property name="tzxfdc1"/>
+		  <property name="tzxfdc2"/>
+		  <property name="gizcyj1"/>
+		  <property name="gizcyj2"/>
+		  <property name="zcljzj1"/>
+		  <property name="zcljzj2"/>
+		  <property name="gdzcjz1"/>
+		  <property name="gdzcjz2"/>
+		  <property name="gdzcjzzb1"/>
+		  <property name="gdzcjzzb2"/>
+		  <property name="gdzcje1"/>
+		  <property name="gdzcje2"/>
+		  <property name="zjgc1"/>
+		  <property name="zjgc2"/>
+		  <property name="gchz1"/>
+		  <property name="gchz2"/>
+		  <property name="gdzcql1"/>
+		  <property name="gdzcql2"/>
+		  <property name="scxswzc1"/>
+		  <property name="scxswzc2"/>
+		  <property name="yqzc1"/>
+		  <property name="yqzc2"/>
+		  <property name="wxzc1"/>
+		  <property name="wxzc2"/>
+		  <property name="tdsyq1"/>
+		  <property name="tdsyq2"/>
+		  <property name="kfzc1"/>
+		  <property name="kfzc2"/>
+		  <property name="shangyu1"/>
+		  <property name="shangyu2"/>
+		  <property name="cqdtfy1"/>
+		  <property name="cqdtfy2"/>
+		  <property name="dysdsc1"/>
+		  <property name="dysdsc2"/>
+		  <property name="qtfldzc1"/>
+		  <property name="qtfldzc2"/>
+		  <property name="tzcbwz1"/>
+		  <property name="tzcbwz2"/>
+		  <property name="fldzchj1"/>
+		  <property name="fldzchj2"/>
+		  <!-- 流动负债 -->
+		  <property name="dqjk1"/>
+		  <property name="dqjk2"/>
+		  <property name="jyxjrfz1"/>
+		  <property name="jyxjrfz2"/>
+		  <property name="yfpj1"/>
+		  <property name="yfpj2"/>
+		  <property name="yingfuZK1"/>
+		  <property name="yingfuZK2"/>
+		  <property name="yskx1"/>
+		  <property name="yskx2"/>
+		  <property name="yfzgxc1"/>
+		  <property name="yfzgxc2"/>
+		  <property name="yfgz1"/>
+		  <property name="yfgz2"/>
+		  <property name="yfflf1"/>
+		  <property name="yfflf2"/>
+		  <property name="yjsf1"/>
+		  <property name="yjsf2"/>
+		  <property name="yjsj1"/>
+		  <property name="yjsj2"/>
+		  <property name="yflx1"/>
+		  <property name="yflx2"/>
+		  <property name="yfgl1"/>
+		  <property name="yfgl2"/>
+		  <property name="qtyfk1"/>
+		  <property name="qtyfk2"/>
+		  <property name="fldfzyears1"/>
+		  <property name="fldfzyears2"/>
+		  <property name="qtldfz1"/>
+		  <property name="qtldfz2"/>
+		  <property name="ldfzhj1"/>
+		  <property name="ldfzhj2"/>
+		  <!--
+		  	非流动负债：
+		   -->
+		  <property name="cqjk1"/>
+		  <property name="cqjk2"/>
+		  <property name="yfzq1"/>
+		  <property name="yfzq2"/>
+		  <property name="cqyfk1"/>
+		  <property name="cqyfk2"/>
+		  <property name="zxyfk1"/>
+		  <property name="zxyfk2"/>
+		  <property name="yjfz1"/>
+		  <property name="yjfz2"/>
+		  <property name="dysdsfz1"/>
+		  <property name="dysdsfz2"/>
+		  <property name="qtfldfz1"/>
+		  <property name="qtfldfz2"/>
+		  <property name="tzcbj1"/>
+		  <property name="tzcbj2"/>
+		  <property name="fldfzhj1"/>
+		  <property name="fldfzhj2"/>
+		  <property name="fzhj1"/>
+		  <property name="fzhj2"/>
+		  <!-- 
+			  所有者权益（或股东权益）
+		   -->
+		   <property name="sszb1"/>
+		   <property name="sszb2"/>
+		   <property name="gjzb1"/>
+		   <property name="gjzb2"/>
+		   <property name="jtzb1"/>
+		   <property name="jtzb2"/>
+		   <property name="frzb1"/>
+		   <property name="frzb2"/>
+		   <property name="grzb1"/>
+		   <property name="grzb2"/>
+		   <property name="wszb1"/>
+		   <property name="wszb2"/>
+		   <property name="zbgj1"/>
+		   <property name="zbgj2"/>
+		   <property name="kcg1"/>
+		   <property name="kcg2"/>
+		   <property name="yygj1"/>
+		   <property name="yygj2"/>
+		   <property name="ybfxzb1"/>
+		   <property name="ybfxzb2"/>
+		   <property name="wqrdtzss1"/>
+		   <property name="wqrdtzss2"/>
+		   <property name="wfplr2"/>
+		   <property name="wfplr1"/>
+		   <property name="xjgl1"/>
+		   <property name="xjgl2"/>
+		   <property name="wbbbzsce1"/>
+		   <property name="wbbbzsce2"/>
+		   <property name="mgsszqy1"/>
+		   <property name="mgsszqy2"/>
+		   <property name="ssgdqy1"/>
+		   <property name="ssgdqy2"/>
+		   <property name="syzqyhj1"/>
+		   <property name="syzqyhj2"/>
+		   <property name="fzandsyzqyhj1"/>
+		   <property name="fzandsyzqyhj2"/>
+		   <property name="gyfrzb1"/>
+		   <property name="gyfrzb2"/>
+		   <property name="jtfrzb1"/>
+		   <property name="jtfrzb2"/>
+	</class>
+</hibernate-mapping>

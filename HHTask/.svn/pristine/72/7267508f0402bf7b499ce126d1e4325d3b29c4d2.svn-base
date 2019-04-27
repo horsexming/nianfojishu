@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Download" table="KQ_Download" >
+		<id name="id" column="ID_KEY">
+			<generator class="identity"></generator>
+		</id>
+		<property name="person_ID" column="Person_ID"></property>
+		<property name="card_No" column="Card_No"></property>
+		<property name="brush_Date" column="Brush_Date"></property>
+		<property name="brush_Time" column="Brush_Time"></property>
+		<property name="moc_No" column="Moc_No"></property>
+		<property name="data_Flag" column="Data_Flag"></property>
+		<property name="brush_DateTime" column="Brush_DateTime"></property> 
+		<property name="is_Falsity" column="Is_Falsity"></property>
+		<property name="fileName" column="FileName"></property>
+		<property name="downType"></property>
+		<property name="downAddress"></property>
+	</class>
+</hibernate-mapping>

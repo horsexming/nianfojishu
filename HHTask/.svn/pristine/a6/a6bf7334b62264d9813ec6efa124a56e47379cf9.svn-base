@@ -1,0 +1,96 @@
+package com.task.entity.android.pscs;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+/****
+ * 客户表  表名: ta_CustomerInformation
+ * @author 于勇鸿斌
+ * 
+ */
+public class CustomerInformation implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;//ID
+	private Integer customer_id;//客户表ID
+	private String car_typr;//车型
+	private String company_name;//公司名称
+	private String customer_phone;//手机号
+	private String customer_name;//姓名
+	private String c_time;//提交时间
+	private Customer customer;
+	private Set<AngularSpeed> angularspeed;
+	private String angularspeedList;
+	
+	
+	public String getC_time() {
+		return c_time;
+	}
+	public void setC_time(String cTime) {
+		c_time = cTime;
+	}
+	@JSONField(serialize = false)
+	public Set<AngularSpeed> getAngularspeed() {
+		return angularspeed;
+	}
+	public void setAngularspeed(Set<AngularSpeed> angularspeed) {
+		this.angularspeed = angularspeed;
+	}
+	public String getAngularspeedList() {
+		return angularspeedList;
+	}
+	public void setAngularspeedList(String angularspeedList) {
+		this.angularspeedList = angularspeedList;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@JSONField(serialize = false)
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public Integer getCustomer_id() {
+		return customer_id;
+	}
+	public void setCustomer_id(Integer customerId) {
+		customer_id = customerId;
+	}
+	public String getCar_typr() {
+		return car_typr;
+	}
+	public void setCar_typr(String carTypr) {
+		car_typr = carTypr;
+	}
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String companyName) {
+		company_name = companyName;
+	}
+	public String getCustomer_phone() {
+		return customer_phone;
+	}
+	public void setCustomer_phone(String customerPhone) {
+		customer_phone = customerPhone;
+	}
+	public String getCustomer_name() {
+		return customer_name;
+	}
+	public void setCustomer_name(String customerName) {
+		customer_name = customerName;
+	}
+	
+	
+	
+}

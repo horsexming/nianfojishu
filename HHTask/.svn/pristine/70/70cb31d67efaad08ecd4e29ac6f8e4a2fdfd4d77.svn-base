@@ -1,0 +1,253 @@
+package com.task.entity;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 票据打印单(ta_PrintedOutOrder)
+ * @author 
+ *
+ */
+public class PrintedOutOrder {
+	private Integer id;
+	private String className;//对应实体类名称
+	private String planNum;//编号(自动生产)
+	private String type;//类型(销售出库单、);
+	private String kehuNmae;//客户名称
+	private String shaddress;//送货地址
+	private String shPlanNum;//送货单号
+	private String reviewers;//审核人姓名
+	private String ywName;//业务人姓名
+	private String cgName;//仓管姓名
+	private String pgName;//品管姓名
+	private String addUsers;//制单人姓名
+	private String rukuUsers;//入库人
+	private String xsOrederNum;//销售订单号
+	private String jhdw;//交货单位
+	private String rukuGroup;//入库班组
+	private String wlUsers;//物料员
+	private String bmzg;//部门主管
+	private String riqi;//日期
+	private String addTime;//制单日期
+	private String lldept;//领料部门
+	private String llyt;//领料用途
+	private String gyscode;//供应商编码;
+	private String gysname;//供应商;
+	private String slck;//收料仓库
+	private String fkriqi;//付款日期
+	private String cgUserName;//采购员
+	private Double totalMoney;//总金额
+	private Integer printcount;//打印次数
+	private String dbStyle;//调拨类别(调拨单中使用)
+	private String ckzg;//仓库主管
+	private String yanShou;//验收
+	private Set<PrintedOut> printedOutSet;//一对多关系
+	private List<PrintedOut> printedOutList;//一对多关系
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getPlanNum() {
+		return planNum;
+	}
+	public void setPlanNum(String planNum) {
+		this.planNum = planNum;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getKehuNmae() {
+		return kehuNmae;
+	}
+	public void setKehuNmae(String kehuNmae) {
+		this.kehuNmae = kehuNmae;
+	}
+	public String getShaddress() {
+		return shaddress;
+	}
+	public void setShaddress(String shaddress) {
+		this.shaddress = shaddress;
+	}
+	public String getShPlanNum() {
+		return shPlanNum;
+	}
+	public void setShPlanNum(String shPlanNum) {
+		this.shPlanNum = shPlanNum;
+	}
+	public String getReviewers() {
+		return reviewers;
+	}
+	public void setReviewers(String reviewers) {
+		this.reviewers = reviewers;
+	}
+	public String getYwName() {
+		return ywName;
+	}
+	public void setYwName(String ywName) {
+		this.ywName = ywName;
+	}
+	public String getCgName() {
+		return cgName;
+	}
+	public void setCgName(String cgName) {
+		this.cgName = cgName;
+	}
+	public String getPgName() {
+		return pgName;
+	}
+	public void setPgName(String pgName) {
+		this.pgName = pgName;
+	}
+	public String getAddUsers() {
+		return addUsers;
+	}
+	public void setAddUsers(String addUsers) {
+		this.addUsers = addUsers;
+	}
+	public String getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(String addTime) {
+		this.addTime = addTime;
+	}
+	public Set<PrintedOut> getPrintedOutSet() {
+		return printedOutSet;
+	}
+	public void setPrintedOutSet(Set<PrintedOut> printedOutSet) {
+		this.printedOutSet = printedOutSet;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public List<PrintedOut> getPrintedOutList() {
+		return printedOutList;
+	}
+	public void setPrintedOutList(List<PrintedOut> printedOutList) {
+		this.printedOutList = printedOutList;
+	}
+	public String getRiqi() {
+		return riqi;
+	}
+	public void setRiqi(String riqi) {
+		this.riqi = riqi;
+	}
+	public String getRukuUsers() {
+		return rukuUsers;
+	}
+	public void setRukuUsers(String rukuUsers) {
+		this.rukuUsers = rukuUsers;
+	}
+	public String getXsOrederNum() {
+		return xsOrederNum;
+	}
+	public void setXsOrederNum(String xsOrederNum) {
+		this.xsOrederNum = xsOrederNum;
+	}
+	public String getJhdw() {
+		return jhdw;
+	}
+	public void setJhdw(String jhdw) {
+		this.jhdw = jhdw;
+	}
+	public String getRukuGroup() {
+		return rukuGroup;
+	}
+	public void setRukuGroup(String rukuGroup) {
+		this.rukuGroup = rukuGroup;
+	}
+	public String getWlUsers() {
+		return wlUsers;
+	}
+	public void setWlUsers(String wlUsers) {
+		this.wlUsers = wlUsers;
+	}
+	public String getBmzg() {
+		return bmzg;
+	}
+	public void setBmzg(String bmzg) {
+		this.bmzg = bmzg;
+	}
+	public String getLldept() {
+		return lldept;
+	}
+	public void setLldept(String lldept) {
+		this.lldept = lldept;
+	}
+	public String getLlyt() {
+		return llyt;
+	}
+	public void setLlyt(String llyt) {
+		this.llyt = llyt;
+	}
+	public String getGyscode() {
+		return gyscode;
+	}
+	public void setGyscode(String gyscode) {
+		this.gyscode = gyscode;
+	}
+	public String getGysname() {
+		return gysname;
+	}
+	public void setGysname(String gysname) {
+		this.gysname = gysname;
+	}
+	public String getSlck() {
+		return slck;
+	}
+	public void setSlck(String slck) {
+		this.slck = slck;
+	}
+	public String getFkriqi() {
+		return fkriqi;
+	}
+	public void setFkriqi(String fkriqi) {
+		this.fkriqi = fkriqi;
+	}
+	public String getCgUserName() {
+		return cgUserName;
+	}
+	public void setCgUserName(String cgUserName) {
+		this.cgUserName = cgUserName;
+	}
+	public Double getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(Double totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+	public Integer getPrintcount() {
+		return printcount;
+	}
+	public void setPrintcount(Integer printcount) {
+		this.printcount = printcount;
+	}
+	public String getDbStyle() {
+		return dbStyle;
+	}
+	public void setDbStyle(String dbStyle) {
+		this.dbStyle = dbStyle;
+	}
+	public String getCkzg() {
+		return ckzg;
+	}
+	public void setCkzg(String ckzg) {
+		this.ckzg = ckzg;
+	}
+	public String getYanShou() {
+		return yanShou;
+	}
+	public void setYanShou(String yanShou) {
+		this.yanShou = yanShou;
+	}
+	
+	
+	
+}

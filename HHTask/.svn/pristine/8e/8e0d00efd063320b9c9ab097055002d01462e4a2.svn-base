@@ -1,0 +1,243 @@
+package com.task.action;
+
+import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.task.Server.*;
+import com.task.entity.*;
+import com.task.entity.peb.PebProduction;
+import com.task.util.MKUtil;
+
+/**
+ * 日历Action层
+ * 
+ * @author 刘培
+ * 
+ */
+@SuppressWarnings("serial")
+public class CalendarAction extends ActionSupport {
+
+	private CalendarServer calendarServer;// 日历Server层
+	private Calendar calendar;// 日历对象
+	private List<Calendar> calendarList;// 日历集合
+	private String successMessage;// 成功消息
+	private String errorMessage;// 错误消息
+	private int id;// id
+	private String pageStatus;// 页面状态
+
+	// 分页
+	private String cpage = "1";
+	private String total;
+	private String url;
+	private int pageSize = 15;
+	private String start;
+	private String end;
+	private String isRepeat;// 删除事件状态
+	private List<Object> taskWeeklyList;//任务周报集合
+	
+
+	// 查询所有日历数据
+	public String findCalendar() {
+		calendarList = calendarServer.findCalendar(start, end);
+		MKUtil.writeJSON(calendarList);
+		return ERROR;
+	}
+
+	// 添加日历
+	public String addCalendar() {
+		String message = calendarServer.addCalendar(calendar);
+		if (message != null && "true".equals(message)) {
+			successMessage = "添加成功";
+		} else {
+			errorMessage = "添加失败";
+			return ERROR;
+		}
+		return "newIndex";
+//		return "addCalendar";
+	}
+
+	// 删除日历事件
+	public String delCalendar() {
+		calendar = calendarServer.findCalendarById(id);
+		if (calendar != null) {
+			boolean bool = calendarServer.delCalendar(calendar, isRepeat);
+			if (bool) {
+				errorMessage = bool + "";
+				return "newIndex";
+			} else {
+				errorMessage = "删除失败!请稍候重试!";
+			}
+		} else {
+			errorMessage = "数据异常，请刷新后重试!";
+		}
+		MKUtil.writeJSON(errorMessage);
+		return ERROR;
+	}
+
+	public String submitCalendarState(){
+		errorMessage=calendarServer.submitCalendarState(id);
+		return ERROR;
+	}
+
+	public String updateMsgAssign(){
+		errorMessage=calendarServer.updateMsgAssign(id);
+		return "";
+	}
+
+	/**
+	 * 人员任务周报
+	 * @return
+	 */
+	public String taskWeekly() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(calendar!=null) {
+			session.put("taskWeekly", calendar);
+		}else {
+			calendar = (Calendar) session.get("taskWeekly");
+		}
+		Map<String, Object> map = calendarServer.getTaskWeekly(calendar,Integer.parseInt(cpage),pageSize,pageStatus);
+		if(map!=null && map.size()>0) {
+			taskWeeklyList =(List<Object>) map.get("list");
+			Integer count = (Integer) map.get("count");
+			Integer pageCount=(count + pageSize - 1) / pageSize;
+			setTotal(pageCount+"");
+		}
+		setUrl("CalendarAction!taskWeekly.action");
+		return "calendar_taskWeekly";
+	}
+	
+	//前往时长分析
+	public String toTaskTimeAnalyze() {
+		//calendar
+		return "calendar_taskAnalysis";
+	}
+	
+	//任务时长分析
+	public void taskTimeAnalyze() {
+		MKUtil.writeJSON(calendarServer.taskTimeAnalyze(calendar));
+	}
+
+	// 构造方法
+	public CalendarServer getCalendarServer() {
+		return calendarServer;
+	}
+
+	public void setCalendarServer(CalendarServer calendarServer) {
+		this.calendarServer = calendarServer;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
+	public List<Calendar> getCalendarList() {
+		return calendarList;
+	}
+
+	public void setCalendarList(List<Calendar> calendarList) {
+		this.calendarList = calendarList;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public String getIsRepeat() {
+		return isRepeat;
+	}
+
+	public void setIsRepeat(String isRepeat) {
+		this.isRepeat = isRepeat;
+	}
+
+	public List<Object> getTaskWeeklyList() {
+		return taskWeeklyList;
+	}
+
+	public void setTaskWeeklyList(List<Object> taskWeeklyList) {
+		this.taskWeeklyList = taskWeeklyList;
+	}
+
+}

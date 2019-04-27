@@ -1,0 +1,207 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+
+		<title>登陆选择界面</title>
+
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	    <link rel="stylesheet" type="text/css" href="styles.css">
+	    -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=0.5, maximum-scale=1.0"/>
+        <script type="text/javascript" src="System/lpanclear/jquery-1.8.3.js"></script>
+        <script type="text/javascript"
+			src="System/lpanclear/jquery-1.11.3.min.js">
+</script>
+	</head>
+  <style type="text/css">
+  .ycxztb{
+   margin-left:30px;
+   margin-top:80px;
+   height:90px;
+   width:360px;  
+   border-color: #9370DB;
+   }
+</style>
+  <body>
+       <!-- 显示登陆人员 -->
+       <input type="hidden" value="${operation}" id="opera"/>
+       <input type="hidden" value="${User.name}" id="empName3"/>
+      <p id="qdl" style="color:#FF4500;"></p>   
+      <!-- 隐藏DIV 判断用户是否登陆,如果没登陆就显示 -->    
+      <div id="ycdldiv" style="width:420px;height:310px;position: absolute;top:200px;background-color:#FFF0F5;border:3px solid;border-color:E38EFF;display:none;">     
+          <table border="1" class="ycxztb">
+              <tr style="height:40px;color:#BA55D3;">
+                  <th colspan="2">值日登陆</th>
+              </tr>
+              <tr style="height:40px;">              
+                  <th style="width:70px;color:#BA55D3;">姓名:${User.name}</th>                  
+                  <td style="padding-left:20px;"><input type="text" name="employeeName"/></td>
+              </tr>
+              <tr style="height:40px;">                 
+                  <th colspan="2">                 
+                      <input type="button" value="登陆" id="zrdlan" style="width:65px; height:30px; background-color:#DDA0DD; "/>
+                      <input type="button" value="取消" id="zrqxan" style="width:65px; height:30px; background-color:#DDA0DD; "/>                       
+                  </th>                
+              </tr>
+          </table>             
+      </div>
+      <!-- 整体DIV 内容包括 领取   提交   评分 -->
+      <input type="hidden" value="${titleId}" id="tId" />
+      <div id="ycczdiv" style="display:block;">
+           <table style="height:600p;width:500px;">
+               <tr style="height:170px;width:180px;">
+                   <!-- <td style="width:20px;">领<br/>取</td> -->
+                   <th><input type="hidden" value="${operation}"/><a href="javascript:void(0)"  id="lq"><img style="BORDER-RIGHT: #ff0088 11px ridge; BORDER-TOP: #ff0088 11px ridge; BORDER-LEFT: #ff0088 11px ridge; BORDER-BOTTOM: #ff0088 11px ridge"  title="领取任务" alt="领取任务" src="images/lpanclear/lingqu2.png"></a><br/>领取</th>
+               </tr>
+               <tr style="height:35">                  
+               </tr>
+               <tr style="height:170px;width:180px;">
+                  <!-- <td style="width:20px;">提<br/>交</td> -->
+                   <th><input type="hidden" value="${operation}"/><a href="javascript:void(0)"  id="tj"><img style="BORDER-RIGHT: #5599ff 11px ridge; BORDER-TOP: #5599ff 11px ridge; BORDER-LEFT: #5599ff 11px ridge; BORDER-BOTTOM: #5599ff 11px ridge"  title="提交任务" alt="提交任务" src="images/lpanclear/tijiao4.png"></a><br/>提交</th>
+               </tr>
+               <tr style="height:35">                   
+               </tr>
+               <tr style="height:170px;width:180px;">
+                  <!--  <td style="width:20px;">评<br/>分</td>-->
+                   <th><input type="hidden" value="${operation}"/><a href="javascript:void(0)"  id="pf"><img style="BORDER-RIGHT: #33ff66 11px ridge; BORDER-TOP: #33ff66 11px ridge; BORDER-LEFT: #33ff66 11px ridge; BORDER-BOTTOM: #33ff66 11px ridge"  title="评分" alt="评分" src="images/lpanclear/dafen.png"></a><br/>评分</th>
+               </tr>
+               <tr style="height:35">                 
+               </tr>
+           </table>
+           <a href="ClearInfoAction_pingfen.action" id="pfrk" style="color:red">评分遗漏入口</a>
+      </div>
+      
+  <script type="text/javascript">
+         var operation2;
+         var operation3 = $("#opera").val();
+         if(operation3=="系统操作"){
+        	 location.href="ClearInfoAction_userOperation.action";
+         }
+                   
+         //定义一个可操作状态,根据状态判断应该选择领取还是提交还是评分	  	  	     
+	     var empName =  document.getElementById("qdl").innerHTML;
+	     var empName3 = $("#empName3").val();
+	     var ycdldiv = document.getElementById('ycdldiv');        
+	     var ycczdiv = document.getElementById('ycczdiv');       
+     
+         //function hello(){ 
+         //location.href="userOperation?employeeName="+empName2+"&titleName="+titleName;
+         //} 
+         //重复执行某个方法 
+         //var t1 = window.setInterval(hello,1000); 
+         //window.setInterval("hello()",10000);
+                         
+     
+     
+     //新增取消按钮点击事件
+		$("#zrqxan").click(function(){
+			var div = document.getElementById('ycdldiv');
+			div.style.display = 'none';  // div隐藏
+		})
+        //登陆按钮点击事件
+		/*$("#zrdlan").click(function(){
+			//获取数据
+			var employeeName = $("[name='employeeName']").val();
+			var tId = $("#ycczdiv").prev().val();						
+			if(employeeName == null || employeeName == ""){
+				alert("角色不能为空!");
+			}else{			
+			     $.ajax({
+					url     : "ClearInfoAction_loginEmployee.action", //访问路径
+					type    : "post",                      //提交方式
+					data    : "employee.employeeName="+employeeName,//传递到后台的参数
+					dataType: "json",                      //后台返回结果的类型
+					success : function(data){//成功时执行的代码						
+						alert("登陆成功!!!");							 
+					    location.href="ClearInfoAction_userOperation.action?employee.employeeName="+data.employeeName+"&cleanrecord.homeTitle.id="+tId;							
+					}						
+		        });			   											
+			}    
+		});*/
+           
+		
+	    $("#lq").click(function(){
+	    var tId = $("#ycczdiv").prev().val();
+	        operation2 = $(this).prev().val();
+	        if(operation2=="领取"){	                
+	         alert("符合领取要求");
+	           $.ajax({
+					"url"     : "ClearInfoAction_receiveOperation.action", //访问路径
+					"type"    : "post",                      //提交方式
+					"data"    : "remenber="+empName3+"&titleId=${titleId}",//传递到后台的参数
+					"dataType": "json",                      //后台返回结果的类型
+					"success" : function(data){//成功时执行的代码
+						if(data==1){
+							alert("领取成功!!!");
+							var empName4 = encodeURI(empName3); 
+							window.location.href="ClearInfoAction_userOperation.action?employee.employeeName="+empName4+"&titleId=${titleId}";
+						}else{
+							alert("您晚了一步!!!");
+							window.location.href="ClearInfoAction_userOperation.action?employee.employeeName="+empName4+"&titleId=${titleId}";
+			            }
+					}						
+		        });  
+	        }else if(operation2=="待评分"){
+	            alert("待评分!!!")
+	        }else{
+	            alert("暂时无领取状态!!!");
+	        }
+	    })  
+	    $("#tj").click(function(){
+	        var titleName = $("#ycczdiv").prev().val();
+	        operation2 = $(this).prev().val();
+	        if(operation2=="提交"){
+	            alert("符合提交要求");
+	             $.ajax({
+					"url"     : "ClearInfoAction_submitterOperation.action", //访问路径
+					"type"    : "post",                      //提交方式
+					"data"    : "remenber="+empName2+"&titleId=${titleId}",//传递到后台的参数
+					"dataType": "json",                      //后台返回结果的类型
+					"success" : function(data){//成功时执行的代码
+						if(data==1){
+							alert("提交成功!!!");
+							location.href="ClearInfoAction_userOperation.action?titleId=${titleId}";
+						}else{
+							alert("您晚了一步!!!");
+			            }
+					}						
+		        });	
+	        }else if(operation2=="待评分"){
+	            alert("待评分!!!")
+	        }else{
+	            alert("暂时无提交状态!!!");
+	        }
+	    }) 
+	     $("#pf").click(function(){
+	     var titleName = $("#ycczdiv").prev().val();
+	        operation2 = $(this).prev().val();
+	        if(operation2=="评分"){
+	            alert("符合评分要求");
+	            location.href="ClearInfoAction_pingfen.action?titleId=${titleId}";
+	        }else if(operation2=="待评分"){
+	            alert("待评分!!!")
+	        }else{
+	            alert("暂时无评分状态!!!");
+	        }
+	    }) 
+  </script>
+  </body>
+</html>

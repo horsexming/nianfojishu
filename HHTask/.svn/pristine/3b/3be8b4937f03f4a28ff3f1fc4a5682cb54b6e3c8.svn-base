@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcessInfordeleteApply" table="ta_sop_w_ProcessInfordeleteApply">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+	<property name="applyNumber" />
+	<property name="userName" />
+	<property name="userCode" />
+	<property name="addTime" />
+	<property name="procardId" />
+	<property name="markId" />
+	<property name="ywMarkId" />
+	<property name="proName" />
+	<property name="selfCard" />
+	<property name="orderNumber" />
+	<property name="finalCount" />
+	<property name="status" />
+	<property name="wwapplyNumber" />
+	<property name="processStatus" />
+	<property name="remark" />
+
+		<!-- 【与实际生产对应关系 】-->
+		<set name="pidadetailSet" inverse="false" cascade="all" lazy="true" >
+			<key column="applyId">
+			</key>
+			<one-to-many class="com.task.entity.sop.ProcessInfordeleteApplyDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

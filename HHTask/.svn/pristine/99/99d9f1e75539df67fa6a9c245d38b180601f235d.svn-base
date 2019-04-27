@@ -1,0 +1,145 @@
+package com.task.entity;
+
+import java.io.Serializable;
+
+/**
+ * 项目报价
+ * @author 马凯
+ *
+ */
+public class ProjectQuotation  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String description;
+	private String partNum;//零件代号
+	private Boolean closed;//是否关闭
+	
+	private Double rawMaterial;//材料
+	private Double subContract;//外购外协
+	private Double purchasingCost;//**采购成本
+	private Double toolingCost;//模具成本
+	private Double directLaborCost;//直接人工
+	private Double indirectLaborCost;//间接人工
+	private Double energyCost;//能耗
+	private Double equipmentDepreciation;//设备折旧
+	private Double maintenanceCost;//维护费用
+	private Double subTotal;//小计
+	private Double freePrice;//管理费用
+	private Double finicialInterest;//财务费用
+	private Double totalPrice;
+	
+	private ProjectQuotationList root;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Boolean getClosed() {
+		return closed;
+	}
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+	public Double getRawMaterial() {
+		return rawMaterial;
+	}
+	public void setRawMaterial(Double rawMaterial) {
+		this.rawMaterial = rawMaterial;
+	}
+	public Double getSubContract() {
+		return subContract;
+	}
+	public void setSubContract(Double subContract) {
+		this.subContract = subContract;
+	}
+	public Double getPurchasingCost() {
+		return purchasingCost;
+	}
+	public void setPurchasingCost(Double purchasingCost) {
+		this.purchasingCost = purchasingCost;
+	}
+	public Double getToolingCost() {
+		return toolingCost;
+	}
+	public void setToolingCost(Double toolingCost) {
+		this.toolingCost = toolingCost;
+	}
+	public Double getDirectLaborCost() {
+		return directLaborCost;
+	}
+	public void setDirectLaborCost(Double directLaborCost) {
+		this.directLaborCost = directLaborCost;
+	}
+	public Double getIndirectLaborCost() {
+		return indirectLaborCost;
+	}
+	public void setIndirectLaborCost(Double indirectLaborCost) {
+		this.indirectLaborCost = indirectLaborCost;
+	}
+	public Double getEnergyCost() {
+		return energyCost;
+	}
+	public void setEnergyCost(Double energyCost) {
+		this.energyCost = energyCost;
+	}
+	public Double getEquipmentDepreciation() {
+		return equipmentDepreciation;
+	}
+	public void setEquipmentDepreciation(Double equipmentDepreciation) {
+		this.equipmentDepreciation = equipmentDepreciation;
+	}
+	public Double getMaintenanceCost() {
+		return maintenanceCost;
+	}
+	public void setMaintenanceCost(Double maintenanceCost) {
+		this.maintenanceCost = maintenanceCost;
+	}
+	public Double getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(Double subTotal) {
+		this.subTotal = subTotal;
+	}
+	public Double getFreePrice() {
+		return freePrice;
+	}
+	public void setFreePrice(Double freePrice) {
+		this.freePrice = freePrice;
+	}
+	public Double getFinicialInterest() {
+		return finicialInterest;
+	}
+	public void setFinicialInterest(Double finicialInterest) {
+		this.finicialInterest = finicialInterest;
+	}
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public ProjectQuotationList getRoot() {
+		return root;
+	}
+	public void setRoot(ProjectQuotationList root) {
+		this.root = root;
+	}
+	public String getPartNum() {
+		return partNum;
+	}
+	public void setPartNum(String partNum) {
+		this.partNum = partNum;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+
+}

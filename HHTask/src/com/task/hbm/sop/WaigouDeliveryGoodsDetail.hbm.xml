@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="WaigouDeliveryGoodsDetail" table="ta_sop_w_WaigouDeliveryGoodsDetail">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="cgOrderNum" />
+		<property name="markId" />
+		<property name="selfCard" />
+		<property name="ywmarkId" />
+		<property name="banben" />
+		<property name="banci" />
+		<property name="tuhao" />
+		<property name="proName" />
+		<property name="processNo" />
+		<property name="processName" />
+		<property name="specification" />
+		<property name="unit" />
+		<property name="hsPrice" />
+		<property name="price" />
+		<property name="taxprice" />
+		<property name="priceId" />
+
+		<property name="khId" />
+		<property name="khName" />
+
+		<property name="shNumber" />
+		<property name="qrNumber" />
+		<property name="qrWeizhi" />
+		<property name="hgNumber" />
+		<property name="ycNumber" />
+		<property name="bhgNumber" />
+		<property name="lingliaoNum" />
+		<property name="yrukuNum" />
+		<property name="ctn" />
+		<property name="oneCtnNum" />
+
+		<property name="addTime" />
+		<property name="printTime" />
+		<property name="jinmenTime" />
+		<property name="querenTime" />
+		<property name="jianyanTime" />
+		<property name="rukuTime" />
+		<property name="remarks" />
+
+		<property name="status" />
+		<property name="isprint" />
+
+		<!-- 【与采购订单对应关系】 -->
+		<many-to-one name="waigouDeliveryGoods" column="fk_wdgId"
+			class="WaigouDeliveryGoods" cascade="save-update" lazy="false" />
+	</class>
+</hibernate-mapping>

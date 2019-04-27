@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- *******************曾建森Server层管理******************************* -->
+	<!-- 消费 -->
+	<bean id="consumeServiceImpl" class="com.task.ServerImpl.kq.ConsumeServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="ics" ref="cardServiceImpl"></property>
+	</bean>
+	<!-- 卡 -->
+	<bean id="cardServiceImpl" class="com.task.ServerImpl.kq.CardServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 部门 -->
+	<bean id="departmentServiceImpl" class="com.task.ServerImpl.kq.DepartmentServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 人员 -->
+	<bean id="personServiceImpl" class="com.task.ServerImpl.kq.PersonServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 登记 -->
+	<bean id="registerServiceImpl" class="com.task.ServerImpl.kq.RegisterServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="sfs" ref="supplyFundServiceImpl"></property>
+		<property name="cs" ref="cardServiceImpl"></property>
+		<property name="ps" ref="personServiceImpl"></property>
+		<property name="ics" ref="consumeServiceImpl"></property>
+	</bean>
+	<!-- 充值 -->
+	<bean id="supplyFundServiceImpl" class="com.task.ServerImpl.kq.SupplyFundServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="ics" ref="cardServiceImpl"></property>
+	</bean>
+
+	<!-- 取款 -->
+	<bean id="takeFundServiceImpl" class="com.task.ServerImpl.kq.TakeFundServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="cs" ref="cardServiceImpl"></property>
+		<property name="ics" ref="consumeServiceImpl"></property>
+		<property name="sfs" ref="supplyFundServiceImpl"></property>
+	</bean>
+	<!-- 业务 -->
+	<bean id="businessServiceImpl" class="com.task.ServerImpl.yw.BusinessServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="efs" ref="ExamineFlowServiceImpl" />
+	</bean>
+	<!-- 发票 -->
+	<bean id="invoiceServiceImpl" class="com.task.ServerImpl.yw.InvoiceServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="bus" ref="businessServiceImpl" />
+	</bean>
+	<!-- 出库明细 -->
+	<bean id="sellServiceImpl" class="com.task.ServerImpl.yw.SellServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 业务明细 -->
+	<bean id="BusinessSubsidiaryServiceImpl" class="com.task.ServerImpl.yw.BusinessSubsidiaryServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 付款凭证 -->
+	<bean id="PrintProofServiceImpl" class="com.task.ServerImpl.yw.PrintProofServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 审核流程 -->
+	<bean id="ExamineFlowServiceImpl" class="com.task.ServerImpl.yw.ExamineFlowServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 订单 -->
+	<bean id="orderManagerServiceImpl" class="com.task.ServerImpl.OrderManagerServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="igs" ref="insuranceGoldServerImpl" />
+		<property name="wss" ref="wageStandardServerImpl" />
+	</bean>
+	<!-- 产品  -->
+	<bean id="productManagerServiceImpl" class="com.task.ServerImpl.ProductManagerServiceImpl">
+		<property name="iom" ref="orderManagerServiceImpl"></property>
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 产品编号 -->
+	<bean id="pieceNumServiceImpl" class="com.task.ServerImpl.PieceNumServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="internalOrderDetailServiceImpl" class="com.task.ServerImpl.InternalOrderDetailServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 内部订单 -->
+	<bean id="internalOrderServiceImpl" class="com.task.ServerImpl.InternalOrderServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+		<property name="oms" ref="orderManagerServiceImpl"></property>
+		<property name="pns" ref="pieceNumServiceImpl" />
+		<property name="ds" ref="detailServiceImpl" />
+	</bean>
+	<!-- IP管理 -->
+	<bean id="ipEntityServiceImpl" class="com.task.ServerImpl.IPEntityServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 年休 -->
+	<bean id="annualLeaveServiceImpl" class="com.task.ServerImpl.AnnualLeaveServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 库存 -->
+	<bean id="storeServiceImpl" class="com.task.ServerImpl.StoreServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 入库 -->
+	<bean id="storageServiceImpl" class="com.task.ServerImpl.StorageServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 报废 -->
+	<bean id="scrapServiceImpl" class="com.task.ServerImpl.ScrapServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 以旧换新 -->
+	<bean id="renewServiceImpl" class="com.task.ServerImpl.RenewServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 报修 -->
+	<bean id="maintainServiceImpl" class="com.task.ServerImpl.MaintainServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 出库 -->
+	<bean id="outlibServiceImpl" class="com.task.ServerImpl.OutLibServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 还 -->
+	<bean id="alsoServiceImpl" class="com.task.ServerImpl.AlsoServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 借 -->
+	<bean id="borrowServiceImpl" class="com.task.ServerImpl.BorrowServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 领 -->
+	<bean id="consumingServiceImpl" class="com.task.ServerImpl.ConsumingServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!--
+		***********************************曾建森Action层管理****************************************************
+	-->
+	<!-- 登记信息管理 -->
+	<bean id="registerAction" class="com.task.action.kq.RegisterAction"
+		scope="prototype">
+		<property name="irs" ref="registerServiceImpl"></property>
+		<property name="ids" ref="departmentServiceImpl"></property>
+		<property name="ips" ref="personServiceImpl"></property>
+		<property name="itf" ref="takeFundServiceImpl"></property>
+		<property name="attendanceServer" ref="attendanceServerImpl" />
+	</bean>
+	<!-- 业务信息 -->
+	<bean id="businessAction" class="com.task.action.yw.BusinessAction"
+		scope="prototype">
+		<property name="bus" ref="businessServiceImpl" />
+		<property name="ins" ref="invoiceServiceImpl"></property>
+		<property name="sel" ref="sellServiceImpl"></property>
+		<property name="bss" ref="BusinessSubsidiaryServiceImpl" />
+		<property name="pps" ref="PrintProofServiceImpl" />
+		<property name="efs" ref="ExamineFlowServiceImpl" />
+	</bean>
+	<!-- 订单管理 -->
+	<bean id="orderManagerAction" class="com.task.action.OrderManagerAction"
+		scope="prototype">
+		<property name="oms" ref="orderManagerServiceImpl" />
+		<property name="cms" ref="ClientManagementServerImpl"></property>
+		<property name="ipm" ref="productManagerServiceImpl"></property>
+		<property name="wareHouseAuthService" ref="wareHouseAuthService"></property>
+	</bean>
+	<!-- 客户管理 -->
+	<bean id="clientManagerAction" class="com.task.action.ClientManagerAction"
+		scope="prototype">
+		<property name="iom" ref="orderManagerServiceImpl"></property>
+		<property name="cms" ref="ClientManagementServerImpl"></property>
+	</bean>
+	<!-- 产品编号 -->
+	<bean id="pieceNumAction" class="com.task.action.PieceNumAction"
+		scope="prototype">
+		<property name="ips" ref="pieceNumServiceImpl"></property>
+		<property name="ios" ref="orderManagerServiceImpl"></property>
+		<property name="ipm" ref="productManagerServiceImpl"></property>
+	</bean>
+	<!-- 内部订单 -->
+	<bean id="internalOrderAction" class="com.task.action.InternalOrderAction"
+		scope="prototype">
+		<property name="ios" ref="internalOrderServiceImpl"></property>
+		<property name="oms" ref="orderManagerServiceImpl"></property>
+		<property name="cms" ref="ClientManagementServerImpl"></property>
+		<property name="ips" ref="productManagerServiceImpl"></property>
+		<property name="iods" ref="internalOrderDetailServiceImpl" />
+	</bean>
+	<!-- IP管理 -->
+	<bean id="ipEntityAction" class="com.task.action.IPEntityAction"
+		scope="prototype">
+		<property name="ipes" ref="ipEntityServiceImpl" />
+	</bean>
+	<!-- 年休 -->
+	<bean id="AnnualLeaveAction" class="com.task.action.AnnualLeaveAction"
+		scope="prototype">
+		<property name="als" ref="annualLeaveServiceImpl" />
+		<property name="ids" ref="departmentServiceImpl" />
+	</bean>
+	<!-- 库存 -->
+	<bean id="storeAction" class="com.task.action.StoreAction" scope="prototype">
+		<property name="iss" ref="storeServiceImpl" />
+	</bean>
+	<!-- 入库 -->
+	<bean id="storageAction" class="com.task.action.StorageAction"
+		scope="prototype">
+		<property name="iss" ref="storageServiceImpl"></property>
+	</bean>
+	<!-- 报废 -->
+	<bean id="scrapAction" class="com.task.action.ScrapAction" scope="prototype">
+		<property name="iss" ref="scrapServiceImpl"></property>
+	</bean>
+	<!-- 以旧换新 -->
+	<bean id="renewAction" class="com.task.action.RenewAction" scope="prototype">
+		<property name="irs" ref="renewServiceImpl" />
+	</bean>
+	<!-- 报修 -->
+	<bean id="maintainAction" class="com.task.action.MaintainAction"
+		scope="prototype">
+		<property name="ims" ref="maintainServiceImpl" />
+	</bean>
+	<!-- 出库 -->
+	<bean id="outLibAction" class="com.task.action.OutLibAction"
+		scope="prototype">
+		<property name="ols" ref="outlibServiceImpl" />
+		<property name="userServer" ref="userServerImpl"></property>
+	</bean>
+	<!-- 还 -->
+	<bean id="alsoAction" class="com.task.action.AlsoAction" scope="prototype">
+		<property name="ias" ref="alsoServiceImpl" />
+	</bean>
+	<!-- 借 -->
+	<bean id="borrowAction" class="com.task.action.BorrowAction"
+		scope="prototype">
+		<property name="ibs" ref="borrowServiceImpl" />
+	</bean>
+	<!-- 领 -->
+	<bean id="consumingAction" class="com.task.action.ConsumingAction"
+		scope="prototype">
+		<property name="ics" ref="consumingServiceImpl" />
+	</bean>
+</beans>

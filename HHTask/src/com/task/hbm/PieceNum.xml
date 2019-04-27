@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.PieceNum" table="TA_PieceNum">
+	
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property name="name" column="f_name" type="string"/>
+		<property name="pieceNumber" column="f_pieceNumber" type="string"/>
+		<property name="carType" column="f_carType" type="string"/>
+		<property name="type" column="f_type" type="string"/>
+		
+		
+	</class>
+</hibernate-mapping>

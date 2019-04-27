@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="UserFacialInfor" table="ta_UserFacialInfor">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="userNo"/>
+		<property name="userName"/>
+		<property name="userPassword"/>
+		<property name="addTime" length="50"/>
+		<!-- 用户对接信息对门禁设备 -->
+		<set name="accessEquipments" table="ta_usersInforAcEqs"
+			cascade="save-update" lazy="true">
+			<key column="ta_userInforId" />
+			<many-to-many class="com.task.entity.menjin.AccessEquipment"
+				column="ta_AcEqsId" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.systemfile.SystemFile" table="ta_SystemFile">
+		<id name="id" type="integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="fileUrl"/>
+		<property name="fileType" />
+		<property name="fileNo" />
+		<property name="fileName" />
+		<property name="otherName" />
+		<property name="fileLevel" />
+		<property name="department" />
+		<property name="description" />
+		<property name="personToLook" length="2000"/>
+		<property name="personToLookId" length="1000"/>
+		<property name="banben" />
+		<property name="banben_old" />
+		<property name="person" />
+		<property name="uploadDate" />
+		<property name="cpCode" />
+		<property name="baomi" />
+		<property name="money" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="source" />
+		<property name="category" />
+		<property name="applyDate" />
+		<property name="updateDate" />
+		<property name="canEpId" />
+		<property name="canStatus" />
+		<property name="canRemark" />
+		<property name="yyMoney" />
+		<property name="proCode" />
+		<property name="loggingFile" />
+		<property name="canPersonCode" />
+	</class>
+</hibernate-mapping>

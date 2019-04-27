@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Password" table="ta_password">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<many-to-one name="user" unique="true" column="user_userId" />
+
+		<property name="password" length="50" column="user_password" />
+		<property name="deptNumber" column="user_deptNumber" length="50" />
+		<property name="mailBox" column="user_mailBox" length="200" />
+		<property name="phoneNumber" column="user_phoneNumber"
+			length="50" />
+		<property name="telephone" column="user_telephone" length="50" />
+		<property name="presentAddress" column="user_presentAddress" />
+		<property name="userStatus" column="user_userStatus" length="50" />
+		<property name="picture" column="user_picture" length="50" />
+		<property name="resume" column="user_resume" length="50" />
+		<property name="contract" column="user_contract" length="50" />
+		<property name="staffNature" column="user_staffNature"
+			length="50" />
+		<property name="censusNature" column="user_censusNature"
+			length="50" />
+		<property name="qqNumber" length="50"/>
+		<property name="wxNumber" length="50"/>
+		<property name="rili" length="50"/>
+		<property name="shijiBirthDay" length="50"/>
+		<property name="authorizationCode" length="500" />
+		<property name="mailHost" />
+		<property name="mailPropocal" />
+		<property name="loginPage" />
+		<property name="ssAccount" />
+		<property name="gjjAccount" />
+		<property name="politicalAspects"/>
+		<property name="degree"/>
+		<property name="graduationInstitutions"/>
+		<property name="jobtitleGetTime"/>
+		<property name="speciality"/>
+		<property name="dateOfGraduation"/>
+		<property name="maritalStatus"/>
+		
+	</class>
+
+</hibernate-mapping>

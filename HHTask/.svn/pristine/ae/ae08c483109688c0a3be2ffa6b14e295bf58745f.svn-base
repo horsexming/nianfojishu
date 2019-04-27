@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.caiwu.baobiao.laozi">
+	<class name="PersonnelType" table="ta_baobiao_laozi_PersonnelType" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="type"/>
+		<set name="personneqkSet" cascade="all" inverse="false" >
+			<key column="fkId"/>
+			<one-to-many class="PersonneQk"/>
+		</set>
+	</class>
+</hibernate-mapping>

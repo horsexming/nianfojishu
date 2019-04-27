@@ -1,0 +1,173 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css"
+			href="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<script src="${pageContext.request.contextPath}/javascript/jquery/jquery-3.2.1.js"> </script> 
+		<script type="text/javascript"
+ 			src="${pageContext.request.contextPath}/javascript/bootstrap-3.3.7-dist/js/bootstrap.js"> </script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/javascript/DatePicker/WdatePicker.js"> </script>
+		<style type="text/css">
+			h1 {
+				text-align: center;
+				font-size: 2.5em;
+				padding-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>任务统计报表</h1>
+			<div class="row">
+				<form action="${url}" method="post">
+					<table class="table table-responsive">
+						<tr>
+							<th class="text-right">姓名：</th>
+							<td ><input type="text" name="calendar.userName" value="${calendar.userName}"></td>
+							<th class="text-right">工号：</th>
+							<td ><input type="text" name="calendar.code" value="${calendar.code}"></td>
+							<th class="text-right">开始时间：</th>
+							<td ><input type="text" name="calendar.start" value="${calendar.start}" class="Wdate"
+								onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})"></td>
+							<th class="text-right">结束时间：</th>
+							<td ><input type="text" name="calendar.endDate" value="${calendar.endDate}" class="Wdate"
+								onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})"></td>
+						</tr>
+						<tr>
+							<td colspan="10" class="text-center">
+								<input type="submit" class="btn btn-default" value="查询">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="row">
+				<table class="table table-responsive table-striped text-center">
+					<tr>
+						<th class="text-center">序号</th>
+						<th class="text-center">姓名</th>
+						<th class="text-center">工号</th>
+						<th class="text-center">任务数量</th>
+						<th class="text-center">未完成数量</th>
+						<th class="text-center">累计数量</th>
+						<th class="text-center">累计完成率</th>
+						<th class="text-center">操作</th>
+<!-- 						<th class="text-center">总任务数量</th> -->
+<!-- 						<th class="text-center">超时未完成数量</th> -->
+					</tr>
+					<s:if test="taskWeeklyList!=null && taskWeeklyList.size()>0">
+						<s:iterator value="taskWeeklyList" id="swl" status="ps">
+							<s:if test="#ps.index%2==1">
+								<tr align="center" bgcolor="#e6f3fb"
+									onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'#e6f3fb')">
+							</s:if>
+							<s:else>
+								<tr align="center" onmouseover="chageBgcolor(this)"
+									onmouseout="outBgcolor(this,'')">
+							</s:else>
+								<td>${ps.index+1 }</td>							
+								<td>${swl[0]}</td>
+								<td>${swl[1]}</td>
+								<td>
+									<s:if test="#swl[3]==null">
+										0
+									</s:if>
+									<s:else>
+										${swl[3]}
+									</s:else>
+								</td>
+								<td>
+									<s:if test="#swl[4]==null">
+										0
+									</s:if>
+									<s:else>
+										${swl[4]}
+									</s:else>
+								</td>
+								<td>
+									<s:if test="#swl[5]==null">
+										0
+									</s:if>
+									<s:else>
+										${swl[5]}
+									</s:else>
+								</td>
+								<td>
+									<s:if test="#swl[3]==null || #swl[3]==0">
+										0%;
+									</s:if>
+									<s:else>
+										<fmt:formatNumber type="number" value="${swl[5]/swl[3]*100}" maxFractionDigits="2" />%
+									</s:else>
+								</td>
+<%-- 								<td>${swl[6]}</td> --%>
+								<td>
+								<form action="${pageContext.request.contextPath}/CalendarAction!toTaskTimeAnalyze.action" method="post">
+									<input type="hidden" value="${swl[2]}" name="calendar.userId">
+									<input type="hidden" value="${swl[0]}" name="calendar.userName">
+									<input type="hidden" name="calendar.start" value="${calendar.start}" >
+									<input type="hidden" name="calendar.endDate" value="${calendar.endDate}" >
+									<input type="submit" class="btn btn-default" value="时间分析">
+								</form>
+								</td>
+							</tr>
+						</s:iterator>
+						<tr>
+							<td class="text-right" colspan="20"> 
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+	 								styleClass="page" theme="number" /> 
+							</td>
+						</tr>
+					</s:if>
+					<s:else>
+						<tr>
+							<td colspan="15">对不起，没有查询到员工任务信息。</td>
+						</tr>
+					</s:else>
+				</table>
+			</div>
+		</div>
+	</body>	
+	<script type="text/javascript" >
+	var oldObj;
+	var oldnumber;
+	function chageBgcolor(obj, color) {
+		if (oldObj != obj)
+			obj.style.background = color || "#c0dcf2";
+	}
+
+	function outBgcolor(obj, oldColor) {
+		if (oldObj != obj)
+			obj.style.background = oldColor;
+	}
+
+	function clickBgcolor(obj, color, number) {
+		if (number == null) {
+			number = 1;
+		}
+		if (oldObj != null && oldObj != obj) {
+			if (oldnumber != null && oldnumber == number) {
+				oldObj.style.background = '';
+			}
+		}
+		oldObj = obj;
+		oldnumber = number;
+		obj.style.background = color || "#fbec88";
+	}
+	</script>
+</html>

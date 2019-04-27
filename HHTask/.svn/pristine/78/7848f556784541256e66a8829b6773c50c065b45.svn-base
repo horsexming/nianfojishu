@@ -1,0 +1,462 @@
+package com.task.entity.project;
+
+/**
+ * BOM规范工序信息
+ * 
+ * @表名 ta_pro_QuotedProcessInfor
+ * 
+ * @author 刘培
+ * 
+ */
+public class QuotedProcessInfor {
+
+	private Integer id;// 主键
+	private Integer processNO;// 工序号
+	private String processName;// 工序名
+
+	/***************** 设备相关 *********/
+	private Integer shebeiId; // 设备id
+	private String shebeiNo; // 设备编号*
+	private String shebeiName; // 设备名称
+	private Float shebeiDateTime; // 设备时长(秒)(不用了)
+	private Float shebeiJingzhi; // 设备净值
+	private Float shebeiZjYear;// 净值折旧剩余年限
+	private Float shebeiZhejiu;// 设备折旧( 操作设备节拍(opshebeijiepai)/(3600 * 24 * 365
+	// * 净值折旧剩余年限*设备净值))
+
+	/***************** 辅料相关 *********/
+	private String fuliao;// 辅助材料
+	private String fuliaoxh;// 辅助材料消耗
+	private Float fuliaoMoney;// 辅材费用
+	private String fuliaosz;// 辅助材料
+	private String fuliaoxhsz;// 辅助材料消耗
+	private Float fuliaoMoneysz;// 辅材费用
+	private String fuliaosj;// 辅助材料
+	private String fuliaoxhsj;// 辅助材料消耗
+	private Float fuliaoMoneysj;// 辅材费用
+
+	/***************** 自制工装相关 *********/
+	private String gongzhuangNumber;// 工装编号
+	private String gongzhuang;// 工装名称
+	private Float gongzhuangPrice;// 工装价格
+	private String isFentan;// 是否分摊
+	private Float gongzhuangFt;// 工装分摊费用
+	private Float gongzhuangFy;// 工装费用
+	private String isOld;// 是否是老工装
+
+	private Integer gongzhuangId;// 工装id（库）
+	private String oldgongzhuangNumber;// 工装编号（库）
+	private String oldgongzhuang;// 工装名称（库）
+
+	/***************** 人工工时相关 *********/
+	private Float jiagongTime;// 加工时长(加工时长=操作过程人工+设备节拍+(准备过程人工节拍*次数))
+	private Float opcaozuojiepai;// 操作人工节拍
+	private Float opshebeijiepai;// 操作设备节拍
+	private Float gzzhunbeijiepai;// 准备过程人工节拍
+	private Float gzzhunbeicishu;// 准备次数
+	private String jiagongUserCode;// 加工人员工号
+	private String jiagongUser;// 加工人员名称
+	private Float rengongfei;// 人工费
+
+	/***************** 工序外委相关 *********/
+	private String productStyle;// 生产类型（自制，外委）
+	private Float wwPrice;// 外委价格批产
+	private Float wwPricesz;// 外委价格试制
+	private Float wwPricesj;// 外委价格首件
+	private Float gzPrice;// 外购工装费用
+	/***************** 计件工资费用 *********/
+	private Double procesdianshu;// 点数
+	private Double processjjMoney;// 工序计件单价
+	private Double jjratio;// 计件单价系数
+	private Double sjprocessMomey;//实际单价
+	private Double ykprocessMomey;//盈亏单价
+	
+
+	private QuotedPrice quotedPrice;// 对应流水卡片信息(多对一)
+
+	public String getOldgongzhuangNumber() {
+		return oldgongzhuangNumber;
+	}
+
+	public void setOldgongzhuangNumber(String oldgongzhuangNumber) {
+		this.oldgongzhuangNumber = oldgongzhuangNumber;
+	}
+
+	public String getOldgongzhuang() {
+		return oldgongzhuang;
+	}
+
+	public void setOldgongzhuang(String oldgongzhuang) {
+		this.oldgongzhuang = oldgongzhuang;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getProcessNO() {
+		return processNO;
+	}
+
+	public void setProcessNO(Integer processNO) {
+		this.processNO = processNO;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getShebeiNo() {
+		return shebeiNo;
+	}
+
+	public void setShebeiNo(String shebeiNo) {
+		this.shebeiNo = shebeiNo;
+	}
+
+	public String getShebeiName() {
+		return shebeiName;
+	}
+
+	public void setShebeiName(String shebeiName) {
+		this.shebeiName = shebeiName;
+	}
+
+	public Float getShebeiJingzhi() {
+		return shebeiJingzhi;
+	}
+
+	public void setShebeiJingzhi(Float shebeiJingzhi) {
+		this.shebeiJingzhi = shebeiJingzhi;
+	}
+
+	public Float getShebeiZjYear() {
+		return shebeiZjYear;
+	}
+
+	public void setShebeiZjYear(Float shebeiZjYear) {
+		this.shebeiZjYear = shebeiZjYear;
+	}
+
+	public Float getShebeiZhejiu() {
+		return shebeiZhejiu;
+	}
+
+	public void setShebeiZhejiu(Float shebeiZhejiu) {
+		this.shebeiZhejiu = shebeiZhejiu;
+	}
+
+	public String getFuliao() {
+		return fuliao;
+	}
+
+	public void setFuliao(String fuliao) {
+		this.fuliao = fuliao;
+	}
+
+	public String getFuliaoxh() {
+		return fuliaoxh;
+	}
+
+	public void setFuliaoxh(String fuliaoxh) {
+		this.fuliaoxh = fuliaoxh;
+	}
+
+	public String getGongzhuang() {
+		return gongzhuang;
+	}
+
+	public void setGongzhuang(String gongzhuang) {
+		this.gongzhuang = gongzhuang;
+	}
+
+	
+	public QuotedPrice getQuotedPrice() {
+		return quotedPrice;
+	}
+
+	public void setQuotedPrice(QuotedPrice quotedPrice) {
+		this.quotedPrice = quotedPrice;
+	}
+
+	public Float getJiagongTime() {
+		return jiagongTime;
+	}
+
+	public void setJiagongTime(Float jiagongTime) {
+		this.jiagongTime = jiagongTime;
+	}
+
+	public String getJiagongUserCode() {
+		return jiagongUserCode;
+	}
+
+	public void setJiagongUserCode(String jiagongUserCode) {
+		this.jiagongUserCode = jiagongUserCode;
+	}
+
+	public String getJiagongUser() {
+		return jiagongUser;
+	}
+
+	public void setJiagongUser(String jiagongUser) {
+		this.jiagongUser = jiagongUser;
+	}
+
+	public Integer getShebeiId() {
+		return shebeiId;
+	}
+
+	public void setShebeiId(Integer shebeiId) {
+		this.shebeiId = shebeiId;
+	}
+
+	public Integer getGongzhuangId() {
+		return gongzhuangId;
+	}
+
+	public void setGongzhuangId(Integer gongzhuangId) {
+		this.gongzhuangId = gongzhuangId;
+	}
+
+	public Float getGongzhuangPrice() {
+		return gongzhuangPrice;
+	}
+
+	public void setGongzhuangPrice(Float gongzhuangPrice) {
+		this.gongzhuangPrice = gongzhuangPrice;
+	}
+
+	public Float getGongzhuangFt() {
+		return gongzhuangFt;
+	}
+
+	public void setGongzhuangFt(Float gongzhuangFt) {
+		this.gongzhuangFt = gongzhuangFt;
+	}
+
+	public String getGongzhuangNumber() {
+		return gongzhuangNumber;
+	}
+
+	public void setGongzhuangNumber(String gongzhuangNumber) {
+		this.gongzhuangNumber = gongzhuangNumber;
+	}
+
+	public Float getRengongfei() {
+		return rengongfei;
+	}
+
+	public void setRengongfei(Float rengongfei) {
+		this.rengongfei = rengongfei;
+	}
+
+	public Float getFuliaoMoney() {
+		return fuliaoMoney;
+	}
+
+	public void setFuliaoMoney(Float fuliaoMoney) {
+		this.fuliaoMoney = fuliaoMoney;
+	}
+
+	public String getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(String productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	public Float getWwPrice() {
+		return wwPrice;
+	}
+
+	public void setWwPrice(Float wwPrice) {
+		this.wwPrice = wwPrice;
+	}
+
+	public Float getShebeiDateTime() {
+		return shebeiDateTime;
+	}
+
+	public void setShebeiDateTime(Float shebeiDateTime) {
+		this.shebeiDateTime = shebeiDateTime;
+	}
+
+	public Float getOpcaozuojiepai() {
+		return opcaozuojiepai;
+	}
+
+	public void setOpcaozuojiepai(Float opcaozuojiepai) {
+		this.opcaozuojiepai = opcaozuojiepai;
+	}
+
+	public Float getOpshebeijiepai() {
+		return opshebeijiepai;
+	}
+
+	public void setOpshebeijiepai(Float opshebeijiepai) {
+		this.opshebeijiepai = opshebeijiepai;
+	}
+
+	public Float getGzzhunbeijiepai() {
+		return gzzhunbeijiepai;
+	}
+
+	public void setGzzhunbeijiepai(Float gzzhunbeijiepai) {
+		this.gzzhunbeijiepai = gzzhunbeijiepai;
+	}
+
+	public Float getGzzhunbeicishu() {
+		return gzzhunbeicishu;
+	}
+
+	public void setGzzhunbeicishu(Float gzzhunbeicishu) {
+		this.gzzhunbeicishu = gzzhunbeicishu;
+	}
+
+	public String getIsFentan() {
+		return isFentan;
+	}
+
+	public void setIsFentan(String isFentan) {
+		this.isFentan = isFentan;
+	}
+
+	public Float getGongzhuangFy() {
+		return gongzhuangFy;
+	}
+
+	public void setGongzhuangFy(Float gongzhuangFy) {
+		this.gongzhuangFy = gongzhuangFy;
+	}
+
+	public String getIsOld() {
+		return isOld;
+	}
+
+	public void setIsOld(String isOld) {
+		this.isOld = isOld;
+	}
+
+	public Float getGzPrice() {
+		return gzPrice;
+	}
+
+	public void setGzPrice(Float gzPrice) {
+		this.gzPrice = gzPrice;
+	}
+
+	public String getFuliaosz() {
+		return fuliaosz;
+	}
+
+	public void setFuliaosz(String fuliaosz) {
+		this.fuliaosz = fuliaosz;
+	}
+
+	public String getFuliaoxhsz() {
+		return fuliaoxhsz;
+	}
+
+	public void setFuliaoxhsz(String fuliaoxhsz) {
+		this.fuliaoxhsz = fuliaoxhsz;
+	}
+
+	public Float getFuliaoMoneysz() {
+		return fuliaoMoneysz;
+	}
+
+	public void setFuliaoMoneysz(Float fuliaoMoneysz) {
+		this.fuliaoMoneysz = fuliaoMoneysz;
+	}
+
+	public String getFuliaosj() {
+		return fuliaosj;
+	}
+
+	public void setFuliaosj(String fuliaosj) {
+		this.fuliaosj = fuliaosj;
+	}
+
+	public String getFuliaoxhsj() {
+		return fuliaoxhsj;
+	}
+
+	public void setFuliaoxhsj(String fuliaoxhsj) {
+		this.fuliaoxhsj = fuliaoxhsj;
+	}
+
+	public Float getFuliaoMoneysj() {
+		return fuliaoMoneysj;
+	}
+
+	public void setFuliaoMoneysj(Float fuliaoMoneysj) {
+		this.fuliaoMoneysj = fuliaoMoneysj;
+	}
+
+	public Float getWwPricesz() {
+		return wwPricesz;
+	}
+
+	public void setWwPricesz(Float wwPricesz) {
+		this.wwPricesz = wwPricesz;
+	}
+
+	public Float getWwPricesj() {
+		return wwPricesj;
+	}
+
+	public void setWwPricesj(Float wwPricesj) {
+		this.wwPricesj = wwPricesj;
+	}
+
+	public Double getProcesdianshu() {
+		return procesdianshu;
+	}
+
+	public void setProcesdianshu(Double procesdianshu) {
+		this.procesdianshu = procesdianshu;
+	}
+
+	public Double getProcessjjMoney() {
+		return processjjMoney;
+	}
+
+	public void setProcessjjMoney(Double processjjMoney) {
+		this.processjjMoney = processjjMoney;
+	}
+
+	public Double getJjratio() {
+		return jjratio;
+	}
+
+	public void setJjratio(Double jjratio) {
+		this.jjratio = jjratio;
+	}
+
+	public Double getSjprocessMomey() {
+		return sjprocessMomey;
+	}
+
+	public void setSjprocessMomey(Double sjprocessMomey) {
+		this.sjprocessMomey = sjprocessMomey;
+	}
+
+	public Double getYkprocessMomey() {
+		return ykprocessMomey;
+	}
+
+	public void setYkprocessMomey(Double ykprocessMomey) {
+		this.ykprocessMomey = ykprocessMomey;
+	}
+ 
+}

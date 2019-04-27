@@ -1,0 +1,120 @@
+package com.task.entity.sop;
+
+/***
+ * 区块领取记录表(表名:ta_sop_BlockReceive)
+ * 
+ * @author 刘培
+ * 
+ */
+public class BlockReceive {
+
+	private Integer id;
+	private String receiveMonth;// 领取月份
+	private String receiveDate;// 领取日期
+	private String startTime;// 领取时间
+	private String endTime;// 提交时间
+	private String qrTime;// 确认时间
+	private String status;// 状态(领取、完成)
+	private String code;// 工号
+	private String card;// 卡号
+	private String userName;// 用户名称
+	private Integer blockId;// 对应区块id
+	private BlockUsers blockUsers;// 对应区块id
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getQrTime() {
+		return qrTime;
+	}
+
+	public void setQrTime(String qrTime) {
+		this.qrTime = qrTime;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCard() {
+		return card;
+	}
+
+	public void setCard(String card) {
+		this.card = card;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Integer getBlockId() {
+		return blockId;
+	}
+
+	public void setBlockId(Integer blockId) {
+		this.blockId = blockId;
+	}
+
+	public String getReceiveMonth() {
+		return receiveMonth;
+	}
+
+	public void setReceiveMonth(String receiveMonth) {
+		this.receiveMonth = receiveMonth;
+	}
+
+	public String getReceiveDate() {
+		return receiveDate;
+	}
+
+	public void setReceiveDate(String receiveDate) {
+		this.receiveDate = receiveDate;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public BlockUsers getBlockUsers() {
+		return blockUsers;
+	}
+
+	public void setBlockUsers(BlockUsers blockUsers) {
+		this.blockUsers = blockUsers;
+	}
+
+}

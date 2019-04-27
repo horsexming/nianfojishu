@@ -1,0 +1,76 @@
+package com.task.entity.sop;
+
+/****
+ * 采购计划和生产批次数量中间表
+ * 
+ * @author 刘培
+ * @表名 ta_sop_w_ProcardWGCenter
+ *  
+ */
+public class ProcardWGCenter {
+	private Integer id;
+	private Integer procardId;// 产品id
+	private Integer wgOrderId;// waigouPlan ID
+	private Integer wwxlId;//外委序列Id或者外委申请明细Id
+	private String connectionType;// 连接类型(mTom(多对多关系)/bn(批次数量))
+	private Float procardCount;// 产品批次对应数量
+	private Float dhCount;//BOM外委使用
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getProcardId() {
+		return procardId;
+	}
+
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+
+	public Integer getWgOrderId() {
+		return wgOrderId;
+	}
+
+	public void setWgOrderId(Integer wgOrderId) {
+		this.wgOrderId = wgOrderId;
+	}
+
+	public Float getProcardCount() {
+		return procardCount;
+	}
+
+	public void setProcardCount(Float procardCount) {
+		this.procardCount = procardCount;
+	}
+
+	public String getConnectionType() {
+		return connectionType;
+	}
+
+	public void setConnectionType(String connectionType) {
+		this.connectionType = connectionType;
+	}
+
+	public Float getDhCount() {
+		return dhCount;
+	}
+
+	public void setDhCount(Float dhCount) {
+		this.dhCount = dhCount;
+	}
+
+	public Integer getWwxlId() {
+		return wwxlId;
+	}
+
+	public void setWwxlId(Integer wwxlId) {
+		this.wwxlId = wwxlId;
+	}
+
+	
+}

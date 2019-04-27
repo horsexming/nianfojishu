@@ -1,0 +1,140 @@
+package com.task.Server.gzbj;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.DeptNumber;
+import com.task.entity.Machine;
+import com.task.entity.Store;
+import com.task.entity.gzbj.Checkrecord;
+import com.task.entity.gzbj.Gzstore;
+import com.task.entity.gzbj.ProcessGzstore;
+
+//工装报检
+public interface GzstoreServer {
+
+	// public List<> findAll(int pageNo, int pageSize, String key);
+	// 查询所有库存表的信息
+	public List<Store> findStore(Integer stoid);
+
+	// 显示工装报表信息及分页
+	Object[] saveGzbjstroe(Gzstore gzstore, Integer parseInt, Integer pageSize,
+			Integer edit_id,String status) throws Exception;
+	
+	/**
+	 * 查询所有待检验的工装
+	 * @param id
+	 * @return
+	 */
+	List<Gzstore> findAllDjyGz(Gzstore gz,String status);
+
+	// 根据编号查询工装报表信息
+	Gzstore gzstoreServer(Integer id);
+
+	List gzstoreServer1(Integer process_id);
+
+	void updateGzstore(Gzstore gzstore);
+
+	void delGzbj(Integer id);
+
+	String saveGzbj(Gzstore gzstore);
+
+	public Object[] saveGzbj_process(Integer id, Gzstore gzstore, int pageNo,
+			int pageSize);
+
+	public ProcessGzstore findProcessById(Integer processId);
+
+	public ProcessGzstore findProcessByprocess_id(Integer processId);
+
+	public void updateProcess(ProcessGzstore processGzstore);
+
+	public void saveGzbj_process1(ProcessGzstore processGzstore);
+
+	public void delProcessById(Integer process_id1, Integer id);
+
+	public void saveGzbj_process2(Integer id, Integer processId);
+
+	public Object[] save_Machineprocess(Integer id, Machine machine,
+			int pageNo, int pageSize);
+
+	public List gzstoreServer2(String no,Integer process_id);
+
+	public void savemachine_process2(int[] checkboxs, Integer processId);
+
+	public void delProcessById1(Integer processId1, Integer id);
+
+	public void saveGzbj_process4(ProcessGzstore processGzstore, Integer id1);
+
+	public void delProcessById2(Integer delId);
+
+	public void updateProcess1(ProcessGzstore processGzstore);
+
+	public Gzstore findGzbjById(Integer processId);
+
+	public void updateGzbj(Gzstore gzstore);
+
+	// 获得设备集合 根据工序ID
+	public List getMachineListByGongxuId(Integer id);
+
+	// 获得工装集合 根据型别
+	public List getGzstoreListByXingbie(String xingbie);
+
+	/***
+	 * 通过工序名称查询对应设备信息
+	 * 
+	 * @param processName
+	 * @return
+	 */
+	List getMachinesByProcessName(String processName);
+	/**
+	 * 查看该工序的名字是否已经存在
+	 * @param processName
+	 * @return
+	 */
+	public boolean isNameExist(String processName);
+
+	/**
+	 * 获得所有的部门列表
+	 * @return
+	 */
+	public List<DeptNumber> getDept(String deptNameLike);
+   /**
+    * 通过部门id获得部门下面的所有员工的id
+    * @param id
+    * @param ids已被选中的员工
+    * @return
+    */
+	public List getUsersByDeptId(Integer id,String ids,String userLike);
+/**
+ * 通过人员的id来查询其所拥有的操作权限的工序
+ * @param id
+ * @param parseInt
+ * @param pageSize
+ * @return
+ */
+public Map<Integer, Object> getUserProcessMap(Integer id, int parseInt,
+		int pageSize);
+/**
+ * 通过人员的id和工序的id来设置其所拥有的操作权限的工序
+ * @param id
+ * @param parseInt
+ * @param pageSize
+ * @return
+ */
+public boolean linkUserProcess(Integer id, int[] checkboxs);
+/**
+ * 通过工装的型别和编号或名字的个别字符获得全称
+ */
+public List getGzstoreAllName(String xingbie, String number);
+/**
+ * 对工序修改新工装
+ */
+public boolean updateqpinfroGz(Integer processId, Integer id);
+
+public List getMachineBygongxu(String matetag);
+public String importFile(File importFile);
+
+String gzjiaoyan(Gzstore gz,String status);
+Object[] findAllcdList(Integer id);
+}

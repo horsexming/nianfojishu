@@ -1,0 +1,226 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base href="<%=basePath%>">
+
+		<title>二维码展示界面</title>
+
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+		<script type="text/javascript" src="System/lpanclear/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="System/lpanclear/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="System/lpanclear/jquery.qrcode.js"></script> 
+        <script type="text/javascript" src="System/lpanclear/qrcode.js"></script> 
+	</head>
+  <style type="text/css">
+     #qrcodeTable{
+
+     }
+     #tName_{
+     
+     }
+  </style>
+  <body>
+       <!-- 设置一个隐藏的DIV, 用于点击新增操作后弹出此DIV -->
+      <div id="ycxzdiv" style="width:420px;height:310px;position: absolute;left:713px;top:150px;background-color:#FFF0F5;border:3px solid;border-color:E38EFF;display:none;">
+          <table border="1" class="ycxztb">
+              <tr style="height:40px;color:#BA55D3;">
+                  <th colspan="2">新增标题</th>
+              </tr>
+              <tr style="height:40px;">            
+                  <th style="width:70px;color:#BA55D3;">标题:</th>               
+                  <td style="padding-left:20px;"><input type="text" name="titleName"/></td>
+              </tr>
+              <tr style="height:40px;">                 
+                  <th colspan="2">                
+                      <input type="button" value="添加" id="xztjan" style="width:65px; height:30px; background-color:#DDA0DD; "/>
+                      <input type="button" value="取消" id="xzqxan" style="width:65px; height:30px; background-color:#DDA0DD; "/>                      
+                 </th>                 
+              </tr>
+          </table>               
+      </div>
+
+		<div id="qrcodeTable">
+		    <table id="tab" style="text-align:center;">
+		        <tr id="tabtr" style="width:400px;height:400px;">
+		            
+		        </tr>
+		        <tr id="trhName">
+		            
+		        </tr>
+		    </table>
+		
+		</div> 
+		<p style="font-size: 18px;padding-left: 80px;padding-top: 40px;font-weight: 600;" id="titlets"></p>
+      </div>
+      <!-- 下方显示标题列表 -->
+     <!--<div style="text-align: center; margin-top: 120px;">
+          <p style="margin-top:120px;margin-left:340px;font-size:16px;"><span><a  href="javascript:void(0)" class="xz">新增标题</a></span></p>
+          <table border="1" style="border-color:#FFBB00; margin-left:430px;width:450px;height:350px;">
+              <tr>
+                  <th>编号</th>
+                  <th>标题</th>
+                  <th>创建时间</th>
+                  <th colspan="3">操作</th>
+              </tr>   
+              <s:iterator id="hlist" value="homeTitleList" status="home">           
+                  <tr>
+	                  <th>${hlist.id}</th>
+	                  <th>${hlist.titleName}</th>
+	                  <th>${hlist.createDate}</th>
+	                  <th><a href="javascript:void(0)" class="scewm">生成二维码</a></th>
+	                  <th><a href="javascript:void(0)" class="sc">删除</a></th>
+	                  <th><a href="javascript:void(0)" class="xg">修改</a></th>
+	              </tr>
+              </s:iterator>        
+          </table>
+      </div>-->
+
+<script type="text/javascript">
+   var titleName;
+   //生成二维码点击事件
+   //$(".scewm").click(function(){
+       titleName = $(this).parent().prev().prev().text();
+       var randomNum = null;
+       //setInterval(dsq,180000);
+       //dsq();
+       //function dsq(){
+    	 $("#tabtr").html("");
+    	 $("#trhName").html("");
+    	 $.ajax({
+			url     : "ClearInfoAction_ajaxtitleName.action", //访问路径
+			type    : "post",                      //提交方式
+			data    : "",//传递到后台的参数
+			dataType: "json",                      //后台返回结果的类型
+			success : function(data){//成功时执行的代码	
+    		   randomNum = RndNum(9);
+	    	   $.each(data,function(index,obj){	   	    		     
+	    		  var tId = encodeURI(obj.id); 
+	    		   var  url= "<%=basePath%>ClearInfoAction_userOperation.action?titleId="+tId+"&homeTitle.randomNum="+randomNum;
+	    		   $("#tabtr").append("<td style='width:62px;' id='tabtdys_"+index+"'></td>")
+	    		   $("#tabtr").append("<td id='tabtd_"+index+"'></td>")    			   
+	    		   $("#tabtd_"+index).qrcode({
+		               render	: "table",
+			           text	: url,
+			           width:"200",
+			           height:"200"
+					});
+	    		   $("#trhName").append("<td colspan='2' id='tName_"+index+"'></td>")
+					//$("#tName_"+index).html(obj.titleName);	    		   
+	    	   }) 
+	    	   $.ajax({
+						url     : "ClearInfoAction_ajaxRandomNum.action", //访问路径
+						type    : "post",                      //提交方式
+						data    : "homeTitle.randomNum="+randomNum+"&homeTitle.titleName="+titleName,//传递到后台的参数
+						dataType: "json",                      //后台返回结果的类型
+						success : function(data){//成功时执行的代码	    			       
+						}
+	    		   });
+      	        }						
+	     });
+    	 
+     // }
+        		
+		//产生随机数函数
+		function RndNum(n){
+		    var rnd="";
+		    for(var i=0;i<n;i++)
+		        rnd+=Math.floor(Math.random()*10);
+		    return rnd;
+		}
+        //新增按钮点击事件
+		$(".xz").click(function(){
+			var div = document.getElementById('ycxzdiv');
+			//div.style.display = 'none';  // div隐藏
+			div.style.display = 'block';  // div显示
+		})
+        //新增取消按钮点击事件
+		$("#xzqxan").click(function(){
+			var div = document.getElementById('ycxzdiv');
+			div.style.display = 'none';  // div隐藏
+		})
+		
+		
+		//添加按钮点击事件加上判断并使用ajax返回
+		$("#xztjan").click(function(){
+			//获取数据
+			var titleName = $("[name='titleName']").val();			
+			if(titleName == null || titleName == ""){
+				alert("标题不能为空!");
+			}else{
+				$.ajax({
+					"url"     : "insertHomeTitle", //访问路径
+					"type"    : "post",                      //提交方式
+					"data"    : "titleName="+titleName,//传递到后台的参数
+					"dataType": "text",                      //后台返回结果的类型
+					"success" : function(data){//成功时执行的代码
+						if(data==1){
+							alert("添加标题成功!!!");
+							location.href="selectHomeTitles";
+						}else{
+							alert("添加标题失败!!!");
+			            }
+					}						
+		        });			
+			}	    
+		});
+		//删除按钮点击事件
+		$(".sc").click(function(){
+			//获取其人员Id value值
+			var $titleId = $(this).parent().prev().prev().prev().prev().text();		
+			if($titleId == null || $titleId == ""){
+				alert("出错了");
+			}else{
+				$.ajax({
+					"url"     : "deleteHomeTitle", //访问路径
+					"type"    : "post",                      //提交方式
+					"data"    : "titleId="+$titleId,//传递到后台的参数
+					"dataType": "text",                      //后台返回结果的类型
+					"success" : function(data){//成功时执行的代码
+						if(data==1){
+							alert("删除标题成功!!!");
+							location.href="selectHomeTitles";
+						}else{
+							alert("删除标题失败!!!");							
+			            }
+					}						
+		        });			
+			}	
+		})
+
+		
+		
+      /*function creat(){
+      alert(titleName);
+      $("#qrcodeTable").html("");
+      // var title = $("#title").val();
+       var url= "http://192.168.32.214:8080/HCDTableNew/queRen?title="+titleName; 
+       alert(url);
+       alert(333);
+	   $("#qrcodeTable").qrcode({
+		render	: "table",
+		text	: url,
+		width:"200",
+		height:"200"
+	});
+   } */
+
+</script>
+  </body>
+</html>

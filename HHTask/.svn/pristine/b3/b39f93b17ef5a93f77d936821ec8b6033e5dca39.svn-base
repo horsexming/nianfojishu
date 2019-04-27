@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class table="ta_hr_joinTrain" name="JoinTrain">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<!-- 入职培训对明细 -->
+		<set name="joinTDetails" lazy="false" cascade="all">
+			<key column="ta_he_joinTrainId" />
+			<one-to-many class="JoinTrainDetails" />
+		</set>
+
+		<!-- 入职培训对用户 -->
+		<many-to-one name="user" column="ta_userId" class="Users"
+			lazy="false" />
+
+		<property name="trainName" column="ta_hr_trainName" />
+		<property name="ownTrainProposal" column="ta_hr_ownTrainProposal" length="800"/>
+		<property name="trainEffect" column="ta_hr_trainEffect" length="800"/>
+	</class>
+</hibernate-mapping>

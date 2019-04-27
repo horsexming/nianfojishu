@@ -1,0 +1,399 @@
+package com.task.ServerImpl;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Dao.TotalDao;
+import com.task.Server.CalendarServer;
+import com.task.Server.MessagePollingService;
+import com.task.ServerImpl.sys.CircuitRunServerImpl;
+import com.task.entity.Calendar;
+import com.task.entity.MessagePolling;
+import com.task.entity.Users;
+import com.task.entity.system.CircuitRun;
+import com.task.entity.system.ExecutionNode;
+import com.task.util.RtxUtil;
+import com.task.util.Util;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 日历Server层实现类
+ * 
+ * @author 刘培
+ * 
+ */
+public class CalendarServerImpl implements CalendarServer {
+
+	private MessagePollingService messagePollingService;
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	/**
+	 * 查询所有的日历信息
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Calendar> findCalendar() {
+		String hql = "from Calendar";
+		return totalDao.query(hql);
+	}
+
+	/**
+	 * 根据日期查询所有的日历信息
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Calendar> findCalendar(String dateTime) {
+		String hql = "from Calendar where start like '%" + dateTime + "%'";
+		return totalDao.query(hql);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Calendar> findCalendar(String start, String end) {
+		Users loginUser = Util.getLoginUser();
+		if (start == null || end == null) {
+			throw new NullPointerException("开始时间或结束时间不能为空!");
+		}
+		// String hql =
+		// "from Calendar where start>? and endDate < ? and thingStatus = 'private' and  addUserId=?";
+		String hql = "from Calendar where start>? and endDate < ? and thingStatus = 'public' and calendarState<> '完成'" +
+                " or ( start>? and endDate < ? and thingStatus = 'private' and calendarState<> '完成' and  addUserId=? )" +
+                " or ( start>? and endDate < ? and thingStatus = 'private' and calendarState<> '完成' and  userId=?)";
+		return totalDao.query(hql, start, end, start, end, loginUser.getId(),start, end,loginUser.getId());
+		// return totalDao.query(hql, start, end,loginUser.getId());
+	}
+
+	/***
+	 * 添加日历事件
+	 * 
+	 * @param calendar
+	 * @return true/false
+	 */
+	@Override
+	public String addCalendar(Calendar calendar) {
+		if (calendar != null) {
+			// 获得登录用户信息
+			Users loginUser = (Users) ActionContext.getContext().getSession()
+					.get(TotalDao.users);
+
+			// 如果选择了日历所属人，则处理所属人信息
+			if (calendar.getUserId() != null && calendar.getUserId() > 0) {
+				Users calendarUser = (Users) totalDao.getObjectById(
+						Users.class, calendar.getUserId());
+				if (calendarUser != null) {
+					calendar.setUserId(calendarUser.getId());// 所属人id
+					calendar.setUserName(calendarUser.getName());// 所属人名称
+					calendar.setCode(calendarUser.getCode());// 所属人工号
+					calendar.setDept(calendarUser.getDept());// 所属人部门
+					calendar.setThingStatus("public");
+				}
+			}
+			// 日历添加人信息
+			calendar.setAddUserId(loginUser.getId());// 添加人id
+			calendar.setAddUserName(loginUser.getName());// 添加人名称
+			calendar.setAddUserCode(loginUser.getCode());// 添加人工号
+			calendar.setAddUserDept(loginUser.getDept());// 添加人部门
+			calendar.setCalendarState("未完成");
+//			calendar.setAddDateTime(Util.getDateTime(null));// 添加时间
+			calendar.setAddDateTime(Util.getDateTime("yyyy-MM-dd HH:mm:ss"));// 添加时间
+			calendar.setStart(calendar.getStart().replaceAll(",", "").trim());// 去除日期中的','
+			calendar.setEndDate(calendar.getEndDate().replaceAll(",", "")
+					.trim());// 去除日期中的','
+
+			// 开始时间
+			String startDate2 = calendar.getStart();
+			// 处理日期格式
+			String timeFormat = "";
+			if (calendar.getStart().length() >= 19) {
+				timeFormat = "yyyy-MM-dd HH:mm:ss";
+			} else {
+				timeFormat = "yyyy-MM-dd";
+			}
+			// 结束时间
+			String endDate2 = null;
+			String timeFormatEnd = "";
+			// 判断是否结束时间
+			if (calendar.getEndDate() != null
+					&& calendar.getEndDate().length() > 0) {
+				endDate2 = calendar.getEndDate();
+				if (calendar.getEndDate().length() >= 19) {
+					timeFormatEnd = "yyyy-MM-dd HH:mm:ss";
+				} else {
+					timeFormatEnd = "yyyy-MM-dd";
+				}
+			} else {
+				// 如果不存在结束时间,则结束时间和开始时间相同
+				endDate2 = startDate2;
+				timeFormatEnd = timeFormat;
+				calendar.setEndDate(endDate2);
+			}
+			// 计算事件总天数
+			try {
+				// 请假天数
+				Float day = (float) Util.getDateDiff(startDate2, timeFormat,
+						endDate2, timeFormatEnd);
+				if (day < 0) {
+					return "很抱歉，您不能创建结束时间早于开始时间的活动!";
+				}
+				if (timeFormat.equals("yyyy-MM-dd")) {
+					day = day / 60 / 60 / 24 + 1;
+				} else {
+					day = day / 60 / 60 / 8;
+				}
+				calendar.setSumDay(day);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			boolean bool = totalDao.save(calendar);// 保存事件
+
+			try {
+				addMessagePolling(calendar);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if (bool) {
+				calendar.setThingsId(calendar.getId());// 事件id
+				totalDao.update(calendar);
+
+				// 是否重复
+				if (calendar.getIsRepeat() != null
+						&& calendar.getIsRepeat().equals("yes")) {
+					String repeatCycle = calendar.getRepeatCycle();// 重复周期(day、week、month、year)
+					try {
+
+						// 计算各个周期的重复频率(次数)
+						for (int i = 1, fen = calendar.getRepeatFrequency(); i < fen; i++) {
+							Calendar newCalendar = (Calendar) Util
+									.copyObjectToNewObject(calendar, "id");// 复制对象并创建新对象
+							startDate2 = forDate(repeatCycle, startDate2,
+									timeFormat);
+							if (endDate2 != null) {
+								endDate2 = forDate(repeatCycle, endDate2,
+										timeFormatEnd);
+							}
+							newCalendar.setStart(startDate2);
+							if (endDate2 != null) {
+								newCalendar.setEndDate(endDate2);
+							}
+							totalDao.save(newCalendar);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+				return "true";
+			} else {
+				return "保存事件失败!";
+			}
+		}
+		return "数据异常";
+	}
+
+
+	private Boolean addMessagePolling(Calendar calendar) throws ParseException {
+		MessagePolling m=new MessagePolling();
+		m.setMessageTitle(calendar.getTitle());
+		m.setMessage(calendar.getThingContent());
+		m.setAddDate(Integer.parseInt(Util.dateToStamp(calendar.getAddDateTime()).substring(0,10)));
+		m.setTriggerDate(Integer.parseInt(Util.dateToStamp(calendar.getStart()).substring(0,10)));
+		m.setSendUsersId(calendar.getAddUserId());
+		m.setSendUsersName(calendar.getAddUserName());
+		m.setSendUsersCode(calendar.getAddUserCode());
+		m.setReceiveUsersId(calendar.getUserId());
+		m.setReceiveUsersName(calendar.getUserName());
+		m.setReceiveUsersCode(calendar.getCode());
+		if("成功".equals(messagePollingService.addMessage(m))){
+            RtxUtil.sendNotify(m.getReceiveUsersCode(),m.getMessageTitle()+"\n"+m.getMessage(),"系统消息","0","0");
+			return true;
+		};
+		return false;
+	}
+	// 处理重复时间
+	@SuppressWarnings("unused")
+	private String forDate(String repeatCycle, String date2, String timeFormat)
+			throws Exception {
+		if ("day".equals(repeatCycle)) {
+			return Util.DateToString(Util.getCalendarDate(Util.StringToDate(
+					date2, timeFormat), 1), timeFormat);// 获得下一个周期(1天)的日期,并转换成String类型数据
+		} else if ("week".equals(repeatCycle)) {
+			return Util.DateToString(Util.getCalendarDate(Util.StringToDate(
+					date2, timeFormat), 7), timeFormat);// 获得下一个周期(7天)的日期,并转换成String类型数据
+		} else if ("month".equals(repeatCycle)) {
+			// 开始时间
+			int yy = Integer.parseInt(date2.substring(0, 4));
+			int mm = Integer.parseInt(date2.substring(5, 7));
+			String other = date2.substring(7);
+			if (mm == 12) {
+				mm = 1;
+				yy++;
+			} else {
+				mm++;
+			}
+			if (mm < 10) {
+				date2 = yy + "-0" + mm + other;
+			} else {
+				date2 = yy + "-" + mm + other;
+			}
+			return date2;
+
+		} else if ("year".equals(repeatCycle)) {
+			String mouth = date2;
+			int yy = Integer.parseInt(date2.substring(0, 4));
+			String other = date2.substring(4);
+			yy++;
+			date2 = yy + other;
+			return date2;
+		}
+		return null;
+	}
+
+	/***
+	 * 根据id查询日历事件
+	 * 
+	 * @param id
+	 *            日历id
+	 * @return true/false
+	 */
+	@Override
+	public Calendar findCalendarById(int id) {
+		if ((Object) id != null && id > 0) {
+			return (Calendar) totalDao.getObjectById(Calendar.class, id);
+		}
+		return null;
+	}
+
+	/***
+	 * 删除日历事件
+	 * 
+	 * @param calendar
+	 *            日历对象
+	 * @return true/false
+	 */
+	@Override
+	public boolean delCalendar(Calendar calendar) {
+		if (calendar != null) {
+			return totalDao.delete(calendar);
+		}
+		return false;
+	}
+
+	/***
+	 * 删除日历事件
+	 * 
+	 * @param calendar
+	 *            日历对象
+	 * @return true/false
+	 */
+	@Override
+	public boolean delCalendar(Calendar calendar, String repeat) {
+		if (calendar == null || repeat == null || repeat.length() <= 0) {
+			throw new NullPointerException("参数calendar或repeat不能为空!");
+		}
+		boolean bool = false;
+		if ("delOne".equals(repeat)) {
+			bool = totalDao.delete(calendar);
+		} else if ("delAfter".equals(repeat)) {
+			String sql = "delete from ta_hr_Calendar where thingsId=? and id>=?";
+			int count = totalDao.createQueryUpdate(null, sql, calendar
+					.getThingsId(), calendar.getId());
+			if (count > 0) {
+				bool = true;
+			}
+		} else if ("delAll".equals(repeat)) {
+			String sql = "delete from ta_hr_Calendar where thingsId=?";
+			int count = totalDao.createQueryUpdate(null, sql, calendar
+					.getThingsId());
+			if (count > 0) {
+				bool = true;
+			}
+		}
+		return bool;
+	}
+
+	/***
+	 * 每日检查个人日程 发送消息提醒
+	 */
+	@Override
+	public void CalendarRemind() {
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String time = format.format(date);
+		String hql = "from Calendar where endDate=?";
+		List<Calendar> list = totalDao.query(hql, time);
+		for (Calendar calendar : list) {
+			Integer[] i = new Integer[1];
+			i[0] = calendar.getAddUserId();
+			AlertMessagesServerImpl.addAlertMessages("2", "您的个人日程于今日结束", i, "", false, false);
+		}
+
+	}
+
+	@Override
+	public String submitCalendarState(Integer id) {
+		Calendar calendar=findCalendarById(id);
+		//添加审批
+//		Integer epId = CircuitRunServerImpl.createProcess(processName, OaAppDetail.class, detail.getId(), "detailStatus", "id", null);
+		try {
+			Integer epId = CircuitRunServerImpl.createProcess("个人日程审批流程",Calendar.class,id,"calendarState","id",null);
+			calendar.setEpId(epId);
+			CircuitRun circuitRun = (CircuitRun) totalDao.get(
+					CircuitRun.class, epId);
+			if ("同意".equals(circuitRun.getAllStatus())
+					&& "审批完成".equals(circuitRun.getAuditStatus())) {
+				calendar.setCalendarState("完成");
+			} else {
+				calendar.setCalendarState("未完成");
+			}
+			totalDao.update(calendar);
+			totalDao.clear();
+            Calendar calendar1=findCalendarById(id);
+            CircuitRun circuitRun1 =(CircuitRun) totalDao.get(CircuitRun.class, calendar1.getEpId());
+            Set<ExecutionNode> executionNodes=circuitRun1.getExNodeSet();
+            for (ExecutionNode e:executionNodes) {
+                e.setAuditUserName(calendar1.getAddUserName());
+                e.setAuditUserDept(calendar1.getAddUserDept());
+                e.setAuditUserId(calendar1.getAddUserId());
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "成功";
+	}
+
+
+	@Override
+	public String updateMsgAssign(Integer id) {
+		Calendar calendar= (Calendar) totalDao.getObjectById(Calendar.class,id);
+		String viewTime=Util.getDateTime("yyyy-MM-dd HH:mm:ss");
+		calendar.setViewTime(viewTime);
+		calendar.setHread("true");
+		calendar.setAdd2viewPeriod(Util.timeDifference(calendar.getAddDateTime(),viewTime));
+		AlertMessagesServerImpl.addAlertMessages("任务已阅","您的任务"+calendar.getTitle()+"已被阅读",new Integer[]{calendar.getAddUserId()},"#",true);
+		return "";
+	}
+
+	public MessagePollingService getMessagePollingService() {
+		return messagePollingService;
+	}
+
+	public void setMessagePollingService(MessagePollingService messagePollingService) {
+		this.messagePollingService = messagePollingService;
+	}
+}

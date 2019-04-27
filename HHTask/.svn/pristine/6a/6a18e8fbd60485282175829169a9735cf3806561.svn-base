@@ -1,0 +1,917 @@
+#################################################################################
+#EQ2008-I/II控制卡动态库参数配置文件:						#
+#										#
+#	1、控制卡地址"[地址：n]"和"CardAddress" 范围为：0~1023;			#
+#										#
+#	2、控制卡类型"CardType"的取值为：					#
+#		EQ3002-I=0、EQ3002-II=1、EQ3002-III=2、EQ2008-I/II=3;		#
+#		EQ2010-I=4、EQ2008-IE=5、EQ2011=7、EQ2012=8、EQ2008-M=9		#
+#		EQ2013=21、EQ2023=22、EQ2033=23					#	
+#										#
+#	3、控制卡通讯模式“CommunicationMode”的取值为：			#
+#		串口通讯=0、网路通讯=1						#
+#										#
+#	4、显示屏的宽度和高度分别为“ScreemWidth”和“ScreemHeight”，取值为：	#
+#		ScreemWidth=8的倍数						#
+#										#
+#	5、串口波特率和串口号分别为“SerialBaud”和“SerialNum”，取值为：	#
+#		SerialBaud=(9600，19200，57600，115200);			#
+#		(注：当CardType=EQ2013/EQ2023/EQ2033时,波特率只能为9600或57600) #	
+#		SerialNum =(1为COM1口，2为COM2口);				#
+#										#
+#	6、网络端口号“NetPort”必须为5005;					#
+#										#
+#	7、参数“IpAddressn”为IP地址：默认值为192.168.1.236			#
+#										#
+#	8、ColorStyle:显示屏颜色类型:0--单色屏，1--双色屏。			#
+#注意：										#
+#	*地址的个数可以根据实际显示屏的个数添加；				#
+#	*不要修改本文件的文件名及后缀；						#
+#	*本文件必须和应用程序放在同一个目录下。					#
+#										#
+#################################################################################		
+#Demo程序中，控制器地址为1，对应参数[地址：0]
+  [地址：0]
+    CardType=21
+    CardAddress=0
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=0
+    IpAddress3=53
+    ColorStyle = 1
+
+  [地址：1]
+    CardType=21
+    CardAddress=1
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=0
+    IpAddress3=54
+    ColorStyle = 1
+
+  [地址：2]
+    CardType=21
+    CardAddress=2
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=33
+    ColorStyle = 1
+
+  [地址：3]
+    CardType=21
+    CardAddress=3
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=34
+    ColorStyle = 1
+
+  [地址：4]
+    CardType=21
+    CardAddress=4
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=35
+    ColorStyle = 1
+
+  [地址：5]
+    CardType=21
+    CardAddress=5
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=36
+    ColorStyle = 1
+
+  [地址：6]
+    CardType=21
+    CardAddress=6
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=37
+    ColorStyle = 1
+
+  [地址：7]
+    CardType=21
+    CardAddress=7
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=38
+    ColorStyle = 1
+
+  [地址：8]
+    CardType=21
+    CardAddress=8
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=39
+    ColorStyle = 1
+
+  [地址：9]
+    CardType=21
+    CardAddress=9
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress2=19
+    IpAddress3=40
+    ColorStyle = 1
+
+  [地址：10]
+    CardType=21
+    CardAddress=10
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=71
+    ColorStyle = 1
+
+  [地址：11]
+    CardType=21
+    CardAddress=11
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=72
+    ColorStyle = 1
+
+  [地址：12]
+    CardType=21
+    CardAddress=12
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=73
+    ColorStyle = 1
+
+  [地址：13]
+    CardType=21
+    CardAddress=13
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=74
+    ColorStyle = 1
+
+  [地址：14]
+    CardType=21
+    CardAddress=14
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=75
+    ColorStyle = 1
+
+  [地址：15]
+    CardType=21
+    CardAddress=15
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=76
+    ColorStyle = 1
+
+  [地址：16]
+    CardType=21
+    CardAddress=16
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=77
+    ColorStyle = 1
+
+  [地址：17]
+    CardType=21
+    CardAddress=17
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=83
+    ColorStyle = 1
+
+  [地址：18]
+    CardType=21
+    CardAddress=18
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=84
+    ColorStyle = 1
+
+  [地址：19]
+    CardType=21
+    CardAddress=19
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=85
+    ColorStyle = 1
+
+  [地址：20]
+    CardType=21
+    CardAddress=20
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=41
+    ColorStyle = 1
+
+  [地址：21]
+    CardType=21
+    CardAddress=21
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=42
+    ColorStyle = 1
+
+  [地址：22]
+    CardType=21
+    CardAddress=22
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=43
+    ColorStyle = 1
+
+  [地址：23]
+    CardType=21
+    CardAddress=23
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=44
+    ColorStyle = 1
+
+  [地址：24]
+    CardType=21
+    CardAddress=24
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=45
+    ColorStyle = 1
+
+  [地址：25]
+    CardType=21
+    CardAddress=25
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=46
+    ColorStyle = 1
+
+  [地址：26]
+    CardType=21
+    CardAddress=26
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=47
+    ColorStyle = 1
+
+  [地址：27]
+    CardType=21
+    CardAddress=27
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=48
+    ColorStyle = 1
+
+  [地址：28]
+    CardType=21
+    CardAddress=28
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=49
+    ColorStyle = 1
+
+  [地址：29]
+    CardType=21
+    CardAddress=29
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=50
+    ColorStyle = 1
+
+  [地址：30]
+    CardType=21
+    CardAddress=30
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=51
+    ColorStyle = 1
+
+  [地址：31]
+    CardType=21
+    CardAddress=31
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=52
+    ColorStyle = 1
+
+  [地址：32]
+    CardType=21
+    CardAddress=32
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=53
+    ColorStyle = 1
+
+  [地址：33]
+    CardType=21
+    CardAddress=33
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=54
+    ColorStyle = 1
+
+  [地址：34]
+    CardType=21
+    CardAddress=34
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=55
+    ColorStyle = 1
+
+  [地址：35]
+    CardType=21
+    CardAddress=35
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=56
+    ColorStyle = 1
+
+  [地址：36]
+    CardType=21
+    CardAddress=36
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=57
+    ColorStyle = 1
+
+  [地址：37]
+    CardType=21
+    CardAddress=37
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=58
+    ColorStyle = 1
+
+  [地址：38]
+    CardType=21
+    CardAddress=38
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=59
+    ColorStyle = 1
+
+
+  [地址：39]
+    CardType=21
+    CardAddress=39
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=60
+    ColorStyle = 1
+
+  [地址：40]
+    CardType=21
+    CardAddress=40
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=86
+    ColorStyle = 1
+
+  [地址：41]
+    CardType=21
+    CardAddress=41
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=87
+    ColorStyle = 1
+	
+	[地址：42]
+    CardType=21
+    CardAddress=42
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=0
+    IpAddress3=137
+    ColorStyle = 1
+
+	[地址：43]
+    CardType=21
+    CardAddress=43
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=0
+    IpAddress3=139
+    ColorStyle = 1
+
+	[地址：44]
+    CardType=21
+    CardAddress=44
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=90
+    ColorStyle = 1
+
+	[地址：45]
+    CardType=21
+    CardAddress=45
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=91
+    ColorStyle = 1
+
+	[地址：46]
+    CardType=21
+    CardAddress=46
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=92
+    ColorStyle = 1
+
+	[地址：47]
+    CardType=21
+    CardAddress=47
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=93
+    ColorStyle = 1
+
+	[地址：48]
+    CardType=21
+    CardAddress=48
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=94
+    ColorStyle = 1
+
+	[地址：49]
+    CardType=21
+    CardAddress=49
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=95
+    ColorStyle = 1
+
+	[地址：50]
+    CardType=21
+    CardAddress=50
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=96
+    ColorStyle = 1
+
+	[地址：51]
+    CardType=21
+    CardAddress=51
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=97
+    ColorStyle = 1
+
+	[地址：52]
+    CardType=21
+    CardAddress=52
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=98
+    ColorStyle = 1
+
+	[地址：53]
+    CardType=21
+    CardAddress=53
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=99
+    ColorStyle = 1
+
+	[地址：54]
+    CardType=21
+    CardAddress=54
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=100
+    ColorStyle = 1
+
+	[地址：55]
+    CardType=21
+    CardAddress=55
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=101
+    ColorStyle = 1
+
+	[地址：56]
+    CardType=21
+    CardAddress=56
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=102
+    ColorStyle = 1
+
+	[地址：57]
+    CardType=21
+    CardAddress=57
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=19
+    IpAddress3=103
+    ColorStyle = 1
+
+  [地址：98]
+    CardType=23
+    CardAddress=98
+    CommunicationMode=1
+    ScreemHeight=32
+    ScreemWidth=64
+    SerialBaud=57600
+    SerialNum=1
+    NetPort=5005
+    IpAddress0=192
+    IpAddress1=168
+    IpAddress2=0
+    IpAddress3=235
+    ColorStyle = 1

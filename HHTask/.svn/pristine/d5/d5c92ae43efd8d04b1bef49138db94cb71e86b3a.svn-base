@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--
+		*****************************招标**********************************
+	-->
+	<!-- 流水卡片server -->
+	<bean id="zhaobiaoServerImpl" class="com.task.ServerImpl.zhaobiao.ZhaobiaoServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+
+	<bean id="zhaobiaoAction" class="com.task.action.zhaobiao.ZhaobiaoAction"
+		scope="prototype">
+		<property name="zhaobiaoServer" ref="zhaobiaoServerImpl"></property>
+		<property name="supplierCertificationService" ref="SupplierCertificationServiceimpl"></property>
+	</bean>
+	
+		<!--
+		****************************部门缺陷管理*********************************
+	-->
+		<bean id="QueXianServerImpl" class="com.task.ServerImpl.zhaobiao.QueXianServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="queXianAction" class="com.task.action.zhaobiao.QueXianAction"
+		scope="prototype">
+		<property name="queXianServer" ref="QueXianServerImpl"></property>
+	</bean>
+	
+		
+		<!--
+		****************************一线员工实际操作能力调查表*********************************
+	-->
+		<bean id="CaoZuoServerImpl" class="com.task.ServerImpl.zhaobiao.CaoZuoServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="caoZuoAction" class="com.task.action.zhaobiao.CaoZuoAction"
+		scope="prototype">
+		<property name="caoZuoServer" ref="CaoZuoServerImpl"></property>
+	</bean>
+	
+			<!--
+		****************************年休*********************************
+	-->
+		<bean id="NianXiuServerImpl" class="com.task.ServerImpl.zhaobiao.NianXiuServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="nianXiuAction" class="com.task.action.zhaobiao.NianXiuAction"
+		scope="prototype">
+		<property name="nianXiuServer" ref="NianXiuServerImpl"></property>
+	</bean>
+	<!-- 
+			*******************************招标订单管理***********************************
+	 -->
+	 <bean id="DingdanActionImpl" class="com.task.ServerImpl.zhaobiao.DingdanActionImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="DingdanAction" class="com.task.action.zhaobiao.DingdanAction"
+		scope="prototype">
+		<property name="dServer" ref="DingdanActionImpl"></property>
+	</bean>
+	<!-- 
+			*******************************供应商填写BOm***********************************
+	 -->
+	 	 <bean id="MarkIdServerImpl" class="com.task.ServerImpl.zhaobiao.MarkIdServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="markIdAction" class="com.task.action.zhaobiao.GysMarkIdjiepaiAction"
+		scope="prototype">
+		<property name="markIdServer" ref="MarkIdServerImpl"></property>
+	</bean>
+	<!-- 协议管理 -->
+	 	 <bean id="ClauseServerImpl" class="com.task.ServerImpl.zhaobiao.ClauseServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+		<bean id="ClauseAction" class="com.task.action.ClauseAction"
+		scope="prototype">
+		<property name="clauseServer" ref="ClauseServerImpl"></property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.MachineSparePart" table="MachineSparePart">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="number" />
+		<property name="matetag" />
+		<property name="safeCount" />
+		<property name="curCount" />
+		<property name="unit" />
+		<property name="format" />
+		<property name="storehouse" />
+		<property name="parClass" />
+		<property name="place" />
+		<property name="remake" />
+		<property name="price" />
+		<property name="carModel" />
+		<property name="addtime" />
+		<property name="pic" />
+		<many-to-one name="machine" column="fk_machineId" lazy="false"
+			cascade="save-update" class="com.task.entity.Machine"></many-to-one>
+
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity">
+	<class name="Qualityto" table="ta_qualityto">
+		<id name="Id">
+			<generator class="identity"></generator>
+		</id>
+
+		<set name="qualityta" lazy="true" inverse="true" cascade="all">
+			<key>
+				<column name="fk_qualitytoId"></column>
+			</key>
+			<one-to-many class="Qualityta" />
+		</set>
+
+		<property name="productname"  />
+		<property name="kehu"  />
+		<property name="bianhao"  />
+		<property name="beizhu"  />
+		<property name="addtime" />
+		<property name="leibie"  />
+		<property name="jcbh"  />
+		<property name="statu" />
+		<property name="qualitychecktoid" />
+		<property name="ybshu" />
+		<property name="pici" />
+		<property name="yybz" />
+		<property name="kbz" />
+		<property name="jlun" />
+		<property name="shuoming1" />
+		<property name="shuoming2" />
+		<property name="shy" />
+		<property name="faan" />
+		<property name="shr" />
+	
+	</class>
+
+</hibernate-mapping>

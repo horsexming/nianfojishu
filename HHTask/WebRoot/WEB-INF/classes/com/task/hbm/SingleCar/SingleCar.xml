@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.task.entity.singlecar.SingleCar" table="ta_SingleCar" >
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="identity" />
+        </id>
+        <property name="var_dept" />
+        <property name="car_date" />
+        <property name="car_content" />
+        <property name="car_amount" />
+        <property name="car_place" />
+        <property name="charges" />
+        <property name="comeoroutdate" />
+        <property name="beforeodometer" />
+        <property name="endodometer" />
+        <property name="kilometers" />
+        <property name="car_usename" />
+        <property name="create_date" />
+        <property name="pilotname" />
+        <property name="car_number" />
+        <property name="unit_leading" />
+        <property name="appointname" />
+        <property name="instructions" />
+        <property name="remark" />
+        <property name="epId" />
+        <property name="status" />
+        <property name="singlecarType" />
+        <property name="processingstatus" />
+        <property name="car_useType" />
+        <property name="zcwg" />
+        <property name="zmcx" />
+        <property name="useStatus" />
+        <property name="car_userCode" />
+        <property name="reCost" />
+        <property name="cost" />
+        <property name="freeDepts" />
+		<property name="freeDeptIds" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,1149 @@
+package com.task.util;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import com.task.Dao.TotalDao;
+import com.task.DaoImpl.TotalDaoImpl;
+import com.task.ServerImpl.IntegralServerDaoImpl;
+import com.task.action.UsersAction;
+import com.task.entity.Users;
+import com.task.entity.rtx.RtxConnect;
+import com.task.entity.rtx.RtxMsg;
+import com.task.util.StationResource;
+
+public class RtxUtil {
+	/** RTX连接配置 **/
+	public static String rtxIp = "";// rtx服务器地址 192.168.18.246
+	public static String rtxPort = "";// 8012
+	public static String rtxsender = "";// rtx发送统一账号helper
+	public static String pwd = "";// 登录密码honghu_2015
+
+	public static String driverName = ""; // 加载JDBC驱动com.microsoft.sqlserver.jdbc.SQLServerDriver
+	public static String dbURL = ""; // jdbc:sqlserver://192.168.18.246:1433;databaseName=rtxdb
+	// 连接服务器和数据库rtxdb地址
+	public static String userName = ""; // 默认用户名sa
+	public static String userPwd = ""; // 密码linju2014
+
+	public static Connection dbConn = null;
+	public static Statement st = null;
+	public static ResultSet res = null;
+
+	public static void getRtxConnect(RtxConnect rtxConnect) {
+		if (rtxConnect != null) {
+			rtxIp = rtxConnect.getRtxIp();
+			rtxPort = rtxConnect.getRtxPort();
+			rtxsender = rtxConnect.getSender();
+			pwd = rtxConnect.getPwd();
+			driverName = rtxConnect.getDriverName();
+			dbURL = rtxConnect.getDbURL();
+			userName = rtxConnect.getUserName();
+			userPwd = rtxConnect.getUserPwd();
+			SendMail.spareMail = rtxConnect.getSpareMail();
+		}
+	}
+
+	/***
+	 * 创建数据库连接
+	 * 
+	 * @return
+	 */
+	public static Connection getDbConnection() {
+		try {
+			if (dbURL != null && dbURL.length() > 0) {
+				if (userName == null) {
+					userName = "";
+				}
+				if (userPwd == null) {
+					userPwd = "";
+				}
+				userName = userName.replaceAll(" ", "");
+				userPwd = userPwd.replaceAll(" ", "");
+				Properties prop = new Properties();
+				prop.put("charSet", "gb2312"); // 这里是解决中文乱码
+				prop.put("user", userName);
+				prop.put("password", userPwd);
+				Class.forName(driverName);
+				dbConn = DriverManager.getConnection(dbURL, prop);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dbConn;
+	}
+
+	/**
+	 * 关闭数据库参数
+	 */
+	public static void close() {
+		try {
+			if (res != null) {
+				res.close();
+			}
+			if (st != null) {
+				st.close();
+			}
+			if (dbConn != null) {
+				dbConn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 
+	 *@param code
+	 *            String 接收人工号单个
+	 * @param msg
+	 *            String 消息内容
+	 * @param title
+	 *            String 消息标题
+	 * @param type
+	 *            String 0:普通消息 1:紧急消息
+	 * @param delayTime
+	 *            String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	 * @return
+	 */
+	public static boolean sendNotify(String code, String msg, String title,
+			String type, String time) {
+		// getRtxConnect();
+		List<String> codes = new ArrayList<String>();
+		codes.add(code);
+		return sendNotify(codes, msg, title, type, time);
+
+	}
+
+	// 调戏用。。。。
+	public static void main(String[] args) {
+		sendNotify("helper", "测试", "真的测试", "", "");
+
+		// for (int i = 0; i < 1; i++) {
+		// // getRtxConnect();
+		// // String rtxName = "1118";//谭鑫
+		// // String rtxName = "1009";//刘培
+		// String rtxName = "helper";// 王晓飞
+		// // String rtxName = "1015";//李聪
+		// HttpRequest req = new HttpRequest();
+		// HttpResponse response = new HttpResponse();
+		// String result = null;
+		// try {
+		// Map<String, String> map = new HashMap<String, String>();
+		// map.put("sender", "zongkong");
+		// map.put("pwd", "zongkong");
+		// map.put("receivers", rtxName.toString());
+		// map.put("msg", URLEncoder.encode("测试", "gb2312"));
+		// response = req
+		// .sendHttpPost(
+		// "http://192.168.10.229:8012/GetSession2.cgi?receiver=helper",
+		// null);
+		// String sendSession = response.getRTXDataString();
+		// map.put("sessionid", sendSession);
+		// response = req.sendHttpPost(
+		// "http://192.168.10.229:8012/SendIM.cgi", map);
+		// result = response.getRTXDataString();
+		// if (result.indexOf("(") > 0) {
+		// result = result.substring(result.indexOf("(") + 2, result
+		// .indexOf(")") - 1);
+		// }
+		// System.out.println(result);
+		// // break;
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		// }
+	}
+
+	/**
+	 * 
+	 *@param code
+	 *            List<String> 接收人工号列表
+	 * @param title
+	 *            String 消息标题
+	 * @param msg
+	 *            String 消息内容
+	 * @param type
+	 *            String 0:普通消息 1:紧急消息
+	 * @param delayTime
+	 *            String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	 * @return
+	 */
+	public static boolean sendNotify(List<String> codes, String msg,
+			String title, String type, String time) {
+		TotalDao totalDao = createTotol();
+		if (codes.size() > 0) {
+			HttpRequest req = new HttpRequest();
+			HttpResponse response = new HttpResponse();
+			StringBuffer rtxName = new StringBuffer();
+			StringBuffer namesb = new StringBuffer();
+			StringBuffer codesb = new StringBuffer();
+
+			// 同步推送至公众号的应用上
+			try {
+				if (StationResource.corpId != null
+						&& StationResource.corpId.length() > 0) {
+					StringBuffer codesForYy = new StringBuffer();
+					for (int i = 0; i < codes.size(); i++) {
+						codesForYy.append(codes.get(i) + "|");
+					}
+					StationResource.sendWeChatMsgText(codesForYy.toString(),
+							msg);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String result = null;
+			int n = 0;
+			try {
+				if (dbURL != null && dbURL.length() > 0) {
+					dbConn = getDbConnection();
+					st = dbConn.createStatement();
+					for (int i = 0; i < codes.size(); i++) {
+						res = st
+								.executeQuery("select Name from SYS_User where UserName ='"
+										+ codes.get(i)
+										+ "' and (accountstate is null or accountstate=0)");
+						String userNames = "";
+						while (res.next()) {
+							userNames = res.getString(1);
+							if (userNames != null && userNames.length() > 0) {
+								if (n == 0) {
+									rtxName.append(codes.get(i));
+								} else {
+									rtxName.append(";" + codes.get(i));
+									namesb.append(",");
+									codesb.append(",");
+								}
+								namesb.append(userNames);
+								codesb.append(codes.get(i));
+								n++;
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			try {
+				if (rtxIp != null && rtxIp.length() > 0) {
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("sender", rtxsender);
+					map.put("pwd", pwd);
+					map.put("receivers", rtxName.toString());
+					map.put("msg", URLEncoder.encode(msg, "gb2312"));
+					// if (title != null) {
+					// map.put("title", URLEncoder.encode(title, "gb2312"));
+					// }
+					// map.put("type", type);
+					// map.put("delaytime", time);
+					// 获取发送者session
+					response = req.sendHttpPost("http://" + rtxIp + ":"
+							+ rtxPort + "/GetSession2.cgi?receiver="
+							+ rtxsender, null);
+					String sendSession = response.getRTXDataString();
+					map.put("sessionid", sendSession);
+
+					// response = req.sendHttpPost("http://" + rtxIp + ":"
+					// + rtxPort + "/SendNotify.cgi", map);
+					// result = response.getRTXDataString();
+					// result = result.substring(result.indexOf("(") + 2, result
+					// .indexOf(")") - 1);
+					// String hql1 =
+					// "select valueCode from CodeTranslation where type = 'sys' and keyCode='RTXSERVER' and valueName='RTX'";
+					// String valueCode = "";
+					// List list = totalDao.query(hql1);
+					// if (list != null) {
+					// valueCode = (String) list.get(0);
+					// }
+					response = req.sendHttpPost("http://" + rtxIp + ":"
+							+ rtxPort + "/SendIM.cgi", map);
+					result = response.getRTXDataString();
+					if (result.indexOf("(") > 0) {
+						result = result.substring(result.indexOf("(") + 2,
+								result.indexOf(")") - 1);
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+
+			try {
+				Users sender = Util.getLoginUser();
+				RtxMsg rtxMsg = new RtxMsg();
+				rtxMsg.setReceivers(codesb.toString());
+				rtxMsg.setReceiverNames(namesb.toString());
+				if (sender != null) {
+					rtxMsg.setUserid(sender.getId());
+					rtxMsg.setUserCode(sender.getCode());
+					rtxMsg.setUserName(sender.getName());
+				}
+				rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+						"yyyy-MM-dd HH:mm:ss"));
+				rtxMsg.setTitle(title);
+				rtxMsg.setMsg(msg);
+				rtxMsg.setMsgType("流程消息");
+				rtxMsg.setReceiverCount(n);
+				rtxMsg.setSenderIp(UsersAction.loginIp);
+				if (result != null && result.equals("操作成功")) {
+					rtxMsg.setSendOk("OK");
+					totalDao.save(rtxMsg);
+					return true;
+				} else {
+					rtxMsg.setSendOk("NO");
+					totalDao.save(rtxMsg);
+					return false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// }
+
+		return false;
+	}
+
+	/**
+	 * 
+	 *@param code
+	 *            List<String> 接收人工号列表
+	 * @param title
+	 *            String 消息标题
+	 * @param msg
+	 *            String 消息内容
+	 * @param type
+	 *            String 0:普通消息 1:紧急消息
+	 * @param delayTime
+	 *            String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	 * @return
+	 */
+	public static boolean sendNoLoginNotify(List<String> codes, String msg,
+			String title, String type, String time) {
+
+		TotalDao totalDao = createTotol();
+		// if (codes != null && codes.size() > 0) {
+		// List<String> rtxNames = new ArrayList<String>();
+		// for (String code : codes) {
+		// List list = totalDao.query(
+		// "select id from RtxUser where userName=?", code);
+		// if (list.size() > 0) {
+		// rtxNames.add(list.get(0).toString());
+		// }
+		// }
+		// getRtxConnect();
+		if (codes.size() > 0) {
+			HttpRequest req = new HttpRequest();
+			HttpResponse response = new HttpResponse();
+			StringBuffer rtxName = new StringBuffer();
+
+			// 同步推送至公众号的应用上
+			try {
+				if (StationResource.corpId != null
+						&& StationResource.corpId.length() > 0) {
+					StringBuffer codesForYy = new StringBuffer();
+					for (int i = 0; i < codes.size(); i++) {
+						codesForYy.append(codes.get(i) + "|");
+					}
+					StationResource.sendWeChatMsgText(codesForYy.toString(),
+							msg);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String result = null;
+			for (int i = 0; i < codes.size(); i++) {
+				if (i == 0) {
+					rtxName.append(codes.get(i));
+				} else {
+					rtxName.append(";" + codes.get(i));
+				}
+			}
+			try {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("sender", rtxsender);
+				map.put("pwd", pwd);
+				map.put("receivers", rtxName.toString());
+				map.put("msg", URLEncoder.encode(msg, "gb2312"));
+				// if (title != null) {
+				// map.put("title", URLEncoder.encode(title, "gb2312"));
+				// }
+				// map.put("type", type);
+				// map.put("delaytime", time);
+				// 获取发送者session
+				response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+						+ "/GetSession2.cgi?receiver=" + rtxsender, null);
+				String sendSession = response.getRTXDataString();
+				map.put("sessionid", sendSession);
+
+				// response = req.sendHttpPost("http://" + rtxIp + ":"
+				// + rtxPort + "/SendNotify.cgi", map);
+				// result = response.getRTXDataString();
+				// result = result.substring(result.indexOf("(") + 2, result
+				// .indexOf(")") - 1);
+				response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+						+ "/SendIM.cgi", map);
+				result = response.getRTXDataString();
+				if (result.indexOf("(") > 0) {
+					result = result.substring(result.indexOf("(") + 2, result
+							.indexOf(")") - 1);
+				}
+				// Users sender = Util.getLoginUser();
+				RtxMsg rtxMsg = new RtxMsg();
+				StringBuffer namesb = new StringBuffer();
+				StringBuffer codesb = new StringBuffer();
+				int n = 0;
+				try {
+					if (dbURL != null && dbURL.length() > 0) {
+						dbConn = getDbConnection();
+						st = dbConn.createStatement();
+						for (int i = 0; i < codes.size(); i++) {
+							res = st
+									.executeQuery("select Name from SYS_User where UserName ='"
+											+ codes.get(i)
+											+ "' and (accountstate is null or accountstate=0)");
+							String userNames = "";
+							while (res.next()) {
+								userNames = res.getString(1);
+								if (userNames != null && userNames.length() > 0) {
+									if (n == 0) {
+										rtxName.append(codes.get(i));
+									} else {
+										rtxName.append(";" + codes.get(i));
+										namesb.append(",");
+										codesb.append(",");
+									}
+									namesb.append(userNames);
+									codesb.append(codes.get(i));
+									n++;
+								}
+							}
+
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+
+				rtxMsg.setReceivers(codesb.toString());
+				rtxMsg.setReceiverNames(namesb.toString());
+				// if (sender != null) {
+				// rtxMsg.setUserid(sender.getId());
+				// rtxMsg.setUserCode(sender.getCode());
+				// rtxMsg.setUserName(sender.getName());
+				// }
+				rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+						"yyyy-MM-dd HH:mm:ss"));
+				rtxMsg.setTitle(title);
+				rtxMsg.setMsg(msg);
+				rtxMsg.setMsgType("流程消息");
+				rtxMsg.setReceiverCount(n);
+				rtxMsg.setSenderIp(UsersAction.loginIp);
+
+				if (result != null && result.equals("操作成功")) {
+					rtxMsg.setSendOk("OK");
+					totalDao.save(rtxMsg);
+					return true;
+				} else {
+					rtxMsg.setSendOk("NO");
+					totalDao.save(rtxMsg);
+					return false;
+				}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		// }
+
+		return false;
+	}
+
+	// /**
+	// *
+	// *@param code
+	// * String 接收人Rtx号单个
+	// * @param title
+	// * String 消息标题
+	// * @param msg
+	// * String 消息内容
+	// * @param type
+	// * String 0:普通消息 1:紧急消息
+	// * @param delayTime
+	// * String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	// * @return
+	// */
+	// public static boolean sendNotifyById(String rtxId, String msg,
+	// String title, String type, String time) {
+	// HttpRequest req = new HttpRequest();
+	// HttpResponse response = new HttpResponse();
+	// String result = null;
+	// try {
+	// Map<String, String> map = new HashMap<String, String>();
+	// map.put("receiver", rtxId);
+	// map.put("msg", URLEncoder.encode(msg, "gb2312"));
+	// if (title != null) {
+	// map.put("title", URLEncoder.encode(title, "gb2312"));
+	// }
+	// map.put("type", type);
+	// map.put("delaytime", time);
+	// response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+	// + "/SendNotify.cgi", map);
+	// result = response.getRTXDataString();
+	// result = result.substring(result.indexOf("(") + 2, result
+	// .indexOf(")") - 1);
+	// if (result != null && result.equals("操作成功")) {
+	// TotalDao totalDao = createTotol();
+	// Users sender = Util.getLoginUser();
+	// RtxMsg rtxMsg = new RtxMsg();
+	//
+	// List<RtxUser> rtxUserList = totalDao.query(
+	// "from RtxUser where id =?", rtxId);
+	// String name = null;
+	// String code = null;
+	// if (rtxUserList != null && rtxUserList.size() > 0) {
+	// name = rtxUserList.get(0).getName();
+	// code = rtxUserList.get(0).getUserName();
+	// }
+	//
+	// rtxMsg.setReceivers(code);
+	// rtxMsg.setReceiverNames(name);
+	// if (sender != null) {
+	// rtxMsg.setUserid(sender.getId());
+	// rtxMsg.setUserCode(sender.getCode());
+	// rtxMsg.setUserName(sender.getName());
+	// }
+	// rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+	// "yyyy-MM-dd HH:mm:ss"));
+	// rtxMsg.setTitle(title);
+	// rtxMsg.setMsg(msg);
+	// rtxMsg.setMsgType("流程消息");
+	// rtxMsg.setReceiverCount(1);
+	// rtxMsg.setSenderIp(UsersAction.loginIp);
+	// return totalDao.save(rtxMsg);
+	// }
+	//
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// return false;
+	// }
+	//
+	// /**
+	// *
+	// *@param code
+	// * List<String> 接收Rtx号列表
+	// * @param title
+	// * String 消息标题
+	// * @param msg
+	// * String 消息内容
+	// * @param type
+	// * String 0:普通消息 1:紧急消息
+	// * @param delayTime
+	// * String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	// * @return
+	// */
+	// public static boolean sendNotifyById(List<String> rtxIds, String msg,
+	// String title, String type, String time) {
+	// // TotalDao totalDao = createTotol();
+	// if (rtxIds.size() > 0) {
+	// HttpRequest req = new HttpRequest();
+	// HttpResponse response = new HttpResponse();
+	// StringBuffer rtxName = new StringBuffer();
+	// String result = null;
+	// for (int i = 0; i < rtxIds.size(); i++) {
+	// if (i == 0) {
+	// rtxName.append(rtxIds.get(i));
+	// } else {
+	// rtxName.append("," + rtxIds.get(i));
+	// }
+	// }
+	// try {
+	// Map<String, String> map = new HashMap<String, String>();
+	// map.put("receiver", rtxName.toString());
+	// map.put("msg", URLEncoder.encode(msg, "gb2312"));
+	// if (title != null) {
+	// map.put("title", URLEncoder.encode(title, "gb2312"));
+	// }
+	// map.put("type", type);
+	// map.put("delaytime", time);
+	// response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+	// + "/SendNotify.cgi", map);
+	// result = response.getRTXDataString();
+	// result = result.substring(result.indexOf("(") + 2, result
+	// .indexOf(")") - 1);
+	// if (result != null && result.equals("操作成功")) {
+	// TotalDao totalDao = createTotol();
+	// Users sender = Util.getLoginUser();
+	// RtxMsg rtxMsg = new RtxMsg();
+	// StringBuffer sb = new StringBuffer();
+	// for (int i = 0; i < rtxIds.size(); i++) {
+	// if (i != 0) {
+	// sb.append(",");
+	// }
+	// sb.append(rtxIds.get(i));
+	// }
+	//
+	// List<RtxUser> rtxUserList = totalDao
+	// .query("from RtxUser where id in (" + sb.toString()
+	// + ")");
+	// StringBuffer namesb = new StringBuffer();
+	// StringBuffer codesb = new StringBuffer();
+	// if (rtxUserList != null && rtxUserList.size() > 0) {
+	// for (int i = 0; i < rtxUserList.size(); i++) {
+	// if (i != 0) {
+	// namesb.append(",");
+	// codesb.append(",");
+	// }
+	// namesb.append(rtxUserList.get(i).getName());
+	// codesb.append(rtxUserList.get(i).getUserName());
+	// }
+	// }
+	//
+	// rtxMsg.setReceivers(codesb.toString());
+	// rtxMsg.setReceiverNames(namesb.toString());
+	// if (sender != null) {
+	// rtxMsg.setUserid(sender.getId());
+	// rtxMsg.setUserCode(sender.getCode());
+	// rtxMsg.setUserName(sender.getName());
+	// }
+	// rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+	// "yyyy-MM-dd HH:mm:ss"));
+	// rtxMsg.setTitle(title);
+	// rtxMsg.setMsg(msg);
+	// rtxMsg.setMsgType("流程消息");
+	// rtxMsg.setReceiverCount(rtxUserList.size());
+	// rtxMsg.setSenderIp(UsersAction.loginIp);
+	// return totalDao.save(rtxMsg);
+	// }
+	//
+	// } catch (Exception e) {
+	// // e.printStackTrace();
+	// return false;
+	// }
+	// }
+	//
+	// return false;
+	// }
+
+	private static TotalDao createTotol() {
+		// // 获得hibernateTemplate对象，并赋值给totalDao
+		// HibernateTemplate ht = TotalDaoImpl.findHibernateTemplate();
+		// TotalDao totalDao = new TotalDaoImpl();
+		// ((HibernateDaoSupport) totalDao).setHibernateTemplate(ht);
+		// CircuitRunServerImpl ccs = new CircuitRunServerImpl();
+		// ccs.setTotalDao(totalDao);
+		return TotalDaoImpl.findTotalDao();
+	}
+
+	// /**
+	// *
+	// *@param code
+	// * String 接收人工号单个
+	// * @param title
+	// * String 消息标题
+	// * @param msg
+	// * String 消息内容
+	// * @param type
+	// * String 0:普通消息 1:紧急消息
+	// * @param delayTime
+	// * String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	// * @param msgType
+	// * String 消息类型（平台消息，流程消息）
+	// * @return
+	// */
+	// public static boolean sendNotify(String code, String msg, String title,
+	// String type, String time, String msgType) {
+	// TotalDao totalDao = createTotol();
+	// List list = totalDao.query("select id from RtxUser where userName=?",
+	// code);
+	// if (list.size() > 0) {
+	// String rtxName = list.get(0).toString();
+	// HttpRequest req = new HttpRequest();
+	// HttpResponse response = new HttpResponse();
+	// String result = null;
+	// try {
+	// Map<String, String> map = new HashMap<String, String>();
+	// map.put("receiver", rtxName);
+	// map.put("msg", URLEncoder.encode(msg, "gb2312"));
+	// if (title != null) {
+	// map.put("title", URLEncoder.encode(title, "gb2312"));
+	// }
+	// map.put("type", type);
+	// map.put("delaytime", time);
+	// response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+	// + "/SendNotify.cgi", map);
+	// result = response.getRTXDataString();
+	// result = result.substring(result.indexOf("(") + 2, result
+	// .indexOf(")") - 1);
+	// if (result != null && result.equals("操作成功")) {
+	// Users sender = Util.getLoginUser();
+	// RtxMsg rtxMsg = new RtxMsg();
+	// List<RtxUser> rtxUserList = totalDao.query(
+	// "from RtxUser where userName =?", code);
+	// String name = null;
+	// if (rtxUserList != null && rtxUserList.size() > 0) {
+	// name = rtxUserList.get(0).getName();
+	// }
+	// rtxMsg.setReceivers(code);
+	// rtxMsg.setReceiverNames(name);
+	// if (sender != null) {
+	// rtxMsg.setUserid(sender.getId());
+	// rtxMsg.setUserCode(sender.getCode());
+	// rtxMsg.setUserName(sender.getName());
+	// }
+	// rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+	// "yyyy-MM-dd HH:mm:ss"));
+	// rtxMsg.setTitle(title);
+	// rtxMsg.setMsg(msg);
+	// rtxMsg.setMsgType(msgType);
+	// rtxMsg.setReceiverCount(1);
+	// rtxMsg.setSenderIp(UsersAction.loginIp);
+	// return totalDao.save(rtxMsg);
+	// }
+	//
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// return false;
+	// }
+	//
+	// /**
+	// *
+	// *@param code
+	// * List<String> 接收人工号列表
+	// * @param title
+	// * String 消息标题
+	// * @param msg
+	// * String 消息内容
+	// * @param type
+	// * String 0:普通消息 1:紧急消息
+	// * @param delayTime
+	// * String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	// * @param msgType
+	// * String 消息类型（平台消息，流程消息）
+	// * @return
+	// */
+	// public static boolean sendNotify(List<String> codes, String msg,
+	// String title, String type, String time, String msgType) {
+	// TotalDao totalDao = createTotol();
+	// if (codes != null && codes.size() > 0) {
+	// List<String> rtxNames = new ArrayList<String>();
+	// for (String code : codes) {
+	// List list = totalDao.query(
+	// "select id from RtxUser where userName=?", code);
+	// if (list.size() > 0) {
+	// rtxNames.add(list.get(0).toString());
+	// }
+	// }
+	// if (rtxNames.size() > 0) {
+	// HttpRequest req = new HttpRequest();
+	// HttpResponse response = new HttpResponse();
+	// StringBuffer rtxName = new StringBuffer();
+	// String result = null;
+	// for (int i = 0; i < rtxNames.size(); i++) {
+	// if (i == 0) {
+	// rtxName.append(rtxNames.get(i));
+	// } else {
+	// rtxName.append("," + rtxNames.get(i));
+	// }
+	// }
+	// try {
+	// Map<String, String> map = new HashMap<String, String>();
+	// map.put("receiver", rtxName.toString());
+	// map.put("msg", URLEncoder.encode(msg, "gb2312"));
+	// if (title != null) {
+	// map.put("title", URLEncoder.encode(title, "gb2312"));
+	// }
+	// map.put("type", type);
+	// map.put("delaytime", time);
+	// response = req.sendHttpPost("http://" + rtxIp + ":"
+	// + rtxPort + "/SendNotify.cgi", map);
+	// result = response.getRTXDataString();
+	// result = result.substring(result.indexOf("(") + 2, result
+	// .indexOf(")") - 1);
+	// if (result != null && result.equals("操作成功")) {
+	// Users sender = Util.getLoginUser();
+	// RtxMsg rtxMsg = new RtxMsg();
+	// StringBuffer sb = new StringBuffer();
+	// for (int i = 0; i < codes.size(); i++) {
+	// if (i != 0) {
+	// sb.append(",");
+	// }
+	// sb.append("'");
+	// sb.append(codes.get(i));
+	// sb.append("'");
+	// }
+	//
+	// List<RtxUser> rtxUserList = totalDao
+	// .query("from RtxUser where userName in ("
+	// + sb.toString() + ")");
+	// StringBuffer namesb = new StringBuffer();
+	// StringBuffer codesb = new StringBuffer();
+	// if (rtxUserList != null && rtxUserList.size() > 0) {
+	// for (int i = 0; i < rtxUserList.size(); i++) {
+	// if (i != 0) {
+	// namesb.append(",");
+	// codesb.append(",");
+	// }
+	// namesb.append(rtxUserList.get(i).getName());
+	// codesb.append(rtxUserList.get(i).getUserName());
+	// }
+	// }
+	//
+	// rtxMsg.setReceivers(codesb.toString());
+	// rtxMsg.setReceiverNames(namesb.toString());
+	// if (sender != null) {
+	// rtxMsg.setUserid(sender.getId());
+	// rtxMsg.setUserCode(sender.getCode());
+	// rtxMsg.setUserName(sender.getName());
+	// }
+	// rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+	// "yyyy-MM-dd HH:mm:ss"));
+	// rtxMsg.setTitle(title);
+	// rtxMsg.setMsg(msg);
+	// rtxMsg.setMsgType(msgType);
+	// rtxMsg.setReceiverCount(rtxUserList.size());
+	// rtxMsg.setSenderIp(UsersAction.loginIp);
+	// return totalDao.save(rtxMsg);
+	// }
+	//
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// return false;
+	// }
+	// }
+	//
+	// }
+	//
+	// return false;
+	// }
+
+	/**
+	 * 
+	 *@param code
+	 *            String 接收人Rtx号单个
+	 * @param title
+	 *            String 消息标题
+	 * @param msg
+	 *            String 消息内容
+	 * @param type
+	 *            String 0:普通消息 1:紧急消息
+	 * @param delayTime
+	 *            String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	 * @param msgType
+	 *            String 消息类型（平台消息，流程消息）
+	 * @return
+	 */
+	public static boolean sendNotifyById(String rtxId, String msg,
+			String title, String type, String time, String msgType) {
+		// getRtxConnect();
+		HttpRequest req = new HttpRequest();
+		HttpResponse response = new HttpResponse();
+		String result = null;
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("receiver", rtxId);
+			map.put("msg", URLEncoder.encode(msg, "gb2312"));
+			if (title != null) {
+				map.put("title", URLEncoder.encode(title, "gb2312"));
+			}
+			map.put("type", type);
+			map.put("delaytime", time);
+			response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+					+ "/SendNotify.cgi", map);
+			result = response.getRTXDataString();
+			result = result.substring(result.indexOf("(") + 2, result
+					.indexOf(")") - 1);
+			TotalDao totalDao = createTotol();
+			Users sender = Util.getLoginUser();
+			RtxMsg rtxMsg = new RtxMsg();
+
+			String name = null;
+			String code = null;
+			try {
+				if (dbURL != null && dbURL.length() > 0) {
+					dbConn = getDbConnection();
+					st = dbConn.createStatement();
+					res = st
+							.executeQuery("select UserName,Name from SYS_User where (accountstate is null or accountstate=0) and ID ="
+									+ rtxId);
+					while (res.next()) {
+						code = res.getString(1);
+						name = res.getString(2);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+
+			// 同步推送至公众号的应用上
+			try {
+				if (StationResource.corpId != null
+						&& StationResource.corpId.length() > 0) {
+					StringBuffer codesForYy = new StringBuffer();
+					codesForYy.append(code);
+					StationResource.sendWeChatMsgText(codesForYy.toString(),
+							msg);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			rtxMsg.setReceivers(code);
+			rtxMsg.setReceiverNames(name);
+			if (sender != null) {
+				rtxMsg.setUserid(sender.getId());
+				rtxMsg.setUserCode(sender.getCode());
+				rtxMsg.setUserName(sender.getName());
+			}
+			rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+					"yyyy-MM-dd HH:mm:ss"));
+			rtxMsg.setTitle(title);
+			rtxMsg.setMsg(msg);
+			rtxMsg.setMsgType(msgType);
+			rtxMsg.setReceiverCount(1);
+			rtxMsg.setSenderIp(UsersAction.loginIp);
+
+			if (result != null && result.equals("操作成功")) {
+				rtxMsg.setSendOk("OK");
+				totalDao.save(rtxMsg);
+				return true;
+			} else {
+				rtxMsg.setSendOk("NO");
+				totalDao.save(rtxMsg);
+				return false;
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	/**
+	 * 
+	 *@param code
+	 *            List<String> 接收Rtx号列表
+	 * @param title
+	 *            String 消息标题
+	 * @param msg
+	 *            String 消息内容
+	 * @param type
+	 *            String 0:普通消息 1:紧急消息
+	 * @param delayTime
+	 *            String 显示停留时间(毫秒) 0:为永久停留(用户关闭时才关闭)
+	 * @param msgType
+	 *            String 消息类型（平台消息，流程消息）
+	 * @return
+	 */
+	public static boolean sendNotifyById(List<String> rtxIds, String msg,
+			String title, String type, String time, String msgType) {
+		// TotalDao totalDao = createTotol();
+		// getRtxConnect();
+		if (rtxIds.size() > 0) {
+			HttpRequest req = new HttpRequest();
+			HttpResponse response = new HttpResponse();
+			StringBuffer rtxName = new StringBuffer();
+			String result = null;
+			for (int i = 0; i < rtxIds.size(); i++) {
+				if (i == 0) {
+					rtxName.append(rtxIds.get(i));
+				} else {
+					rtxName.append("," + rtxIds.get(i));
+				}
+			}
+			try {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("receiver", rtxName.toString());
+				map.put("msg", URLEncoder.encode(msg, "gb2312"));
+				if (title != null) {
+					map.put("title", URLEncoder.encode(title, "gb2312"));
+				}
+				map.put("type", type);
+				map.put("delaytime", time);
+				response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+						+ "/SendNotify.cgi", map);
+				result = response.getRTXDataString();
+				result = result.substring(result.indexOf("(") + 2, result
+						.indexOf(")") - 1);
+				TotalDao totalDao = createTotol();
+				Users sender = Util.getLoginUser();
+				RtxMsg rtxMsg = new RtxMsg();
+
+				StringBuffer namesb = new StringBuffer();
+				StringBuffer codesb = new StringBuffer();
+				StringBuffer codesForYy = new StringBuffer();
+				int n = 0;
+				try {
+					if (dbURL != null && dbURL.length() > 0) {
+						dbConn = getDbConnection();
+						st = dbConn.createStatement();
+						for (int i = 0; i < rtxIds.size(); i++) {
+							res = st
+									.executeQuery("select UserName,Name from SYS_User where (accountstate is null or accountstate=0) and ID ="
+											+ rtxIds.get(i));
+							String userNames = "";
+							String codes = "";
+							while (res.next()) {
+								codes = res.getString(1);
+								userNames = res.getString(2);
+								if (userNames != null && userNames.length() > 0) {
+									if (n == 0) {
+										rtxName.append(rtxIds.get(i));
+									} else {
+										rtxName.append(";" + rtxIds.get(i));
+										namesb.append(",");
+										codesb.append(",");
+									}
+									namesb.append(userNames);
+									codesb.append(codes);
+									codesForYy.append(codes + "|");
+									n++;
+								}
+							}
+
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				rtxMsg.setReceivers(codesb.toString());
+				rtxMsg.setReceiverNames(namesb.toString());
+				if (sender != null) {
+					rtxMsg.setUserid(sender.getId());
+					rtxMsg.setUserCode(sender.getCode());
+					rtxMsg.setUserName(sender.getName());
+				}
+				rtxMsg.setSendTime(DateUtil.formatDate(new Date(),
+						"yyyy-MM-dd HH:mm:ss"));
+				rtxMsg.setTitle(title);
+				rtxMsg.setMsg(msg);
+				rtxMsg.setMsgType(msgType);
+				rtxMsg.setReceiverCount(n);
+				rtxMsg.setSenderIp(UsersAction.loginIp);
+				// 同步推送至公众号的应用上
+				try {
+					StationResource.sendWeChatMsgText(codesForYy.toString(),
+							msg);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (result != null && result.equals("操作成功")) {
+					rtxMsg.setSendOk("OK");
+					totalDao.save(rtxMsg);
+					return true;
+				} else {
+					rtxMsg.setSendOk("NO");
+					totalDao.save(rtxMsg);
+					return false;
+				}
+
+			} catch (Exception e) {
+				// e.printStackTrace();
+				return false;
+			}
+		}
+
+		return false;
+	}
+
+	public static String sendAgin(Integer id) {
+		// TODO Auto-generated method stub
+		TotalDao totalDao = createTotol();
+		RtxMsg rtxMsg = (RtxMsg) totalDao.getObjectById(RtxMsg.class, id);
+		String receivers = rtxMsg.getReceivers();
+		String[] codes = receivers.split(",");
+		if (codes.length > 0) {
+			HttpRequest req = new HttpRequest();
+			HttpResponse response = new HttpResponse();
+			StringBuffer rtxName = new StringBuffer();
+			StringBuffer codesForYy = new StringBuffer();
+			String result = null;
+			for (int i = 0; i < codes.length; i++) {
+				if (i == 0) {
+					rtxName.append(codes[i]);
+				} else {
+					rtxName.append(";" + codes[i]);
+				}
+
+				codesForYy.append(codes[i] + "|");
+			}
+			// 同步推送至公众号的应用上
+			try {
+				if (StationResource.corpId != null
+						&& StationResource.corpId.length() > 0) {
+					StationResource.sendWeChatMsgText(codesForYy.toString(),
+							rtxMsg.getMsg());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("sender", rtxsender);
+				map.put("pwd", pwd);
+				map.put("receivers", rtxName.toString());
+				map.put("msg", URLEncoder.encode(rtxMsg.getMsg(), "gb2312"));
+				// 获取发送者session
+				response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+						+ "/GetSession2.cgi?receiver=" + rtxsender, null);
+				String sendSession = response.getRTXDataString();
+				map.put("sessionid", sendSession);
+				response = req.sendHttpPost("http://" + rtxIp + ":" + rtxPort
+						+ "/SendIM.cgi", map);
+				result = response.getRTXDataString();
+				if (result.indexOf("(") > 0) {
+					result = result.substring(result.indexOf("(") + 2, result
+							.indexOf(")") - 1);
+				}
+				String msg = "";
+				if (result != null && result.equals("操作成功")) {
+					msg = "发送成功!";
+					rtxMsg.setSendOk("OK");
+				} else {
+					rtxMsg.setSendOk("NO");
+					msg = "发送失败!";
+				}
+				totalDao.update(rtxMsg);
+				return msg;
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "发送失败!";
+			}
+		}
+		return "发送失败!";
+	}
+}

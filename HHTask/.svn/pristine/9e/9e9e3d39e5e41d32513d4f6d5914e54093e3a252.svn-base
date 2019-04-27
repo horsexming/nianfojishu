@@ -1,0 +1,1040 @@
+/**
+ * 
+ */
+package com.task.action.lpanclear;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.ServletActionContext;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.lpanclear.ClearInfoServer;
+import com.task.entity.Users;
+import com.task.entity.lpanclear.Cleanrecord;
+import com.task.entity.lpanclear.ClearInfo;
+import com.task.entity.lpanclear.Employee;
+import com.task.entity.lpanclear.HomeTitle;
+import com.task.entity.lpanclear.LpanUtils;
+import com.task.entity.lpanclear.Page;
+import com.task.entity.lpanclear.Score;
+import com.task.util.MKUtil;
+import com.task.util.Upload;
+import com.task.util.Util;
+
+/**
+ * 清洁信息Action层
+ */
+public class ClearInfoAction {
+
+	private String errorMessage; // 错误消息
+	private String successMessage;
+	private LpanUtils lpanUtils = new LpanUtils();// 个人时间工具类
+	private String temp_str; // 当前时间
+	private String[] dayDate; // 一周的日期(周一至周日)
+	// ====================对人员进行操作的属性======================
+	private String employeeName; // 条件查询
+	private List<Employee> employeeList; // 人员信息集合
+	private Map<Integer, Object> employeeMap; // 人员信息Map集合
+	private ClearInfoServer clearInfoServer; // server层对象
+	private Integer countEmp; // 人员记录总数
+	private Employee employee; // 人员类对象
+	private int pageIndex; // 分页当前页所在下标
+	private Integer pageSize = 4; // 分页当前页显示记录行
+	private Integer pageNo = 1; // 第几页
+	private String cpage = "1";
+
+	private Integer lastPage; // 最后一页
+	private String total;
+	private String url;
+	// ====================对清洁表进行操作的属性===============================
+	private ClearInfo clearInfo; // 清洁表信息对象
+	private String clearDate; // 清洁当天时间
+	private Integer employeeId; // 人员ID
+	private List<ClearInfo> clearInfoList; // 清洁员工集合(查当天清洁人员)
+	private Map<String, List<ClearInfo>> mapWeek;// homePage界面显示周期集合
+	private Integer dateTemp; // 显示周期的初始值
+	private Integer dateTemp1; // 界面进行上下周期按钮事件后传递的值
+	private String sameDate; // 从ajax传递回来的选定日期
+	// ====================对房间标题表操作的属性===============================
+	private HomeTitle homeTitle; // 房间标题表对象
+	private String titleName; // 标题名称
+	private List<HomeTitle> homeTitleList; // 房间标题表集合对象
+	private String randomNum; // 返回的随机数
+	private Integer titleId; //
+
+	// ====================对领取提交评分表操作的属性============================
+	private Cleanrecord cleanrecord; // 领取提交评分记录表对象
+	private Cleanrecord cleanrecord3; //
+	private Cleanrecord cleanrecord2; //
+	private String operation = "操作"; // 由方法判断后赋值并传递到界面
+	private String remenber; // 由前台返回的领取人提交人评分人
+	//====================评分表操作属性================================
+	private Score score; // 评分表对象
+	private Integer fraction; // 评分分数
+	private List<Score> scoreAllList;
+	private Integer days;     
+
+	//====================from提交=====================================
+	// 上传文件对象
+	private File picture;
+	//上传文件名
+	private String pictureFileName;
+	// 上传文件类型
+	private String pictureType;
+	
+
+
+	/**
+	 * 查询所有已在职员工信息Map
+	 */
+	@SuppressWarnings("unchecked")
+	public String selectOnTheJob() {
+		if (employee != null) {
+			ActionContext.getContext().getSession().put("employeefy", employee);
+		} else {
+			// 根据条件分页
+			employee = (Employee) ActionContext.getContext().getSession().get(
+					"employeefy");
+		}
+		if (pageNo == null && pageSize == null) {
+			pageNo = 1;
+			pageSize = 4;
+		}
+		// 注意一下Object[] object
+		Map<Integer, Object> map = clearInfoServer.selectOnTheJob(employee,
+				Integer.parseInt(cpage), pageSize);
+		employeeList = (List<Employee>) map.get(1);
+		if (employeeList != null && employeeList.size() > 0) {
+			int count = (Integer) map.get(2);
+			int pageCount = (count + pageSize - 1) / pageSize;
+			this.setTotal(pageCount + "");
+			this.setUrl("ClearInfoAction_selectOnTheJob.action");
+			successMessage = null;
+		} else {
+			errorMessage = "没有找到符合  的内容";
+		}
+
+		mapWeek = new LinkedHashMap<String, List<ClearInfo>>();
+		mapWeek.clear();
+		System.out.println("调用前的初始值dateTemp1:" + dateTemp1);
+		Calendar cal = null;
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		temp_str = lpanUtils.getNowDate();
+		Date date = null;
+		try {
+			date = sdf1.parse(temp_str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal = Calendar.getInstance();
+		cal.setTime(date);
+		dateTemp = (Integer) ActionContext.getContext().getSession().get(
+				"dateTempSession");
+
+		cal.set(Calendar.DAY_OF_WEEK, 1);
+		if (dateTemp1 == null && dateTemp == null) {
+			dateTemp1 = 0;
+			dateTemp = 0;
+			ActionContext.getContext().getSession().put("dateTempSession",
+					dateTemp);
+		} else if (dateTemp1 == null && dateTemp != null) {
+			dateTemp1 = 0;
+			dateTemp = (Integer) ActionContext.getContext().getSession().get(
+					"dateTempSession");
+			dateTemp = dateTemp + dateTemp1;
+			ActionContext.getContext().getSession().put("dateTempSession",
+					dateTemp);
+		} else {
+			dateTemp = (Integer) ActionContext.getContext().getSession().get(
+					"dateTempSession");
+			dateTemp = dateTemp + dateTemp1;
+			ActionContext.getContext().getSession().put("dateTempSession",
+					dateTemp);
+		}
+		dayDate = new String[7];
+		if (dateTemp1 != null && dateTemp1 == 0 || dateTemp1 == null
+				&& dateTemp != null || dateTemp == 0 && dateTemp1 == 0) {
+			dateTemp = (Integer) ActionContext.getContext().getSession().get(
+					"dateTempSession");
+			Date dBefore2 = new Date();
+			Calendar calendar = Calendar.getInstance(); // 得到日历
+			//calendar.setTime(lpanUtils.getWeek(dateTemp)); // 把当前时间赋给日历
+			calendar.setTime(lpanUtils.getNowWeekBegin());
+			calendar.add(Calendar.DAY_OF_WEEK, -1);
+			for (int i = 0; i <= 6; i++) { // 从周日之后开始循环七次,直接获取当周的一周时间日期
+				calendar.add(Calendar.DAY_OF_WEEK, +1); // 设置为下一天
+				dBefore2 = calendar.getTime(); // 得到下一天的时间
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd"); // 设置时间格式
+				String defaultStartDate = sdf2.format(dBefore2); // 格式化下一天
+				
+                System.out.println(defaultStartDate);
+                
+				dayDate[i] = defaultStartDate.toString();
+				clearInfoList = clearInfoServer.selectClearInfos(dayDate[i]);
+				mapWeek.put(dayDate[i], clearInfoList);
+			}
+		} else if (dateTemp1 != null || dateTemp1 == -1) {
+			dateTemp = (Integer) ActionContext.getContext().getSession().get(
+					"dateTempSession");
+			// ActionContext.getContext().getSession().put("dateTempSession",
+			// dateTemp);
+			cal.set(Calendar.DAY_OF_WEEK, dateTemp);
+			Date dBefore2 = new Date();
+			Calendar calendar = Calendar.getInstance(); // 得到日历
+			calendar.setTime(lpanUtils.getWeek(dateTemp)); // 把当前时间赋给日历
+			for (int i = 0; i <= 6; i++) { // 从周日之后开始循环七次,直接获取当周的一周时间日期
+				calendar.add(Calendar.DAY_OF_WEEK, +1); // 设置为下一天
+				dBefore2 = calendar.getTime(); // 得到下一天的时间
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd"); // 设置时间格式
+				String defaultStartDate = sdf2.format(dBefore2); // 格式化下一天
+
+				dayDate[i] = defaultStartDate.toString();
+				clearInfoList = clearInfoServer.selectClearInfos(dayDate[i]);
+				mapWeek.put(dayDate[i], clearInfoList);
+			}
+		}
+		return "homePage";
+	}
+
+	//
+	// /**
+	// * 登陆用户并返回用户是否存在
+	// */
+	// public String loginEmployee(){
+	// if(employee !=null){
+	// if(clearInfoServer.loginEmployee(employee)){
+	// return "true";
+	// }else{
+	// errorMessage ="用户不存在";
+	// }
+	// }
+	// return "error";
+	// }
+
+	/**
+	 * 存储ajax返回的sameDate值
+	 */
+	public void preservation() {
+		System.out.println(sameDate);
+		if (sameDate != null) {
+			ActionContext.getContext().getSession().put("sameDateSession",sameDate);
+			String sameDate1 = (String) ActionContext.getContext().getSession().get("sameDateSession");
+			System.out.println("输出ajax返回的sameDate" + sameDate1);
+		}
+	}
+
+	/**
+	 * 进行插入清洁员工判断,如果未添加当天清洁就插入当天某清洁员工
+	 */
+	public String insertEmpClear() {
+		String clearDate1 = (String) ActionContext.getContext().getSession().get("sameDateSession");
+		clearInfo.setClearDate(clearDate1);
+		if (clearInfoServer.selectJudge(clearInfo)) {
+			if (clearInfoServer.insertEmpClear(clearInfo)) {
+				MKUtil.writeJSON(1);
+			} else {
+				errorMessage = "插入清洁员工失败!";
+			}
+		} else {
+			errorMessage = "人员已存在!";
+		}
+		return "error";
+	}
+
+	/**
+	 * 取消当天某清洁员工
+	 */
+	public String quXiaoEmpClear() {
+		if (clearInfoServer.deleteEmpClear(clearInfo)) {
+			MKUtil.writeJSON(1);
+		} else {
+			errorMessage = "取消失败!!!";
+		}
+		return "error";
+	}
+
+	/**
+	 * 查询当天清洁员工
+	 */
+	public String selectClearInfos() {
+		if (clearDate != null) {
+			clearInfoList = clearInfoServer.selectClearInfos(clearDate);
+			return "homePage";
+		} else {
+			errorMessage = "当天时间无!!!";
+		}
+		return "error";
+	}
+
+	/**
+	 * 查询循环内七天的值,根据当周日期查询并显示,条件未当周开始和当周结束
+	 */
+	public String selectClearWeeks(String clearDateks, String clearDatejs) {
+
+		return null;
+	}
+
+	/**
+	 * 查询标题方法并显示全部二维码
+	 */
+	public String homeTitle() {
+		homeTitleList = clearInfoServer.selectHomeTitles();
+		return "QRcode";
+	}
+
+	/**
+	 * ajax返回读取homeTitle数据的方法
+	 */
+	public void ajaxtitleName(){
+		homeTitleList = clearInfoServer.selectHomeTitles();
+		MKUtil.writeJSON(homeTitleList);
+	}
+
+	/**
+	 * ajax返回随机数randomNum并修改数据库中每个对象的randomNum值的方法
+	 */
+	public void ajaxRandomNum(){
+		clearInfoServer.updateRandomNum(homeTitle);
+	}
+
+	public String userOperation() {
+       
+		Users u = Util.getLoginUser();
+		String employeeName = u.getName();
+		temp_str = lpanUtils.getNowDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String receiveTime = lpanUtils.getNowDate();
+		cleanrecord3 = clearInfoServer.selectRecord(); // 获取当天生成记录,无的话判断登陆人是否属于领取有的话判断是属于提交还是评分
+
+		clearInfoList = clearInfoServer.selectClearInfos(receiveTime);
+		Cleanrecord cleanrecord1 = clearInfoServer.selectLastOne();
+		List<Cleanrecord> cleanrecordTheDayList = clearInfoServer.selectLastTheDay(cleanrecord1.getTheDay());
+
+		if (cleanrecord3 == null&&!(cleanrecord1.getState().equals("未完成")) && u.getName() != null) {
+			for (Cleanrecord cleanrecord : cleanrecordTheDayList) {
+				if (!(cleanrecord.getState().equals("未完成"))) {
+					for (ClearInfo clear : clearInfoList) {
+						if (employeeName.equals(clear.getEmployee().getEmployeeName())) {
+							  operation = "领取";
+							  System.out.println(operation);
+						}
+					}
+				}
+			}
+		} else if (cleanrecord3 != null && employeeName != null&&temp_str.equals(cleanrecord3.getTheDay())&& cleanrecord3.getSubmitter().equals("未提交")&& cleanrecord3.getEvaluator().equals("未评分")) {
+			for (ClearInfo clear : clearInfoList) {
+				if (u.getName().equals(clear.getEmployee().getEmployeeName())) {
+					operation = "提交";
+					System.out.println(operation);
+				}
+			}
+		} else if (cleanrecordTheDayList != null&& !(temp_str.equals(cleanrecord1.getTheDay()))&& cleanrecord1.getSubmitter().equals("未提交")&& cleanrecord1.getEvaluator().equals("未评分")) {
+			String theDayTime = temp_str;
+			for (Cleanrecord cleanrecordTheDay : cleanrecordTheDayList){
+				if (cleanrecordTheDay.getState().equals("未完成")) {
+					if (lpanUtils.getWeekOfDate(lpanUtils.getDateNowDate()).equals("星期一")) {
+						theDayTime = sdf.format(lpanUtils.getFrontSanDay(lpanUtils.getDateNowDate()));
+						System.out.println("所自动提交记录的记录日期:" + theDayTime);
+					} else {
+						theDayTime = sdf.format(lpanUtils.getFrontDay(lpanUtils.getDateNowDate()));
+						System.out.println("所自动提交记录的记录日期:" + theDayTime);
+					}
+					cleanrecord.setTheDay(theDayTime);
+					boolean zdtj = clearInfoServer
+							.terminationRecord(cleanrecord);
+					System.out.println("输出自动提交返回的结果" + zdtj);
+				}
+				List<ClearInfo> clearTheDayList = clearInfoServer.selectClearInfos(theDayTime);
+				// 自动提交后那就放弃整条记录,并让打扫的那天所属人员全部0分
+				for (ClearInfo clearInfo : clearTheDayList) {
+					score.setScoreDate(theDayTime);
+					score.setTitleName(titleName);
+					employee.setId(clearInfo.getEmployee().getId());
+					score.setEmployee(employee);
+					score.setFraction(0);
+					score.setFrequency(1);
+					score.setDifference(1);
+					boolean sco = clearInfoServer.insertScore(score);
+					System.out.println("未提交并自动评分后的结果sco" + sco);
+				}
+			}
+		} else if (cleanrecord3 != null && employeeName != null&& temp_str.equals(cleanrecord3.getTheDay())&& !(cleanrecord3.getSubmitter().equals("未提交"))&& cleanrecord3.getEvaluator().equals("未评分")) {
+			operation = "待评分";
+			System.out.println(operation);
+		} else if (cleanrecordTheDayList != null && u.getName() != null&&temp_str.equals(cleanrecord1.getEvaluatorTime())&& cleanrecord1.getState().equals("未完成")&&cleanrecord1.getEvaluator().equals("未评分")) {
+			List<ClearInfo> clearevaList = clearInfoServer.selectClearInfos(temp_str);
+			for (ClearInfo clear : clearevaList) {
+				if (employeeName.equals(clear.getEmployee().getEmployeeName())){
+					operation = "评分";
+					System.out.println(operation);
+				}
+			}
+		} else if (cleanrecord3 == null && cleanrecordTheDayList != null&&cleanrecord1.getState().equals("未完成")&&!(cleanrecord1.getSubmitter().equals("未提交"))&&!(temp_str==cleanrecord1.getEvaluatorTime())) {
+			String theDayTime = temp_str;
+			for (Cleanrecord cleanrecordTheDay : cleanrecordTheDayList) {
+				if (cleanrecordTheDay.getState().equals("未完成")&& !(temp_str.equals(cleanrecordTheDay.getEvaluatorTime()))&& !(temp_str.equals(cleanrecordTheDay.getTheDay()))&& !(cleanrecordTheDay.getSubmitter().equals("未提交"))) {
+					System.out.println("那就属于自动评分范围!!!!!");
+					if (lpanUtils.getWeekOfDate(lpanUtils.getDateNowDate()).equals("星期一")) {
+						theDayTime = sdf.format(lpanUtils.getFrontSanDay(lpanUtils.getDateNowDate()));
+						System.out.println("所自动评分记录的记录日期:" + theDayTime);
+					} else {
+						theDayTime = sdf.format(lpanUtils.getFrontDay(lpanUtils.getDateNowDate()));
+						System.out.println("所自动评分记录的记录日期:" + theDayTime);
+					}
+					cleanrecord = new Cleanrecord();
+					cleanrecord.setTheDay(theDayTime);
+					boolean zjpf = clearInfoServer.terminationRecord(cleanrecord);
+					System.out.println("自动评分返回的结果zjpf" + zjpf);
+
+					List<ClearInfo> clearTheDayList = clearInfoServer.selectClearInfos(theDayTime);
+					// 下面进行给清洁人员进行加0分 并记录次数和差(0分)记录
+					for (ClearInfo clearInfo : clearTheDayList) {
+						Score score = new Score();
+						score.setScoreDate(theDayTime);
+						employee.setId(clearInfo.getEmployee().getId());
+						score.setEmployee(employee);
+						score.setFraction(0);
+						score.setFrequency(1);
+						score.setDifference(1);
+						boolean zdpfjg = clearInfoServer.insertScore(score);
+						System.out.println("未评分并自动评分后的结果zdpfjg" + zdpfjg);
+					}
+				}
+			}
+		}
+		return "login_xuanzhe";
+	}
+
+
+	/**
+	 * 跳转到评分界面中
+	 */
+	public String pingfen() {
+		temp_str = lpanUtils.getNowDate();
+		cleanrecord2 = clearInfoServer.selectRecord1();
+		homeTitleList = clearInfoServer.selectHomeTitles();
+		return "score";
+	}
+
+	/**
+	 * 进行领取操作的方法
+	 */
+	public String receiveOperation() {
+		Users u = Util.getLoginUser();
+		temp_str = lpanUtils.getNowDate();
+		// 获取某个时间的下一天,已此来判断评分时间不过期
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String evaTime = "";
+		Date dt = new Date();
+		if (lpanUtils.getWeekOfDate(dt).equals("星期五")) {
+			evaTime = sdf.format(lpanUtils.getNextSanDay(dt));
+		} else {
+			evaTime = sdf.format(lpanUtils.getNextDay(dt));
+		}
+		if (cleanrecord3 == null) {
+			System.out.println("输出领取人:" + remenber);
+			try {
+				remenber = new String(remenber.getBytes("iso-8859-1"), "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			cleanrecord = new Cleanrecord();
+			cleanrecord.setReceive(u.getName());
+			System.out.println(u.getName());
+			cleanrecord.setEvaluatorTime(evaTime);
+			boolean cleanbool = clearInfoServer.insertReceive(cleanrecord);
+			System.out.println(cleanbool);
+			if (cleanbool) {
+				operation = "操作";
+				MKUtil.writeJSON(1);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 进行提交操作的方法
+	 * 
+	 * @return
+	 */
+	public String submitterOperation() {
+		Users u = Util.getLoginUser();
+		temp_str = lpanUtils.getNowDate();
+		System.out.println("输出提交人:" + remenber);
+		// 获取当前时间和标题
+		System.out.println("格式化后的当前时间:" + temp_str);
+		String submitterTime = "";
+		Date dt = new Date();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		submitterTime = sdf1.format(dt);
+		System.out.println("提交的确切时间" + submitterTime);
+		cleanrecord = new Cleanrecord();
+		cleanrecord.setTheDay(temp_str);
+		cleanrecord.setSubmitter(u.getName());
+		cleanrecord.setSubmitterTime(submitterTime);
+		boolean upSubcount = clearInfoServer.updateSubmission(cleanrecord);
+		System.out.println(upSubcount);
+		if (upSubcount) {
+			operation = "操作";
+			MKUtil.writeJSON(1);
+		}
+		// }
+		return "login_xuanzhe";
+	}
+
+	/**
+	 * 进行评分操作的方法
+	 * 
+	 * @return
+	 */
+	public String evaluatorOperation() {
+		Users u = Util.getLoginUser();
+		//Integer count = -1;
+		String theDayTime = lpanUtils.getNowDate();
+		Cleanrecord cleanrecord1 = clearInfoServer.selectLastOne();
+		//List<Cleanrecord> cleanrecordTheDayList = clearInfoServer.selectLastTheDay(cleanrecord1.getTheDay());
+		Date dt = new Date();
+		System.out.println("输出评分人:" + u.getName());
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String evaluatorTime = sdf1.format(dt);				
+		
+		if (lpanUtils.getWeekOfDate(dt).equals("星期一")) {
+			theDayTime = sdf1.format(lpanUtils.getFrontSanDay(dt));
+			System.out.println("所自动提交记录的记录日期:" + theDayTime);
+		} else {
+			theDayTime = sdf1.format(lpanUtils.getFrontDay(dt));
+			System.out.println("所自动提交记录的记录日期:" + theDayTime);
+		}
+		    cleanrecord = new Cleanrecord();
+			//cleanrecord.setHomeTitle(homeTitle);
+			cleanrecord.setTheDay(cleanrecord1.getTheDay());
+			cleanrecord.setEvaluator(u.getName());
+			cleanrecord.setFraction(fraction);
+			boolean detrypf = clearInfoServer.updateScore(cleanrecord);
+			System.out.println("输出评分的count" + detrypf);
+			System.out.println("输出当天记录时间:" + cleanrecord1.getTheDay());
+			List<ClearInfo> clearTheDayList = clearInfoServer.selectClearInfos(cleanrecord1.getTheDay());
+
+			for (ClearInfo clearInfo : clearTheDayList){
+				score = new Score();
+				score.setScoreDate(theDayTime);
+				score.setTitleName(titleName);
+				employee = new Employee();
+				employee.setId(clearInfo.getEmployee().getId());
+				score.setEmployee(employee);
+				score.setFraction(fraction);
+				score.setFrequency(1);
+				score.setDifference(0);
+				boolean countScore = clearInfoServer.insertScore(score);
+				System.out.println("手动评分后的结果countScore" + countScore);
+			}
+			operation = "操作";
+		return "login_xuanzhe";
+	}
+	
+
+	public void ajaxchart(){	
+		scoreAllList = clearInfoServer.selectAllScore(days);
+		employeeList = clearInfoServer.selectEmp();
+		int length = scoreAllList.size();
+		dayDate = new String[length];
+		class Chart{
+			private String label;
+			private Integer y;
+			public Chart(String label, Integer y) {
+				super();
+				this.label = label;
+				this.y = y;
+			}
+			public Chart(){
+				super();
+			}
+			public String getLabel(){
+				return label;
+			}
+			public void setLabel(String label){
+				this.label = label;
+			}
+			public Integer getY(){
+				return y;
+			}
+			public void setY(Integer y){
+				this.y = y;
+			}			
+		}
+		List<Chart>  list = new ArrayList<Chart>();
+		for (int j = 0; j < employeeList.size(); j++){
+			Integer fraction = 0;
+			Chart chart = new Chart();
+			for (int i = 0; i <scoreAllList.size(); i++){	
+				System.out.println("输出empid"+employeeList.get(j).getId()+"输出分数中empid"+scoreAllList.get(i).getEmployee().getId());
+				if(employeeList.get(j).getId().equals(scoreAllList.get(i).getEmployee().getId())){						
+					fraction = fraction+scoreAllList.get(i).getFraction();					 
+				}
+			}
+			chart = new Chart(employeeList.get(j).getEmployeeName(),fraction);
+			list.add(chart);			 
+		}
+		MKUtil.writeJSON(list);
+	}
+
+	
+	
+//	public String uploadFile3(){
+//		
+//		if (fujian != null) {
+//			//文件名称
+//			String realFileName =Util.getDateTime("yyyyMMddHHmmss");
+//			// 打开存放文件的位置	// 文件路径
+//			String realFilePath = "/upload/file/appFile";
+//			
+//			String path = ServletActionContext.getServletContext()
+//					.getRealPath(realFilePath);
+//			File file = new File(path);
+//			if (!file.exists()) {
+//				file.mkdirs();// 如果不存在文件夹就新建
+//			}
+//			Upload upload=new Upload();
+//			realFileName=upload.UploadFile(fujian, fujianFileName, null,
+//					realFilePath, null);
+//			dmlAppFileUrl.setAppfileurlfj(realFileName);// 文件新名称
+//			errorMessage=dmlAppFileUrlServer.addDmlAppFileUrl(dmlAppFileUrl);	
+//			if ("true".contentEquals(errorMessage)) {
+//				errorMessage = "添加成功！";
+//				url = "DmlAppFileUrlAction!selct.action?dmltryAppFiles.id="+dmlAppFileUrl.getDmltryAppFiles().getId();
+//			}
+//			}else {
+//				errorMessage = "文件空为空";
+//			}
+//			
+//			return "error";
+//	}
+//	
+	
+	
+	
+	
+	/**
+	 * java文件上传,(主要用于拍照上传图片)
+	 */
+	public String uploadFile2() throws IOException{
+	 //file为获取到的前台的文件，每个框架获取的方式不一样，可按需去查询
+    File file = null;
+    //fileName为文件的名称，可通过file获取，不同框架获取的方式不一样
+    String fileName = "文件的名称，包括格式";
+    //获取文件的项目的根路径，不同框架获取的方式不一样，这里使用struts2的获取方式
+    String basePath=ServletActionContext.getServletContext().getRealPath("/upload");
+    //拼接成完整的指定的文件路径名，创建新文件
+    String filePath = basePath+File.separator+fileName;
+    File file1 = new File(filePath);
+    if(file1.exists()){
+    	file1.delete();
+    }
+    //使用输入流读取前台的file文件              
+    InputStream is=new FileInputStream(file);  
+    //循环读取输入流文件内容，通过输出流将内容写入新文件
+    OutputStream os=new FileOutputStream(file);  
+    byte buffer[]=new byte[1024];  
+    int cnt=0;  
+    while((cnt=is.read(buffer))>0){  
+        os.write(buffer, 0, cnt);  
+    }  
+    //关闭输入输出流
+    os.close();
+    is.close();  
+
+    return null;
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+
+	public LpanUtils getLpanUtils() {
+		return lpanUtils;
+	}
+
+	public void setLpanUtils(LpanUtils lpanUtils) {
+		this.lpanUtils = lpanUtils;
+	}
+
+	public String getTemp_str() {
+		return temp_str;
+	}
+
+	public void setTemp_str(String tempStr) {
+		temp_str = tempStr;
+	}
+
+	public String[] getDayDate() {
+		return dayDate;
+	}
+
+	public void setDayDate(String[] dayDate) {
+		this.dayDate = dayDate;
+	}
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getLastPage() {
+		return lastPage;
+	}
+
+	public void setLastPage(Integer lastPage) {
+		this.lastPage = lastPage;
+	}
+
+	// ====================对人员进行操作的属性getset方法======================
+	// =======================================================================
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getCpage() {
+		return cpage;
+	}
+
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public List<Employee> getEmployeeList() {
+		return employeeList;
+	}
+
+	public void setEmployeeList(List<Employee> employeeList) {
+		this.employeeList = employeeList;
+	}
+
+	public Map<Integer, Object> getEmployeeMap() {
+		return employeeMap;
+	}
+
+	public void setEmployeeMap(Map<Integer, Object> employeeMap) {
+		this.employeeMap = employeeMap;
+	}
+
+	public ClearInfoServer getClearInfoServer() {
+		return clearInfoServer;
+	}
+
+	public void setClearInfoServer(ClearInfoServer clearInfoServer) {
+		this.clearInfoServer = clearInfoServer;
+	}
+
+	public Integer getCountEmp() {
+		return countEmp;
+	}
+
+	public void setCountEmp(Integer countEmp) {
+		this.countEmp = countEmp;
+	}
+
+	public int getPageIndex() {
+		return pageIndex;
+	}
+
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	// ============================================================================
+	// ============================================================================
+
+	// ====================对清洁表进行操作的属性===================================
+	// ============================================================================
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public ClearInfo getClearInfo() {
+		return clearInfo;
+	}
+
+	public void setClearInfo(ClearInfo clearInfo) {
+		this.clearInfo = clearInfo;
+	}
+
+	public String getClearDate() {
+		return clearDate;
+	}
+
+	public void setClearDate(String clearDate) {
+		this.clearDate = clearDate;
+	}
+
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public List<ClearInfo> getClearInfoList() {
+		return clearInfoList;
+	}
+
+	public void setClearInfoList(List<ClearInfo> clearInfoList) {
+		this.clearInfoList = clearInfoList;
+	}
+
+	public Map<String, List<ClearInfo>> getMapWeek() {
+		return mapWeek;
+	}
+
+	public void setMapWeek(Map<String, List<ClearInfo>> mapWeek) {
+		this.mapWeek = mapWeek;
+	}
+
+	public Integer getDateTemp() {
+		return dateTemp;
+	}
+
+	public void setDateTemp(Integer dateTemp) {
+		this.dateTemp = dateTemp;
+	}
+
+	public Integer getDateTemp1() {
+		return dateTemp1;
+	}
+
+	public void setDateTemp1(Integer dateTemp1) {
+		this.dateTemp1 = dateTemp1;
+	}
+
+	public String getSameDate() {
+		return sameDate;
+	}
+
+	public void setSameDate(String sameDate) {
+		this.sameDate = sameDate;
+	}
+
+	// ============================================================================
+	// ============================================================================
+
+	// ====================对房间标题表操作的属性===================================
+	// ============================================================================
+	public HomeTitle getHomeTitle() {
+		return homeTitle;
+	}
+
+	public void setHomeTitle(HomeTitle homeTitle) {
+		this.homeTitle = homeTitle;
+	}
+
+	public String getTitleName() {
+		return titleName;
+	}
+
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
+	}
+
+	public Integer getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(Integer titleId) {
+		this.titleId = titleId;
+	}
+
+	public String getRandomNum() {
+		return randomNum;
+	}
+
+	public void setRandomNum(String randomNum) {
+		this.randomNum = randomNum;
+	}
+
+	public List<HomeTitle> getHomeTitleList() {
+		return homeTitleList;
+	}
+
+	public void setHomeTitleList(List<HomeTitle> homeTitleList) {
+		this.homeTitleList = homeTitleList;
+	}
+
+	// ============================================================================
+	// ============================================================================
+
+	// ====================对领取提交评分表操作的属性===============================
+	// ============================================================================
+	public Cleanrecord getCleanrecord() {
+		return cleanrecord;
+	}
+
+	public void setCleanrecord(Cleanrecord cleanrecord) {
+		this.cleanrecord = cleanrecord;
+	}
+
+	public Cleanrecord getCleanrecord3() {
+		return cleanrecord3;
+	}
+
+	public Cleanrecord getCleanrecord2() {
+		return cleanrecord2;
+	}
+
+	public void setCleanrecord2(Cleanrecord cleanrecord2) {
+		this.cleanrecord2 = cleanrecord2;
+	}
+
+	public void setCleanrecord3(Cleanrecord cleanrecord3) {
+		this.cleanrecord3 = cleanrecord3;
+	}
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+
+	public String getRemenber() {
+		return remenber;
+	}
+
+	public void setRemenber(String remenber) {
+		this.remenber = remenber;
+	}
+
+	// ============================================================================
+	// ============================================================================
+
+	// ========================================================================
+	// ====================对评分表操作的属性===============================
+	public Score getScore() {
+		return score;
+	}
+
+	public void setScore(Score score) {
+		this.score = score;
+	}
+
+	public Integer getFraction() {
+		return fraction;
+	}
+
+	public void setFraction(Integer fraction) {
+		this.fraction = fraction;
+	}
+	public List<Score> getScoreAllList() {
+		return scoreAllList;
+	}
+	public void setScoreAllList(List<Score> scoreAllList) {
+		this.scoreAllList = scoreAllList;
+	}
+	
+    public Integer getDays() {
+		return days;
+	}
+	public void setDays(Integer days) {
+		this.days = days;
+	}
+	//==========================================================================
+	//==========================================================================
+	public File getPicture() {
+		return picture;
+	}
+	public void setPicture(File picture) {
+		this.picture = picture;
+	}
+	public String getPictureFileName() {
+		return pictureFileName;
+	}
+	public void setPictureFileName(String pictureFileName) {
+		this.pictureFileName = pictureFileName;
+	}
+	public String getPictureType() {
+		return pictureType;
+	}
+	public void setPictureType(String pictureType) {
+		this.pictureType = pictureType;
+	}
+}

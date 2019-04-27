@@ -1,0 +1,865 @@
+package com.task.action.sop;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.util.FileCopyUtils;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.task.Server.sop.ManualOrderPlanServer;
+import com.task.entity.Users;
+import com.task.entity.approval.Signature;
+import com.task.entity.sop.BuHeGePin;
+import com.task.entity.sop.ManualOrderPlan;
+import com.task.entity.sop.ManualOrderPlanDetail;
+import com.task.entity.sop.ManualOrderPlanTotal;
+import com.task.entity.sop.ycl.YuanclAndWaigj;
+import com.task.entity.system.ExecutionNode;
+import com.task.util.MKUtil;
+import com.task.util.Util;
+
+/**
+ * 
+ * @author 王晓飞
+ *
+ */
+public class ManualOrderPlanAction {
+	
+	private ManualOrderPlanServer manualPlanServer;
+	private ManualOrderPlan manualPlan;
+	private ManualOrderPlanDetail mod1;
+	private List<ManualOrderPlanDetail> mod1List;
+	private ManualOrderPlanTotal planTotal;
+	private List<ManualOrderPlanTotal> planTotalList;
+	private String successMessage;
+	private String errorMessage;
+	private int pageSize = 20;
+	private int pageSize1 = 20;
+	private int id;
+	private int[] selected;
+	private Float num;
+	private Float num1;
+	private Float num2;
+	private File file;
+	
+	private String cpage = "1";
+	private List<ManualOrderPlan> manualPlanList;
+	private String total;
+	private String url;
+	private String status = "";
+	private String tag;
+	private String my;
+	private String flag ;
+	private String daochu ;
+	private String pageStatus;
+	private Boolean isMobile;//是否是手机登陆
+	private String startTime;
+	private String endTime;
+	/**
+	 * 
+	 * @return
+	 */
+	public String Text(){
+		manualPlanServer.text();
+		return "error";
+	}
+	//手动添加
+	public String addmanualPlan(){
+		
+		try {
+			errorMessage =manualPlanServer.addmaualPlan(mod1);
+		} catch (Exception e) {
+			errorMessage = e.getMessage();
+		}
+		if("true".equals(errorMessage)){
+			if("辅料".equals(mod1.getCategory())){
+				setFlag("fl");
+			}
+			errorMessage = "添加成功";
+			setUrl("ManualOrderPlanAction_findmanualPlanList.action?flag="+flag);
+			return "error";
+		}
+		setUrl("ManualOrderPlanAction_manualPlan_add.action");
+		if("辅料".equals(mod1.getCategory())){
+			setUrl("ManualOrderPlanAction_ingredientsPurchasePlan_add.action?flag="+flag);
+		}
+		return "error";
+	}
+	
+	//获得物料需求单流水号
+	public void getTotalNum(){
+		String totalNum = manualPlanServer.maxTotalNum();
+		MKUtil.writeJSON(totalNum);
+	}
+	
+	public String downLoadMultFile() throws Exception{
+		try {
+			
+			List<File> fileList = new ArrayList<File>();
+			List<String> otherList = new ArrayList<String>();
+			String basePath =ServletActionContext.getServletContext()
+					.getRealPath("/upload/file/manualOrderPlan/");
+			int i=0;
+			for(ManualOrderPlanDetail detail: mod1List){
+				if(detail!=null && detail.getFileUrl()!=null && !"".equals(detail.getFileUrl())){
+					File file = new File( basePath+File.separator+detail.getFileUrl());
+					fileList.add(file);
+					otherList.add(detail.getMarkId()+"--"+detail.getFileName());
+					i++;
+				}
+			}
+			
+			if(i==0){
+				errorMessage = "至少选择一个文件！";
+				return "error";
+			}
+			
+			String fileName = "detail.zip";
+			
+			
+			
+			//List<String> fileList = new ArrayList<String>();
+			String filePath = basePath+File.separator+fileName;
+			
+			File outFile = new File(filePath);
+			
+			//文件输出流
+	        FileOutputStream outStream = new FileOutputStream(outFile);
+	        //压缩流
+	        ZipOutputStream toClient = new ZipOutputStream(outStream);
+	        Util.zipFile(fileList,otherList, toClient);
+	        toClient.close();
+	        outStream.close();
+	        Util.downloadZip(outFile, ServletActionContext.getResponse());
+	        
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		}
+		return "error";
+	}
+	
+	
+	//封装压缩文件的方法  
+	public  void zipFile(File inputFile,ZipOutputStream zipoutputStream) {  
+        try {  
+            if(inputFile.exists()) { //判断文件是否存在  
+                if (inputFile.isFile()) {  //判断是否属于文件，还是文件夹  
+
+                    //创建输入流读取文件  
+                    FileInputStream fis = new FileInputStream(inputFile);  
+                    BufferedInputStream bis = new BufferedInputStream(fis);  
+
+                    //将文件写入zip内，即将文件进行打包  
+                    ZipEntry ze = new ZipEntry(inputFile.getName()); //获取文件名  
+                    zipoutputStream.putNextEntry(ze);     
+
+                    //写入文件的方法，同上                  
+                    byte [] b=new byte[1024];  
+	                long l=0;  
+	                while(l<inputFile.length()){  
+	                    int j=bis.read(b,0,1024);  
+	                    l+=j;
+	                    zipoutputStream.write(b,0,j);  
+	                }  
+                    //关闭输入输出流  
+                    bis.close();  
+                    fis.close();  
+                } else {  //如果是文件夹，则使用穷举的方法获取文件，写入zip  
+                    try {  
+                        File[] files = inputFile.listFiles();  
+                        for (int i = 0; i < files.length; i++) {  
+                            zipFile(files[i], zipoutputStream);  
+                        }  
+                    } catch (Exception e) {  
+                        e.printStackTrace();  
+                    }  
+                }  
+            }  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+	}  
+	
+	
+	//上传附件，action中调用
+	public String uploadlic(File file, String dirName, String fileName,
+			String deletefilename) {
+		if (file != null) {
+			// 打开存放上传文件的位置
+			String path = ServletActionContext.getServletContext().getRealPath(
+					"/upload/file/" + dirName);
+			File file1 = new File(path);
+			if (!file1.exists()) {
+				file1.mkdirs();// 如果不存在文件夹就创建
+			}
+			// 删除源文件
+			if (deletefilename != null) {
+				File old = new File(path + "/" + deletefilename);
+				if (old != null) {
+					old.delete();
+				}
+			}
+			// 将证书写入文件夹中
+			InputStream is = null;
+			try {
+				is = new FileInputStream(file);
+				File file2 = new File(path + "/" + fileName);
+				if (file2.exists()) {
+					file2.delete();// 将原证书删掉
+				}
+				// 上传文件到服务器
+				String fileRealPath = path + "/" + fileName;
+				File uploadFile = new File(fileRealPath);
+				try {
+					FileCopyUtils.copy(file, uploadFile);
+				} catch (Exception e) {
+					return "上传文件失败!";
+				}
+				successMessage = "上传成功！";
+			} catch (FileNotFoundException e) {
+				return "找不到文件！";
+			} catch (IOException e) {
+				return "文件输入出错！";
+			} finally {
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return "true";
+		}
+		return "文件为空";
+	}
+	
+	/*
+	 * 添加物料需求多条→物料需求单
+	 */
+	public String addManualPlanMultpart(){
+		if(mod1List==null || mod1List.size()<=0){
+			setErrorMessage("请添加需求明细");
+			return "error";
+		}
+		String msg =null;
+		for (int i = 0; i < mod1List.size(); i++) {
+			ManualOrderPlanDetail detail = mod1List.get(i);
+			if(detail!=null ){
+				File file2 = detail.getFiles();
+				if(file2!=null){
+					String fileName = null;
+					String fileType = null;
+					String[] names = detail.getFilesFileName().split("\\.");
+					if (names != null && names.length >= 2) {
+						fileType = names[names.length - 1];
+					}
+					fileName = "manualOrderPlanDetail"
+						+ Util.DateToString(new Date(),"yyyyMMddHHmmssSSS") + "." + fileType;
+					msg =uploadlic(file2, "manualOrderPlan", fileName, detail.getFileUrl());
+					if (msg != null && msg.equals("true")) {
+						detail.setFileUrl(fileName);
+						detail.setFileName(detail.getFilesFileName());
+					}else{
+						setErrorMessage("上传文件失败!");
+						return "error";
+					}
+				}
+			}
+		}
+		
+		
+		Iterator<ManualOrderPlanDetail> iterator = mod1List.iterator();
+		while (iterator.hasNext()) {
+			ManualOrderPlanDetail next = iterator.next();
+			if(next==null){
+				iterator.remove();
+			}
+		}
+		
+		try {
+			errorMessage = manualPlanServer.addMaulPlanMultpart(mod1List, planTotal);
+			if(flag!=null && "辅料".equals(flag)){
+				setFlag("fl");
+			}
+			if(errorMessage!=null && "true".equals(errorMessage)){
+				errorMessage = "添加成功";
+			}else{
+				errorMessage = "添加失败";
+			}
+		} catch (Exception e) {
+			errorMessage = e.getMessage();
+		}
+		
+//		setUrl("ManualOrderPlanAction_findManualPlanTotal.action");
+//		for (ManualOrderPlanDetail detail : mod1List) {
+//			errorMessage =manualPlanServer.addmaualPlan(detail);
+//			if("false".equals(errorMessage)){
+//				errorMessage = "添加失败";
+//				return "error";
+//			}
+//		}
+//		if("true".equals(errorMessage)){
+//			if("辅料".equals(mod1List.get(0).getCategory())){
+//				setFlag("fl");
+//			}
+//			setUrl("ManualOrderPlanAction_findmanualPlanList.action");
+//			return "error";
+//		}
+//		setUrl("ManualOrderPlanAction_manualPlan_add.action");
+//		if("辅料".equals(mod1List.get(0).getCategory())){
+//			setUrl("ManualOrderPlanAction_ingredientsPurchasePlan_add.action");
+//		}
+//		
+		return "error";
+	}
+	
+	/**
+	 * 物料需求单
+	 */
+	public String manualPlanTotalPrint(){//tag=print flag=fl or 
+		planTotal =manualPlanServer.getManaualOrderPlanTotalById(id,status);
+		if(pageStatus!=null && "update".equals(pageStatus)){
+			if(flag!=null && "fl".equals(flag)){
+				return "manualPlanTotal_fl_update";//manualPlanMultipart_fl_update.jsp
+			}
+			return "manualPlanTotal_update";//manualPlanMultipart_update.jsp
+		}
+		
+		if(status!=null && status.equals("picking")){
+			return "manualPlanTotal_picking";
+		}
+		
+		//判断是否是手机登陆
+		try {
+			HttpServletRequest request = ServletActionContext.getRequest();
+			// 获取ua，用来判断是否为移动端访问
+			String userAgent = request.getHeader("USER-AGENT").toLowerCase();
+			if (null == userAgent) {
+				userAgent = "";
+			}
+			isMobile = Util.check(userAgent);
+		} catch (Exception e) {
+			
+		}
+		return "manualPlanTotal_print";
+	}
+	/**
+	 * 物料需求单管理
+	 * @return
+	 */
+	public String findManualPlanTotal(){
+		Users user = Util.getLoginUser();
+		if(planTotal==null)
+			planTotal = new ManualOrderPlanTotal();
+		if(flag!=null && "fl".equals(flag)){
+			planTotal.setCategory("辅料");
+		}else{
+			planTotal.setCategory("外购");
+		}
+		if(tag!=null){
+			if("dept".equals(tag)){
+				planTotal.setUserDept(user.getDept());
+			}else if("self".equals(tag)){
+				planTotal.setUserId(user.getId());
+				planTotal.setUserName(user.getName());
+			}
+		}
+		if(planTotal!=null){
+			ActionContext.getContext().getSession().put("planTotal", planTotal);
+		}else{
+			planTotal = (ManualOrderPlanTotal) ActionContext.getContext().getSession().get("planTotal");
+		}
+		Object[] obj = manualPlanServer.findManualPlanTotal(planTotal, 
+					Integer.parseInt(cpage), pageSize, status, tag);
+		planTotalList = (List<ManualOrderPlanTotal>) obj[0];
+		int count = (Integer) obj[1];
+		int pageCount = (count + pageSize - 1) / pageSize;
+		this.setTotal(pageCount + "");
+		this.setUrl("ManualOrderPlanAction_findManualPlanTotal.action?pageStatus="+pageStatus+"&tag="+tag+"&status="+status+"&flag="+flag);
+		if(status!=null&& "picking".equals(status)){
+			return "manualPlanTotal_ListPicking";//申请单领料
+		}
+		return "manualPlanTotal_List";
+	}
+	/**
+	 * 删除物料需求单
+	 * @return
+	 */
+	public String delManualTotal(){
+		setUrl("ManualOrderPlanAction_findManualPlanTotal.action?pageStatus="+pageStatus+"&tag="+tag+"&flag="+flag+"&status="+status);
+	    errorMessage= manualPlanServer.delManualTotal(id);
+		return "error";
+	}
+	
+	/**
+	 * 更新物料需求单
+	 * @return
+	 */
+	public String updateManaualTotal(){
+		if(mod1List==null || mod1List.size()<=0){
+			setErrorMessage("请添加需求明细");
+			return "error";
+		}
+		String msg =null;
+		for (int i = 0; i < mod1List.size(); i++) {
+			ManualOrderPlanDetail detail = mod1List.get(i);
+			if(detail!=null ){
+				File file2 = detail.getFiles();
+				if(file2!=null){
+					String fileName = null;
+					String fileType = null;
+					String[] names = detail.getFilesFileName().split("\\.");
+					if (names != null && names.length >= 2) {
+						fileType = names[names.length - 1];
+					}
+					fileName = "manualOrderPlanDetail"
+						+ Util.DateToString(new Date(),"yyyyMMddHHmmssSSS") + "." + fileType;
+					msg =uploadlic(file2, "manualOrderPlan", fileName, detail.getFileUrl());
+					if (msg != null && msg.equals("true")) {
+						detail.setFileUrl(fileName);
+						detail.setFileName(detail.getFilesFileName());
+					}else{
+						setErrorMessage("上传文件失败!");
+						return "error";
+					}
+				}
+			}
+		}
+		
+		
+		Iterator<ManualOrderPlanDetail> iterator = mod1List.iterator();
+		while (iterator.hasNext()) {
+			ManualOrderPlanDetail next = iterator.next();
+			if(next==null){
+				iterator.remove();
+			}
+		}
+		
+		
+		try {
+			errorMessage = manualPlanServer.updateManualTotal(mod1List,planTotal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMessage=e.toString();
+		}
+		if(errorMessage!=null && "true".equals(errorMessage)){
+			errorMessage = "修改成功";
+			this.setUrl("ManualOrderPlanAction_findManualPlanTotal.action?status="+status+"&pageStatus="+pageStatus+"&flag="+flag+"&tag="+tag);
+		}else if(errorMessage!=null && errorMessage.indexOf("流程")>0){
+			
+		}else{
+			errorMessage = "修改失败";
+		}
+		
+		return "error";
+	}
+	
+	/**
+	 * 获取签名
+	 */
+	@SuppressWarnings("unchecked")
+	public void findPayExecutionNode(){
+		Map<Integer, Object> map = manualPlanServer.findPayExecutionNode(id);
+		List<Signature> sigList = (List<Signature>) map.get(1);
+		List<ExecutionNode> nodeList = (List<ExecutionNode>) map.get(2);
+		MKUtil.writeJSON(true, "", nodeList, sigList);// 把结果传到页面
+	}
+	
+	/**
+	 * 解析文件
+	 */
+	public void analysisFromFile(){
+		if(file!=null){
+			Object[] object = manualPlanServer.analysisFromFile(file);
+			//List<YuanclAndWaigj> list = (List<YuanclAndWaigj>)object[0];
+			MKUtil.writeJSONS(true, object[1].toString(),object[0]);
+			
+		}
+	}
+	
+	public String ingredientsPurchasePlan_add(){
+		return "ingredientsPurchasePlan_add";
+	}
+	
+	public String manualPlan_add(){
+		return "manualPlan_add";
+	}
+	//查询物料需求明细信息
+	public String findmanualPlanList(){
+		if (mod1 != null) {
+			ActionContext.getContext().getSession().put("mod1", mod1);
+		} else {
+			mod1 = (ManualOrderPlanDetail) ActionContext.getContext().getSession()
+					.get("mod1");
+		}
+		if(startTime!=null ){
+			ActionContext.getContext().getSession().put("startTime", startTime);
+		}else{
+			startTime = (String) ActionContext.getContext().getSession().get("startTime");
+		}
+		if(endTime!=null ){
+			ActionContext.getContext().getSession().put("endTime", endTime);
+		}else{
+			endTime = (String) ActionContext.getContext().getSession().get("endTime");
+		}
+		if("my".equals(my)){
+			if(mod1==null){
+				mod1 = new ManualOrderPlanDetail();
+			}
+			mod1.setAddUsers(Util.getLoginUser().getName());
+		}
+		Object[] obj = manualPlanServer.findmodnList(mod1, Integer
+				.parseInt(cpage), pageSize,status,tag,flag,startTime,endTime);
+		mod1List = (List<ManualOrderPlanDetail>) obj[0];
+		int count = (Integer) obj[1];
+		num = (Float) obj[2];
+		num1 = (Float) obj[3];
+		num2 = (Float) obj[4];
+		int pageCount = (count + pageSize - 1) / pageSize;
+		this.setTotal(pageCount + "");
+		this.setUrl("ManualOrderPlanAction_findmanualPlanList.action?status="
+				+status+"&flag="+flag+"&my="+my+"&tag="+tag);
+		if(tag!=null && tag.equals("download")){
+			return "manualPlan_downloadAttachment";
+		}
+		return "manualPlan_List";
+	}
+	//查询物料需求汇总信息
+	public String findmopList(){
+		if (manualPlan != null) {
+			ActionContext.getContext().getSession().put("manualPlan", manualPlan);
+		} else {
+			manualPlan = (ManualOrderPlan) ActionContext.getContext().getSession()
+			.get("manualPlan");
+		}
+		
+		Object[] obj = manualPlanServer.chaxuanmopList(manualPlan, Integer
+				.parseInt(cpage), pageSize,status,tag,flag,daochu);
+		manualPlanList = (List<ManualOrderPlan>) obj[0];
+		int count = (Integer) obj[1];;
+		int pageCount = (count + pageSize - 1) / pageSize;
+		this.setTotal(pageCount + "");
+		this.setUrl("ManualOrderPlanAction_findmopList.action?status="+status+"&flag="+flag+"&tag="+tag);
+		return "manualPlan_List0";
+	}
+	
+	
+	//修改
+	public String updatemanualPlan(){
+		errorMessage = manualPlanServer.updatemod(mod1);
+		return "manualPlan_update";
+	}
+	//删除
+	public String delmanualPlan(){
+		errorMessage = manualPlanServer.delmod(mod1);
+		if("true".equals(errorMessage))
+			errorMessage = "删除成功!";
+		setUrl("ManualOrderPlanAction_findmanualPlanList.action?status="+status+"&cpage="+cpage);
+		return "error";
+	}
+	//根据Id查询
+	public String findmanualPlanById(){
+		mod1 =manualPlanServer.findmaualPlanById(id);
+		return "manualPlan_update";
+	}
+	//导入物料需求信息;
+	public String daorumaualPlan(){
+		errorMessage =	manualPlanServer.daorumaualPlan(file,mod1.getCategory());//申请类别   （外购、辅料）
+		return "manualPlan_add";
+	}
+	//导入物料需求信息;
+	public String daorumaualPlan1(){
+		errorMessage =	manualPlanServer.daorumaualPlan(file,mod1.getCategory());//申请类别   （外购、辅料）
+		if("true".equals(errorMessage)){
+			errorMessage = "导入成功!~";
+		}
+		return "manualPlanMultipart_fl_add";
+	}
+	//批量审核
+	public String plshehe(){
+		errorMessage =	manualPlanServer.plshehe(selected);
+		return "findmanualPlanList";
+	}
+	//导出
+	public void exportExcel(){
+		manualPlanServer.exportExcel(manualPlan, 0, 0, status, tag,flag);
+		
+	}
+	//导出
+	public void exportExcel0(){
+		manualPlanServer.exportExcel0(mod1, 0, 0, status, tag,flag);
+		
+	}
+	
+	//批量添加添加辅料下单信息
+	public String addIngredientsPurchasePlan(){
+		errorMessage =manualPlanServer.saveLotPlan(file,mod1.getCategory());
+		return "ingredientsPurchasePlan_add";
+	}
+	
+	/**
+	 * 解析辅料文件
+	 */
+	public void analysisflFromFile(){
+		if(file!=null){
+			Object[] object = manualPlanServer.analysisflFromFile(file);
+			//List<YuanclAndWaigj> list = (List<YuanclAndWaigj>)object[0];
+			MKUtil.writeJSONS(true, object[1].toString(),object[0]);
+			
+		}
+		
+	}
+	public void getManualOrderPlan(){
+		mod1 = manualPlanServer.getManualOrderPlanDetail(mod1.getMarkId());
+		MKUtil.writeJSON(mod1);
+	}
+	//取消物料需求
+	public String quexiao(){
+		errorMessage =	manualPlanServer.quexiao(id);
+		if("true".equals(errorMessage)){
+			errorMessage = "取消物料需求成功!-!";
+		}else{
+			errorMessage = "取消物料需求失败@-@";
+		}
+		return "error";
+	}
+	
+	public String getOrderPlanById(){
+		manualPlan = manualPlanServer.getOrderPlanById(id, null);
+		if(tag!=null && "detail".equals(tag)){
+			
+		}
+		return "manualPlan_changeNumber";
+	}
+	
+	public String changePlanNumber(){
+		String result = manualPlanServer.changePlanNumber(manualPlan, num,tag);
+		MKUtil.writeJSON(result);
+		return "error";
+	}
+	public String delAllMod(){
+		errorMessage = manualPlanServer.delAllMod(id);
+		return "error";
+	}
+	
+	
+	public ManualOrderPlanServer getManualPlanServer() {
+		return manualPlanServer;
+	}
+	public void setManualPlanServer(ManualOrderPlanServer manualPlanServer) {
+		this.manualPlanServer = manualPlanServer;
+	}
+	public ManualOrderPlan getManualPlan() {
+		return manualPlan;
+	}
+	public void setManualPlan(ManualOrderPlan manualPlan) {
+		this.manualPlan = manualPlan;
+	}
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getCpage() {
+		return cpage;
+	}
+	public void setCpage(String cpage) {
+		this.cpage = cpage;
+	}
+	public List<ManualOrderPlan> getManualPlanList() {
+		return manualPlanList;
+	}
+	public void setManualPlanList(List<ManualOrderPlan> manualPlanList) {
+		this.manualPlanList = manualPlanList;
+	}
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	public ManualOrderPlanDetail getmod1() {
+		return mod1;
+	}
+	public void setmod1(ManualOrderPlanDetail mod1) {
+		this.mod1 = mod1;
+	}
+	public List<ManualOrderPlanDetail> getmod1List() {
+		return mod1List;
+	}
+	public void setmod1List(List<ManualOrderPlanDetail> mod1List) {
+		this.mod1List = mod1List;
+	}
+	public ManualOrderPlanDetail getMod1() {
+		return mod1;
+	}
+	public void setMod1(ManualOrderPlanDetail mod1) {
+		this.mod1 = mod1;
+	}
+	public List<ManualOrderPlanDetail> getMod1List() {
+		return mod1List;
+	}
+	public void setMod1List(List<ManualOrderPlanDetail> mod1List) {
+		this.mod1List = mod1List;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	public int[] getSelected() {
+		return selected;
+	}
+	public void setSelected(int[] selected) {
+		this.selected = selected;
+	}
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
+	public Float getNum() {
+		return num;
+	}
+	public void setNum(Float num) {
+		this.num = num;
+	}
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	public Float getNum1() {
+		return num1;
+	}
+	public void setNum1(Float num1) {
+		this.num1 = num1;
+	}
+	public Float getNum2() {
+		return num2;
+	}
+	public void setNum2(Float num2) {
+		this.num2 = num2;
+	}
+
+	public ManualOrderPlanTotal getPlanTotal() {
+		return planTotal;
+	}
+
+	public void setPlanTotal(ManualOrderPlanTotal planTotal) {
+		this.planTotal = planTotal;
+	}
+
+	public List<ManualOrderPlanTotal> getPlanTotalList() {
+		return planTotalList;
+	}
+
+	public void setPlanTotalList(List<ManualOrderPlanTotal> planTotalList) {
+		this.planTotalList = planTotalList;
+	}
+
+	public String getPageStatus() {
+		return pageStatus;
+	}
+
+	public void setPageStatus(String pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
+	public String getMy() {
+		return my;
+	}
+
+	public void setMy(String my) {
+		this.my = my;
+	}
+
+	public String getDaochu() {
+		return daochu;
+	}
+
+	public void setDaochu(String daochu) {
+		this.daochu = daochu;
+	}
+	public Boolean getIsMobile() {
+		return isMobile;
+	}
+	public void setIsMobile(Boolean isMobile) {
+		this.isMobile = isMobile;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public int getPageSize1() {
+		return pageSize1;
+	}
+	public void setPageSize1(int pageSize1) {
+		this.pageSize1 = pageSize1;
+	}
+	
+	
+}

@@ -1,0 +1,865 @@
+package com.task.entity.caiwu.baobiao;
+
+import java.io.Serializable;
+
+/**
+ * 
+ * @author 王晓飞
+ * 	( 应上交应弥补款项表  ta_baobiao_Ysjymbkxb)
+ *
+ */
+public class Ysjymbkxb implements Serializable{
+
+	private Integer id;
+	//一、增值税 zzs
+	private Double zzs1_1;//
+	private Double zzs1_2;//
+	private Double zzs2_1;//
+	private Double zzs2_2;//
+	private Double zzs3_1;//
+	private Double zzs3_2;//
+	private Double zzs4_1;//
+	private Double zzs4_2;//
+	
+	//二、企业所得税 qysds
+	private Double qysds1_1;
+	private Double qysds1_2;
+	private Double qysds2_1;
+	private Double qysds2_2;
+	private Double qysds3_1;
+	private Double qysds3_2;
+	private Double qysds4_1;
+	private Double qysds4_2;
+	//三、消费税 xfs
+	private Double xfs1_1;
+	private Double xfs1_2;
+	private Double xfs2_1;
+	private Double xfs2_2;
+	private Double xfs3_1;
+	private Double xfs3_2;
+	private Double xfs4_1;
+	private Double xfs4_2;
+	//四、城市维护建设税 cswhjss
+	private Double cswhjss1_1;
+	private Double cswhjss1_2;
+	private Double cswhjss2_1;
+	private Double cswhjss2_2;
+	private Double cswhjss3_1;
+	private Double cswhjss3_2;
+	private Double cswhjss4_1;
+	private Double cswhjss4_2;
+	//五、房产税 fcs;
+	private Double fcs1_1;
+	private Double fcs1_2;
+	private Double fcs2_1;
+	private Double fcs2_2;
+	private Double fcs3_1;
+	private Double fcs3_2;
+	private Double fcs4_1;
+	private Double fcs4_2;
+	//六、土地使用税 tdsys
+	private Double tdsys1_1;
+	private Double tdsys1_2;
+	private Double tdsys2_1;
+	private Double tdsys2_2;
+	private Double tdsys3_1;
+	private Double tdsys3_2;
+	private Double tdsys4_1;
+	private Double tdsys4_2;
+	//七、车船使用税 ccsys;
+	private Double ccsys1_1;
+	private Double ccsys1_2;
+	private Double ccsys2_1;
+	private Double ccsys2_2;
+	private Double ccsys3_1;
+	private Double ccsys3_2;
+	private Double ccsys4_1;
+	private Double ccsys4_2;
+	// 八、印花税 yhs
+	private Double yhs1_1;
+	private Double yhs1_2;
+	private Double yhs2_1;
+	private Double yhs2_2;
+	private Double yhs3_1;
+	private Double yhs3_2;
+	private Double yhs4_1;
+	private Double yhs4_2;
+	//九、个人所得税 grsds;
+	private Double grsds1_1;
+	private Double grsds1_2;
+	private Double grsds2_1;
+	private Double grsds2_2;
+	private Double grsds3_1;
+	private Double grsds3_2;
+	private Double grsds4_1;
+	private Double grsds4_2;
+	//十、资源税 zys;
+	private Double zys1_1;
+	private Double zys1_2;
+	private Double zys2_1;
+	private Double zys2_2;
+	private Double zys3_1;
+	private Double zys3_2;
+	private Double zys4_1;
+	private Double zys4_2;
+	//十一、耕地占用税 gisys;
+	private Double gisys1_1;
+	private Double gisys1_2;
+	private Double gisys2_1;
+	private Double gisys2_2;
+	private Double gisys3_1;
+	private Double gisys3_2;
+	private Double gisys4_1;
+	private Double gisys4_2;
+	//十二、关税 gs;
+	private Double gs1_1;
+	private Double gs1_2;
+	private Double gs2_1;
+	private Double gs2_2;
+	private Double gs3_1;
+	private Double gs3_2;
+	private Double gs4_1;
+	private Double gs4_2;
+	//十三、土地增值税 tdzzs;
+	private Double tdzzs1_1;
+	private Double tdzzs1_2;
+	private Double tdzzs2_1;
+	private Double tdzzs2_2;
+	private Double tdzzs3_1;
+	private Double tdzzs3_2;
+	private Double tdzzs4_1;
+	private Double tdzzs4_2;
+	// 十四、教育费附加 jyffj
+	private Double jyffj1_1;
+	private Double jyffj1_2;
+	private Double jyffj2_1;
+	private Double jyffj2_2;
+	private Double jyffj3_1;
+	private Double jyffj3_2;
+	private Double jyffj4_1;
+	private Double jyffj4_2;
+	//补充资料：
+	private Double yjsjYearSum;//本年企业应交税金总额
+	private Double yijiaosjYearSum;//本年企业已交税金总额
+	private Double wjsjYearBegin;//年初未交税金
+	private Double qmwjsj;//期末未交税金
+	private Double yjsjLastYear;//上年同期应交税金总额
+	private Double yijiaosjLastYear;//上年同期已交税金总额
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Double getZzs1_1() {
+		return zzs1_1;
+	}
+	public void setZzs1_1(Double zzs1_1) {
+		this.zzs1_1 = zzs1_1;
+	}
+	public Double getZzs1_2() {
+		return zzs1_2;
+	}
+	public void setZzs1_2(Double zzs1_2) {
+		this.zzs1_2 = zzs1_2;
+	}
+	public Double getZzs2_1() {
+		return zzs2_1;
+	}
+	public void setZzs2_1(Double zzs2_1) {
+		this.zzs2_1 = zzs2_1;
+	}
+	public Double getZzs2_2() {
+		return zzs2_2;
+	}
+	public void setZzs2_2(Double zzs2_2) {
+		this.zzs2_2 = zzs2_2;
+	}
+	public Double getZzs3_1() {
+		return zzs3_1;
+	}
+	public void setZzs3_1(Double zzs3_1) {
+		this.zzs3_1 = zzs3_1;
+	}
+	public Double getZzs3_2() {
+		return zzs3_2;
+	}
+	public void setZzs3_2(Double zzs3_2) {
+		this.zzs3_2 = zzs3_2;
+	}
+	public Double getZzs4_1() {
+		return zzs4_1;
+	}
+	public void setZzs4_1(Double zzs4_1) {
+		this.zzs4_1 = zzs4_1;
+	}
+	public Double getZzs4_2() {
+		return zzs4_2;
+	}
+	public void setZzs4_2(Double zzs4_2) {
+		this.zzs4_2 = zzs4_2;
+	}
+	public Double getQysds1_1() {
+		return qysds1_1;
+	}
+	public void setQysds1_1(Double qysds1_1) {
+		this.qysds1_1 = qysds1_1;
+	}
+	public Double getQysds1_2() {
+		return qysds1_2;
+	}
+	public void setQysds1_2(Double qysds1_2) {
+		this.qysds1_2 = qysds1_2;
+	}
+	public Double getQysds2_1() {
+		return qysds2_1;
+	}
+	public void setQysds2_1(Double qysds2_1) {
+		this.qysds2_1 = qysds2_1;
+	}
+	public Double getQysds2_2() {
+		return qysds2_2;
+	}
+	public void setQysds2_2(Double qysds2_2) {
+		this.qysds2_2 = qysds2_2;
+	}
+	public Double getQysds3_1() {
+		return qysds3_1;
+	}
+	public void setQysds3_1(Double qysds3_1) {
+		this.qysds3_1 = qysds3_1;
+	}
+	public Double getQysds3_2() {
+		return qysds3_2;
+	}
+	public void setQysds3_2(Double qysds3_2) {
+		this.qysds3_2 = qysds3_2;
+	}
+	public Double getQysds4_1() {
+		return qysds4_1;
+	}
+	public void setQysds4_1(Double qysds4_1) {
+		this.qysds4_1 = qysds4_1;
+	}
+	public Double getQysds4_2() {
+		return qysds4_2;
+	}
+	public void setQysds4_2(Double qysds4_2) {
+		this.qysds4_2 = qysds4_2;
+	}
+	public Double getXfs1_1() {
+		return xfs1_1;
+	}
+	public void setXfs1_1(Double xfs1_1) {
+		this.xfs1_1 = xfs1_1;
+	}
+	public Double getXfs1_2() {
+		return xfs1_2;
+	}
+	public void setXfs1_2(Double xfs1_2) {
+		this.xfs1_2 = xfs1_2;
+	}
+	public Double getXfs2_1() {
+		return xfs2_1;
+	}
+	public void setXfs2_1(Double xfs2_1) {
+		this.xfs2_1 = xfs2_1;
+	}
+	public Double getXfs2_2() {
+		return xfs2_2;
+	}
+	public void setXfs2_2(Double xfs2_2) {
+		this.xfs2_2 = xfs2_2;
+	}
+	public Double getXfs3_1() {
+		return xfs3_1;
+	}
+	public void setXfs3_1(Double xfs3_1) {
+		this.xfs3_1 = xfs3_1;
+	}
+	public Double getXfs3_2() {
+		return xfs3_2;
+	}
+	public void setXfs3_2(Double xfs3_2) {
+		this.xfs3_2 = xfs3_2;
+	}
+	public Double getXfs4_1() {
+		return xfs4_1;
+	}
+	public void setXfs4_1(Double xfs4_1) {
+		this.xfs4_1 = xfs4_1;
+	}
+	public Double getXfs4_2() {
+		return xfs4_2;
+	}
+	public void setXfs4_2(Double xfs4_2) {
+		this.xfs4_2 = xfs4_2;
+	}
+	public Double getCswhjss1_1() {
+		return cswhjss1_1;
+	}
+	public void setCswhjss1_1(Double cswhjss1_1) {
+		this.cswhjss1_1 = cswhjss1_1;
+	}
+	public Double getCswhjss1_2() {
+		return cswhjss1_2;
+	}
+	public void setCswhjss1_2(Double cswhjss1_2) {
+		this.cswhjss1_2 = cswhjss1_2;
+	}
+	public Double getCswhjss2_1() {
+		return cswhjss2_1;
+	}
+	public void setCswhjss2_1(Double cswhjss2_1) {
+		this.cswhjss2_1 = cswhjss2_1;
+	}
+	public Double getCswhjss2_2() {
+		return cswhjss2_2;
+	}
+	public void setCswhjss2_2(Double cswhjss2_2) {
+		this.cswhjss2_2 = cswhjss2_2;
+	}
+	public Double getCswhjss3_1() {
+		return cswhjss3_1;
+	}
+	public void setCswhjss3_1(Double cswhjss3_1) {
+		this.cswhjss3_1 = cswhjss3_1;
+	}
+	public Double getCswhjss3_2() {
+		return cswhjss3_2;
+	}
+	public void setCswhjss3_2(Double cswhjss3_2) {
+		this.cswhjss3_2 = cswhjss3_2;
+	}
+	public Double getCswhjss4_1() {
+		return cswhjss4_1;
+	}
+	public void setCswhjss4_1(Double cswhjss4_1) {
+		this.cswhjss4_1 = cswhjss4_1;
+	}
+	public Double getCswhjss4_2() {
+		return cswhjss4_2;
+	}
+	public void setCswhjss4_2(Double cswhjss4_2) {
+		this.cswhjss4_2 = cswhjss4_2;
+	}
+	public Double getFcs1_1() {
+		return fcs1_1;
+	}
+	public void setFcs1_1(Double fcs1_1) {
+		this.fcs1_1 = fcs1_1;
+	}
+	public Double getFcs1_2() {
+		return fcs1_2;
+	}
+	public void setFcs1_2(Double fcs1_2) {
+		this.fcs1_2 = fcs1_2;
+	}
+	public Double getFcs2_1() {
+		return fcs2_1;
+	}
+	public void setFcs2_1(Double fcs2_1) {
+		this.fcs2_1 = fcs2_1;
+	}
+	public Double getFcs2_2() {
+		return fcs2_2;
+	}
+	public void setFcs2_2(Double fcs2_2) {
+		this.fcs2_2 = fcs2_2;
+	}
+	public Double getFcs3_1() {
+		return fcs3_1;
+	}
+	public void setFcs3_1(Double fcs3_1) {
+		this.fcs3_1 = fcs3_1;
+	}
+	public Double getFcs3_2() {
+		return fcs3_2;
+	}
+	public void setFcs3_2(Double fcs3_2) {
+		this.fcs3_2 = fcs3_2;
+	}
+	public Double getFcs4_1() {
+		return fcs4_1;
+	}
+	public void setFcs4_1(Double fcs4_1) {
+		this.fcs4_1 = fcs4_1;
+	}
+	public Double getFcs4_2() {
+		return fcs4_2;
+	}
+	public void setFcs4_2(Double fcs4_2) {
+		this.fcs4_2 = fcs4_2;
+	}
+	public Double getTdsys1_1() {
+		return tdsys1_1;
+	}
+	public void setTdsys1_1(Double tdsys1_1) {
+		this.tdsys1_1 = tdsys1_1;
+	}
+	public Double getTdsys1_2() {
+		return tdsys1_2;
+	}
+	public void setTdsys1_2(Double tdsys1_2) {
+		this.tdsys1_2 = tdsys1_2;
+	}
+	public Double getTdsys2_1() {
+		return tdsys2_1;
+	}
+	public void setTdsys2_1(Double tdsys2_1) {
+		this.tdsys2_1 = tdsys2_1;
+	}
+	public Double getTdsys2_2() {
+		return tdsys2_2;
+	}
+	public void setTdsys2_2(Double tdsys2_2) {
+		this.tdsys2_2 = tdsys2_2;
+	}
+	public Double getTdsys3_1() {
+		return tdsys3_1;
+	}
+	public void setTdsys3_1(Double tdsys3_1) {
+		this.tdsys3_1 = tdsys3_1;
+	}
+	public Double getTdsys3_2() {
+		return tdsys3_2;
+	}
+	public void setTdsys3_2(Double tdsys3_2) {
+		this.tdsys3_2 = tdsys3_2;
+	}
+	public Double getTdsys4_1() {
+		return tdsys4_1;
+	}
+	public void setTdsys4_1(Double tdsys4_1) {
+		this.tdsys4_1 = tdsys4_1;
+	}
+	public Double getTdsys4_2() {
+		return tdsys4_2;
+	}
+	public void setTdsys4_2(Double tdsys4_2) {
+		this.tdsys4_2 = tdsys4_2;
+	}
+	public Double getCcsys1_1() {
+		return ccsys1_1;
+	}
+	public void setCcsys1_1(Double ccsys1_1) {
+		this.ccsys1_1 = ccsys1_1;
+	}
+	public Double getCcsys1_2() {
+		return ccsys1_2;
+	}
+	public void setCcsys1_2(Double ccsys1_2) {
+		this.ccsys1_2 = ccsys1_2;
+	}
+	public Double getCcsys2_1() {
+		return ccsys2_1;
+	}
+	public void setCcsys2_1(Double ccsys2_1) {
+		this.ccsys2_1 = ccsys2_1;
+	}
+	public Double getCcsys2_2() {
+		return ccsys2_2;
+	}
+	public void setCcsys2_2(Double ccsys2_2) {
+		this.ccsys2_2 = ccsys2_2;
+	}
+	public Double getCcsys3_1() {
+		return ccsys3_1;
+	}
+	public void setCcsys3_1(Double ccsys3_1) {
+		this.ccsys3_1 = ccsys3_1;
+	}
+	public Double getCcsys3_2() {
+		return ccsys3_2;
+	}
+	public void setCcsys3_2(Double ccsys3_2) {
+		this.ccsys3_2 = ccsys3_2;
+	}
+	public Double getCcsys4_1() {
+		return ccsys4_1;
+	}
+	public void setCcsys4_1(Double ccsys4_1) {
+		this.ccsys4_1 = ccsys4_1;
+	}
+	public Double getCcsys4_2() {
+		return ccsys4_2;
+	}
+	public void setCcsys4_2(Double ccsys4_2) {
+		this.ccsys4_2 = ccsys4_2;
+	}
+	public Double getYhs1_1() {
+		return yhs1_1;
+	}
+	public void setYhs1_1(Double yhs1_1) {
+		this.yhs1_1 = yhs1_1;
+	}
+	public Double getYhs1_2() {
+		return yhs1_2;
+	}
+	public void setYhs1_2(Double yhs1_2) {
+		this.yhs1_2 = yhs1_2;
+	}
+	public Double getYhs2_1() {
+		return yhs2_1;
+	}
+	public void setYhs2_1(Double yhs2_1) {
+		this.yhs2_1 = yhs2_1;
+	}
+	public Double getYhs2_2() {
+		return yhs2_2;
+	}
+	public void setYhs2_2(Double yhs2_2) {
+		this.yhs2_2 = yhs2_2;
+	}
+	public Double getYhs3_1() {
+		return yhs3_1;
+	}
+	public void setYhs3_1(Double yhs3_1) {
+		this.yhs3_1 = yhs3_1;
+	}
+	public Double getYhs3_2() {
+		return yhs3_2;
+	}
+	public void setYhs3_2(Double yhs3_2) {
+		this.yhs3_2 = yhs3_2;
+	}
+	public Double getYhs4_1() {
+		return yhs4_1;
+	}
+	public void setYhs4_1(Double yhs4_1) {
+		this.yhs4_1 = yhs4_1;
+	}
+	public Double getYhs4_2() {
+		return yhs4_2;
+	}
+	public void setYhs4_2(Double yhs4_2) {
+		this.yhs4_2 = yhs4_2;
+	}
+	public Double getGrsds1_1() {
+		return grsds1_1;
+	}
+	public void setGrsds1_1(Double grsds1_1) {
+		this.grsds1_1 = grsds1_1;
+	}
+	public Double getGrsds1_2() {
+		return grsds1_2;
+	}
+	public void setGrsds1_2(Double grsds1_2) {
+		this.grsds1_2 = grsds1_2;
+	}
+	public Double getGrsds2_1() {
+		return grsds2_1;
+	}
+	public void setGrsds2_1(Double grsds2_1) {
+		this.grsds2_1 = grsds2_1;
+	}
+	public Double getGrsds2_2() {
+		return grsds2_2;
+	}
+	public void setGrsds2_2(Double grsds2_2) {
+		this.grsds2_2 = grsds2_2;
+	}
+	public Double getGrsds3_1() {
+		return grsds3_1;
+	}
+	public void setGrsds3_1(Double grsds3_1) {
+		this.grsds3_1 = grsds3_1;
+	}
+	public Double getGrsds3_2() {
+		return grsds3_2;
+	}
+	public void setGrsds3_2(Double grsds3_2) {
+		this.grsds3_2 = grsds3_2;
+	}
+	public Double getGrsds4_1() {
+		return grsds4_1;
+	}
+	public void setGrsds4_1(Double grsds4_1) {
+		this.grsds4_1 = grsds4_1;
+	}
+	public Double getGrsds4_2() {
+		return grsds4_2;
+	}
+	public void setGrsds4_2(Double grsds4_2) {
+		this.grsds4_2 = grsds4_2;
+	}
+	public Double getZys1_1() {
+		return zys1_1;
+	}
+	public void setZys1_1(Double zys1_1) {
+		this.zys1_1 = zys1_1;
+	}
+	public Double getZys1_2() {
+		return zys1_2;
+	}
+	public void setZys1_2(Double zys1_2) {
+		this.zys1_2 = zys1_2;
+	}
+	public Double getZys2_1() {
+		return zys2_1;
+	}
+	public void setZys2_1(Double zys2_1) {
+		this.zys2_1 = zys2_1;
+	}
+	public Double getZys2_2() {
+		return zys2_2;
+	}
+	public void setZys2_2(Double zys2_2) {
+		this.zys2_2 = zys2_2;
+	}
+	public Double getZys3_1() {
+		return zys3_1;
+	}
+	public void setZys3_1(Double zys3_1) {
+		this.zys3_1 = zys3_1;
+	}
+	public Double getZys3_2() {
+		return zys3_2;
+	}
+	public void setZys3_2(Double zys3_2) {
+		this.zys3_2 = zys3_2;
+	}
+	public Double getZys4_1() {
+		return zys4_1;
+	}
+	public void setZys4_1(Double zys4_1) {
+		this.zys4_1 = zys4_1;
+	}
+	public Double getZys4_2() {
+		return zys4_2;
+	}
+	public void setZys4_2(Double zys4_2) {
+		this.zys4_2 = zys4_2;
+	}
+	public Double getGisys1_1() {
+		return gisys1_1;
+	}
+	public void setGisys1_1(Double gisys1_1) {
+		this.gisys1_1 = gisys1_1;
+	}
+	public Double getGisys1_2() {
+		return gisys1_2;
+	}
+	public void setGisys1_2(Double gisys1_2) {
+		this.gisys1_2 = gisys1_2;
+	}
+	public Double getGisys2_1() {
+		return gisys2_1;
+	}
+	public void setGisys2_1(Double gisys2_1) {
+		this.gisys2_1 = gisys2_1;
+	}
+	public Double getGisys2_2() {
+		return gisys2_2;
+	}
+	public void setGisys2_2(Double gisys2_2) {
+		this.gisys2_2 = gisys2_2;
+	}
+	public Double getGisys3_1() {
+		return gisys3_1;
+	}
+	public void setGisys3_1(Double gisys3_1) {
+		this.gisys3_1 = gisys3_1;
+	}
+	public Double getGisys3_2() {
+		return gisys3_2;
+	}
+	public void setGisys3_2(Double gisys3_2) {
+		this.gisys3_2 = gisys3_2;
+	}
+	public Double getGisys4_1() {
+		return gisys4_1;
+	}
+	public void setGisys4_1(Double gisys4_1) {
+		this.gisys4_1 = gisys4_1;
+	}
+	public Double getGisys4_2() {
+		return gisys4_2;
+	}
+	public void setGisys4_2(Double gisys4_2) {
+		this.gisys4_2 = gisys4_2;
+	}
+	public Double getGs1_1() {
+		return gs1_1;
+	}
+	public void setGs1_1(Double gs1_1) {
+		this.gs1_1 = gs1_1;
+	}
+	public Double getGs1_2() {
+		return gs1_2;
+	}
+	public void setGs1_2(Double gs1_2) {
+		this.gs1_2 = gs1_2;
+	}
+	public Double getGs2_1() {
+		return gs2_1;
+	}
+	public void setGs2_1(Double gs2_1) {
+		this.gs2_1 = gs2_1;
+	}
+	public Double getGs2_2() {
+		return gs2_2;
+	}
+	public void setGs2_2(Double gs2_2) {
+		this.gs2_2 = gs2_2;
+	}
+	public Double getGs3_1() {
+		return gs3_1;
+	}
+	public void setGs3_1(Double gs3_1) {
+		this.gs3_1 = gs3_1;
+	}
+	public Double getGs3_2() {
+		return gs3_2;
+	}
+	public void setGs3_2(Double gs3_2) {
+		this.gs3_2 = gs3_2;
+	}
+	public Double getGs4_1() {
+		return gs4_1;
+	}
+	public void setGs4_1(Double gs4_1) {
+		this.gs4_1 = gs4_1;
+	}
+	public Double getGs4_2() {
+		return gs4_2;
+	}
+	public void setGs4_2(Double gs4_2) {
+		this.gs4_2 = gs4_2;
+	}
+	public Double getTdzzs1_1() {
+		return tdzzs1_1;
+	}
+	public void setTdzzs1_1(Double tdzzs1_1) {
+		this.tdzzs1_1 = tdzzs1_1;
+	}
+	public Double getTdzzs1_2() {
+		return tdzzs1_2;
+	}
+	public void setTdzzs1_2(Double tdzzs1_2) {
+		this.tdzzs1_2 = tdzzs1_2;
+	}
+	public Double getTdzzs2_1() {
+		return tdzzs2_1;
+	}
+	public void setTdzzs2_1(Double tdzzs2_1) {
+		this.tdzzs2_1 = tdzzs2_1;
+	}
+	public Double getTdzzs2_2() {
+		return tdzzs2_2;
+	}
+	public void setTdzzs2_2(Double tdzzs2_2) {
+		this.tdzzs2_2 = tdzzs2_2;
+	}
+	public Double getTdzzs3_1() {
+		return tdzzs3_1;
+	}
+	public void setTdzzs3_1(Double tdzzs3_1) {
+		this.tdzzs3_1 = tdzzs3_1;
+	}
+	public Double getTdzzs3_2() {
+		return tdzzs3_2;
+	}
+	public void setTdzzs3_2(Double tdzzs3_2) {
+		this.tdzzs3_2 = tdzzs3_2;
+	}
+	public Double getTdzzs4_1() {
+		return tdzzs4_1;
+	}
+	public void setTdzzs4_1(Double tdzzs4_1) {
+		this.tdzzs4_1 = tdzzs4_1;
+	}
+	public Double getTdzzs4_2() {
+		return tdzzs4_2;
+	}
+	public void setTdzzs4_2(Double tdzzs4_2) {
+		this.tdzzs4_2 = tdzzs4_2;
+	}
+	public Double getJyffj1_1() {
+		return jyffj1_1;
+	}
+	public void setJyffj1_1(Double jyffj1_1) {
+		this.jyffj1_1 = jyffj1_1;
+	}
+	public Double getJyffj1_2() {
+		return jyffj1_2;
+	}
+	public void setJyffj1_2(Double jyffj1_2) {
+		this.jyffj1_2 = jyffj1_2;
+	}
+	public Double getJyffj2_1() {
+		return jyffj2_1;
+	}
+	public void setJyffj2_1(Double jyffj2_1) {
+		this.jyffj2_1 = jyffj2_1;
+	}
+	public Double getJyffj2_2() {
+		return jyffj2_2;
+	}
+	public void setJyffj2_2(Double jyffj2_2) {
+		this.jyffj2_2 = jyffj2_2;
+	}
+	public Double getJyffj3_1() {
+		return jyffj3_1;
+	}
+	public void setJyffj3_1(Double jyffj3_1) {
+		this.jyffj3_1 = jyffj3_1;
+	}
+	public Double getJyffj3_2() {
+		return jyffj3_2;
+	}
+	public void setJyffj3_2(Double jyffj3_2) {
+		this.jyffj3_2 = jyffj3_2;
+	}
+	public Double getJyffj4_1() {
+		return jyffj4_1;
+	}
+	public void setJyffj4_1(Double jyffj4_1) {
+		this.jyffj4_1 = jyffj4_1;
+	}
+	public Double getJyffj4_2() {
+		return jyffj4_2;
+	}
+	public void setJyffj4_2(Double jyffj4_2) {
+		this.jyffj4_2 = jyffj4_2;
+	}
+	public Double getYjsjYearSum() {
+		return yjsjYearSum;
+	}
+	public void setYjsjYearSum(Double yjsjYearSum) {
+		this.yjsjYearSum = yjsjYearSum;
+	}
+	public Double getYijiaosjYearSum() {
+		return yijiaosjYearSum;
+	}
+	public void setYijiaosjYearSum(Double yijiaosjYearSum) {
+		this.yijiaosjYearSum = yijiaosjYearSum;
+	}
+	public Double getWjsjYearBegin() {
+		return wjsjYearBegin;
+	}
+	public void setWjsjYearBegin(Double wjsjYearBegin) {
+		this.wjsjYearBegin = wjsjYearBegin;
+	}
+	public Double getQmwjsj() {
+		return qmwjsj;
+	}
+	public void setQmwjsj(Double qmwjsj) {
+		this.qmwjsj = qmwjsj;
+	}
+	public Double getYjsjLastYear() {
+		return yjsjLastYear;
+	}
+	public void setYjsjLastYear(Double yjsjLastYear) {
+		this.yjsjLastYear = yjsjLastYear;
+	}
+	public Double getYijiaosjLastYear() {
+		return yijiaosjLastYear;
+	}
+	public void setYijiaosjLastYear(Double yijiaosjLastYear) {
+		this.yijiaosjLastYear = yijiaosjLastYear;
+	}
+	
+	
+	
+}

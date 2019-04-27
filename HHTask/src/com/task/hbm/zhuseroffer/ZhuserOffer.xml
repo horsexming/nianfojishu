@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="com.task.entity.zhuseroffer.ZhuserOffer" table="ta_ZhuserOffer" >
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="markId" />
+		<property name="name" />
+		<property name="status" />
+		<property name="specification" />
+		<property name="banbenhao"/>
+		<property name="wgType" />
+		<property name="kgliao"/>
+		<property name="zhUserId" />
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="processId" />
+		
+		<property name="cmp" />
+		<property name="usercode" />
+		<property name="cperson"/>
+		<property name="ctel" />
+		<property name="hsPrice" />
+		<property name="bhsPrice" />
+		<property name="taxprice"/>
+		<property name="joinDate"/>
+		<property name="cycle"/>
+		<property name="endDate"/>
+		<property name="sumProcessId"/>
+		<property name="baojia" />
+		<!-- 报价表对外购件库 多对一 -->
+		<many-to-one name="yuanclAndWaigj" class="com.task.entity.sop.ycl.YuanclAndWaigj" column="ta_yuanclAndWaigjId"></many-to-one>
+		<set name="sampleSet" inverse="false" cascade="all" lazy="true">
+			<key column="ta_zhuserOfferId"></key>
+			<one-to-many class="com.task.entity.zhuseroffer.Sample"/>
+		</set>	
+	</class>
+</hibernate-mapping>

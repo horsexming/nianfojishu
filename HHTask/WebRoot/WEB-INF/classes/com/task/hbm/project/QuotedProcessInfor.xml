@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="QuotedProcessInfor" table="ta_pro_QuotedProcessInfor">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="processNO" />
+		<property name="processName" />
+		<property name="shebeiId" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+		<property name="shebeiDateTime" />
+		<property name="shebeiJingzhi" />
+		<property name="shebeiZjYear" />
+		<property name="shebeiZhejiu" />
+		<property name="fuliao" />
+		<property name="fuliaoxh" />
+		<property name="fuliaoMoney" />
+		<property name="gongzhuang" />
+		<property name="gongzhuangPrice" />
+		<property name="gongzhuangFt" />
+		<property name="jiagongTime" />
+		<property name="jiagongUserCode" />
+		<property name="jiagongUser" />
+		<property name="rengongfei" />
+		<property name="gongzhuangNumber" />
+		<property name="productStyle" />
+		<property name="wwPrice" />
+		<property name="opcaozuojiepai" />
+		<property name="opshebeijiepai" />
+		<property name="gzzhunbeijiepai" />
+		<property name="gzzhunbeicishu" />
+		<property name="isFentan" />
+		<property name="gongzhuangFy" />
+		<property name="isOld" />
+		<property name="gzPrice" />
+		<property name="gongzhuangId" />
+		<property name="oldgongzhuangNumber" />
+		<property name="oldgongzhuang" />
+		<property name="fuliaosz" />
+	<property name="fuliaoxhsz" />
+	<property name="fuliaoMoneysz" />
+	<property name="fuliaosj" />
+	<property name="fuliaoxhsj" />
+	<property name="fuliaoMoneysj" />
+	<property name="wwPricesz" />
+	<property name="wwPricesj" />
+	 <property name="procesdianshu"/>
+	 <property name="processjjMoney"/>
+	 <property name="jjratio"/>
+	 <property name="sjprocessMomey"/>
+	 <property name="ykprocessMomey"/>
+
+		<!-- 【与核算对应关系】 -->
+		<many-to-one name="quotedPrice" column="fk_quotedPriceId"
+			class="QuotedPrice" cascade="save-update" />
+	</class>
+</hibernate-mapping>

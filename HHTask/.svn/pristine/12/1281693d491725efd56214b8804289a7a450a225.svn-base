@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.android.pscs.AngularSpeed" table="ta_AngularSpeed">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+<!--		<property name="customerinformation_id" />-->
+		<property name="angular" />
+		<property name="speed" />
+		<!-- 转速角度对提交信息-->
+        <many-to-one name="customerInformation" class="com.task.entity.android.pscs.CustomerInformation" column="ta_angularspeed"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="ProcardForProcess" table="ta_sop_ProcardForProcess">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="fatherId" />
+		<property name="fatherMarkId" />
+		<property name="fbanci" />
+		<property name="markIds" length="1000"/>
+		<property name="processNos" />
+		<property name="processNames" />
+		<property name="processCount" />
+	</class>
+</hibernate-mapping>

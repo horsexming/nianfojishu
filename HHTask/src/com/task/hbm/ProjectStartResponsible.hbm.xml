@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ProjectStartResponsible" table="ta_ProjectStart_Responsible">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="responsibility" length="50" />
+		<many-to-one name="root" column="pid" unique="true" lazy="false" />
+	</class>
+
+</hibernate-mapping>

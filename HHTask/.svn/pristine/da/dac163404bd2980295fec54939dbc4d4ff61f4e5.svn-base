@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu">
+	<class name="CwVouchersDetail" table="ta_fin_CwVouchersDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="vClass" />
+		<property name="remark" />
+		<property name="sub" />
+		<property name="subId" />
+		<property name="detailSub" />
+		<property name="detailSubId" />
+		<property name="jieMoney" />
+		<property name="daiMoney" />
+		<property name="createTime" />
+		<property name="createName" />
+		<property name="createCode" />
+		<many-to-one name="cwVouchers" class="CwVouchers" cascade="save-update"
+			lazy="false" column="voucherId" />
+		<set name="cwUseDetails" cascade="all" inverse="false" lazy="true"
+			order-by="id">
+			<key column="vDtailId"></key>
+			<one-to-many class="CwUseDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

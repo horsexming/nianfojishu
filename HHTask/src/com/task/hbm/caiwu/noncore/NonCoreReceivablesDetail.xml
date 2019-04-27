@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.caiwu.noncore">
+	<class name="NonCoreReceivablesDetail" table="ta_fin_caiwu_nonCoreReceivablesDetail">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="kemu" />
+		<property name="zhaiyao" />
+		<property name="zhangqi" />
+		<property name="zhuangtai" />
+		<property name="jiluTime" />
+		<property name="shangchuanTime" />
+		<property name="photoPath" />
+		<property name="chaobiaoren" />
+		<property name="shiduan" />
+		<property name="effectivePrice" />
+		<property name="lastbiaoshu" />
+		<property name="thisbiaoshu" />
+		<property name="biaoshu" />
+		<property name="yingfuJine" />
+		<property name="realfuJine" />
+		<property name="saveUser" />
+		<property name="saveCode" />
+		<property name="more" />
+		<property name="epId" />
+		<property name="status" />
+		<property name="queren" />
+		<property name="querenTime" />
+		<property name="fujianQueren" />
+		<property name="fujian2Status" />
+		<property name="scpId" />
+		<many-to-one name="nonCoreReceivables"
+			class="com.task.entity.caiwu.noncore.NonCoreReceivables" lazy="false"
+			cascade="save-update" column="nonCoreReceivablesDetail_id" />
+	</class>
+</hibernate-mapping>

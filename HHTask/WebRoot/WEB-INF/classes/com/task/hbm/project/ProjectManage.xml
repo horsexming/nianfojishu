@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.project">
+	<class name="ProjectManage" table="ta_pro_ProjectManage">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="projectName" />
+		<property name="projectNum" />
+		<property name="projectNumber"/>
+		<property name="company" />
+		<property name="yuMoney" />
+		<property name="content" length="800" />
+		<property name="userId" />
+		<property name="code" />
+		<property name="userName" />
+		<property name="dateTime" />
+		<property name="aduitStatus" />
+		<property name="status" />
+		<property name="epId" />
+		<property name="client" />
+		<property name="fileName" />
+		<property name="isbaomi" />
+		<property name="proType" />
+		<!-- 【配置项目和时间表的对应关系(一对多)】 -->
+		<set name="projectTimeSet" cascade="all" inverse="false" order-by="level"
+			lazy="true">
+			<key column="fk_proId"></key>
+			<one-to-many class="ProjectTime" />
+		</set>
+		<!-- 【配置项目和时间表的对应关系(一对多)】 -->
+		<set name="projectWenJianSet" cascade="all" inverse="false" order-by="id"
+			lazy="false">
+			<key column="fk_proId"></key>
+			<one-to-many class="ProjectWenJian" />
+		</set>
+	</class>
+
+</hibernate-mapping>

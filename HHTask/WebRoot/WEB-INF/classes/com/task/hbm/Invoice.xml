@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.Invoice" table="ST_Invoice">
+		<id name="id" column="pk_id" type="int">
+			<generator class="identity"></generator>
+		</id>
+
+	<property name="collectionUnit" column="f_collectionUnit" type="string"></property>
+	<property name="number" column="f_number" type="string"></property>
+	<property name="money" column="f_money" type="float"></property>
+	<property name="file" column="f_file" type="string"></property>
+	<property name="currencyType" column="f_currencyType" type="string"></property>
+	
+	<!-- 配置业务引用 -->
+	<many-to-one name="business" class="com.task.entity.Business" column="fk_business_id"/>
+	
+	</class>
+</hibernate-mapping>

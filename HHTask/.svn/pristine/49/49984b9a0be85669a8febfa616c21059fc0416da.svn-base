@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.jxkh">
+	<class name="WaiWeiJieGouMuBiao" table="ta_WaiWeiJiGouMuBiao">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="waiweiMuBiao"/>
+		<property name="jieGouMuBiao"/>
+		<property name="years"/>
+		<property name="addTime"/>
+		<property name="addUsersName"/>
+	</class>
+</hibernate-mapping>

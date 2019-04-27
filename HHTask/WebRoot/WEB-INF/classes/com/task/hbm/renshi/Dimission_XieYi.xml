@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.renshi">
+	<class name="Dimission_XieYi" table="ta_hr_lz_dimission_XieYi">
+		<id name="id" type="java.lang.Integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="xieyi_number"></property>
+		<property name="_Afang" />
+		<property name="_Aaddress" />
+		<property name="_Bfang" />
+		<property name="_Buid" />
+		<property name="_Baddress" />
+		<property name="_Btel" />
+		<property name="_BrealAddress" />
+		
+		
+		<property name="_Afang2" />
+		<property name="_AfangRepresentative" />
+		<property name="_AaddDate" />
+		<property name="_Bfang2" />
+		<property name="_BaddDate" />
+		
+		<!-- 协议对条款一对多 -->
+		<set name="provision_xieyi" inverse="false" cascade="all" lazy="true">
+			<key column="ta_provision_xieyiId" />
+			<one-to-many class="com.task.entity.Provision" />
+		</set>
+		
+		<property name="epId" />
+		<property name="xieyi_Status" />
+		<property name="addTime" />
+		<property name="updateTime" />
+		
+		<property name="dim_xieyi_id" />
+		<property name="codeId" />
+		<!-- 劳动终止协议对离职申请单一对多 -->
+		<!-- 多对一 -->
+		<!--<many-to-one name="dimissionexieyi" unique="true" column="lz_dim_xieyi"></many-to-one>
+		
+	--></class>
+</hibernate-mapping>

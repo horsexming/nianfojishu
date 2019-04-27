@@ -1,0 +1,59 @@
+/**
+ * 
+ */
+package com.task.action.expresscabinet;
+import com.task.Server.expresscabinet.WePayServer;
+/**
+ * 微信支付action层
+ */
+public class WePayAction {
+    
+	private WePayServer wePayServer;
+	private String urlCode;        //二维码url 
+	
+
+
+	/**
+	 * 微信支付
+	 */
+	public String weixinPay(){
+        String productId = "5533685";   //商品编号(根据快递柜传递过来的编号进行查询价格，名称)
+        String userId = "user02";
+        String order_price ="4";
+        String body = "可乐";
+        String text = wePayServer.weixinPay(userId,productId,order_price,body); 
+        System.out.println("输出一下text:"+text);
+        if(text !=null){
+            System.out.println("********成功获取二维码url*********");
+            urlCode = text;
+            System.out.println("输出一下urlCode"+urlCode);
+        }            
+        return "wepay";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public WePayServer getWePayServer() {
+		return wePayServer;
+	}
+	public void setWePayServer(WePayServer wePayServer) {
+		this.wePayServer = wePayServer;
+	}
+	public String getUrlCode() {
+		return urlCode;
+	}
+	public void setUrlCode(String urlCode) {
+		this.urlCode = urlCode;
+	}
+}

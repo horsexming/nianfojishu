@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.task.entity.TaSopGongwei" table="ta_sop_gongwei">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="banzu" type="java.lang.String">
+			<column name="banzu" />
+		</property>
+		<property name="gongweihao" type="java.lang.String">
+			<column name="gongweihao" />
+		</property>
+		<property name="shebeiName" type="java.lang.String">
+			<column name="shebeiName" />
+		</property>
+		<property name="shebeiCode" type="java.lang.String">
+			<column name="shebeiCode" />
+		</property>
+		<property name="shebeiId">
+		</property>
+		<property name="caozuoContent" type="java.lang.String">
+			<column name="caozuoContent" />
+		</property>
+		<property name="caozuoFormat" type="java.lang.String">
+			<column name="caozuoFormat" />
+		</property>
+		<property name="caozJineng" type="java.lang.Float">
+			<column name="caozJineng" precision="53" scale="0" />
+		</property>
+		<property name="caoztihuanrenshu" type="java.lang.Float">
+			<column name="caoztihuanrenshu" precision="53" scale="0" />
+		</property>
+		<property name="caozFuhe" type="java.lang.Float">
+			<column name="caozFuhe" precision="53" scale="0" />
+		</property>
+		<property name="more1" type="java.lang.String">
+			<column name="more1" />
+		</property>
+		<property name="caozMinimumMan" type="java.lang.Float">
+			<column name="caozMinimumMan" precision="53" scale="0" />
+		</property>
+		<property name="gongzhuangJineng" type="java.lang.Float">
+			<column name="gongzhuangJineng" precision="53" scale="0" />
+		</property>
+		<property name="gongzhuangtihuanrenshu" type="java.lang.Float">
+			<column name="gongzhuangtihuanrenshu" precision="53" scale="0" />
+		</property>
+		<property name="gongzhuangFuhe" type="java.lang.Float">
+			<column name="gongzhuangFuhe" precision="53" scale="0" />
+		</property>
+		<property name="more2" type="java.lang.String">
+			<column name="more2" />
+		</property>
+		<property name="shebeiXinghao" type="java.lang.String">
+			<column name="shebeiXinghao" />
+		</property>
+		<property name="gongzhuangStyle" type="java.lang.String">
+			<column name="gongzhuangStyle" />
+		</property>
+		<property name="minCaozRenshu" type="java.lang.Float">
+			<column name="minCaozRenshu" precision="53" scale="0" />
+		</property>
+		<set name="productProcess" cascade="all" inverse="true" lazy="true">
+			<key column="gongwei_Id">
+			</key>
+			<one-to-many class="com.task.entity.ProductProcess" />
+		</set>
+		<set name="processTemplate" cascade="all" inverse="false" lazy="true"
+			order-by="id">
+			<key column="fk_gongweiId"></key>
+			<one-to-many class="com.task.entity.sop.ProcessTemplate" />
+		</set>
+		<set name="pushs" table="ta_push_gongwei" lazy="true" inverse="true">
+			<key column="gongwei_id"></key>
+			<many-to-many class="com.task.entity.android.processpush.Push"
+				column="push_id" />
+		</set>
+		<!-- 工位对应一体机 多对对 -->
+		<set name="machines" table="ta_om_gongwei" lazy="true" inverse="true">
+			<key column="gongwei_id"></key>
+			<many-to-many class="com.task.entity.android.processpush.OneMachine"
+				column="om_id" />
+		</set>
+	</class>
+</hibernate-mapping>

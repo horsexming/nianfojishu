@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.task.entity.ManufacturingProp" table="ta_manufacturingprop">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+
+		<property name="nowDate" type="timestamp" />
+		<property name="nextDate" type="timestamp" />
+		<property name="contextStr" length="200" />
+		<property name="verification" length="200" />
+		<property name="username" length="20" />
+		<property name="usercode" length="20" />
+		
+		
+		<many-to-one name="parent" column="parentId" />
+
+	</class>
+
+</hibernate-mapping>

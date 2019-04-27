@@ -1,0 +1,7 @@
+package com.task.entity.dengji;
+
+public class Snippet {
+	public static void main(String[] args) {
+	}
+}
+

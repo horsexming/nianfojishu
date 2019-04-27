@@ -1,0 +1,15 @@
+##########common parameters###########
+#alias
+PRIVATEALIAS=privatekey
+#key(important!)
+KEYPWD=bigdata123456
+#STOREPWD
+STOREPWD=abc123456
+#SUBJECT
+SUBJECT=bigdata
+#priPath
+priPath=privateKeys.store
+#consumerType
+consumerType=user
+#ConsumerAmount
+consumerAmount=1

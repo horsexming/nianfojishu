@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- *******************马凯Service层管理******************************* -->
+	
+	<!-- 看板Service -->
+	<bean id="boardService" class="com.task.ServerImpl.BoardServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 电子屏幕Service -->
+	<bean id="screenFilesService" class="com.task.ServerImpl.ScreenFilesServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="screenService" class="com.task.ServerImpl.ScreenServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 仓库 -->
+	<bean id="wareHouseService" class="com.task.ServerImpl.WareHouseServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="wareHouseAuthService" class="com.task.ServerImpl.WareHouseAuthServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	
+	<!-- 外购件检查 -->
+	<bean id="osRecordService" class="com.task.ServerImpl.OsRecordServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="osTemplateService" class="com.task.ServerImpl.OsTemplateServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="processGzstoreServerImpl" class="com.task.ServerImpl.gzbj.ProcessGzstoreServerImpl">
+		<property name="totalDao" ref="totalDaoImpl"></property>
+	</bean>
+	<!-- 巡检 -->
+	<bean id="insRecordService" class="com.task.ServerImpl.InsRecordServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="goodsStoreServer" ref="GoodsStoreServerImpl" />
+	</bean>
+	<bean id="insScopeService" class="com.task.ServerImpl.InsScopeServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="insTemplateService" class="com.task.ServerImpl.InsTemplateServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	
+	<bean id="templateTypemService" class="com.task.ServerImpl.TemplateTypemServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="templatemService" class="com.task.ServerImpl.TemplatemServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="manufacturingService" class="com.task.ServerImpl.ManufacturingServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="manufacturingPropService" class="com.task.ServerImpl.ManufacturingPropServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 索赔单记录 -->
+	<bean id="tclaimsRecordService" class="com.task.ServerImpl.TclaimsRecordServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 索赔单 -->
+	<bean id="tclaimformService" class="com.task.ServerImpl.TclaimformServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 工序 -->
+	<bean id="tprocessService" class="com.task.ServerImpl.TprocessServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 设备 -->
+	<bean id="tequipmentService" class="com.task.ServerImpl.TequipmentServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 工装 -->
+	<bean id="ttoolingService" class="com.task.ServerImpl.TtoolingServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 产品消耗 -->
+	<bean id="tconsumptionService" class="com.task.ServerImpl.TconsumptionServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 产品BOM -->
+	<bean id="tdetailService" class="com.task.ServerImpl.TdetailServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目跟踪 -->
+	<bean id="projectTrackRecordService" class="com.task.ServerImpl.ProjectTrackRecordServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目跟踪 -->
+	<bean id="projectTrackService" class="com.task.ServerImpl.ProjectTrackServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书_关系处理 -->
+	<bean id="projectStartService" class="com.task.ServerImpl.ProjectStartServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第一步流程 -->
+	<bean id="projectStartOutlineService" class="com.task.ServerImpl.ProjectStartOutlineServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第二步流程_技术方案 -->
+	<bean id="projectStartTechnicalService" class="com.task.ServerImpl.ProjectStartTechnicalServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第三步流程_项目预算 -->
+	<bean id="projectStartBudgetService" class="com.task.ServerImpl.ProjectStartBudgetServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第四步流程_会签纪要 -->
+	<bean id="projectStartCountersignedService"
+		class="com.task.ServerImpl.ProjectStartCountersignedServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第五步流程_项目责任书 -->
+	<bean id="projectStartResponsibleService" class="com.task.ServerImpl.ProjectStartResponsibleServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第六步流程_项目进度表 -->
+	<bean id="projectStartScheduleService" class="com.task.ServerImpl.ProjectStartScheduleServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第七步流程_项目人员 -->
+	<bean id="projectStartUserService" class="com.task.ServerImpl.ProjectStartUserServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目启动书第八步流程_项目要求 -->
+	<bean id="projectStartClaimService" class="com.task.ServerImpl.ProjectStartClaimServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_物流 -->
+	<bean id="projectQuotationLogisticsService"
+		class="com.task.ServerImpl.ProjectQuotationLogisticsServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_包装  -->
+	<bean id="projectQuotationToolingCostService"
+		class="com.task.ServerImpl.ProjectQuotationToolingCostServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_设备折旧  -->
+	<bean id="projectQuotationEquipmentDepreciationService"
+		class="com.task.ServerImpl.ProjectQuotationEquipmentDepreciationServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_直接人工 -->
+	<bean id="projectQuotationDirectLaborCostService"
+		class="com.task.ServerImpl.ProjectQuotationDirectLaborCostServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_外购外协 -->
+	<bean id="projectQuotationSubContractService"
+		class="com.task.ServerImpl.ProjectQuotationSubContractServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单_材料 -->
+	<bean id="projectQuotationRawMaterialService"
+		class="com.task.ServerImpl.ProjectQuotationRawMaterialServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单 -->
+	<bean id="projectQuotationService" class="com.task.ServerImpl.ProjectQuotationServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目报价单 -->
+	<bean id="projectQuotationListService" class="com.task.ServerImpl.ProjectQuotationListServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目建议书_审核 -->
+	<bean id="projectProposalFlowService" class="com.task.ServerImpl.ProjectProposalFlowServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_项目建议书 -->
+	<bean id="projectProposalService" class="com.task.ServerImpl.ProjectProposalServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_权限管理 -->
+	<bean id="projectAuthService" class="com.task.ServerImpl.ProjectAuthServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理_用户管理 -->
+	<bean id="projectUserService" class="com.task.ServerImpl.ProjectUserServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 项目管理 -->
+	<bean id="projectService" class="com.task.ServerImpl.ProjectServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+
+	<!-- 模版监控 -->
+	<bean id="templetMonitorServiceImpl" class="com.task.ServerImpl.bp.TempletMonitorServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 模版 -->
+	<bean id="templetServiceImpl" class="com.task.ServerImpl.bp.TempletServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="templetMonitorService" ref="templetMonitorServiceImpl" />
+	</bean>
+	<!-- 计划单 -->
+	<bean id="detailServiceImpl" class="com.task.ServerImpl.bp.DetailServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 明细 -->
+	<bean id="productServiceImpl" class="com.task.ServerImpl.bp.ProductServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="detailService" ref="detailServiceImpl" />
+	</bean>
+	<!-- 招标 -->
+	<bean id="flowServiceImpl" class="com.task.ServerImpl.FlowServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 招标流程 -->
+	<bean id="metricServiceImpl" class="com.task.ServerImpl.MetricServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 短信 -->
+	<bean id="shortMessageServiceImpl" class="com.task.ServerImpl.ShortMessageServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 短信 -->
+	<bean id="smsGroupServiceImpl" class="com.task.ServerImpl.SmsGroupServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<bean id="smsUserServiceImpl" class="com.task.ServerImpl.SmsUserServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="smsGroupService" ref="smsGroupServiceImpl" />
+	</bean>
+	<bean id="fileServiceImpl" class="com.task.ServerImpl.FileServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+	</bean>
+	<!-- 短信接收发送 -->
+	<bean id="smsServiceImpl" class="com.task.ServerImpl.SmsServiceImpl">
+		<property name="totalDao" ref="totalDaoImpl" />
+		<property name="smsUserService" ref="smsUserServiceImpl" />
+	</bean>
+	<!--
+		***********************************马凯Action层管理****************************************************
+	-->
+	
+	
+	<!-- 看板 -->
+	<bean id="boardAction" class="com.task.action.BoardAction" scope="prototype">
+		<property name="boardService" ref="boardService" />
+		<property name="scrnServer" ref="scrnServerImpl" />
+	</bean>
+	
+	<!-- 电子屏幕 -->
+	<bean id="screenFilesAction" class="com.task.action.ScreenFilesAction" scope="prototype">
+		<property name="screenFilesService" ref="screenFilesService" />
+	</bean>
+	<bean id="screenAction" class="com.task.action.ScreenAction" scope="prototype">
+		<property name="screenService" ref="screenService" />
+		<property name="screenContentServer" ref="ScreenContentServerImpl"></property>
+	</bean>
+	<!-- 仓库权限 -->
+	<bean id="wareHouseAction" class="com.task.action.WareHouseAction" scope="prototype">
+		<property name="wareHouseService" ref="wareHouseService" />
+	</bean>
+	<bean id="wareHouseAuthAction" class="com.task.action.WareHouseAuthAction" scope="prototype">
+		<property name="wareHouseAuthService" ref="wareHouseAuthService" />
+	</bean>
+	
+	<!-- 外购件检查 -->
+	<bean id="osTemplateAction" class="com.task.action.OsTemplateAction" scope="prototype">
+		<property name="osTemplateService" ref="osTemplateService" />
+		<property name="userService" ref="userServerImpl"/>
+		<property name="processGzstoreServer" ref="processGzstoreServerImpl"></property>
+	</bean>
+	<bean id="osRecordAction" class="com.task.action.OsRecordAction" scope="prototype">
+		<property name="userService" ref="userServerImpl"/>
+		<property name="osRecordService" ref="osRecordService" />
+	</bean>
+	<!-- 巡检 -->
+	<bean id="insRecordAction" class="com.task.action.InsRecordAction" scope="prototype">
+		<property name="userService" ref="userServerImpl"/>
+		<property name="insRecordService" ref="insRecordService" />
+	</bean>
+	<bean id="insScopeAction" class="com.task.action.InsScopeAction" scope="prototype">
+		<property name="insScopeService" ref="insScopeService" />
+	</bean>
+	<bean id="insTemplateAction" class="com.task.action.InsTemplateAction" scope="prototype">
+		<property name="userService" ref="userServerImpl"/>
+		<property name="insRecordService" ref="insRecordService" />
+		<property name="insTemplateService" ref="insTemplateService" />
+		<property name="insScopeService" ref="insScopeService"/>
+	</bean>
+	
+	<!-- 巡检 -->
+	<bean id="templateTypemAction" class="com.task.action.TemplateTypemAction" scope="prototype">
+		<property name="templateTypemService" ref="templateTypemService" />
+		<property name="userService" ref="userServerImpl"/>
+	</bean>
+	<!-- 巡检 -->
+	<bean id="templatemAction" class="com.task.action.TemplatemAction" scope="prototype">
+		<property name="templatemService" ref="templatemService" />
+		<property name="userService" ref="userServerImpl"/>
+	</bean>
+	<bean id="manufacturingAction" class="com.task.action.ManufacturingAction" scope="prototype">
+		<property name="manufacturingService" ref="manufacturingService" />
+		<property name="userService" ref="userServerImpl"/>
+	</bean>
+	<bean id="manufacturingPropAction" class="com.task.action.ManufacturingPropAction" scope="prototype">
+		<property name="manufacturingPropService" ref="manufacturingPropService" />
+		<property name="userService" ref="userServerImpl"/>
+	</bean>
+	
+	<!-- 索赔单_记录 -->
+	<bean id="tclaimsRecordAction" class="com.task.action.TclaimsRecordAction" scope="prototype">
+		<property name="tclaimsRecordService" ref="tclaimsRecordService" />
+	</bean>
+	<!-- 索赔单 -->
+	<bean id="tclaimformAction" class="com.task.action.TclaimformAction" scope="prototype">
+		<property name="tclaimformService" ref="tclaimformService" />
+	</bean>
+	
+	
+	<!-- 工序-->
+	<bean id="tprocessAction" class="com.task.action.TprocessAction" scope="prototype">
+		<property name="tprocessService" ref="tprocessService" />
+	</bean>
+	<!-- 工装-->
+	<bean id="tequipmentAction" class="com.task.action.TequipmentAction" scope="prototype">
+		<property name="tequipmentService" ref="tequipmentService" />
+	</bean>
+	<!-- 工装-->
+	<bean id="ttoolingAction" class="com.task.action.TtoolingAction" scope="prototype">
+		<property name="ttoolingService" ref="ttoolingService" />
+	</bean>
+	<!-- 产品消耗-->
+	<bean id="tconsumptionAction" class="com.task.action.TconsumptionAction" scope="prototype">
+		<property name="tconsumptionService" ref="tconsumptionService" />
+	</bean>
+	<!-- 产品BOM -->
+	<bean id="tdetailAction" class="com.task.action.TdetailAction" scope="prototype">
+		<property name="tdetailService" ref="tdetailService" />
+	</bean>
+	<!-- 项目跟踪 -->
+	<bean id="projectTrackRecordAction" class="com.task.action.ProjectTrackRecordAction"
+		scope="prototype">
+		<property name="projectStartUserService" ref="projectStartUserService" />
+		<property name="projectTrackRecordService" ref="projectTrackRecordService" />
+		<property name="projectTrackService" ref="projectTrackService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目跟踪 -->
+	<bean id="projectTrackAction" class="com.task.action.ProjectTrackAction"
+		scope="prototype">
+		<property name="projectTrackService" ref="projectTrackService" />
+		<property name="projectTrackRecordService" ref="projectTrackRecordService" />
+	</bean>
+	<!-- 项目启动书_关系处理 -->
+	<bean id="projectStartAction" class="com.task.action.ProjectStartAction"
+		scope="prototype">
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectStartOutlineService" ref="projectStartOutlineService" />
+		<property name="projectStartTechnicalService" ref="projectStartTechnicalService" />
+		<property name="projectStartBudgetService" ref="projectStartBudgetService" />
+		<property name="projectStartCountersignedService" ref="projectStartCountersignedService" />
+		<property name="projectStartResponsibleService" ref="projectStartResponsibleService" />
+		<property name="projectStartScheduleService" ref="projectStartScheduleService" />
+		<property name="projectStartUserService" ref="projectStartUserService" />
+		<property name="projectStartClaimService" ref="projectStartClaimService" />
+	</bean>
+	<!-- 项目启动书_第一步流程 -->
+	<bean id="projectStartOutlineAction" class="com.task.action.ProjectStartOutlineAction"
+		scope="prototype">
+		<property name="projectStartOutlineService" ref="projectStartOutlineService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第二步流程 -->
+	<bean id="projectStartTechnicalAction" class="com.task.action.ProjectStartTechnicalAction"
+		scope="prototype">
+		<property name="projectStartTechnicalService" ref="projectStartTechnicalService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第三步流程 -->
+	<bean id="projectStartBudgetAction" class="com.task.action.ProjectStartBudgetAction"
+		scope="prototype">
+		<property name="projectStartBudgetService" ref="projectStartBudgetService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第四步流程 -->
+	<bean id="projectStartCountersignedAction" class="com.task.action.ProjectStartCountersignedAction"
+		scope="prototype">
+		<property name="projectStartCountersignedService" ref="projectStartCountersignedService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第五步流程 -->
+	<bean id="projectStartResponsibleAction" class="com.task.action.ProjectStartResponsibleAction"
+		scope="prototype">
+		<property name="projectStartResponsibleService" ref="projectStartResponsibleService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第六步流程 -->
+	<bean id="projectStartScheduleAction" class="com.task.action.ProjectStartScheduleAction"
+		scope="prototype">
+		<property name="projectStartScheduleService" ref="projectStartScheduleService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书_第七步人员 -->
+	<bean id="projectStartUserAction" class="com.task.action.ProjectStartUserAction"
+		scope="prototype">
+		<property name="projectStartUserService" ref="projectStartUserService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目启动书第八步流程_项目要求 -->
+	<bean id="projectStartClaimAction" class="com.task.action.ProjectStartClaimAction"
+		scope="prototype">
+		<property name="projectStartClaimService" ref="projectStartClaimService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目管理-报价单_设备折旧 -->
+	<bean id="projectQuotationEquipmentDepreciationAction"
+		class="com.task.action.ProjectQuotationEquipmentDepreciationAction"
+		scope="prototype">
+		<property name="projectQuotationDirectLaborCostService" ref="projectQuotationDirectLaborCostService"></property>
+		<property name="projectQuotationEquipmentDepreciationService"
+			ref="projectQuotationEquipmentDepreciationService"></property>
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!--项目管理-报价单_模具成本 -->
+	<bean id="projectQuotationToolingCostAction" class="com.task.action.ProjectQuotationToolingCostAction"
+		scope="prototype">
+		<property name="projectQuotationToolingCostService" ref="projectQuotationToolingCostService"></property>
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!-- 项目管理-报价单_物流成本 -->
+	<bean id="projectQuotationLogisticsAction" class="com.task.action.ProjectQuotationLogisticsAction"
+		scope="prototype">
+		<property name="projectQuotationLogisticsService" ref="projectQuotationLogisticsService"></property>
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!-- 项目管理-报价单_直接人工  -->
+	<bean id="projectQuotationDirectLaborCostAction" class="com.task.action.ProjectQuotationDirectLaborCostAction"
+		scope="prototype">
+		<property name="projectQuotationDirectLaborCostService" ref="projectQuotationDirectLaborCostService"></property>
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!--项目管理-报价单_外购外协 -->
+	<bean id="projectQuotationSubContractAction" class="com.task.action.ProjectQuotationSubContractAction"
+		scope="prototype">
+		<property name="projectQuotationSubContractService" ref="projectQuotationSubContractService"></property>
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+
+	<!-- 项目管理-报价单_材料 -->
+	<bean id="projectQuotationRawMaterialAction" class="com.task.action.ProjectQuotationRawMaterialAction"
+		scope="prototype">
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+		<property name="projectQuotationRawMaterialService" ref="projectQuotationRawMaterialService" />
+	</bean>
+	<!-- 项目管理-报价单 -->
+	<bean id="projectQuotationAction" class="com.task.action.ProjectQuotationAction"
+		scope="prototype">
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!-- 项目管理-报价单 -->
+	<bean id="projectQuotationListAction" class="com.task.action.ProjectQuotationListAction" scope="prototype">
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectQuotationListService" ref="projectQuotationListService" />
+		<property name="projectQuotationService" ref="projectQuotationService" />
+	</bean>
+	<!-- 项目管理-项目建议书_审核 -->
+	<bean id="projectProposalFlowAction" class="com.task.action.ProjectProposalFlowAction"
+		scope="prototype">
+		<property name="projectProposalFlowService" ref="projectProposalFlowService" />
+	</bean>
+	<!-- 项目管理-项目建议书 -->
+	<bean id="projectProposalAction" class="com.task.action.ProjectProposalAction"
+		scope="prototype">
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="projectProposalService" ref="projectProposalService" />
+	</bean>
+	<!-- 项目管理-权限分配 -->
+	<bean id="projectAuthAction" class="com.task.action.ProjectAuthAction"
+		scope="prototype">
+		<property name="projectAuthService" ref="projectAuthService" />
+		<property name="userServer" ref="userServerImpl" />
+	</bean>
+	<!-- 项目管理-人员管理 -->
+	<bean id="projectUserAction" class="com.task.action.ProjectUserAction"
+		scope="prototype">
+		<property name="projectUserService" ref="projectUserService" />
+		<property name="projectAuthService" ref="projectAuthService" />
+	</bean>
+	<!-- 项目管理 -->
+	<bean id="projectAction" class="com.task.action.ProjectAction"
+		scope="prototype">
+		<property name="projectService" ref="projectService" />
+		<property name="projectProposalService" ref="projectProposalService" />
+		<property name="projectQuotationListService" ref="projectQuotationListService" />
+		<property name="projectStartService" ref="projectStartService" />
+		<property name="projectTrackService" ref="projectTrackService" />
+	</bean>
+	<!-- 模版类Action -->
+	<bean id="templetAction" class="com.task.action.bp.TempletAction"
+		scope="prototype">
+		<property name="templetService" ref="templetServiceImpl" />
+	</bean>
+	<bean id="detailAction" class="com.task.action.bp.DetailAction"
+		scope="prototype">
+		<property name="detailService" ref="detailServiceImpl" />
+		<property name="templetService" ref="templetServiceImpl" />
+	</bean>
+	<bean id="productAction" class="com.task.action.bp.ProductAction"
+		scope="prototype">
+		<property name="productService" ref="productServiceImpl" />
+	</bean>
+	<bean id="shortMessageAction" class="com.task.action.ShortMessageAction"
+		scope="prototype">
+		<property name="shortMessageService" ref="shortMessageServiceImpl" />
+	</bean>
+	<!-- 流程类 -->
+	<bean id="flowAction" class="com.task.action.FlowAction" scope="prototype">
+		<property name="flowService" ref="flowServiceImpl" />
+		<property name="productService" ref="productServiceImpl" />
+	</bean>
+	<bean id="metricAction" class="com.task.action.MetricAction"
+		scope="prototype">
+		<property name="flowService" ref="flowServiceImpl" />
+		<property name="productService" ref="productServiceImpl" />
+		<property name="metricService" ref="metricServiceImpl" />
+	</bean>
+	<bean id="smsGroupAction" class="com.task.action.SmsGroupAction"
+		scope="prototype">
+		<property name="smsGroupService" ref="smsGroupServiceImpl" />
+	</bean>
+	<bean id="smsUserAction" class="com.task.action.SmsUserAction"
+		scope="prototype">
+		<property name="smsUserService" ref="smsUserServiceImpl" />
+	</bean>
+	<bean id="fileAction" class="com.task.action.FileAction" scope="prototype">
+		<property name="fileService" ref="fileServiceImpl"></property>
+	</bean>
+	<bean id="smsAction" class="com.task.action.SmsAction" scope="prototype">
+		<property name="smsService" ref="smsServiceImpl"></property>
+	</bean>
+</beans>

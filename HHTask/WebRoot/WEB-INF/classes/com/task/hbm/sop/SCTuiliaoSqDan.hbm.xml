@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.sop">
+	<class name="SCTuiliaoSqDan" table="ta_sop_w_SCTuiliaoSqDan">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId"/>
+		<property name="proName"/>
+		<property name="selfCard"/>
+		<property name="examineLot"/>
+		<property name="procardStyle"/>
+		<property name="productStyle"/>
+		<property name="banBenNumber"/>
+		<property name="tuhao"/>
+		<property name="wgType"/>
+		<property name="specification"/>
+		<property name="zhuserId"/>
+		<property name="gys"/>
+		<property name="kgliao"/>
+		<property name="llNumber"/>
+		<property name="procardId"/>
+		<property name="tlyuanyin"/>
+		<property name="tlNumber"/>
+		<property name="epStatus"/>
+		<property name="epId"/>
+		<property name="addTime"/>
+		<property name="adduser"/>
+		<property name="addusercode"/>
+		<property name="priceId"/>
+		<property name="hsPrice"/>
+		<property name="bhsPrice"/>
+		<property name="taxprice"/>
+		<property name="unit"/>
+		<property name="rootmarkId"/>
+		<property name="rootLotId"/>
+	</class>
+</hibernate-mapping>

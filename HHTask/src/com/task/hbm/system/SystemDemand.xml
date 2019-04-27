@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.system">
+	<class name="SystemDemand" table="ta_sys_SystemDemand">
+	
+	
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="userId" />
+		<property name="userName" />
+		<property name="userDept" />
+		<property name="sdNum" />
+		<property name="functionName" />
+		<property name="sdShortName" />
+		<property name="sdType" />
+		<property name="sdDesc" />
+		<property name="status" />
+		<property name="epId" />
+		<property name="epStatus" />
+		<property name="addTime" />
+		<property name="sdLeave" />
+		<property name="demandFile" />
+		<property name="solveDate" />
+		<property name="solvePerson" />
+		<property name="affirmDate" />
+		
+		
+		<set name="sDetails"  cascade="all" inverse="false">
+			<key column="sddId"></key>
+			<many-to-many class="SystemDemandDetail" />
+		</set>
+	</class>
+</hibernate-mapping>

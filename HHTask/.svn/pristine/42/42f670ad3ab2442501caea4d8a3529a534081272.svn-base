@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.task.entity.gys">
+	<class name="ProcardGys" table="ta_sop_w_procardGys">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="markId" />
+		<property name="proName" />
+		<property name="filnalCount" column="count" />
+		<property name="maxCount" />
+		<property name="corrCount" />
+		<property name="unit" />
+		<property name="procardStyle" />
+		<property name="productStyle" />
+		<property name="carStyle" />
+		<property name="trademark" />
+		<property name="specification" />
+		<property name="luhao" />
+		<property name="actualFixed" />
+		<property name="number" />
+		<property name="rootId" />
+		<property name="fatherId" />
+		<property name="belongLayer" />
+		<property name="procardTime" />
+		<property name="remark" />
+		<property name="needCount" />
+		<property name="yuanUnit" />
+		<property name="quanzi1" />
+		<property name="quanzi2" />
+		<property name="hascount" />
+		<property name="jihuoType" />
+		<property name="danjiaojian" />
+		<property name="lingliaostatus" />
+
+		<property name="planOrderNum" />
+		<property name="planOrderId" />
+		<property name="status" />
+		<property name="provateSubTime" />
+		<property name="applyCount" />
+		<property name="realReceive" />
+		<property name="money" />
+		<property name="barcode" />
+		<property name="zhikaren" />
+		<property name="selfCard" />
+		<property name="cardId" />
+		<property name="cardNum" />
+		<property name="oldProcardId" />
+		<property name="gongwei" />
+		<property name="shebeiNo" />
+		<property name="shebeiName" />
+
+		<property name="proTemStatus" />
+		<property name="parallelId" />
+		<property name="jihuoStatua" />
+		<property name="klNumber" />
+		<property name="ylNumber" />
+		<property name="tjNumber" />
+		<property name="minNumber" />
+		<property name="rukuCount" />
+
+		<property name="singleDuration" />
+		<property name="capacity" />
+		<property name="capacitySurplus" />
+		<property name="capacityRatio" />
+		<property name="deliveryDuration" />
+		<property name="deliveryRatio" />
+		<property name="deliveryPeriod" />
+		<property name="deliveryAmount" />
+		<property name="proSingleDuration" />
+		<property name="allJiepai" />
+		<property name="jihuoDate" />
+		<property name="needFinalDate" />
+		<property name="zhuserId" />
+		<property name="gys" />
+
+		<!-- 【配置本流水卡片自身的对应关系(一对多)】 -->
+		<set name="procardSet" cascade="all" inverse="false" order-by="id"
+			lazy="true">
+			<key column="fk_ProcardTId"></key>
+			<one-to-many class="ProcardGys" />
+		</set>
+		<!-- 【配置本流水卡片自身的对应关系(多对一)】 -->
+		<many-to-one name="procardGys" class="ProcardGys" cascade="save-update"
+			lazy="false" column="fk_ProcardTId" />
+
+		<!-- 【配置流水卡片下层工序信息关系】 -->
+		<set name="processInforSet" inverse="false" cascade="all" lazy="true"
+			order-by="processNO">
+			<key column="fk_procardId"></key>
+			<one-to-many class="ProcessGysInfor" />
+		</set>
+
+	</class>
+</hibernate-mapping>

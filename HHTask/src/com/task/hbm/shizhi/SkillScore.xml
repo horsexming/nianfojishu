@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.shizhi">
+	<class name="SkillScore" table="ta_sk_SkillScore">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+        <property name="name" />
+		<property name="score" />
+		<property name="totalscore" />
+		<property name="difficultScore" />
+		<property name="total" />
+		<!-- 对技能分类-->
+		<many-to-one name="skillType" class="SkillType" column="sstype_id" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,431 @@
+package com.task.ServerImpl.ess;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.task.Dao.TotalDao;
+import com.task.Server.ess.PrintedOutServer;
+import com.task.entity.GoodsStore;
+import com.task.entity.PrintedOut;
+import com.task.entity.PrintedOutOrder;
+import com.task.entity.Sell;
+import com.task.entity.WareHouseAuth;
+import com.task.entity.sop.WaigouDeliveryDetail;
+import com.task.util.Util;
+
+@SuppressWarnings("unchecked")
+public class PrintedOutServerImpl implements PrintedOutServer {
+	private TotalDao totalDao;
+
+	public TotalDao getTotalDao() {
+		return totalDao;
+	}
+
+	public void setTotalDao(TotalDao totalDao) {
+		this.totalDao = totalDao;
+	}
+
+	@Override
+	public PrintedOutOrder addprint(PrintedOutOrder poor) {
+		if (poor != null) {
+			int count =	totalDao.getCount(" from PrintedOutOrder where planNum =? ", poor.getPlanNum());
+			if(count>0){
+				String beforeStr = poor.getPlanNum().substring(0, 4);
+				if("产品入库单".equals(poor.getType())){
+					beforeStr = poor.getPlanNum().substring(0, 3);
+				}
+				String month="";
+				month=Util.getDateTime("yyyyMM");
+				String 	 plannumber = month+"000001";
+				String hql_maxnum = "select max(planNum) from PrintedOutOrder where planNum like '"+beforeStr+month+"%' and type =?";
+				String maxnum = (String) totalDao.getObjectByCondition(hql_maxnum,poor.getType());
+				if(maxnum == null || maxnum.length() == 0){
+					plannumber = poor.getPlanNum();
+				}else{
+					String number =(1000001+Integer.parseInt(maxnum.substring((beforeStr+month).length())))+"";
+					plannumber = beforeStr+month+number.substring(1);
+				}
+				poor.setPlanNum(plannumber);
+			}
+			poor.setAddTime(Util.getDateTime());
+			poor.setAddUsers(Util.getLoginUser().getName());
+			List<PrintedOut> poList = poor.getPrintedOutList();
+			Set<PrintedOut> poSet = new HashSet<PrintedOut>();
+			for (PrintedOut po : poList) {
+				po.setShaddress(poor.getShaddress());
+				po.setKehuNmae(poor.getKehuNmae());
+				po.setPlanNum(poor.getPlanNum());
+				po.setType(poor.getType());
+				po.setIsPrint("YES");
+				po.setShPlanNum(poor.getShPlanNum());// 送货单号
+				po.setClassName(poor.getClassName());
+				po.setAddtime(Util.getDateTime());
+				po.setPrintcount(1);
+				poSet.add(po);
+				if ("GoodsStore".equals(po.getClassName())) {
+					GoodsStore goodstore = (GoodsStore) totalDao.get(
+							GoodsStore.class, po.getEntiyId());
+					goodstore.setPrintStatus("YES");
+					goodstore.setPrintNumber(poor.getPlanNum());//重新设置打印单号以防打印单与入库记录不一致。
+					if ("".equals(goodstore.getStyle())
+							|| "转仓入库".equals(goodstore.getStyle())) {
+						goodstore.setZhidanPerson(poor.getAddUsers());
+					} else {
+						goodstore.setZhidanPerson(poor.getAddUsers());
+						if (goodstore.getWwddId() != null) {
+							WaigouDeliveryDetail wdd = (WaigouDeliveryDetail) totalDao
+									.get(WaigouDeliveryDetail.class, goodstore
+											.getWwddId());
+							if (wdd != null) {// 送货单回传打印单号
+								wdd.setPrintNumber(poor.getPlanNum());
+								totalDao.update(wdd);
+							}
+						}
+					}
+
+					totalDao.update(goodstore);
+				} else if ("Sell".equals(po.getClassName())) {
+					if(po.getEntiyId()!=null){
+						Sell sell = (Sell) totalDao
+						.get(Sell.class, po.getEntiyId());
+						sell.setPrintStatus("YES");
+						sell.setPrintNumber(poor.getPlanNum());
+						sell.setZhidanPerson(poor.getAddUsers());
+						sell.setSellGoodsMore(po.getRmeak());
+						totalDao.update(sell);
+					}else if(po.getEntiyIds()!=null && po.getEntiyIds().length()>0){
+						String ids = "'"+po.getEntiyIds().replaceAll(";", "','")+"'";
+						List<Sell> sellList =	totalDao.query(" from Sell where sellId in ("+ids+")");
+						for (Sell sell : sellList) {
+							sell.setPrintStatus("YES");
+							sell.setPrintNumber(poor.getPlanNum());
+							sell.setZhidanPerson(poor.getAddUsers());
+							sell.setSellGoodsMore(po.getRmeak());
+							totalDao.update(sell);
+						}
+					}
+					
+					
+				}
+			}
+			poor.setPrintedOutSet(poSet);
+			poor.setPrintcount(1);
+			if (totalDao.save(poor)) {
+				return poor;
+			}
+
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findAllPrintedOutList(PrintedOut printedOut, int pageNo,
+			int pageSize, String status,String statrtTime,String endTime) {
+		if (printedOut == null) {
+			printedOut = new PrintedOut();
+		}
+		String str = "";
+		// 大于时间
+		if (statrtTime != null
+				&& !statrtTime.equals("")) {
+			str += " and date(sellTime) >=  '" + statrtTime
+					+ " 00:00:00'";
+		}
+		// 小于时间
+		if (endTime != null
+				&& !endTime.equals("")) {
+			str += " and date(sellTime) <=  '" + endTime + " 23:59:59'";
+		}
+		String hql = totalDao.criteriaQueries(printedOut, null);
+		hql+=str;
+		List<PrintedOut> printedOutList = totalDao.findAllByPage(hql
+				+ " order by id desc", pageNo, pageSize);
+		int count = totalDao.getCount(hql);
+		return new Object[] { printedOutList, count };
+	}
+
+	@Override
+	public PrintedOut findPrintedOutById(Integer id) {
+		if (id != null) {
+			return (PrintedOut) totalDao.get(PrintedOut.class, id);
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findprintList(Object obj, int pageNo, int pageSize,
+			String status ,String statrtTime,String endTime,String tag) {
+		Sell sell = (Sell) obj;
+		if (sell == null) {
+			sell = new Sell();
+		}
+		// 条件查询不分页
+		try {
+			if (!Util.isAllFieldNull(sell)) {
+				pageNo = 0;
+				pageSize = 0;
+			} else {
+				// if(pageNo!=1){
+
+				// }
+				// pageNo = 1;
+				// pageSize=15;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String str  = "";
+		if(sell.getGoodHouseName()!=null && sell.getGoodHouseName().length()>0){
+			str+= " and goodHouseName = '"+sell.getGoodHouseName()+"'";
+		}
+		
+		// 大于时间
+		if (statrtTime != null
+				&& !statrtTime.equals("")) {
+			str += " and date(sellDate) >=  '" + statrtTime
+					+ " 00:00:00'";
+		}
+		// 小于时间
+		if (endTime != null
+				&& !endTime.equals("")) {
+			str += " and date(sellDate) <=  '" + endTime + " 23:59:59'";
+		}
+		if ("XOUT".equals(status)) {
+			String hql = totalDao
+					.criteriaQueries(
+							sell,
+							" sellWarehouse in('成品库')  and style = '销售出库' "
+									+ " and (printStatus is null or printStatus<>'YES') ","goodHouseName");
+			hql+=str+" order by id desc ";
+			int count = totalDao.getCount(hql);
+			if ((sell.getSellMarkId() != null && sell.getSellMarkId().length() > 0)
+					|| (sell.getYwmarkId() != null && sell.getYwmarkId()
+							.length() > 0)
+					|| (sell.getOrderNum() != null && sell.getOrderNum()
+							.length() > 0)) {
+				pageNo = 1;
+				pageSize = count == 0 ? 15 : count;
+			}
+			List<Sell> sellList = totalDao.findAllByPage(hql, pageNo, pageSize);
+			return new Object[] { sellList, count, pageSize };
+		} else if ("SOUT".equals(status)) {
+			String showOrHid_printNumber = " and (printNumber is null or printNumber = '')";
+			if("show".equals(tag)){
+				showOrHid_printNumber = " and printNumber is not null and printNumber <> ''";
+			}
+			String hql = totalDao
+					.criteriaQueries(
+							sell,
+							"   (printStatus is null or printStatus<>'YES')  and sell_markId  is not null and sell_markId <> '' "
+									+ " and sellWarehouse in('外购件库','外协库','研发库','售后库','半成品库','成品库') and style <> '销售出库' ","goodHouseName");
+			hql+=str+showOrHid_printNumber+"order by id desc ";
+			int count = totalDao.getCount(hql);
+			if ((sell.getSellMarkId() != null && sell.getSellMarkId().length() > 0)
+					|| (sell.getYwmarkId() != null && sell.getYwmarkId()
+							.length() > 0)
+					|| (sell.getOrderNum() != null && sell.getOrderNum()
+							.length() > 0)) {
+				pageNo = 1;
+				pageSize = count;
+			}
+			List<Sell> sellList = totalDao.findAllByPage(hql, pageNo, pageSize);
+			return new Object[] { sellList, count, pageSize };
+		} else if ("QOUT".equals(status)) {
+			String hql = totalDao
+					.criteriaQueries(
+							sell,
+							"  (printStatus is null or printStatus<>'YES') "
+									+ " and sellWarehouse in('综合库') ","goodHouseName");
+			hql+=str+" order by id desc ";
+			int count = totalDao.getCount(hql);
+			if ((sell.getSellMarkId() != null && sell.getSellMarkId().length() > 0)
+					|| (sell.getYwmarkId() != null && sell.getYwmarkId()
+							.length() > 0)
+					|| (sell.getOrderNum() != null && sell.getOrderNum()
+							.length() > 0)) {
+				pageNo = 1;
+				pageSize = count;
+			}
+			List<Sell> sellList = totalDao.findAllByPage(hql, pageNo, pageSize);
+			return new Object[] { sellList, count, pageSize };
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean printUpdata(PrintedOutOrder poor) {
+		if (poor != null) {
+			Object[] obj = chaXunPoorandPo(poor.getId());
+			PrintedOutOrder oldpoor = (PrintedOutOrder) obj[0];
+			List<PrintedOut> poList = (List<PrintedOut>) obj[1];
+			oldpoor.setReviewers(poor.getReviewers());
+			oldpoor.setYwName(poor.getYwName());
+			oldpoor.setCgName(poor.getCgName());
+			oldpoor.setShaddress(poor.getShaddress());
+			oldpoor.setShPlanNum(poor.getShPlanNum());
+			oldpoor.setRiqi(poor.getRiqi());
+			for (PrintedOut po : poList) {
+				po.setShPlanNum(oldpoor.getShPlanNum());
+				po.setShaddress(poor.getShaddress());
+				totalDao.update(po);
+			}
+			totalDao.update(oldpoor);
+		}
+		return false;
+	}
+
+	@Override
+	public Sell findSellById(Integer Id) {
+		if (Id != null) {
+			return (Sell) totalDao.get(Sell.class, Id);
+		}
+		return null;
+	}
+
+	@Override
+	public Object[] findAllPrintOrder(PrintedOutOrder printedOuteOrder,
+			int pageNo, int pageSize, String status) {
+		if (printedOuteOrder == null) {
+			printedOuteOrder = new PrintedOutOrder();
+		}
+		String hql = totalDao.criteriaQueries(printedOuteOrder, null);
+		List<PrintedOutOrder> List = totalDao.findAllByPage(hql, pageNo,
+				pageSize);
+		int count = totalDao.getCount(hql);
+		return new Object[] { List, count };
+	}
+
+	@Override
+	public Object[] chaXunPoorandPo(Integer id) {
+		if (id != null) {
+			PrintedOutOrder poor = (PrintedOutOrder) totalDao.get(
+					PrintedOutOrder.class, id);
+			List<PrintedOut> poList = new ArrayList<PrintedOut>();
+			poList.addAll(poor.getPrintedOutSet());
+			return new Object[] { poor, poList };
+		}
+		return null;
+	}
+
+	// public boolean findTypeForUser(){
+	//		
+	// }
+	@Override
+	public boolean delPrintedOut(PrintedOut printedOut) {
+		if (printedOut != null) {
+			PrintedOut oldprintedOut = (PrintedOut) totalDao.get(
+					PrintedOut.class, printedOut.getId());
+			String planNum = oldprintedOut.getPlanNum();
+			PrintedOutOrder pr = (PrintedOutOrder) totalDao
+					.getObjectByCondition(
+							" from PrintedOutOrder where planNum = ?", planNum);
+			Set<PrintedOut> printedOutSet = pr.getPrintedOutSet();
+			boolean bool = true;
+			if ("GoodsStore".equals(oldprintedOut.getClassName())) {
+				GoodsStore goodsstore = (GoodsStore) totalDao.get(
+						GoodsStore.class, oldprintedOut.getEntiyId());
+				if (goodsstore != null) {
+					goodsstore.setPrintStatus("NO");
+					goodsstore.setPrintNumber(null);
+					bool = totalDao.update(goodsstore);
+				}
+			} else if ("Sell".equals(oldprintedOut.getClassName())) {
+				
+				if(oldprintedOut.getEntiyId()!=null){
+					Sell sell = (Sell) totalDao.get(Sell.class, oldprintedOut
+							.getEntiyId());
+					if (sell != null) {
+						sell.setPrintStatus("NO");
+						sell.setPrintNumber(null);
+						bool = totalDao.update(sell);
+					}
+				}else if(oldprintedOut.getEntiyIds()!=null
+						&& oldprintedOut.getEntiyIds().length()>0){
+					String ids = "'"+oldprintedOut.getEntiyIds().replaceAll(";", "','")+"'";
+					List<Sell>	 sellList =totalDao.query("from Sell where sellId in ("+ids+")");
+					for (Sell sell : sellList) {
+						sell.setPrintStatus("NO");
+						sell.setPrintNumber(null);
+						bool = totalDao.update(sell);
+					}
+				}
+				
+			}
+			printedOutSet.remove(oldprintedOut);
+			bool = totalDao.delete(oldprintedOut);
+			if (printedOutSet == null || printedOutSet.size() == 0) {
+				bool = totalDao.delete(pr);
+			} else {
+				bool = totalDao.update(pr);
+			}
+			return bool;
+		}
+		return false;
+	}
+
+	@Override
+	public Object[] findPoorandPoByEntiyId(Integer id, String entiyName) {
+		// TODO Auto-generated method stub
+		if (id != null) {
+			PrintedOutOrder poor = (PrintedOutOrder) totalDao
+					.getObjectByCondition(
+							"from PrintedOutOrder where id in"
+									+ "(select printedOutOrder.id from PrintedOut where entiyId=? and className=?)",
+							id, entiyName);
+			if (poor != null) {
+				List<PrintedOut> poList = new ArrayList<PrintedOut>();
+				poList.addAll(poor.getPrintedOutSet());
+				return new Object[] { poor, poList };
+			}
+		}
+		return null;
+	}
+
+	public boolean getAuth1(String code) {
+		String hql = "from WareHouseAuth where usercode = ? and type = '价格' ";
+		WareHouseAuth a = (WareHouseAuth) totalDao.getObjectByCondition(hql,
+				new Object[] { code });
+		if (a == null) {
+			return false;
+		}
+		String s = a.getAuth();
+		List<String> strList = new ArrayList<String>();
+		String[] strArr = s.split(",");
+		for (int i = 0; i < strArr.length; i++) {
+			if (strArr[i].equals("dd_ddprice")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String updatePrintCount(Integer id) {
+		if (id != null) {
+			PrintedOutOrder printedoutorder = (PrintedOutOrder) totalDao.get(
+					PrintedOutOrder.class, id);
+			Set<PrintedOut> printedoutSet = printedoutorder.getPrintedOutSet();
+			for (PrintedOut printedOut : printedoutSet) {
+				printedOut
+						.setPrintcount((printedOut.getPrintcount() == null ? 0
+								: printedOut.getPrintcount()) + 1);
+				totalDao.update(printedOut);
+			}
+			printedoutorder
+					.setPrintcount((printedoutorder.getPrintcount() == null ? 0
+							: printedoutorder.getPrintcount()) + 1);
+			return totalDao.update(printedoutorder) + "";
+		}
+		return null;
+	}
+
+	@Override
+	public void qingchu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

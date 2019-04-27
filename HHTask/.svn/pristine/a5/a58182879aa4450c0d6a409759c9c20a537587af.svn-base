@@ -1,0 +1,488 @@
+package com.task.Server.zhaobiao;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import com.task.entity.Category;
+import com.task.entity.Users;
+import com.task.entity.fin.budget.DeptMonthBudget;
+import com.task.entity.sop.ProcardTemplate;
+import com.task.entity.sop.WaigouOrder;
+import com.tast.entity.zhaobiao.ChargebackNotice;
+import com.tast.entity.zhaobiao.Flowdetail;
+import com.tast.entity.zhaobiao.GysMarkIdjiepai;
+import com.tast.entity.zhaobiao.Hui_Xi;
+import com.tast.entity.zhaobiao.Huikuang;
+import com.tast.entity.zhaobiao.HuikuangXiangxi;
+import com.tast.entity.zhaobiao.HuikuangXiangxis;
+import com.tast.entity.zhaobiao.Nianlilv;
+import com.tast.entity.zhaobiao.PrepaymentsApplication;
+import com.tast.entity.zhaobiao.PrepaymentsApplicationDetails;
+import com.tast.entity.zhaobiao.ZhUser;
+//import com.tast.entity.zhaobiao.ZhUserDelivery;
+import com.tast.entity.zhaobiao.Zhaobiao;
+import com.tast.entity.zhaobiao.ZhaobiaoXi;
+import com.tast.entity.zhaobiao.ZhaobiaoXis;
+import com.tast.entity.zhaobiao.Zhgongxu;
+import com.tast.entity.zhaobiao.Zhmoban;
+import com.tast.entity.zhaobiao.Zhtoubiao;
+
+@SuppressWarnings("unchecked")
+public interface ZhaobiaoServer {
+	// 列表用户查询所有
+	Object[] findAll(ZhUser zhUser, Integer cpage, Integer PageSize);
+
+	Object[] findAllZhUser(ZhUser zhUser);
+	
+
+	/** 根据ID获得用户信息 **/
+	ZhUser listByIdZhUser(Integer id);
+
+	String addUser(ZhUser z);
+
+	String deletezhUser(ZhUser zhUser);
+
+	String updatezhUser(ZhUser zhUser);
+
+	/*
+	 * 招标模版
+	 */
+	Object[] listmoban(Integer cpage, Integer PageSize);
+
+	void addMoban(Zhmoban zhmoban);
+
+	void deleteMoban(Zhmoban zhmoban);
+
+	/*
+	 * 招标信息
+	 */
+	Object[] listzhaobiao(Integer cpage, Integer PageSize);
+
+	List toaddzhaobiao();
+
+	void addzhaobiao(Zhaobiao zhaobiao);
+
+	void deletezhaobiao(Zhaobiao zhaobiao);
+
+	void updatezhaobiao(Zhaobiao zhaobiao);
+
+	List listyusuan(DeptMonthBudget deptMonthBudget);
+
+	List listDept();
+
+	Zhaobiao listById(Integer id);
+
+	void addxi(ZhaobiaoXis zhaobiaoXis, Integer id1);
+
+	DeptMonthBudget listByIdDeptMonthBudget(Integer id);
+
+	void update(Zhaobiao zhaobiao);
+
+	void updateDeptMonthBudget(DeptMonthBudget deptMonthBudget);
+
+	List findAllDept();
+
+	List listUser();
+
+	List listMoth(String name, String userDept);
+
+	/*
+	 * 审批
+	 */
+
+	Object[] listshenhe(Integer parseInt, Integer pageSize);
+
+	List listDept(String userDept);
+
+	List listBiIdXi(Integer id);
+
+	List listAllDeptMonthBudget();
+
+	Object[] listUserZhaobiao(Integer parseInt, Integer pageSize);
+
+	List listtotoubiao(Integer id);
+
+	void addtoubiao(Zhtoubiao zhtoubiao, File t8, String t8FileName,
+			String fatherPartNumber, ZhaobiaoXi zhaobiaoXi);
+
+	ZhaobiaoXi ByIdzhaobiaoXi(Integer id);
+
+	Object[] qupingxuan(Integer id, Integer parseInt, Integer pageSize);
+
+	Object[] qupingxuanToubiao(Integer id, Integer parseInt, Integer pageSize);
+
+	Zhtoubiao getByIdZhtoubiao(Integer tid);
+
+	void updatetoubiao(Zhtoubiao zhtoubiao);
+
+	void updatezhaobiaoXi(ZhaobiaoXi zhaobiaoXi);
+
+	List listXitoubiao(Integer id);
+
+	Object[] listzhongbiao(Integer parseInt, Integer pageSize);
+
+	Object[] listpaixujiage(Integer tkong10, Integer parseInt, Integer pageSize);
+
+	Object[] listpaixugonghuolv(Integer tkong10, Integer parseInt,
+			Integer pageSize);
+
+	Object[] listpaixuzhiliang(Integer tkong10, Integer parseInt,
+			Integer pageSize);
+
+	Zhtoubiao listpaixuzonghe(ZhaobiaoXi zhaobiaoXi, Integer tkong10);
+
+	ZhUser listByUidZhUser(Integer id);
+
+	Integer[] listfabuxinxi(Zhaobiao zhaobiao);
+
+	List listfabuzhongbiao();
+
+	Zhtoubiao getXiByName(Integer id);
+
+	ZhaobiaoXi byToubiaoXI(Integer tid);
+
+	List listxitoubiao(Integer id);
+
+	List listAlltoubiao();
+
+	List chakanflowdetail(Integer id);
+
+	List xianshizhaoshangyonghu(Integer id);
+
+	void savaflow(Flowdetail flowdetail);
+
+	List listBymobanName(String pagemoban);
+
+	void chongxin(Flowdetail flowdetail, Integer id, File shenhefujian,
+			String shenhefujianFileName);
+
+	Zhtoubiao ByXiBY(Integer id);
+
+	List listAllzhongbiao();
+
+	List tochakanhetong(Integer id);
+
+	ZhUser byzhUserName(String tname);
+
+	/*
+	 * 根据zhaobiao.id查询所有中标记录
+	 */
+	List listzhtoubiaoY(Integer id);
+
+	// 财务选择回款方式
+	Object[] listcaiwu(Integer parseInt, Integer pageSize);
+
+	List listhuikuang();
+
+	List tijiaohuikuangjieguo(Integer id);
+
+	void addHuiXi(Hui_Xi huiXi);
+
+	List quedinghuikuanfangshi(Integer id);
+
+	List toaddhuikuangxiangxi(Integer id);
+
+	void addhuikuangxaingxi(Integer id, String[] kemus, float[] moneys,
+			String string);
+
+	List chakanjineByX(Integer tid);
+
+	Object[] listhuikuanfangshi(Integer parseInt, Integer pageSize);
+
+	void addhuikuan(Huikuang huikuang);
+
+	ZhUser listByUserIDZhUser(Integer id);
+
+	Object[] chakantoubiaojilu(Integer id, Integer parseInt, Integer pageSize);
+
+	HuikuangXiangxi zhongbiaojine(String t11, Integer tid);
+
+	Object[] qupingxuan1(Integer id, Integer parseInt, Integer pageSize);
+
+	List listByToubiao(Integer tid);
+
+	void updatehuikuangXiangxi(HuikuangXiangxis huikuangXiangxis);
+
+	List listhuikuan();
+
+	Hui_Xi listHuiXiByXid(Integer id);
+
+	void delHuiXi(Hui_Xi huiXi1);
+
+	Object[] listzhaobiao1(Zhaobiao zhaobiao, Integer parseInt, Integer pageSize);
+
+	void listToubiaoId(Integer xid);
+
+	Object[] chankanshenpijilu(Integer id, Integer parseInt, Integer pageSize);
+
+	Object[] listgongxu(Zhgongxu zhgongxu,Integer parseInt, Integer pageSize);
+
+	void addZhgongxu(Zhgongxu zhgongxu);
+
+	Zhgongxu ZhgongXuByID(Integer id);
+
+	void Updatezhgongxu(Zhgongxu zhgongxu);
+
+	void deletezhgongxu(Zhgongxu zhgongxu);
+
+	Users ByIDUsers(Integer userid);
+
+	Huikuang BuIdhuikuang(Integer hid);
+
+	void Updatehuikuang(Huikuang huikuang);
+
+	void deletehuikuang(Huikuang huikuang);
+
+	Zhaobiao toUpdatezhaobiao(Integer id);
+
+	Zhmoban ByIdZhmoban(Integer id);
+
+	void updateZhmoban(Zhmoban zhmoban);
+
+	List ByZhmobanId(Integer id);
+
+	Zhtoubiao pingbiaojisuan(ZhaobiaoXi zhaobiaoXi, Integer tkong10);
+
+	Object[] hesuan(Zhaobiao zhaobiao, Integer parseInt, Integer pageSize);
+
+	Object[] zhtoubiaolist(Integer tid, Integer parseInt, Integer pageSize);
+
+	Object[] zhaobiaoXilisthesuan(Integer id,ZhaobiaoXi zhaobiaoXi, Integer parseInt, Integer pageSize);
+
+	Object[] zhtoubiaolisthesuan(Integer id, Zhtoubiao zhtoubiao, Integer parseInt,
+			Integer pageSize);
+
+	void updatezhtoubiao(Zhtoubiao zhtoubiao);
+
+	void deletezhaobiaoXi(ZhaobiaoXi zhaobiaoXi);
+
+	DeptMonthBudget byIdDeptMonthBudget(Integer t10);
+
+	List listzhmoban();
+
+	void addzhaobiaoXi(ZhaobiaoXi zhaobiaoXi);
+
+	Object[] listlulv(Zhaobiao zhaobiao, Integer parseInt, Integer pageSize);
+
+	List listXi(Integer id);
+
+	List listBiIdXiliklv(Integer id);
+
+	Zhtoubiao Byhesuanjiage(Integer tkong10);
+
+	List listBiIdXiliklvnull(Integer t10);
+
+	Object[] listlilv(Nianlilv nianlilv, Integer parseInt, Integer pageSize);
+
+	void addnianlilv(Nianlilv nianlilv);
+
+	Nianlilv Bynianfenlilv(String nianfen);
+
+	void updatenianlilv(Nianlilv newNianlilv);
+
+	void pingbiao(Integer id);
+
+	List listzhongbiaosize(String name);
+
+	Integer[] listzhongbiaoY(Integer id);
+
+	Object[] listzhongbiaoUsers(Zhaobiao zhaobiao, Integer parseInt, Integer pageSize);
+
+	List ruku(Integer id);
+
+	Object[] listProcardTemplate(Integer id,ProcardTemplate procardTemplate, Integer parseInt,
+			Integer pageSize);
+
+	List listyibangdingjianhao(Integer id);
+
+	void banding(int[] selected, Integer integer,Float cgbl);
+
+	Object[] listbandingjianhao(ProcardTemplate procardTemplate, Integer parseInt,
+			Integer pageSize);
+	
+	Object[] listtianxiejiepai(GysMarkIdjiepai p, Integer parseInt,
+			Integer pageSize);
+
+	GysMarkIdjiepai ByIdgysjiepai(Integer id);
+
+	void updategysjiepai(GysMarkIdjiepai gysjiepai);
+
+	void chongxinpingbiao(Integer tid);
+
+	List ByToubiaohetong(String numbers,Integer numberss);
+	
+	/**
+	 * 批量导入客户
+	 */
+	public String addzhUser(File addzhUser);
+	
+	/**
+	 * 调用审批流程
+	 * @return
+	 */
+	public String addShenpi(Integer id);
+	/**
+	 * 根据类型来查询类别
+	 * @param type
+	 * @return
+	 */
+	public List<Category> findCategoryByType(String type);
+	/**
+	 * 导出供应商
+	 */
+	public void exportExcel(ZhUser zhuser);
+	
+	/**
+	 * 修复供应商和物料类别的关系 (一次使用)
+	 */
+	public void XFWgType();
+
+	
+	/*******************************************************/
+	
+	/**
+	 * 分页查看扣款单
+	 * @param chargebackNotice
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findChargebackNotice(ChargebackNotice chargebackNotice,
+			int parseInt, int pageSize);
+
+	/**
+	 * 添加扣款单
+	 * @param chargebackNotice
+	 * @return
+	 */
+	String addChargebackNotice(ChargebackNotice chargebackNotice);
+
+	/**
+	 * 根据ID得到扣款单对象
+	 * @param id
+	 * @return
+	 */
+	ChargebackNotice byIdChargebackNotice(Integer id);
+
+	/**
+	 * 删除扣款单
+	 * @param id
+	 * @return
+	 */
+	String deleteChargebackNotice(Integer id);
+
+	/**
+	 * 修改扣款单
+	 * @param chargebackNotice
+	 * @return
+	 */
+	String updateChargebackNotice(ChargebackNotice chargebackNotice);
+
+	/**
+	 * 自动生成扣款单编号
+	 * @return
+	 */
+	String findCSNumber();
+	
+	/**
+	 * 根据ID得到预付款申请单对象
+	 * @param id
+	 * @return
+	 */
+	PrepaymentsApplication byIdPrepayApp(Integer id);
+	
+	/**
+	 * 删除预付款申请单
+	 * @param id
+	 * @return
+	 */
+	String deletePrepayApp(Integer id);
+	
+	/**
+	 * 修改预付款申请单
+	 * @param chargebackNotice
+	 * @return
+	 */
+	String updatePrepayApp(PrepaymentsApplication prepaymentsApplication);
+	/**
+	 * 分页查看预付款申请单
+	 * @param prepaymentsApplication
+	 * @param parseInt
+	 * @param pageSize
+	 * @return
+	 */
+	Object[] findPrepayApp(PrepaymentsApplication prepaymentsApplication,
+			int parseInt, int pageSize, String tag);
+
+	/**
+	 *  得到指定月份前一年的合格率
+	 * @param id
+	 * @param Mouth
+	 * @return
+	 */
+	Map<String, Object> byidZhUserDelivery(Integer id,String Mouth);
+	
+	/**
+	 * 根据ID得到采购订单
+	 * @param id
+	 * @return
+	 */
+	public WaigouOrder ByIdWaigouOrder(Integer id);
+	/**
+	 * 根据采购订单ID得到预付款申请单
+	 * @param id
+	 * @return
+	 */
+	public PrepaymentsApplication ByIdpre(WaigouOrder order);
+	/**
+	 * 根据采购订单ID得到预付款申请单所有
+	 * @param id
+	 * @return
+	 */
+	public Object[] ByIdpreLisyt(WaigouOrder order);
+	/**
+	 * 添加预付款申请单
+	 * @param pre
+	 * @param id 采购订单ID
+	 * @return
+	 */
+	public String addPrepayApp(PrepaymentsApplication pre,Integer id);
+
+	Object[] serachZhUserNameAndId(ZhUser zhUser);
+
+	/***
+	 * 供应产品
+	 * @param p
+	 * @return
+	 */
+	Object[] findSupplierGoods(GysMarkIdjiepai p);
+	/**
+	 * 添加预付款申请及明细页面预备
+	 * @param ids
+	 * @return
+	 */
+	public  Map<String, Object>  toaddxufuDatils(Integer[] ids);
+	/**
+	 * 添加预付款申请及明细
+	 * @param prepayApp
+	 * @param prepaymentsApplicationDetailsList
+	 * @return
+	 */
+	public String addPrepaymentsApplicationDetail(PrepaymentsApplication prepayApp,
+				List<PrepaymentsApplicationDetails> prepaymentsApplicationDetailsList);
+	/**
+	 * 预付比例是否超
+	 * @param orderId
+	 * @param yfBili
+	 * @return
+	 */
+	public List<String>  findBeyondBili(Integer[] orderId,Float yfBili);
+	/**
+	 * 查询明细
+	 * @param prepaymentsApplicationId
+	 * @return
+	 */
+	public Map<String, Object> findMingxi(Integer prepaymentsApplicationId);
+	public void daochukoukuan(ChargebackNotice chargebackNotice);
+}

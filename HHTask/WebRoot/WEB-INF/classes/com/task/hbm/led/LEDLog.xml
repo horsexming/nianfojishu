@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity.led">
+	<class name="LEDLog" table="ta_LEDLog">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="procardId" />
+		<property name="processNo" />
+		<property name="productStatus" />
+		<property name="context" length="1000" />
+		<property name="context2" length="1000" />
+		<property name="context3" length="1000" />
+		<property name="minFinishTime" />
+		<property name="gongwei" />
+		<property name="processInforId" />
+		<property name="status" />
+		<property name="addTime" />
+		<!-- 对工艺复杂系数-->
+		<many-to-one name="led" class="LED" column="ledid" />
+	</class>
+</hibernate-mapping>

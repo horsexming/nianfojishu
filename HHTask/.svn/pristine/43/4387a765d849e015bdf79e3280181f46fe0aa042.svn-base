@@ -1,0 +1,253 @@
+package com.task.entity;
+
+import java.util.Set;
+
+/***
+ * oa_prepareApply
+ * 采购申请
+ * @author
+ * 
+ */
+public class OaPrepareApply implements java.io.Serializable {
+
+	// Fields
+
+	private Integer id;
+	private String appOrdnumber;// 编号（相当于外键）
+	private String appNumber;//
+	private String appApplier;// 申请人
+	private String appUsers;
+	private String appDept;// 部门
+	private String appDate;// 日期
+	private String appOperator;
+	private String appClass;// 大类型
+	private String appChildClass;
+	private String appExamPrePath;
+	private String appExamRealPath;
+	private String appExalNextSign;
+	private String appAppManager;
+	private String appExamManager;
+	private String appViceManager;
+	private String appGenerManager;
+
+	private String appStatus;// 状态
+	private String appMore;
+	private String appTimer;
+	private String appPlanMon;// 计划月份
+	private String appBarcode;// 条码
+
+	private String isPrint;// 是否完成采购打印
+	private String appAccessDate;// 审批通过时间
+
+	private Set<OaAppDetail> appDetail;// 与采购申报明细一对多关系
+
+	public Set<OaAppDetail> getAppDetail() {
+		return appDetail;
+	}
+
+	public void setAppDetail(Set<OaAppDetail> appDetail) {
+		this.appDetail = appDetail;
+	}
+
+	public String getIsPrint() {
+		return isPrint;
+	}
+
+	public void setIsPrint(String isPrint) {
+		this.isPrint = isPrint;
+	}
+
+	public String getAppPlanMon() {
+		return appPlanMon;
+	}
+
+	public void setAppPlanMon(String appPlanMon) {
+		this.appPlanMon = appPlanMon;
+	}
+
+	public String getAppBarcode() {
+		return appBarcode;
+	}
+
+	public void setAppBarcode(String appBarcode) {
+		this.appBarcode = appBarcode;
+	}
+
+	/** default constructor */
+	public OaPrepareApply() {
+	}
+
+	/** minimal constructor */
+	public OaPrepareApply(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAppOrdnumber() {
+		return this.appOrdnumber;
+	}
+
+	public void setAppOrdnumber(String appOrdnumber) {
+		this.appOrdnumber = appOrdnumber;
+	}
+
+	public String getAppNumber() {
+		return this.appNumber;
+	}
+
+	public void setAppNumber(String appNumber) {
+		this.appNumber = appNumber;
+	}
+
+	public String getAppApplier() {
+		return this.appApplier;
+	}
+
+	public void setAppApplier(String appApplier) {
+		this.appApplier = appApplier;
+	}
+
+	public String getAppUsers() {
+		return this.appUsers;
+	}
+
+	public void setAppUsers(String appUsers) {
+		this.appUsers = appUsers;
+	}
+
+	public String getAppDept() {
+		return this.appDept;
+	}
+
+	public void setAppDept(String appDept) {
+		this.appDept = appDept;
+	}
+
+	public String getAppDate() {
+		return this.appDate;
+	}
+
+	public void setAppDate(String appDate) {
+		this.appDate = appDate;
+	}
+
+	public String getAppOperator() {
+		return this.appOperator;
+	}
+
+	public void setAppOperator(String appOperator) {
+		this.appOperator = appOperator;
+	}
+
+	public String getAppClass() {
+		return this.appClass;
+	}
+
+	public void setAppClass(String appClass) {
+		this.appClass = appClass;
+	}
+
+	public String getAppChildClass() {
+		return this.appChildClass;
+	}
+
+	public void setAppChildClass(String appChildClass) {
+		this.appChildClass = appChildClass;
+	}
+
+	public String getAppExamPrePath() {
+		return this.appExamPrePath;
+	}
+
+	public void setAppExamPrePath(String appExamPrePath) {
+		this.appExamPrePath = appExamPrePath;
+	}
+
+	public String getAppExamRealPath() {
+		return this.appExamRealPath;
+	}
+
+	public void setAppExamRealPath(String appExamRealPath) {
+		this.appExamRealPath = appExamRealPath;
+	}
+
+	public String getAppExalNextSign() {
+		return appExalNextSign;
+	}
+
+	public void setAppExalNextSign(String appExalNextSign) {
+		this.appExalNextSign = appExalNextSign;
+	}
+
+	public String getAppAppManager() {
+		return appAppManager;
+	}
+
+	public void setAppAppManager(String appAppManager) {
+		this.appAppManager = appAppManager;
+	}
+
+	public String getAppExamManager() {
+		return appExamManager;
+	}
+
+	public void setAppExamManager(String appExamManager) {
+		this.appExamManager = appExamManager;
+	}
+
+	public String getAppViceManager() {
+		return appViceManager;
+	}
+
+	public void setAppViceManager(String appViceManager) {
+		this.appViceManager = appViceManager;
+	}
+
+	public String getAppGenerManager() {
+		return appGenerManager;
+	}
+
+	public void setAppGenerManager(String appGenerManager) {
+		this.appGenerManager = appGenerManager;
+	}
+
+	public String getAppStatus() {
+		return this.appStatus;
+	}
+
+	public void setAppStatus(String appStatus) {
+		this.appStatus = appStatus;
+	}
+
+	public String getAppMore() {
+		return this.appMore;
+	}
+
+	public void setAppMore(String appMore) {
+		this.appMore = appMore;
+	}
+
+	public String getAppTimer() {
+		return this.appTimer;
+	}
+
+	public void setAppTimer(String appTimer) {
+		this.appTimer = appTimer;
+	}
+
+	public String getAppAccessDate() {
+		return appAccessDate;
+	}
+
+	public void setAppAccessDate(String appAccessDate) {
+		this.appAccessDate = appAccessDate;
+	}
+
+}

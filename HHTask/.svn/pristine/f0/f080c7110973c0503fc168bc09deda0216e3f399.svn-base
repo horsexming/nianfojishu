@@ -1,0 +1,304 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="/WEB-INF/fenye.tld" prefix="fenye"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<%@include file="/util/sonHead.jsp"%>
+	</head>
+	<body>
+		<%@include file="/util/sonTop.jsp"%>
+		<div id="bodyDiv" align="center" class="transDiv" style="z-index: 2"
+			onclick="chageDiv('none')">
+		</div>
+		<div id="contentDiv"
+			style="position: absolute; z-index: 255; width: 900px; display: none; top: 20px;"
+			align="center">
+			<div id="closeDiv"
+				style="background: url(<%=basePath%>/images/bq_bg2.gif); width: 100%;">
+				<div id="submitProcessDiv" style="display: none;">
+					<table style="width: 100%; margin-top: ">
+						<tr>
+							<td>
+								您正在上传做账凭证:
+							</td>
+							<td align="right">
+								<img alt="" src="<%=basePath%>/images/closeImage.png" width="30"
+									height="32" onclick="chageDiv('none');reload();">
+							</td>
+						</tr>
+					</table>
+					<div id="operatingDiv"
+						style="background-color: #ffffff; width: 100%;">
+						<form action="CwVouchersAction!shangchuan.action"
+							enctype="multipart/form-data" method="post"
+							onsubmit="return validate()">
+							<input type="hidden" id="cwId" name="cwVouchers.id" />
+							<input type="hidden" name="pageStatus" value="${pageStatus}">
+							<table class="table" style="width: 40%" align="center">
+								<tr>
+									<th align="right">
+										凭证编号:
+									</th>
+									<th align="left">
+										<input type="text" name="cwVouchers.zzPizNumber" />
+									</th>
+								</tr>
+								<tr>
+									<th align="right">
+										凭证附件:
+									</th>
+									<th align="left">
+										<input name="files" type="file" />
+										<input type="hidden" name="tages" value="${tages}" id="tages"/>
+									</th>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<input type="submit" value="提交"
+											style="width: 65px; height: 40px;" />
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="gongneng" style="width: 100%;">
+			<div align="center">
+				<form action="CwVouchersAction!showList.action?tages=${tages}" method="post">
+					<table class="table">
+						<tr>
+							<th>
+								凭证编号:
+							</th>
+							<td>
+								<input type="text" name="cwVouchers.number" />
+							</td>
+							<th>
+								创建人:
+							</th>
+							<td>
+								<input type="text" name="cwVouchers.createName" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								开始时间:
+							</th>
+							<td>
+								<input class="Wdate" type="text" name="start"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" />
+							</td>
+							<th>
+								结束时间:
+							</th>
+							<td>
+								<input class="Wdate" type="text" name="end"
+									onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" />
+							</td>
+						</tr>
+						<tr>
+							<th>
+								状态:
+							</th>
+							<td>
+								<input type="text" name="cwVouchers.applyStatus" />
+							</td>
+							<s:if test="tages=='pz'">
+								<th>
+									做账状态：
+								</th>
+								<td>
+									<SELECT name="cwVouchers.zzStatus">
+										<option value="${cwVouchers.zzStatus}">${cwVouchers.zzStatus}</option>
+										<option value="已做账">已做账</option>
+										<option value="未做账">未做账</option>
+									</SELECT>
+								</td>
+							</s:if>
+							<s:else>
+								<th>
+								</th>
+								<td>
+								</td>
+							</s:else>
+						</tr>
+						<tr>
+							<th colspan="6">
+								<input type="submit" value="查询(Query)" class="input" />
+								<input type="reset" value="清空(Empty)" class="input" />
+							</th>
+						</tr>
+					</table>
+				</form>
+
+				<table class="table">
+					<tr bgcolor="#c0dcf2" height="50px">
+						<th align="center">
+							序号
+						</th>
+						<th align="center">
+							凭证编号
+						</th>
+						<th align="center">
+							凭证日期
+						</th>
+						<th align="center">
+							制单人
+						</th>
+						<th align="center">
+							创建人
+						</th>
+						<th align="center">
+							借总额
+						</th>
+						<th align="center">
+							贷总额
+						</th>
+						<th align="center">
+							创建时间
+						</th>
+						<th align="center">
+							审批状态
+						</th>
+						<s:if test="tages=='pz'">
+							<th align="center">
+								做账状态
+							</th>
+						</s:if>
+						<s:else>
+						</s:else>
+						<th align="center">
+							操作
+						</th>
+					</tr>
+					<s:iterator value="cwVouchersList" id="pageVouchers"
+						status="pageStatus">
+						<s:if test="#pageStatus.index%2==1">
+							<tr align="center" bgcolor="#e6f3fb"
+								onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'#e6f3fb')">
+						</s:if>
+						<s:else>
+							<tr align="center" onmouseover="chageBgcolor(this)"
+								onmouseout="outBgcolor(this,'')">
+						</s:else>
+						<td align="center">
+							<s:property value="#pageStatus.index+1" />
+						</td>
+						<td align="center">
+							${pageVouchers.number}
+						</td>
+						<td align="center">
+							${pageVouchers.voucherdate}
+						</td>
+						<td align="center">
+							${pageVouchers.userName}
+						</td>
+						<td align="center">
+							${pageVouchers.createName}
+						</td>
+						<td align="right">
+							<fmt:formatNumber type="number" value="${pageVouchers.jieMoney}"
+								pattern="#,##0.00" maxFractionDigits="2" />
+						</td>
+						<td align="right">
+							<fmt:formatNumber type="number" value="${pageVouchers.daiMoney}"
+								pattern="#,##0.00" maxFractionDigits="2" />
+						</td>
+						<td align="center">
+							${pageVouchers.createtime}
+						</td>
+						<td align="center">
+							${pageVouchers.applyStatus}
+						</td>
+						<s:if test="tages=='pz'">
+							<td align="center">
+								${pageVouchers.zzStatus}
+							</td>
+						</s:if>
+						<s:else>
+						</s:else>
+						<td align="center">
+							<a
+								href="CwVouchersAction!showDetailList.action?id=${pageVouchers.id}">凭证明细</a>
+							<%--							<a target="_vocher"--%>
+							<%--								href="CircuitRunAction_findAduitPage.action?id=${pageVouchers.epId}">审批明细</a>--%>
+							<s:if test='tages=="pz"&&#pageVouchers.zzStatus!="已做账"'>
+<%--								<SPAN id="zzStatus${pageVouchers.id}" style="display: none;margin-top:6px;margin-bottom:6px;">已做账</SPAN>--%>
+<%--								<input type="button" id="zzStatus_${pageVouchers.id}" value="已做账" onclick="zuozhang(${pageVouchers.id})"/>--%><a
+								<a href="javascript:;" onclick="shuangchuan('${pageVouchers.id}')">上传凭证编号</a>
+							</s:if>
+							<s:elseif test='tages=="pz"&&#pageVouchers.zzStatus=="已做账"'>
+								<s:if test="#pageVouchers.zzFile==null||#pageVouchers.zzFile==''">
+									<a href="javascript:;" onclick="shuangchuan('${pageVouchers.id}')">上传凭证编号</a>
+								</s:if>
+								<s:else>
+									<a
+										href="FileViewAction.action?FilePath=/upload/file/payPz/${pageVouchers.zzFile}">/附件查看</a>
+								</s:else>
+							</s:elseif>
+						</td>
+						</tr>
+					</s:iterator>
+					<tr>
+						<s:if test="errorMessage==null">
+							<td colspan="12" align="right">
+								第
+								<font color="red"><s:property value="cpage" /> </font> /
+								<s:property value="total" />
+								页
+								<fenye:pages cpage="%{cpage}" total="%{total}" url="%{url}"
+									styleClass="page" theme="number" />
+						</s:if>
+						<s:else>
+							<td colspan="12" align="center" style="color: red">
+						</s:else>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<%@include file="/util/foot.jsp"%>
+		<!-- JAVASCRIPT脚本写在下面 (这样页面加载速度会快一些)-->
+		<script type="text/javascript">
+function showCvDetail(id) {
+	$("#showCvDetail").attr("src",
+			"CwVouchersAction!showDetailList.action?id=" + id);
+	chageDiv("block");
+}
+function zuozhang(id){
+	$.ajax( {
+		type : "POST",
+		url : "CwVouchersAction!queren.action",
+		data : {
+			id : id
+		},
+		dataType : 'json',
+		success : function(data) {
+			if(data=='true'){
+				$("#zzStatus"+id).show();
+				$("#zzStatus_"+id).hide();
+			}else{
+				alert(data);
+			}
+		}
+	})
+}
+function shuangchuan(cwId) {
+	$("#cwId").val(cwId);
+	$("#submitProcessDiv").show();
+	chageDiv("block");
+}
+</script>
+	</body>
+</html>

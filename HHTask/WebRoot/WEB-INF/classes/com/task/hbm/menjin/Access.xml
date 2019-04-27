@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.task.entity.menjin">
+	<class name="Access" table="ta_mj_Access">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="outInName" />
+		<property name="yanzheng" />
+		<property name="carPai" />
+		<property name="cardId" />
+		<property name="yanzhengnum" />
+		<property name="access_EquIp" />
+		<property name="doorStatus" />
+		<property name="outInDoor" />
+		<property name="equipmentDaoType" />
+		<property name="equipmentIP" />
+		<property name="equipmentID" />
+		<property name="equipmentLocation" />
+		<property name="nextSend" />
+		<property name="useSend" />
+		<property name="entityName" />
+		<property name="entityId" />
+		<property name="visitstime" />
+		<property name="failtime" />
+		<property name="waitCheck" />
+		<property name="addTime" />
+		
+	</class>
+</hibernate-mapping>

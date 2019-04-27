@@ -1,0 +1,223 @@
+package com.task.entity.sop;
+/**
+ * 工序单价修改记录日志表(ta_sop_w_ProcessPriceUpdateLog)
+ * @author 王晓飞
+ *
+ */
+public class ProcessPriceUpdateLog  implements java.io.Serializable{
+	private static final long serialVersionUID =1L;
+
+	private Integer id;
+	private Integer processId; //工序模板Id
+	private Integer processNo;//工序号
+	private String processName;//工序名
+	private String userName;//修改人
+	private String usercode;//修改人工号
+	private String updateTime;//修改时间(即添加save本表的时间)
+	private String markId;//件号
+	private String proName;//零件名称
+	private Integer procardId;//procard模板Id
+	private Double procesdianshu;//点数
+	private Double processjjMoney;//工序计件单价
+	private Double jjratio;//计件单价系数
+	private String ywMarkId;//业务件号
+	private String selfCard;//批次 （用于修改批次单价）;
+	private Integer processInforId;// 
+	private Integer procardpcId;
+	private Double sjprocessMomey;//实际单价
+	private Double ykprocessMomey;//盈亏单价
+	
+	private String more;//备注
+	//private ProcessTemplate processTemplate;
+	
+	public ProcessPriceUpdateLog(){
+		
+	}
+	
+	public ProcessPriceUpdateLog(Integer processId, Integer processNo,
+			String processName, String userName, String usercode,
+			String updateTime, String markId, String proName,
+			Integer procardId, Double procesdianshu, Double processjjMoney,
+			Double jjratio, String more) {
+		super();
+		this.processId = processId;
+		this.processNo = processNo;
+		this.processName = processName;
+		this.userName = userName;
+		this.usercode = usercode;
+		this.updateTime = updateTime;
+		this.markId = markId;
+		this.proName = proName;
+		this.procardId = procardId;
+		this.procesdianshu = procesdianshu;
+		this.processjjMoney = processjjMoney;
+		this.jjratio = jjratio;
+		this.more = more;
+	}
+	
+	
+	public ProcessPriceUpdateLog(Integer processNo, String processName,
+			String userName, String usercode, String updateTime, String markId,
+			String proName, Double procesdianshu, Double processjjMoney,
+			Double jjratio, String ywMarkId, String selfCard,
+			Integer processInforId, Integer procardpcId, String more) {
+		super();
+		this.processNo = processNo;
+		this.processName = processName;
+		this.userName = userName;
+		this.usercode = usercode;
+		this.updateTime = updateTime;
+		this.markId = markId;
+		this.proName = proName;
+		this.procesdianshu = procesdianshu;
+		this.processjjMoney = processjjMoney;
+		this.jjratio = jjratio;
+		this.ywMarkId = ywMarkId;
+		this.selfCard = selfCard;
+		this.processInforId = processInforId;
+		this.procardpcId = procardpcId;
+		this.more = more;
+	}
+
+	public Integer getProcessInforId() {
+		return processInforId;
+	}
+
+	public void setProcessInforId(Integer processInforId) {
+		this.processInforId = processInforId;
+	}
+
+	public Integer getProcardpcId() {
+		return procardpcId;
+	}
+
+	public void setProcardpcId(Integer procardpcId) {
+		this.procardpcId = procardpcId;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getProcessId() {
+		return processId;
+	}
+	public void setProcessId(Integer processId) {
+		this.processId = processId;
+	}
+	
+	public Integer getProcessNo() {
+		return processNo;
+	}
+
+	public void setProcessNo(Integer processNo) {
+		this.processNo = processNo;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUsercode() {
+		return usercode;
+	}
+	public void setUsercode(String usercode) {
+		this.usercode = usercode;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getMarkId() {
+		return markId;
+	}
+	public void setMarkId(String markId) {
+		this.markId = markId;
+	}
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public Integer getProcardId() {
+		return procardId;
+	}
+	public void setProcardId(Integer procardId) {
+		this.procardId = procardId;
+	}
+	
+	public Double getProcesdianshu() {
+		return procesdianshu;
+	}
+
+	public void setProcesdianshu(Double procesdianshu) {
+		this.procesdianshu = procesdianshu;
+	}
+
+	public Double getProcessjjMoney() {
+		return processjjMoney;
+	}
+	public void setProcessjjMoney(Double processjjMoney) {
+		this.processjjMoney = processjjMoney;
+	}
+	public Double getJjratio() {
+		return jjratio;
+	}
+	public void setJjratio(Double jjratio) {
+		this.jjratio = jjratio;
+	}
+	public String getMore() {
+		return more;
+	}
+	public void setMore(String more) {
+		this.more = more;
+	}
+
+	public String getYwMarkId() {
+		return ywMarkId;
+	}
+
+	public void setYwMarkId(String ywMarkId) {
+		this.ywMarkId = ywMarkId;
+	}
+
+	public String getSelfCard() {
+		return selfCard;
+	}
+
+	public void setSelfCard(String selfCard) {
+		this.selfCard = selfCard;
+	}
+
+	public Double getSjprocessMomey() {
+		return sjprocessMomey;
+	}
+
+	public void setSjprocessMomey(Double sjprocessMomey) {
+		this.sjprocessMomey = sjprocessMomey;
+	}
+
+	public Double getYkprocessMomey() {
+		return ykprocessMomey;
+	}
+
+	public void setYkprocessMomey(Double ykprocessMomey) {
+		this.ykprocessMomey = ykprocessMomey;
+	}
+	
+	
+}

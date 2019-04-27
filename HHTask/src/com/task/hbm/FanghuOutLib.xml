@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.task.entity">
+	<class name="FanghuOutLib" table="fanghuOutLib">
+		<id name="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="date" />
+		<property name="userName" />
+		<property name="dept" />
+		<property name="cardNum" />
+		<property name="matetag" />
+		<property name="format" />
+		<property name="unit" />
+		<property name="limitCount" />
+		<property name="nextLingyongcount" />
+		<property name="lingyongCircle" />
+		<property name="lastLingyongTime" />
+		<property name="userId" />
+	</class>
+</hibernate-mapping>

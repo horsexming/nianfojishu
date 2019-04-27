@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="task-txb" location="0,0" size="0,0">
+    <action name="companyInfoAction_*" location="0,0" size="0,0">
+      <result name="showcompanyinfo">
+        <resourceEdge source="showcompanyinfo" routing="0" target="showcompanyinfo.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+      <result name="updatecompanyinfo">
+        <resourceEdge source="updatecompanyinfo" routing="0" target="updatecompanyinfo.jsp" />
+      </result>
+      <result name="showcompanyinfoimg">
+        <resourceEdge source="showcompanyinfoimg" routing="0" target="showcompanyinfoimg.jsp" />
+      </result>
+      <result name="uploadlic">
+        <resourceEdge source="uploadlic" routing="0" target="uploadlic.jsp" />
+      </result>
+      <result name="login">
+        <resourceEdge source="login" routing="0" target="login.jsp" />
+      </result>
+      <result name="licmsg">
+        <resourceEdge source="licmsg" routing="0" target="licmsg.jsp" />
+      </result>
+    </action>
+    <action name="licenseMsgAction_*" location="0,0" size="0,0">
+      <result name="showlicensemsg">
+        <resourceEdge source="showlicensemsg" routing="0" target="showlicensemsg.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+      <result name="updatelicensemsg">
+        <resourceEdge source="updatelicensemsg" routing="0" target="updatelicensemsg.jsp" />
+      </result>
+    </action>
+    <action name="skillScoreAction_*" location="0,0" size="0,0">
+      <result name="skillscore_show">
+        <resourceEdge source="skillscore_show" routing="0" target="skillscore_show.jsp" />
+      </result>
+      <result name="skillscore_add">
+        <resourceEdge source="skillscore_add" routing="0" target="skillscore_add.jsp" />
+      </result>
+      <result name="skillscore_update">
+        <resourceEdge source="skillscore_update" routing="0" target="skillscore_update.jsp" />
+      </result>
+    </action>
+    <action name="skillTypeAction_*" location="0,0" size="0,0">
+      <result name="skilltype_show">
+        <resourceEdge source="skilltype_show" routing="0" target="skilltype_show.jsp" />
+      </result>
+      <result name="skilltype_add">
+        <resourceEdge source="skilltype_add" routing="0" target="skilltype_add.jsp" />
+      </result>
+      <result name="skilltype_update">
+        <resourceEdge source="skilltype_update" routing="0" target="skilltype_update.jsp" />
+      </result>
+      <result name="skilltype_scoreview">
+        <resourceEdge source="skilltype_scoreview" routing="0" target="skilltype_scoreview.jsp" />
+      </result>
+    </action>
+    <action name="proProcessDifficultyAction_*" location="0,0" size="0,0">
+      <result name="ppd_show">
+        <resourceEdge source="ppd_show" routing="0" target="ppd_show.jsp" />
+      </result>
+      <result name="ppd_add">
+        <resourceEdge source="ppd_add" routing="0" target="ppd_add.jsp" />
+      </result>
+      <result name="ppd_update">
+        <resourceEdge source="ppd_update" routing="0" target="ppd_update.jsp" />
+      </result>
+      <result name="ppd_typeview">
+        <resourceEdge source="ppd_typeview" routing="0" target="ppd_typeview.jsp" />
+      </result>
+      <result name="ppd_processview">
+        <resourceEdge source="ppd_processview" routing="0" target="ppd_processview.jsp" />
+      </result>
+    </action>
+    <action name="craftComplexityAction_*" location="0,0" size="0,0">
+      <result name="cc_show">
+        <resourceEdge source="cc_show" routing="0" target="cc_show.jsp" />
+      </result>
+      <result name="cc_add">
+        <resourceEdge source="cc_add" routing="0" target="cc_add.jsp" />
+      </result>
+      <result name="cc_update">
+        <resourceEdge source="cc_update" routing="0" target="cc_update.jsp" />
+      </result>
+      <result name="cc_typeview">
+        <resourceEdge source="cc_typeview" routing="0" target="cc_typeview.jsp" />
+      </result>
+      <result name="cc_processview">
+        <resourceEdge source="cc_processview" routing="0" target="cc_processview.jsp" />
+      </result>
+    </action>
+    <action name="processSopTempAction_*" location="0,0" size="0,0">
+      <result name="processSopTemp_show">
+        <resourceEdge source="processSopTemp_show" routing="0" target="processSopTemp_show.jsp" />
+      </result>
+      <result name="processSopTemp_update">
+        <resourceEdge source="processSopTemp_update" routing="0" target="processSopTemp_update.jsp" />
+      </result>
+    </action>
+    <action name="craftLoadAction_*" location="0,0" size="0,0">
+      <result name="cload_show">
+        <resourceEdge source="cload_show" routing="0" target="cload_show.jsp" />
+      </result>
+      <result name="cload_update">
+        <resourceEdge source="cload_update" routing="0" target="cload_update.jsp" />
+      </result>
+    </action>
+    <action name="cusimportanceAction_*" location="0,0" size="0,0">
+      <result name="cimp_show">
+        <resourceEdge source="cimp_show" routing="0" target="cimp_show.jsp" />
+      </result>
+      <result name="cimp_update">
+        <resourceEdge source="cimp_update" routing="0" target="cimp_update.jsp" />
+      </result>
+    </action>
+    <action name="bonusLoadAction_*" location="0,0" size="0,0">
+      <result name="bonusLoad_show">
+        <resourceEdge source="bonusLoad_show" routing="0" target="bonusLoad_show.jsp" />
+      </result>
+      <result name="bonus_ptmsview">
+        <resourceEdge source="bonus_ptmsview" routing="0" target="bonus_ptmsview.jsp" />
+      </result>
+    </action>
+    <action name="productivityLoadAction_*" location="0,0" size="0,0">
+      <result name="pLoad_show">
+        <resourceEdge source="pLoad_show" routing="0" target="pLoad_show.jsp" />
+      </result>
+      <result name="pLoad_add">
+        <resourceEdge source="pLoad_add" routing="0" target="pLoad_add.jsp" />
+      </result>
+      <result name="pLoad_update">
+        <resourceEdge source="pLoad_update" routing="0" target="pLoad_update.jsp" />
+      </result>
+    </action>
+    <action name="projectOrderAction_*" location="0,0" size="0,0">
+      <result name="porder_show">
+        <resourceEdge source="porder_show" routing="0" target="porder_show.jsp" />
+      </result>
+      <result name="porder_add">
+        <resourceEdge source="porder_add" routing="0" target="porder_add.jsp" />
+      </result>
+      <result name="porder_update">
+        <resourceEdge source="porder_update" routing="0" target="porder_update.jsp" />
+      </result>
+      <result name="porder_prodetail">
+        <resourceEdge source="porder_prodetail" routing="0" target="porder_prodetail.jsp" />
+      </result>
+      <result name="porder_product">
+        <resourceEdge source="porder_product" routing="0" target="porder_product.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="projectOrderPartAction_*" location="0,0" size="0,0">
+      <result name="popart_show">
+        <resourceEdge source="popart_show" routing="0" target="popart_show.jsp" />
+      </result>
+      <result name="popart_add">
+        <resourceEdge source="popart_add" routing="0" target="popart_add.jsp" />
+      </result>
+      <result name="popart_update">
+        <resourceEdge source="popart_update" routing="0" target="popart_update.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="groupShiZhiAction_*" location="0,0" size="0,0">
+      <result name="group_show">
+        <resourceEdge source="group_show" routing="0" target="group_show.jsp" />
+      </result>
+      <result name="group_add">
+        <resourceEdge source="group_add" routing="0" target="group_add.jsp" />
+      </result>
+      <result name="group_update">
+        <resourceEdge source="group_update" routing="0" target="group_update.jsp" />
+      </result>
+    </action>
+    <action name="proTryMakeScoreAction_*" location="0,0" size="0,0">
+      <result name="ptms_show">
+        <resourceEdge source="ptms_show" routing="0" target="ptms_show.jsp" />
+      </result>
+      <result name="ptms_updatePro">
+        <resourceEdge source="ptms_updatePro" routing="0" target="ptms_updatePro.jsp" />
+      </result>
+      <result name="ptms_add">
+        <resourceEdge source="ptms_add" routing="0" target="ptms_add.jsp" />
+      </result>
+      <result name="ptms_allbonus">
+        <resourceEdge source="ptms_allbonus" routing="0" target="ptms_allbonus.jsp" />
+      </result>
+      <result name="ptms_approvalOrPrint">
+        <resourceEdge source="ptms_approvalOrPrint" routing="0" target="ptms_approvalOrPrint.jsp" />
+      </result>
+      <result name="ptms_Product">
+        <resourceEdge source="ptms_Product" routing="0" target="ptms_Product.jsp" />
+      </result>
+      <result name="ptms_userBonus">
+        <resourceEdge source="ptms_userBonus" routing="0" target="ptms_userBonus.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+    </action>
+    <action name="tryMakeAction_*" location="0,0" size="0,0">
+      <result name="trymake_show">
+        <resourceEdge source="trymake_show" routing="0" target="trymake_show.jsp" />
+      </result>
+      <result name="trymake_update">
+        <resourceEdge source="trymake_update" routing="0" target="trymake_update.jsp" />
+      </result>
+      <result name="trymake_add">
+        <resourceEdge source="trymake_add" routing="0" target="trymake_add.jsp" />
+      </result>
+    </action>
+    <action name="bonusShiZhiAction_*" location="0,0" size="0,0">
+      <result name="bonus_show">
+        <resourceEdge source="bonus_show" routing="0" target="bonus_show.jsp" />
+      </result>
+      <result name="bonus_update">
+        <resourceEdge source="bonus_update" routing="0" target="bonus_update.jsp" />
+      </result>
+      <result name="bonus_add">
+        <resourceEdge source="bonus_add" routing="0" target="bonus_add.jsp" />
+      </result>
+    </action>
+    <action name="rtxMsgAction_*" location="0,0" size="0,0">
+      <result name="sendrtxmsg">
+        <resourceEdge source="sendrtxmsg" routing="0" target="sendrtxmsg.jsp" />
+      </result>
+      <result name="rtxMsg_show">
+        <resourceEdge source="rtxMsg_show" routing="0" target="showrtxmsg.jsp" />
+      </result>
+      <result name="RtxConnect_add">
+        <resourceEdge source="RtxConnect_add" routing="0" target="RtxConnect_add.jsp" />
+      </result>
+      <result name="RtxConnect_update">
+        <resourceEdge source="RtxConnect_update" routing="0" target="RtxConnect_update.jsp" />
+      </result>
+      <result name="RtxConnect_showList">
+        <resourceEdge source="RtxConnect_showList" routing="0" target="RtxConnect_showList.jsp" />
+      </result>
+      <result name="showRtxConnect" />
+    </action>
+    <action name="apkAction_*" location="0,0" size="0,0" />
+    <action name="projectMaterialOrderAction_*" location="0,0" size="0,0">
+      <result name="promaterialorder_show" />
+      <result name="promaterialorder_showbm" />
+      <result name="promaterialorder_ck_show" />
+      <result name="promaterialorder_add" />
+      <result name="promaterialorder_update" />
+      <result name="promaterialorder_pmdetail" />
+      <result name="promaterialorder_receive" />
+    </action>
+    <action name="procardTemplateJYAction_*" location="0,0" size="0,0">
+      <result name="procardTemplateJY_show" />
+      <result name="procardTemplateJY_update" />
+      <result name="procardTemplateJY_result" />
+      <result name="jy_updateji" />
+      <result name="jy_updategong" />
+      <result name="jy_updateliang" />
+      <result name="jy_updatejian" />
+      <result name="jy_updatewen" />
+      <result name="jy_updateren" />
+      <result name="jy_gygfview" />
+    </action>
+    <action name="gyslgxAction_*" location="0,0" size="0,0">
+      <result name="gys_findProcardList" />
+      <result name="gys_viewProcard" />
+      <result name="gysProcess_Receive2" />
+      <result name="gysProcess_zj" />
+    </action>
+    <action name="sealLogAction_*" location="0,0" size="0,0">
+      <result name="updateFujianseallogdetail" />
+      <result name="seallogdetail" />
+      <result name="seallog_show" />
+      <result name="seallog_add" />
+      <result name="seallog_add_1" />
+      <result name="sealLog_update" />
+      <result name="sealLog_makeSure" />
+      <result name="seallogtype_show" />
+      <result name="sealLogtype_add" />
+    </action>
+    <action name="lEDAction_*" location="0,0" size="0,0">
+      <result name="led_show" />
+      <result name="led_add" />
+      <result name="led_update" />
+      <result name="led_update2" />
+      <result name="led_ledlogview" />
+    </action>
+    <action name="yuanclAndWaigjAction_*" location="0,0" size="0,0">
+      <result name="findByYw" />
+      <result name="yuanclAndWaigj_show" />
+      <result name="yuanclAndWaigjByStatus_show" />
+      <result name="deadline_add" />
+      <result name="findByYw_List" />
+      <result name="yuanclAndWaigj_update" />
+      <result name="yuanclAndWaigj_xgWgType" />
+      <result name="yuanclAndWaigj_add" />
+      <result name="waigoujianLt_add" />
+      <result name="waigoujianLt_show" />
+      <result name="waigoujianLt_update" />
+      <result name="findltList" />
+      <result name="zhuserByType_all" />
+      <result name="forwaigoujian_allZoffer" />
+      <result name="showList" />
+      <result name="yuanclAndWaigj_showWgType" />
+      <result name="yuanclandwaigj_MRPCount" />
+      <result name="error" />
+    </action>
+    <action name="airtightLogAction_*" location="0,0" size="0,0">
+      <result name="airtightlog_show" />
+      <result name="airtightlog_show1" />
+      <result name="airProduct_show" />
+      <result name="airProduct_add" />
+      <result name="airProduct_update" />
+      <result name="makebarcode" />
+      <result name="airMachine_add" />
+      <result name="airMachine_show" />
+      <result name="airMachine_update" />
+      <result name="error" />
+    </action>
+    <action name="machineSparePartAction_*" location="0,0" size="0,0">
+      <result name="machineSparePart_show" />
+      <result name="machineSparePart_add" />
+      <result name="machineSparePart_update" />
+      <result name="machineSparePart_oa" />
+    </action>
+    <action name="customerOpinionAction_*" location="0,0" size="0,0">
+      <result name="customerOpinion_show" />
+      <result name="customerOpinion_add" />
+      <result name="customerOpinion_client_add" />
+      <result name="customerOpinion_update" />
+      <result name="customerOpinion_analysis" />
+      <result name="customerOpinion_improve" />
+      <result name="customerOpinion_approval" />
+    </action>
+    <action name="purchasedPartsInputAction_*" location="0,0" size="0,0">
+      <result name="addSomeOk" />
+      <result name="purchasedPartsInput_show" />
+    </action>
+    <action name="productUnPassKpAction_*" location="0,0" size="0,0">
+      <result name="unpasskpshow" />
+      <result name="unpasskpupdate" />
+    </action>
+    <action name="productUnqualifiedAction_*" location="0,0" size="0,0">
+      <result name="unqualifiedshow" />
+      <result name="unqualifiedtoruku" />
+    </action>
+    <action name="gzstoreUseLogAction_*" location="0,0" size="0,0">
+      <result name="gzstoreUseLog_show" />
+    </action>
+    <action name="procardTemplateGyAction_*" location="0,0" size="0,0">
+      <result name="procardTGy_showList" />
+      <result name="procardTbz_showList" />
+      <result name="procardTbz_showSonList" />
+      <result name="loginError" />
+      <result name="procardTGy_viewCard" />
+      <result name="ProcessGy_Receive2" />
+      <result name="ProcardTemplateTzs" />
+      <result name="Template_wgjAndycl" />
+      <result name="Template_checkSelf" />
+      <result name="procardTGy_showSingleList" />
+      <result name="procardTGy_showProcessForTz" />
+      <result name="procardTGy_ProcessSCquexianTz" />
+      <result name="Process_showGygf" />
+      <result name="Template_daoRuBom" />
+      <result name="Template_daoRuHwBom" />
+      <result name="Template_daoRuHwSZBom" />
+      <result name="Template_showBanBenList" />
+      <result name="Template_SonToUPList" />
+      <result name="Template_toUpdatebanben" />
+      <result name="Process_showQXtz" />
+      <result name="ptbbApply_show" />
+      <result name="ptbbApply_detail" />
+      <result name="ptbbRelation_show" />
+      <result name="procardTem_upLv" />
+      <result name="procardTem_upptlv" />
+      <result name="ptbbRelationShow" />
+      <result name="Template_findProcard2" />
+      <result name="Template_zpbz" />
+      <result name="Template_zpBOmTree" />
+      <result name="Template_moveStatus" />
+      <result name="Template_sbApply" />
+      <result name="Template_historyList" />
+      <result name="Template_showBOMasExl" />
+      <result name="Template_showBOMasExlAndProcedure" />
+      <result name="Template_findTzfg" />
+      <result name="sbApply_toAddSb" />
+      <result name="sbApply_show" />
+      <result name="sbApply_show2" />
+      <result name="sbApply_show_hw" />
+      <result name="sbApply_showjd" />
+      <result name="sbApply_showjd2" />
+      <result name="sbApply_showDept" />
+      <result name="Template_findBomforsb" />
+      <result name="procardsbwg_show" />
+      <result name="procardsbwg_addcg" />
+      <result name="procardsbwg_deletecg" />
+      <result name="procardReProduct_show" />
+      <result name="procardReProduct_update" />
+      <result name="procardSbWw_showList" />
+      <result name="procardSbWw_show" />
+      <result name="procardSbWw_toJudeg" />
+      <result name="procardSbWw_updatesdwp" />
+      <result name="procardSbWw_updatebomwp" />
+      <result name="procardSbWw_updatesdd" />
+      <result name="procardSbWw_updatebomwwp" />
+      <result name="procardSbWaster_show" />
+      <result name="procardSbWaster_judeg" />
+      <result name="procardSbWasterxc_drkshow" />
+      <result name="procardSbWasterxc_tobf" />
+      <result name="procardSbWasterxc_toback" />
+      <result name="ptchangeLog_show" />
+      <result name="procardTem_daoruson" />
+      <result name="Template_compare" />
+      <result name="tcl_add" />
+      <result name="tcl_show" />
+      <result name="tcl_update" />
+      <result name="pcn_add" />
+      <result name="pcn_show" />
+      <result name="pcn_show2" />
+      <result name="pcn_showfile" />
+      <result name="pcn_update" />
+      <result name="ecar_add" />
+      <result name="ecar_show" />
+      <result name="ecar_show2" />
+      <result name="ecar_showfile" />
+      <result name="ecar_update" />
+      <result name="download" />
+      <result name="error" />
+      <result name="pawp_List" />
+    </action>
+    <action name="procardTemplateSbAction_*" location="0,0" size="0,0">
+      <result name="procardTemplatesb_showBom" />
+      <result name="ProcardTemplatesbTzs" />
+      <result name="ProcardTemsbDetails" />
+      <result name="ProcessTemplatesbTzs" />
+      <result name="Templatesb_moveStatus" />
+      <result name="ProcessTemplatesbadd" />
+      <result name="ProcessTemplatesbDetails" />
+      <result name="updateProcessTsb" />
+      <result name="sbApply_showDept2" />
+      <result name="procardTemsb_daoruson" />
+      <result name="download" />
+      <result name="error" />
+    </action>
+    <action name="weiXinAction_*" location="0,0" size="0,0">
+      <result name="error" />
+    </action>
+    <action name="weiXinUnloginAction_*" location="0,0" size="0,0">
+      <result name="error" />
+    </action>
+    <action name="procardBlAction_*" location="0,0" size="0,0">
+      <result name="procardTlAll" />
+      <result name="procardWaiGouTuiLiao_show" />
+      <result name="procardBl_showRoot" />
+      <result name="procardBl_showRoot2" />
+      <result name="procardBl_showDetail" />
+      <result name="procardBl_showDetail2" />
+      <result name="procardBl_showRoot3" />
+      <result name="procardTl_showDetail3" />
+      <result name="procardBl_showoutDetail" />
+      <result name="procardBl_showoutDetail2" />
+      <result name="procardBl_showoutDetail_showLackDetail" />
+      <result name="procardBl_showpaichan" />
+      <result name="procardBl_showLingliao" />
+      <result name="procard_AllWxTuiLiao" />
+      <result name="error" />
+    </action>
+    <action name="projectPoolAction_*" location="0,0" size="0,0">
+      <result name="projectPool_toAdd" />
+      <result name="Projectpool_list" />
+      <result name="projectPool_toEditPool" />
+      <result name="ProjectManageyf_zhipai" />
+      <result name="ProjectManageyf_self" />
+      <result name="projectManageyf_grade" />
+      <result name="projectManageyf_affirmGrade" />
+      <result name="ProjectManageyf_addSub" />
+      <result name="ProjectManageyf_bindplayers" />
+      <result name="ProjectManageyf_applychoose" />
+      <result name="projectManageyf_fillSchedule" />
+      <result name="projectManageyf_examineSubProject" />
+      <result name="ProjectManageyf_storeTable" />
+      <result name="ProjectManageYf_gantt" />
+      <result name="ProjectManageyf_proStore" />
+      <result name="ProjectManageYf_subGantt" />
+      <result name="ProjectManageyf_selfStoreTable" />
+      <result name="ProjectManageyf_subStoreTable" />
+      <result name="ProjectManageyf_applyForPostpone" />
+      <result name="projectManageyf_examineForPostone" />
+      <result name="ProjectManageyf_showSelfProject" />
+      <result name="ProjectManageYf_newGantt" />
+      <result name="ProjectManageYf_ganttManage" />
+      <result name="projectmanageyf_detail" />
+      <result name="projectManageyf_participant" />
+      <result name="projectManageyf_erList" />
+      <result name="ProjectManageYf_proFileList" />
+      <result name="ProjectManageyf_xqBind" />
+      <result name="error" />
+    </action>
+  </package>
+  <webResource name="showcompanyinfo.jsp" path="/System/CompanyInfo/showcompanyinfo.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="/error.jsp" location="0,0" size="0,0" />
+  <webResource name="updatecompanyinfo.jsp" path="/System/CompanyInfo/updatecompanyinfo.jsp" location="0,0" size="0,0" />
+  <webResource name="showcompanyinfoimg.jsp" path="/System/CompanyInfo/showcompanyinfoimg.jsp" location="0,0" size="0,0" />
+  <webResource name="uploadlic.jsp" path="/util/uploadlic.jsp" location="0,0" size="0,0" />
+  <webResource name="login.jsp" path="/login.jsp" location="0,0" size="0,0" />
+  <webResource name="licmsg.jsp" path="/util/licmsg.jsp" location="0,0" size="0,0" />
+  <webResource name="showlicensemsg.jsp" path="/System/LicenseMsg/showlicensemsg.jsp" location="0,0" size="0,0" />
+  <webResource name="updatelicensemsg.jsp" path="/System/LicenseMsg/updatelicensemsg.jsp" location="0,0" size="0,0" />
+  <webResource name="skillscore_show.jsp" path="/System/shizhi/skillscore_show.jsp" location="0,0" size="0,0" />
+  <webResource name="skillscore_add.jsp" path="/System/shizhi/skillscore_add.jsp" location="0,0" size="0,0" />
+  <webResource name="skillscore_update.jsp" path="/System/shizhi/skillscore_update.jsp" location="0,0" size="0,0" />
+  <webResource name="skilltype_show.jsp" path="/System/shizhi/skilltype_show.jsp" location="0,0" size="0,0" />
+  <webResource name="skilltype_add.jsp" path="/System/shizhi/skilltype_add.jsp" location="0,0" size="0,0" />
+  <webResource name="skilltype_update.jsp" path="/System/shizhi/skilltype_update.jsp" location="0,0" size="0,0" />
+  <webResource name="skilltype_scoreview.jsp" path="/System/shizhi/skilltype_scoreview.jsp" location="0,0" size="0,0" />
+  <webResource name="ppd_show.jsp" path="/System/shizhi/ppd_show.jsp" location="0,0" size="0,0" />
+  <webResource name="ppd_add.jsp" path="/System/shizhi/ppd_add.jsp" location="0,0" size="0,0" />
+  <webResource name="ppd_update.jsp" path="/System/shizhi/ppd_update.jsp" location="0,0" size="0,0" />
+  <webResource name="ppd_typeview.jsp" path="/System/shizhi/ppd_typeview.jsp" location="0,0" size="0,0" />
+  <webResource name="ppd_processview.jsp" path="/System/shizhi/ppd_processview.jsp" location="0,0" size="0,0" />
+  <webResource name="cc_show.jsp" path="/System/shizhi/cc_show.jsp" location="0,0" size="0,0" />
+  <webResource name="cc_add.jsp" path="/System/shizhi/cc_add.jsp" location="0,0" size="0,0" />
+  <webResource name="cc_update.jsp" path="/System/shizhi/cc_update.jsp" location="0,0" size="0,0" />
+  <webResource name="cc_typeview.jsp" path="/System/shizhi/cc_typeview.jsp" location="0,0" size="0,0" />
+  <webResource name="cc_processview.jsp" path="/System/shizhi/cc_processview.jsp" location="0,0" size="0,0" />
+  <webResource name="processSopTemp_show.jsp" path="/System/shizhi/processSopTemp_show.jsp" location="0,0" size="0,0" />
+  <webResource name="processSopTemp_update.jsp" path="/System/shizhi/processSopTemp_update.jsp" location="0,0" size="0,0" />
+  <webResource name="cload_show.jsp" path="/System/shizhi/cload_show.jsp" location="0,0" size="0,0" />
+  <webResource name="cload_update.jsp" path="/System/shizhi/cload_update.jsp" location="0,0" size="0,0" />
+  <webResource name="cimp_show.jsp" path="/System/shizhi/cimp_show.jsp" location="0,0" size="0,0" />
+  <webResource name="cimp_update.jsp" path="/System/shizhi/cimp_update.jsp" location="0,0" size="0,0" />
+  <webResource name="bonusLoad_show.jsp" path="/System/shizhi/bonusLoad_show.jsp" location="0,0" size="0,0" />
+  <webResource name="bonus_ptmsview.jsp" path="/System/shizhi/bonus_ptmsview.jsp" location="0,0" size="0,0" />
+  <webResource name="pLoad_show.jsp" path="/System/shizhi/pLoad_show.jsp" location="0,0" size="0,0" />
+  <webResource name="pLoad_add.jsp" path="/System/shizhi/pLoad_add.jsp" location="0,0" size="0,0" />
+  <webResource name="pLoad_update.jsp" path="/System/shizhi/pLoad_update.jsp" location="0,0" size="0,0" />
+  <webResource name="porder_show.jsp" path="/System/shizhi/porder_show.jsp" location="0,0" size="0,0" />
+  <webResource name="porder_add.jsp" path="/System/shizhi/porder_add.jsp" location="0,0" size="0,0" />
+  <webResource name="porder_update.jsp" path="/System/shizhi/porder_update.jsp" location="0,0" size="0,0" />
+  <webResource name="porder_prodetail.jsp" path="/System/shizhi/porder_prodetail.jsp" location="0,0" size="0,0" />
+  <webResource name="porder_product.jsp" path="/System/shizhi/porder_product.jsp" location="0,0" size="0,0" />
+  <webResource name="popart_show.jsp" path="/System/shizhi/popart_show.jsp" location="0,0" size="0,0" />
+  <webResource name="popart_add.jsp" path="/System/shizhi/popart_add.jsp" location="0,0" size="0,0" />
+  <webResource name="popart_update.jsp" path="/System/shizhi/popart_update.jsp" location="0,0" size="0,0" />
+  <webResource name="group_show.jsp" path="/System/shizhi/group_show.jsp" location="0,0" size="0,0" />
+  <webResource name="group_add.jsp" path="/System/shizhi/group_add.jsp" location="0,0" size="0,0" />
+  <webResource name="group_update.jsp" path="/System/shizhi/group_update.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_show.jsp" path="/System/shizhi/ptms_show.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_updatePro.jsp" path="/System/shizhi/ptms_updatePro.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_add.jsp" path="/System/shizhi/ptms_add.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_allbonus.jsp" path="/System/shizhi/ptms_allbonus.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_approvalOrPrint.jsp" path="/System/shizhi/ptms_approvalOrPrint.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_Product.jsp" path="/System/shizhi/ptms_Product.jsp" location="0,0" size="0,0" />
+  <webResource name="ptms_userBonus.jsp" path="/System/shizhi/ptms_userBonus.jsp" location="0,0" size="0,0" />
+  <webResource name="trymake_show.jsp" path="/System/shizhi/trymake_show.jsp" location="0,0" size="0,0" />
+  <webResource name="trymake_update.jsp" path="/System/shizhi/trymake_update.jsp" location="0,0" size="0,0" />
+  <webResource name="trymake_add.jsp" path="/System/shizhi/trymake_add.jsp" location="0,0" size="0,0" />
+  <webResource name="bonus_show.jsp" path="/System/shizhi/bonus_show.jsp" location="0,0" size="0,0" />
+  <webResource name="bonus_update.jsp" path="/System/shizhi/bonus_update.jsp" location="0,0" size="0,0" />
+  <webResource name="bonus_add.jsp" path="/System/shizhi/bonus_add.jsp" location="0,0" size="0,0" />
+  <webResource name="sendrtxmsg.jsp" path="/System/xinxi/duanxin/sendrtxmsg.jsp" location="0,0" size="0,0" />
+  <webResource name="showrtxmsg.jsp" path="/System/xinxi/duanxin/showrtxmsg.jsp" location="0,0" size="0,0" />
+  <webResource name="RtxConnect_add.jsp" path="/System/RtxConnect/RtxConnect_add.jsp" location="0,0" size="0,0" />
+  <webResource name="RtxConnect_update.jsp" path="/System/RtxConnect/RtxConnect_update.jsp" location="0,0" size="0,0" />
+  <webResource name="RtxConnect_showList.jsp" path="/System/RtxConnect/RtxConnect_showList.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+
