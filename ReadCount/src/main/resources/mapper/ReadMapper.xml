@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhu.count.dao.ReadDao">
+	<insert id="InsertRead" parameterType="com.hhu.count.entity.MyRead">
+		 insert into myread(id,readername,coursename,reading,readerID,courseID,MyrDate,state) 
+		 values(#{id},#{readername},#{coursename},#{reading},#{readerID},#{courseID},#{MyrDate},#{state})
+	</insert>
+	<select id="selectByUserID" parameterType="String" resultType="com.hhu.count.entity.MyRead">
+		SELECT * FROM myread WHERE readerID = #{readerID}
+	</select>
+	<select id="selectByUnameAndCid" parameterType="map" resultType="com.hhu.count.entity.MyRead">
+		SELECT * FROM myread WHERE courseID = #{courseID} and readername = #{readername}
+	</select>
+	<!-- 阅读量修改 -->
+	<update id="setMyReading" parameterType="map">
+		UPDATE myread SET reading = #{reading}
+		where id = #{id}
+	</update>
+	<!-- 通过ID删除阅读记录 -->
+	<delete id="delFromMRByID" parameterType="String">
+		DELETE FROM myread WHERE id = #{id}
+	</delete>
+	<!-- 阅读按天统计 -->
+	<select id="CountByDay" parameterType="String" resultType="com.hhu.count.vo.CountVo">
+	select date_format(r.readerDate, '%Y-%m-%d') as readerDate,round(sum(r.oldReading),0) 
+			as readingNum,COUNT(*) AS courseNum ,m.readerID from oldread r LEFT JOIN myread m ON r.myreaderId = m.id
+			where readerID = #{readerID}
+			group by date_format(r.readerDate, '%Y-%m-%d')	
+	</select>
+	<select id="Countmingxi1" parameterType="map" resultType="com.hhu.count.vo.Countmingxi">
+		SELECT
+			om.readerID,om.reading,om.coursename,c.courseRead,date_format(om.MyrDate, '%Y-%m-%d')AS myrDate,date_format(om.buildFirst, '%Y-%m-%d')AS buildFirst
+		FROM(
+				SELECT m.readerID,o.oldReading AS reading,m.coursename,date_format(readerDate, '%Y-%m-%d')AS MyrDate,m.courseId,date_format(m.buildFirst, '%Y-%m-%d')AS buildFirst FROM oldread o LEFT JOIN myread m ON o.myreaderId=m.id
+			)om LEFT JOIN  course c ON om.courseId = c.id 
+		WHERE readerID = #{readerID} AND date_format(om.MyrDate, '%Y-%m-%d') = #{MyrDate}
+	</select>
+	<!-- 阅读按月统计 -->
+	<select id="CountByMonth" parameterType="String" resultType="com.hhu.count.vo.CountVo">
+	select 
+		(SELECT COUNT(*)FROM(
+		SELECT c.state,f.readerID,f.id from myread f LEFT JOIN course c ON f.courseID=c.id
+		where f.reading &gt;0
+		)om
+		where om.readerID = m.readerID) AS courseNum,
+		date_format(r.readerDate, '%Y-%m') as readerDate,round(sum(r.oldReading),0) 
+		as readingNum,m.readerID from oldread r LEFT JOIN myread m ON r.myreaderId = m.id
+		where readerID = #{readerID}
+		group by date_format(r.readerDate, '%Y-%m')	
+	</select>
+	<select id="Countmingxito" parameterType="map" resultType="com.hhu.count.vo.Countmingxi">
+		SELECT
+		om.readerID,om.reading,om.coursename,c.courseRead,readerDate AS myrDate,om.buildFirst AS buildFirst
+		FROM(
+		SELECT o.myreaderId, m.readerID,m.reading,m.coursename,o.readerDate,m.courseId,m.buildFirst AS buildFirst FROM oldread o RIGHT JOIN myread m ON o.myreaderId=m.id
+		)om LEFT JOIN  course c ON om.courseId = c.id 
+		WHERE readerID = #{readerID} AND date_format(readerDate, '%Y-%m') = #{readerDate}
+		GROUP BY om.myreaderId
+	</select>
+	<!-- 阅读按年统计 -->
+	<select id="CountByYear" parameterType="String" resultType="com.hhu.count.vo.CountVo">
+		select 
+		(SELECT COUNT(*)FROM(
+		SELECT c.state,f.readerID,f.id from myread f LEFT JOIN course c ON f.courseID=c.id
+		where f.reading &gt;0
+		)om
+		where om.readerID = m.readerID) AS courseNum,
+		date_format(r.readerDate, '%Y') as readerDate,round(sum(r.oldReading),0) 
+		as readingNum,m.readerID from oldread r LEFT JOIN myread m ON r.myreaderId = m.id
+		where readerID = #{readerID}
+		group by date_format(r.readerDate, '%Y')		
+	</select>
+	<select id="Countmingxi3" parameterType="map" resultType="com.hhu.count.vo.Countmingxi">
+		SELECT
+			om.readerID,om.reading,om.coursename,c.courseRead,readerDate AS myrDate,om.buildFirst AS buildFirst
+			FROM(
+			SELECT o.myreaderId, m.readerID,m.reading,m.coursename,o.readerDate,m.courseId,m.buildFirst AS buildFirst FROM oldread o RIGHT JOIN myread m ON o.myreaderId=m.id
+			)om LEFT JOIN  course c ON om.courseId = c.id 
+			WHERE readerID = #{readerID} AND date_format(readerDate, '%Y') = #{readerDate}
+			GROUP BY om.myreaderId
+	</select>
+	<select id="selectReadBYCID" resultType="com.hhu.count.entity.MyRead" parameterType="map">
+		SELECT * FROM myread WHERE readerID = #{readerID} AND courseID = #{courseID}
+	</select>
+	<!-- 删除阅读记录 -->
+	<delete id="DelMyreads" parameterType="String"> 
+		DELETE from myread WHERE courseID = #{courseID}
+	</delete>
+	<!-- 通过id查询阅读数 -->
+	<select id="selMyReadById" parameterType="String" resultType="com.hhu.count.entity.MyRead">
+		SELECT * FROM myread WHERE id = #{id}
+	</select>
+	<!-- 清空阅读权限 -->
+	<update id="powerMyread" parameterType="String">
+		update myread SET state = '0' WHERE courseID = #{courseID}
+	</update>
+	<!-- 设置阅读权限 -->
+	<update id="shezhiMyread" parameterType="map">
+		update myread SET state = '1' WHERE courseID = #{courseID} AND readername = #{readername}
+	</update>
+	<!-- 批量删除阅读记录 -->
+	<!-- <delete id="piliangDels" parameterType="map">
+		DELETE from myread WHERE courseID in
+		<foreach collection="ids" item="courseID" open="(" close=")" separator=",">
+	 		#{courseID}
+	 	</foreach>
+	</delete> -->
+	<!-- 查询历史阅读记录 -->
+	<select id="selOldRead" parameterType="String" resultType="com.hhu.count.entity.OldRead">
+		select * from oldread WHERE myreaderId = #{myreaderId} 
+	</select>
+	<insert id="InsOldRead" parameterType="com.hhu.count.entity.OldRead">
+		 insert into oldread(id,myreaderId,readerDate,oldReading) 
+		 values(#{id},#{myreaderId},#{readerDate},#{oldReading})
+	</insert>
+	<update id="SetOldRead" parameterType="map">
+		update oldread SET oldReading = #{oldReading} WHERE id = #{id}
+	</update>
+	<select id="selByMRId" parameterType="String" resultType="com.hhu.count.vo.OldReadVO">
+		SELECT om.myreaderId,om.oldReading,om.readerDate,c.coursename,c.courseRead,c.publishTime,c.stopTime,c.state
+			FROM(
+					SELECT o.myreaderId,o.oldReading,o.readerDate,m.courseID 
+					FROM oldread o LEFT JOIN myread m ON o.myreaderId = m.id
+				)om LEFT JOIN course c ON om.courseID = c.id
+			WHERE om.myreaderId = #{myreaderId} ORDER BY om.readerDate ASC
+	</select>
+	<!-- 设置首次绑定时间 -->
+	<update id="setFtBulid" parameterType="map">
+		UPDATE myread SET buildFirst = NOW()
+		WHERE courseID = #{courseID} AND readername = #{readername}
+	</update>
+	<!-- 年度图表 -->
+	<select id="Tubiao" parameterType="map" resultType="Integer">
+		SELECT SUM(oldReading) FROM(
+			select readerDate,oldReading from oldread o LEFT JOIN myread m ON o.myreaderId=m.id WHERE m.readerID=#{readerID}
+		)om WHERE date_format(readerDate, '%Y-%m') = #{readerDate}
+	</select>
+</mapper>
